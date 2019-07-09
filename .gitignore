@@ -1,0 +1,18 @@
+# housingxyz :: gitignore
+
+## dotnet
+.vscode/
+bin/
+obj/
+
+## jekyll
+.jekyll-cache/
+.sass-cache/
+
+.jekyll-metadata
+
+## macos
+.DS_Store
+
+## nodejs
+node_modules/

@@ -1,0 +1,19 @@
+# housingxyz :: dockerfile
+
+## arguments
+ARG BUNDLER_VERSION
+ARG RUBY_VERSION
+
+## stage - base
+FROM ruby:${RUBY_VERSION} as base
+WORKDIR /housingxyz
+COPY Gemfile .
+RUN gem install bundler:${BUNDLER_VERSION}
+RUN bundle install
+ENTRYPOINT [ "bundle exec" ]
+
+## stage - build
+FROM base as build
+COPY _config.yaml .
+COPY ./src .
+RUN bundle exec jekyll build

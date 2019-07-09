@@ -1,0 +1,30 @@
+# housingxyz :: dockerignore
+
+## dotnet
+.vscode/
+bin/
+obj/
+
+## jekyll
+.jekyll-cache/
+.sass-cache/
+
+.jekyll-metadata
+
+## macos
+.DS_Store
+
+## nodejs
+node_modules/
+
+## project
+.github/
+dist/
+
+.azureup.yaml
+.editorconfig
+.gitignore
+.markdownlint.yaml
+CHANGELOG.md
+LICENSE.txt
+README.md

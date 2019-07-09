@@ -1,0 +1,12 @@
+# housingxyz :: azure-pipeline
+
+job:
+  displayName: 'hello job'
+
+  pool:
+    vmImage: 'ubuntu-18.04'
+
+  steps:
+    - displayName: 'hello script'
+      script: |
+        echo 'hello pipeline!'
