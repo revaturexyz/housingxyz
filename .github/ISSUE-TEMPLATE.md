@@ -3,7 +3,7 @@ about: create a report to help us improve
 assignees: fredbelotte
 labels: status::submitted
 name: issue
-title: [issue] write the summary line
+title: '[issue] write the summary line'
 ---
 
 ## housingxyz :: issue
