@@ -1,19 +1,19 @@
 # housingxyz :: dockerfile
 
 ## arguments
-ARG BUNDLER_VERSION
-ARG RUBY_VERSION
+ARG NGINX_VERSION=1.17
+ARG NODE_VERSION=12.5
 
 ## stage - base
-FROM ruby:${RUBY_VERSION} as base
+FROM node:${NODE_VERSION} as base
 WORKDIR /housingxyz
-COPY Gemfile .
-RUN gem install bundler:${BUNDLER_VERSION}
-RUN bundle install
-ENTRYPOINT [ "bundle exec" ]
+COPY package*.json .
+RUN npm clean-install
 
 ## stage - build
 FROM base as build
-COPY _config.yaml .
-COPY ./src .
-RUN bundle exec jekyll build
+COPY . .
+
+## stage - deploy
+FROM nginx:${NGINX_VERSION} as deploy
+COPY --from=build /housingxyz/dist /usr/share/nginx/html
