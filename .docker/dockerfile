@@ -12,8 +12,10 @@ RUN npm clean-install
 
 ## stage - build
 FROM base as build
-COPY . .
+COPY ./angular .
+RUN cd ./angular && npm build:docker
 
 ## stage - deploy
 FROM nginx:${NGINX_VERSION} as deploy
-COPY --from=build /housingxyz/dist /usr/share/nginx/html
+COPY ./.docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /housingxyz/angular/dist /usr/share/nginx/html
