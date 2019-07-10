@@ -1,5 +1,8 @@
 # housingxyz :: dockerignore
 
+## angular
+**/dist/
+
 ## dotnet
 .vscode/
 bin/
@@ -15,13 +18,12 @@ obj/
 .DS_Store
 
 ## nodejs
-node_modules/
+**/node_modules/
 
 ## project
 .azure/
 .github/
 
-.dockerignore
 .editorconfig
 .gitignore
 .markdownlint.yaml
