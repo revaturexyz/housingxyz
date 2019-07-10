@@ -1,5 +1,7 @@
 # housingxyz :: gitignore
 
+## angular
+
 ## dotnet
 .vscode/
 bin/
@@ -16,3 +18,14 @@ obj/
 
 ## nodejs
 node_modules/
+
+## react
+
+## terraform
+.terraform/
+
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+## vuejs

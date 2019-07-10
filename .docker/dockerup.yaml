@@ -7,11 +7,11 @@ services:
   web:
     deploy:
       replicas: 1
-    image: revaturexyz/housingxyz:dev
+    image: revaturexyz/housingxyz:0.0.0
     networks:
       - housingxyz_vnet
     ports:
       - 10080:80
       - 10443:443
 
-version: '3.8'
+version: '3.7'
