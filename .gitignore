@@ -1,6 +1,7 @@
 # housingxyz :: gitignore
 
 ## angular
+dist/
 
 ## dotnet
 .vscode/
