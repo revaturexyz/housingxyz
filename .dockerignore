@@ -18,10 +18,10 @@ obj/
 node_modules/
 
 ## project
+.azure/
 .github/
-dist/
 
-.azureup.yaml
+.dockerignore
 .editorconfig
 .gitignore
 .markdownlint.yaml
