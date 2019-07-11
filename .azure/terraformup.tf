@@ -9,14 +9,6 @@ provider "azurerm" {
   version = "~>1.30.0"
 }
 
-provider "aws" {
-  version = "~>2.14.0"
-}
-
-provider "google" {
-  version = "~>2.8.0"
-}
-
 provider "random" {
   version = "~>2.1.0"
 }
