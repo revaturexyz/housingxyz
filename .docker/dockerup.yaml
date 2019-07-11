@@ -7,7 +7,7 @@ services:
   web:
     deploy:
       replicas: 1
-    image: revaturexyz/housingxyz:0.0.0
+    image: housingxyz:0.0.0
     networks:
       - housingxyz_vnet
     ports:
