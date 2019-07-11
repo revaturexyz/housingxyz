@@ -1,5 +1,7 @@
 # housingxyz :: readme
 
+[![build status](https://dev.azure.com/revaturexyz/arlington/_apis/build/status/revaturexyz.housingxyz?branchName=master)](https://dev.azure.com/revaturexyz/arlington/_build/latest?definitionId=16&branchName=master)
+
 the housing project web interface
 
 ## maintainer
