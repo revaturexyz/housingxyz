@@ -13,7 +13,8 @@ RUN npm clean-install
 ## stage - build
 FROM base as build
 COPY ./angular .
-RUN npm run build
+COPY --from=base ./angular .
+RUN npm run build:ci
 
 ## stage - deploy
 FROM nginx:${NGINX_VERSION} as deploy
