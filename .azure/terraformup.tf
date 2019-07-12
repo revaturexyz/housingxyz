@@ -1,5 +1,15 @@
 # housingxyz :: terraform
 
+## backends
+terraform {
+  backend "azurerm" {
+    resource_group_name = "revaturexyzgroup"
+    storage_account_name = "revaturexyzaccount"
+    container_name = "terraformxyz"
+    key = "housingxyz.tfstate"
+  }
+}
+
 ## providers
 provider "azuread" {
   version = "~>0.4.0"
@@ -13,16 +23,11 @@ provider "random" {
   version = "~>2.1.0"
 }
 
-## variables
-variable "az_locations" {
-  type = "map"
-  default = {
-    main = "southcentralus"
+## resources
+resource "azurerm_resource_group" "housingxyz" {
+  name = "housingxyzgroup"
+  location = "southcentralus"
+  tags = {
+    owner = "fred belotte"
   }
-}
-
-## resource groups
-resource "azurerm_resource_group" "az_housingxyz" {
-  name = "housingxyz-group"
-  location = "${var.az_locations["main"]}"
 }
