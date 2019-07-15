@@ -9,7 +9,7 @@
     "inspect": "sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dproject.settings=../.azure/sonarcloudup.properties",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
