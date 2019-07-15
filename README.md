@@ -1,6 +1,6 @@
 # housingxyz :: readme
 
-[![build status](https://dev.azure.com/revaturexyz/arlington/_apis/build/status/revaturexyz.housingxyz?branchName=master)](https://dev.azure.com/revaturexyz/arlington/_build/latest?definitionId=16&branchName=master)
+[![build status](https://dev.azure.com/revaturexyz/arlington/_apis/build/status/revaturexyz.housingxyz?branchName=master)](https://dev.azure.com/revaturexyz/arlington/_build/latest?definitionId=16&branchName=master) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=housingxyz&metric=coverage)](https://sonarcloud.io/dashboard?id=housingxyz)
 
 the housing project web interface
 
