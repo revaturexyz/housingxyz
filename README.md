@@ -13,6 +13,8 @@ Revature Housing is an application that provides a platform for several Human Re
 
 All requests are user-authenticated to prevent unauthorized access.
 
+Please check out our [Wiki](https://github.com/revaturexyz/housingxyz/wiki) page for more information.
+
 ## maintainer
 
 [![fred belotte](https://avatars1.githubusercontent.com/u/22018714?s=96&v=4)][fredbelotte-profile-url]
