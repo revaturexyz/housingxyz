@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build --configuration=production",
     "build:dev": "ng build",
-    "inspect": "sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dproject.settings=../.azure/sonarcloudup.properties",
+    "inspect": "sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dproject.settings=../.azure/sonarcloudup.properties -Dsonar.pullrequest.branch=$PR_BRANCH -Dsonar.pullrequest.key=$PR_KEY",
     "test": "ng test --browsers=ChromiumHeadless --code-coverage --watch=false",
     "test:dev": "ng test",
     "lint": "ng lint",
