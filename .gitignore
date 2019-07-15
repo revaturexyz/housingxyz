@@ -1,6 +1,7 @@
 # housingxyz :: gitignore
 
 ## angular
+coverage/
 dist/
 
 ## dotnet
