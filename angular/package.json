@@ -7,7 +7,8 @@
     "build": "ng build --configuration=production",
     "build:dev": "ng build",
     "inspect": "sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dproject.settings=../.azure/sonarcloudup.properties",
-    "test": "ng test",
+    "test": "ng test --code-coverage --watch=false",
+    "test:dev": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
