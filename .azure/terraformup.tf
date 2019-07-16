@@ -67,3 +67,11 @@ resource "azurerm_dns_zone" "housingxyz" {
   resource_group_name = "${azurerm_resource_group.housingxyz.name}"
   zone_type = "Public"
 }
+
+resource "azurerm_dns_cname_record" "housingxyz" {
+  name = "housingxyzcname"
+  record = "housing.revature.xyz"
+  resource_group_name = "${azurerm_resource_group.housingxyz.name}"
+  ttl = 300
+  zone_name = "${azurerm_dns_zone.test.name}"
+}
