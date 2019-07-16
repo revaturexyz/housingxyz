@@ -55,9 +55,9 @@ resource "azurerm_app_service" "housingxyz" {
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
-  
+
   site_config {
     app_command_line = ""
-    linux_fx_version = "COMPOSE|${filebase64("../.docker/dockerup.yml")}"
+    linux_fx_version = "COMPOSE|${filebase64("../.docker/dockerup.yaml")}"
   }
 }
