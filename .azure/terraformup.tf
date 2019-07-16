@@ -63,7 +63,7 @@ resource "azurerm_app_service" "housingxyz" {
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
-  app_service_name = "${azurerm_app_service.test.name}"
+  app_service_name = "${azurerm_app_service.housingxyz.name}"
   hostname = "housing.revature.xyz"
   resource_group_name = "${azurerm_resource_group.revaturexyz.name}"
 }
