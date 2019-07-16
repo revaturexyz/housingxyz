@@ -1,6 +1,6 @@
 # housingxyz :: terraform
 
-## backends
+## BACKENDS
 terraform {
   backend "azurerm" {
     resource_group_name = "revaturexyzgroup"
@@ -10,7 +10,7 @@ terraform {
   }
 }
 
-## providers
+## PROVIDERS
 provider "azuread" {
   version = "~>0.4.0"
 }
@@ -23,7 +23,7 @@ provider "random" {
   version = "~>2.1.0"
 }
 
-## resources
+## RESOURCES
 resource "azurerm_resource_group" "housingxyz" {
   name = "housingxyzgroup"
   location = "southcentralus"
@@ -60,4 +60,10 @@ resource "azurerm_app_service" "housingxyz" {
     app_command_line = ""
     linux_fx_version = "COMPOSE|${filebase64("../.docker/dockerup.yaml")}"
   }
+}
+
+resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
+  app_service_name = "${azurerm_app_service.test.name}"
+  hostname = "housing.revature.xyz"
+  resource_group_name = "${azurerm_resource_group.revaturexyz.name}"
 }
