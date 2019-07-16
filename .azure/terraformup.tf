@@ -31,3 +31,16 @@ resource "azurerm_resource_group" "housingxyz" {
     owner = "fred belotte"
   }
 }
+
+resource "azurerm_app_service_plan" "housingxyz" {
+  kind = "Linux"
+  location = "${azurerm_resource_group.housingxyz.location}"
+  name = "housingxyzplan"
+  resource_group_name = "${azurerm_resource_group.housingxyz.name}"
+  reserved = true
+
+  sku {
+    size = "B1"
+    tier = "Basic"
+  }
+}
