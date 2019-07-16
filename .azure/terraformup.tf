@@ -27,6 +27,7 @@ provider "random" {
 resource "azurerm_resource_group" "housingxyz" {
   name = "housingxyzgroup"
   location = "southcentralus"
+
   tags = {
     owner = "fred belotte"
   }
@@ -42,5 +43,21 @@ resource "azurerm_app_service_plan" "housingxyz" {
   sku {
     size = "B1"
     tier = "Basic"
+  }
+}
+
+resource "azurerm_app_service" "housingxyz" {
+  app_service_plan_id = "${azurerm_app_service_plan.housingxyz.id}"
+  location            = "${azurerm_resource_group.housingxyz.location}"
+  name                = "housingxyzapp"
+  resource_group_name = "${azurerm_resource_group.housingxyz.name}"
+
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+  }
+  
+  site_config {
+    app_command_line = ""
+    linux_fx_version = "COMPOSE|${filebase64("../.docker/dockerup.yml")}"
   }
 }
