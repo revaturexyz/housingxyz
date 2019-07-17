@@ -67,7 +67,7 @@ resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
   hostname = "housing.revature.xyz"
   resource_group_name = "${azurerm_resource_group.housingxyz.name}"
 
-  depends_on = ["cloudflare_record.housingxyz", "cloudflare_record.housingxyzverify"]
+  depends_on = ["cloudflare_record.housingxyz"]
 }
 
 resource "cloudflare_record" "housingxyz" {
