@@ -48,8 +48,9 @@ resource "azurerm_app_service_plan" "housingxyz" {
 
 resource "azurerm_app_service" "housingxyz" {
   app_service_plan_id = "${azurerm_app_service_plan.housingxyz.id}"
-  location            = "${azurerm_resource_group.housingxyz.location}"
-  name                = "housingxyzapp"
+  https_only = true
+  location = "${azurerm_resource_group.housingxyz.location}"
+  name = "housingxyzapp"
   resource_group_name = "${azurerm_resource_group.housingxyz.name}"
 
   app_settings = {
