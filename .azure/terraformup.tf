@@ -19,8 +19,8 @@ provider "azurerm" {
   version = "~>1.30.0"
 }
 
-provider "random" {
-  version = "~>2.1.0"
+provider "cloudflare" {
+  version = "~>1.16.0"
 }
 
 ## RESOURCES
@@ -60,4 +60,11 @@ resource "azurerm_app_service" "housingxyz" {
     app_command_line = ""
     linux_fx_version = "COMPOSE|${filebase64("../.docker/dockerup.yaml")}"
   }
+}
+
+resource "cloudflare_record" "housingxyz" {
+  domain = "revature.xyz"
+  name = "housing.revature.xyz"
+  type = "CNAME"
+  value = "housingxyzapp.azurewebsites.net"
 }
