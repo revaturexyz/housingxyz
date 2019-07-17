@@ -62,9 +62,18 @@ resource "azurerm_app_service" "housingxyz" {
   }
 }
 
+resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
+  app_service_name = "${azurerm_app_service.housingxyz.name}"
+  hostname = "housing.revature.xyz"
+  resource_group_name = "${azurerm_resource_group.housingxyz.name}"
+
+  depends_on = ["cloudflare_record.housingxyz"]
+}
+
 resource "cloudflare_record" "housingxyz" {
   domain = "revature.xyz"
   name = "housing"
+  proxied = true
   ttl = 1
   type = "CNAME"
   value = "housingxyzapp.azurewebsites.net"
