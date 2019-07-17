@@ -78,12 +78,3 @@ resource "cloudflare_record" "housingxyz" {
   type = "CNAME"
   value = "housingxyzapp.azurewebsites.net"
 }
-
-resource "cloudflare_page_rule" "housingxyz" {
-  target = "*.revature.xyz"
-  zone = "revature.xyz"
-
-  actions {
-    always_use_https = true
-  }
-}
