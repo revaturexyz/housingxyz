@@ -64,7 +64,8 @@ resource "azurerm_app_service" "housingxyz" {
 
 resource "cloudflare_record" "housingxyz" {
   domain = "revature.xyz"
-  name = "housing.revature.xyz"
+  name = "housing"
+  ttl = 1
   type = "CNAME"
   value = "housingxyzapp.azurewebsites.net"
 }
