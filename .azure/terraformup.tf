@@ -73,8 +73,17 @@ resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
 resource "cloudflare_record" "housingxyz" {
   domain = "revature.xyz"
   name = "housing"
-  proxied = false
+  proxied = true
   ttl = 1
   type = "CNAME"
   value = "housingxyzapp.azurewebsites.net"
+}
+
+resource "cloudflare_page_rule" "housingxyz" {
+  target = "*.revature.xyz"
+  zone = "revature.xyz"
+
+  actions {
+    always_use_https = true
+  }
 }
