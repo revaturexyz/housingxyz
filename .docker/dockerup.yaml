@@ -1,15 +1,15 @@
 # housingxyz :: docker-compose
 
 networks:
-  housingxyz_vnet:
+  housingxyz_localhost:
 
 services:
   web:
     deploy:
       replicas: 1
-    image: revaturexyz/housingxyz:0.0.0
+    image: housingxyz
     networks:
-      - housingxyz_vnet
+      - housingxyz_localhost
     ports:
       - 10080:80
       - 10443:443

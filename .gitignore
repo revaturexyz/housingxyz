@@ -4,6 +4,10 @@
 coverage/
 dist/
 
+## docker
+dockerup*
+!dockerup.yaml
+
 ## dotnet
 .vscode/
 bin/
