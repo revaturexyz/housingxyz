@@ -2,14 +2,7 @@
 
 ## BACKENDS
 terraform {
-  backend "remote" {
-    hostname = "${var.terraform_backend["hostname"]}"
-    organization = "${var.terraform_backend["organization"]}"
-
-    workspaces {
-      name = "${var.terraform_backend["workspace"]}"
-    }
-  }
+  backend "remote" {}
 }
 
 ## PROVIDERS
