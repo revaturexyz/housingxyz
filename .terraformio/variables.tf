@@ -17,7 +17,6 @@ variable "cloudflare_record" {
   type = "map"
 }
 
-
 variable "resource_group" {
   type = "map"
 }
