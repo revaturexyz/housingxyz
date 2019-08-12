@@ -32,7 +32,7 @@ resource "azurerm_app_service" "housingxyz" {
 
   site_config {
     app_command_line = ""
-    linux_fx_version = "${var.app_service["command"]}"
+    linux_fx_version = "COMPOSE|${filebase64(var.app_service["linux"])}"
   }
 }
 
@@ -45,24 +45,24 @@ resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
 }
 
 resource "azurerm_app_service_plan" "housingxyz" {
-  kind = "${var.az_app_service_plan["kind"]}"
+  kind = "${var.app_service_plan["kind"]}"
   location = "${azurerm_resource_group.revaturexyz.location}"
-  name = "${var.az_app_service_plan["name"]}"
+  name = "${var.app_service_plan["name"]}"
   resource_group_name = "${azurerm_resource_group.revaturexyz.name}"
-  reserved = "${var.az_app_service_plan["reserved"]}"
+  reserved = "${var.app_service_plan["reserved"]}"
 
   sku {
-    size = "${var.az_app_service_plan["size"]}"
-    tier = "${var.az_app_service_plan["tier"]}"
+    size = "${var.app_service_plan["size"]}"
+    tier = "${var.app_service_plan["tier"]}"
   }
 }
 
 resource "azurerm_resource_group" "housingxyz" {
-  name = "${var.az_resource_group["name"]}"
-  location = "${var.az_resource_group["location"]}"
+  name = "${var.resource_group["name"]}"
+  location = "${var.resource_group["location"]}"
 
   tags = {
-    owner = "${var.az_resource_group["owner"]}"
+    owner = "${var.resource_group["owner"]}"
   }
 }
 
