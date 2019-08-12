@@ -46,9 +46,9 @@ resource "azurerm_app_service_custom_hostname_binding" "housingxyz" {
 
 resource "azurerm_app_service_plan" "housingxyz" {
   kind = "${var.app_service_plan["kind"]}"
-  location = "${azurerm_resource_group.revaturexyz.location}"
+  location = "${azurerm_resource_group.housingxyz.location}"
   name = "${var.app_service_plan["name"]}"
-  resource_group_name = "${azurerm_resource_group.revaturexyz.name}"
+  resource_group_name = "${azurerm_resource_group.housingxyz.name}"
   reserved = "${var.app_service_plan["reserved"]}"
 
   sku {
