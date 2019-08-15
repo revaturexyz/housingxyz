@@ -1,0 +1,127 @@
+
+.show-head{
+    float: left;
+    width: 100%;
+    padding: 150px;
+    background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+    background-size: cover;
+}
+
+.show-head h1{
+    font-size: 57px;
+    color: white;
+}
+
+.show-body{
+    width: 84%;
+    margin-left: 8%;
+    margin-right: 8%;
+    float: left;
+    padding: 50px 0 100px 0;
+}
+
+.dropdown{
+    padding: 20px;
+    border: 2px solid #AAA;
+    // border-radius: 5px;
+    margin-bottom: 40px;
+    z-index: 999;
+}
+
+.room-rooms{
+    float: left;
+    width: 100%;
+}
+
+.room-card{
+    float: left;
+    width: 265px;
+    margin-top: 20px;
+    margin-right: 20px;
+    border:1px solid #DDD;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 2px #DDD;
+}
+
+.room-detail{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+#btn-remove{
+    background-color: white;
+    border-radius: 5px;
+    width: 48.5%;
+    opacity: 0.8;
+    border: 1px solid cadetblue;
+    color: cadetblue;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+#btn-update{
+    background-color: white;
+    border-radius: 5px;
+    width: 48.5%;
+    opacity: 0.8;
+    border: 1px solid #eea86a;
+    color: #eea86a;
+    margin-right: 3%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+#btn-remove:hover{
+    opacity: 1;
+    background-color: cadetblue;
+    color: white;
+}
+
+#btn-update:hover{
+    opacity: 1;
+    background-color: #eea86a;
+    color: white;
+}
+
+#btn-addRoom{
+    float: right;
+    background-color: cadetblue;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    opacity: 0.7;
+    margin-right: 2%;
+}
+
+#btn-addRoom:hover, #btn-addLoc:hover{
+    opacity: 1;
+}
+
+#txt{
+    font-size: 15.5px;
+    font-weight: 600;
+}
+
+#des{
+    height: 80px;
+    width: 100%;
+    border: 1px solid #BBB;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+#btn-addRoom{
+    float: left;
+    background-color: black;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    color: white;
+    opacity: 0.6;
+}

@@ -1,0 +1,83 @@
+<!-- ******************************************************************* -->
+<!-- File Information -->
+<!-- Document Name: add-location.component.html-->
+<!-- Author: Luis Concepcion, Jialong Zhang-->
+<!-- Date Created: 8/8/2019 -->
+<!-- Date Updated: 8/12/2019  -->
+<!-- This web site will display  -->
+<!-- Created NgForm for location that consists of address,state,city,Zipcode -->
+<!-- Used Httpclient get method to communicate with API to retrieve data -->
+<!-- Add validation for Address,State,City,ZipCode,TrainingCenter-->
+<!-- Add ZipCode Validation-->
+<!-- ******************************************************************** -->
+
+
+<div class="container-addloc">
+    <div class="container-addloc-inner">
+        <div class="title-addloc">
+            <h1>Add a Location</h1>
+        </div>
+        <br><br>
+        <!-- Add Location form -->     
+            <!-- Address --> 
+        <form [formGroup]="locationGroup" (ngSubmit) = "OnSubmit()" id="LocationForm">
+            <div>       
+                <label for="Address" >Address:</label>
+                <input type="text" name = "Address" id="Address" formControlName="Address" placeholder="Enter Address">
+                <!--validation-->
+                <div *ngIf="submitted && locationGroup.controls.Address.errors">
+                    <div class = "validate" *ngIf="locationGroup.controls.Address.errors.required">Address is required</div>
+                </div>
+            </div>
+            <br>
+        <!-- State --> 
+            <div>
+                <label for="State" >State:</label>
+                <input type="text" name="State" id="State" formControlName="State" placeholder="Enter State">
+                <!--validation-->
+                <div *ngIf="submitted && locationGroup.controls.State.errors">
+                    <div class = "validate" *ngIf="locationGroup.controls.State.errors.required">State is required</div>
+                    <div class = "validate" *ngIf="locationGroup.controls.State.errors.minlength || locationGroup.controls.State.maxlength">Invalid State</div>
+                </div>
+            </div>
+            <br>
+        <!-- City --> 
+            <div>
+                <label for="City" >City:</label>
+                <input type="text" id="City" name="City" formControlName="City" placeholder="Enter City">
+                <!--validation-->
+                <div *ngIf="submitted && locationGroup.controls.City.errors">
+                    <div class = "validate" *ngIf="locationGroup.controls.City.errors.required">City is required</div>
+                </div>
+            </div>
+            <br>
+        <!-- ZipCode --> 
+            <div>
+                <label for="ZIP" class="">Zip:</label>
+                <input type="text" class="" id="ZIP" name="ZipCode" formControlName="ZipCode" placeholder="Enter ZipCode">
+                <!--validation-->
+                <div *ngIf="submitted && locationGroup.controls.ZipCode.errors">
+                    <div class = "validate" *ngIf="locationGroup.controls.ZipCode.errors.required">Zip Code is required</div>
+                    <div class = "validate" *ngIf="locationGroup.controls.ZipCode.errors.minlength || locationGroup.controls.ZipCode.errors.maxlength">Zip Code must be 5 digits</div>
+                    <div class = "validate" *ngIf="locationGroup.controls.ZipCode.errors.pattern && (!locationGroup.controls.ZipCode.errors.minlength && !locationGroup.controls.ZipCode.errors.maxlength)">Invalid Zip Code</div>
+                </div>
+            </div>
+            <br>
+        <!-- Training Center --> 
+            <div>
+                <label for="TrainingCenter" class="">Training Center:</label>
+                <input type="text" id="TrainingCenter" name="TrainingCenter" formControlName="TrainingCenter" placeholder="Enter Center Name">
+                <!--validation-->
+                <div *ngIf="submitted && locationGroup.controls.TrainingCenter.errors">
+                    <div class = "validate" *ngIf="locationGroup.controls.TrainingCenter.errors.required">Training Center is required</div>
+                </div>
+            </div>
+      
+            <br><br>
+            <div>
+                <button class="btn-buttons" type="button" routerLink="">Go Back</button>
+                <button class="btn-buttons" type="submit" >Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

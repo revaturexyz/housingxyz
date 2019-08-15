@@ -1,0 +1,117 @@
+<!-- ******************************************************************* -->
+<!-- File Information -->
+<!-- Document Name: Update-room.component.html-->
+<!-- Author: Luis Concepcion, Jialong Zhang, Fan Chen-->
+<!-- Date Created: 8/7/2019 -->
+<!-- Date Updated: 8/13/2019  -->
+<!-- This web site will display  -->
+<!-- Created NgForm for room that consists of room type,number of beds,location,room number, gender, start date, and end date -->
+<!-- Used Httpclient get method to communicate with API to retrieve data -->
+<!-- Add description input -->
+<!-- ******************************************************************** -->
+
+<div class="container-updateroom">
+    <div class="container-updateroom-inner">
+
+        <div >
+            <h1>Update Room Info</h1>
+        </div>
+        <br><br>
+
+<!-- *********************************Form*********************************** -->
+<!-- Room Type-->
+        <form [formGroup]="mygroup" (ngSubmit)="onSubmit()" id="RoomForm"> 
+            <div>
+                <label>Room Type:</label>         
+                <input type="radio" class="" name="Type" id ="Apartment" value="Apartment" formControlName="Type" [checked]="rm.Type=='Apartment'" [ngModel] = "rm.Type">
+                <label for="Apartment" class="">Apartment</label>
+                <input type="radio" class="" name="Type" id ="Dorm" value="Dorm" formControlName="Type" [checked]="rm.Type=='Dorm'" [ngModel] = "rm.Type">
+                <label for="Dorm" class="">Dorm</label>
+            </div>
+            <br>
+
+            <!-- Number of Beds -->
+            <div>
+                <label for="NumBeds" class="">Number of Beds:</label>
+                <input type="number" class=""  name="MaxOccupancy" id="NumBeds"  formControlName="MaxOccupancy"  [ngModel] = "rm.MaxOccupancy">
+                
+                <!--validation-->
+                <div *ngIf="submitted && mygroup.controls.MaxOccupancy.errors">
+                    <div class = "validate" *ngIf="mygroup.controls.MaxOccupancy.errors.required">Number of Beds is required</div>
+                    <div class = "validate" *ngIf="mygroup.controls.MaxOccupancy.errors.min">Number of Beds must be greater than 0</div>
+                </div>
+            </div>
+            
+            <br>
+
+            <!-- Current Occupancy -->
+            <div>
+                <label for="CurrentOccupancy" class="">Current Occupancy:</label>
+                <input type="number" class=""  name="CurrentOccupancy" id="CurrentOccupancy"  formControlName="CurrentOccupancy" [ngModel] = "rm.CurrentOccupancy">
+                
+                <!--validation-->
+                <div *ngIf="submitted && mygroup.controls.CurrentOccupancy.errors">
+                    <div class = "validate" *ngIf="mygroup.controls.CurrentOccupancy.errors.required">Number of Beds is required</div>
+                    <div class = "validate" *ngIf="mygroup.controls.CurrentOccupancy.errors.min">Number of Beds must be greater than 0</div>
+                </div>
+            </div>
+            <br>
+
+            <!-- Room Number -->  
+            <div>
+                <label for="InternalAddress" class="">Room number:</label>
+                <input type="text" class="" id="InternalAddress" name="RoomNumber" formControlName="RoomNumber" [ngModel]="rm.RoomNumber">
+                <!--validation-->
+                <div *ngIf="submitted && mygroup.controls.RoomNumber.errors">
+                    <div class = "validate" *ngIf="mygroup.controls.RoomNumber.errors.required" >Room Number is required</div>
+                </div>
+            </div>
+            <br>
+
+            <!-- Gender -->  
+            <div>
+                <label class="">Gender:</label>
+                <input type="radio" class="" name="Gender" id ="Male" value="Male" formControlName="Gender" [checked]="rm.Gender=='Male'" [ngModel] = "rm.Gender">
+                <label for="Male" class="">Male</label>
+                <input type="radio" class="" name="Gender" id ="Female" value="Female" formControlName="Gender" [checked]="rm.Gender=='Female'" [ngModel] = "rm.Gender">
+                <label for="Female" class="">Female</label> 
+            </div>
+            <br>
+
+            <!-- Start Date -->  
+            <div>
+                <label for="StartDate" class="">Start Date:</label>
+                <input type="date" class="" id="StartDate" name="StartDate" formControlName="StartDate" 
+                    [ngModel] = "rm.StartDate | date:'yyyy-MM-dd'" max="{{rm.EndDate | date:'yyyy-MM-dd'}}">
+                
+                <!--validation-->
+                <div *ngIf="submitted && mygroup.controls.StartDate.errors">
+                    <div class = "validate" *ngIf="mygroup.controls.StartDate.errors.required">StartDate is required</div>
+                </div>
+            </div>
+            <br>
+
+            <!-- End Date -->  
+            <div>
+                <label for="EndDate" class="">End Date:</label>
+                <input type="date" class="" id="EndDate" name="EndDate" formControlName="EndDate" 
+                [ngModel]="rm.EndDate | date:'yyyy-MM-dd'" min="{{rm.StartDate | date:'yyyy-MM-dd'}}">
+            </div>
+            <br>
+
+            <!-- Description -->  
+            <div class="">
+                <label for="Description" class="">Description</label>
+                <textarea id="Description" name="Description" for="Description" formControlName="Description" [ngModel] = "rm.Description"></textarea>
+            </div>
+            <br><br>
+            
+
+            <div class="">
+                <button class="btn-buttons" type="button" routerLink="">Go Back</button>
+                <button class="btn-buttons" type="submit" >Update</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
