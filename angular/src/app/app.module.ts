@@ -20,7 +20,7 @@ import { environment } from '../environments/environment';
 import { AddLocationComponent } from './add-location/add-location.component';
 import { ShowByLocationComponent } from './show-by-location/show-by-location.component';
 import { DatePipe, CommonModule } from '@angular/common';
-import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub.ts';
+import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
 
 
 @NgModule({
