@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'dev-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'housingxyz';
+
+  constructor(private authService: MsalService) {}
+
+  signOut() {
+    this.authService.logout();
+  }
 }
