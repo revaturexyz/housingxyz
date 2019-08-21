@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   tenant: "",
 clientId: "",
 extraQueryParameter: 'nux=1', // This is optional
