@@ -33,7 +33,8 @@ import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
     DeleteRoomComponent,
     UpdateRoomComponent,
     AddLocationComponent,
-    ShowByLocationComponent
+    ShowByLocationComponent,
+    RouterLinkDirectiveStub
   ],
   imports: [
     BrowserModule,
