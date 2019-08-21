@@ -61,8 +61,8 @@ describe('DeleteRoomComponent', () => {
     expect(span.length).toBe(8);
     //date time format to short date
     //but somehow, the actual format it show is mediumDate
-    const startDate =formatDate(RoomObject.startDate,'mediumDate','en-US');
-    const endDate = formatDate(RoomObject.endDate,'mediumDate','en-US');
+    const startDate =formatDate(RoomObject.startDate,'shortDate','en-US');
+    const endDate = formatDate(RoomObject.endDate,'shortDate','en-US');
     //manually check each data
     expect(span[0].nativeElement.textContent).toBe(`Address: ${LocationObject.address}`);
     expect(span[1].nativeElement.textContent).toBe(`${LocationObject.city}, ${LocationObject.state} ${LocationObject.zip}`);

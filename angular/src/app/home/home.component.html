@@ -30,8 +30,8 @@
                         <span id="txt">Room Type:</span> {{room.type}}<br>
                         <span id="txt">Gender:</span> {{room.gender}}<br>
                         <span id="txt">Occupancy: </span><strong>{{room.currentOccupancy}}</strong> of <strong>{{room.maxOccupancy}}</strong><br>
-                        <span id="txt">Start Date:</span> {{room.startDate | date:"d/M/yy"}} <br>
-                        <span id="txt">End Date: </span> {{room.endDate | date:"d/M/yy"}}<br>
+                        <span id="txt">Start Date:</span> {{room.startDate | date:"M/d/yy"}} <br>
+                        <span id="txt">End Date: </span> {{room.endDate | date:"M/d/yy"}}<br>
                         <span id="txt">Description: </span><br> <textarea id="des" [ngModel]="room.description" readonly></textarea><br>
                         <br>
                         <button id="btn-update" (click)="updateRoom(room.roomID);">Edit</button>
