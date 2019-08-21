@@ -1,0 +1,46 @@
+
+<div class="home-head">
+    <h1>Display All</h1>
+    <button id="btn-addLoc" routerLink="add-location">Add New Location</button>
+</div>
+
+<div class="home-body">
+    
+    <div class="display-info" *ngFor="let location of locationList;">
+
+        <div class="loc-info">
+            
+            <div class="address">
+                <h4 id="location-address">{{location.address}}</h4>
+                <h5>{{location.city}}, {{location.state}} {{location.zipCode}}</h5>
+            </div>
+    
+            <div class="btn-room">
+                <button (click)="showLocation(location.locationID)" id="btn-addRoom" >Add New Room</button>
+            </div>
+    
+        </div>
+    
+        <div class="room-rooms">
+            <div class="room-info" *ngFor="let room of roomList;">
+                <div class="room-card" *ngIf="room.locationID==location.locationID && room.isActive">
+                
+                    <div class="room-detail">
+                        <span id="txt">Room #:</span> {{room.roomNumber}}<br>
+                        <span id="txt">Room Type:</span> {{room.type}}<br>
+                        <span id="txt">Gender:</span> {{room.gender}}<br>
+                        <span id="txt">Occupancy: </span><strong>{{room.currentOccupancy}}</strong> of <strong>{{room.maxOccupancy}}</strong><br>
+                        <span id="txt">Start Date:</span> {{room.startDate | date:"d/M/yy"}} <br>
+                        <span id="txt">End Date: </span> {{room.endDate | date:"d/M/yy"}}<br>
+                        <span id="txt">Description: </span><br> <textarea id="des" [ngModel]="room.description" readonly></textarea><br>
+                        <br>
+                        <button id="btn-update" (click)="updateRoom(room.roomID);">Edit</button>
+                        <button id="btn-remove" [routerLink]="['delete-room', room.roomID]">Unlist</button>
+
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

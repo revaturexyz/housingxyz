@@ -1,0 +1,31 @@
+.container-addloc{
+    width: 100%;
+    text-align: center;
+    padding: 100px;
+    background-image: url("https://engineering.stanford.edu/sites/default/files/styles/full_width_banner_tall/public/buildings-shape.jpg?itok=FWLFiW7H");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container-addloc-inner{
+    width: 50%;
+    background-color: white;
+    opacity: 0.9;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 50px;
+    border-radius: 5px;
+}
+
+#LocationForm input{
+    border: 1px solid gray;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#LocationForm label{
+    margin-right: 15px;
+}
+
+
