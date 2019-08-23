@@ -13,11 +13,11 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
-        RouterTestingModule,
-        environment.msalConfig
+        RouterTestingModule
       ],
       providers: [
-        MsalService
+        MsalService,
+        environment.msalConfig
       ]
     }).compileComponents();
   }));
