@@ -1,6 +1,7 @@
 # housingxyz :: dockerignore
 
 ## angular
+**/coverage/
 **/dist/
 
 ## dotnet

@@ -1,8 +1,10 @@
 # housingxyz :: dockerfile
 
 ## arguments
+ARG ANGULAR_CONFIG
 ARG NGINX_VERSION=1.17
 ARG NODE_VERSION=12.5
+
 
 ## stage - base
 FROM node:${NODE_VERSION} as base
@@ -13,7 +15,7 @@ RUN npm clean-install
 ## stage - build
 FROM base as build
 COPY ./angular .
-RUN npm run build
+RUN npm run build -- --configuration=${ANGULAR_CONFIG}
 
 ## stage - deploy
 FROM nginx:${NGINX_VERSION} as deploy
