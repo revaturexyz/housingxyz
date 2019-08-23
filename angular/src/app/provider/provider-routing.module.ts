@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { ProviderComponent } from './provider.component';
 
-const routes: Routes = [];
+import { MsalGuard } from '@azure/msal-angular';
+
+const routes: Routes = [
+  { path: 'provider', component: ProviderComponent, canActivate: [MsalGuard] }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
