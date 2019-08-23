@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 
 import { MsalService } from '@azure/msal-angular';
 import { TestBed, async } from '@angular/core/testing';
+import { environment } from 'src/environments/environment';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -12,7 +13,8 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        environment.msalConfig
       ],
       providers: [
         MsalService
