@@ -1,6 +1,7 @@
-import { ManagerComponent } from './manager.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { ManagerComponent } from './manager.component';
 
 import { MsalGuard } from '@azure/msal-angular';
 
