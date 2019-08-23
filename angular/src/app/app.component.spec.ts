@@ -1,9 +1,9 @@
+import { MsalModule } from '@azure/msal-angular';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
-import { MsalService } from '@azure/msal-angular';
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
 
 describe('AppComponent', () => {
@@ -13,11 +13,8 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
+        MsalModule.forRoot(environment.msalConfig),
         RouterTestingModule
-      ],
-      providers: [
-        MsalService,
-        environment.msalConfig
       ]
     }).compileComponents();
   }));
