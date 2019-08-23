@@ -1,5 +1,5 @@
 export const environment = {
-  registration: {
+  authProvider: {
     authority: '',
     clientID: '',
     validateAuthority: false
