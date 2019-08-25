@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    MsalModule.forRoot(environment.authProvider)
+    MsalModule.forRoot(environment.identity)
   ],
   providers: [],
   bootstrap: [

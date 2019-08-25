@@ -1,5 +1,5 @@
 export const environment = {
-  authProvider: {
+  identity: {
     authority: '',
     clientID: '',
     validateAuthority: false
