@@ -1,6 +1,6 @@
-# housingxyz :: pull-request
+<!-- # housingxyz :: pull-request -->
 
-## [story-summary-line], [#story-id]
+# [story-summary-line], [story-id]
 
 ## change proposal
 
