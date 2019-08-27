@@ -1,6 +1,7 @@
 # housingxyz :: dockerignore
 
 ## angular
+**/coverage/
 **/dist/
 
 ## dotnet
@@ -23,6 +24,7 @@ obj/
 ## project
 .azure/
 .github/
+.terraformup/
 
 .editorconfig
 .gitignore

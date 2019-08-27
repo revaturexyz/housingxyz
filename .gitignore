@@ -4,6 +4,9 @@
 coverage/
 dist/
 
+environment.*.ts
+!environment.ts
+
 ## docker
 dockerup*
 !dockerup.yaml
