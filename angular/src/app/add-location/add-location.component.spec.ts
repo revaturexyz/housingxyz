@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { ApiService } from '../api.service';
 import { ApiServiceMock } from '../testing/mock/mock-api-service';
-import { ProviderLocation } from 'src/Entities/location';
+import { ProviderLocation } from 'src/models/location';
 import {RouterTestingModule} from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
