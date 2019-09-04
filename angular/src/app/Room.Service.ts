@@ -23,9 +23,16 @@ export class ApiService {
     getRoomsByProvider(providerId: number): Observable<Room[]>{
         return this.http.get<Room[]>("");
     }
-    // getRoomTypes(): Observable<RoomType[]>
-    // getGenders(): Observable<Gender[]>
+
+    getRoomTypes(): Observable<string[]>{
+        return this.http.get<string[]>("");
+    }
+
+    // getGenders(): Observable<Gender[]>{
+
+    // }
+    
     getAmenities(): Observable<Amenity[]>{
-        return this.http.get<Amenity[]>();
+        return this.http.get<Amenity[]>("");
     }
 }

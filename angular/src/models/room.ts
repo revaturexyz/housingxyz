@@ -1,3 +1,5 @@
+import { Complex } from './complex';
+
 export class Room {
     StreetAddress: string;
     City: string;
@@ -10,4 +12,5 @@ export class Room {
     Amenities: string[];
     StartDate: Date;
     EndDate: Date;
+    Complex: Complex;
   }
