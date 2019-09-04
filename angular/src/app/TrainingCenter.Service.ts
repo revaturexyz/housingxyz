@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Room } from './Models/Room';
+import { HttpClient} from '@angular/common/http';
+import { Room } from '../models/room';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,10 +11,10 @@ export class ApiService {
     
     constructor(private http : HttpClient) { }
 
-    getRoomById(d: number): Observable<Room> {
+    getRoomById(d: number): Observable<Room[]> {
         return this.http.get<Room[]>("");
     }
-    // postRoom(room: Room): Observable {
+    // postRoom(room: Room): Observable 
 
     // }
     // getRoomById(roomId: int): Observable<Room>
