@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ApiService } from './api.service';
 import { resolveSanitizationFn } from '@angular/compiler/src/render3/view/template';
 import { LocationData, MockProvider, MockRoom } from './testing/dummyData';
-import { ProviderLocation } from 'src/models/location';
+import { ProviderLocation } from 'src/Entities/location';
 
 describe('ApiService', () => {
   let injector: TestBed;

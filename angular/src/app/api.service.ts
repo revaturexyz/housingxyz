@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Room } from 'src/models/room';
+import { Room } from 'src/Entities/room';
 import { Observable } from 'rxjs';
-import { ProviderLocation } from 'src/models/location';
+import { ProviderLocation } from 'src/Entities/location';
 
 
 const httpOptions = {
@@ -57,9 +57,9 @@ export class ApiService {
   );
   }
 
-  //updateRoomData(obj: Room): Observable<void>{
-    //return this.http.put<void>(`${this._RoomUrl}${obj.RoomID}`, obj, httpOptions);
-  //}
+  updateRoomData(obj: Room): Observable<void>{
+    return this.http.put<void>(`${this._RoomUrl}${obj.RoomID}`, obj, httpOptions);
+  }
 
   deleteRoom(id: number): Observable<{}>{
     return this.http.delete(this._RoomUrl+id, httpOptions)
