@@ -1,6 +1,6 @@
-import { ProviderLocation } from 'src/models/location';
+import { ProviderLocation } from 'src/Entities/location';
 
-import { Room } from 'src/models/room';
+import { Room } from 'src/Entities/room';
 
 
 

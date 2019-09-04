@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule, NgControlStatusGroup, FormGroup } fro
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ModuleWithComponentFactories } from '@angular/core';
 import {RouterTestingModule}  from '@angular/router/testing'
-import {Room} from 'src/models/room';
+import {Room} from 'src/Entities/room';
 import {RoomData,RoomErrorList} from '../testing/dummyData'
 import { ApiService } from '../api.service';
 import { ApiServiceMock } from '../testing/mock/mock-api-service';

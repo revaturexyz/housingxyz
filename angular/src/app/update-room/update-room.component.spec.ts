@@ -12,7 +12,7 @@ import { formatDate, DatePipe} from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { Room } from 'src/models/room';
+import { Room } from 'src/Entities/room';
 
 
 
