@@ -12,20 +12,8 @@ export class ApiService {
     
     constructor(private http : HttpClient) { }
 
-    getRoomById(d: number): Observable<Room[]> {
-        return this.http.get<Room[]>("");
-    }
+//     getTrainingCenters(): Observable<TrainingCenter[]>
+// get full details (ie. address information)
+// getComplexesByTrainingCenter(centerId: int): Observable<Complex[]>
 
-    postRoom(obj: Room): Observable<Room>{
-        return this.http.post<Room>("", obj);
-    }
-
-    getRoomsByProvider(providerId: number): Observable<Room[]>{
-        return this.http.get<Room[]>("");
-    }
-    // getRoomTypes(): Observable<RoomType[]>
-    // getGenders(): Observable<Gender[]>
-    getAmenities(): Observable<Amenity[]>{
-        return this.http.get<Amenity[]>();
-    }
 }
