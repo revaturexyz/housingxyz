@@ -6,6 +6,7 @@ export class Complex {
     ZipCode: string;
     ComplexName: string;
     ContactNumber: string;
+    
     constructor(id: number, addr: string, city: string, state: string, zip: string, name: string, num: string){
         this.ComplexId = id;
         this.StreetAddress = addr;
