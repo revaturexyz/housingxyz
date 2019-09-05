@@ -27,9 +27,9 @@ export class RoomService {
         return this.http.get<string[]>("");
     }
 
-    // getGenders(): Observable<Gender[]>{
-
-    // }
+    getGenders(): Observable<string[]>{
+        return this.http.get<string[]>("");
+    }
     
     getAmenities(): Observable<Amenity[]>{
         return this.http.get<Amenity[]>("");
