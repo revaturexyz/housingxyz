@@ -1,3 +1,4 @@
+import { Trainingcenter } from './trainingcenter';
 export class Provider {
 
     CompanyName: string;
@@ -6,6 +7,6 @@ export class Provider {
     State: string;
     ZipCode: string;
     ContactNumber: string;
-    TrainingCenter: TrainingCenter;
+    TrainingCenter: Trainingcenter;
 
 }

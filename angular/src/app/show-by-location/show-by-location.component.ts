@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
 import * as angular from 'angular';
 import { Router } from '@angular/router';
 
@@ -14,27 +13,27 @@ export class ShowByLocationComponent implements OnInit {
   locationID: any;
   roomList: any;
 
-  constructor(private datasvc: ApiService, private router: Router) { }
+  constructor(private router: Router) { }
 
   selectOption(id: any)
   {
     this.locationID = id;
     console.log(id);
-    this.getRoomInfoByLocation();
+    //this.getRoomInfoByLocation();
   }
 
-  getLocationInfo(){
-    //httpclient get method
-    this.datasvc.getLocationData().subscribe(data => {
-      this.locationList=data;//assign data to location object
-  });
-  }
+  // getLocationInfo(){
+  //   //httpclient get method
+  //   this.datasvc.getLocationData().subscribe(data => {
+  //     this.locationList=data;//assign data to location object
+  // });
+  // }
 
-  getRoomInfoByLocation(){
-    this.datasvc.getRoomsByLocationId(this.locationID).subscribe(data=>{
-      this.roomList=data;
-    })
-  }
+  // getRoomInfoByLocation(){
+  //   this.datasvc.getRoomsByLocationId(this.locationID).subscribe(data=>{
+  //     this.roomList=data;
+  //   })
+  // }
 
   updateRoom(id: number) {
     this.router.navigate(['update-room', id]);
@@ -45,6 +44,6 @@ export class ShowByLocationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getLocationInfo();  
+    //this.getLocationInfo();  
   }
 }
