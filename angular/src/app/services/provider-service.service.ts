@@ -42,7 +42,7 @@ export class ProviderServiceService {
   }
 
   getComplexes(id: number): Observable<Complex[]> {
-    let simpleObservable = new Observable<Complex[]>((sub) => {
+    const simpleObservable = new Observable<Complex[]>((sub) => {
       // observable execution
       const complexList: Complex[] = [];
       complexList.push(this.dummyComplex);
@@ -53,7 +53,7 @@ export class ProviderServiceService {
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {
-    let simpleObservable = new Observable<Address[]>((sub) => {
+    const simpleObservable = new Observable<Address[]>((sub) => {
       // observable execution
       const addrList: Address[] = [];
       addrList.push(this.dummyAddress);
