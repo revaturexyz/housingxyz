@@ -1,16 +1,16 @@
 import { Complex } from './complex';
+import { Address } from './address';
+import { Amenity } from './amenity';
 
 export class Room {
-    StreetAddress: string;
-    City: string;
-    State: string;
-    ZipCode: string;
+    RoomID?: number;
+    Address: Address;
     RoomNumber: string;  
     NumberOfBeds: number;
     RoomType: string;
     IsOccupied: boolean;
-    Amenities: string[];
+    Amenities: Amenity;
     StartDate: Date;
     EndDate: Date;
-    Complex: Complex;
+    Complex: number;
 }
