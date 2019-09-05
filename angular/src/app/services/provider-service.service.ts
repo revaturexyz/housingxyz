@@ -12,6 +12,7 @@ import { Complex } from 'src/models/complex';
 export class ProviderServiceService {
 
   dummyTrainCenter: Trainingcenter = new Trainingcenter();
+  dummyComplex: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
   dummyProv: Provider = new Provider('Liv+', '123 Address St', 'Arlington', 'TX', '12345', '123-123-1234', this.dummyTrainCenter);
 
   constructor(private httpBus: HttpClient) { }
@@ -37,12 +38,14 @@ export class ProviderServiceService {
     return simpleObservable;
   }
 
-  // getComplexes(id: number): Observable<Complex[]>{
-  //   var simpleObservable = new Observable<Complex[]>((sub) => {
-  //     // observable execution
-  //     sub.next();
-  //     sub.complete();
-  //   });
-  //   return simpleObservable;
-  // }
+  getComplexes(id: number): Observable<Complex[]>{
+    var simpleObservable = new Observable<Complex[]>((sub) => {
+      // observable execution
+      var complexList : Complex[] = [];
+      complexList.push(this.dummyComplex);
+      sub.next(complexList);
+      sub.complete();
+    });
+    return simpleObservable;
+  }
 }
