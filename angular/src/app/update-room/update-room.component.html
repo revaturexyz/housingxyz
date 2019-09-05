@@ -9,7 +9,17 @@
     </div>
 </body>
 <body *ngIf="activeComplex">
-    <div *ngFor="let r of complexRooms">
-      <app-room-details [room]="r"></app-room-details>
-    </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="text-align: center">Room Id</th>
+        <th scope="col" style="text-align: center">Room Number</th>
+        <th scope="col" style="text-align: center">Type</th>
+        <th scope="col" style="text-align: center">Status</th>
+        <th scope="col" style="text-align: center">Start Date</th>
+        <th scope="col" style="text-align: center">End Date</th>
+      </tr>
+    </thead>
+  </table>
+  <app-room-details *ngFor="let r of complexRooms" [room]="r"></app-room-details>
 </body>

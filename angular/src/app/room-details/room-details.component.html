@@ -1,1 +1,22 @@
-<p>room-details works!</p>
+<table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="text-align: center">Room Id</th>
+                <th scope="col" style="text-align: center">Room Number</th>
+                <th scope="col" style="text-align: center">Type</th>
+                <th scope="col" style="text-align: center">Status</th>
+                <th scope="col" style="text-align: center">Start Date</th>
+                <th scope="col" style="text-align: center">End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="col" style="text-align: center">{{room.RoomID}}</th>
+            <td scope="col" style="text-align: center">{{room.RoomNumber}}</td>
+            <td scope="col" style="text-align: center">{{room.RoomType}}</td>
+            <td scope="col" style="text-align: center">{{room.IsOccupied}}</td>
+            <td scope="col" style="text-align: center">{{room.StartDate}}</td>
+            <td scope="col" style="text-align: center">{{room.EndDate}}</td>
+          </tr>
+        </tbody>
+      </table>
