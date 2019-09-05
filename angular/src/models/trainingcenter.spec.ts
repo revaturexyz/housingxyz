@@ -1,7 +1,7 @@
-// import { Trainingcenter } from './trainingcenter';
+import { Trainingcenter } from './trainingcenter';
 
-// describe('Trainingcenter', () => {
-//   it('should create an instance', () => {
-//     expect(new Trainingcenter()).toBeTruthy();
-//   });
-// });
+describe('Trainingcenter', () => {
+  it('should create an instance', () => {
+    expect(new Trainingcenter()).toBeTruthy();
+  });
+});

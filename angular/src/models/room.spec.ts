@@ -1,7 +1,7 @@
-// import { Room } from './room';
+import { Room } from './room';
 
-// describe('Room', () => {
-//   it('should create an instance', () => {
-//     expect(new Room()).toBeTruthy();
-//   });
-// });
+describe('Room', () => {
+  it('should create an instance', () => {
+    expect(new Room()).toBeTruthy();
+  });
+});
