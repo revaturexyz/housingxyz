@@ -1,15 +1,15 @@
 <body>
     <div class="col">
         <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem>Action - 1</button>
-            <button ngbDropdownItem>Another Action</button>
-            <button ngbDropdownItem>Something else is here</button>
+            <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.ComplexName}}</button>
           </div>
         </div>
-      </div>
+    </div>
 </body>
 <body>
-
+    <div *ngIf="activeComplex">
+        <app-room-details *ngFor="let r of roomList" [room]="r"></app-room-details>
+    </div>
 </body>

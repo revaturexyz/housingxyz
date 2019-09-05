@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Complex } from 'src/models/complex';
+import { ProviderServiceService } from '../services/provider-service.service';
+import { Observer } from 'rxjs';
+import { Room } from 'src/models/room';
 
 @Component({
   selector: 'dev-update-room',
@@ -7,9 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRoomComponent implements OnInit {
 
-  constructor() { }
+  complexList: Complex[];
+  activeComplex: Complex;
+  roomList: Room[];
+
+  myObserver: Observer<Complex[]> = {
+    next: x => {console.log('Observer got a next value.'); this.complexList = x},
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+  };
+
+  showString: string = 'Choose Complex';
+
+  constructor(private providerService: ProviderServiceService) { }
 
   ngOnInit() {
+    this.providerService.getComplexes(1).subscribe(this.myObserver);
   }
 
+  complexChoose(complex: Complex){
+    this.showString = complex.ComplexName;
+    this.activeComplex = complex;
+    
+  }
 }

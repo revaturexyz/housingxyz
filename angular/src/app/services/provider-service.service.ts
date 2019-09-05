@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Provider } from 'src/models/Provider';
+import { Provider } from 'src/models/provider';
 import { HttpClient } from '@angular/common/http';
 import { Trainingcenter } from 'src/models/trainingcenter';
 import { Observable } from 'rxjs';
@@ -16,6 +16,7 @@ export class ProviderServiceService {
   dummyTrainCenter: Trainingcenter = new Trainingcenter();
   dummyAddress: Address = new Address(1, '123 Address St', 'Arlington', 'TX', '12345');
   dummyComplex: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
+  dummyComplex2: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv- Appartments', '123-123-1234');
   dummyProv: Provider = new Provider('Liv+', '123 Address St', 'Arlington', 'TX', '12345', '123-123-1234', this.dummyTrainCenter);
 
   constructor(private httpBus: HttpClient) { }
@@ -46,6 +47,7 @@ export class ProviderServiceService {
       // observable execution
       const complexList: Complex[] = [];
       complexList.push(this.dummyComplex);
+      complexList.push(this.dummyComplex2);
       sub.next(complexList);
       sub.complete();
     });
