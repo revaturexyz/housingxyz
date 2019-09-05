@@ -20,6 +20,9 @@
         <th scope="col" style="text-align: center">End Date</th>
       </tr>
     </thead>
+    <tbody>
+        <tr *ngFor="let r of complexRooms" app-room-details [room]="r">
+        </tr>
+      </tbody>
   </table>
-  <app-room-details *ngFor="let r of complexRooms" [room]="r"></app-room-details>
 </body>

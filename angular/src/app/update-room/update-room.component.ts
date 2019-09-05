@@ -41,7 +41,7 @@ export class UpdateRoomComponent implements OnInit {
   complexChoose(complex: Complex){
     this.showString = complex.ComplexName;
     this.activeComplex = complex;
-    console.log(this.roomList);
+    // console.log(this.roomList);
     this.complexRooms = this.roomList.filter(r => r.ComplexID == this.activeComplex.ComplexId);
   }
 }
