@@ -42,55 +42,55 @@ export const LocationObject={
 
 
 
-export const RoomData = {
+// export const RoomData = {
 
   
 
-    Type:"apartment",
+//     Type:"apartment",
 
-    MaxOccupancy:2 ,
+//     MaxOccupancy:2 ,
 
-    RoomNumber:"1",
+//     RoomNumber:"1",
 
-    Gender:"F",
+//     Gender:"F",
 
-    StartDate: new Date('2019/08/10'),
+//     StartDate: new Date('2019/08/10'),
 
-    EndDate: undefined,
+//     EndDate: undefined,
 
-    Description : ''
-
-
-
-}
+//     Description : ''
 
 
 
-export const UpdateRoomData = {
+// }
+
+
+
+// export const UpdateRoomData = {
 
   
 
-    Type:"apartment",
+//     Type:"apartment",
 
-    MaxOccupancy:2 ,
+//     MaxOccupancy:2 ,
 
-    CurrentOccupancy:2,
+//     CurrentOccupancy:2,
 
-    RoomNumber:"1",
+//     RoomNumber:"1",
 
-    Gender:"F",
+//     Gender:"F",
 
-    StartDate: new Date('2019/08/10'),
+//     StartDate: new Date('2019/08/10'),
 
-    EndDate: undefined,
+//     EndDate: undefined,
 
-    Description : '',
+//     Description : '',
 
-    LocationData:2
+//     LocationData:2
 
 
 
-}
+// }
 
 
 
@@ -186,41 +186,41 @@ export class MockProvider extends ProviderLocation{
 
 
 
-export class MockRoom extends Room{
+// export class MockRoom extends Room{
 
      
 
 
 
-    //Primary Key
+//     //Primary Key
 
-    RoomID = 1;
+//     RoomID = 1;
 
-    Type = 'dorm';
+//     Type = 'dorm';
 
-    MaxOccupancy = 4;
+//     MaxOccupancy = 4;
 
-    RoomNumber = '101';
+//     RoomNumber = '101';
 
-    Gender = 'male';
+//     Gender = 'male';
 
-    StartDate = new Date('2019/08/10');
+//     StartDate = new Date('2019/08/10');
 
-    EndDate =  new Date('2019/11/11');
+//     EndDate =  new Date('2019/11/11');
 
-    CurrentOccupancy = 2;
+//     CurrentOccupancy = 2;
 
-    IsActive = true;
+//     IsActive = true;
 
-    Description = 'this is a mock room';
+//     Description = 'this is a mock room';
 
 
 
-    //Foreign Key
+//     //Foreign Key
 
-    LocationID = 1;
+//     LocationID = 1;
 
-}
+// }
 
 
 

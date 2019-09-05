@@ -32,6 +32,6 @@ export class UpdateRoomComponent implements OnInit {
   complexChoose(complex: Complex){
     this.showString = complex.ComplexName;
     this.activeComplex = complex;
-    
+
   }
 }

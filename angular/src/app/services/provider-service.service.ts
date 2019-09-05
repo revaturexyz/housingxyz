@@ -16,7 +16,7 @@ export class ProviderServiceService {
   dummyTrainCenter: Trainingcenter = new Trainingcenter();
   dummyAddress: Address = new Address(1, '123 Address St', 'Arlington', 'TX', '12345');
   dummyComplex: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
-  dummyComplex2: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv- Appartments', '123-123-1234');
+  dummyComplex2: Complex = new Complex(2, '234 Complex St', 'Arlington', 'TX', '23456', 'Liv- Appartments', '123-123-1234');
   dummyProv: Provider = new Provider('Liv+', '123 Address St', 'Arlington', 'TX', '12345', '123-123-1234', this.dummyTrainCenter);
 
   constructor(private httpBus: HttpClient) { }
@@ -43,7 +43,7 @@ export class ProviderServiceService {
   }
 
   getComplexes(id: number): Observable<Complex[]> {
-    let simpleObservable = new Observable<Complex[]>((sub) => {
+    const simpleObservable = new Observable<Complex[]>((sub) => {
       // observable execution
       const complexList: Complex[] = [];
       complexList.push(this.dummyComplex);
@@ -55,7 +55,7 @@ export class ProviderServiceService {
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {
-    let simpleObservable = new Observable<Address[]>((sub) => {
+    const simpleObservable = new Observable<Address[]>((sub) => {
       // observable execution
       const addrList: Address[] = [];
       addrList.push(this.dummyAddress);
