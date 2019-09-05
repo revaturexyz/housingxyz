@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Trainingcenter } from 'src/models/trainingcenter';
 import { Observable } from 'rxjs';
 import { Complex } from 'src/models/complex';
+import { Address } from 'src/models/address';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { Complex } from 'src/models/complex';
 export class ProviderServiceService {
 
   dummyTrainCenter: Trainingcenter = new Trainingcenter();
+  dummyAddress: Address = new Address(1, '123 Address St', 'Arlington', 'TX', '12345');
   dummyComplex: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
   dummyProv: Provider = new Provider('Liv+', '123 Address St', 'Arlington', 'TX', '12345', '123-123-1234', this.dummyTrainCenter);
 
@@ -44,6 +46,17 @@ export class ProviderServiceService {
       var complexList : Complex[] = [];
       complexList.push(this.dummyComplex);
       sub.next(complexList);
+      sub.complete();
+    });
+    return simpleObservable;
+  }
+
+  getAddressesByProvider(provider: number): Observable<Address[]>{
+    var simpleObservable = new Observable<Address[]>((sub) => {
+      // observable execution
+      var addrList : Address[] = [];
+      addrList.push(this.dummyAddress);
+      sub.next(addrList);
       sub.complete();
     });
     return simpleObservable;
