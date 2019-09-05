@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Room } from 'src/models/room';
+import { Room } from 'src/Entities/room';
 import { Observable } from 'rxjs';
-import { ProviderLocation } from 'src/models/location';
+import { ProviderLocation } from 'src/Entities/location';
 
 
 const httpOptions = {

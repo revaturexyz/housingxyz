@@ -5,7 +5,7 @@ import {  of, throwError, Observable } from 'rxjs';
 import { mockLocationList, mockRoomList } from '../dummyData';
 
 import { RoomObject, LocationObject } from '../dummyData';
-import { Room } from 'src/models/room';
+import { Room } from 'src/Entities/room';
 
 
 
