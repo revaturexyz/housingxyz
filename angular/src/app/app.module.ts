@@ -8,10 +8,6 @@ import { ProviderLocation } from 'src/models/location';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { AddRoomComponent } from './add-room/add-room.component';
-import { DeleteRoomComponent } from './delete-room/delete-room.component';
-import { UpdateRoomComponent } from './update-room/update-room.component';
-import { ApiService } from './api.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { StickyNavModule } from 'ng2-sticky-nav';
@@ -29,9 +25,6 @@ import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
     NavComponent,
     HomeComponent,
     LoginComponent,
-    AddRoomComponent,
-    DeleteRoomComponent,
-    UpdateRoomComponent,
     AddLocationComponent,
     ShowByLocationComponent,
     RouterLinkDirectiveStub
@@ -44,7 +37,7 @@ import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),//withConfig: remove warning message when using formcontrolname and ngModel
     StickyNavModule
   ],
-  providers: [Room, Provider, ProviderLocation, ApiService, AuthenticationGuard],
+  providers: [Room, Provider, ProviderLocation, AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

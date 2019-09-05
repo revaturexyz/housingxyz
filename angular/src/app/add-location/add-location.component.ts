@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
 import { ProviderLocation } from 'src/models/location';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +13,7 @@ export class AddLocationComponent implements OnInit {
   locationGroup: FormGroup;
   submitted: boolean = false;
 
-  constructor(private datasvc: ApiService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.locationGroup = this.formBuilder.group({
@@ -26,26 +25,26 @@ export class AddLocationComponent implements OnInit {
     })
   }
 
-  PostLocationInfo(obj: ProviderLocation){
-    obj.ProviderID = 1;
-     this.datasvc.PostLocationData(obj).subscribe(data => {
-      //post location success    
-      this.locationGroup.reset();
-    }, error => {
-      //post location error handling 
-      console.log("Error", error);
-    }) 
-  }
+  // PostLocationInfo(obj: ProviderLocation){
+  //   obj.ProviderID = 1;
+  //    this.datasvc.PostLocationData(obj).subscribe(data => {
+  //     //post location success    
+  //     this.locationGroup.reset();
+  //   }, error => {
+  //     //post location error handling 
+  //     console.log("Error", error);
+  //   }) 
+  // }
 
   OnSubmit(){
-    this.submitted = true;
-    if(this.locationGroup.invalid){
-      return;
-    }
-    else{
-      this.PostLocationInfo(this.locationGroup.value);
-    this.submitted = false;
-    this.router.navigate(['']); // redirect to home 
-    }
+    // this.submitted = true;
+    // if(this.locationGroup.invalid){
+    //   return;
+    // }
+    // else{
+    //   this.PostLocationInfo(this.locationGroup.value);
+    // this.submitted = false;
+    // this.router.navigate(['']); // redirect to home 
+    // }
   }
 }
