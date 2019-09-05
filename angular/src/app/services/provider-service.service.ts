@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Complex } from 'src/models/complex';
 import { Address } from 'src/models/address';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +20,7 @@ export class ProviderServiceService {
 
   constructor(private httpBus: HttpClient) { }
 
+
   getProviders(): Observable<Provider[]> {
     const simpleObservable = new Observable<Provider[]>((sub) => {
       // observable execution
@@ -30,8 +32,8 @@ export class ProviderServiceService {
     return simpleObservable;
   }
 
-  getProviderById(id: number): Observable<Provider> {
-    let simpleObservable = new Observable<Provider>((sub) => {
+  getProviderById(id: number): Observable<Provider>{
+    const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
       sub.next(this.dummyProv);
       sub.complete();
