@@ -8,8 +8,8 @@
         </div>
     </div>
 </body>
-<body>
-    <div *ngIf="activeComplex">
-        <app-room-details *ngFor="let r of roomList" [room]="r"></app-room-details>
+<body *ngIf="activeComplex">
+    <div *ngFor="let r of complexRooms">
+      <app-room-details></app-room-details>
     </div>
 </body>

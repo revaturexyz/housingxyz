@@ -1,128 +1,128 @@
-import { ProviderLocation } from 'src/models/location';
+// import { ProviderLocation } from 'src/models/location';
 
-import { Room } from 'src/models/room';
-
-
-
-export const LocationData = {
-
-    Address: "abc ",
-
-    State: "NY",
-
-    City: "city",
-
-    ZipCode: "12345",
-
-    //need change, might not need this properties
-
-    TrainingCenter: "Queen"
-
-}
+// import { Room } from 'src/models/room';
 
 
 
-export const LocationObject={
+// export const LocationData = {
 
-    locationID: 3, 
+//     Address: "abc ",
 
-    address: '123 Main Street',
+//     State: "NY",
 
-    city: 'Queens', 
+//     City: "city",
 
-    state: 'New York',
+//     ZipCode: "12345",
 
-    zip: '11111',
+//     //need change, might not need this properties
 
-    trainingCenter: 'Queens College',
-
-    providerID: 1,
-
-}
-
-
-
-// export const RoomData = {
-
-  
-
-//     Type:"apartment",
-
-//     MaxOccupancy:2 ,
-
-//     RoomNumber:"1",
-
-//     Gender:"F",
-
-//     StartDate: new Date('2019/08/10'),
-
-//     EndDate: undefined,
-
-//     Description : ''
-
-
+//     TrainingCenter: "Queen"
 
 // }
 
 
 
-// export const UpdateRoomData = {
+// export const LocationObject={
 
-  
+//     locationID: 3, 
 
-//     Type:"apartment",
+//     address: '123 Main Street',
 
-//     MaxOccupancy:2 ,
+//     city: 'Queens', 
 
-//     CurrentOccupancy:2,
+//     state: 'New York',
 
-//     RoomNumber:"1",
+//     zip: '11111',
 
-//     Gender:"F",
+//     trainingCenter: 'Queens College',
 
-//     StartDate: new Date('2019/08/10'),
-
-//     EndDate: undefined,
-
-//     Description : '',
-
-//     LocationData:2
-
-
+//     providerID: 1,
 
 // }
 
 
 
-export const LocationErrorList = {
+// // export const RoomData = {
 
-    ErrorList: ["Address is required",
+  
 
-        "State is required",
+// //     Type:"apartment",
 
-        "City is required",
+// //     MaxOccupancy:2 ,
 
-        "Zip Code is required",
+// //     RoomNumber:"1",
 
-        "Training Center is required"
+// //     Gender:"F",
 
-    ]
+// //     StartDate: new Date('2019/08/10'),
 
-}
+// //     EndDate: undefined,
+
+// //     Description : ''
 
 
 
-export const RoomErrorList={
+// // }
 
-    ErrorList:["Room Type is required",
 
-        "Number of Beds is required",
 
-        "Room Number is required",
+// // export const UpdateRoomData = {
 
-        "Gender is required",
+  
 
-        "StartDate is required"
+// //     Type:"apartment",
+
+// //     MaxOccupancy:2 ,
+
+// //     CurrentOccupancy:2,
+
+// //     RoomNumber:"1",
+
+// //     Gender:"F",
+
+// //     StartDate: new Date('2019/08/10'),
+
+// //     EndDate: undefined,
+
+// //     Description : '',
+
+// //     LocationData:2
+
+
+
+// // }
+
+
+
+// export const LocationErrorList = {
+
+//     ErrorList: ["Address is required",
+
+//         "State is required",
+
+//         "City is required",
+
+//         "Zip Code is required",
+
+//         "Training Center is required"
+
+//     ]
+
+// }
+
+
+
+// export const RoomErrorList={
+
+//     ErrorList:["Room Type is required",
+
+//         "Number of Beds is required",
+
+//         "Room Number is required",
+
+//         "Gender is required",
+
+//         "StartDate is required"
 
         
 
@@ -130,29 +130,29 @@ export const RoomErrorList={
 
       
 
-    ]
+//     ]
 
-}
-
-
+// }
 
 
 
-export const UpdateRoomErrorList={
 
-    ErrorList:["Room Type is required",
 
-        "Number of Beds is required",
+// export const UpdateRoomErrorList={
 
-        "Number of Beds is required",
+//     ErrorList:["Room Type is required",
 
-        "Room Number is required",
+//         "Number of Beds is required",
 
-        "Gender is required",
+//         "Number of Beds is required",
 
-        "StartDate is required",
+//         "Room Number is required",
 
-        "EndDate is required"
+//         "Gender is required",
+
+//         "StartDate is required",
+
+//         "EndDate is required"
 
         
 
@@ -160,133 +160,133 @@ export const UpdateRoomErrorList={
 
       
 
-    ]
+//     ]
 
-}
-
-
-
-export class MockProvider extends ProviderLocation{
-
-    LocationID= 3; 
-
-    address= '123 Main Street';
-
-    city= 'Queens'; 
-
-    state= 'NY';
-
-    zipCode= '11111';
-
-    trainingCenter= 'Queens College';
-
-    ProviderID= 1;
-
-}
+// }
 
 
 
-// export class MockRoom extends Room{
+// export class MockProvider extends ProviderLocation{
+
+//     LocationID= 3; 
+
+//     address= '123 Main Street';
+
+//     city= 'Queens'; 
+
+//     state= 'NY';
+
+//     zipCode= '11111';
+
+//     trainingCenter= 'Queens College';
+
+//     ProviderID= 1;
+
+// }
+
+
+
+// // export class MockRoom extends Room{
 
      
 
 
 
-//     //Primary Key
+// //     //Primary Key
 
-//     RoomID = 1;
+// //     RoomID = 1;
 
-//     Type = 'dorm';
+// //     Type = 'dorm';
 
-//     MaxOccupancy = 4;
+// //     MaxOccupancy = 4;
 
-//     RoomNumber = '101';
+// //     RoomNumber = '101';
 
-//     Gender = 'male';
+// //     Gender = 'male';
 
-//     StartDate = new Date('2019/08/10');
+// //     StartDate = new Date('2019/08/10');
 
-//     EndDate =  new Date('2019/11/11');
+// //     EndDate =  new Date('2019/11/11');
 
-//     CurrentOccupancy = 2;
+// //     CurrentOccupancy = 2;
 
-//     IsActive = true;
+// //     IsActive = true;
 
-//     Description = 'this is a mock room';
+// //     Description = 'this is a mock room';
 
 
 
-//     //Foreign Key
+// //     //Foreign Key
 
-//     LocationID = 1;
+// //     LocationID = 1;
+
+// // }
+
+
+
+// const location1 = new MockProvider();
+
+// const location2 = {
+
+//     LocationID: 4,
+
+//     address:'65 Kissena',
+
+//     city: 'New York',
+
+//     state: 'NY',
+
+//     zipCode: '10000',
+
+//     trainingCenter: 'Queens College',
+
+//     ProviderID: 1
 
 // }
 
-
-
-const location1 = new MockProvider();
-
-const location2 = {
-
-    LocationID: 4,
-
-    address:'65 Kissena',
-
-    city: 'New York',
-
-    state: 'NY',
-
-    zipCode: '10000',
-
-    trainingCenter: 'Queens College',
-
-    ProviderID: 1
-
-}
-
-export const mockLocationList = [{location1}, {location2}]
+// export const mockLocationList = [{location1}, {location2}]
 
 
 
-const room1 = new MockRoom();
+// const room1 = new MockRoom();
 
-const room2= {
+// const room2= {
 
-     //Primary Key
+//      //Primary Key
 
-     RoomID : 2,
+//      RoomID : 2,
 
-     Type : 'dorm',
+//      Type : 'dorm',
 
-     MaxOccupancy : 4,
+//      MaxOccupancy : 4,
 
-     RoomNumber : '102',
+//      RoomNumber : '102',
 
-     Gender : 'female',
+//      Gender : 'female',
 
-     StartDate : new Date('2019/08/10'),
+//      StartDate : new Date('2019/08/10'),
 
-     EndDate :  new Date('2019/11/11'),
+//      EndDate :  new Date('2019/11/11'),
 
-     CurrentOccupancy : 2,
+//      CurrentOccupancy : 2,
 
-     IsActive : true,
+//      IsActive : true,
 
-     Description : 'this is a mock room',
+//      Description : 'this is a mock room',
 
  
 
-     //Foreign Key
+//      //Foreign Key
 
-     LocationID : 1
+//      LocationID : 1
 
-}
+// }
 
-export const mockRoomList = [{room1}, {room2}]
+// export const mockRoomList = [{room1}, {room2}]
 
 
 
-export const RoomObject={
+// export const RoomObject={
 
 
     
@@ -295,34 +295,34 @@ export const RoomObject={
 
 
 
-    //Primary Key
+//     //Primary Key
 
-    roomID : 1,
+//     roomID : 1,
 
-    type : 'dorm',
+//     type : 'dorm',
 
-    maxOccupancy : 4,
+//     maxOccupancy : 4,
 
-    roomNumber : '101',
+//     roomNumber : '101',
 
-    gender : 'male',
+//     gender : 'male',
 
-    startDate : new Date('2019/08/10'),
+//     startDate : new Date('2019/08/10'),
 
-    endDate :  new Date('2019/11/11'),
+//     endDate :  new Date('2019/11/11'),
 
-    currentOccupancy : 2,
+//     currentOccupancy : 2,
 
-    isActive : true,
+//     isActive : true,
 
-    description : 'this is a mock room',
-
-
-
-    //Foreign Key
-
-    locationID : 1
+//     description : 'this is a mock room',
 
 
 
-}
+//     //Foreign Key
+
+//     locationID : 1
+
+
+
+// }
