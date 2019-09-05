@@ -56,10 +56,10 @@ export class AddRoomComponent implements OnInit {
   }
  
   postRoomInfo(value: Room){
-    // value.IsActive = true;
-    // value.RoomID = 0;
-    // value.CurrentOccupancy = value.MaxOccupancy;
-    // value.LocationID = this.LocationID;
+    value.IsActive = true;
+    value.RoomID = 0;
+    value.CurrentOccupancy = value.MaxOccupancy;
+    value.LocationID = this.LocationID;
     
      this.datasvc.postRoomData(value).subscribe(data => {
       //post success

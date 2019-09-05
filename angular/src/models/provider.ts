@@ -1,9 +1,11 @@
 export class Provider {
 
-    //Primary Key
-    ProviderID : number;
-    FirstName : string;
-    LastName : string;
-    PhoneNumber : string;
-    Email : string;
+    CompanyName: string;
+    StreetAddress: string;
+    City: string;
+    State: string;
+    ZipCode: string;
+    ContactNumber: string;
+    TrainingCenter: TrainingCenter;
+
 }

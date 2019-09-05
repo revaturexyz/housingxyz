@@ -57,9 +57,9 @@ export class ApiService {
   );
   }
 
-  //updateRoomData(obj: Room): Observable<void>{
-    //return this.http.put<void>(`${this._RoomUrl}${obj.RoomID}`, obj, httpOptions);
-  //}
+  updateRoomData(obj: Room): Observable<void>{
+    return this.http.put<void>(`${this._RoomUrl}${obj.RoomID}`, obj, httpOptions);
+  }
 
   deleteRoom(id: number): Observable<{}>{
     return this.http.delete(this._RoomUrl+id, httpOptions)
