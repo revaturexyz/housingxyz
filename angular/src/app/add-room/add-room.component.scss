@@ -5,3 +5,9 @@
     border: solid;
     border-color: black;
 }
+@media (min-width: 768px) {
+    .h-md-100 { height: 100vh; }
+}
+.btn-round { border-radius: 30px; }
+.bg-indigo { background: #fb752c; }
+.text-cyan { color: #35bdff; }

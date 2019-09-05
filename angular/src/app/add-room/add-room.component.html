@@ -1,23 +1,43 @@
-<h1 id="header"> Add Room </h1>
+<div class="d-md-flex h-md-100 align-items-center">
 
-<form>
-    <div>
-        <label> Number of Beds 
-            <input id="beds"type="text"> 
-        </label>
-    </div>
-    <div class="col">
-        <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem>Dorm </button>
-                <button ngbDropdownItem>Apartment</button>
-                <button ngbDropdownItem>Hotel</button>
+    <div class="col-md-6 p-0 bg-indigo h-md-100">
+        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+                <h1>Training Center</h1>
+                <p> University of Texas at Arlington</p>
+                <p> (123) 456 - 7890</p>
             </div>
         </div>
     </div>
-
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</form>
+        
+    <div class="col-md-6 p-0 bg-white h-md-100 loginarea">
+        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+                <h1> Add Room </h1>
+                <form>
+                    <div>
+                        <label> Number of Beds 
+                            <input id="beds"type="text"> 
+                        </label>
+                    </div>
+                    <div class="col">
+                        <div ngbDropdown class="d-inline-block">
+                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem>Dorm </button>
+                                <button ngbDropdownItem>Apartment</button>
+                                <button ngbDropdownItem>Hotel</button>
+                            </div>
+                        </div>
+                    </div>   
+                    <div id="submit">
+                        <button type="submit">Submit</button>
+                    </div>
+                    <div id="cancel">
+                        <button type="button">Cancel</button>
+                    </div> 
+                </form> 
+            </div>
+        </div>
+    </div>     
+</div>
