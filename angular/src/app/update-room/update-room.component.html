@@ -10,6 +10,6 @@
 </body>
 <body *ngIf="activeComplex">
     <div *ngFor="let r of complexRooms">
-      <app-room-details></app-room-details>
+      <app-room-details [room]="r"></app-room-details>
     </div>
 </body>

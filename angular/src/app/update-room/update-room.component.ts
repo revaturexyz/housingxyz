@@ -35,12 +35,13 @@ export class UpdateRoomComponent implements OnInit {
 
   ngOnInit() {
     this.providerService.getComplexes(1).subscribe(this.complexObs);
-    this.roomService.getRoomsByProvider(1).subscribe()
+    this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
   }
 
   complexChoose(complex: Complex){
     this.showString = complex.ComplexName;
     this.activeComplex = complex;
+    console.log(this.roomList);
     this.complexRooms = this.roomList.filter(r => r.ComplexID == this.activeComplex.ComplexId);
   }
 }
