@@ -37,10 +37,4 @@ describe('NavComponent', () => {
   it('should create nav component', () => {
     expect(component).toBeTruthy();
   });
-
-  it(' href of about us should be "https://revature.com/our-story/"', () => {
-    const about = fixture.debugElement.queryAll(By.css('a'));
-    
-    expect(about[2].nativeElement.href).toEqual("https://revature.com/our-story/");
-  });
 });
