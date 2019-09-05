@@ -1,12 +1,13 @@
 import { Trainingcenter } from './trainingcenter';
+
 export class Provider {
-
-    CompanyName: string;
-    StreetAddress: string;
-    City: string;
-    State: string;
-    ZipCode: string;
-    ContactNumber: string;
-    TrainingCenter: Trainingcenter;
-
+    constructor(
+        public CompanyName: string,
+        public StreetAddress: string,
+        public City: string,
+        public State: string,
+        public ZipCode: string,
+        public ContactNumber: string,
+        public TrainingCenter: Trainingcenter
+        ){}
 }
