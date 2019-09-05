@@ -13,4 +13,4 @@ export class Room {
     StartDate: Date;
     EndDate: Date;
     Complex: Complex;
-  }
+}

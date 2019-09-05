@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Room } from '../models/room';
-import { Amenity} from '../models/Amenity';
+import { Room } from '../../models/room';
+import { Amenity} from '../../models/amenity';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
+export class RoomService {
 
-export class ApiService {
-    
-    constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient) { }
 
-    getRoomById(d: number): Observable<Room[]> {
+    getRoomById(id: number): Observable<Room[]> {
         return this.http.get<Room[]>("");
     }
 

@@ -1,5 +1,4 @@
-export class Amenity{
-
+export class Amenity {
     AmenityId: number;
     Amenity: string;
 }
