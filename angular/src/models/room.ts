@@ -12,5 +12,5 @@ export class Room {
     Amenities: Amenity;
     StartDate: Date;
     EndDate: Date;
-    Complex: number;
+    ComplexID: number;
 }
