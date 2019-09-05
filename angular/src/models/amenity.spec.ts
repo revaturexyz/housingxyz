@@ -1,7 +1,8 @@
-import { Amenity } from './amenity';
+// import { Amenity } from "./amenity";
 
-describe('Amenity', () => {
-  it('should create an instance', () => {
-    expect(new Amenity()).toBeTruthy();
-  });
-});
+
+// describe('Amenity', () => {
+//   it('should create an instance', () => {
+//     expect(new Amenity()).toBeTruthy();
+//   });
+// });
