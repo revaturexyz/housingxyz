@@ -19,20 +19,19 @@ export class ProviderServiceService {
 
   constructor(private httpBus: HttpClient) { }
 
-  getProviders(): Observable<Provider[]>{
-    //this.httpBus.getProviders()
-    var simpleObservable = new Observable<Provider[]>((sub) => {
+  getProviders(): Observable<Provider[]> {
+    const simpleObservable = new Observable<Provider[]>((sub) => {
       // observable execution
-      var provList : Provider[] = [];
+      const provList: Provider[] = [];
       provList.push(this.dummyProv);
       sub.next(provList);
       sub.complete();
     });
-  return simpleObservable;
+    return simpleObservable;
   }
 
-  getProviderById(id: number): Observable<Provider>{
-    var simpleObservable = new Observable<Provider>((sub) => {
+  getProviderById(id: number): Observable<Provider> {
+    let simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
       sub.next(this.dummyProv);
       sub.complete();
@@ -40,10 +39,10 @@ export class ProviderServiceService {
     return simpleObservable;
   }
 
-  getComplexes(id: number): Observable<Complex[]>{
-    var simpleObservable = new Observable<Complex[]>((sub) => {
+  getComplexes(id: number): Observable<Complex[]> {
+    let simpleObservable = new Observable<Complex[]>((sub) => {
       // observable execution
-      var complexList : Complex[] = [];
+      const complexList: Complex[] = [];
       complexList.push(this.dummyComplex);
       sub.next(complexList);
       sub.complete();
@@ -51,10 +50,10 @@ export class ProviderServiceService {
     return simpleObservable;
   }
 
-  getAddressesByProvider(provider: number): Observable<Address[]>{
-    var simpleObservable = new Observable<Address[]>((sub) => {
+  getAddressesByProvider(provider: number): Observable<Address[]> {
+    let simpleObservable = new Observable<Address[]>((sub) => {
       // observable execution
-      var addrList : Address[] = [];
+      const addrList: Address[] = [];
       addrList.push(this.dummyAddress);
       sub.next(addrList);
       sub.complete();

@@ -1,6 +1,6 @@
 export class ProviderLocation {
 
-    //Primary Key
+    // Primary Key
     LocationID : number;
     Address : string;
     City : string;
@@ -8,6 +8,6 @@ export class ProviderLocation {
     Zip : string;
     TraningCenter : string;
 
-    //Foreign Key
+    // Foreign Key
     ProviderID : number;
 }
