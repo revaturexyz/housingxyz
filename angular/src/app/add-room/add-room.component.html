@@ -1,1 +1,23 @@
-<p>add-room works!</p>
+<h1 id="header"> Add Room </h1>
+
+<form>
+    <div>
+        <label> Number of Beds 
+            <input id="beds"type="text"> 
+        </label>
+    </div>
+    <div class="col">
+        <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Dorm </button>
+                <button ngbDropdownItem>Apartment</button>
+                <button ngbDropdownItem>Hotel</button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
