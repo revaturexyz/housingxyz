@@ -10,6 +10,12 @@
 /app/**/*.js
 /app/**/*.js.map
 
+## docker
+### Angular ###
+dockerup*
+## Angular ##
+!dockerup.yaml
+
 # dependencies
 /node_modules
 /bower_components
