@@ -1,17 +1,16 @@
-export class Room {
-    
-    //Primary Key
-    RoomID : number;
-    Type : string;
-    MaxOccupancy : number;
-    RoomNumber : string;
-    Gender : string;
-    StartDate : Date;
-    EndDate : Date;
-    CurrentOccupancy : number;
-    IsActive : boolean;
-    Description : string;
+import { Complex } from './complex';
 
-    //Foreign Key
-    LocationID : number;
+export class Room {
+    StreetAddress: string;
+    City: string;
+    State: string;
+    ZipCode: string;
+    RoomNumber: string;  
+    NumberOfBeds: number;
+    RoomType: string;
+    IsOccupied: boolean;
+    Amenities: string[];
+    StartDate: Date;
+    EndDate: Date;
+    Complex: Complex;
 }

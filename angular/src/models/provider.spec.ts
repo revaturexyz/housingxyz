@@ -1,7 +1,7 @@
-import { Provider } from './provider';
+// import { Provider } from './provider';
 
-describe('Provider', () => {
-  it('should create an instance', () => {
-    expect(new Provider()).toBeTruthy();
-  });
-});
+// describe('Provider', () => {
+//   it('should create an instance', () => {
+//     expect(new Provider()).toBeTruthy();
+//   });
+// });
