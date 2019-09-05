@@ -4,99 +4,45 @@ import { Room } from '../../models/room';
 import { Amenity} from '../../models/amenity';
 import { Observable, of, from } from 'rxjs';
 import { Complex } from 'src/models/complex';
+import { Address } from 'src/models/address';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
-
-    dummyGender: string[] = ["male", "female", "undefined"];
-    dummyAmenity1: Amenity = new Amenity(1, "washer/dryer");
-    dummyAmenity2: Amenity = new Amenity(2, "smart TV");
+    dummyGender: string[] = ['male', 'female', 'undefined'];
+    dummyAmenity1: Amenity = new Amenity(1, 'washer/dryer');
+    dummyAmenity2: Amenity = new Amenity(2, 'smart TV');
     dummmyList: Amenity[] = [this.dummyAmenity1, this.dummyAmenity2];
-
-  constructor(private http : HttpClient) { }
-    room: Room;
-    room2: Room;
+    room: Room = new Room(null, new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
+                            '2210', 2, 'Apartment', false, new Amenity(1, 'Patio'), new Date(), new Date(), 1);
+    room2: Room = new Room(null, new Address(2, '701 S Nedderman Dr', 'Arlington', 'TX', '76019'),
+                            '323', 9001, 'Dorm', true, new Amenity(2, 'Washer/Dryer'), new Date(), new Date(), 2);
+    constructor(private http: HttpClient) { }
     getRoomById(id: number): Observable<Room> {
-        this.room.StreetAddress = '1001 S Center St';
-        this.room.City = 'Arlington';
-        this.room.State = 'TX';
-        this.room.ZipCode = '76010';
-        this.room.RoomNumber = '2210';
-        this.room.NumberOfBeds = 2;
-        this.room.RoomType = 'Apartment';
-        this.room.IsOccupied = false;
-        this.room.Amenities = ['Patio', 'Washer/Dryer'];
-        this.room.StartDate = new Date();
-        this.room.EndDate = new Date();
-        this.room.Complex = new Complex(1, '1001 S Center St', 'Arlington', 'TX', '76010', 'Liv+', '8174978282');
-        console.log(this.room);
         return of(this.room);
     }
-
-    postRoom(obj: Room): Observable<Room>{
-        this.room.StreetAddress = obj.StreetAddress;
-        this.room.City = obj.City;
-        this.room.State = obj.State;
-        this.room.ZipCode = obj.ZipCode;
-        this.room.RoomNumber = obj.RoomNumber;
-        this.room.NumberOfBeds = obj.NumberOfBeds;
-        this.room.RoomType = obj.RoomType;
-        this.room.IsOccupied = obj.IsOccupied;
-        this.room.Amenities = obj.Amenities;
-        this.room.StartDate = obj.StartDate;
-        this.room.EndDate = obj.EndDate;
-        this.room.Complex = obj.Complex;
-        console.log(this.room);
-        return of(this.room);
+    postRoom(obj: Room): Observable<Room> {
+        return of(new Room(obj.RoomID, obj.Address, obj.RoomNumber, obj.NumberOfBeds,
+                            obj.RoomType, obj.IsOccupied, obj.Amenities, obj.StartDate, obj.EndDate, obj.ComplexID));
     }
-
-    getRoomsByProvider(providerId: number): Observable<Room[]>{
-        // return this.http.get<Room[]>("");
-        this.room.StreetAddress = '1001 S Center St';
-        this.room.City = 'Arlington';
-        this.room.State = 'TX';
-        this.room.ZipCode = '76010';
-        this.room.RoomNumber = '2210';
-        this.room.NumberOfBeds = 2;
-        this.room.RoomType = 'Apartment';
-        this.room.IsOccupied = false;
-        this.room.Amenities = ['Patio', 'Washer/Dryer'];
-        this.room.StartDate = new Date();
-        this.room.EndDate = new Date();
-        this.room.Complex = new Complex(1, '1001 S Center St', 'Arlington', 'TX', '76010', 'Liv+', '8174978282');
-        this.room2.StreetAddress = '701 S Nedderman Dr';
-        this.room2.City = 'Arlington';
-        this.room2.State = 'TX';
-        this.room2.ZipCode = '76019';
-        this.room2.RoomNumber = '323';
-        this.room2.NumberOfBeds = 9001;
-        this.room2.RoomType = 'Dorm';
-        this.room2.IsOccupied = true;
-        this.room2.Amenities = ['classrooms', 'dining hall', 'students'];
-        this.room2.StartDate = new Date();
-        this.room2.EndDate = new Date();
-        this.room2.Complex = new Complex(1, '1001 S Center St', 'Arlington', 'TX', '76010', 'Liv+', '8174978282');
+    getRoomsByProvider(providerId: number): Observable<Room[]> {
         return of([this.room, this.room2]);
     }
-
-    getRoomTypes(): Observable<string[]>{
-        return this.http.get<string[]>("");
+    getRoomTypes(): Observable<string[]> {
+        return of(['Apartment', 'Dorm']);
     }
-
-    getGenders(): Observable<string[]>{
-        var simpleObservable = new Observable<string[]>((sub) => {
-            var GenderList : string[] = this.dummyGender;
+    getGenders(): Observable<string[]> {
+        const simpleObservable = new Observable<string[]>((sub) => {
+            const GenderList: string[] = this.dummyGender;
             sub.next(GenderList);
             sub.complete();
           });
         return simpleObservable;
     }
-    
-    getAmenities(): Observable<Amenity[]>{
-        var simpleObservable = new Observable<Amenity[]>((sub) => {
-            var GenderList : Amenity[] = this.dummmyList;
+    getAmenities(): Observable<Amenity[]> {
+        const simpleObservable = new Observable<Amenity[]>((sub) => {
+            const GenderList: Amenity[] = this.dummmyList;
             sub.complete();
           });
         return simpleObservable;
