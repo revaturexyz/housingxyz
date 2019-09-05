@@ -31,7 +31,7 @@ export class RoomService {
         this.room.Amenities = ['Patio', 'Washer/Dryer'];
         this.room.StartDate = new Date();
         this.room.EndDate = new Date();
-        this.room.Complex = new Complex();
+        this.room.Complex = new Complex(1, '1001 S Center St', 'Arlington', 'TX', '76010', 'Liv+', '8174978282');
         console.log(this.room);
         return of(this.room);
     }
@@ -66,7 +66,7 @@ export class RoomService {
         this.room.Amenities = ['Patio', 'Washer/Dryer'];
         this.room.StartDate = new Date();
         this.room.EndDate = new Date();
-        this.room.Complex = new Complex();
+        this.room.Complex = new Complex(1, '1001 S Center St', 'Arlington', 'TX', '76010', 'Liv+', '8174978282');
         this.room2.StreetAddress = '701 S Nedderman Dr';
         this.room2.City = 'Arlington';
         this.room2.State = 'TX';
@@ -78,7 +78,7 @@ export class RoomService {
         this.room2.Amenities = ['classrooms', 'dining hall', 'students'];
         this.room2.StartDate = new Date();
         this.room2.EndDate = new Date();
-        this.room2.Complex = new Complex();
+        this.room2.Complex = new Complex(1, '1001 S Center St', 'Arlington', 'TX', '76010', 'Liv+', '8174978282');
         return of([this.room, this.room2]);
     }
 
