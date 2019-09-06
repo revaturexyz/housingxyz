@@ -9,10 +9,9 @@
 
                 <div class="col">
                     <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Complex Information</button>
+                        <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{complexShowString}}</button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <input type="text" ngbDropdownItem value="Complex Name">
-                            <input type="text" ngbDropdownItem value="Phone Number">
+                          <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{ complex.ComplexName }}</button>
                         </div>
                     </div>
                 </div> 
