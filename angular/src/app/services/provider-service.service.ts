@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Provider } from 'src/models/Provider';
+import { Provider } from 'src/models/provider';
 import { HttpClient } from '@angular/common/http';
 import { Trainingcenter } from 'src/models/trainingcenter';
 import { Observable } from 'rxjs';
