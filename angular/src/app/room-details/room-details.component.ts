@@ -11,6 +11,7 @@ export class RoomDetailsComponent implements OnInit {
   constructor() { }
 
   @Input () room: Room;
+  @Input () selected: boolean = false;
 
   ngOnInit() {
   }

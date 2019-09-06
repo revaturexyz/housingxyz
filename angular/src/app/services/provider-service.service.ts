@@ -33,7 +33,7 @@ export class ProviderServiceService {
     return simpleObservable;
   }
 
-  getProviderById(id: number): Observable<Provider>{
+  getProviderById(id: number): Observable<Provider> {
     const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
       sub.next(this.dummyProv);

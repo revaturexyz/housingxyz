@@ -16,20 +16,24 @@ export class UpdateRoomComponent implements OnInit {
   activeComplex: Complex;
   roomList: Room[];
   complexRooms: Room[];
+  mouseOverRoom: Room;
+  selectedRoom: Room;
+  editing: boolean = false;
+  showString = 'Choose Complex';
+  highlightRoom: Room;
+  
 
   complexObs: Observer<Complex[]> = {
-    next: x => {console.log('Observer got a next value.'); this.complexList = x},
+    next: x => {console.log('Observer got a next value.'); this.complexList = x; },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
 
   roomsObs: Observer<Room[]> = {
-    next: x => {console.log('Observer got a next value.'); this.roomList = x},
+    next: x => {console.log('Observer got a next value.'); this.roomList = x; },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
-
-  showString: string = 'Choose Complex';
 
   constructor(private providerService: ProviderServiceService, private roomService: RoomService) { }
 
@@ -40,8 +44,24 @@ export class UpdateRoomComponent implements OnInit {
 
   complexChoose(complex: Complex) {
     this.showString = complex.ComplexName;
+    this.selectedRoom = null;
     this.activeComplex = complex;
     // console.log(this.roomList);
-    this.complexRooms = this.roomList.filter(r => r.ComplexID == this.activeComplex.ComplexId);
+    this.complexRooms = this.roomList.filter(r => r.ComplexID === this.activeComplex.ComplexId);
+  }
+  mouseOn(r: Room) {
+    this.mouseOverRoom = r;
+  }
+
+  mouseOff() {
+    this.mouseOverRoom = null;
+  }
+
+  select(r: Room) {
+    this.selectedRoom = new Room(r.RoomID, r.Address, r.RoomNumber, r.NumberOfBeds, r.RoomType, r.IsOccupied, r.Amenities, r.StartDate, r.EndDate, r.ComplexID);
+    this.highlightRoom = r;
+  }
+  startEdit() {
+    this.editing = true;
   }
 }
