@@ -74,7 +74,18 @@ module.exports = "<p>login works!</p>\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"nav-bar\">\r\n    <div class=\"revlogo\">\r\n        <img routerLink=\"/\" alt=\"logo\" src=\"https://revature.com/wp-content/uploads/2017/12/revature-logo-600x219.png\" height=\"75px\">\r\n</div>\r\n    <div class=\"menubar\">\r\n        <ul>\r\n            <li><a href=\"#\">Show All</a></li>\r\n            <li><a href=\"#\">Show by Location</a></li>\r\n            <li><a href=\"https://revature.com/our-story/\">About Us</a></li>\r\n            <li>\r\n                <i id=\"icon-user\" class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                <a id=\"btn-login\" routerLink=\"./login\" >Log in</a>\r\n            </li>        \r\n        </ul>\r\n    </div>  \r\n</div>\r\n"
+module.exports = "\r\n<div class=\"nav-bar\">\r\n    <div class=\"revlogo\">\r\n        <img routerLink=\"/\" alt=\"logo\" src=\"https://revature.com/wp-content/uploads/2017/12/revature-logo-600x219.png\" height=\"75px\">\r\n</div>\r\n    <div class=\"menubar\">\r\n        <ul>\r\n            <li><a href=\"#\">Show All</a></li>\r\n            <li><a href=\"#\">Show by Location</a></li>\r\n            <li><a routerLink=\"show-rooms\">Show Rooms</a></li>\r\n            <li><a href=\"https://revature.com/our-story/\">About Us</a></li>\r\n            <li>\r\n                <i id=\"icon-user\" class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                <a id=\"btn-login\" routerLink=\"./login\" >Log in</a>\r\n            </li>        \r\n        </ul>\r\n    </div>  \r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/room-details/room-details.component.html":
+/*!************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/room-details/room-details.component.html ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<th scope=\"col\" style=\"text-align: center\">{{room.RoomID}}</th>\r\n<td scope=\"col\" style=\"text-align: center\">{{room.RoomNumber}}</td>\r\n<td scope=\"col\" style=\"text-align: center\">{{room.RoomType}}</td>\r\n<td scope=\"col\" style=\"text-align: center\">{{room.IsOccupied}}</td>\r\n<td scope=\"col\" style=\"text-align: center\">{{room.StartDate}}</td>\r\n<td scope=\"col\" style=\"text-align: center\">{{room.EndDate}}</td>\r\n"
 
 /***/ }),
 
@@ -86,6 +97,17 @@ module.exports = "\r\n<div class=\"nav-bar\">\r\n    <div class=\"revlogo\">\r\n
 /***/ (function(module, exports) {
 
 module.exports = "\r\n<div class=\"show-head\">\r\n    <h1>Display All Rooms By Location</h1>\r\n    <button [disabled]=\"locationID==null\" (click)=\"showLocation()\" id=\"btn-addRoom\" >Add New Room</button>\r\n</div>\r\n\r\n<div class=\"show-body\">\r\n\r\n    <div class=\"nav-bar\" ngStickyNav>\r\n        <select class=\"dropdown\" >\r\n            <option disabled selected >Select a location</option>\r\n            <option id=\"id\" *ngFor=\"let location of locationList;\" (click)=\"selectOption(location.locationID)\">{{location.address}}, {{location.city}}, {{location.state}} {{location.zipCode}}</option>\r\n        </select>\r\n    </div>\r\n        \r\n\r\n    <div class=\"room-rooms\">\r\n        <div class=\"room-card\" *ngFor=\"let room of roomList;\">\r\n            <div class=\"room-detail\">\r\n                <span id=\"txt\">Room #:</span> {{room.roomNumber}}<br>\r\n                <span id=\"txt\">Room Type:</span> {{room.type}}<br>\r\n                <span id=\"txt\">Gender:</span> {{room.gender}}<br>\r\n                <span id=\"txt\">Occupancy: </span><strong>{{room.currentOccupancy}}</strong> of <strong>{{room.maxOccupancy}}</strong><br>\r\n                <span id=\"txt\">Start Date:</span> {{room.startDate | date:\"M/d/yy\"}} <br>\r\n                <span id=\"txt\">End Date: </span> {{room.endDate | date:\"M/d/yy\"}}<br>\r\n                <span id=\"txt\">Description: </span><br> <textarea id=\"des\" [ngModel]=\"room.description\" readonly></textarea><br>\r\n                <br>\r\n                <button id=\"btn-update\" (click)=\"updateRoom(room.roomID);\">Edit</button>\r\n                <button id=\"btn-remove\" [routerLink]=\"['/delete-room', room.roomID]\">Unlist</button>\r\n\r\n            </div>                 \r\n        </div>\r\n    </div>\r\n\r\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/update-room/update-room.component.html":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/update-room/update-room.component.html ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<body>\r\n    <div class=\"col\">\r\n        <div ngbDropdown class=\"d-inline-block\">\r\n          <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{showString}}</button>\r\n          <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n            <button ngbDropdownItem (click)=\"complexChoose(complex)\" *ngFor=\"let complex of complexList\">{{complex.ComplexName}}</button>\r\n          </div>\r\n        </div>\r\n    </div>\r\n</body>\r\n<body *ngIf=\"activeComplex\">\r\n  <table class=\"table table-striped\">\r\n    <thead>\r\n      <tr>\r\n        <th scope=\"col\" style=\"text-align: center\">Room Id</th>\r\n        <th scope=\"col\" style=\"text-align: center\">Room Number</th>\r\n        <th scope=\"col\" style=\"text-align: center\">Type</th>\r\n        <th scope=\"col\" style=\"text-align: center\">Status</th>\r\n        <th scope=\"col\" style=\"text-align: center\">Start Date</th>\r\n        <th scope=\"col\" style=\"text-align: center\">End Date</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr *ngFor=\"let r of complexRooms\" app-room-details [room]=\"r\">\r\n        </tr>\r\n      </tbody>\r\n  </table>\r\n</body>\r\n"
 
 /***/ }),
 
@@ -189,6 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _add_location_add_location_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./add-location/add-location.component */ "./src/app/add-location/add-location.component.ts");
 /* harmony import */ var _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./show-by-location/show-by-location.component */ "./src/app/show-by-location/show-by-location.component.ts");
+/* harmony import */ var _update_room_update_room_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./update-room/update-room.component */ "./src/app/update-room/update-room.component.ts");
 
 
 
@@ -198,13 +221,15 @@ __webpack_require__.r(__webpack_exports__);
 
 // import { LocationRoomsComponent } from './location-rooms/location-rooms.component';
 
+
 var routes = [
     { path: "", component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"] },
     //Will redirect users to azure login
     //{ path: "home", component: HomeComponent, canActivate: [AuthenticationGuard] },
     { path: "add-location", component: _add_location_add_location_component__WEBPACK_IMPORTED_MODULE_5__["AddLocationComponent"] },
     { path: "login", component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"] },
-    { path: "show-by-location", component: _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_6__["ShowByLocationComponent"] }
+    { path: "show-by-location", component: _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_6__["ShowByLocationComponent"] },
+    { path: "show-rooms", component: _update_room_update_room_component__WEBPACK_IMPORTED_MODULE_7__["UpdateRoomComponent"] }
     // { path: "location-rooms/:id", component: LocationRoomsComponent }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -313,22 +338,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var src_models_room__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/models/room */ "./src/models/room.ts");
-/* harmony import */ var src_models_provider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/models/provider */ "./src/models/provider.ts");
-/* harmony import */ var src_models_location__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/models/location */ "./src/models/location.ts");
-/* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
-/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ng2-sticky-nav */ "./node_modules/ng2-sticky-nav/dist/index.js");
-/* harmony import */ var ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var microsoft_adal_angular6__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! microsoft-adal-angular6 */ "./node_modules/microsoft-adal-angular6/fesm5/microsoft-adal-angular6.js");
-/* harmony import */ var _add_location_add_location_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./add-location/add-location.component */ "./src/app/add-location/add-location.component.ts");
-/* harmony import */ var _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./show-by-location/show-by-location.component */ "./src/app/show-by-location/show-by-location.component.ts");
-/* harmony import */ var _testing_router_link_directive_stub__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./testing/router-link-directive-stub */ "./src/app/testing/router-link-directive-stub.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var src_models_room__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/models/room */ "./src/models/room.ts");
+/* harmony import */ var src_models_provider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/models/provider */ "./src/models/provider.ts");
+/* harmony import */ var src_models_location__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/models/location */ "./src/models/location.ts");
+/* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ng2-sticky-nav */ "./node_modules/ng2-sticky-nav/dist/index.js");
+/* harmony import */ var ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var microsoft_adal_angular6__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! microsoft-adal-angular6 */ "./node_modules/microsoft-adal-angular6/fesm5/microsoft-adal-angular6.js");
+/* harmony import */ var _add_location_add_location_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./add-location/add-location.component */ "./src/app/add-location/add-location.component.ts");
+/* harmony import */ var _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./show-by-location/show-by-location.component */ "./src/app/show-by-location/show-by-location.component.ts");
+/* harmony import */ var _testing_router_link_directive_stub__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./testing/router-link-directive-stub */ "./src/app/testing/router-link-directive-stub.ts");
+/* harmony import */ var _update_room_update_room_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./update-room/update-room.component */ "./src/app/update-room/update-room.component.ts");
+/* harmony import */ var _room_details_room_details_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./room-details/room-details.component */ "./src/app/room-details/room-details.component.ts");
+
+
+
 
 
 
@@ -353,24 +384,27 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _nav_nav_component__WEBPACK_IMPORTED_MODULE_8__["NavComponent"],
-                _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"],
-                _add_location_add_location_component__WEBPACK_IMPORTED_MODULE_15__["AddLocationComponent"],
-                _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_16__["ShowByLocationComponent"],
-                _testing_router_link_directive_stub__WEBPACK_IMPORTED_MODULE_17__["RouterLinkDirectiveStub"]
+                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+                _nav_nav_component__WEBPACK_IMPORTED_MODULE_9__["NavComponent"],
+                _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"],
+                _add_location_add_location_component__WEBPACK_IMPORTED_MODULE_16__["AddLocationComponent"],
+                _show_by_location_show_by_location_component__WEBPACK_IMPORTED_MODULE_17__["ShowByLocationComponent"],
+                _testing_router_link_directive_stub__WEBPACK_IMPORTED_MODULE_18__["RouterLinkDirectiveStub"],
+                _update_room_update_room_component__WEBPACK_IMPORTED_MODULE_19__["UpdateRoomComponent"],
+                _room_details_room_details_component__WEBPACK_IMPORTED_MODULE_20__["RoomDetailsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"].withConfig({ warnOnNgModelWithFormControl: 'never' }),
-                ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_13__["StickyNavModule"]
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormsModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ReactiveFormsModule"].withConfig({ warnOnNgModelWithFormControl: 'never' }),
+                ng2_sticky_nav__WEBPACK_IMPORTED_MODULE_14__["StickyNavModule"]
             ],
-            providers: [src_models_room__WEBPACK_IMPORTED_MODULE_5__["Room"], src_models_provider__WEBPACK_IMPORTED_MODULE_6__["Provider"], src_models_location__WEBPACK_IMPORTED_MODULE_7__["ProviderLocation"], microsoft_adal_angular6__WEBPACK_IMPORTED_MODULE_14__["AuthenticationGuard"]],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+            providers: [src_models_room__WEBPACK_IMPORTED_MODULE_6__["Room"], src_models_provider__WEBPACK_IMPORTED_MODULE_7__["Provider"], src_models_location__WEBPACK_IMPORTED_MODULE_8__["ProviderLocation"], microsoft_adal_angular6__WEBPACK_IMPORTED_MODULE_15__["AuthenticationGuard"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -541,6 +575,224 @@ var NavComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/room-details/room-details.component.scss":
+/*!**********************************************************!*\
+  !*** ./src/app/room-details/room-details.component.scss ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Jvb20tZGV0YWlscy9yb29tLWRldGFpbHMuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/room-details/room-details.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/room-details/room-details.component.ts ***!
+  \********************************************************/
+/*! exports provided: RoomDetailsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoomDetailsComponent", function() { return RoomDetailsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var RoomDetailsComponent = /** @class */ (function () {
+    function RoomDetailsComponent() {
+    }
+    RoomDetailsComponent.prototype.ngOnInit = function () {
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    ], RoomDetailsComponent.prototype, "room", void 0);
+    RoomDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: '[app-room-details]',
+            template: __webpack_require__(/*! raw-loader!./room-details.component.html */ "./node_modules/raw-loader/index.js!./src/app/room-details/room-details.component.html"),
+            styles: [__webpack_require__(/*! ./room-details.component.scss */ "./src/app/room-details/room-details.component.scss")]
+        })
+    ], RoomDetailsComponent);
+    return RoomDetailsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/provider-service.service.ts":
+/*!******************************************************!*\
+  !*** ./src/app/services/provider-service.service.ts ***!
+  \******************************************************/
+/*! exports provided: ProviderServiceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProviderServiceService", function() { return ProviderServiceService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_models_provider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/models/provider */ "./src/models/provider.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_models_trainingcenter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/models/trainingcenter */ "./src/models/trainingcenter.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_models_complex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/models/complex */ "./src/models/complex.ts");
+/* harmony import */ var src_models_address__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/models/address */ "./src/models/address.ts");
+
+
+
+
+
+
+
+
+var ProviderServiceService = /** @class */ (function () {
+    function ProviderServiceService(httpBus) {
+        this.httpBus = httpBus;
+        this.dummyTrainCenter = new src_models_trainingcenter__WEBPACK_IMPORTED_MODULE_4__["Trainingcenter"]();
+        this.dummyAddress = new src_models_address__WEBPACK_IMPORTED_MODULE_7__["Address"](1, '123 Address St', 'Arlington', 'TX', '12345');
+        this.dummyComplex = new src_models_complex__WEBPACK_IMPORTED_MODULE_6__["Complex"](1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
+        this.dummyComplex2 = new src_models_complex__WEBPACK_IMPORTED_MODULE_6__["Complex"](2, '234 Complex St', 'Arlington', 'TX', '23456', 'Liv- Appartments', '123-123-1234');
+        this.dummyProv = new src_models_provider__WEBPACK_IMPORTED_MODULE_2__["Provider"]('Liv+', '123 Address St', 'Arlington', 'TX', '12345', '123-123-1234', this.dummyTrainCenter);
+    }
+    ProviderServiceService.prototype.getProviders = function () {
+        var _this = this;
+        var simpleObservable = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"](function (sub) {
+            // observable execution
+            var provList = [];
+            provList.push(_this.dummyProv);
+            sub.next(provList);
+            sub.complete();
+        });
+        return simpleObservable;
+    };
+    ProviderServiceService.prototype.getProviderById = function (id) {
+        var _this = this;
+        var simpleObservable = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"](function (sub) {
+            // observable execution
+            sub.next(_this.dummyProv);
+            sub.complete();
+        });
+        return simpleObservable;
+    };
+    ProviderServiceService.prototype.getComplexes = function (id) {
+        var _this = this;
+        var simpleObservable = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"](function (sub) {
+            // observable execution
+            var complexList = [];
+            complexList.push(_this.dummyComplex);
+            complexList.push(_this.dummyComplex2);
+            sub.next(complexList);
+            sub.complete();
+        });
+        return simpleObservable;
+    };
+    ProviderServiceService.prototype.getAddressesByProvider = function (provider) {
+        var _this = this;
+        var simpleObservable = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"](function (sub) {
+            // observable execution
+            var addrList = [];
+            addrList.push(_this.dummyAddress);
+            sub.next(addrList);
+            sub.complete();
+        });
+        return simpleObservable;
+    };
+    ProviderServiceService.ctorParameters = function () { return [
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+    ]; };
+    ProviderServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], ProviderServiceService);
+    return ProviderServiceService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/room.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/services/room.service.ts ***!
+  \******************************************/
+/*! exports provided: RoomService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoomService", function() { return RoomService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _models_room__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../models/room */ "./src/models/room.ts");
+/* harmony import */ var _models_amenity__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models/amenity */ "./src/models/amenity.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_models_address__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/models/address */ "./src/models/address.ts");
+
+
+
+
+
+
+
+var RoomService = /** @class */ (function () {
+    function RoomService(http) {
+        this.http = http;
+        this.dummyGender = ['male', 'female', 'undefined'];
+        this.dummyAmenity1 = new _models_amenity__WEBPACK_IMPORTED_MODULE_4__["Amenity"](1, 'washer/dryer');
+        this.dummyAmenity2 = new _models_amenity__WEBPACK_IMPORTED_MODULE_4__["Amenity"](2, 'smart TV');
+        this.dummmyList = [this.dummyAmenity1, this.dummyAmenity2];
+        this.room = new _models_room__WEBPACK_IMPORTED_MODULE_3__["Room"](null, new src_models_address__WEBPACK_IMPORTED_MODULE_6__["Address"](1, '1001 S Center St', 'Arlington', 'TX', '76010'), '2210', 2, 'Apartment', false, new _models_amenity__WEBPACK_IMPORTED_MODULE_4__["Amenity"](1, 'Patio'), new Date(), new Date(), 1);
+        this.room2 = new _models_room__WEBPACK_IMPORTED_MODULE_3__["Room"](null, new src_models_address__WEBPACK_IMPORTED_MODULE_6__["Address"](2, '701 S Nedderman Dr', 'Arlington', 'TX', '76019'), '323', 9001, 'Dorm', true, new _models_amenity__WEBPACK_IMPORTED_MODULE_4__["Amenity"](2, 'Washer/Dryer'), new Date(), new Date(), 2);
+    }
+    RoomService.prototype.getRoomById = function (id) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(this.room);
+    };
+    RoomService.prototype.postRoom = function (obj) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(new _models_room__WEBPACK_IMPORTED_MODULE_3__["Room"](obj.RoomID, obj.Address, obj.RoomNumber, obj.NumberOfBeds, obj.RoomType, obj.IsOccupied, obj.Amenities, obj.StartDate, obj.EndDate, obj.ComplexID));
+    };
+    RoomService.prototype.getRoomsByProvider = function (providerId) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])([this.room, this.room2]);
+    };
+    RoomService.prototype.getRoomTypes = function () {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(['Apartment', 'Dorm']);
+    };
+    RoomService.prototype.getGenders = function () {
+        var _this = this;
+        var simpleObservable = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"](function (sub) {
+            var GenderList = _this.dummyGender;
+            sub.next(GenderList);
+            sub.complete();
+        });
+        return simpleObservable;
+    };
+    RoomService.prototype.getAmenities = function () {
+        var _this = this;
+        var simpleObservable = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"](function (sub) {
+            var GenderList = _this.dummmyList;
+            sub.complete();
+        });
+        return simpleObservable;
+    };
+    RoomService.ctorParameters = function () { return [
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+    ]; };
+    RoomService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], RoomService);
+    return RoomService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/show-by-location/show-by-location.component.scss":
 /*!******************************************************************!*\
   !*** ./src/app/show-by-location/show-by-location.component.scss ***!
@@ -653,6 +905,81 @@ var RouterLinkDirectiveStub = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/update-room/update-room.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/update-room/update-room.component.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VwZGF0ZS1yb29tL3VwZGF0ZS1yb29tLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/update-room/update-room.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/update-room/update-room.component.ts ***!
+  \******************************************************/
+/*! exports provided: UpdateRoomComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateRoomComponent", function() { return UpdateRoomComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_provider_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/provider-service.service */ "./src/app/services/provider-service.service.ts");
+/* harmony import */ var _services_room_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/room.service */ "./src/app/services/room.service.ts");
+
+
+
+
+var UpdateRoomComponent = /** @class */ (function () {
+    function UpdateRoomComponent(providerService, roomService) {
+        var _this = this;
+        this.providerService = providerService;
+        this.roomService = roomService;
+        this.complexObs = {
+            next: function (x) { console.log('Observer got a next value.'); _this.complexList = x; },
+            error: function (err) { return console.error('Observer got an error: ' + err); },
+            complete: function () { return console.log('Observer got a complete notification'); },
+        };
+        this.roomsObs = {
+            next: function (x) { console.log('Observer got a next value.'); _this.roomList = x; },
+            error: function (err) { return console.error('Observer got an error: ' + err); },
+            complete: function () { return console.log('Observer got a complete notification'); },
+        };
+        this.showString = 'Choose Complex';
+    }
+    UpdateRoomComponent.prototype.ngOnInit = function () {
+        this.providerService.getComplexes(1).subscribe(this.complexObs);
+        this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
+    };
+    UpdateRoomComponent.prototype.complexChoose = function (complex) {
+        var _this = this;
+        this.showString = complex.ComplexName;
+        this.activeComplex = complex;
+        // console.log(this.roomList);
+        this.complexRooms = this.roomList.filter(function (r) { return r.ComplexID == _this.activeComplex.ComplexId; });
+    };
+    UpdateRoomComponent.ctorParameters = function () { return [
+        { type: _services_provider_service_service__WEBPACK_IMPORTED_MODULE_2__["ProviderServiceService"] },
+        { type: _services_room_service__WEBPACK_IMPORTED_MODULE_3__["RoomService"] }
+    ]; };
+    UpdateRoomComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'dev-update-room',
+            template: __webpack_require__(/*! raw-loader!./update-room.component.html */ "./node_modules/raw-loader/index.js!./src/app/update-room/update-room.component.html"),
+            styles: [__webpack_require__(/*! ./update-room.component.scss */ "./src/app/update-room/update-room.component.scss")]
+        })
+    ], UpdateRoomComponent);
+    return UpdateRoomComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/environments/environment.ts":
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
@@ -709,6 +1036,100 @@ if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].produc
 }
 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
     .catch(function (err) { return console.error(err); });
+
+
+/***/ }),
+
+/***/ "./src/models/address.ts":
+/*!*******************************!*\
+  !*** ./src/models/address.ts ***!
+  \*******************************/
+/*! exports provided: Address */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Address", function() { return Address; });
+var Address = /** @class */ (function () {
+    function Address(id, addr, city, state, zip) {
+        this.AddressId = id;
+        this.StreetAddress = addr;
+        this.City = city;
+        this.State = state;
+        this.ZipCode = zip;
+    }
+    Address.ctorParameters = function () { return [
+        { type: Number },
+        { type: String },
+        { type: String },
+        { type: String },
+        { type: String }
+    ]; };
+    return Address;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/models/amenity.ts":
+/*!*******************************!*\
+  !*** ./src/models/amenity.ts ***!
+  \*******************************/
+/*! exports provided: Amenity */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Amenity", function() { return Amenity; });
+var Amenity = /** @class */ (function () {
+    function Amenity(id, amenity) {
+        this.AmenityId = id;
+        this.Amenity = amenity;
+    }
+    Amenity.ctorParameters = function () { return [
+        { type: Number },
+        { type: String }
+    ]; };
+    return Amenity;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/models/complex.ts":
+/*!*******************************!*\
+  !*** ./src/models/complex.ts ***!
+  \*******************************/
+/*! exports provided: Complex */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Complex", function() { return Complex; });
+var Complex = /** @class */ (function () {
+    function Complex(id, addr, city, state, zip, name, num) {
+        this.ComplexId = id;
+        this.StreetAddress = addr;
+        this.City = city;
+        this.State = state;
+        this.ZipCode = zip;
+        this.ComplexName = name;
+        this.ContactNumber = num;
+    }
+    Complex.ctorParameters = function () { return [
+        { type: Number },
+        { type: String },
+        { type: String },
+        { type: String },
+        { type: String },
+        { type: String },
+        { type: String }
+    ]; };
+    return Complex;
+}());
+
 
 
 /***/ }),
@@ -781,9 +1202,35 @@ var Provider = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Room", function() { return Room; });
+/* harmony import */ var _address__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./address */ "./src/models/address.ts");
+/* harmony import */ var _amenity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./amenity */ "./src/models/amenity.ts");
+
+
 var Room = /** @class */ (function () {
-    function Room() {
+    function Room(id, addy, roomNum, numBeds, roomType, isOcc, am, startD, endD, compId) {
+        this.RoomID = id;
+        this.Address = addy;
+        this.RoomNumber = roomNum;
+        this.NumberOfBeds = numBeds;
+        this.RoomType = roomType;
+        this.IsOccupied = isOcc;
+        this.Amenities = am;
+        this.StartDate = startD;
+        this.EndDate = endD;
+        this.ComplexID = compId;
     }
+    Room.ctorParameters = function () { return [
+        { type: Number },
+        { type: _address__WEBPACK_IMPORTED_MODULE_0__["Address"] },
+        { type: String },
+        { type: Number },
+        { type: String },
+        { type: Boolean },
+        { type: _amenity__WEBPACK_IMPORTED_MODULE_1__["Amenity"] },
+        { type: Date },
+        { type: Date },
+        { type: Number }
+    ]; };
     return Room;
 }());
 
