@@ -1,7 +1,7 @@
 #header{
     text-align: center;
 }
-#beds, #Room{
+#beds, #Room, #startdate, #enddate, #checkboxes{
     border: solid;
     border-color: black;
 }
@@ -17,16 +17,8 @@
     padding-left: 10px;
     padding-right: 10px;
 }
-#checkboxes{
-    border: solid;
-    border-color: black;
-}
 #topbutton{
     padding-bottom: 10px;
-}
-#startdate, #enddate{
-    border: solid;
-    border-color: black;
 }
 @media (min-width: 768px) {
     .h-md-100 { height: 100vh; }

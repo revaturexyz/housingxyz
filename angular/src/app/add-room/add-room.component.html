@@ -20,14 +20,28 @@
                 <br>
 
                 <div class="col">
-                        <div ngbDropdown class="d-inline-block">
-                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Street Address</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button ngbDropdownItem>Street Address 1</button>
-                                <button ngbDropdownItem>Street Address 2</button>
-                            </div>
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Street Address</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem>Street Address 1</button>
+                            <button ngbDropdownItem>Street Address 2</button>
                         </div>
-                    </div> 
+                    </div>
+                </div> 
+
+                <br>
+                <button *ngIf="show === false"(click)="addForm()">Add Address</button>
+                <form *ngIf="show === true">
+                    <div>
+                    <label> Street Address: <input type="text"> </label> <br>
+                    <label> City: <input type="text"> </label> <br>
+                    <label> State: <input type="text"> </label> <br>
+                    <label> Zip Code: <input type="text"> </label> <br>
+                    <br>
+                    <button id="button" (click)="back()">cancel</button>
+                    <button id="buton">Submit</button>
+                    </div>
+                </form>
 
             </div>
         </div>
@@ -37,6 +51,7 @@
         <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
             <div class="logoarea pt-5 pb-5">
                 <h1> Add Room </h1>
+                <br>
                 <form>
 
                     <div>
