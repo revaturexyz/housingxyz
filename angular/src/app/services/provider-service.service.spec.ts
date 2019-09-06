@@ -1,12 +1,14 @@
-// import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { ProviderServiceService } from './provider-service.service';
+import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
 
-// import { ProviderServiceService } from './provider-service.service';
+describe('ProviderServiceService', () => {
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule]
+  }).compileComponents());
 
-// describe('ProviderServiceService', () => {
-//   beforeEach(() => TestBed.configureTestingModule({}));
-
-//   it('should be created', () => {
-//     const service: ProviderServiceService = TestBed.get(ProviderServiceService);
-//     expect(service).toBeTruthy();
-//   });
-// });
+  it('should be created', () => {
+    const service: ProviderServiceService = TestBed.get(ProviderServiceService);
+    expect(service).toBeTruthy();
+  });
+});
