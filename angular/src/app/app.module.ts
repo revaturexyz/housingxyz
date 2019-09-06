@@ -18,6 +18,7 @@ import { AddLocationComponent } from './add-location/add-location.component';
 import { ShowByLocationComponent } from './show-by-location/show-by-location.component';
 import { DatePipe, CommonModule } from '@angular/common';
 import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
+import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 
@@ -31,6 +32,7 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
     AddLocationComponent,
     ShowByLocationComponent,
     RouterLinkDirectiveStub,
+    AddRoomComponent,
     UpdateRoomComponent,
     RoomDetailsComponent
   ],

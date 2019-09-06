@@ -13,7 +13,16 @@ import { Address } from 'src/models/address';
 
 export class ProviderServiceService {
 
-  dummyTrainCenter: Trainingcenter = new Trainingcenter();
+  dummyTrainCenter: Trainingcenter = new Trainingcenter(
+    1,
+    "UIC",
+    "123 s. Chicago Ave",
+    "Chicago",
+    "Illinois",
+    "60645",
+    "UIC",
+    "3213213214"
+  );
   dummyAddress: Address = new Address(1, '123 Address St', 'Arlington', 'TX', '12345');
   dummyComplex: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
   dummyComplex2: Complex = new Complex(2, '234 Complex St', 'Arlington', 'TX', '23456', 'Liv- Appartments', '123-123-1234');
