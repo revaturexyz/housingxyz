@@ -11,7 +11,7 @@ import { Address } from 'src/models/address';
   providedIn: 'root'
 })
 
-export class ProviderServiceService {
+export class ProviderService {
 
   dummyTrainCenter: TrainingCenter = new TrainingCenter(
     1,
