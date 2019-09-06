@@ -17,9 +17,16 @@ export class AddRoomComponent implements OnInit {
   show: boolean = false;
   providor:Provider;
   amenities: Amenity[];
+  types: string[];
   
   amenityObs: Observer<Amenity[]> = {
     next: x => {console.log('Observer got a next value.'); this.amenities = x},
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+  };
+
+  typeObs: Observer<string[]> = {
+    next: x => {console.log('Observer got a next value.'); this.types = x},
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
@@ -36,7 +43,7 @@ export class AddRoomComponent implements OnInit {
     this.roomService.getRoomsByProvider(1);
   }
   getRoomTypesOnSubmit() {
-    this.roomService.getRoomTypes();
+    this.roomService.getRoomTypes().subscribe(this.typeObs);
   }
   getGendersOnSubmit() {
     this.roomService.getGenders();
@@ -45,8 +52,9 @@ export class AddRoomComponent implements OnInit {
     this.roomService.getAmenities().subscribe(this.amenityObs);
   }
   ngOnInit() {
+    this.getRoomTypesOnSubmit();
     this.getAmenitiesOnSubmit();
-    console.log(this.amenityObs);
+    console.log(this.types);
   }
 
   addForm(){

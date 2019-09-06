@@ -66,9 +66,7 @@
                         <div ngbDropdown class="d-inline-block">
                             <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button ngbDropdownItem>Dorm </button>
-                                <button ngbDropdownItem>Apartment</button>
-                                <button ngbDropdownItem>Hotel</button>
+                                <button *ngFor="let type of types" ngbDropdownItem>{{type}}</button>
                             </div>
                         </div>
                     </div>  
@@ -76,7 +74,7 @@
                     <br>
                     
                     Amenities:
-                    <fieldset *ngFor="let amenity of amenities; let i=index ; trackBy: trackByFn" id="checkboxes">     
+                    <fieldset *ngFor="let amenity of amenities" id="checkboxes">     
                         <input type="checkbox" name="amenity" value="amenity">{{amenity.Amenity}}<br>   
                     </fieldset> 
 
