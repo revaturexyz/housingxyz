@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../services/room.service';
 import { Room } from 'src/models/room';
-import { ShowByLocationComponent } from '../show-by-location/show-by-location.component';
 import { Complex } from 'src/models/complex';
 import { Observer } from 'rxjs';
 import { ProviderServiceService } from '../services/provider-service.service';
 import { Address } from 'src/models/address';
+import { Provider } from 'src/models/provider';
+import { Amenity } from 'src/models/amenity';
 
 @Component({
   selector: 'dev-add-room',
@@ -23,11 +24,20 @@ export class AddRoomComponent implements OnInit {
   addressList: Address[];
   activeAddress: Address;
   addressShowString: string = "Choose Address";
-  
+
+  providor:Provider;
+  amenities: Amenity[];
+
   constructor(
     private roomService: RoomService,
     private providerService: ProviderServiceService
     ) { }
+  
+  amenityObs: Observer<Amenity[]> = {
+    next: x => {console.log('Observer got a next value.'); this.amenities = x},
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+  };
 
   getRoomByIdOnSubmit() {
     this.roomService.getRoomById(1);
@@ -45,13 +55,15 @@ export class AddRoomComponent implements OnInit {
     this.roomService.getGenders();
   }
   getAmenitiesOnSubmit() {
-    this.roomService.getAmenities();
+    this.roomService.getAmenities().subscribe(this.amenityObs);
   }
   ngOnInit() {
     this.providerService.getComplexes(1).subscribe(this.complexObs);
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
+    this.getAmenitiesOnSubmit();
+    console.log(this.amenityObs);
   }
 
   // An Observer for receiving and prcessing return values
