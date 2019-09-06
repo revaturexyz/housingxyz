@@ -20,7 +20,7 @@ export class RoomService {
         2,
         '',
         false,
-        new Amenity(1, 'Patio'),
+        this.dummyAmenity1,
         new Date(),
         new Date(),
         1
@@ -43,21 +43,8 @@ export class RoomService {
     getRoomById(id: number): Observable<Room> {
         return of(this.room);
     }
-    postRoom(obj: Room): Observable<Room> {
-        return of(
-            new Room(
-                obj.RoomID,
-                obj.Address,
-                obj.RoomNumber,
-                obj.NumberOfBeds,
-                obj.RoomType,
-                obj.IsOccupied,
-                obj.Amenities,
-                obj.StartDate,
-                obj.EndDate,
-                obj.ComplexID
-            )
-        );
+    postRoom(r: Room): Observable<Room> {
+        return of(r);
     }
     getRoomsByProvider(providerId: number): Observable<Room[]> {
         return of([this.room, this.room2]);
