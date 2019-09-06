@@ -9,7 +9,7 @@
 
                 <div class="col">
                     <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{complexShowString}}</button>
+                        <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ complexShowString }}</button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                           <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{ complex.ComplexName }}</button>
                         </div>
@@ -20,10 +20,9 @@
 
                 <div class="col">
                     <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Street Address</button>
+                        <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ addressShowString }}</button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem>Street Address 1</button>
-                            <button ngbDropdownItem>Street Address 2</button>
+                          <button ngbDropdownItem (click)="addressChoose(address)" *ngFor="let address of addressList">{{ address.StreetAddress }}</button>
                         </div>
                     </div>
                 </div> 
