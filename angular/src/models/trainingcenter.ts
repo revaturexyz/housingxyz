@@ -1,4 +1,4 @@
-export class Trainingcenter {
+export class TrainingCenter {
     CenterId: number;
     CompanyName: string;
     StreetAddress: string;

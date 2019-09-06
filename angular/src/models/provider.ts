@@ -1,4 +1,4 @@
-import { Trainingcenter } from './trainingcenter';
+import { TrainingCenter } from './trainingcenter';
 
 export class Provider {
     constructor(
@@ -8,6 +8,6 @@ export class Provider {
         public State: string,
         public ZipCode: string,
         public ContactNumber: string,
-        public TrainingCenter: Trainingcenter
+        public TrainingCenter: TrainingCenter
         ){}
 }

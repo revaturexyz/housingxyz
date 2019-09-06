@@ -1,8 +1,8 @@
-import { Trainingcenter } from './trainingcenter';
+import { TrainingCenter } from './trainingcenter';
 
-describe('Trainingcenter', () => {
+describe('TrainingCenter', () => {
   it('should create an instance', () => {
-    expect(new Trainingcenter(
+    expect(new TrainingCenter(
       1,
       "UTA",
       "1001 s. Center St",
@@ -10,7 +10,7 @@ describe('Trainingcenter', () => {
       "Texas",
       "76010",
       "UTA",
-      "1231231234"))
-      .toBeTruthy();
+      "1231231234"
+    )).toBeTruthy();
   });
 });

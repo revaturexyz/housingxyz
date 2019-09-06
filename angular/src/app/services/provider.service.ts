@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Provider } from 'src/models/provider';
 import { HttpClient } from '@angular/common/http';
-import { Trainingcenter } from 'src/models/trainingcenter';
+import { TrainingCenter } from 'src/models/trainingcenter';
 import { Observable } from 'rxjs';
 import { Complex } from 'src/models/complex';
 import { Address } from 'src/models/address';
@@ -13,7 +13,7 @@ import { Address } from 'src/models/address';
 
 export class ProviderServiceService {
 
-  dummyTrainCenter: Trainingcenter = new Trainingcenter(
+  dummyTrainCenter: TrainingCenter = new TrainingCenter(
     1,
     "UIC",
     "123 s. Chicago Ave",
