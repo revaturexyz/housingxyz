@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../services/room.service';
 import { Room } from 'src/models/room';
 import { ShowByLocationComponent } from '../show-by-location/show-by-location.component';
+import { Amenity } from 'src/models/amenity';
+import { Address } from 'src/models/address';
 
 @Component({
   selector: 'dev-add-room',
@@ -9,15 +11,27 @@ import { ShowByLocationComponent } from '../show-by-location/show-by-location.co
   styleUrls: ['./add-room.component.scss']
 })
 export class AddRoomComponent implements OnInit {
-  room: Room;
+  room: Room = new Room(
+    null,
+    new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
+    '',
+    2,
+    '',
+    false,
+    new Amenity(1, 'washer/dryer'),
+    new Date(),
+    new Date(),
+    1
+  );
   show: boolean = false;
   constructor(private roomService: RoomService) { }
   getRoomByIdOnSubmit() {
     this.roomService.getRoomById(1);
   }
-  /*postRoomOnSubmit() {
+  postRoomOnSubmit() {
+    console.log(this.room);
     this.roomService.postRoom(this.room);
-  }*/
+  }
   getRoomsByProviderOnSubmit() {
     this.roomService.getRoomsByProvider(1);
   }

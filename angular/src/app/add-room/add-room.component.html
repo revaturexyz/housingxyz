@@ -55,22 +55,26 @@
                 <form>
 
                     <div>
-                        <label> Number of Beds 
-                            <input id="beds"type="text"> 
-                        </label>
+                        <label for="room.NumberOfBeds">Number of Beds: </label>
+                        <input type="text" name="room.NumberOfBeds" [(ngModel)]="room.NumberOfBeds">                        
                     </div>
 
                     <br>
 
                     <div class="col">
-                        <div ngbDropdown class="d-inline-block">
+                        <label for="room.RoomType">Room Type: </label>
+                        <select name="room.RoomType" [(ngModel)]="room.RoomType">
+                            <option>Apartment</option>
+                            <option>Dorm</option>
+                        </select>
+                        <!-- <div ngbDropdown class="d-inline-block">
                             <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                 <button ngbDropdownItem>Dorm </button>
                                 <button ngbDropdownItem>Apartment</button>
                                 <button ngbDropdownItem>Hotel</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>  
 
                     <br>
@@ -98,13 +102,12 @@
                     <br>
 
                     <div>
-                        <label> Room Number 
-                            <input id="Room" type="text"> 
-                        </label>
+                        <label for="room.RoomNumber">Room Number: </label>
+                        <input name="room.RoomNumber" type="text" [(ngModel)]="room.RoomNumber">
                     </div>
 
                     <div id="topbutton">
-                        <button id="submit" type="submit">Submit</button>
+                        <button id="submit" type="submit" (click)="postRoomOnSubmit()">Submit</button>
                     </div>
 
                     <div id="bottonbutton">
