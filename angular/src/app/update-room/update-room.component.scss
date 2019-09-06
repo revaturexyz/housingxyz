@@ -1,0 +1,19 @@
+.leftBod {
+    float: left;
+    width: 50%;
+    border: 5px;
+    border-color: red;
+}
+
+.rightBod {
+    float: right;
+    width: 50%;
+    height: 100%;
+    border: 5px;
+    border-color: black;
+}
+
+.centering  {
+    justify-items: center;
+    align-items: center;
+}

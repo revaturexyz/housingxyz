@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 
-import {  of, throwError, Observable } from 'rxjs';
+// import {  of, throwError, Observable } from 'rxjs';
 
-import { mockLocationList, mockRoomList } from '../dummyData';
+// import { mockLocationList, mockRoomList } from '../dummyData';
 
-import { RoomObject, LocationObject } from '../dummyData';
-import { Room } from 'src/models/room';
+// import { RoomObject, LocationObject } from '../dummyData';
+// import { Room } from 'src/models/room';
 
 
 
@@ -13,132 +13,132 @@ import { Room } from 'src/models/room';
 
 
 
-@Injectable()
+// @Injectable()
 
-export class ApiServiceMock {
+// export class ApiServiceMock {
 
-  apiError=false;
+//   apiError=false;
 
-  constructor() { }
+//   constructor() { }
 
 
 
-  setError(){
+//   setError(){
 
-    this.apiError = true;
+//     this.apiError = true;
 
-  }
+//   }
 
-  PostLocationData(obj:any){
+//   PostLocationData(obj:any){
 
-    if(!this.apiError)
+//     if(!this.apiError)
 
-      return of("success");
+//       return of("success");
 
-    else{
+//     else{
 
-      return throwError( new Error("failed") );
+//       return throwError( new Error("failed") );
 
-    }     
+//     }     
 
-  }
+//   }
 
-  postRoomData(obj:any){
+//   postRoomData(obj:any){
 
-    if(!this.apiError)
+//     if(!this.apiError)
 
-      return of("success");
+//       return of("success");
 
-      else{
+//       else{
 
-        return throwError(new Error("failed"));
+//         return throwError(new Error("failed"));
 
-      }
+//       }
 
-  }
+//   }
 
 
 
-  getRoomById(id: number)
+//   getRoomById(id: number)
 
-  {
+//   {
 
-    if(!this.apiError)
+//     if(!this.apiError)
 
-      return of(RoomObject);
+//       return of(RoomObject);
 
-    else{
+//     else{
 
-      return of();
+//       return of();
 
-    }     
+//     }     
 
-  }
+//   }
 
-  getLocationData(){
+//   getLocationData(){
 
-    if(!this.apiError)
+//     if(!this.apiError)
 
 
-      return of(mockLocationList);
+//       return of(mockLocationList);
 
-    else{
+//     else{
 
-      return throwError(new Error("failed") );
+//       return throwError(new Error("failed") );
 
-    }
+//     }
 
-  }
+//   }
 
-  getRoomData(){
+//   getRoomData(){
 
-    if(!this.apiError)
+//     if(!this.apiError)
 
 
-      return of(mockRoomList);
-          else{
+//       return of(mockRoomList);
+//           else{
 
-      return throwError(new Error("failed"));
+//       return throwError(new Error("failed"));
 
-    }
+//     }
 
-  }
+//   }
 
 
 
-  getLocationById(id:number){
+//   getLocationById(id:number){
 
-    if(!this.apiError)
+//     if(!this.apiError)
 
-      return of(LocationObject);
+//       return of(LocationObject);
 
-    else
+//     else
 
-      return of();
+//       return of();
 
-  }
+//   }
 
 
 
-  deleteRoom(id:number){
+//   deleteRoom(id:number){
 
-    return of();
+//     return of();
 
-  }
+//   }
 
-  updateRoomData(room: any){
-    return of();
-  }
+//   updateRoomData(room: any){
+//     return of();
+//   }
 
-  getRoomsByLocationId(id:number){
-    if(!this.apiError)
-      return of(mockRoomList);
-    else
-      return of();
-  }
+//   getRoomsByLocationId(id:number){
+//     if(!this.apiError)
+//       return of(mockRoomList);
+//     else
+//       return of();
+//   }
 
  
 
 
 
-}
+// }

@@ -9,8 +9,8 @@ import { ProviderLocation } from 'src/models/location';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { MsAdalAngular6Module,AuthenticationGuard } from 'microsoft-adal-angular6';
 import { environment } from '../environments/environment';
@@ -19,6 +19,8 @@ import { ShowByLocationComponent } from './show-by-location/show-by-location.com
 import { DatePipe, CommonModule } from '@angular/common';
 import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
 import { AddRoomComponent } from './add-room/add-room.component';
+import { UpdateRoomComponent } from './update-room/update-room.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { AddRoomComponent } from './add-room/add-room.component';
     AddLocationComponent,
     ShowByLocationComponent,
     RouterLinkDirectiveStub,
-    AddRoomComponent
+    AddRoomComponent,
+    UpdateRoomComponent,
+    RoomDetailsComponent
   ],
   imports: [
     BrowserModule,

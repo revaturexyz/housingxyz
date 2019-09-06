@@ -7,6 +7,7 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { AddLocationComponent } from './add-location/add-location.component';
 // import { LocationRoomsComponent } from './location-rooms/location-rooms.component';
 import { ShowByLocationComponent } from './show-by-location/show-by-location.component';
+import { UpdateRoomComponent } from './update-room/update-room.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: "add-location", component: AddLocationComponent},
   { path: "login", component: LoginComponent },
   { path: "addroom", component: AddRoomComponent},
-  { path: "show-by-location", component: ShowByLocationComponent}
+  { path: "show-by-location", component: ShowByLocationComponent},
+  { path: "show-rooms", component: UpdateRoomComponent}
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
 ];
 
