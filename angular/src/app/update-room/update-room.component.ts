@@ -38,7 +38,7 @@ export class UpdateRoomComponent implements OnInit {
     this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
   }
 
-  complexChoose(complex: Complex){
+  complexChoose(complex: Complex) {
     this.showString = complex.ComplexName;
     this.activeComplex = complex;
     // console.log(this.roomList);
