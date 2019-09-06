@@ -16,9 +16,9 @@ export class RoomService {
     room: Room = new Room(
         null,
         new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
-        '2210',
+        '',
         2,
-        'Apartment',
+        '',
         false,
         new Amenity(1, 'Patio'),
         new Date(),
@@ -37,6 +37,8 @@ export class RoomService {
         new Date(),
         2
     );
+    postToRoom: Room;
+    postAddress: Address;
     constructor(private http: HttpClient) { }
     getRoomById(id: number): Observable<Room> {
         return of(this.room);
