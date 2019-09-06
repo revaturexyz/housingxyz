@@ -6,6 +6,29 @@
                 <h1>Training Center</h1>
                 <p> University of Texas at Arlington</p>
                 <p> (123) 456 - 7890</p>
+
+                <div class="col">
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Complex Information</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <input type="text" ngbDropdownItem value="Complex Name">
+                            <input type="text" ngbDropdownItem value="Phone Number">
+                        </div>
+                    </div>
+                </div> 
+
+                <br>
+
+                <div class="col">
+                        <div ngbDropdown class="d-inline-block">
+                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Street Address</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem>Street Address 1</button>
+                                <button ngbDropdownItem>Street Address 2</button>
+                            </div>
+                        </div>
+                    </div> 
+
             </div>
         </div>
     </div>
@@ -14,68 +37,66 @@
         <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
             <div class="logoarea pt-5 pb-5">
                 <h1> Add Room </h1>
-                <!-- <fieldset> -->
-                    <form>
+                <form>
 
-                        <div>
-                            <label> Number of Beds 
-                                <input id="beds"type="text"> 
-                            </label>
-                        </div>
+                    <div>
+                        <label> Number of Beds 
+                            <input id="beds"type="text"> 
+                        </label>
+                    </div>
 
-                        <br>
+                    <br>
 
-                        <div class="col">
-                            <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                    <button ngbDropdownItem>Dorm </button>
-                                    <button ngbDropdownItem>Apartment</button>
-                                    <button ngbDropdownItem>Hotel</button>
-                                </div>
+                    <div class="col">
+                        <div ngbDropdown class="d-inline-block">
+                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem>Dorm </button>
+                                <button ngbDropdownItem>Apartment</button>
+                                <button ngbDropdownItem>Hotel</button>
                             </div>
-                        </div>  
-
-                        <br>
-
-                        <fieldset>      
-                            <legend>Amenities</legend>      
-                            <input type="checkbox" name="amenity" value="washer/dryer">Washer/Dryer<br>      
-                            <input type="checkbox" name="amenity" value="smart TV">Smart Tv<br>       
-                        </fieldset> 
-
-                        <br>
-
-                        <div>
-                            Start Date:
-                            <input id="startdate" type="date" name="StartDate">
                         </div>
+                    </div>  
 
-                        <br>
+                    <br>
+                    
+                    Amenities:
+                    <fieldset id="checkboxes">     
+                        <input type="checkbox" name="amenity" value="washer/dryer">Washer/Dryer<br>      
+                        <input type="checkbox" name="amenity" value="smart TV">Smart Tv<br>       
+                    </fieldset> 
 
-                        <div>
-                            End Date:
-                            <input id="enddate" type="date" name="EndDate">
-                        </div>
+                    <br>
 
-                        <br>
+                    <div>
+                        Start Date:
+                        <input id="startdate" type="date" name="StartDate">
+                    </div>
 
-                        <div>
-                            <label> Room Number 
-                                <input id="Room" type="text"> 
-                            </label>
-                        </div>
+                    <br>
 
-                        <div id="topbutton">
-                            <button id="submit" type="submit">Submit</button>
-                        </div>
+                    <div>
+                        End Date:
+                        <input id="enddate" type="date" name="EndDate">
+                    </div>
 
-                        <div id="bottonbutton">
-                            <button id="cancel" type="button">Cancel</button>
-                        </div>
+                    <br>
 
-                    </form> 
-               <!-- </fieldset> -->
+                    <div>
+                        <label> Room Number 
+                            <input id="Room" type="text"> 
+                        </label>
+                    </div>
+
+                    <div id="topbutton">
+                        <button id="submit" type="submit">Submit</button>
+                    </div>
+
+                    <div id="bottonbutton">
+                        <button id="cancel" type="button">Cancel</button>
+                    </div>
+
+                </form> 
             </div>
         </div>
     </div>     
