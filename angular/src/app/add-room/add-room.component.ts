@@ -13,8 +13,20 @@ import { Amenity } from 'src/models/amenity';
   templateUrl: './add-room.component.html',
   styleUrls: ['./add-room.component.scss']
 })
+
 export class AddRoomComponent implements OnInit {
-  room: Room;
+  room: Room = new Room(
+    null,
+    new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
+    '',
+    2,
+    '',
+    false,
+    new Amenity(1, 'washer/dryer'),
+    new Date(),
+    new Date(),
+    1
+  );
   show: boolean = false;
 
   complexList: Complex[];
@@ -42,9 +54,10 @@ export class AddRoomComponent implements OnInit {
   getRoomByIdOnSubmit() {
     this.roomService.getRoomById(1);
   }
-  /*postRoomOnSubmit() {
+  postRoomOnSubmit() {
+    console.log(this.room);
     this.roomService.postRoom(this.room);
-  }*/
+  }
   getRoomsByProviderOnSubmit() {
     this.roomService.getRoomsByProvider(1);
   }
