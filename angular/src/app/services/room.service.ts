@@ -62,7 +62,8 @@ export class RoomService {
     }
     getAmenities(): Observable<Amenity[]> {
         const simpleObservable = new Observable<Amenity[]>((sub) => {
-            const GenderList: Amenity[] = this.dummmyList;
+            const AList: Amenity[] = this.dummmyList;
+            sub.next(AList);
             sub.complete();
         });
         return simpleObservable;

@@ -80,9 +80,8 @@
                     <br>
                     
                     Amenities:
-                    <fieldset id="checkboxes">     
-                        <input type="checkbox" name="amenity" value="washer/dryer">Washer/Dryer<br>      
-                        <input type="checkbox" name="amenity" value="smart TV">Smart Tv<br>       
+                    <fieldset *ngFor="let amenity of amenities; let i=index ; trackBy: trackByFn" id="checkboxes">     
+                        <input type="checkbox" name="amenity" value="amenity">{{amenity.Amenity}}<br>   
                     </fieldset> 
 
                     <br>
