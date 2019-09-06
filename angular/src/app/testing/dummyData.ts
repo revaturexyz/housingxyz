@@ -250,20 +250,16 @@ import { Amenity } from 'src/models/amenity';
 
 
 
-<<<<<<< HEAD
-const room1 = new MockRoom(null,
-    new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
-    '2210',
-    2,
-    'Apartment',
-    false,
-    new Amenity(1, 'Patio'),
-    new Date(),
-    new Date(),
-    1);
-=======
-// const room1 = new MockRoom();
->>>>>>> addroom
+// const room1 = new MockRoom(null,
+//     new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
+//     '2210',
+//     2,
+//     'Apartment',
+//     false,
+//     new Amenity(1, 'Patio'),
+//     new Date(),
+//     new Date(),
+//     1);
 
 // const room2= {
 
