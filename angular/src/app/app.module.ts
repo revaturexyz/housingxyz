@@ -32,12 +32,9 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
     AddLocationComponent,
     ShowByLocationComponent,
     RouterLinkDirectiveStub,
-<<<<<<< HEAD
-    AddRoomComponent
-=======
+    AddRoomComponent,
     UpdateRoomComponent,
     RoomDetailsComponent
->>>>>>> addroom
   ],
   imports: [
     BrowserModule,
