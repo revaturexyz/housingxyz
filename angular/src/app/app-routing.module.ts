@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AddLocationComponent } from './add-location/add-location.component';
 // import { LocationRoomsComponent } from './location-rooms/location-rooms.component';
 import { ShowByLocationComponent } from './show-by-location/show-by-location.component';
+import { UpdateRoomComponent } from './update-room/update-room.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   //{ path: "home", component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: "add-location", component: AddLocationComponent},
   { path: "login", component: LoginComponent },
-  { path: "show-by-location", component: ShowByLocationComponent}
+  { path: "show-by-location", component: ShowByLocationComponent},
+  { path: "show-rooms", component: UpdateRoomComponent}
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
 ];
 
