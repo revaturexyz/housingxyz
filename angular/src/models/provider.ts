@@ -8,6 +8,6 @@ export class Provider {
         public State: string,
         public ZipCode: string,
         public ContactNumber: string,
-        public TrainingCenter: TrainingCenter
-        ){}
+        public ProviderTrainingCenter: TrainingCenter
+    ) { }
 }

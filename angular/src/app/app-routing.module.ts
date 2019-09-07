@@ -9,9 +9,7 @@ import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
-
   { path: "", component: HomeComponent },
-  //Will redirect users to azure login
   { path: "show-rooms", component: UpdateRoomComponent },
   //{ path: "home", component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: "login", component: LoginComponent },

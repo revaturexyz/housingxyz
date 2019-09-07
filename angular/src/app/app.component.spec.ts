@@ -7,15 +7,15 @@ import { By } from '@angular/platform-browser';
 
 
 @Component({
-  selector: 'app-nav',
+  selector: 'dev-nav',
   template: '<p ngClass="testing">Mock app-nav Component</p>'
 })
 class MockNavComponent {}
 
 describe('AppComponent', () => {
-  let fixture : ComponentFixture<AppComponent>;
-  let app :any;
-  let compiled :any;
+  let fixture: ComponentFixture<AppComponent>;
+  let app: any;
+  let compiled: any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -33,10 +33,8 @@ describe('AppComponent', () => {
     app = fixture.componentInstance;
     fixture.detectChanges();
     compiled = fixture.debugElement.nativeElement;
-
-
-
   });
+
   it('should create the app', () => {
     expect(app).toBeTruthy();
   });
@@ -45,7 +43,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('housingxyz');
   });
 
-  it('should render child component app-nav',()=>{
+  it('should render child component app-nav', () => {
     expect(fixture.debugElement.query(By.css('.testing')).nativeElement.textContent).toContain('Mock app-nav Component');
-  })
+  });
 });
