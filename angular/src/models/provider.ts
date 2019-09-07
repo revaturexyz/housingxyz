@@ -1,9 +1,13 @@
-export class Provider {
+import { Trainingcenter } from './trainingcenter';
 
-    //Primary Key
-    ProviderID : number;
-    FirstName : string;
-    LastName : string;
-    PhoneNumber : string;
-    Email : string;
+export class Provider {
+    constructor(
+        public CompanyName: string,
+        public StreetAddress: string,
+        public City: string,
+        public State: string,
+        public ZipCode: string,
+        public ContactNumber: string,
+        public TrainingCenter: Trainingcenter
+        ){}
 }
