@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Complex } from 'src/models/complex';
+import { Complex } from 'src/interfaces/complex';
 import { ProviderService } from '../services/provider.service';
 import { Observer } from 'rxjs';
-import { Room } from 'src/models/room';
+import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
 
 @Component({
@@ -39,9 +39,9 @@ export class UpdateRoomComponent implements OnInit {
   }
 
   complexChoose(complex: Complex) {
-    this.showString = complex.ComplexName;
+    this.showString = complex.complexName;
     this.activeComplex = complex;
     // console.log(this.roomList);
-    this.complexRooms = this.roomList.filter(r => r.ComplexID == this.activeComplex.ComplexId);
+    this.complexRooms = this.roomList.filter(r => r.complexID == this.activeComplex.complexId);
   }
 }
