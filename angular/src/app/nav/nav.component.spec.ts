@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavComponent } from './nav.component';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NavComponent', () => {
   let component: NavComponent;
@@ -14,7 +14,7 @@ describe('NavComponent', () => {
         NavComponent
       ],
       providers: [
-        { provide: Router }
+        { provide: RouterTestingModule }
       ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(NavComponent);
