@@ -5,7 +5,7 @@ import { TrainingCenter } from 'src/models/trainingcenter';
 import { Observable } from 'rxjs';
 import { Complex } from 'src/models/complex';
 import { Address } from 'src/models/address';
-
+import { TestServiceData } from './static-test-data';
 
 @Injectable({
   providedIn: 'root'
@@ -13,29 +13,13 @@ import { Address } from 'src/models/address';
 
 export class ProviderService {
 
-  dummyTrainCenter: TrainingCenter = new TrainingCenter(
-    1,
-    "UIC",
-    "123 s. Chicago Ave",
-    "Chicago",
-    "Illinois",
-    "60645",
-    "UIC",
-    "3213213214"
-  );
-  dummyAddress: Address = new Address(1, '123 Address St', 'Arlington', 'TX', '12345');
-  dummyComplex: Complex = new Complex(1, '123 Complex St', 'Arlington', 'TX', '12345', 'Liv+ Appartments', '123-123-1234');
-  dummyComplex2: Complex = new Complex(2, '234 Complex St', 'Arlington', 'TX', '23456', 'Liv- Appartments', '123-123-1234');
-  dummyProv: Provider = new Provider('Liv+', '123 Address St', 'Arlington', 'TX', '12345', '123-123-1234', this.dummyTrainCenter);
-
   constructor(private httpBus: HttpClient) { }
-
 
   getProviders(): Observable<Provider[]> {
     const simpleObservable = new Observable<Provider[]>((sub) => {
       // observable execution
       const provList: Provider[] = [];
-      provList.push(this.dummyProv);
+      provList.push(TestServiceData.dummyProv);
       sub.next(provList);
       sub.complete();
     });
@@ -45,7 +29,7 @@ export class ProviderService {
   getProviderById(id: number): Observable<Provider>{
     const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
-      sub.next(this.dummyProv);
+      sub.next(TestServiceData.dummyProv);
       sub.complete();
     });
     return simpleObservable;
@@ -55,8 +39,8 @@ export class ProviderService {
     const simpleObservable = new Observable<Complex[]>((sub) => {
       // observable execution
       const complexList: Complex[] = [];
-      complexList.push(this.dummyComplex);
-      complexList.push(this.dummyComplex2);
+      complexList.push(TestServiceData.dummyComplex);
+      complexList.push(TestServiceData.dummyComplex2);
       sub.next(complexList);
       sub.complete();
     });
@@ -67,7 +51,7 @@ export class ProviderService {
     const simpleObservable = new Observable<Address[]>((sub) => {
       // observable execution
       const addrList: Address[] = [];
-      addrList.push(this.dummyAddress);
+      addrList.push(TestServiceData.dummyAddress);
       sub.next(addrList);
       sub.complete();
     });
