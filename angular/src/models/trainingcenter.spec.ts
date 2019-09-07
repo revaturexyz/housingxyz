@@ -1,8 +1,8 @@
-import { Trainingcenter } from './trainingcenter';
+import { TrainingCenter } from './trainingcenter';
 
 describe('Trainingcenter', () => {
   it('should create an instance', () => {
-    expect(new Trainingcenter(
+    expect(new TrainingCenter(
       1,
       'UTA',
       '1001 s. Center St',

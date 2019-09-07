@@ -22,10 +22,6 @@ describe('HomeComponent', () => {
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule
-      ],
-      providers: [
-        {
-        }
       ]
     })
     .compileComponents();
