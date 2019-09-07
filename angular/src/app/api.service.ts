@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Room } from 'src/models/room';
+import { Room } from 'src/interfaces/room';
 import { Observable } from 'rxjs';
 import { ProviderLocation } from 'src/models/location';
 
