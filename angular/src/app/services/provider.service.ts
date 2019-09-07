@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Provider } from 'src/models/provider';
+import { Provider } from 'src/interfaces/provider';
 import { HttpClient } from '@angular/common/http';
-import { TrainingCenter } from 'src/models/trainingcenter';
+import { TrainingCenter } from 'src/interfaces/trainingcenter';
 import { Observable } from 'rxjs';
-import { Complex } from 'src/models/complex';
-import { Address } from 'src/models/address';
+import { Complex } from 'src/interfaces/complex';
+import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
 
 @Injectable({

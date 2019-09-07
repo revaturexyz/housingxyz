@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Room } from '../../models/room';
-import { Amenity } from '../../models/amenity';
+import { Room } from '../../interfaces/room';
+import { Amenity } from '../../interfaces/amenity';
 import { Observable, of } from 'rxjs';
-import { Address } from 'src/models/address';
+import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
 
 @Injectable({

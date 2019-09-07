@@ -1,116 +1,131 @@
-import { TrainingCenter } from "src/models/trainingcenter";
-import { Address } from 'src/models/address';
-import { Complex } from 'src/models/complex';
-import { Provider } from 'src/models/provider';
-import { Amenity } from 'src/models/amenity';
-import { Room } from 'src/models/room';
+import { TrainingCenter } from "src/interfaces/trainingcenter";
+import { Address } from 'src/interfaces/address';
+import { Complex } from 'src/interfaces/complex';
+import { Provider } from 'src/interfaces/provider';
+import { Amenity } from 'src/interfaces/amenity';
+import { Room } from 'src/interfaces/room';
 
 export class TestServiceData {
-    static dummyTrainingCenter: TrainingCenter = new TrainingCenter(
-        1,
-        "UIC",
-        "123 s. Chicago Ave",
-        "Chicago",
-        "Illinois",
-        "60645",
-        "UIC",
-        "3213213214"
-    );
+    static dummyTrainingCenter: TrainingCenter = {    
+        centerId: 1,
+        companyName: 'UIC',
+        streetAddress: '123 S. Chicago Ave',
+        city: 'Chicago',
+        state: 'Illinois',
+        zipCode: '60645',
+        centerName: 'UIC',
+        contactNumber: '3213213214'
+    };
       
-    static dummyAddress: Address = new Address(
-        1,
-        '123 Address St',
-        'Arlington',
-        'TX',
-        '12345'
-    );
+    static dummyAddress: Address = {
+        addressId: 1,
+        streetAddress: '123 Address St',
+        city: 'Arlington',
+        state: 'TX',
+        zipCode: '12345'
+    };
 
-    static dummyComplex: Complex = new Complex(
-        1,
-        '123 Complex St',
-        'Arlington',
-        'TX',
-        '12345',
-        'Liv+ Appartments',
-        '123-123-1234'
-    );
+    static dummyComplex: Complex = {
+        complexId: 1,
+        streetAddress: '123 Complex St',
+        city: 'Arlington',
+        state: 'TX',
+        zipCode: '12345',
+        complexName: 'Liv+ Appartments',
+        contactNumber: '123-123-1234'
+    };
 
-    static dummyComplex2: Complex = new Complex(
-        2,
-        '234 Complex St',
-        'Arlington',
-        'TX',
-        '23456',
-        'Liv- Appartments',
-        '123-123-1234'
-    );
+    static dummyComplex2: Complex = {
+        complexId: 2,
+        streetAddress: '234 Complex St',
+        city: 'Arlington',
+        state: 'TX',
+        zipCode: '23456',
+        complexName: 'Liv- Appartments',
+        contactNumber: '123-123-1234'
+    };
 
-    static dummyProv: Provider = new Provider(
-        'Liv+',
-        '123 Address St',
-        'Arlington',
-        'TX',
-        '12345',
-        '123-123-1234',
-        TestServiceData.dummyTrainingCenter
-    );
+    static dummyProv: Provider = {
+        companyName: 'Liv+',
+        streetAddress: '123 Address St',
+        city: 'Arlington',
+        state: 'TX',
+        zipCode: '12345',
+        contactNumber: '123-123-1234',
+        providerTrainingCenter: TestServiceData.dummyTrainingCenter
+    };
 
     static dummyGender: string[] = ['male', 'female', 'undefined'];
 
-    static dummyAmenity1: Amenity = new Amenity(1, 'washer/dryer');
+    static dummyAmenity1: Amenity = {
+        amenityId: 1,
+        amenityString:  'washer/dryer'
+    };
 
-    static dummyAmenity2: Amenity = new Amenity(2, 'smart TV');
+    static dummyAmenity2: Amenity = {
+        amenityId: 2, 
+        amenityString: 'smart TV'
+    };
 
     static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2];
 
-    static room: Room = new Room(
-        null,
-        new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
-        '',
-        2,
-        '',
-        false,
-        TestServiceData.dummyAmenity1,
-        new Date(),
-        new Date(),
-        1
-    );
+    static room: Room = {
+        roomID: 0,
+        roomAddress: TestServiceData.dummyAddress,
+        roomNumber: '',
+        numberOfBeds: 2,
+        roomType: '',
+        isOccupied: false,
+        amenities: TestServiceData.dummyAmenity1,
+        startDate: new Date(),
+        endDate: new Date(),
+        complexID: 1
+    };
 
-    static room2: Room = new Room(
-        null,
-        new Address(2, '701 S Nedderman Dr', 'Arlington', 'TX', '76019'),
-        '323',
-        9001,
-        'Dorm',
-        true,
-        new Amenity(2, 'Washer/Dryer'),
-        new Date(),
-        new Date(),
-        2
-    );
+    static room2: Room = {
+        roomID: 0,
+        roomAddress: {
+            addressId: 2,
+            streetAddress: '701 S Nedderman Dr',
+            city: 'Arlington',
+            state: 'TX',
+            zipCode: '76019'
+        },
+        roomNumber: '323',
+        numberOfBeds: 9001,
+        roomType: 'Dorm',
+        isOccupied: true,
+        amenities: {
+            amenityId: 2,
+            amenityString: 'Washer/Dryer'
+        },
+        startDate: new Date(),
+        endDate: new Date(),
+        complexID: 2
+    };
 
     static postToRoom: Room;
     static postAddress: Address;
 
-    static trainingcenter: TrainingCenter = new TrainingCenter(
-        1,
-        "UTA",
-        "1001 s. Center St",
-        "Arlington",
-        "Texas",
-        "76010",
-        "UTA",
-        "1231231234"
-    );
+    static trainingcenter: TrainingCenter = {
+        centerId: 1,
+        companyName: 'UTA',
+        streetAddress: '1001 S. Center St',
+        city: 'Arlington',
+        state: 'Texas',
+        zipCode: '70610',
+        centerName: 'UTA',
+        contactNumber: '1231231234'
+    };
     
-    static trainingcenter2: TrainingCenter = new TrainingCenter(
-        2,
-        "UIC",
-        "123 s. Chicago Ave",
-        "Chicago",
-        "Illinois",
-        "60645",
-        "UIC",
-        "3213213214"
-    );
+    static trainingcenter2: TrainingCenter = {
+        centerId: 2,
+        companyName: 'UIC',
+        streetAddress: '123 s. Chicago Ave',
+        city: 'Chicago',
+        state: 'Illinois',
+        zipCode: '60645',
+        centerName: 'UIC',
+        contactNumber: '3213213214'
+    };
 }

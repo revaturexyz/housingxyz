@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../services/room.service';
-import { Room } from 'src/models/room';
-import { Complex } from 'src/models/complex';
+import { Room } from 'src/interfaces/room';
+import { Complex } from 'src/interfaces/complex';
 import { Observer } from 'rxjs';
 import { ProviderService } from '../services/provider.service';
-import { Address } from 'src/models/address';
-import { Provider } from 'src/models/provider';
-import { Amenity } from 'src/models/amenity';
+import { Address } from 'src/interfaces/address';
+import { Provider } from 'src/interfaces/provider';
+import { Amenity } from 'src/interfaces/amenity';
 
 @Component({
   selector: 'dev-add-room',
@@ -15,18 +15,27 @@ import { Amenity } from 'src/models/amenity';
 })
 
 export class AddRoomComponent implements OnInit {
-  room: Room = new Room(
-    null,
-    new Address(1, '1001 S Center St', 'Arlington', 'TX', '76010'),
-    '',
-    2,
-    '',
-    false,
-    new Amenity(1, 'washer/dryer'),
-    new Date(),
-    new Date(),
-    1
-  );
+  room: Room = {
+    roomID: 0,
+    roomAddress: {
+      addressId: 1,
+      streetAddress: '1001 S Center St',
+      city: 'Arlington',
+      state: 'TX',
+      zipCode: '76010'
+    },
+    roomNumber: '',
+    numberOfBeds: 2,
+    roomType: '',
+    isOccupied: false,
+    amenities: {
+      amenityId: 1,
+      amenityString: 'washer/dryer'
+    },
+    startDate: new Date(),
+    endDate: new Date(),
+    complexID: 1
+  };
   show: boolean = false;
 
   complexList: Complex[];
@@ -114,14 +123,14 @@ export class AddRoomComponent implements OnInit {
   // Updates selected complex property and display string
   // based on what is selected
   complexChoose(complex: Complex) {
-    this.complexShowString = complex.ComplexName + ' | ' + complex.ContactNumber ;
+    this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
     this.activeComplex = complex;
   }
 
   // Updates selected address property and display string
   // based on what is selected
   addressChoose(address: Address) {
-    this.addressShowString = address.StreetAddress;
+    this.addressShowString = address.streetAddress;
     this.activeAddress = address;
   }
 }
