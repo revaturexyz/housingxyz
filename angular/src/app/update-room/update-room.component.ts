@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Complex } from 'src/models/complex';
-import { ProviderServiceService } from '../services/provider-service.service';
+import { ProviderService } from '../services/provider.service';
 import { Observer } from 'rxjs';
 import { Room } from 'src/models/room';
 import { RoomService } from '../services/room.service';
@@ -31,7 +31,7 @@ export class UpdateRoomComponent implements OnInit {
 
   showString: string = 'Choose Complex';
 
-  constructor(private providerService: ProviderServiceService, private roomService: RoomService) { }
+  constructor(private providerService: ProviderService, private roomService: RoomService) { }
 
   ngOnInit() {
     this.providerService.getComplexes(1).subscribe(this.complexObs);

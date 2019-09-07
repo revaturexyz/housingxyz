@@ -3,7 +3,7 @@ import { RoomService } from '../services/room.service';
 import { Room } from 'src/models/room';
 import { Complex } from 'src/models/complex';
 import { Observer } from 'rxjs';
-import { ProviderServiceService } from '../services/provider-service.service';
+import { ProviderService } from '../services/provider.service';
 import { Address } from 'src/models/address';
 import { Provider } from 'src/models/provider';
 import { Amenity } from 'src/models/amenity';
@@ -55,7 +55,7 @@ export class AddRoomComponent implements OnInit {
 
   constructor(
     private roomService: RoomService,
-    private providerService: ProviderServiceService
+    private providerService: ProviderService
     ) { }
 
   getRoomByIdOnSubmit() {
