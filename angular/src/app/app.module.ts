@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Room } from 'src/models/room';
-import { Provider } from 'src/models/provider';
 import { ProviderLocation } from 'src/models/location';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
@@ -30,7 +28,7 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     StickyNavModule
   ],
-  providers: [Room, Provider, ProviderLocation, ApiService, AuthenticationGuard],
+  providers: [ProviderLocation, ApiService, AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

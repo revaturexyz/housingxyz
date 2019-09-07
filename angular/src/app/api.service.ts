@@ -54,7 +54,7 @@ export class ApiService {
   }
 
   updateRoomData(obj: Room): Observable<void> {
-    return this.http.put<void>(`${this.roomUrl}${obj.RoomID}`, obj, httpOptions);
+    return this.http.put<void>(`${this.roomUrl}${obj.roomID}`, obj, httpOptions);
   }
 
   deleteRoom(id: number): Observable<{}> {

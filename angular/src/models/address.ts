@@ -1,9 +1,7 @@
-export class Address {
-    constructor(
-        public AddressId: number,
-        public StreetAddress: string,
-        public City: string,
-        public State: string,
-        public ZipCode: string
-    ) { }
+export interface Address {
+    addressId: number;
+    streetAddress: string;
+    city: string;
+    state: string;
+    zipCode: string;
 }

@@ -1,6 +1,4 @@
-export class Amenity {
-    constructor(
-        public AmenityId: number,
-        public AmenityString: string
-    ) { }
+export interface Amenity {
+    amenityId: number;
+    amenityString: string;
 }
