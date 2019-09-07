@@ -9,8 +9,8 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ApiService } from './api.service';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
 
@@ -26,7 +26,8 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),//withConfig: remove warning message when using formcontrolname and ngModel
+    // withConfig: remove warning message when using formcontrolname and ngModel
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     StickyNavModule
   ],
   providers: [Room, Provider, ProviderLocation, ApiService, AuthenticationGuard],

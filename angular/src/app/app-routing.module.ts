@@ -7,10 +7,10 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 
-  { path: "", component: HomeComponent},
-  //Will redirect users to azure login
-  //{ path: "home", component: HomeComponent, canActivate: [AuthenticationGuard] },
-  { path: "login", component: LoginComponent }
+  { path: '', component: HomeComponent},
+  // Will redirect users to azure login
+  // { path: "home", component: HomeComponent, canActivate: [AuthenticationGuard] },
+  { path: 'login', component: LoginComponent }
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
 ];
 

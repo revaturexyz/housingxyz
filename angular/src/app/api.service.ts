@@ -18,50 +18,46 @@ const httpOptions = {
 
 export class ApiService {
 
-  private _locationUrl:string="http://localhost:57249/api/locations/";
-  private _RoomUrl:string="http://localhost:57249/api/rooms/";
+  private locationUrl = 'http://localhost:57249/api/locations/';
+  private roomUrl = 'http://localhost:57249/api/rooms/';
 
-  
+  constructor(private http: HttpClient) { }
 
-  constructor(private http : HttpClient) { }
-
-  getLocationData(){
-    return this.http.get(this._locationUrl);
+  getLocationData() {
+    return this.http.get(this.locationUrl);
   }
 
-  getLocationById(id: any){
-    return this.http.get(this._locationUrl+id)
+  getLocationById(id: any) {
+    return this.http.get(this.locationUrl + id);
   }
 
-  getRoomData(){
-    return this.http.get(this._RoomUrl);
-  }
-  
-  getRoomById(id: number)
-  {
-    return this.http.get<Room>(`${this._RoomUrl}${id}`);
+  getRoomData() {
+    return this.http.get(this.roomUrl);
   }
 
-  getRoomsByLocationId(id: number){
-    return this.http.get(this._RoomUrl+"location/"+id)
+  getRoomById(id: number) {
+    return this.http.get<Room>(`${this.roomUrl}${id}`);
   }
 
-  postRoomData(obj: Room): Observable<Room>{
-    return this.http.post<Room>(this._RoomUrl, obj);
+  getRoomsByLocationId(id: number) {
+    return this.http.get(this.roomUrl + 'location/' + id);
+  }
+
+  postRoomData(obj: Room): Observable<Room> {
+    return this.http.post<Room>(this.roomUrl, obj);
   }
 
 
-  PostLocationData(obj: ProviderLocation): Observable<ProviderLocation>{
-  return this.http
-  .post<ProviderLocation>(this._locationUrl, obj
-  );
+  PostLocationData(obj: ProviderLocation): Observable<ProviderLocation> {
+    return this.http
+      .post<ProviderLocation>(this.locationUrl, obj);
   }
 
-  updateRoomData(obj: Room): Observable<void>{
-    return this.http.put<void>(`${this._RoomUrl}${obj.RoomID}`, obj, httpOptions);
+  updateRoomData(obj: Room): Observable<void> {
+    return this.http.put<void>(`${this.roomUrl}${obj.RoomID}`, obj, httpOptions);
   }
 
-  deleteRoom(id: number): Observable<{}>{
-    return this.http.delete(this._RoomUrl+id, httpOptions)
+  deleteRoom(id: number): Observable<{}> {
+    return this.http.delete(this.roomUrl + id, httpOptions);
   }
 }

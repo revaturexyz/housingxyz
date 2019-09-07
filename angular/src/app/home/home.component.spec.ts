@@ -17,14 +17,13 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
-      imports:[
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule
-        
       ],
-      providers:[
+      providers: [
         {
         }
       ]
@@ -37,7 +36,7 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
     // spyOn(component, 'getLocationInfo');
     // spyOn(component, 'getRoomInfo');
-    // component.locationList = mockLocationList[0]; 
+    // component.locationList = mockLocationList[0];
     // spyOn(component, 'ngOnInit');
     fixture.detectChanges();
   });
