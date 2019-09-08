@@ -16,7 +16,7 @@ import { Amenity } from 'src/interfaces/amenity';
 
 export class AddRoomComponent implements OnInit {
   room: Room = {
-    roomID: 0,
+    roomId: 0,
     roomAddress: {
       addressId: 1,
       streetAddress: '1001 S Center St',
@@ -34,7 +34,7 @@ export class AddRoomComponent implements OnInit {
     },
     startDate: new Date(),
     endDate: new Date(),
-    complexID: 1
+    complexId: 1
   };
   show: boolean = false;
 

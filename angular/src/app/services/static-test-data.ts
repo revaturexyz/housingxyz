@@ -70,7 +70,7 @@ export class TestServiceData {
     static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2];
 
     static room: Room = {
-        roomID: 0,
+        roomId: 0,
         roomAddress: TestServiceData.dummyAddress,
         roomNumber: '',
         numberOfBeds: 2,
@@ -79,11 +79,11 @@ export class TestServiceData {
         amenities: TestServiceData.dummyAmenity1,
         startDate: new Date(),
         endDate: new Date(),
-        complexID: 1
+        complexId: 1
     };
 
     static room2: Room = {
-        roomID: 0,
+        roomId: 0,
         roomAddress: {
             addressId: 2,
             streetAddress: '701 S Nedderman Dr',
@@ -101,7 +101,7 @@ export class TestServiceData {
         },
         startDate: new Date(),
         endDate: new Date(),
-        complexID: 2
+        complexId: 2
     };
 
     static postToRoom: Room;
