@@ -1,13 +1,13 @@
 export class ProviderLocation {
 
-    //Primary Key
-    LocationID : number;
-    Address : string;
-    City : string;
-    State : string;
-    Zip : string;
-    TraningCenter : string;
+    //  Primary Key
+    locationId: number;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    traningCenter: string;
 
-    //Foreign Key
-    ProviderID : number;
+    // Foreign Key
+    providerId: number;
 }
