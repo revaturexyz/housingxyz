@@ -1,7 +1,7 @@
 export class ProviderLocation {
 
     //  Primary Key
-    locationID: number;
+    locationId: number;
     address: string;
     city: string;
     state: string;
@@ -9,5 +9,5 @@ export class ProviderLocation {
     traningCenter: string;
 
     // Foreign Key
-    providerID: number;
+    providerId: number;
 }
