@@ -1,25 +1,28 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { RoomDetailsComponent } from './room-details.component';
+import { RoomDetailsComponent } from './room-details.component';
 
-// describe('RoomDetailsComponent', () => {
-//   let component: RoomDetailsComponent;
-//   let fixture: ComponentFixture<RoomDetailsComponent>;
+import { TestServiceData } from '../services/static-test-data';
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ RoomDetailsComponent ]
-//     })
-//     .compileComponents();
-//   }));
+describe('RoomDetailsComponent', () => {
+  let component: RoomDetailsComponent;
+  let fixture: ComponentFixture<RoomDetailsComponent>;
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(RoomDetailsComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ RoomDetailsComponent ]
+    })
+    .compileComponents();
+  }));
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(RoomDetailsComponent);
+    component = fixture.componentInstance;
+    component.room = TestServiceData.room;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
