@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   locationList: object;
   roomList: object;
-  
+
   constructor(private router: Router) { }
 
   updateRoom(id: number) {

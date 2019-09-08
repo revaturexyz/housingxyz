@@ -11,12 +11,13 @@ import { TestServiceData } from './static-test-data';
 })
 export class TrainingcenterService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getTrainingCenters(): Observable<TrainingCenter[]>{
+  getTrainingCenters(): Observable<TrainingCenter[]> {
     return of([TestServiceData.trainingcenter, TestServiceData.trainingcenter2]);
   }
-  getComplexesByTrainingCenter(centerId: number): Observable<TrainingCenter[]>{
+
+  getComplexesByTrainingCenter(centerId: number): Observable<TrainingCenter[]> {
     return of([TestServiceData.trainingcenter, TestServiceData.trainingcenter2]);
   }
 }

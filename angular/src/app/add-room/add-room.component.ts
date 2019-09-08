@@ -36,28 +36,56 @@ export class AddRoomComponent implements OnInit {
     endDate: new Date(),
     complexId: 1
   };
-  show: boolean = false;
+  show = false;
 
   complexList: Complex[];
   activeComplex: Complex;
-  complexShowString: string = "Choose Complex";
+  complexShowString = 'Choose Complex';
 
   addressList: Address[];
   activeAddress: Address;
-  addressShowString: string = "Choose Address";
+  addressShowString = 'Choose Address';
 
-  providor:Provider;
+  providor: Provider;
   amenities: Amenity[];
   types: string[];
 
   amenityObs: Observer<Amenity[]> = {
-    next: x => {console.log('Observer got a next value.'); this.amenities = x},
+    next: x => {
+      console.log('Observer got a next value.');
+      this.amenities = x;
+  },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
 
   typeObs: Observer<string[]> = {
-    next: x => {console.log('Observer got a next value.'); this.types = x},
+    next: x => {
+      console.log('Observer got a next value.');
+      this.types = x;
+    },
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+  };
+
+  // An Observer for receiving and prcessing return values
+  // from the providerService.getComplexes() method
+  complexObs: Observer<Complex[]> = {
+    next: x => {
+      console.log('Observer got a next value.');
+      this.complexList = x;
+    },
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+  };
+
+  // An Observer for receiving and processing return values
+  // from the providerService.getAddressesByProvider() method
+  addressObs: Observer<Address[]> = {
+    next: x => {
+      console.log('Observer got next value.');
+      this.addressList = x;
+    },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
@@ -65,7 +93,7 @@ export class AddRoomComponent implements OnInit {
   constructor(
     private roomService: RoomService,
     private providerService: ProviderService
-    ) { }
+  ) { }
 
   getRoomByIdOnSubmit() {
     this.roomService.getRoomById(1);
@@ -96,27 +124,11 @@ export class AddRoomComponent implements OnInit {
     console.log(this.types);
   }
 
-  // An Observer for receiving and prcessing return values
-  // from the providerService.getComplexes() method
-  complexObs: Observer<Complex[]> = {
-    next: x => {console.log('Observer got a next value.'); this.complexList = x},
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
-  };
-
-  // An Observer for receiving and processing return values
-  // from the providerService.getAddressesByProvider() method
-  addressObs: Observer<Address[]> = {
-    next: x => {console.log('Observer got next value.'); this.addressList = x},
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
-  };
-
-  addForm(){
+  addForm() {
     this.show = true;
   }
-  
-  back(){
+
+  back() {
     this.show = false;
   }
 

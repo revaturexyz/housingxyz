@@ -1,4 +1,4 @@
-import { TrainingCenter } from "src/interfaces/trainingcenter";
+import { TrainingCenter } from 'src/interfaces/trainingcenter';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
 import { Provider } from 'src/interfaces/provider';
@@ -6,7 +6,7 @@ import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
 
 export class TestServiceData {
-    static dummyTrainingCenter: TrainingCenter = {    
+    static dummyTrainingCenter: TrainingCenter = {
         centerId: 1,
         companyName: 'UIC',
         streetAddress: '123 S. Chicago Ave',
@@ -16,7 +16,7 @@ export class TestServiceData {
         centerName: 'UIC',
         contactNumber: '3213213214'
     };
-      
+
     static dummyAddress: Address = {
         addressId: 1,
         streetAddress: '123 Address St',
@@ -63,7 +63,7 @@ export class TestServiceData {
     };
 
     static dummyAmenity2: Amenity = {
-        amenityId: 2, 
+        amenityId: 2,
         amenityString: 'smart TV'
     };
 
@@ -117,7 +117,7 @@ export class TestServiceData {
         centerName: 'UTA',
         contactNumber: '1231231234'
     };
-    
+
     static trainingcenter2: TrainingCenter = {
         centerId: 2,
         companyName: 'UIC',

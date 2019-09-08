@@ -4,11 +4,11 @@ import { HttpClientTestingModule, HttpTestingController  } from '@angular/common
 
 describe('TrainingcenterService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule]
+    imports: [ HttpClientTestingModule ]
   }).compileComponents());
 
   it('should be created', () => {
-    const service:TrainingcenterService = TestBed.get(TrainingcenterService);
+    const service: TrainingcenterService = TestBed.get(TrainingcenterService);
     expect(service).toBeTruthy();
   });
 });

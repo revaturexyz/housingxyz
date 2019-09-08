@@ -8,15 +8,14 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
-import { MsAdalAngular6Module,AuthenticationGuard } from 'microsoft-adal-angular6';
+import { MsAdalAngular6Module, AuthenticationGuard } from 'microsoft-adal-angular6';
 import { environment } from '../environments/environment';
 import { DatePipe, CommonModule } from '@angular/common';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
-
 
 @NgModule({
   declarations: [
@@ -34,7 +33,8 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
     HttpClientModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),//withConfig: remove warning message when using formcontrolname and ngModel
+    // withConfig: remove warning message when using formcontrolname and ngModel
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     StickyNavModule
   ],
   providers: [ ProviderLocation, AuthenticationGuard],

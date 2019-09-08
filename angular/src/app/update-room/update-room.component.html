@@ -18,7 +18,8 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let r of complexRooms" dev-room-details [room]="r">
+        <tr *ngFor="let r of complexRooms">
+          <dev-room-details [room]="r"></dev-room-details>
         </tr>
     </tbody>
   </table>

@@ -18,18 +18,24 @@ export class UpdateRoomComponent implements OnInit {
   complexRooms: Room[];
 
   complexObs: Observer<Complex[]> = {
-    next: x => {console.log('Observer got a next value.'); this.complexList = x},
+    next: x => {
+      console.log('Observer got a next value.');
+      this.complexList = x;
+    },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
 
   roomsObs: Observer<Room[]> = {
-    next: x => {console.log('Observer got a next value.'); this.roomList = x},
+    next: x => {
+      console.log('Observer got a next value.');
+      this.roomList = x;
+    },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
 
-  showString: string = 'Choose Complex';
+  showString = 'Choose Complex';
 
   constructor(private providerService: ProviderService, private roomService: RoomService) { }
 
@@ -42,6 +48,6 @@ export class UpdateRoomComponent implements OnInit {
     this.showString = complex.complexName;
     this.activeComplex = complex;
     // console.log(this.roomList);
-    this.complexRooms = this.roomList.filter(r => r.complexId == this.activeComplex.complexId);
+    this.complexRooms = this.roomList.filter(r => r.complexId === this.activeComplex.complexId);
   }
 }
