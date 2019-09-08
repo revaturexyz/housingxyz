@@ -3,10 +3,11 @@
     <div class="col-md-4 p-0 bg-indigo h-md-100">
         <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
             <div class="logoarea pt-5 pb-5">
-                <h1>Training Center</h1>
-                <p> University of Texas at Arlington</p>
-                <p> (123) 456 - 7890</p>
-
+                <ng-container *ngIf="provider">
+                    <h3>Training Center</h3>
+                    <p> {{ provider.providerTrainingCenter.centerName }}</p>
+                    <p> {{ provider.providerTrainingCenter.contactNumber }}</p>
+                </ng-container>
                 <div class="col">
                     <div ngbDropdown class="d-inline-block">
                         <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ complexShowString }}</button>

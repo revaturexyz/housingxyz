@@ -19,7 +19,7 @@ export class ProviderService {
     const simpleObservable = new Observable<Provider[]>((sub) => {
       // observable execution
       const provList: Provider[] = [];
-      provList.push(TestServiceData.dummyProv);
+      provList.push(TestServiceData.dummyProvider);
       sub.next(provList);
       sub.complete();
     });
@@ -29,7 +29,7 @@ export class ProviderService {
   getProviderById(id: number): Observable<Provider> {
     const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
-      sub.next(TestServiceData.dummyProv);
+      sub.next(TestServiceData.dummyProvider);
       sub.complete();
     });
     return simpleObservable;

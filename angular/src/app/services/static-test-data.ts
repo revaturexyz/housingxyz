@@ -8,12 +8,11 @@ import { Room } from 'src/interfaces/room';
 export class TestServiceData {
     static dummyTrainingCenter: TrainingCenter = {
         centerId: 1,
-        companyName: 'UIC',
         streetAddress: '123 S. Chicago Ave',
         city: 'Chicago',
         state: 'Illinois',
         zipCode: '60645',
-        centerName: 'UIC',
+        centerName: 'UT Arlington',
         contactNumber: '3213213214'
     };
 
@@ -43,16 +42,6 @@ export class TestServiceData {
         zipCode: '23456',
         complexName: 'Liv- Appartments',
         contactNumber: '123-123-1234'
-    };
-
-    static dummyProv: Provider = {
-        companyName: 'Liv+',
-        streetAddress: '123 Address St',
-        city: 'Arlington',
-        state: 'TX',
-        zipCode: '12345',
-        contactNumber: '123-123-1234',
-        providerTrainingCenter: TestServiceData.dummyTrainingCenter
     };
 
     static dummyGender: string[] = ['male', 'female', 'undefined'];
@@ -109,23 +98,31 @@ export class TestServiceData {
 
     static trainingcenter: TrainingCenter = {
         centerId: 1,
-        companyName: 'UTA',
         streetAddress: '1001 S. Center St',
         city: 'Arlington',
         state: 'Texas',
         zipCode: '70610',
-        centerName: 'UTA',
+        centerName: 'UT Arlington',
         contactNumber: '1231231234'
     };
 
     static trainingcenter2: TrainingCenter = {
         centerId: 2,
-        companyName: 'UIC',
         streetAddress: '123 s. Chicago Ave',
         city: 'Chicago',
         state: 'Illinois',
         zipCode: '60645',
         centerName: 'UIC',
         contactNumber: '3213213214'
+    };
+
+    static dummyProvider: Provider = {
+        companyName: 'Liv+',
+        streetAddress: '123 Address St',
+        city: 'Arlington',
+        state: 'TX',
+        zipCode: '12345',
+        contactNumber: '123-123-1234',
+        providerTrainingCenter: TestServiceData.trainingcenter
     };
 }

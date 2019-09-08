@@ -1,6 +1,5 @@
 export interface TrainingCenter {
     centerId: number;
-    companyName: string;
     streetAddress: string;
     city: string;
     state: string;

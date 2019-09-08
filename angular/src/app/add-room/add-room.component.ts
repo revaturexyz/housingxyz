@@ -7,6 +7,7 @@ import { ProviderService } from '../services/provider.service';
 import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'dev-add-room',
@@ -46,7 +47,7 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
-  providor: Provider;
+  provider: Provider;
   amenities: Amenity[];
   types: string[];
 
@@ -54,7 +55,7 @@ export class AddRoomComponent implements OnInit {
     next: x => {
       console.log('Observer got a next value.');
       this.amenities = x;
-  },
+    },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
@@ -119,6 +120,11 @@ export class AddRoomComponent implements OnInit {
     this.getAmenitiesOnSubmit();
     this.providerService.getComplexes(1).subscribe(this.complexObs);
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
+    this.providerService.getProviderById(1).toPromise()
+      .then(
+        provider => this.provider = provider,
+        error => console.log(error)
+      );
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
     console.log(this.types);
