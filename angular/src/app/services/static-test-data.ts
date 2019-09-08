@@ -117,6 +117,7 @@ export class TestServiceData {
     };
 
     static dummyProvider: Provider = {
+        providerId: 1,
         companyName: 'Liv+',
         streetAddress: '123 Address St',
         city: 'Arlington',

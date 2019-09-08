@@ -1,6 +1,7 @@
 import { TrainingCenter } from './trainingcenter';
 
 export interface Provider {
+    providerId: number;
     companyName: string;
     streetAddress: string;
     city: string;
