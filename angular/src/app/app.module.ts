@@ -33,12 +33,11 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgModule,
-    // withConfig: remove warning message when using formcontrolname and ngModel
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    NgbModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),//withConfig: remove warning message when using formcontrolname and ngModel
     StickyNavModule
   ],
-  providers: [ProviderLocation, AuthenticationGuard],
-  bootstrap: [AppComponent]
+  providers: [ ProviderLocation, AuthenticationGuard],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

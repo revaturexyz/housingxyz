@@ -2,7 +2,7 @@
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.ComplexName}}</button>
+            <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
           </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let r of complexRooms" app-room-details [room]="r">
+        <tr *ngFor="let r of complexRooms" dev-room-details [room]="r">
         </tr>
     </tbody>
   </table>

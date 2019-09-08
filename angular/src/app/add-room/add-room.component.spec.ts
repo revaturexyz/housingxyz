@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddRoomComponent } from './add-room.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
@@ -9,7 +10,7 @@ describe('AddRoomComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [ FormsModule, HttpClientTestingModule ],
       declarations: [ AddRoomComponent ]
     })
     .compileComponents();

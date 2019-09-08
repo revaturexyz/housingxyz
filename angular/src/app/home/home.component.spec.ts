@@ -35,11 +35,8 @@ describe('HomeComponent', () => {
     // spyOn(component, 'ngOnInit');
     fixture.detectChanges();
   });
-<<<<<<< HEAD
-=======
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
->>>>>>> refactor-models
 });
