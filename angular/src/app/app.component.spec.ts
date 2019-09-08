@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 
 @Component({
   selector: 'dev-nav',
-  template: '<p ngClass="testing">Mock app-nav Component</p>'
+  template: '<p ngClass="testing">Mock nav Component</p>'
 })
 class MockNavComponent {}
 
@@ -43,7 +43,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('housingxyz');
   });
 
-  it('should render child component app-nav', () => {
-    expect(fixture.debugElement.query(By.css('.testing')).nativeElement.textContent).toContain('Mock app-nav Component');
+  it('should render child nav component', () => {
+    expect(fixture.debugElement.query(By.css('.testing')).nativeElement.textContent).toContain('Mock nav Component');
   });
 });

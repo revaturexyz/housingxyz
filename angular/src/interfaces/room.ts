@@ -2,7 +2,7 @@ import { Address } from './address';
 import { Amenity } from './amenity';
 
 export interface Room {
-    roomID: number;
+    roomId: number;
     roomAddress: Address;
     roomNumber: string;
     numberOfBeds: number;
@@ -11,5 +11,5 @@ export interface Room {
     amenities: Amenity;
     startDate: Date;
     endDate: Date;
-    complexID: number;
+    complexId: number;
 }
