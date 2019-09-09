@@ -34,6 +34,7 @@ export class RoomService {
         return simpleObservable;
     }
     getAmenities(): Observable<Amenity[]> {
+        console.log('get amentities method called.\n')
         const simpleObservable = new Observable<Amenity[]>((sub) => {
             const AList: Amenity[] = TestServiceData.dummmyList;
             sub.next(AList);
