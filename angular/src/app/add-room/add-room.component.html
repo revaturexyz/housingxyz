@@ -32,10 +32,10 @@
                 <button *ngIf="show === false"(click)="addForm()">Add Address</button>
                 <form *ngIf="show === true">
                     <div>
-                    <label> Street Address: <input type="text"> </label> <br>
-                    <label> City: <input type="text"> </label> <br>
-                    <label> State: <input type="text"> </label> <br>
-                    <label> Zip Code: <input type="text"> </label> <br>
+                    <label> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
+                    <label> City: <input type="text" required maxlength="50"> </label> <br>
+                    <label> State: <input type="text" required minlength ="2" maxlength="50"> </label> <br>
+                    <label> Zip Code: <input type="text" pattern="[0-9]{5}"> </label> <br>
                     <br>
                     <button id="button" (click)="back()">cancel</button>
                     <button id="buton">Submit</button>
@@ -54,31 +54,25 @@
                 <form>
 
                     <div>
-                        <label for="room.NumberOfBeds">Number of Beds: </label>
-                        <input type="text" name="room.NumberOfBeds" [(ngModel)]="room.NumberOfBeds">                        
+                        <label for="room.numberOfBeds" >Number of Beds: </label>
+                        <input type="number" required min="1" max="10" name="room.numberOfBeds" [(ngModel)]="room.NumberOfBeds">                        
                     </div>
 
                     <br>
 
                     <div class="col">
-                        <label for="room.RoomType">Room Type: </label>
-                        <select name="room.RoomType" [(ngModel)]="room.RoomType">
+                        <label for="room.roomType" required>Room Type: </label>
+                        <select name="room.roomType" [(ngModel)]="room.roomType">
                             <option>Apartment</option>
                             <option>Dorm</option>
                         </select>
-                        <!-- <div ngbDropdown class="d-inline-block">
-                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button *ngFor="let type of types" ngbDropdownItem>{{type}}</button>
-                            </div>
-                        </div> -->
                     </div>  
 
                     <br>
                     
                     Amenities:
                     <fieldset *ngFor="let amenity of amenities" id="checkboxes">     
-                        <input type="checkbox" name="amenity" value="amenity">{{amenity.Amenity}}<br>   
+                        <input type="checkbox" name="amenity" value="amenity">{{amenity.amenityString}}<br>   
                     </fieldset> 
 
                     <br>
@@ -98,8 +92,8 @@
                     <br>
 
                     <div>
-                        <label for="room.RoomNumber">Room Number: </label>
-                        <input name="room.RoomNumber" type="text" [(ngModel)]="room.RoomNumber">
+                        <label for="room.roomNumber">Room Number: </label>
+                        <input name="room.roomNumber" type="text" required pattern="[A-Za-z0-9\-]+" [(ngModel)]="room.roomNumber">
                     </div>
 
                     <div id="topbutton">

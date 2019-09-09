@@ -128,6 +128,7 @@ export class AddRoomComponent implements OnInit {
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
     console.log(this.types);
+    console.log(this.amenities);
   }
 
   addForm() {
