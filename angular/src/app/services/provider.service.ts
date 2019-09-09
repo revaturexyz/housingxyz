@@ -52,6 +52,7 @@ export class ProviderService {
       // observable execution
       const addrList: Address[] = [];
       addrList.push(TestServiceData.dummyAddress);
+      addrList.push(TestServiceData.livPlusAddress);
       sub.next(addrList);
       sub.complete();
     });

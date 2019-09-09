@@ -24,6 +24,15 @@ export class TestServiceData {
         zipCode: '12345'
     };
 
+    static livPlusAddress: Address = {
+        addressId: 2,
+        streetAddress: '1001 S Center St',
+        city: 'Arlington',
+        state: 'TX', 
+        zipCode: '76010'
+    };
+
+
     static dummyComplex: Complex = {
         complexId: 1,
         streetAddress: '123 Complex St',
