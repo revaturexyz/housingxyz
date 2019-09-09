@@ -16,28 +16,41 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 
 export class AddRoomComponent implements OnInit {
+  amenity1: Amenity = {
+    amenityId: 1,
+    amenityString:  'Washer/Dryer'
+  };
+  amenity2: Amenity = {
+      amenityId: 2,
+      amenityString: 'Smart TV'
+  };
+  amenity3: Amenity = {
+      amenityId: 3,
+      amenityString: 'Patio'
+  };  
   room: Room = {
     roomId: 0,
     roomAddress: {
-      addressId: 1,
-      streetAddress: '1001 S Center St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '76010'
+      addressId: 0,
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: ''
     },
     roomNumber: '',
     numberOfBeds: 2,
     roomType: '',
     isOccupied: false,
-    amenities: {
-      amenityId: 1,
-      amenityString: 'washer/dryer'
-    },
+    amenities: [this.amenity1, this.amenity2, this.amenity3],
     startDate: new Date(),
     endDate: new Date(),
     complexId: 1
   };
+
   show = false;
+  provider: Provider;
+  types: string[];
+  amenities: Amenity[];
 
   complexList: Complex[];
   activeComplex: Complex;
@@ -47,14 +60,11 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
-  provider: Provider;
-  amenities: Amenity[];
-  types: string[];
-
   amenityObs: Observer<Amenity[]> = {
     next: x => {
-      console.log('Observer got a next value.');
+      console.log('Observer got an amenity value.\n');
       this.amenities = x;
+      console.log(this.amenities);
     },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
@@ -84,7 +94,8 @@ export class AddRoomComponent implements OnInit {
   // from the providerService.getAddressesByProvider() method
   addressObs: Observer<Address[]> = {
     next: x => {
-      console.log('Observer got next value.');
+      console.log('Observer got next value: x ');
+      console.log(x);
       this.addressList = x;
     },
     error: err => console.error('Observer got an error: ' + err),
@@ -143,6 +154,7 @@ export class AddRoomComponent implements OnInit {
   complexChoose(complex: Complex) {
     this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
     this.activeComplex = complex;
+    this.room.complexId = complex.complexId;
   }
 
   // Updates selected address property and display string
@@ -150,5 +162,30 @@ export class AddRoomComponent implements OnInit {
   addressChoose(address: Address) {
     this.addressShowString = address.streetAddress;
     this.activeAddress = address;
+    this.room.roomAddress = address;
+  }
+
+  toggleLaundryAmenity() {
+    if(this.room.amenities.indexOf(this.amenity1) < 0) {
+      this.room.amenities.push(this.amenity1);
+    } else {
+      this.room.amenities.splice(this.room.amenities.indexOf(this.amenity1), 1);
+    }
+  }
+
+  toggleTVAmenity() {
+    if(this.room.amenities.indexOf(this.amenity2) < 0) {
+      this.room.amenities.push(this.amenity2);
+    } else {
+      this.room.amenities.splice(this.room.amenities.indexOf(this.amenity2), 1);
+    }
+  }
+
+  togglePatioAmenity() {
+    if(this.room.amenities.indexOf(this.amenity3) < 0) {
+      this.room.amenities.push(this.amenity3);
+    } else {
+      this.room.amenities.splice(this.room.amenities.indexOf(this.amenity3), 1);
+    }
   }
 }

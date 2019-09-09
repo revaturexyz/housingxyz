@@ -26,3 +26,13 @@
 .btn-round { border-radius: 30px; }
 .bg-indigo { background: #fb752c; }
 .text-cyan { color: #35bdff; }
+
+label {
+    //display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+}
