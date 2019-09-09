@@ -28,7 +28,7 @@ export class TestServiceData {
         addressId: 2,
         streetAddress: '1001 S Center St',
         city: 'Arlington',
-        state: 'TX', 
+        state: 'TX',
         zipCode: '76010'
     };
 

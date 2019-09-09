@@ -27,7 +27,7 @@ export class AddRoomComponent implements OnInit {
   amenity3: Amenity = {
       amenityId: 3,
       amenityString: 'Patio'
-  };  
+  };
   room: Room = {
     roomId: 0,
     roomAddress: {
@@ -166,7 +166,7 @@ export class AddRoomComponent implements OnInit {
   }
 
   toggleLaundryAmenity() {
-    if(this.room.amenities.indexOf(this.amenity1) < 0) {
+    if (this.room.amenities.indexOf(this.amenity1) < 0) {
       this.room.amenities.push(this.amenity1);
     } else {
       this.room.amenities.splice(this.room.amenities.indexOf(this.amenity1), 1);
@@ -174,7 +174,7 @@ export class AddRoomComponent implements OnInit {
   }
 
   toggleTVAmenity() {
-    if(this.room.amenities.indexOf(this.amenity2) < 0) {
+    if (this.room.amenities.indexOf(this.amenity2) < 0) {
       this.room.amenities.push(this.amenity2);
     } else {
       this.room.amenities.splice(this.room.amenities.indexOf(this.amenity2), 1);
@@ -182,7 +182,7 @@ export class AddRoomComponent implements OnInit {
   }
 
   togglePatioAmenity() {
-    if(this.room.amenities.indexOf(this.amenity3) < 0) {
+    if (this.room.amenities.indexOf(this.amenity3) < 0) {
       this.room.amenities.push(this.amenity3);
     } else {
       this.room.amenities.splice(this.room.amenities.indexOf(this.amenity3), 1);
