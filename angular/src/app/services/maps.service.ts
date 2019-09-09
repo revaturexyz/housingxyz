@@ -17,11 +17,11 @@ export class MapsService {
       state: 'TX',
       zipCode: '76010'
     };
-  map1: Maps;
+  map: Maps;
 
   constructor(private httpClient: HttpClient) { }
 
-  verifyAddress(){
+  verifyAddress() {
     const query = this.apiUrl + this.address.streetAddress + this.key;
     console.log(this.address.streetAddress);
     console.log(this.apiUrl + this.address.streetAddress + this.key);

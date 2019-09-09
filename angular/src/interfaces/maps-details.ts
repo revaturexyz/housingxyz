@@ -1,7 +1,7 @@
 export interface MapsDetails {
-    address_components: Object[];
+    address_components: object[];
     formatted_address: string;
-    geometry: Object;
-    place_id: Object;
-    plus_code: Object;
+    geometry: object;
+    place_id: object;
+    plus_code: object;
 }
