@@ -32,10 +32,10 @@
                 <button *ngIf="show === false"(click)="addForm()">Add Address</button>
                 <form *ngIf="show === true">
                     <div>
-                    <label> Street Address: <input type="text"> </label> <br>
-                    <label> City: <input type="text"> </label> <br>
-                    <label> State: <input type="text"> </label> <br>
-                    <label> Zip Code: <input type="text"> </label> <br>
+                    <label> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
+                    <label> City: <input type="text" required maxlength="50"> </label> <br>
+                    <label> State: <input type="text" required maxlength="50"> </label> <br>
+                    <label> Zip Code: <input type="number"> </label> <br>
                     <br>
                     <button id="button" (click)="back()">cancel</button>
                     <button id="buton">Submit</button>
@@ -54,14 +54,14 @@
                 <form>
 
                     <div>
-                        <label for="room.NumberOfBeds">Number of Beds: </label>
-                        <input type="text" name="room.NumberOfBeds" [(ngModel)]="room.NumberOfBeds">                        
+                        <label for="room.NumberOfBeds" >Number of Beds: </label>
+                        <input type="number" required min="1" max="10" name="room.NumberOfBeds" [(ngModel)]="room.NumberOfBeds">                        
                     </div>
 
                     <br>
 
                     <div class="col">
-                        <label for="room.RoomType">Room Type: </label>
+                        <label for="room.RoomType" required>Room Type: </label>
                         <select name="room.RoomType" [(ngModel)]="room.RoomType">
                             <option>Apartment</option>
                             <option>Dorm</option>
@@ -78,7 +78,7 @@
                     
                     Amenities:
                     <fieldset *ngFor="let amenity of amenities" id="checkboxes">     
-                        <input type="checkbox" name="amenity" value="amenity">{{amenity.Amenity}}<br>   
+                        <input type="checkbox" name="amenity" value="amenity">{{amenity.amenityString}}<br>   
                     </fieldset> 
 
                     <br>
@@ -99,7 +99,7 @@
 
                     <div>
                         <label for="room.RoomNumber">Room Number: </label>
-                        <input name="room.RoomNumber" type="text" [(ngModel)]="room.RoomNumber">
+                        <input name="room.RoomNumber" type="number" required min="1" max="9999" [(ngModel)]="room.RoomNumber">
                     </div>
 
                     <div id="topbutton">
