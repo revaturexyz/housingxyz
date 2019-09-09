@@ -5,6 +5,7 @@ import { Amenity} from '../../interfaces/amenity';
 import { TrainingCenter} from '../../interfaces/trainingcenter';
 import { Observable, of } from 'rxjs';
 import { TestServiceData } from './static-test-data';
+import { Complex } from 'src/interfaces/complex';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class TrainingcenterService {
     return of([TestServiceData.trainingcenter, TestServiceData.trainingcenter2]);
   }
 
-  getComplexesByTrainingCenter(centerId: number): Observable<TrainingCenter[]> {
-    return of([TestServiceData.trainingcenter, TestServiceData.trainingcenter2]);
+  getComplexesByTrainingCenter(centerId: number): Observable<Complex[]> {
+    return of([TestServiceData.dummyComplex, TestServiceData.dummyComplex2]);
   }
 }
