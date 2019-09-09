@@ -1,19 +1,32 @@
 .leftBod {
     float: left;
     width: 50%;
-    border: 5px;
-    border-color: red;
+    height: 50%;
 }
 
 .rightBod {
     float: right;
+    overflow: auto;
     width: 50%;
-    height: 100%;
-    border: 5px;
-    border-color: black;
+    height: 50%;
+}
+.bottomBod {
+    float: right;
+    width: 100%;
+    height: 50%;
 }
 
-.centering  {
+.centering {
     justify-items: center;
     align-items: center;
+}
+
+.hovered {
+    background-color: darkgrey !important;
+    color: white;
+}
+
+.selected {
+    background-color: black !important;
+    color: white;
 }
