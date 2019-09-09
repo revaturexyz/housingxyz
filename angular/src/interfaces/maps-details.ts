@@ -1,4 +1,4 @@
-export class MapsDetails {
+export interface MapsDetails {
     address_components: Object[];
     formatted_address: string;
     geometry: Object;
