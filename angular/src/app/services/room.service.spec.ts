@@ -5,7 +5,7 @@ import { Address } from '../../interfaces/address';
 import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
 
-let room1: Room = {
+const room1: Room = {
   roomId: 0, roomAddress: {
     addressId: 1, streetAddress: '123 Address St', city:
       'Arlington', state: 'TX', zipCode: '12345'
@@ -13,7 +13,7 @@ let room1: Room = {
   isOccupied: false, amenities: { amenityId: 1, amenityString: 'washer/dryer' }, startDate:
     new Date(), endDate: new Date(), complexId: 1
 };
-let room2: Room = {
+const room2: Room = {
   roomId: 0, roomAddress: {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
     city: 'Arlington', state: 'TX', zipCode: '76019'
@@ -23,7 +23,7 @@ let room2: Room = {
 };
 
 describe('RoomService', () => {
-  let injector: TestBed;
+  // let injector: TestBed;
   let myProvider: RoomService;
   let httpMock: HttpTestingController;
   beforeEach(() => {
@@ -43,7 +43,7 @@ describe('RoomService', () => {
   });
 
   describe('getRoomsByProvider', () => {
-    //getRoomsByProvider test
+    // getRoomsByProvider test
     it('should return an Observable<Room[]>', () => {
       const someRooms = [
         room1,
@@ -53,7 +53,7 @@ describe('RoomService', () => {
         expect(room[0].roomAddress).toEqual(someRooms[0].roomAddress);
         expect(room[1].roomAddress).toEqual(someRooms[1].roomAddress);
       });
-      /*//add in the baseurl later
+      /*// add in the baseurl later
       const  call = httpMock.expectOne(`${myProvider}/rooms`);
       expect(call.request.method).toBe("GET");
       call.flush(someRooms);
@@ -61,7 +61,7 @@ describe('RoomService', () => {
     });
   });
   describe('getRoomById', () => {
-    //getRoomById test
+    // getRoomById test
     it('should return an Observable<Room>', () => {
       const oneRoom = room1;
       myProvider.getRoomById(0).subscribe((room) => {
@@ -98,13 +98,13 @@ describe('RoomService', () => {
     });
   });
   describe('getAmenities', () => {
-    //getAmenities
+    // getAmenities
     it('should return an Observable<Amenity[]>', () => {
-      let dummyAmenity1: Amenity = {
+      const dummyAmenity1: Amenity = {
         amenityId: 1,
         amenityString: 'washer/dryer'
       };
-      let dummyAmenity2: Amenity = {
+      const dummyAmenity2: Amenity = {
         amenityId: 2,
         amenityString: 'smart TV'
       };
