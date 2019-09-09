@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let r of complexRooms" app-room-details [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom">
+      <tr *ngFor="let r of complexRooms" dev-room-details [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom">
       </tr>
   </tbody>
 </table>
@@ -37,13 +37,13 @@
         </tr>
       </thead>
       <tbody>
-          <tr app-room-details [room]="selectedRoom"></tr>
+          <tr dev-room-details [room]="selectedRoom"></tr>
           <tr *ngIf="editing">
               <th scope="col" class="text-center">{{selectedRoom.roomID}}</th>
               <td scope="col" class="text-center">
                 <form class="form-group" #roomNum="ngForm">
                   <input maxlength="7" class="form-control" id="roomNumber" required type="text" [pattern]="'^(?=.*\\d)[a-zA-Z0-9]*$'"
-                    [(ngModel)]="selectedRoom.roomNumber" name="roomNum" #name="ngModel"/>
+                    [(ngModel)]="selectedRoom.roomNumber" name="roomNum" #name="ngModel" (keyup)="roomNumValid(name.invalid)"/>
                   <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"> Must be only numbers or letters, max 7.</div>
                 </form>
               </td>
@@ -52,7 +52,7 @@
                       <input maxlength="4" class="form-control" id="roomNumber" required type="text" [pattern]="'^(?=.*\\d)[0-9]{1,4}$'"
                         [(ngModel)]="selectedRoom.numberOfBeds" name="roomNum" #bedNum="ngModel" (keyup)="bedNumValid(bedNum.invalid)"/>
                       <div *ngIf="bedNum.invalid && (bedNum.dirty || bedNum.touched)" class="alert alert-danger"> Must be only numbers, max 4 digits.</div>
-                    </form>
+                  </form>
               </td>
               <td scope="col" class="text-center">{{selectedRoom.roomType}}</td>
               <td scope="col" class="text-center">{{selectedRoom.isOccupied}}</td>
@@ -63,5 +63,5 @@
   </table>
   <button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="selectedRoom" [disabled]="selectedRoom.IsOccupied">Remove</button>
   <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && !editing" (click)="startEdit()" [disabled]="selectedRoom.IsOccupied">Edit</button>
-  <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="editing" [disabled]="">Submit</button>
+  <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="editing" (click)="submit(selectedRoom)" [disabled]="bedNumBool === true || roomNumBool === true">Submit</button>
 </div>

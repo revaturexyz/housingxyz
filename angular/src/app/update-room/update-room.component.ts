@@ -23,6 +23,8 @@ export class UpdateRoomComponent implements OnInit {
   editing: boolean = false;
   showString = 'Choose Complex';
   highlightRoom: Room;
+  bedNumBool: boolean;
+  roomNumBool: boolean;
   
   complexObs: Observer<Complex[]> = {
     next: x => {
@@ -81,11 +83,33 @@ export class UpdateRoomComponent implements OnInit {
     this.selectedRoom = newRoom;
     this.highlightRoom = r;
   }
+
   startEdit() {
     this.editing = true;
   }
+
   clearSelect() {
     this.selectedRoom = null;
     this.highlightRoom = null;
+  }
+
+  bedNumValid(valid: boolean) {
+    this.bedNumBool = valid;
+    console.log(valid);
+  }
+
+  roomNumValid(valid: boolean) {
+    this.roomNumBool = valid;
+    console.log(valid);
+  }
+
+  submit(r: Room) {
+    this.roomList.forEach(element => {
+      if(element.roomId === r.roomId)
+      {
+        element = r;
+      }      
+    });
+    console.log(this.roomList);
   }
 }

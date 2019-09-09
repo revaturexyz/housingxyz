@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 
 @Component({
-  selector: '[app-room-details]',
+  selector: '[dev-room-details]',
   templateUrl: './room-details.component.html',
   styleUrls: ['./room-details.component.scss']
 })
