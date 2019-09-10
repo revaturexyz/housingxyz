@@ -29,7 +29,7 @@
                 </div> 
 
                 <br>
-                <button *ngIf="show === false"(click)="addForm()">Add Address</button>
+                <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
                 <form *ngIf="show === true">
                     <div>
                     <label> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
@@ -37,8 +37,9 @@
                     <label> State: <input type="text" required minlength ="2" maxlength="50"> </label> <br>
                     <label> Zip Code: <input type="text" pattern="[0-9]{5}"> </label> <br>
                     <br>
-                    <button id="button" (click)="back()">cancel</button>
-                    <button id="buton">Submit</button>
+                    <button class="btn btn-secondary">Submit</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" (click)="back()">cancel</button>
                     </div>
                 </form>
 
@@ -97,11 +98,9 @@
                     </div>
 
                     <div id="topbutton">
-                        <button id="submit" type="submit" (click)="postRoomOnSubmit()">Submit</button>
-                    </div>
-
-                    <div id="bottonbutton">
-                        <button id="cancel" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                        <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
+                        &nbsp;
+                        <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
                     </div>
 
                 </form> 
