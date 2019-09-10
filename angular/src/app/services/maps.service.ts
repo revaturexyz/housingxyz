@@ -11,35 +11,21 @@ import { promise } from 'protractor';
   providedIn: 'root'
 })
 export class MapsService {
-  private apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  private geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   private distUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=';
   private key = '&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
-
-  map: Maps;
-  distance: number;
-  addressExists: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
 
   verifyAddress() {
-    const query = this.apiUrl + TestServiceData.dummyAddress.streetAddress + this.key;
+    const query = this.geocodeUrl + TestServiceData.dummyAddress.streetAddress + this.key;
     this.httpClient.get<Maps>(query).toPromise().then(x => {
-      this.map = x;
-      console.log(this.map);
-      if (this.map.status == 'OK'){
-        this.addressExists = true;
-        console.log(this.addressExists);
+      console.log(x);
+      if (x.status === 'OK' ) {
+        console.log(x.status);
+        return false;
       }
-      return this.addressExists;
+      return true;
     });
-  }
-
-  checkDistance(){
-    //const query = this.distUrl + TestServiceData.dummyAddress.streetAddress + '&destinations=' + TestServiceData.UTA.streetAddress + this.key;
-    //const query = this.distUrl + '3810maryvale' + '&destinations=' + '749SCooperSt' + this.key;
-    const query = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=3810maryvale&destinations=749SCooperSt&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
-    //const query = 'https://maps.googleapis.com/maps/api/geocode/json?address=3810maryvale&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
-    console.log(query);
-    this.httpClient.get<Mapdist>(query).toPromise();
   }
 }
