@@ -32,7 +32,14 @@ export class TestServiceData {
         zipCode: '76010'
     };
 
-
+    static UTA: Address = {
+        addressId: 3,
+        streetAddress: '749 S Cooper St',
+        city: 'Arlington',
+        state: 'TX',
+        zipCode: '76010'
+    };
+    
     static dummyComplex: Complex = {
         complexId: 1,
         streetAddress: '123 Complex St',
