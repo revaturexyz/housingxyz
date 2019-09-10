@@ -16,19 +16,6 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 
 export class AddRoomComponent implements OnInit {
-  
-  amenity1: Amenity = {
-    amenityId: 1,
-    amenityString:  'Washer/Dryer'
-  };
-  amenity2: Amenity = {
-      amenityId: 2,
-      amenityString: 'Smart TV'
-  };
-  amenity3: Amenity = {
-      amenityId: 3,
-      amenityString: 'Patio'
-  };
   room: Room = {
     roomId: 0,
     roomAddress: {
@@ -42,7 +29,7 @@ export class AddRoomComponent implements OnInit {
     numberOfBeds: 2,
     roomType: '',
     isOccupied: false,
-    amenities: [this.amenity1, this.amenity2, this.amenity3],
+    amenities: null,
     startDate: new Date(),
     endDate: new Date(),
     complexId: 1
@@ -108,28 +95,9 @@ export class AddRoomComponent implements OnInit {
     private providerService: ProviderService
   ) { }
 
-  getRoomByIdOnSubmit() {
-    this.roomService.getRoomById(1);
-  }
-  postRoomOnSubmit() {
-    console.log(this.room);
-    this.roomService.postRoom(this.room);
-  }
-  getRoomsByProviderOnSubmit() {
-    this.roomService.getRoomsByProvider(1);
-  }
-  getRoomTypesOnSubmit() {
-    this.roomService.getRoomTypes().subscribe(this.typeObs);
-  }
-  getGendersOnSubmit() {
-    this.roomService.getGenders();
-  }
-  getAmenitiesOnSubmit() {
-    this.roomService.getAmenities().subscribe(this.amenityObs);
-  }
   ngOnInit() {
-    this.getRoomTypesOnSubmit();
-    this.getAmenitiesOnSubmit();
+    this.getRoomTypesOnInit();
+    this.getAmenitiesOnInit();
     this.providerService.getComplexes(1).subscribe(this.complexObs);
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
     this.providerService.getProviderById(1).toPromise()
@@ -140,6 +108,30 @@ export class AddRoomComponent implements OnInit {
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
     console.log(this.types);
+  }
+
+  postRoomOnSubmit() {
+    this.room.amenities = this.amenities.filter(x => x.isSelected);
+    console.log(this.room);
+    this.roomService.postRoom(this.room);
+  }
+
+  getRoomByIdOnInit() {
+    this.roomService.getRoomById(1);
+  }
+
+  getRoomsByProviderOnInit() {
+    this.roomService.getRoomsByProvider(1);
+  }
+
+  getRoomTypesOnInit() {
+    this.roomService.getRoomTypes().subscribe(this.typeObs);
+  }
+  getGendersOnInit() {
+    this.roomService.getGenders();
+  }
+  getAmenitiesOnInit() {
+    this.roomService.getAmenities().subscribe(this.amenityObs);
   }
 
   addForm() {
@@ -165,35 +157,4 @@ export class AddRoomComponent implements OnInit {
     this.activeAddress = address;
     this.room.roomAddress = address;
   }
-
-  /* the following 3 methods are for each of the 3 possible amenities a room can have.
-     by default, all 3 checkboxes are checked and the amenities array of the room object.
-     if the checkmark is removed, then so is the amenitity from the array*/
-  toggleLaundryAmenity() {
-    if (this.room.amenities.indexOf(this.amenity1) < 0) {
-      this.room.amenities.push(this.amenity1);
-    } else {
-      this.room.amenities.splice(this.room.amenities.indexOf(this.amenity1), 1);
-    }
-  }
-
-  toggleTVAmenity() {
-    if (this.room.amenities.indexOf(this.amenity2) < 0) {
-      this.room.amenities.push(this.amenity2);
-    } else {
-      this.room.amenities.splice(this.room.amenities.indexOf(this.amenity2), 1);
-    }
-  }
-
-  togglePatioAmenity() {
-    if (this.room.amenities.indexOf(this.amenity3) < 0) {
-      this.room.amenities.push(this.amenity3);
-    } else {
-      this.room.amenities.splice(this.room.amenities.indexOf(this.amenity3), 1);
-    }
-  }
-
-  // this method is called when the value of the slider is changed and updates that value accordingly
-  sliderValue = '4';
-  adjustSliderValue(event: any) { this.sliderValue = `${event.target.value}`; }
 }

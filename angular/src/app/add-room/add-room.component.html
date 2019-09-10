@@ -61,31 +61,21 @@
                                 <option>Dorm</option>
                             </select>
                         </div>
-
-                        <div class="col-md-10">
-                            <label class="col-md-5" for="room.roomNumber">Room Number: </label>
-                            <input class="input-border col-md-6" name="room.roomNumber" type="text" [(ngModel)]="room.roomNumber">
-                        </div>
-
-                        <div class="col-md-10">
-                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{sliderValue}}
-                            <input class="slider col-md-11" type="range" min="1" max="8" value="4" (change)="adjustSliderValue($event)">
-                        </div>
-                        
-                        <div class="col-md-12">
-                            <label class="col-md-2">Amenities:</label>
-                            <div class="col-md-10">                                
-                                <label class="col-md-5" for="amenities[0].amenityString">Washer/Dryer</label>
-                                <input class="col-md-1" type="checkbox" name="amenities[0].amenityString" checked (click)="toggleLaundryAmenity()">
-                            </div>
-                            <div class="col-md-10">                                
-                                <label class="col-md-5" for="amenities[1].amenityString">Smart TV</label>
-                                <input class="col-md-1" type="checkbox" name="amenities[1].amenityString" checked (click)="toggleTVAmenity()">
-                            </div>
-                            <div class="col-md-10">                                
-                                <label class="col-md-5" for="amenities[2].amenityString">Patio</label>
-                                <input class="col-md-1" type="checkbox" name="amenities[2].amenityString" checked (click)="togglePatioAmenity()">
-                            </div>
+                    </div>
+                    <div>
+                        <label for="room.numberOfBeds">Number of Beds: </label>
+                        <select name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <div>Amenities:</div>
+                        <div *ngFor="let amenity of amenities">
+                            <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                            <label for="amenity.amenityString">{{ amenity.amenityString }}</label>
                         </div>
 
                         <div class="col-md-10">
