@@ -30,18 +30,18 @@
 
                 <br>
                 <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
-                <div class="container">
-                    <form *ngIf="show === true"> 
-                        <label class="col-md-6"> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
-                        <label class="col-md-6"> City: <input type="text" required maxlength="50"> </label> <br>
-                        <label class="col-md-6"> State: <input type="text" required minlength ="2" maxlength="50"> </label> <br>
-                        <label class="col-md-6"> Zip Code: <input type="text" pattern="[0-9]{5}"> </label> <br>
+                <form *ngIf="show === true">
+                    <div>
+                        <label class="col-md-6"> Street Address: <input class="input-border" type="text" required minlength="5" maxlength="200"> </label> <br>
+                        <label class="col-md-6"> City: <input class="input-border" type="text" required maxlength="50"> </label> <br>
+                        <label class="col-md-6"> State: <input class="input-border" type="text" required minlength ="2" maxlength="50"> </label> <br>
+                        <label class="col-md-6"> Zip Code: <input class="input-border" type="text" pattern="[0-9]{5}"> </label> <br>
                         <br>
-                        <button class="btn btn-secondary">Submit</button>
                         &nbsp;
-                        <button class="btn btn-secondary" (click)="back()">cancel</button>
-                    </form>
-                </div>
+                        <button class="btn btn-secondary" (click)="back()">Cancel</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -94,7 +94,6 @@
                             <label class="col-md-4">End Date:</label>
                             <input class="input-border col-md-4" type="date" name="EndDate">
                         </div>
-
 
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
