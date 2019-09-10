@@ -30,19 +30,18 @@
 
                 <br>
                 <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
-                <form *ngIf="show === true">
-                    <div>
-                    <label> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
-                    <label> City: <input type="text" required maxlength="50"> </label> <br>
-                    <label> State: <input type="text" required minlength ="2" maxlength="50"> </label> <br>
-                    <label> Zip Code: <input type="text" pattern="[0-9]{5}"> </label> <br>
-                    <br>
-                    <button class="btn btn-secondary">Submit</button>
-                    &nbsp;
-                    <button class="btn btn-secondary" (click)="back()">cancel</button>
-                    </div>
-                </form>
-
+                <div class="container">
+                    <form *ngIf="show === true"> 
+                        <label class="col-md-6"> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
+                        <label class="col-md-6"> City: <input type="text" required maxlength="50"> </label> <br>
+                        <label class="col-md-6"> State: <input type="text" required minlength ="2" maxlength="50"> </label> <br>
+                        <label class="col-md-6"> Zip Code: <input type="text" pattern="[0-9]{5}"> </label> <br>
+                        <br>
+                        <button class="btn btn-secondary">Submit</button>
+                        &nbsp;
+                        <button class="btn btn-secondary" (click)="back()">cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
