@@ -4,6 +4,8 @@ import { ProviderService } from '../services/provider.service';
 import { Observer } from 'rxjs';
 import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
+// import { templateJitUrl } from '@angular/compiler';
+// import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'dev-update-room',
@@ -16,7 +18,14 @@ export class UpdateRoomComponent implements OnInit {
   activeComplex: Complex;
   roomList: Room[];
   complexRooms: Room[];
-
+  mouseOverRoom: Room;
+  selectedRoom: Room;
+  editing = false;
+  showString = 'Choose Complex';
+  highlightRoom: Room;
+  bedNumBool: boolean;
+  roomNumBool: boolean;
+  displayedColumns = ['num', 'beds', 'type', 'occ', 'amen', 'start', 'end'];
   complexObs: Observer<Complex[]> = {
     next: x => {
       console.log('Observer got a next value.');
@@ -35,8 +44,6 @@ export class UpdateRoomComponent implements OnInit {
     complete: () => console.log('Observer got a complete notification'),
   };
 
-  showString = 'Choose Complex';
-
   constructor(private providerService: ProviderService, private roomService: RoomService) { }
 
   ngOnInit() {
@@ -46,8 +53,61 @@ export class UpdateRoomComponent implements OnInit {
 
   complexChoose(complex: Complex) {
     this.showString = complex.complexName;
+    this.clearSelect();
     this.activeComplex = complex;
     // console.log(this.roomList);
     this.complexRooms = this.roomList.filter(r => r.complexId === this.activeComplex.complexId);
+    console.log(this.selectedRoom);
+  }
+  mouseOn(r: Room) {
+    this.mouseOverRoom = r;
+  }
+
+  mouseOff() {
+    this.mouseOverRoom = null;
+  }
+
+  select(r: Room) {
+    const newRoom: Room = {
+      roomId : r.roomId,
+      roomAddress : r.roomAddress,
+      roomNumber : r.roomNumber,
+      numberOfBeds : r.numberOfBeds,
+      roomType : r.roomType,
+      isOccupied : r.isOccupied,
+      amenities : r.amenities,
+      startDate : r.startDate,
+      endDate : r.endDate,
+      complexId : r.complexId
+    };
+    this.selectedRoom = newRoom;
+    this.highlightRoom = r;
+  }
+
+  startEdit() {
+    this.editing = true;
+  }
+
+  clearSelect() {
+    this.selectedRoom = null;
+    this.highlightRoom = null;
+  }
+
+  bedNumValid(valid: boolean) {
+    this.bedNumBool = valid;
+    console.log(valid);
+  }
+
+  roomNumValid(valid: boolean) {
+    this.roomNumBool = valid;
+    console.log(valid);
+  }
+
+  submit(r: Room) {
+    this.roomList.forEach(element => {
+      if (element.roomId === r.roomId) {
+        element = r;
+      }});
+    console.log(this.roomList);
   }
 }

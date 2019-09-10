@@ -7,7 +7,6 @@ import { Room } from 'src/interfaces/room';
   styleUrls: ['./room-details.component.scss']
 })
 export class RoomDetailsComponent implements OnInit {
-
   constructor() { }
 
   @Input () room: Room;

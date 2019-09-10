@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RoomDetailsComponent } from './room-details.component';
-
 import { TestServiceData } from '../services/static-test-data';
 
 describe('RoomDetailsComponent', () => {

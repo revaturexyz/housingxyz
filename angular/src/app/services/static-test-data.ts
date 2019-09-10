@@ -39,7 +39,7 @@ export class TestServiceData {
         city: 'Arlington',
         state: 'TX',
         zipCode: '12345',
-        complexName: 'Liv+ Appartments',
+        complexName: 'Liv+ Apartments',
         contactNumber: '123-123-1234'
     };
 
@@ -49,7 +49,7 @@ export class TestServiceData {
         city: 'Arlington',
         state: 'TX',
         zipCode: '23456',
-        complexName: 'Liv- Appartments',
+        complexName: 'Liv- Apartments',
         contactNumber: '123-123-1234'
     };
 
@@ -98,9 +98,9 @@ export class TestServiceData {
     static room: Room = {
         roomId: 0,
         roomAddress: TestServiceData.dummyAddress,
-        roomNumber: '',
+        roomNumber: '322',
         numberOfBeds: 2,
-        roomType: '',
+        roomType: 'Apartment',
         isOccupied: false,
         amenities: TestServiceData.dummmyList,
         startDate: new Date(),
@@ -124,7 +124,7 @@ export class TestServiceData {
         amenities: [{
             amenityId: 2,
             amenityString: 'Washer/Dryer',
-            isSelected: true
+            isSelected: false
         }],
         startDate: new Date(),
         endDate: new Date(),
