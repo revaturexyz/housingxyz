@@ -20,7 +20,7 @@ export class RoomService {
         return of(r);
     }
     getRoomsByProvider(providerId: number): Observable<Room[]> {
-        return of([TestServiceData.room, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3]);
+        return of([TestServiceData.room, TestServiceData.room2]);
     }
     getRoomTypes(): Observable<string[]> {
         return of(['Apartment', 'Dorm']);
@@ -34,6 +34,7 @@ export class RoomService {
         return simpleObservable;
     }
     getAmenities(): Observable<Amenity[]> {
+        console.log('get amentities method called.\n');
         const simpleObservable = new Observable<Amenity[]>((sub) => {
             const AList: Amenity[] = TestServiceData.dummmyList;
             sub.next(AList);
