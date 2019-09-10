@@ -157,4 +157,7 @@ export class AddRoomComponent implements OnInit {
     this.activeAddress = address;
     this.room.roomAddress = address;
   }
+
+  sliderValue: string = '2';
+  adjustSliderValue(event: any) { this.sliderValue = `${event.target.value}`; }
 }

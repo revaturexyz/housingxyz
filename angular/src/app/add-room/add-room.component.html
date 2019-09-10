@@ -55,41 +55,49 @@
                     <br>
                     <div class="container">
                         <div class="col-md-10">
-                            <label class="col-md-5" for="room.roomType">Room Type: </label>
-                            <select class="input-border col-md-6" name="room.roomType" [(ngModel)]="room.roomType">
+                            <label class="col-md-4" for="room.roomType">Room Type: </label>
+                            <select class="input-border col-md-4 input-border" name="room.roomType" [(ngModel)]="room.roomType">
                                 <option>Apartment</option>
                                 <option>Dorm</option>
                             </select>
                         </div>
-                    </div>
-                    <div>
-                        <label for="room.numberOfBeds">Number of Beds: </label>
-                        <select name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds">
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <div>Amenities:</div>
-                        <div *ngFor="let amenity of amenities">
-                            <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
-                            <label for="amenity.amenityString">{{ amenity.amenityString }}</label>
-                        </div>
 
                         <div class="col-md-10">
-                            <label class="col-md-5">Start Date:</label>
-                            <input class="input-border col-md-6" type="date" name="StartDate">
+                            <label for="" class="col-md-4">Room Number: </label>
+                            <input type="text" class="input-border col-md-4">
+                        </div>
+                    
+
+                        <div class="col-md-10">
+                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{sliderValue}}
+                            <input type="range" min="1" max="8" value="2" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" (change)="adjustSliderValue($event)">
+                        </div>
+                        
+                        <br><br>
+                        <div class="col-md-8">
+                            <label class="col-md-5">Amenities:</label>
+                            <br>
+                            <div class="col-md-10">
+                                <span *ngFor="let amenity of amenities">                                
+                                    <label for="amenity.amenityString" class="col-md-5">{{ amenity.amenityString }}</label>
+                                    <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                                </span>
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <div class="col-md-10">
+                            <label class="col-md-4">Start Date:</label>
+                            <input class="input-border col-md-4" type="date" name="StartDate">
                         </div>
                         <div class="col-md-10">
-                            <label class="col-md-5">End Date:</label>
-                            <input class="input-border col-md-6" type="date" name="EndDate">
+                            <label class="col-md-4">End Date:</label>
+                            <input class="input-border col-md-4" type="date" name="EndDate">
                         </div>
 
                         <div class="col-md-10">                            
-                            <button class="input-border col-md-3" id="cancel bottombutton" type="button">Cancel</button>
-                            <button class="input-border col-md-3" id="submit topbutton" type="submit" (click)="postRoomOnSubmit()">Submit</button>
+                            <button class="col-md-3" id="cancel bottombutton" type="button">Cancel</button>
+                            <button class="col-md-3" id="submit topbutton" type="submit" (click)="postRoomOnSubmit()">Submit</button>
                         </div>
                     </div>
                 </form> 
