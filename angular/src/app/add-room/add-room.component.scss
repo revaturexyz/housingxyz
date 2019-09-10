@@ -1,38 +1,82 @@
-#header{
+#header {
     text-align: center;
 }
-#beds, #Room, #startdate, #enddate, #checkboxes{
+.input-border {
     border: solid;
     border-color: black;
 }
-#submit{
-    border: solid;
-    border-color: black;
+#submit, #cancel {
     padding-right: 10px;
     padding-left: 10px;
-}
-#cancel{
-    border: solid;
-    border-color: black;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 #topbutton{
     padding-bottom: 10px;
 }
 @media (min-width: 768px) {
-    .h-md-100 { height: 100vh; }
+    .h-md-100 { 
+        height: 100vh; 
+    }
 }
-.btn-round { border-radius: 30px; }
-.bg-indigo { background: #fb752c; }
-.text-cyan { color: #35bdff; }
-
+.btn-round { 
+    border-radius: 30px;
+}
+.bg-orange { 
+    background: #fb752c;
+}
+.bg-body {
+    background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.text-cyan {
+    color: #35bdff;
+}
 label {
-    //display: block;
     font: 1rem 'Fira Sans', sans-serif;
 }
-
-input,
-label {
+input, label {
     margin: .4rem 0;
+}
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-left: 4%;
+}  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}  
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+h1 {
+    margin-left: 15%;
+}
+button {
+    margin: 9%;
+}
+form {
+    color: black;
+    background-color: white;
+    opacity: 0.65;
 }

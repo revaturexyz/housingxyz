@@ -16,6 +16,7 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 
 export class AddRoomComponent implements OnInit {
+  
   amenity1: Amenity = {
     amenityId: 1,
     amenityString:  'Washer/Dryer'
@@ -165,6 +166,9 @@ export class AddRoomComponent implements OnInit {
     this.room.roomAddress = address;
   }
 
+  /* the following 3 methods are for each of the 3 possible amenities a room can have.
+     by default, all 3 checkboxes are checked and the amenities array of the room object.
+     if the checkmark is removed, then so is the amenitity from the array*/
   toggleLaundryAmenity() {
     if (this.room.amenities.indexOf(this.amenity1) < 0) {
       this.room.amenities.push(this.amenity1);
@@ -188,4 +192,8 @@ export class AddRoomComponent implements OnInit {
       this.room.amenities.splice(this.room.amenities.indexOf(this.amenity3), 1);
     }
   }
+
+  // this method is called when the value of the slider is changed and updates that value accordingly
+  sliderValue = '4';
+  adjustSliderValue(event: any) { this.sliderValue = `${event.target.value}`; }
 }
