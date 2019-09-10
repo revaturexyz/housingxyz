@@ -86,7 +86,14 @@ export class TestServiceData {
         isSelected: true
     };
 
-    static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity3, TestServiceData.dummyAmenity4, TestServiceData.dummyAmenity5, TestServiceData.dummyAmenity6];
+    static dummmyList: Amenity[] = [
+        TestServiceData.dummyAmenity1,
+        TestServiceData.dummyAmenity2,
+        TestServiceData.dummyAmenity3,
+        TestServiceData.dummyAmenity4,
+        TestServiceData.dummyAmenity5,
+        TestServiceData.dummyAmenity6
+    ];
 
     static room: Room = {
         roomId: 0,
