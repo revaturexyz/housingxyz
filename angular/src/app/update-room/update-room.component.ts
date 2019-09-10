@@ -106,8 +106,19 @@ export class UpdateRoomComponent implements OnInit {
   submit(r: Room) {
     this.roomList.forEach(element => {
       if (element.roomId === r.roomId) {
-        element = r;
+        element.roomId = r.roomId,
+        element.roomAddress = r.roomAddress,
+        element.roomNumber = r.roomNumber,
+        element.numberOfBeds = r.numberOfBeds,
+        element.roomType = r.roomType,
+        element.isOccupied = r.isOccupied,
+        element.amenities = r.amenities,
+        element.startDate = r.startDate,
+        element.endDate = r.endDate,
+        element.complexId = r.complexId
       }});
-    console.log(this.roomList);
+      this.selectedRoom = null;
+      this.highlightRoom = null;
+      this.editing = false;
   }
 }

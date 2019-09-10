@@ -57,6 +57,6 @@
     </table>
     <button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="selectedRoom" [disabled]="selectedRoom.IsOccupied">Remove</button>
     <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && !editing" (click)="startEdit()" [disabled]="selectedRoom.IsOccupied">Edit</button>
-    <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="editing" (click)="submit(selectedRoom)" [disabled]="bedNumBool === true || roomNumBool === true">Submit</button>
+    <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && editing" (click)="submit(selectedRoom)" [disabled]="bedNumBool === true || roomNumBool === true">Submit</button>
   </div>
 </div>
