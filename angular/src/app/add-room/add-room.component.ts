@@ -111,6 +111,11 @@ export class AddRoomComponent implements OnInit {
   }
 
   postRoomOnSubmit() {
+    if(this.show){
+      if(this.room.roomAddress.addressId > 0){
+        this.room.roomAddress.addressId = 0;
+      }
+    }
     this.room.amenities = this.amenities.filter(x => x.isSelected);
     console.log(this.room);
     this.roomService.postRoom(this.room);
