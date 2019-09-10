@@ -111,8 +111,8 @@ export class AddRoomComponent implements OnInit {
   }
 
   postRoomOnSubmit() {
-    if(this.show){
-      if(this.room.roomAddress.addressId > 0){
+    if (this.show) {
+      if (this.room.roomAddress.addressId > 0) {
         this.room.roomAddress.addressId = 0;
       }
     }
