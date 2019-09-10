@@ -22,6 +22,19 @@
 #topbutton{
     padding-bottom: 10px;
 }
+.container {
+    width: 500px;
+    clear: both;
+  }
+  
+  .container input {
+    width: 100%;
+    clear: both;
+  }
+#cancel2{
+    text-decoration: none;
+    color: white;
+}
 @media (min-width: 768px) {
     .h-md-100 { 
         height: 100vh; 
