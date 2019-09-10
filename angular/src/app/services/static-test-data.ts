@@ -57,15 +57,43 @@ export class TestServiceData {
 
     static dummyAmenity1: Amenity = {
         amenityId: 1,
-        amenityString:  'washer/dryer'
+        amenityString:  'Washer/Dryer',
+        isSelected: true
     };
-
     static dummyAmenity2: Amenity = {
         amenityId: 2,
-        amenityString: 'smart TV'
+        amenityString: 'Smart TV',
+        isSelected: true
+    };
+    static dummyAmenity3: Amenity = {
+        amenityId: 3,
+        amenityString: 'Patio',
+        isSelected: true
+    };
+    static dummyAmenity4: Amenity = {
+        amenityId: 4,
+        amenityString: 'Fully Furnished',
+        isSelected: true
+    };
+    static dummyAmenity5: Amenity = {
+        amenityId: 5,
+        amenityString: 'Full Kitchen',
+        isSelected: true
+    };
+    static dummyAmenity6: Amenity = {
+        amenityId: 6,
+        amenityString: 'Individual Bathrooms',
+        isSelected: true
     };
 
-    static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2];
+    static dummmyList: Amenity[] = [
+        TestServiceData.dummyAmenity1,
+        TestServiceData.dummyAmenity2,
+        TestServiceData.dummyAmenity3,
+        TestServiceData.dummyAmenity4,
+        TestServiceData.dummyAmenity5,
+        TestServiceData.dummyAmenity6
+    ];
 
     static room: Room = {
         roomId: 0,
@@ -74,7 +102,7 @@ export class TestServiceData {
         numberOfBeds: 2,
         roomType: '',
         isOccupied: false,
-        amenities: TestServiceData.dummyAmenity1,
+        amenities: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
         complexId: 1
@@ -93,10 +121,11 @@ export class TestServiceData {
         numberOfBeds: 9001,
         roomType: 'Dorm',
         isOccupied: true,
-        amenities: {
+        amenities: [{
             amenityId: 2,
-            amenityString: 'Washer/Dryer'
-        },
+            amenityString: 'Washer/Dryer',
+            isSelected: true
+        }],
         startDate: new Date(),
         endDate: new Date(),
         complexId: 2
@@ -107,12 +136,12 @@ export class TestServiceData {
 
     static trainingcenter: TrainingCenter = {
         centerId: 1,
-        streetAddress: '1001 S. Center St',
+        streetAddress: '701 S Nedderman Dr',
         city: 'Arlington',
         state: 'Texas',
-        zipCode: '70610',
-        centerName: 'UT Arlington',
-        contactNumber: '1231231234'
+        zipCode: '76019',
+        centerName: 'UT Arlington - Preston Hall',
+        contactNumber: '(703) 570-8181'
     };
 
     static trainingcenter2: TrainingCenter = {

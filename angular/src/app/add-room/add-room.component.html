@@ -1,6 +1,6 @@
 <div class="d-md-flex h-md-100 align-items-center">
 
-    <div class="col-md-4 p-0 bg-indigo h-md-100">
+    <div class="col-md-4 p-0 bg-orange h-md-100">
         <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
             <div class="logoarea pt-5 pb-5">
                 <ng-container *ngIf="provider">
@@ -30,78 +30,76 @@
 
                 <br>
                 <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
-                <div class="container">
-                    <form *ngIf="show === true"> 
-                        <label class="col-md-6"> Street Address: <input type="text" required minlength="5" maxlength="200"> </label> <br>
-                        <label class="col-md-6"> City: <input type="text" required maxlength="50"> </label> <br>
-                        <label class="col-md-6"> State: <input type="text" required minlength ="2" maxlength="50"> </label> <br>
-                        <label class="col-md-6"> Zip Code: <input type="text" pattern="[0-9]{5}"> </label> <br>
+                <form *ngIf="show === true">
+                    <div>
+                        <label class="col-md-6"> Street Address: <input class="input-border" type="text" required minlength="5" maxlength="200"> </label> <br>
+                        <label class="col-md-6"> City: <input class="input-border" type="text" required maxlength="50"> </label> <br>
+                        <label class="col-md-6"> State: <input class="input-border" type="text" required minlength ="2" maxlength="50"> </label> <br>
+                        <label class="col-md-6"> Zip Code: <input class="input-border" type="text" pattern="[0-9]{5}"> </label> <br>
                         <br>
-                        <button class="btn btn-secondary">Submit</button>
                         &nbsp;
-                        <button class="btn btn-secondary" (click)="back()">cancel</button>
-                    </form>
-                </div>
+                        <button class="btn btn-secondary" (click)="back()">Cancel</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
         
-    <div class="col-md-8 p-0 bg-white h-md-100 loginarea">
+    <div class="col-md-8 p-0 bg-body h-md-100 loginarea">
         <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
             <div class="logoarea pt-5 pb-5">
-                <h1> Add Room </h1>
-                <br>
-                <form>
-
-                    <div>
-                        <label for="room.numberOfBeds" >Number of Beds: </label>
-                        <input type="number" required min="1" max="10" name="room.numberOfBeds" [(ngModel)]="room.NumberOfBeds">                        
-                    </div>
-
+                
+                <form id="roomForm">
+                    <h1>Add Room</h1>
                     <br>
+                    <div class="container">
+                        <div class="col-md-10">
+                            <label class="col-md-4" for="room.roomType">Room Type: </label>
+                            <select class="input-border col-md-4 input-border" name="room.roomType" [(ngModel)]="room.roomType">
+                                <option>Apartment</option>
+                                <option>Dorm</option>
+                            </select>
+                        </div>
 
-                    <div class="col">
-                        <label for="room.roomType" required>Room Type: </label>
-                        <select name="room.roomType" [(ngModel)]="room.roomType">
-                            <option>Apartment</option>
-                            <option>Dorm</option>
-                        </select>
-                    </div>  
-
-                    <br>
+                        <div class="col-md-10">
+                            <label for="" class="col-md-4">Room Number: </label>
+                            <input type="text" class="input-border col-md-4">
+                        </div>
                     
-                    Amenities:
-                    <fieldset *ngFor="let amenity of amenities" id="checkboxes">     
-                        <input type="checkbox" name="amenity" value="amenity">{{amenity.amenityString}}<br>   
-                    </fieldset> 
 
-                    <br>
+                        <div class="col-md-10">
+                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{ room.numberOfBeds }}
+                            <input type="range" min="1" max="8" value="2" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
+                        </div>
+                        
+                        <br><br>
+                        <div class="col-md-8">
+                            <label class="col-md-5">Amenities:</label>
+                            <br>
+                            <div class="col-md-10">
+                                <span *ngFor="let amenity of amenities">                                
+                                    <label for="amenity.amenityString" class="col-md-5">{{ amenity.amenityString }}</label>
+                                    <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                                </span>
+                            </div>
+                        </div>
+                        <br><br>
 
-                    <div>
-                        Start Date:
-                        <input id="startdate" type="date" name="StartDate">
+                        <div class="col-md-10">
+                            <label class="col-md-4">Start Date:</label>
+                            <input class="input-border col-md-4" type="date" name="StartDate">
+                        </div>
+                        <div class="col-md-10">
+                            <label class="col-md-4">End Date:</label>
+                            <input class="input-border col-md-4" type="date" name="EndDate">
+                        </div>
+
+                        <div id="topbutton">
+                            <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
+                            <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                        </div>
                     </div>
-
-                    <br>
-
-                    <div>
-                        End Date:
-                        <input id="enddate" type="date" name="EndDate">
-                    </div>
-
-                    <br>
-
-                    <div>
-                        <label for="room.roomNumber">Room Number: </label>
-                        <input name="room.roomNumber" type="text" required pattern="[A-Za-z0-9\-]+" [(ngModel)]="room.roomNumber">
-                    </div>
-
-                    <div id="topbutton">
-                        <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
-                        &nbsp;
-                        <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
-                    </div>
-
                 </form> 
             </div>
         </div>
