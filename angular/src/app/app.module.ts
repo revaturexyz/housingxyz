@@ -16,8 +16,8 @@ import { DatePipe, CommonModule } from '@angular/common';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
-import { MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, 
-  MatSortModule, MatTableModule } from "@angular/material";
+import { MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatSortModule, MatTableModule } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatCardModule} from '@angular/material/card';
 
