@@ -65,7 +65,7 @@ export class TestServiceData {
         amenityString: 'smart TV'
     };
 
-    static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2];
+    static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity2];
 
     static room: Room = {
         roomId: 0,
@@ -74,7 +74,7 @@ export class TestServiceData {
         numberOfBeds: 2,
         roomType: 'Apartment',
         isOccupied: false,
-        amenities: TestServiceData.dummyAmenity1,
+        amenities: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
         complexId: 1
@@ -93,10 +93,26 @@ export class TestServiceData {
         numberOfBeds: 9001,
         roomType: 'Dorm',
         isOccupied: true,
-        amenities: {
-            amenityId: 2,
-            amenityString: 'Washer/Dryer'
+        amenities: TestServiceData.dummmyList,
+        startDate: new Date(),
+        endDate: new Date(),
+        complexId: 2
+    };
+
+    static room3: Room = {
+        roomId: 0,
+        roomAddress: {
+            addressId: 2,
+            streetAddress: '701 S Nedderman Dr',
+            city: 'Arlington',
+            state: 'TX',
+            zipCode: '76019'
         },
+        roomNumber: '323',
+        numberOfBeds: 9001,
+        roomType: 'Dorm',
+        isOccupied: true,
+        amenities: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
         complexId: 2

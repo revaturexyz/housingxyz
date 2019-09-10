@@ -20,12 +20,12 @@ export class UpdateRoomComponent implements OnInit {
   complexRooms: Room[];
   mouseOverRoom: Room;
   selectedRoom: Room;
-  editing: boolean = false;
+  editing = false;
   showString = 'Choose Complex';
   highlightRoom: Room;
   bedNumBool: boolean;
   roomNumBool: boolean;
-  
+  displayedColumns = ['num', 'beds', 'type', 'occ', 'amen', 'start', 'end'];
   complexObs: Observer<Complex[]> = {
     next: x => {
       console.log('Observer got a next value.');
@@ -79,7 +79,7 @@ export class UpdateRoomComponent implements OnInit {
       startDate : r.startDate,
       endDate : r.endDate,
       complexId : r.complexId
-    }
+    };
     this.selectedRoom = newRoom;
     this.highlightRoom = r;
   }
@@ -105,11 +105,9 @@ export class UpdateRoomComponent implements OnInit {
 
   submit(r: Room) {
     this.roomList.forEach(element => {
-      if(element.roomId === r.roomId)
-      {
+      if (element.roomId === r.roomId) {
         element = r;
-      }      
-    });
+      }});
     console.log(this.roomList);
   }
 }

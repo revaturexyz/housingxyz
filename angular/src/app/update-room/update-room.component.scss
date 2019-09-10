@@ -6,9 +6,9 @@
 
 .rightBod {
     float: right;
-    overflow: auto;
+    overflow: auto !important;
     width: 50%;
-    height: 50%;
+    height: 30vw !important;
 }
 .bottomBod {
     float: right;
@@ -22,11 +22,22 @@
 }
 
 .hovered {
-    background-color: darkgrey !important;
-    color: white;
+    background: darkgrey !important;
 }
 
 .selected {
-    background-color: black !important;
-    color: white;
+    background: black !important;
+}
+
+.minWidth {
+    width: 14%;
+}
+
+.maxHeight {
+    height: 24px !important;
+    overflow-y: clip;
+}
+
+.page {
+    height: 100%;
 }

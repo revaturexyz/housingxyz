@@ -20,7 +20,7 @@ export class RoomService {
         return of(r);
     }
     getRoomsByProvider(providerId: number): Observable<Room[]> {
-        return of([TestServiceData.room, TestServiceData.room2]);
+        return of([TestServiceData.room, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3, TestServiceData.room2, TestServiceData.room3]);
     }
     getRoomTypes(): Observable<string[]> {
         return of(['Apartment', 'Dorm']);
