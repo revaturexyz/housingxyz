@@ -7,23 +7,6 @@
       </div>
     </div>
   </div>
-  <!-- <table class="table table-striped rightBod table-bordered" *ngIf="activeComplex">
-    <thead class="thead-dark">
-      <tr>
-          <th scope="col" class="text-center">Room Id</th>
-          <th scope="col" class="text-center">Room Number</th>
-          <th scope="col" class="text-center">Number of Beds</th>
-          <th scope="col" class="text-center">Type</th>
-          <th scope="col" class="text-center">Occupied</th>
-          <th scope="col" class="text-center">Start Date</th>
-          <th scope="col" class="text-center">End Date</th>
-      </tr>
-    </thead>
-    <tbody>
-        <dev-room-details mat-row *ngFor="let r of complexRooms" [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom">
-        </dev-room-details>
-    </tbody>
-  </table> -->
   <div class="rightBod">
     <ng-container *ngIf="complexRooms">
       <dev-room-details *ngFor="let r of complexRooms" [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.card]="true" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom"></dev-room-details>
