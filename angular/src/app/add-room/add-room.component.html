@@ -69,8 +69,8 @@
                     
 
                         <div class="col-md-10">
-                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{sliderValue}}
-                            <input type="range" min="1" max="8" value="2" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" (change)="adjustSliderValue($event)">
+                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{ room.numberOfBeds }}
+                            <input type="range" min="1" max="8" value="2" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
                         </div>
                         
                         <br><br>
