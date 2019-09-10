@@ -23,9 +23,9 @@ export class MapsService {
       console.log(x);
       if (x.status === 'OK' ) {
         console.log(x.status);
-        return false;
+        return true;
       }
-      return true;
+      return false;
     });
   }
 }
