@@ -29,16 +29,16 @@
                 </div> 
 
                 <br>
-                <button *ngIf="show === false"(click)="addForm()">Add Address</button>
+                <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
                 <form *ngIf="show === true">
                     <div>
-                    <label> Street Address: <input type="text"> </label> <br>
-                    <label> City: <input type="text"> </label> <br>
-                    <label> State: <input type="text"> </label> <br>
-                    <label> Zip Code: <input type="text"> </label> <br>
-                    <br>
-                    <button id="button" (click)="back()">cancel</button>
-                    <button id="buton">Submit</button>
+                        <label class="col-md-6"> Street Address: <input class="input-border" type="text" required minlength="5" maxlength="200"> </label> <br>
+                        <label class="col-md-6"> City: <input class="input-border" type="text" required maxlength="50"> </label> <br>
+                        <label class="col-md-6"> State: <input class="input-border" type="text" required minlength ="2" maxlength="50"> </label> <br>
+                        <label class="col-md-6"> Zip Code: <input class="input-border" type="text" pattern="[0-9]{5}"> </label> <br>
+                        <br>
+                        &nbsp;
+                        <button class="btn btn-secondary" (click)="back()">Cancel</button>
                     </div>
                 </form>
 
@@ -50,7 +50,7 @@
         <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
             <div class="logoarea pt-5 pb-5">
                 
-                <form>
+                <form id="roomForm">
                     <h1>Add Room</h1>
                     <br>
                     <div class="container">
@@ -95,9 +95,9 @@
                             <input class="input-border col-md-4" type="date" name="EndDate">
                         </div>
 
-                        <div class="col-md-10">                            
-                            <button class="col-md-3" id="cancel bottombutton" type="button">Cancel</button>
-                            <button class="col-md-3" id="submit topbutton" type="submit" (click)="postRoomOnSubmit()">Submit</button>
+                        <div id="topbutton">
+                            <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
+                            <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
                         </div>
                     </div>
                 </form> 
