@@ -76,17 +76,9 @@
                     
                     <div>
                         <div>Amenities:</div>
-                        <div>
-                            <input type="checkbox" name="amenities[0].amenityString" checked (click)="toggleLaundryAmenity()">
-                            <label for="amenities[0].amenityString">Washer/Dryer</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="amenities[1].amenityString" checked (click)="toggleTVAmenity()">
-                            <label for="amenities[1].amenityString">Smart TV</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="amenities[2].amenityString" checked (click)="togglePatioAmenity()">
-                            <label for="amenities[2].amenityString">Patio</label>
+                        <div *ngFor="let amenity of amenities">
+                            <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                            <label for="amenity.amenityString">{{ amenity.amenityString }}</label>
                         </div>
                     </div>
 

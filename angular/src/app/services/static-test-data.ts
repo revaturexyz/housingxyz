@@ -57,15 +57,18 @@ export class TestServiceData {
 
     static dummyAmenity1: Amenity = {
         amenityId: 1,
-        amenityString:  ''
+        amenityString:  'Washer/Dryer',
+        isSelected: true
     };
     static dummyAmenity2: Amenity = {
         amenityId: 2,
-        amenityString: ''
+        amenityString: 'Smart TV',
+        isSelected: true
     };
     static dummyAmenity3: Amenity = {
         amenityId: 3,
-        amenityString: ''
+        amenityString: 'Patio',
+        isSelected: true
     };
 
     static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity3];
@@ -98,7 +101,8 @@ export class TestServiceData {
         isOccupied: true,
         amenities: [{
             amenityId: 2,
-            amenityString: 'Washer/Dryer'
+            amenityString: 'Washer/Dryer',
+            isSelected: true
         }],
         startDate: new Date(),
         endDate: new Date(),
