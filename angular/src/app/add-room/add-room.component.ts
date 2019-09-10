@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../services/room.service';
 import { Room } from 'src/interfaces/room';
+import { MapsService } from '../services/maps.service';
 import { Complex } from 'src/interfaces/complex';
 import { Observer } from 'rxjs';
 import { ProviderService } from '../services/provider.service';
@@ -16,6 +17,8 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 
 export class AddRoomComponent implements OnInit {
+  status:boolean;
+
   room: Room = {
     roomId: 0,
     roomAddress: {
@@ -92,7 +95,8 @@ export class AddRoomComponent implements OnInit {
 
   constructor(
     private roomService: RoomService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private mapservice: MapsService
   ) { }
 
   ngOnInit() {
@@ -111,14 +115,22 @@ export class AddRoomComponent implements OnInit {
   }
 
   postRoomOnSubmit() {
-    if (this.show) {
-      if (this.room.roomAddress.addressId > 0) {
-        this.room.roomAddress.addressId = 0;
+    this.mapservice.verifyAddress(this.room.roomAddress).then(x => {
+      if (x.status === 'OK' ) {
+        this.status = false;
+        if (this.show) {
+          if (this.room.roomAddress.addressId > 0) {
+            this.room.roomAddress.addressId = 0;
+          }
+        }
+        this.room.amenities = this.amenities.filter(x => x.isSelected);
+        console.log(this.room);
+        this.roomService.postRoom(this.room);
       }
-    }
-    this.room.amenities = this.amenities.filter(x => x.isSelected);
-    console.log(this.room);
-    this.roomService.postRoom(this.room);
+      else{
+        this.status = true;
+      }
+    });  
   }
 
   getRoomByIdOnInit() {

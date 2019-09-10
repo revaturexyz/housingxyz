@@ -15,17 +15,12 @@ export class MapsService {
   private distUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=';
   private key = '&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
 
+  boolstatus: boolean;
+
   constructor(private httpClient: HttpClient) { }
 
-  verifyAddress() {
-    const query = this.geocodeUrl + TestServiceData.dummyAddress.streetAddress + this.key;
-    this.httpClient.get<Maps>(query).toPromise().then(x => {
-      console.log(x);
-      if (x.status === 'OK' ) {
-        console.log(x.status);
-        return true;
-      }
-      return false;
-    });
+  verifyAddress(address: Address){
+    const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
+    return this.httpClient.get<Maps>(query).toPromise();
   }
 }
