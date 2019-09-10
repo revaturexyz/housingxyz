@@ -70,8 +70,23 @@ export class TestServiceData {
         amenityString: 'Patio',
         isSelected: true
     };
+    static dummyAmenity4: Amenity = {
+        amenityId: 4,
+        amenityString: 'Fully Furnished',
+        isSelected: true
+    };
+    static dummyAmenity5: Amenity = {
+        amenityId: 5,
+        amenityString: 'Full Kitchen',
+        isSelected: true
+    };
+    static dummyAmenity6: Amenity = {
+        amenityId: 6,
+        amenityString: 'Individual Bathrooms',
+        isSelected: true
+    };
 
-    static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity3];
+    static dummmyList: Amenity[] = [TestServiceData.dummyAmenity1, TestServiceData.dummyAmenity2, TestServiceData.dummyAmenity3, TestServiceData.dummyAmenity4, TestServiceData.dummyAmenity5, TestServiceData.dummyAmenity6];
 
     static room: Room = {
         roomId: 0,
