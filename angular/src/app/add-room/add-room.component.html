@@ -56,15 +56,17 @@
                     <div class="container">
                         <div class="col-md-10">
                             <label class="col-md-4" for="room.roomType">Room Type: </label>
-                            <select class="input-border col-md-4 input-border" name="room.roomType" [(ngModel)]="room.roomType">
-                                <option>Apartment</option>
+                            <select class="input-border col-md-4 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
+                                <option selected>Apartment</option>
                                 <option>Dorm</option>
                             </select>
+                            <span *ngIf="roomT.invalid" class="alert alert-danger">Please select an option.</span>
                         </div>
 
                         <div class="col-md-10">
-                            <label for="" class="col-md-4">Room Number: </label>
-                            <input type="text" class="input-border col-md-4">
+                            <label for="room.roomNumber" class="col-md-4">Room Number: </label>
+                            <input type="text" name="room.roomNumber" class="input-border col-md-4" required pattern="[0-9]{1,5}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
+                            <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger">Room number must be between 1 and 5 digits only in length.</div>
                         </div>
                     
 
@@ -87,16 +89,16 @@
                         <br><br>
 
                         <div class="col-md-10">
-                            <label class="col-md-4">Start Date:</label>
-                            <input class="input-border col-md-4" type="date" name="StartDate">
+                            <label class="col-md-4">Start Date: {{room.startDate.getFullYear()}}-{{("0"+(room.startDate.getMonth()+1)).slice(-2)}}-{{room.startDate.getDate()}}</label>
+                            <input class="input-border col-md-4" type="date" name="StartDate" min="2019-09-11" max="2019-09-11" required [(ngModel)]="room.startDate" #roomSD="ngModel">
                         </div>
                         <div class="col-md-10">
                             <label class="col-md-4">End Date:</label>
-                            <input class="input-border col-md-4" type="date" name="EndDate">
+                            <input class="input-border col-md-4" type="date" name="EndDate" min="2019-09-12" max="2021-09-10" required [(ngModel)]="room.endDate" #roomED="ngModel">
                         </div>
 
                         <div id="topbutton">
-                            <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
+                            <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
                         </div>
                     </div>

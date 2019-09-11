@@ -8,6 +8,7 @@ import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { MapsService } from '../services/maps.service';
 
 @Component({
   selector: 'dev-add-room',
@@ -92,7 +93,8 @@ export class AddRoomComponent implements OnInit {
 
   constructor(
     private roomService: RoomService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private mapsService: MapsService
   ) { }
 
   ngOnInit() {
@@ -108,6 +110,7 @@ export class AddRoomComponent implements OnInit {
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
     console.log(this.types);
+    console.log(this.mapsService.verifyAddress());
   }
 
   postRoomOnSubmit() {
