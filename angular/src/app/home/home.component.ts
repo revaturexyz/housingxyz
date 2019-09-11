@@ -1,5 +1,6 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
+import { MapsService } from '../services/maps.service';
 
 @Component({
   selector: 'dev-home',
@@ -10,11 +11,13 @@ export class HomeComponent implements OnInit {
   locationList: object;
   roomList: object;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private mapsService: MapsService) { }
 
   updateRoom(id: number) {
     this.router.navigate(['update-room', id]);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.mapsService.checkDistance();
+  }
 }
