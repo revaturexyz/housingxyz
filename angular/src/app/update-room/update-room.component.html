@@ -1,3 +1,9 @@
+<ng-container *ngIf="false">
+  <!-- This div houses a button style dropdown menu that displays all
+  the complexes available to a provider. Selecting one updates
+  some fields in the component that allows for further progression
+  in the page's functionality. -->
+</ng-container>
 <div class="page">
   <div class="col text-center leftBod">
     <div ngbDropdown class="d-inline-block">
@@ -7,11 +13,22 @@
       </div>
     </div>
   </div>
+  <ng-container *ngIf="false">
+    <!-- This div houses the room details component. For more details on how
+    that is displayed go to the component itself. In here it just sets a bunch
+    of events on it so that it may be selected. That then updates more fields
+    in the component. -->
+  </ng-container>
   <div class="rightBod">
     <ng-container *ngIf="complexRooms">
       <dev-room-details *ngFor="let r of complexRooms" [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.card]="true" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom"></dev-room-details>
     </ng-container>
   </div>
+  <ng-container *ngIf="false">
+    <!-- This div houses a table to make displaying the form and the selected
+    room details easier. It only renders when a room has been selected from
+    above. -->
+  </ng-container>
   <div>
     <table class="table table-striped bottomBod table-bordered" *ngIf="selectedRoom">
         <thead class="thead-dark">
@@ -20,6 +37,7 @@
             <th scope="col" class="text-center">Number of Beds</th>
             <th scope="col" class="text-center">Type</th>
             <th scope="col" class="text-center">Occupied</th>
+            <th scope="col" class="text-center">Amenities</th>
             <th scope="col" class="text-center">Start Date</th>
             <th scope="col" class="text-center">End Date</th>
           </tr>
@@ -30,33 +48,55 @@
               <td scope="col" style="text-align: center">{{selectedRoom.numberOfBeds}}</td>
               <td scope="col" style="text-align: center">{{selectedRoom.roomType}}</td>
               <td scope="col" style="text-align: center">{{selectedRoom.isOccupied}}</td>
+              <td scope="col" style="text-align: center">
+                <span>|</span>
+                <span *ngFor="let a of selectedRoom.amenities">| {{a.amenityString}} |</span>
+                <span>|</span>
+              </td>
               <td scope="col" style="text-align: center">{{selectedRoom.startDate | date}}</td>
               <td scope="col" style="text-align: center">{{selectedRoom.endDate | date}}</td>
             </tr>
             <tr *ngIf="editing">
+              <!-- this is the form for the room number. -->
                 <td scope="col" class="text-center">
                   <form class="form-group" #roomNum="ngForm">
-                    <input maxlength="7" class="form-control" id="roomNumber" required type="text" [pattern]="'^(?=.*\\d)[a-zA-Z0-9]*$'"
-                      [(ngModel)]="selectedRoom.roomNumber" name="roomNum" #name="ngModel" (keyup)="roomNumValid(name.invalid)"/>
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"> Must be only numbers or letters, max 7.</div>
+                    <input maxlength="7" class="form-control" id="roomNum" required type="text" [pattern]="'^(?=.*\\d)[a-zA-Z0-9]*$'"
+                      [(ngModel)]="selectedRoom.roomNumber" name="roomNum" #roomNum="ngModel" (keyup)="roomNumValid(roomNum.invalid)"/>
+                    <div *ngIf="roomNum.invalid && (roomNum.dirty || roomNum.touched)" class="alert alert-danger"> Must be only numbers or letters with at least 1 number, max 7 characters.</div>
                   </form>
                 </td>
+                <!-- this is the form for the number of beds -->
                 <td scope="col" class="text-center">
                     <form class="form-group" #bedNum="ngForm">
-                        <input maxlength="4" class="form-control" id="roomNumber" required type="text" [pattern]="'^(?=.*\\d)[0-9]{1,4}$'"
-                          [(ngModel)]="selectedRoom.numberOfBeds" name="roomNum" #bedNum="ngModel" (keyup)="bedNumValid(bedNum.invalid)"/>
-                        <div *ngIf="bedNum.invalid && (bedNum.dirty || bedNum.touched)" class="alert alert-danger"> Must be only numbers, max 4 digits.</div>
+                        <input maxlength="1" class="form-control" id="bedNum" required type="text" [pattern]="'^(?=.*\\d)[1-8]{1,1}$'"
+                          [(ngModel)]="selectedRoom.numberOfBeds" name="bedNum" #bedNum="ngModel" (keyup)="bedNumValid(bedNum.invalid)"/>
+                        <div *ngIf="bedNum.invalid && (bedNum.dirty || bedNum.touched)" class="alert alert-danger"> Must be a single digit between 1 and 8.</div>
                     </form>
                 </td>
                 <td scope="col" class="text-center">{{selectedRoom.roomType}}</td>
                 <td scope="col" class="text-center">{{selectedRoom.isOccupied}}</td>
-                <td scope="col" class="text-center">{{selectedRoom.startDate.getDate()}}/{{selectedRoom.startDate.getMonth()}}/{{selectedRoom.startDate.getFullYear()}}</td>
-                <td scope="col" class="text-center">{{selectedRoom.endDate.getDate()}}/{{selectedRoom.endDate.getMonth()}}/{{selectedRoom.endDate.getFullYear()}}</td>
+                <td scope="col" style="text-align: center"></td>
+                <!-- this is the form for the start date of the contract -->
+                <td scope="col" class="text-center">
+                  <form class="form-group" #startDate="ngForm">
+                    <input class="form-control" id="startDate" required type="date"
+                      [ngModel]="selectedRoom.startDate | date:'yyyy-MM-dd'" (ngModelChange)="validateStart($event)" name="startDate" #startDate="ngModel"/>
+                    <div *ngIf="validStart === false" class="alert alert-danger"> Must be either today or in the future.</div>
+                  </form>
+                </td>
+                <!-- this is the form for end date of the contract -->
+                <td scope="col" class="text-center">
+                  <form class="form-group" #endDate="ngForm">
+                    <input class="form-control" id="endDate" required type="date"
+                      [ngModel]="selectedRoom.endDate | date:'yyyy-MM-dd'" (ngModelChange)="validateEnd($event)" name="endDate" #endDate="ngModel"/>
+                    <div *ngIf="validEnd === false" class="alert alert-danger"> Must be later than the starting date.</div>
+                  </form>
+                </td>
             </tr>
         </tbody>
     </table>
     <button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="selectedRoom" [disabled]="selectedRoom.IsOccupied">Remove</button>
     <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && !editing" (click)="startEdit()" [disabled]="selectedRoom.IsOccupied">Edit</button>
-    <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && editing" (click)="submit(selectedRoom)" [disabled]="bedNumBool === true || roomNumBool === true">Submit</button>
+    <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && editing" (click)="submit(selectedRoom)" [disabled]="bedNumBool === true || roomNumBool === true || validStart === false || validEnd === false">Submit</button>
   </div>
 </div>
