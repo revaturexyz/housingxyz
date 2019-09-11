@@ -31,8 +31,8 @@ export class AddRoomComponent implements OnInit {
     roomType: '',
     isOccupied: false,
     amenities: null,
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: new Date,
+    endDate: new Date,
     complexId: 1
   };
 
@@ -48,6 +48,34 @@ export class AddRoomComponent implements OnInit {
   addressList: Address[];
   activeAddress: Address;
   addressShowString = 'Choose Address';
+
+  sdMinYear = new Date().getFullYear();
+  sdMinMonth = ('0' + (new Date().getMonth() + 1)).slice(-2);
+  sdMinDay = new Date().getDate();
+
+  sdMaxFullDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds(), new Date().getMilliseconds() + 6*2.628e+9);
+  sdMaxYear = this.sdMaxFullDate.getFullYear();
+  sdMaxMonth = ('0' + (this.sdMaxFullDate.getMonth() + 1)).slice(-2);
+  sdMaxDay = this.sdMaxFullDate.getDate();
+
+  edMinFullDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds(), new Date().getMilliseconds() + 2.628e+9);
+  edMinYear = this.edMinFullDate.getFullYear();
+  edMinMonth = ('0' + (this.edMinFullDate.getMonth() + 1)).slice(-2);
+  edMinDay = this.edMinFullDate.getDate();
+
+  edMaxFullDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds(), new Date().getMilliseconds() + 24*2.628e+9);
+  edMaxYear = this.edMaxFullDate.getFullYear();
+  edMaxMonth = ('0' + (this.edMaxFullDate.getMonth() + 1)).slice(-2);
+  edMaxDay = this.edMaxFullDate.getDate();
+
+  verifyDates(beg: Date, end: Date): boolean {
+    console.log('start date in milliseconds ' + new Date(beg).getTime());
+    console.log('end date in milliseconds ' + new Date(end).getTime());
+    if (new Date(beg).getTime() >= new Date(end).getTime()) {
+      return true;
+    }
+    return false;
+  }
 
   amenityObs: Observer<Amenity[]> = {
     next: x => {
