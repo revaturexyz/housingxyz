@@ -17,7 +17,7 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 
 export class AddRoomComponent implements OnInit {
-  status:boolean;
+  status: boolean;
 
   room: Room = {
     roomId: 0,
@@ -123,14 +123,13 @@ export class AddRoomComponent implements OnInit {
             this.room.roomAddress.addressId = 0;
           }
         }
-        this.room.amenities = this.amenities.filter(x => x.isSelected);
+        this.room.amenities = this.amenities.filter(y => y.isSelected);
         console.log(this.room);
         this.roomService.postRoom(this.room);
-      }
-      else{
+      } else {
         this.status = true;
       }
-    });  
+    });
   }
 
   getRoomByIdOnInit() {

@@ -19,7 +19,7 @@ export class MapsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  verifyAddress(address: Address){
+  verifyAddress(address: Address) {
     const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
     return this.httpClient.get<Maps>(query).toPromise();
   }
