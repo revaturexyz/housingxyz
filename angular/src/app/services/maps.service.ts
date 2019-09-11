@@ -14,18 +14,34 @@ export class MapsService {
   private geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   private distUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=';
   private key = '&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
-
+  boolStatus: boolean;
   constructor(private httpClient: HttpClient) { }
 
-  verifyAddress() {
-    const query = this.geocodeUrl + TestServiceData.dummyAddress.streetAddress + this.key;
+  verifyAddress(): boolean {
+    
+    const query = this.geocodeUrl + TestServiceData.dummyAddress.streetAddress + TestServiceData.dummyAddress.zipCode + this.key;
     this.httpClient.get<Maps>(query).toPromise().then(x => {
-      console.log(x);
-      if (x.status === 'OK' ) {
+      console.log(x.status);
+      this.boolStatus = true;
+      console.log(this.boolStatus);
+      console.log('1');
+      /*if (x.status === 'OK' ) {
         console.log(x.status);
-        return true;
+        this.boolStatus = true;
+        console.log(this.boolStatus);
+        console.log('1');
+        return this.boolStatus;
       }
-      return false;
+      this.boolStatus = false;
+      console.log(this.boolStatus);
+      console.log('2');
+      return this.boolStatus;*/
+    }).catch(c => {
+      console.log(c.status);
+      this.boolStatus = false;
+      console.log(this.boolStatus);
+      console.log('2');
     });
+    return true;
   }
 }
