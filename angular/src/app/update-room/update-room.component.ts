@@ -179,4 +179,13 @@ export class UpdateRoomComponent implements OnInit {
       this.validEnd = false;
     }
   }
+
+  // this function removes a room that is currently unoccupied. It only works if the room is not occupied, with a flag set externally
+  removeRoom(r: Room) {
+    this.roomList = this.roomList.filter(x => x.roomId !== r.roomId);
+    this.complexRooms = this.complexRooms.filter(x => x.roomId !== r.roomId);
+    this.selectedRoom = null;
+    this.highlightRoom = null;
+    this.editing = false;
+  }
 }

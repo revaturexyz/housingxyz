@@ -95,8 +95,8 @@
             </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="selectedRoom" [disabled]="selectedRoom.IsOccupied">Remove</button>
-    <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && !editing" (click)="startEdit()" [disabled]="selectedRoom.IsOccupied">Edit</button>
+    <button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="selectedRoom" (click)="removeRoom(selectedRoom)" [disabled]="selectedRoom.isOccupied">Remove</button>
+    <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && !editing" (click)="startEdit()" [disabled]="selectedRoom.isOccupied">Edit</button>
     <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="selectedRoom && editing" (click)="submit(selectedRoom)" [disabled]="bedNumBool === true || roomNumBool === true || validStart === false || validEnd === false">Submit</button>
   </div>
 </div>
