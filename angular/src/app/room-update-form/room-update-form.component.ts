@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 import { DatePipe } from '@angular/common';
 
@@ -16,10 +16,11 @@ export class RoomUpdateFormComponent implements OnInit {
   validStart: boolean;
   validEnd: boolean;
   today: Date;
+  @Input () room: Room;
+  @Output() roomChange = new EventEmitter();
+  @Output() deleteRoom = new EventEmitter();
 
   constructor(private datePipe: DatePipe) { }
-
-  @Input () room: Room;
 
   ngOnInit() {
     this.today = new Date();
@@ -30,7 +31,13 @@ export class RoomUpdateFormComponent implements OnInit {
   startEdit() {
     this.editing = true;
   }
-  
+
+  // this funciton resets the component to display nothing and await new input from parent
+  resetForm() {
+    this.editing = false;
+    this.room = null;
+  }
+
   // this function sets a flag related to form validation. When the user is editing and the number of beds is determined to
   // not be a valid input, this flag allows the submit button to check for validity and become disabled if input is invalid.
   bedNumValid(valid: boolean) {
@@ -48,6 +55,7 @@ export class RoomUpdateFormComponent implements OnInit {
   validateStart(event: any) {
     if (this.datePipe.transform(this.today, 'yyyy-MM-dd') <= this.datePipe.transform(event, 'yyyy-MM-dd')) {
       this.validStart = true;
+      this.room.startDate = event;
       if (this.datePipe.transform(this.room.endDate, 'yyyy-MM-dd') < this.datePipe.transform(event, 'yyyy-MM-dd')) {
         this.validEnd = false;
       } else {
@@ -68,6 +76,7 @@ export class RoomUpdateFormComponent implements OnInit {
   validateEnd(event: any) {
     if (this.datePipe.transform(this.room.startDate, 'yyyy-MM-dd') <= this.datePipe.transform(event, 'yyyy-MM-dd')) {
       this.validEnd = true;
+      this.room.endDate = event;
     } else {
       this.validEnd = false;
     }
@@ -76,11 +85,13 @@ export class RoomUpdateFormComponent implements OnInit {
   // this function executes when a user has decided to make some edits to a room. It sets a matching room in the roomList
   // to the newly edited room, and then clears all flags so that the user's view is cleared.
   submit(r: Room) {
-    this.editing = false;
+    this.roomChange.emit(r);
+    this.resetForm();
   }
 
   // this function removes a room that is currently unoccupied. It only works if the room is not occupied, with a flag set externally
   removeRoom(r: Room) {
-    this.editing = false;
+    this.deleteRoom.emit(r);
+    this.resetForm();
   }
 }

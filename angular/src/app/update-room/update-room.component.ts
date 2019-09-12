@@ -101,4 +101,32 @@ export class UpdateRoomComponent implements OnInit {
     this.selectedRoom = null;
     this.highlightRoom = null;
   }
+
+  // this function receives an event from the child and commits the changes to the working room list
+  roomChange(r: Room) {
+    this.roomList.forEach(element => {
+      if (element.roomId === r.roomId) {
+        element.roomId = r.roomId;
+        element.roomAddress = r.roomAddress;
+        element.roomNumber = r.roomNumber;
+        element.numberOfBeds = r.numberOfBeds;
+        element.roomType = r.roomType;
+        element.isOccupied = r.isOccupied;
+        element.amenities = r.amenities;
+        element.startDate = r.startDate;
+        element.endDate = r.endDate;
+        element.complexId = r.complexId;
+      }
+    });
+    this.selectedRoom = null;
+    this.highlightRoom = null;
+  }
+
+  // this function receives an event from the child and removes the room from the working room list
+  removeRoom(r: Room) {
+    this.roomList = this.roomList.filter(x => x.roomId !== r.roomId);
+    this.complexRooms = this.complexRooms.filter(x => x.roomId !== r.roomId);
+    this.selectedRoom = null;
+    this.highlightRoom = null;
+  }
 }

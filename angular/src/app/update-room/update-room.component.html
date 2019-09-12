@@ -30,6 +30,6 @@
     above. -->
   </ng-container>
   <div>
-    <dev-room-update-form [room]="selectedRoom"></dev-room-update-form>
+    <dev-room-update-form [room]="selectedRoom" (roomChange)="roomChange($event)" (deleteRoom)="removeRoom($event)"></dev-room-update-form>
   </div>
 </div>
