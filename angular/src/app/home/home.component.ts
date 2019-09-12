@@ -9,12 +9,33 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   locationList: object;
   roomList: object;
+  
+    constructor(private router: Router) {
 
-  constructor(private router: Router) { }
+    }
+    
+    // getLocationInfo(){
+    //   //httpclient get method
+    //   this.datasvc.getLocationData().subscribe(data => {
+    //     this.locationList=data;//assign data to location object
+    //     this.getRoomInfo();
+    // });
+    // }
 
-  updateRoom(id: number) {
-    this.router.navigate(['update-room', id]);
-  }
+    // getRoomInfo()
+    // {
+    //   this.datasvc.getRoomData().subscribe(data => {
+    //     this.roomList=data;
+    // });
+    // }
+    
+    showLocation(id: number) {
+      this.router.navigate(['add-room', id]);
+    }
+
+    updateRoom(id: number) {
+      this.router.navigate(['update-room', id]);
+    }
 
   ngOnInit() { }
 }

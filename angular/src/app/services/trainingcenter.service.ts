@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Room } from '../../interfaces/room';
-import { Amenity} from '../../interfaces/amenity';
-import { TrainingCenter} from '../../interfaces/trainingcenter';
+import { Room } from '../../models/room';
+import { Amenity} from '../../models/amenity';
 import { Observable, of } from 'rxjs';
+import { TrainingCenter} from '../../interfaces/trainingcenter';
 import { TestServiceData } from './static-test-data';
 import { Complex } from 'src/interfaces/complex';
 
