@@ -15,8 +15,6 @@ export class MapsService {
   private distUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=';
   private key = '&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
 
-  boolstatus: boolean;
-
   constructor(private httpClient: HttpClient) { }
 
   async verifyAddress(address: Address): Promise<boolean> {
