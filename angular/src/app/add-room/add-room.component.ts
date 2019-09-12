@@ -114,22 +114,22 @@ export class AddRoomComponent implements OnInit {
     console.log(this.types);
   }
 
-  postRoomOnSubmit() {
-    this.mapservice.verifyAddress(this.room.roomAddress).then(x => {
-      if (x.status === 'OK' ) {
-        this.status = false;
-        if (this.show) {
-          if (this.room.roomAddress.addressId > 0) {
-            this.room.roomAddress.addressId = 0;
-          }
+  async postRoomOnSubmit() {
+    const isValidAddress = await this.mapservice.verifyAddress(this.room.roomAddress);
+    console.log('Address is valid: ' + isValidAddress);
+    if (isValidAddress) {
+      this.status = false;
+      if (this.show) {
+        if (this.room.roomAddress.addressId > 0) {
+          this.room.roomAddress.addressId = 0;
         }
-        this.room.amenities = this.amenities.filter(y => y.isSelected);
-        console.log(this.room);
-        this.roomService.postRoom(this.room);
-      } else {
-        this.status = true;
       }
-    });
+      this.room.amenities = this.amenities.filter(y => y.isSelected);
+      console.log(this.room);
+      this.roomService.postRoom(this.room);
+    } else {
+      this.status = true;
+    }
   }
 
   getRoomByIdOnInit() {

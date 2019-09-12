@@ -19,8 +19,16 @@ export class MapsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  verifyAddress(address: Address) {
+  async verifyAddress(address: Address) {
     const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
-    return this.httpClient.get<Maps>(query).toPromise();
+    return await this.httpClient.get<Maps>(query).toPromise()
+      .then((mapsResult) => {
+        console.log(mapsResult);
+        return mapsResult.status === 'OK';
+      })
+      .catch((error) => {
+        console.log(error);
+        return false;
+      });
   }
 }
