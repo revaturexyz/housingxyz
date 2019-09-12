@@ -25,6 +25,7 @@
           <td scope="col" style="text-align: center">{{room.startDate | date}}</td>
           <td scope="col" style="text-align: center">{{room.endDate | date}}</td>
         </tr>
+        <!-- this row begins the display for the forms. Only displays when the user has clicked to edit the room -->
         <tr *ngIf="editing">
           <!-- this is the form for the room number. -->
             <td scope="col" class="text-center">
