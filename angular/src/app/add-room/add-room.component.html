@@ -33,7 +33,10 @@
                 <form *ngIf="show === true">
                     <div>
                         <label class="col-md-9">Street Address: <input [(ngModel)]="room.roomAddress.streetAddress" name="room.roomAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
-                        <div class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger">Street address must contain at least 5 characters.</div>
+                        <div class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="true"><span aria-hidden="true">&times;</span></button>
+                            Street address must contain at least 5 characters.
+                        </div>
 
                         <label class="col-md-9"> City: <input [(ngModel)]="room.roomAddress.city" name="room.roomAddress.city" class="input-border" type="text" required minlength="1" maxlength="50" #city="ngModel"> </label> 
                         <div class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either to short or to long.</div>

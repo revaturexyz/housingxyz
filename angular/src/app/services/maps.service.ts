@@ -23,13 +23,13 @@ export class MapsService {
     return this.httpClient.get<Maps>(query).toPromise();
   }
 
-  checkDistance() {
+  checkDistance(address1: Address, address2: Address) {
     let lat1;
     let lat2;
     let lon1;
     let lon2;
-    const adr1 = this.geocodeUrl + TestServiceData.UTA.streetAddress + this.key;
-    const adr2 = this.geocodeUrl + TestServiceData.livPlusAddress.streetAddress + this.key;
+    const adr1 = this.geocodeUrl + address1.streetAddress + '+' + address1.city + this.key;
+    const adr2 = this.geocodeUrl + address2.streetAddress + '+' + address2.city + this.key;
 
     console.log(adr1);
     this.httpClient.get<Maps>(adr1).toPromise().then(x => {
