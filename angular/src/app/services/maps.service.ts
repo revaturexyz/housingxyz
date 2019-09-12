@@ -44,21 +44,16 @@ export class MapsService {
       });
   }
   async checkDistance(address1: Address, address2: Address): Promise<number> {
-    const x = await this.getCoordinates(address1);
-    console.log(x);
-    const y = await this.getCoordinates(address2);
-    console.log(y);
-    const lat1 = x.lat;
-    const lat2 = y.lat;
-    const lon1 = x.lng;
-    const lon2 = y.lng;
-    console.log('lat1: ' + lat1 + 'lon1: ' + lon1 + 'lat2: ' + lat2 + 'lon2: ' + lon2);
+    const origin = await this.getCoordinates(address1);
+    console.log(origin);
+    const destination = await this.getCoordinates(address2);
+    console.log(destination);
     const R = 3958.8;
-    const dLat = Math.PI / 180 * (lat2 - lat1);
-    const dLon = Math.PI / 180 * (lon2 - lon1);
+    const dLat = Math.PI / 180 * (destination.lat - origin.lat);
+    const dLon = Math.PI / 180 * (destination.lng - origin.lng);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(Math.PI / 180 * (lat1)) * Math.cos(Math.PI / 180 * (lat2)) *
+      Math.cos(Math.PI / 180 * (origin.lat)) * Math.cos(Math.PI / 180 * (destination.lat)) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
