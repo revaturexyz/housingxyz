@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Address } from '../../interfaces/address';
 import { Maps } from '../../interfaces/maps/maps';
 import { Observable, of, from } from 'rxjs';
 import { TestServiceData } from './static-test-data';
 import { promise } from 'protractor';
+import { MapsGeoLocation } from '../../interfaces/maps/maps-geo-location';
 
 @Injectable({
   providedIn: 'root'
@@ -31,43 +32,39 @@ export class MapsService {
       });
   }
 
-  checkDistance(address1: Address, address2: Address) {
-    let lat1;
-    let lat2;
-    let lon1;
-    let lon2;
-    const adr1 = this.geocodeUrl + address1.streetAddress + '+' + address1.city + this.key;
-    const adr2 = this.geocodeUrl + address2.streetAddress + '+' + address2.city + this.key;
-
-    console.log(adr1);
-    this.httpClient.get<Maps>(adr1).toPromise().then(x => {
-      console.log('adr1 lat: ' + x.results[0].geometry.location.lat);
-      console.log('adr1 lng: ' + x.results[0].geometry.location.lng);
-      lat1 = x.results[0].geometry.location.lat;
-      lon1 = x.results[0].geometry.location.lng;
-      console.log(x.results[0].formatted_address);
-      console.log(lat1 + ' ' + lon1);
-
-      console.log(adr2);
-      this.httpClient.get<Maps>(adr2).toPromise().then(y => {
-        console.log('adr2 lat: ' + y.results[0].geometry.location.lat);
-        console.log('adr2 lng: ' + y.results[0].geometry.location.lng);
-        lat2 = y.results[0].geometry.location.lat;
-        lon2 = y.results[0].geometry.location.lng;
-        console.log(y.results[0].formatted_address);
-        console.log(lat2 + ' ' + lon2);
-
-        const R = 3958.8;
-        const dLat = Math.PI / 180 * (lat2 - lat1);
-        const dLon = Math.PI / 180 * (lon2 - lon1);
-        const a =
-          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(Math.PI / 180 * (lat1)) * Math.cos(Math.PI / 180 * (lat2)) *
-          Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const d = R * c;
-        console.log('distance: ' + d + ' miles');
+  async getCoordinates(address: Address): Promise<MapsGeoLocation> {
+    const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
+    return await this.httpClient.get<Maps>(query).toPromise()
+      .then((mapsResult) => {
+        console.log('lat:' + mapsResult.results[0].geometry.location.lat);
+        console.log('lng:' + mapsResult.results[0].geometry.location.lng);
+        return mapsResult.results[0].geometry.location;
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
       });
-    });
+  }
+  async checkDistance(address1: Address, address2: Address): Promise<number> {
+    const x = await this.getCoordinates(address1);
+    console.log(x);
+    const y = await this.getCoordinates(address2);
+    console.log(y);
+    const lat1 = x.lat;
+    const lat2 = y.lat;
+    const lon1 = x.lng;
+    const lon2 = y.lng;
+    console.log('lat1: ' + lat1 + 'lon1: ' + lon1 + 'lat2: ' + lat2 + 'lon2: ' + lon2);
+    const R = 3958.8;
+    const dLat = Math.PI / 180 * (lat2 - lat1);
+    const dLon = Math.PI / 180 * (lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(Math.PI / 180 * (lat1)) * Math.cos(Math.PI / 180 * (lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c;
+    console.log('distance: ' + d + ' miles');
+    return d;
   }
 }
