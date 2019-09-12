@@ -96,7 +96,7 @@ export class TestServiceData {
     ];
 
     static room: Room = {
-        roomId: 0,
+        roomId: 1,
         roomAddress: TestServiceData.dummyAddress,
         roomNumber: '322',
         numberOfBeds: 2,
@@ -109,7 +109,7 @@ export class TestServiceData {
     };
 
     static room2: Room = {
-        roomId: 0,
+        roomId: 2,
         roomAddress: {
             addressId: 2,
             streetAddress: '701 S Nedderman Dr',
