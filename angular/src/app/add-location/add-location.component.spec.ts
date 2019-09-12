@@ -224,8 +224,7 @@
 //     expect(component.PostLocationInfo).toHaveBeenCalledWith(LocationData);
 //     expect(component.submitted).toBeFalsy();
 
-//     //expect chnage the router 
-   
+//     //expect chnage the router
 //     expect(routerstub.navigate).toHaveBeenCalledWith(['']);
 
 //   });

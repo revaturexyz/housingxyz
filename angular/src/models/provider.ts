@@ -9,5 +9,5 @@ export class Provider {
         public ZipCode: string,
         public ContactNumber: string,
         public TrainingCenter: Trainingcenter
-        ){}
+        ) {}
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 // import { NavComponent } from './nav.component';
@@ -83,11 +82,11 @@
 //     expect(homeLink.navigatedTo).toBe('./show-by-location');
 //   });
 
-  
+
 
 //   it(' href of about us should be "https://revature.com/our-story/"', () => {
 //     const about = fixture.debugElement.queryAll(By.css('a'));
-    
+
 //     expect(about[2].nativeElement.href).toEqual("https://revature.com/our-story/");
 //   });
 
@@ -103,7 +102,6 @@
 //     expect(loginLink.navigatedTo).toBe('./login');
 //   });
 // });
-=======
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavComponent } from './nav.component';
@@ -141,4 +139,3 @@ describe('NavComponent', () => {
     expect(about[2].nativeElement.href).toEqual('https://revature.com/our-story/');
   });
 });
->>>>>>> 37203c3dd2148c5500c3d2bc1e569c7593931819

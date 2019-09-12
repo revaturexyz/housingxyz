@@ -15,11 +15,10 @@ export class ShowByLocationComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  selectOption(id: any)
-  {
+  selectOption(id: any) {
     this.locationID = id;
     console.log(id);
-    //this.getRoomInfoByLocation();
+    // this.getRoomInfoByLocation();
   }
 
   // getLocationInfo(){
@@ -44,6 +43,6 @@ export class ShowByLocationComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.getLocationInfo();  
+    // this.getLocationInfo();
   }
 }

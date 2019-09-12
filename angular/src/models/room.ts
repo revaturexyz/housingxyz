@@ -5,7 +5,7 @@ export class Room {
     City: string;
     State: string;
     ZipCode: string;
-    RoomNumber: string;  
+    RoomNumber: string;
     NumberOfBeds: number;
     RoomType: string;
     IsOccupied: boolean;

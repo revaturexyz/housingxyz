@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   locationList: object;
   roomList: object;
-  
+
     constructor(private router: Router) {
 
     }
-    
+
     // getLocationInfo(){
     //   //httpclient get method
     //   this.datasvc.getLocationData().subscribe(data => {
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     //     this.roomList=data;
     // });
     // }
-    
+
     showLocation(id: number) {
       this.router.navigate(['add-room', id]);
     }
