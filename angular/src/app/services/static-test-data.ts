@@ -34,7 +34,7 @@ export class TestServiceData {
 
     static UTA: Address = {
         addressId: 3,
-        streetAddress: '749 S Cooper St',
+        streetAddress: '749 South Cooper St',
         city: 'Arlington',
         state: 'TX',
         zipCode: '76010'

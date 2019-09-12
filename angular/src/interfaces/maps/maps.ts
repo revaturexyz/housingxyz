@@ -1,4 +1,4 @@
-import { MapsDetails } from '../interfaces/maps-details';
+import { MapsDetails } from './maps-details';
 
 export interface Maps {
     results: MapsDetails[];
