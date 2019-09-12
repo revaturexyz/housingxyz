@@ -13,7 +13,7 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 @Component({
   selector: 'dev-add-room',
   templateUrl: './add-room.component.html',
-  styleUrls: ['./add-room.component.scss']
+  styleUrls: [ './add-room.component.scss' ]
 })
 export class AddRoomComponent implements OnInit {
   status: boolean;
@@ -50,79 +50,121 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
+  sdMinYear = new Date().getFullYear();
+  sdMinMonth = ('0' + (new Date().getMonth() + 1)).slice(-2);
+  sdMinDay = new Date().getDate();
+
+  sdMaxFullDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate(),
+    new Date().getHours(),
+    new Date().getMinutes(),
+    new Date().getSeconds(),
+    new Date().getMilliseconds() + 6 * 2.628e9
+  );
+  sdMaxYear = this.sdMaxFullDate.getFullYear();
+  sdMaxMonth = ('0' + (this.sdMaxFullDate.getMonth() + 1)).slice(-2);
+  sdMaxDay = this.sdMaxFullDate.getDate();
+
+  edMinFullDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate(),
+    new Date().getHours(),
+    new Date().getMinutes(),
+    new Date().getSeconds(),
+    new Date().getMilliseconds() + 2.628e9
+  );
+  edMinYear = this.edMinFullDate.getFullYear();
+  edMinMonth = ('0' + (this.edMinFullDate.getMonth() + 1)).slice(-2);
+  edMinDay = this.edMinFullDate.getDate();
+
+  edMaxFullDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate(),
+    new Date().getHours(),
+    new Date().getMinutes(),
+    new Date().getSeconds(),
+    new Date().getMilliseconds() + 24 * 2.628e9
+  );
+  edMaxYear = this.edMaxFullDate.getFullYear();
+  edMaxMonth = ('0' + (this.edMaxFullDate.getMonth() + 1)).slice(-2);
+  edMaxDay = this.edMaxFullDate.getDate();
+
   amenityObs: Observer<Amenity[]> = {
-    next: x => {
+    next: (x) => {
       console.log('Observer got an amenity value.\n');
       this.amenities = x;
       console.log(this.amenities);
     },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
+    error: (err) => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification')
   };
 
   typeObs: Observer<string[]> = {
-    next: x => {
+    next: (x) => {
       console.log('Observer got a next value.');
       this.types = x;
     },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
+    error: (err) => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification')
   };
 
   // An Observer for receiving and prcessing return values
   // from the providerService.getComplexes() method
   complexObs: Observer<Complex[]> = {
-    next: x => {
+    next: (x) => {
       console.log('Observer got a next value.');
       this.complexList = x;
     },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
+    error: (err) => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification')
   };
 
   // An Observer for receiving and processing return values
   // from the providerService.getAddressesByProvider() method
   addressObs: Observer<Address[]> = {
-    next: x => {
+    next: (x) => {
       console.log('Observer got next value: x ');
       console.log(x);
       this.addressList = x;
     },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
+    error: (err) => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification')
   };
 
   constructor(
     private roomService: RoomService,
     private providerService: ProviderService,
     private mapservice: MapsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
     this.providerService.getComplexes(1).subscribe(this.complexObs);
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
-    this.providerService.getProviderById(1).toPromise()
-      .then(
-        provider => this.provider = provider,
-        error => console.log(error)
-      );
+    this.providerService
+      .getProviderById(1)
+      .toPromise()
+      .then((provider) => (this.provider = provider), (error) => console.log(error));
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
     console.log(this.types);
   }
 
   postRoomOnSubmit() {
-    this.mapservice.verifyAddress(this.room.roomAddress).then(x => {
-      if (x.status === 'OK' ) {
+    this.mapservice.verifyAddress(this.room.roomAddress).then((x) => {
+      if (x.status === 'OK') {
         this.status = false;
         if (this.show) {
           if (this.room.roomAddress.addressId > 0) {
             this.room.roomAddress.addressId = 0;
           }
         }
-        this.room.amenities = this.amenities.filter(y => y.isSelected);
+        this.room.amenities = this.amenities.filter((y) => y.isSelected);
         console.log(this.room);
         this.roomService.postRoom(this.room);
       } else {
@@ -171,5 +213,9 @@ export class AddRoomComponent implements OnInit {
     this.addressShowString = address.streetAddress;
     this.activeAddress = address;
     this.room.roomAddress = address;
+  }
+
+  verifyDates(beg: Date, end: Date): boolean {
+    return new Date(beg).getTime() >= new Date(end).getTime();
   }
 }

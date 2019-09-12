@@ -1,83 +1,5 @@
 <div class="d-md-flex h-md-100 align-items-center">
 
-<<<<<<< HEAD
-    <div class="col-md-4 p-0 bg-indigo h-md-100">
-        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
-            <div class="logoarea pt-5 pb-5">
-                <h1>Training Center</h1>
-                <p> University of Texas at Arlington</p>
-                <p> (123) 456 - 7890</p>
-            </div>
-        </div>
-    </div>
-        
-    <div class="col-md-8 p-0 bg-white h-md-100 loginarea">
-        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
-            <div class="logoarea pt-5 pb-5">
-                <h1> Add Room </h1>
-                <!-- <fieldset> -->
-                    <form>
-
-                        <div>
-                            <label> Number of Beds 
-                                <input id="beds"type="text"> 
-                            </label>
-                        </div>
-
-                        <br>
-
-                        <div class="col">
-                            <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Room Type</button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                    <button ngbDropdownItem>Dorm </button>
-                                    <button ngbDropdownItem>Apartment</button>
-                                    <button ngbDropdownItem>Hotel</button>
-                                </div>
-                            </div>
-                        </div>  
-
-                        <br>
-
-                        <fieldset>      
-                            <legend>Amenities</legend>      
-                            <input type="checkbox" name="amenity" value="washer/dryer">Washer/Dryer<br>      
-                            <input type="checkbox" name="amenity" value="smart TV">Smart Tv<br>       
-                        </fieldset> 
-
-                        <br>
-
-                        <div>
-                            Start Date:
-                            <input id="startdate" type="date" name="StartDate">
-                        </div>
-
-                        <br>
-
-                        <div>
-                            End Date:
-                            <input id="enddate" type="date" name="EndDate">
-                        </div>
-
-                        <br>
-
-                        <div>
-                            <label> Room Number 
-                                <input id="Room" type="text"> 
-                            </label>
-                        </div>
-
-                        <div id="topbutton">
-                            <button id="submit" type="submit">Submit</button>
-                        </div>
-
-                        <div id="bottonbutton">
-                            <button id="cancel" type="button">Cancel</button>
-                        </div>
-
-                    </form> 
-               <!-- </fieldset> -->
-=======
     <div class="col-md-4 p-0 bg-orange h-md-100">
         <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
             <div class="logoarea pt-5 pb-5">
@@ -139,17 +61,17 @@
                     <h1>Add Room</h1>
                     <br>
                     <div class="container">
-                        <div class="col-md-10">
-                            <label class="col-md-4" for="room.roomType">Room Type: </label>
-                            <select class="input-border col-md-4 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
+                        <div class="col-md-12">
+                            <label class="col-md-3" for="room.roomType">Room Type: </label>
+                            <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
                                 <option>Apartment</option>
                                 <option>Dorm</option>
                             </select>
                         </div>
 
-                        <div class="col-md-10">
-                            <label for="room.roomNumber" class="col-md-4">Room Number: </label>
-                            <input type="text" name="room.roomNumber" class="input-border col-md-4" required pattern="[0-9]{1,5}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
+                        <div class="col-md-12">
+                            <label for="room.roomNumber" class="col-md-3">Room Number: </label>
+                            <input type="text" name="room.roomNumber" class="input-border col-md-3" required pattern="[0-9]{1,5}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
                             <span *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-4">1 to 5 digits only</span>
                         </div>                    
 
@@ -171,25 +93,22 @@
                         </div>
                         <br><br>
 
-                        <div class="col-md-10">
-                            <label for="StartDate" class="col-md-4">Start Date:</label>
-                            <input class="input-border col-md-4" type="date" name="StartDate" min="{{sdMinYear}}-{{sdMinMonth}}-{{sdMinDay}}" max="{{sdMaxYear}}-{{sdMaxMonth}}-{{sdMaxDay}}" required [(ngModel)]="room.startDate" #sd="ngModel">
+                        <div class="col-md-12">
+                            <label for="StartDate" class="col-md-3">Start Date:</label>
+                            <input class="input-border col-md-3" type="date" name="StartDate" min="{{sdMinYear}}-{{sdMinMonth}}-{{sdMinDay}}" max="{{sdMaxYear}}-{{sdMaxMonth}}-{{sdMaxDay}}" required [(ngModel)]="room.startDate" #sd="ngModel"><span *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty" class="alert alert-danger col-md-3">Start date must be before end date.</span>
                         </div>
-                        <div class="col-md-10">
-                            <label class="col-md-4">End Date:</label>
-                            <input class="input-border col-md-4" type="date" name="EndDate" min="{{edMinYear}}-{{edMinMonth}}-{{edMinDay}}" max="{{edMaxYear}}-{{edMaxMonth}}-{{edMaxDay}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                        <div class="col-md-12">
+                            <label class="col-md-3">End Date:</label>
+                            <input class="input-border col-md-3" type="date" name="EndDate" min="{{edMinYear}}-{{edMinMonth}}-{{edMinDay}}" max="{{edMaxYear}}-{{edMaxMonth}}-{{edMaxDay}}" required [(ngModel)]="room.endDate" #ed="ngModel">
                         </div>
-                        <div *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty" class="alert alert-danger col-md-6">Start date must be less than end date.</div>
 
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
-                            <div *ngIf="status" class="alert alert-danger"> Invalid Address, please enter a valid address.</div>
                         </div>
                     </div>
                 </form> 
->>>>>>> 37203c3dd2148c5500c3d2bc1e569c7593931819
             </div>
         </div>
-    </div>     
+    </div>         
 </div>
