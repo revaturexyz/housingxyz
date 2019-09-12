@@ -17,9 +17,9 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 
 export class AddRoomComponent implements OnInit {
-  status: boolean;
-  status2: boolean;
-  status3: boolean;
+  validAddress: boolean;
+  ValidDistanceRToT: boolean;
+  validDistanceRToC: boolean;
 
   room: Room = {
     roomId: 0,
@@ -126,9 +126,9 @@ export class AddRoomComponent implements OnInit {
       if ( isValidDistanceTrainerCenter <= 20) {
         const isValidDistanceComplex = await this.mapservice.checkDistance(this.room.roomAddress, this.activeComplex.streetAddress);
         if ( isValidDistanceComplex <= 2 ) {
-          this.status2 = false;
-          this.status = false;
-          this.status3 = false;
+          this.validAddress = false;
+          this.ValidDistanceRToT = false;
+          this.validDistanceRToC = false;
           if (this.show) {
             if (this.room.roomAddress.addressId > 0) {
               this.room.roomAddress.addressId = 0;
@@ -138,13 +138,13 @@ export class AddRoomComponent implements OnInit {
           console.log(this.room);
           this.roomService.postRoom(this.room);
         } else {
-          this.status3 = true;
+          this.validDistanceRToC = true;
         }
       } else {
-        this.status2 = true;
+        this.ValidDistanceRToT = true;
       }
     } else {
-      this.status = true;
+      this.validAddress = true;
     }
   }
 
