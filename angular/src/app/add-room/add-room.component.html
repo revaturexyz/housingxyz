@@ -109,6 +109,12 @@
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
                             <div *ngIf="status" class="alert alert-danger"> Invalid Address, please enter a valid address.</div>
+                            <div *ngIf="status2" class="alert alert-danger"> 
+                                The distance between the room address and the Training Center address passed the permitted limit of 20 miles
+                            </div>
+                            <div *ngIf="status3" class="alert alert-danger"> 
+                                The distance between the room address and the Complex address passed the permitted limit of 2 miles
+                            </div>
                         </div>
                     </div>
                 </form> 

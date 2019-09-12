@@ -18,6 +18,8 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 export class AddRoomComponent implements OnInit {
   status: boolean;
+  status2: boolean;
+  status3: boolean;
 
   room: Room = {
     roomId: 0,
@@ -114,19 +116,33 @@ export class AddRoomComponent implements OnInit {
     console.log(this.types);
   }
 
+
   async postRoomOnSubmit() {
     const isValidAddress = await this.mapservice.verifyAddress(this.room.roomAddress);
     console.log('Address is valid: ' + isValidAddress);
     if (isValidAddress) {
-      this.status = false;
-      if (this.show) {
-        if (this.room.roomAddress.addressId > 0) {
-          this.room.roomAddress.addressId = 0;
+      const isValidDistanceTrainerCenter =
+                    await this.mapservice.checkDistance(this.room.roomAddress, this.provider.providerTrainingCenter.streetAddress);
+      if ( isValidDistanceTrainerCenter <= 20) {
+        const isValidDistanceComplex = await this.mapservice.checkDistance(this.room.roomAddress, this.activeComplex.streetAddress);
+        if ( isValidDistanceComplex <= 2 ) {
+          this.status2 = false;
+          this.status = false;
+          this.status3 = false;
+          if (this.show) {
+            if (this.room.roomAddress.addressId > 0) {
+              this.room.roomAddress.addressId = 0;
+            }
+          }
+          this.room.amenities = this.amenities.filter(y => y.isSelected);
+          console.log(this.room);
+          this.roomService.postRoom(this.room);
+        } else {
+          this.status3 = true;
         }
+      } else {
+        this.status2 = true;
       }
-      this.room.amenities = this.amenities.filter(y => y.isSelected);
-      console.log(this.room);
-      this.roomService.postRoom(this.room);
     } else {
       this.status = true;
     }
