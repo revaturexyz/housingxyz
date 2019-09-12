@@ -20,6 +20,7 @@ import { MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatCardModule} from '@angular/material/card';
+import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatCardModule} from '@angular/material/card';
     LoginComponent,
     AddRoomComponent,
     UpdateRoomComponent,
-    RoomDetailsComponent
+    RoomDetailsComponent,
+    RoomUpdateFormComponent
   ],
   imports: [
     BrowserModule,

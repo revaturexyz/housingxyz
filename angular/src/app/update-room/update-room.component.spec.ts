@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpdateRoomComponent } from './update-room.component';
+import { RoomUpdateFormComponent } from '../room-update-form/room-update-form.component';
 import { RoomDetailsComponent } from '../room-details/room-details.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -10,13 +11,15 @@ describe('UpdateRoomComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateRoomComponent, RoomDetailsComponent ],
+      declarations: [ UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent ],
       imports: [ HttpClientTestingModule ]
     })
-    .overrideComponent(RoomDetailsComponent, {
+    .overrideComponent(RoomUpdateFormComponent, {
         set: { template: '<div></div>'}}
     )
-    .compileComponents();
+    .overrideComponent(RoomDetailsComponent, {
+        set: { template: '<div></div>'}}
+    );
   }));
 
   beforeEach(() => {

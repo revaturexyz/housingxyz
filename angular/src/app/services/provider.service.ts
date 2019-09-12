@@ -35,7 +35,7 @@ export class ProviderService {
     return simpleObservable;
   }
 
-  getComplexes(id: number): Observable<Complex[]> {
+  getComplexesByProvider(id: number): Observable<Complex[]> {
     const simpleObservable = new Observable<Complex[]>((sub) => {
       // observable execution
       const complexList: Complex[] = [];

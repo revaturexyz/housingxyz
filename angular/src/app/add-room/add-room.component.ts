@@ -98,7 +98,7 @@ export class AddRoomComponent implements OnInit {
   ngOnInit() {
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
-    this.providerService.getComplexes(1).subscribe(this.complexObs);
+    this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
     this.providerService.getProviderById(1).toPromise()
       .then(
