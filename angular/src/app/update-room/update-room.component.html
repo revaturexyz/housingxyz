@@ -1,0 +1,25 @@
+    <div class="col text-center leftBod">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
+          </div>
+        </div>
+    </div>
+  <table class="table table-striped rightBod table-bordered" *ngIf="activeComplex">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="text-center">Room Id</th>
+        <th scope="col" style="text-center">Room Number</th>
+        <th scope="col" style="text-center">Type</th>
+        <th scope="col" style="text-center">Status</th>
+        <th scope="col" style="text-center">Start Date</th>
+        <th scope="col" style="text-center">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let r of complexRooms">
+          <dev-room-details [room]="r"></dev-room-details>
+        </tr>
+    </tbody>
+  </table>

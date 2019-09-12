@@ -16,9 +16,17 @@ dockerup*
 ## Angular ##
 !dockerup.yaml
 
+<<<<<<< HEAD
 # dependencies
 /node_modules
 /bower_components
+=======
+## dotnet
+.vscode/
+.vs/
+bin/
+obj/
+>>>>>>> 37203c3dd2148c5500c3d2bc1e569c7593931819
 
 # IDEs and editors
 /.idea

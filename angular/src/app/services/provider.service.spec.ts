@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { TrainingcenterService } from './trainingcenter.service';
+import { ProviderService } from './provider.service';
 import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
 
-describe('TrainingcenterService', () => {
+describe('ProviderService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [ HttpClientTestingModule ]
+    imports: [HttpClientTestingModule]
   }).compileComponents());
 
   it('should be created', () => {
-    const service: TrainingcenterService = TestBed.get(TrainingcenterService);
+    const service: ProviderService = TestBed.get(ProviderService);
     expect(service).toBeTruthy();
   });
 });

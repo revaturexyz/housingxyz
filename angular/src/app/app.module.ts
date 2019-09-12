@@ -9,17 +9,15 @@ import { ProviderLocation } from 'src/models/location';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
-import { MsAdalAngular6Module,AuthenticationGuard } from 'microsoft-adal-angular6';
+import { MsAdalAngular6Module, AuthenticationGuard } from 'microsoft-adal-angular6';
 import { environment } from '../environments/environment';
-import { AddLocationComponent } from './add-location/add-location.component';
-import { ShowByLocationComponent } from './show-by-location/show-by-location.component';
 import { DatePipe, CommonModule } from '@angular/common';
-import { RouterLinkDirectiveStub } from './testing/router-link-directive-stub';
 import { AddRoomComponent } from './add-room/add-room.component';
-
+import { UpdateRoomComponent } from './update-room/update-room.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +25,9 @@ import { AddRoomComponent } from './add-room/add-room.component';
     NavComponent,
     HomeComponent,
     LoginComponent,
-    AddLocationComponent,
-    ShowByLocationComponent,
-    RouterLinkDirectiveStub,
-    AddRoomComponent
+    AddRoomComponent,
+    UpdateRoomComponent,
+    RoomDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,10 +35,11 @@ import { AddRoomComponent } from './add-room/add-room.component';
     HttpClientModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),//withConfig: remove warning message when using formcontrolname and ngModel
+    // withConfig: remove warning message when using formcontrolname and ngModel
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     StickyNavModule
   ],
-  providers: [Room, Provider, ProviderLocation, AuthenticationGuard],
-  bootstrap: [AppComponent]
+  providers: [ ProviderLocation, AuthenticationGuard],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

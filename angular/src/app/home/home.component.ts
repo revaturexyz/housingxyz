@@ -1,14 +1,12 @@
-import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
+  selector: 'dev-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
   locationList: object;
   roomList: object;
   
@@ -39,11 +37,5 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['update-room', id]);
     }
 
-  ngOnInit() {
-     // get locations belonging to the provider
-    //  setTimeout(()=>{
-    //   this.getLocationInfo()
-    //  }, 100)
-  }
-  
+  ngOnInit() { }
 }
