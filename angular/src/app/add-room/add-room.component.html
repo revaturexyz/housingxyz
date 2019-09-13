@@ -34,7 +34,6 @@
                     <div>
                         <label class="col-md-9">Street Address: <input [(ngModel)]="room.roomAddress.streetAddress" name="room.roomAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
                         <div class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="true"><span aria-hidden="true">&times;</span></button>
                             Street address must contain at least 5 characters.
                         </div>
 
@@ -72,7 +71,7 @@
                         <div class="col-md-12">
                             <label for="room.roomNumber" class="col-md-3">Room Number: </label>
                             <input type="text" name="room.roomNumber" class="input-border col-md-3" required pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
-                            <span *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-4">1 to 5 digits ending with or without a capital letter</span>
+                            <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-8">1 to 5 digits ending with or without a capital letter</div>
                         </div>
                         <div class="col-md-10">
                             <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{ room.numberOfBeds }}
