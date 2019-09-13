@@ -41,18 +41,18 @@ export class AddRoomComponent implements OnInit {
 
   // room form data
   provider: Provider;
-  types: string[];
-  amenities: Amenity[];
+  types: string[] = [];
+  amenities: Amenity[] = [];
 
   // values for displaying and allowing selection
   // of living complexes
-  complexList: Complex[];
+  complexList: Complex[] = [];
   activeComplex: Complex;
   complexShowString = 'Choose Complex';
 
   // values for displaying and allowing selection
   // of addresses
-  addressList: Address[];
+  addressList: Address[] = [];
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
