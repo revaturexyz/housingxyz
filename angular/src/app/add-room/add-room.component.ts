@@ -53,16 +53,6 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
-  amenityObs: Observer<Amenity[]> = {
-    next: x => {
-      console.log('Observer got an amenity value.\n');
-      this.amenities = x;
-      console.log(this.amenities);
-    },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
-  };
-
   typeObs: Observer<string[]> = {
     next: x => {
       console.log('Observer got a next value.');
@@ -162,8 +152,18 @@ export class AddRoomComponent implements OnInit {
   getGendersOnInit() {
     this.roomService.getGenders();
   }
+
+  // Called in OnInit to populate the amenities list
   getAmenitiesOnInit() {
-    this.roomService.getAmenities().subscribe(this.amenityObs);
+    this.roomService.getAmenities().toPromise()
+      .then( 
+        (data) => {
+          console.log("Received response for get amenities");
+          this.amenities = data;
+        })
+      .catch(
+        (error) => console.log(error)
+      );
   }
 
   addForm() {
