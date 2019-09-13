@@ -7,6 +7,7 @@ import { ProviderService } from '../services/provider.service';
 import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
+import * as moment from 'moment';
 
 @Component({
   selector: 'dev-add-room',
@@ -24,6 +25,14 @@ export class AddRoomComponent implements OnInit {
 
   // the form Room object
   room: Room;
+  startDate = moment();
+  midDate = this.startDate.clone().add(6, 'months');
+  endDate = this.startDate.clone().add(2, 'y');
+  freshDate;
+  displayStart;
+  displayMid;
+  displayEnd;
+
 
   // used for hiding or displaying the address form
   show = false;
@@ -78,6 +87,16 @@ export class AddRoomComponent implements OnInit {
     // our first provider from the API
     // and using it as an example
     this.getProviderOnInit();
+
+    this.freshDate = moment();
+    if (this.freshDate > this.startDate) {
+      this.startDate.add(1, 'd');
+      this.midDate = this.startDate.clone().add(6, 'months');
+      this.endDate = this.startDate.clone().add(2, 'y');
+    }
+    this.displayStart = this.startDate.format('YYYY-MM-DD');
+    this.displayMid = this.midDate.format('YYYY-MM-DD');
+    this.displayEnd = this.endDate.format('YYYY-MM-DD');
 
     // Populate the user options and form
     // data objects
@@ -223,9 +242,14 @@ export class AddRoomComponent implements OnInit {
     this.room.roomAddress = address;
   }
 
+
   getProviderOnInit() {
     this.providerService.getProviderById(1).toPromise()
       .then((provider) => this.provider = provider)
       .catch((error) => console.log(error));
+  }
+  // Used for client-side validation for date input of the form.
+  verifyDates(beg: Date, end: Date): boolean {
+    return new Date(beg).getTime() >= new Date(end).getTime();
   }
 }
