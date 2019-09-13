@@ -7,6 +7,14 @@ import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from '../services/static-test-data';
 
+const address: Address = {
+  addressId: 1,
+  streetAddress: '123 Address St',
+  city: 'Arlington',
+  state: 'TX',
+  zipCode: '12345'
+};
+
 describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
   let fixture: ComponentFixture<AddRoomComponent>;
@@ -28,13 +36,6 @@ describe('AddRoomComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // getRoomByIdOnSubmit()
-  // it('should get rooms by id on submit', () => {
-  //   component.getRoomByIdOnSubmit();
-  //   expect
-  // });
-
 
   // ngOnInit()
   it('should initialize correctly', () => {
@@ -70,17 +71,17 @@ describe('AddRoomComponent', () => {
 
   // addressChoose(address: Address)
   it('should choose Address on addressChoose()', () => {
-
-    const address: Address = {
-      addressId: 1,
-      streetAddress: '123 Address St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '12345'
-    };
     component.addressChoose(address);
 
     expect(component.addressShowString).toEqual(address.streetAddress);
     expect(component.activeAddress).toBe(address);
   });
+
+  // postRoomOnSubmit()
+  it('should post rooms by id on submit', async () => {
+    component.room.roomAddress = address;
+    component.postRoomOnSubmit();
+    expect(component.show).toEqual(false);
+  });
+
 });
