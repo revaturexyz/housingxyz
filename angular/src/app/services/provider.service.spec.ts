@@ -5,6 +5,9 @@ import { Provider } from '../../interfaces/provider';
 import { TrainingCenter } from '../../interfaces/trainingcenter';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
+import { TestServiceData } from '../services/static-test-data';
+
+const provider1: Provider = TestServiceData.dummyProvider;
 
 describe('ProviderService', () => {
   let  myProvider: ProviderService;
@@ -26,26 +29,6 @@ describe('ProviderService', () => {
   });
 
   describe('getProviders', () => {
-    const provider1: Provider = {
-      providerId: 1,
-      companyName: 'Liv+',
-      streetAddress: '123 Address St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '12345',
-      contactNumber: '123-123-1234',
-      providerTrainingCenter: {
-        centerId: 1,
-        streetAddress: '1001 S. Center St',
-        city: 'Arlington',
-        state: 'Texas',
-        zipCode: '70610',
-        centerName: 'UT Arlington',
-        contactNumber: '1231231234'
-    }
-  };
-
-
     it('should return an Observable<Provider[]>', () => {
     const  someProviders = [provider1];
     myProvider.getProviders().subscribe((provider) => {
@@ -57,26 +40,6 @@ describe('ProviderService', () => {
   });
 
   describe('getProviderById', () => {
-    const provider1: Provider = {
-      providerId: 1,
-      companyName: 'Liv+',
-      streetAddress: '123 Address St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '12345',
-      contactNumber: '123-123-1234',
-      providerTrainingCenter: {
-        centerId: 1,
-        streetAddress: '1001 S. Center St',
-        city: 'Arlington',
-        state: 'Texas',
-        zipCode: '70610',
-        centerName: 'UT Arlington',
-        contactNumber: '1231231234'
-    }
-  };
-
-
     it('should return an Observable<Provider>', () => {
     const  someProviders = provider1;
     myProvider.getProviderById(1).subscribe((provider) => {
@@ -89,29 +52,12 @@ describe('ProviderService', () => {
   });
 
   describe('getComplexes', () => {
-    const dummyComplex: Complex = {
-      complexId: 1,
-      streetAddress: '123 Complex St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '12345',
-      complexName: 'Liv+ Appartments',
-      contactNumber: '123-123-1234'
-  };
+    const complex1: Complex = TestServiceData.dummyComplex;
 
-    const dummyComplex2: Complex = {
-      complexId: 2,
-      streetAddress: '234 Complex St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '23456',
-      complexName: 'Liv- Appartments',
-      contactNumber: '123-123-1234'
-  };
-
+    const complex2: Complex = TestServiceData.dummyComplex2;
 
     it('should return an Observable<Complex[]>', () => {
-    const  someComplexes = [dummyComplex, dummyComplex2];
+    const  someComplexes = [complex1, complex2];
     myProvider.getComplexes(1).subscribe((complex) => {
     expect(complex.length).toBe(2);
     expect(complex[0].complexName).toEqual(someComplexes[0].complexName);

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
+import { TestServiceData } from '../services/static-test-data';
 
 describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
@@ -58,15 +59,7 @@ describe('AddRoomComponent', () => {
   // complexChoose(complex: Complex)
   it('should choose Complex on complexChoose()', () => {
 
-    const complex: Complex = {
-      complexId: 2,
-      streetAddress: '234 Complex St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '23456',
-      complexName: 'Liv- Appartments',
-      contactNumber: '123-123-1234'
-  };
+    const complex: Complex = TestServiceData.dummyComplex2;
 
     component.complexChoose(complex);
 
@@ -84,12 +77,10 @@ describe('AddRoomComponent', () => {
       city: 'Arlington',
       state: 'TX',
       zipCode: '12345'
-  };
-
+    };
     component.addressChoose(address);
 
     expect(component.addressShowString).toEqual(address.streetAddress);
     expect(component.activeAddress).toBe(address);
-
   });
 });
