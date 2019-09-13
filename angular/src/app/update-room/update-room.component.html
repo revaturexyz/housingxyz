@@ -11,12 +11,12 @@
         </div>
         <div *ngIf="show === true">
           <br>
-          <div id="complexInfo" class="col-md-12"> <strong>Complex Name:</strong> <br> {{activeComplex.complexName}}</div>
-          <div id="complexInfo" class="col-md-12"> <strong>Complex Number:</strong> <br> {{activeComplex.contactNumber}} </div>
-          <div id="complexInfo" class="col-md-12"> <strong>Street Address:</strong> <br> {{activeComplex.address.streetAddress}} </div>
-          <div id="complexInfo" class="col-md-12"> <strong>City:</strong> <br> {{activeComplex.address.city}} </div>
-          <div id="complexInfo" class="col-md-12"> <strong>State:</strong> <br> {{activeComplex.address.state}} </div>
-          <div id="complexInfo" class="col-md-12"> <strong>Zip Code:</strong> <br> {{activeComplex.address.zipCode}} </div>
+          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Complex Name:</strong> <br>{{activeComplex.complexName}}</div>
+          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Complex Number:</strong> <br> {{activeComplex.contactNumber}} </div>
+          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Street Address:</strong> <br> {{activeComplex.address.streetAddress}} </div>
+          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>City:</strong> <br> {{activeComplex.address.city}} </div>
+          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>State:</strong> <br> {{activeComplex.address.state}} </div>
+          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Zip Code:</strong> <br> {{activeComplex.address.zipCode}} </div>
         </div> 
       </div>
     </div> 
@@ -25,26 +25,31 @@
   <div class="col-md-9 p-0 bg-body h-md-100 loginarea">
     <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
       <div class="logoarea pt-5 pb-5">
-        <table class="col-md-12 table rightBod" *ngIf="activeComplex">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col" style="text-center">Room Number</th>
-              <th scope="col" style="text-center">Type</th>
-              <th scope="col" style="text-center">Status</th>
-              <th scope="col" style="text-center">Start Date</th>
-              <th scope="col" style="text-center">End Date</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let r of complexRooms">
-                <td scope="col-3" style="text-center">{{r.roomNumber}}</td>
-                <td scope="col-3" style="text-center">{{r.roomType}}</td>
-                <td scope="col-3" style="text-center">{{r.isOccupied}}</td>
-                <td scope="col-3" style="text-center">{{r.startDate | date}}</td>
-                <td scope="col-3" style="text-center">{{r.endDate | date}}</td>
+        <div id="text" text-align="center" *ngIf="show == false">
+          Please select a complex in order to show the table of rooms. 
+        </div> 
+        <div *ngIf="show === true">
+          <table class="col-md-12 table rightBod" *ngIf="activeComplex">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" style="text-center">Room Number</th>
+                <th scope="col" style="text-center">Type</th>
+                <th scope="col" style="text-center">Status</th>
+                <th scope="col" style="text-center">Start Date</th>
+                <th scope="col" style="text-center">End Date</th>
               </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of complexRooms">
+                  <td scope="col-3" style="text-center">{{r.roomNumber}}</td>
+                  <td scope="col-3" style="text-center">{{r.roomType}}</td>
+                  <td scope="col-3" style="text-center">{{r.isOccupied}}</td>
+                  <td scope="col-3" style="text-center">{{r.startDate | date}}</td>
+                  <td scope="col-3" style="text-center">{{r.endDate | date}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>  
       </div>     
     </div>          
   </div>        
