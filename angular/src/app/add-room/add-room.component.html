@@ -33,18 +33,18 @@
                 <form *ngIf="show === true">
                     <div>
                         <label class="col-md-9">Street Address: <input [(ngModel)]="room.roomAddress.streetAddress" name="room.roomAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
-                        <div class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
+                        <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
                             Street address must contain at least 5 characters.
                         </div>
 
                         <label class="col-md-9"> City: <input [(ngModel)]="room.roomAddress.city" name="room.roomAddress.city" class="input-border" type="text" required minlength="1" maxlength="50" #city="ngModel"> </label> 
-                        <div class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either to short or to long.</div>
+                        <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either to short or to long.</div>
 
                         <label class="col-md-9"> State: <input [(ngModel)]="room.roomAddress.state" name="room.roomAddress.state" class="input-border" type="text" required minlength ="2" maxlength="50" #state="ngModel"> </label> 
-                        <div class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">Please enter a valid state name or state abbreviation.</div>
+                        <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">Please enter a valid state name or state abbreviation.</div>
 
                         <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.roomAddress.zipCode" name="room.roomAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
-                        <div class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
+                        <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
                         <br>
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
                     </div>
