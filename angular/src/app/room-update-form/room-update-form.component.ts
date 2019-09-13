@@ -1,6 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 import { DatePipe } from '@angular/common';
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { AmenityDialogueComponent } from '../amenity-dialogue/amenity-dialogue.component';
+import { RoomService } from '../services/room.service';
+import { Amenity } from 'src/interfaces/amenity';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'dev-room-update-form',
@@ -16,14 +21,42 @@ export class RoomUpdateFormComponent implements OnInit {
   validStart: boolean;
   validEnd: boolean;
   today: Date;
+  allAmen: Amenity[];
+  amenObs: Observer<Amenity[]> = {
+    next: x => {
+      console.log('Observer got amenities value.');
+      this.room.amenities = x;
+    },
+    error: err => console.error('Observer got amenity error: ' + err),
+    complete: () => console.log('Observer got amenity complete notification'),
+  };
   @Input () room: Room;
   @Output() roomChange = new EventEmitter();
   @Output() deleteRoom = new EventEmitter();
 
-  constructor(private datePipe: DatePipe) { }
+  constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService) { }
+
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      amen: this.allAmen,
+      roomAmen: this.room.amenities
+    };
+
+    const amenityUpdate = this.dialog.open(AmenityDialogueComponent, dialogConfig);
+
+    amenityUpdate.afterClosed().subscribe(this.amenObs);
+  }
 
   ngOnInit() {
     this.today = new Date();
+    this.editing = false;
+    this.room = this.room;
+    this.roomService.getAmenities().subscribe(a => this.allAmen = a);
   }
 
   // this function is bound to a button. Its only purpose is to set an internal flag for whether or not the user

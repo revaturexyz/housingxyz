@@ -17,10 +17,13 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule } from '@angular/material';
+  MatSortModule, MatTableModule, MatDialogModule } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatCardModule} from '@angular/material/card';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
+import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { RoomUpdateFormComponent } from './room-update-form/room-update-form.com
     AddRoomComponent,
     UpdateRoomComponent,
     RoomDetailsComponent,
-    RoomUpdateFormComponent
+    RoomUpdateFormComponent,
+    AmenityDialogueComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,11 +47,13 @@ import { RoomUpdateFormComponent } from './room-update-form/room-update-form.com
     MatChipsModule,
     CdkTableModule,
     MatCardModule,
-    // withConfig: remove warning message when using formcontrolname and ngModel
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-    StickyNavModule
+    MatDialogModule,
+    StickyNavModule,
+    BrowserAnimationsModule,
+    MatRippleModule
   ],
   providers: [ ProviderLocation, AuthenticationGuard],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [AmenityDialogueComponent],
 })
 export class AppModule { }

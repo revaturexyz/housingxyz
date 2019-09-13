@@ -2,7 +2,7 @@
     <mat-card-title>Room Number {{room.roomNumber}}, {{room.numberOfBeds}} Bed</mat-card-title>
     <mat-card-title>Start: {{room.startDate | date}} | End: {{room.endDate | date}}</mat-card-title>
     <mat-card-subtitle>Occupied: {{room.isOccupied}}</mat-card-subtitle>
-    <mat-chip-list>
-        <mat-chip *ngFor="let a of room.amenities">{{a.amenityString}}</mat-chip>
-    </mat-chip-list>
+    <ul class="list">
+        <li class="customChip" *ngFor="let a of room.amenities">{{a.amenityString}}</li>
+    </ul>
 </mat-card>

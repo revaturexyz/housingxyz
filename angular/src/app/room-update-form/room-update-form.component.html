@@ -45,7 +45,9 @@
             </td>
             <td scope="col" class="text-center">{{room.roomType}}</td>
             <td scope="col" class="text-center">{{room.isOccupied}}</td>
-            <td scope="col" style="text-align: center"></td>
+            <td scope="col" style="text-align: center">
+              <button type="button" class="btn btn-primary" *ngIf="room" (click)="openDialog()">Select Amenities</button>
+            </td>
             <!-- this is the form for the start date of the contract -->
             <td scope="col" class="text-center">
               <form class="form-group" #startDate="ngForm">

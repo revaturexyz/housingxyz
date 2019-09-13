@@ -29,7 +29,7 @@
     room details easier. It only renders when a room has been selected from
     above. -->
   </ng-container>
-  <div>
+  <ng-container *ngIf="selectedRoom">
     <dev-room-update-form [room]="selectedRoom" (roomChange)="roomChange($event)" (deleteRoom)="removeRoom($event)"></dev-room-update-form>
-  </div>
+  </ng-container>
 </div>

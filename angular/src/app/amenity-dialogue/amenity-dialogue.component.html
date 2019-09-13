@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{description}}</h2>
+
+<mat-dialog-content>
+        <h3 mat-dialog-title>Available Amenities</h3>
+    <ul class="list">
+        <li matRipple [matRippleColor]="'rgba(200,200,200,.2)'" [matRippleCentered]="true" class="customChip"
+        *ngFor="let a of amenities" (click)="clickEvent(a)" [class.overlay]="selected(a)">
+            {{a.amenityString}}
+        </li>
+    </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions style="float: right;">
+    <button class="btn btn-primary" style="margin: 4px" (click)="save()">Save</button>
+    <button class="btn btn-danger" style="margin: 4px" (click)="close()">Close</button>
+</mat-dialog-actions>
