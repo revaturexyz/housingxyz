@@ -53,18 +53,6 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
-  // An Observer for receiving and processing return values
-  // from the providerService.getAddressesByProvider() method
-  addressObs: Observer<Address[]> = {
-    next: x => {
-      console.log('Observer got next value: x ');
-      console.log(x);
-      this.addressList = x;
-    },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
-  };
-
   constructor(
     private roomService: RoomService,
     private providerService: ProviderService,
@@ -120,31 +108,6 @@ export class AddRoomComponent implements OnInit {
     }
   }
 
-  getRoomByIdOnInit() {
-    this.roomService.getRoomById(1);
-  }
-
-  getRoomsByProviderOnInit() {
-    this.roomService.getRoomsByProvider(1);
-  }
-
-  // Called in OnInit to populate room types list
-  getRoomTypesOnInit() {
-    this.roomService.getRoomTypes().toPromise()
-      .then(
-        (data) => {
-          console.log("Received response for get room types");
-          this.types = data;
-        })
-      .catch(
-        (error) => console.log(error)
-      );
-  }
-
-  getGendersOnInit() {
-    this.roomService.getGenders();
-  }
-
   // Called in OnInit to populate the addresses list
   getAddressesOnInit() {
     this.providerService.getAddressesByProvider(1).toPromise()
@@ -178,6 +141,19 @@ export class AddRoomComponent implements OnInit {
         console.log("Received response for get complexes");
         this.complexList = data;
       })
+      .catch(
+        (error) => console.log(error)
+      );
+  }
+
+  // Called in OnInit to populate room types list
+  getRoomTypesOnInit() {
+    this.roomService.getRoomTypes().toPromise()
+      .then(
+        (data) => {
+          console.log("Received response for get room types");
+          this.types = data;
+        })
       .catch(
         (error) => console.log(error)
       );
