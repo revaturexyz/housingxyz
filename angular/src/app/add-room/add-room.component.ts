@@ -111,9 +111,9 @@ export class AddRoomComponent implements OnInit {
 
   ngOnInit() {
     this.freshDate = moment();
-    if(this.freshDate > this.startDate){
-      this.startDate.add(1,'d');
-      this.midDate= this.startDate.clone().add(6, 'months');
+    if (this.freshDate > this.startDate) {
+      this.startDate.add(1, 'd');
+      this.midDate = this.startDate.clone().add(6, 'months');
       this.endDate = this.startDate.clone().add(2, 'y');
     }
     this.displayStart = this.startDate.format('YYYY-MM-DD');
