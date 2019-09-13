@@ -25,6 +25,8 @@ export class AddRoomComponent implements OnInit {
 
   // the form Room object
   room: Room;
+
+  // moments objects and data for validating dates
   startDate = moment();
   midDate = this.startDate.clone().add(6, 'months');
   endDate = this.startDate.clone().add(2, 'y');
