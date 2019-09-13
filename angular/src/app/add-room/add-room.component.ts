@@ -21,6 +21,46 @@ export class AddRoomComponent implements OnInit {
   ValidDistanceRToT: boolean;
   validDistanceRToC: boolean;
 
+  sdMinYear = new Date().getFullYear();
+ sdMinMonth = ('0' + (new Date().getMonth() + 1)).slice(-2);
+ sdMinDay = new Date().getDate();
+ sdMaxFullDate = new Date(
+   new Date().getFullYear(),
+   new Date().getMonth(),
+   new Date().getDate(),
+   new Date().getHours(),
+   new Date().getMinutes(),
+   new Date().getSeconds(),
+   new Date().getMilliseconds() + 6 * 2.628e9
+ );
+ sdMaxYear = this.sdMaxFullDate.getFullYear();
+ sdMaxMonth = ('0' + (this.sdMaxFullDate.getMonth() + 1)).slice(-2);
+ sdMaxDay = this.sdMaxFullDate.getDate();
+ edMinFullDate = new Date(
+   new Date().getFullYear(),
+   new Date().getMonth(),
+   new Date().getDate(),
+   new Date().getHours(),
+   new Date().getMinutes(),
+   new Date().getSeconds(),
+   new Date().getMilliseconds() + 2.628e9
+ );
+ edMinYear = this.edMinFullDate.getFullYear();
+ edMinMonth = ('0' + (this.edMinFullDate.getMonth() + 1)).slice(-2);
+ edMinDay = this.edMinFullDate.getDate();
+ edMaxFullDate = new Date(
+   new Date().getFullYear(),
+   new Date().getMonth(),
+   new Date().getDate(),
+   new Date().getHours(),
+   new Date().getMinutes(),
+   new Date().getSeconds(),
+   new Date().getMilliseconds() + 24 * 2.628e9
+ );
+ edMaxYear = this.edMaxFullDate.getFullYear();
+ edMaxMonth = ('0' + (this.edMaxFullDate.getMonth() + 1)).slice(-2);
+ edMaxDay = this.edMaxFullDate.getDate();
+
   room: Room = {
     roomId: 0,
     roomAddress: {
@@ -188,5 +228,9 @@ export class AddRoomComponent implements OnInit {
     this.addressShowString = address.streetAddress;
     this.activeAddress = address;
     this.room.roomAddress = address;
+  }
+
+  verifyDates(beg: Date, end: Date): boolean {
+    return new Date(beg).getTime() >= new Date(end).getTime();
   }
 }
