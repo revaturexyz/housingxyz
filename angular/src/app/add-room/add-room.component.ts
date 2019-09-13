@@ -77,7 +77,7 @@ export class AddRoomComponent implements OnInit {
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
     this.getComplexesOnInit();
-    this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
+    this.getAddressesOnInit();
     this.providerService.getProviderById(1).toPromise()
       .then(
         provider => this.provider = provider,
@@ -143,6 +143,19 @@ export class AddRoomComponent implements OnInit {
 
   getGendersOnInit() {
     this.roomService.getGenders();
+  }
+
+  // Called in OnInit to populate the addresses list
+  getAddressesOnInit() {
+    this.providerService.getAddressesByProvider(1).toPromise()
+      .then(
+        (data) => {
+          console.log("Received response for get addresses");
+          this.addressList = data;
+        })
+      .catch(
+        (error) => console.log(error)
+      );
   }
 
   // Called in OnInit to populate the amenities list
