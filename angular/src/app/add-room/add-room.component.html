@@ -46,7 +46,6 @@
 
                         <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.roomAddress.zipCode" name="room.roomAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
                         <div class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
-
                         &nbsp;
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
                     </div>
@@ -93,11 +92,11 @@
                         <br><br>
                         <div class="col-md-12">
                             <label for="StartDate" class="col-md-3">Start Date:</label>
-                            <input class="input-border col-md-3" type="date" name="StartDate" min="{{sdMinYear}}-{{sdMinMonth}}-{{sdMinDay}}" max="{{sdMaxYear}}-{{sdMaxMonth}}-{{sdMaxDay}}" required [(ngModel)]="room.startDate" #sd="ngModel"><span *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty" class="alert alert-danger col-md-3">Start date must be before end date.</span>
+                            <input class="input-border col-md-3" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}" required [(ngModel)]="room.startDate" #sd="ngModel"><span *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty" class="alert alert-danger col-md-3">Start date must be before end date.</span>
                         </div>
                         <div class="col-md-12">
                             <label class="col-md-3">End Date:</label>
-                            <input class="input-border col-md-3" type="date" name="EndDate" min="{{edMinYear}}-{{edMinMonth}}-{{edMinDay}}" max="{{edMaxYear}}-{{edMaxMonth}}-{{edMaxDay}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                            <input class="input-border col-md-3" type="date" name="{{displayStart}}" min="startDate" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
                         </div>
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>

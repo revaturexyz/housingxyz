@@ -8,6 +8,7 @@ import { ProviderService } from '../services/provider.service';
 import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
+import * as moment from 'moment';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
@@ -20,46 +21,13 @@ export class AddRoomComponent implements OnInit {
   validAddress: boolean;
   ValidDistanceRToT: boolean;
   validDistanceRToC: boolean;
-
-  sdMinYear = new Date().getFullYear();
- sdMinMonth = ('0' + (new Date().getMonth() + 1)).slice(-2);
- sdMinDay = new Date().getDate();
- sdMaxFullDate = new Date(
-   new Date().getFullYear(),
-   new Date().getMonth(),
-   new Date().getDate(),
-   new Date().getHours(),
-   new Date().getMinutes(),
-   new Date().getSeconds(),
-   new Date().getMilliseconds() + 6 * 2.628e9
- );
- sdMaxYear = this.sdMaxFullDate.getFullYear();
- sdMaxMonth = ('0' + (this.sdMaxFullDate.getMonth() + 1)).slice(-2);
- sdMaxDay = this.sdMaxFullDate.getDate();
- edMinFullDate = new Date(
-   new Date().getFullYear(),
-   new Date().getMonth(),
-   new Date().getDate(),
-   new Date().getHours(),
-   new Date().getMinutes(),
-   new Date().getSeconds(),
-   new Date().getMilliseconds() + 2.628e9
- );
- edMinYear = this.edMinFullDate.getFullYear();
- edMinMonth = ('0' + (this.edMinFullDate.getMonth() + 1)).slice(-2);
- edMinDay = this.edMinFullDate.getDate();
- edMaxFullDate = new Date(
-   new Date().getFullYear(),
-   new Date().getMonth(),
-   new Date().getDate(),
-   new Date().getHours(),
-   new Date().getMinutes(),
-   new Date().getSeconds(),
-   new Date().getMilliseconds() + 24 * 2.628e9
- );
- edMaxYear = this.edMaxFullDate.getFullYear();
- edMaxMonth = ('0' + (this.edMaxFullDate.getMonth() + 1)).slice(-2);
- edMaxDay = this.edMaxFullDate.getDate();
+  startDate = moment();
+  midDate = this.startDate.clone().add(6, 'months');
+  endDate = this.startDate.clone().add(2, 'y');
+  freshDate;
+  displayStart;
+  displayMid;
+  displayEnd;
 
   room: Room = {
     roomId: 0,
@@ -142,6 +110,15 @@ export class AddRoomComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.freshDate = moment();
+    if(this.freshDate > this.startDate){
+      this.startDate.add(1,'d');
+      this.midDate= this.startDate.clone().add(6, 'months');
+      this.endDate = this.startDate.clone().add(2, 'y');
+    }
+    this.displayStart = this.startDate.format('YYYY-MM-DD');
+    this.displayMid = this.midDate.format('YYYY-MM-DD');
+    this.displayEnd = this.endDate.format('YYYY-MM-DD');
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
     this.providerService.getComplexes(1).subscribe(this.complexObs);
@@ -230,6 +207,7 @@ export class AddRoomComponent implements OnInit {
     this.room.roomAddress = address;
   }
 
+  // Used for client-side validation for date input of the form.
   verifyDates(beg: Date, end: Date): boolean {
     return new Date(beg).getTime() >= new Date(end).getTime();
   }
