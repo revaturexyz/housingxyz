@@ -2,7 +2,7 @@ import { Address } from './address';
 
 export interface Complex {
     complexId: number;
-    streetAddress: Address;
+    address: Address;
     complexName: string;
     contactNumber: string;
 }

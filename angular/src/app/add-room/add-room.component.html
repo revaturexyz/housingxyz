@@ -47,7 +47,8 @@
                         <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.roomAddress.zipCode" name="room.roomAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
                         <div class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
 
-                        &nbsp;
+                        <br>
+                        
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
                     </div>
                 </form>

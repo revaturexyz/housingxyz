@@ -37,7 +37,7 @@ export class TestServiceData {
         zipCode: '76010'
     };
 
-    static complex1: Address = {
+    static complexAddress1: Address = {
         addressId: 9,
         streetAddress: '123 Complex St',
         city: 'Arlington',
@@ -47,12 +47,12 @@ export class TestServiceData {
 
     static dummyComplex: Complex = {
         complexId: 1,
-        streetAddress: TestServiceData.complex1,
+        address: TestServiceData.livPlusAddress,
         complexName: 'Liv+ Appartments',
         contactNumber: '123-123-1234'
     };
 
-    static complex2: Address = {
+    static complexAddress2: Address = {
         addressId: 10,
         streetAddress: '234 Complex St',
         city: 'Arlington',
@@ -62,7 +62,7 @@ export class TestServiceData {
 
     static dummyComplex2: Complex = {
         complexId: 2,
-        streetAddress: TestServiceData.complex2,
+        address: TestServiceData.complexAddress2,
         complexName: 'Liv- Appartments',
         contactNumber: '123-123-1234'
     };

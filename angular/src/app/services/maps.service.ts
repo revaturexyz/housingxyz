@@ -31,6 +31,7 @@ export class MapsService {
   }
 
   async getCoordinates(address: Address): Promise<MapsGeoLocation> {
+    console.log(address.streetAddress);
     const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
