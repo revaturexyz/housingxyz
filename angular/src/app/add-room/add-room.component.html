@@ -71,8 +71,8 @@
                         </div>
                         <div class="col-md-12">
                             <label for="room.roomNumber" class="col-md-3">Room Number: </label>
-                            <input type="text" name="room.roomNumber" class="input-border col-md-3" required pattern="[0-9]{1,5}[A-Z]" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
-                            <span *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-4">1 to 5 digits ending with a capital letter</span>
+                            <input type="text" name="room.roomNumber" class="input-border col-md-3" required pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
+                            <span *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-4">1 to 5 digits ending with or without a capital letter</span>
                         </div>
                         <div class="col-md-10">
                             <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{ room.numberOfBeds }}
