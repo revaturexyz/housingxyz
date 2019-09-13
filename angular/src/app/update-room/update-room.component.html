@@ -9,14 +9,16 @@
             <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
           </div>
         </div>
-        <div *ngIf="show === true">
+        <div class="col-md-12" text-align="left" *ngIf="show === true">
           <br>
-          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Complex Name:</strong> <br>{{activeComplex.complexName}}</div>
-          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Complex Number:</strong> <br> {{activeComplex.contactNumber}} </div>
-          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Street Address:</strong> <br> {{activeComplex.address.streetAddress}} </div>
-          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>City:</strong> <br> {{activeComplex.address.city}} </div>
-          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>State:</strong> <br> {{activeComplex.address.state}} </div>
-          <div text-align="left" id="complexInfo" class="col-md-12"> <strong>Zip Code:</strong> <br> {{activeComplex.address.zipCode}} </div>
+          <mat-card>
+            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Complex Name:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.complexName}} </mat-card-content>
+            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Complex Number:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.contactNumber}}  </mat-card-content>
+            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Street Address:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.streetAddress}}  </mat-card-content>
+            <mat-card-title id="complexInfo" class="col-md-12"> <strong>City:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.city}} </mat-card-content>
+            <mat-card-title id="complexInfo" class="col-md-12"> <strong>State:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.state}} </mat-card-content>
+            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Zip Code:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.zipCode}} </mat-card-content>
+          </mat-card>
         </div> 
       </div>
     </div> 
@@ -26,7 +28,11 @@
     <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
       <div class="logoarea pt-5 pb-5">
         <div id="text" text-align="center" *ngIf="show == false">
-          Please select a complex in order to show the table of rooms. 
+          <mat-card> 
+           <mat-card-title>
+              Please select a complex in order to show the table of rooms.
+           </mat-card-title> 
+          </mat-card>
         </div> 
         <div *ngIf="show === true">
           <table class="col-md-12 table rightBod" *ngIf="activeComplex">

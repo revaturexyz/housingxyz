@@ -16,6 +16,7 @@ import { DatePipe, CommonModule } from '@angular/common';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatCardModule,
     NgbModule,
     // withConfig: remove warning message when using formcontrolname and ngModel
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
