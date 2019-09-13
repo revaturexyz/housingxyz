@@ -3,6 +3,7 @@ import { TrainingcenterService } from './trainingcenter.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TrainingCenter } from 'src/interfaces/trainingcenter';
 import { Complex } from '../../interfaces/complex';
+import { TestServiceData } from './static-test-data';
 
 describe('TrainingcenterService', () => {
   let myProvider: TrainingcenterService;
@@ -25,24 +26,9 @@ describe('TrainingcenterService', () => {
 
   // getTrainingCenters test
   describe('getTrainingCenters', () => {
-    const center1: TrainingCenter = {
-      centerId: 1,
-      streetAddress: '701 S Nedderman Dr',
-      city: 'Arlington',
-      state: 'Texas',
-      zipCode: '76019',
-      centerName: 'UT Arlington - Preston Hall',
-      contactNumber: '(703) 570-8181'
-  };
-    const center2: TrainingCenter = {
-      centerId: 2,
-      streetAddress: '123 s. Chicago Ave',
-      city: 'Chicago',
-      state: 'Illinois',
-      zipCode: '60645',
-      centerName: 'UIC',
-      contactNumber: '3213213214'
-  };
+    const center1: TrainingCenter = TestServiceData.trainingcenter;
+    const center2: TrainingCenter = TestServiceData.trainingcenter2;
+
     it('should return an Observable<TrainingCenter[]>', () => {
       const someCenters = [center1, center2];
       myProvider.getTrainingCenters().subscribe((center) => {
@@ -57,24 +43,8 @@ describe('TrainingcenterService', () => {
     });
   });
   describe('getComplexesByTrainingCenter', () => {
-    const complex1: Complex = {
-      complexId: 1,
-      streetAddress: '123 Complex St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '12345',
-      complexName: 'Liv+ Appartments',
-      contactNumber: '123-123-1234'
-    };
-    const complex2: Complex = {
-      complexId: 2,
-      streetAddress: '234 Complex St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '23456',
-      complexName: 'Liv- Appartments',
-      contactNumber: '123-123-1234'
-    };
+    const complex1: Complex = TestServiceData.dummyComplex;
+    const complex2: Complex = TestServiceData.dummyComplex2;
     it('should return an Observable<Complex[]>', () => {
       const someComplexs = [complex1, complex2];
       myProvider.getComplexesByTrainingCenter(1).subscribe((complex) => {
