@@ -48,6 +48,6 @@ export class UpdateRoomComponent implements OnInit {
     this.showString = complex.complexName;
     this.activeComplex = complex;
     // console.log(this.roomList);
-    this.complexRooms = this.roomList.filter(r => r.complexId === this.activeComplex.complexId);
+    this.complexRooms = this.roomList.filter(r => r.complex.complexId === this.activeComplex.complexId);
   }
 }

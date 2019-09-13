@@ -119,7 +119,7 @@ export class TestServiceData {
         amenities: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
-        complexId: 1
+        complex: TestServiceData.dummyComplex
     };
 
     static room2: Room = {
@@ -142,7 +142,7 @@ export class TestServiceData {
         }],
         startDate: new Date(),
         endDate: new Date(),
-        complexId: 2
+        complex: TestServiceData.dummyComplex2
     };
 
     static postToRoom: Room;
