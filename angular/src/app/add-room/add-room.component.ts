@@ -79,7 +79,7 @@ export class AddRoomComponent implements OnInit {
       amenities: null,
       startDate: new Date(),
       endDate: new Date(),
-      complex: { 
+      complex: {
         complexId: 0,
         complexName: '',
         contactNumber: '',
