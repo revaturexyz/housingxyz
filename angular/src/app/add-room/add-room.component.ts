@@ -53,17 +53,6 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
-  // An Observer for receiving and prcessing return values
-  // from the providerService.getComplexes() method
-  complexObs: Observer<Complex[]> = {
-    next: x => {
-      console.log('Observer got a next value.');
-      this.complexList = x;
-    },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
-  };
-
   // An Observer for receiving and processing return values
   // from the providerService.getAddressesByProvider() method
   addressObs: Observer<Address[]> = {
@@ -83,9 +72,11 @@ export class AddRoomComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Populate the user options and form
+    // data objects
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
-    this.providerService.getComplexes(1).subscribe(this.complexObs);
+    this.getComplexesOnInit();
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
     this.providerService.getProviderById(1).toPromise()
       .then(
@@ -162,6 +153,18 @@ export class AddRoomComponent implements OnInit {
           console.log("Received response for get amenities");
           this.amenities = data;
         })
+      .catch(
+        (error) => console.log(error)
+      );
+  }
+
+  // Called in OnInit to populate the complexes list
+  getComplexesOnInit() {
+    this.providerService.getComplexes(1).toPromise()
+      .then( (data) => {
+        console.log("Received response for get complexes");
+        this.complexList = data;
+      })
       .catch(
         (error) => console.log(error)
       );
