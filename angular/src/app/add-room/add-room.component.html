@@ -100,6 +100,13 @@
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                            <div *ngIf="validAddress" class="alert alert-danger"> Invalid Address, please enter a valid address.</div>
+                            <div *ngIf="validDistanceToTraining" class="alert alert-danger"> 
+                                The distance between the room address and the training center address cannot exceed twenty miles.
+                            </div>
+                            <div *ngIf="validDistanceToComplex" class="alert alert-danger"> 
+                                The distance between the room address and the living complex address cannot exceed five miles.
+                            </div>
                         </div>
                     </div>
                 </form>
