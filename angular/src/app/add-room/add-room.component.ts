@@ -19,25 +19,26 @@ export class AddRoomComponent implements OnInit {
   room: Room = {
     roomId: 0,
     roomAddress: {
-      addressId: 1,
-      streetAddress: '1001 S Center St',
-      city: 'Arlington',
-      state: 'TX',
-      zipCode: '76010'
+      addressId: 0,
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: ''
     },
     roomNumber: '',
     numberOfBeds: 2,
     roomType: '',
     isOccupied: false,
-    amenities: {
-      amenityId: 1,
-      amenityString: 'washer/dryer'
-    },
+    amenities: null,
     startDate: new Date(),
     endDate: new Date(),
     complexId: 1
   };
+
   show = false;
+  provider: Provider;
+  types: string[];
+  amenities: Amenity[];
 
   complexList: Complex[];
   activeComplex: Complex;
@@ -47,14 +48,11 @@ export class AddRoomComponent implements OnInit {
   activeAddress: Address;
   addressShowString = 'Choose Address';
 
-  provider: Provider;
-  amenities: Amenity[];
-  types: string[];
-
   amenityObs: Observer<Amenity[]> = {
     next: x => {
-      console.log('Observer got a next value.');
+      console.log('Observer got an amenity value.\n');
       this.amenities = x;
+      console.log(this.amenities);
     },
     error: err => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
@@ -84,7 +82,8 @@ export class AddRoomComponent implements OnInit {
   // from the providerService.getAddressesByProvider() method
   addressObs: Observer<Address[]> = {
     next: x => {
-      console.log('Observer got next value.');
+      console.log('Observer got next value: x ');
+      console.log(x);
       this.addressList = x;
     },
     error: err => console.error('Observer got an error: ' + err),
@@ -96,28 +95,9 @@ export class AddRoomComponent implements OnInit {
     private providerService: ProviderService
   ) { }
 
-  getRoomByIdOnSubmit() {
-    this.roomService.getRoomById(1);
-  }
-  postRoomOnSubmit() {
-    console.log(this.room);
-    this.roomService.postRoom(this.room);
-  }
-  getRoomsByProviderOnSubmit() {
-    this.roomService.getRoomsByProvider(1);
-  }
-  getRoomTypesOnSubmit() {
-    this.roomService.getRoomTypes().subscribe(this.typeObs);
-  }
-  getGendersOnSubmit() {
-    this.roomService.getGenders();
-  }
-  getAmenitiesOnSubmit() {
-    this.roomService.getAmenities().subscribe(this.amenityObs);
-  }
   ngOnInit() {
-    this.getRoomTypesOnSubmit();
-    this.getAmenitiesOnSubmit();
+    this.getRoomTypesOnInit();
+    this.getAmenitiesOnInit();
     this.providerService.getComplexes(1).subscribe(this.complexObs);
     this.providerService.getAddressesByProvider(1).subscribe(this.addressObs);
     this.providerService.getProviderById(1).toPromise()
@@ -128,6 +108,35 @@ export class AddRoomComponent implements OnInit {
     console.log(this.roomService.getRoomTypes());
     console.log(this.roomService.getRoomsByProvider(1));
     console.log(this.types);
+  }
+
+  postRoomOnSubmit() {
+    if (this.show) {
+      if (this.room.roomAddress.addressId > 0) {
+        this.room.roomAddress.addressId = 0;
+      }
+    }
+    this.room.amenities = this.amenities.filter(x => x.isSelected);
+    console.log(this.room);
+    this.roomService.postRoom(this.room);
+  }
+
+  getRoomByIdOnInit() {
+    this.roomService.getRoomById(1);
+  }
+
+  getRoomsByProviderOnInit() {
+    this.roomService.getRoomsByProvider(1);
+  }
+
+  getRoomTypesOnInit() {
+    this.roomService.getRoomTypes().subscribe(this.typeObs);
+  }
+  getGendersOnInit() {
+    this.roomService.getGenders();
+  }
+  getAmenitiesOnInit() {
+    this.roomService.getAmenities().subscribe(this.amenityObs);
   }
 
   addForm() {
@@ -143,6 +152,7 @@ export class AddRoomComponent implements OnInit {
   complexChoose(complex: Complex) {
     this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
     this.activeComplex = complex;
+    this.room.complexId = complex.complexId;
   }
 
   // Updates selected address property and display string
@@ -150,5 +160,6 @@ export class AddRoomComponent implements OnInit {
   addressChoose(address: Address) {
     this.addressShowString = address.streetAddress;
     this.activeAddress = address;
+    this.room.roomAddress = address;
   }
 }
