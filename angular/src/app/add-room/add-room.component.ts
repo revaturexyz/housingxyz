@@ -79,7 +79,18 @@ export class AddRoomComponent implements OnInit {
       amenities: null,
       startDate: new Date(),
       endDate: new Date(),
-      complexId: 1
+      complex: { 
+        complexId: 0,
+        complexName: '',
+        contactNumber: '',
+        address: {
+          addressId: 0,
+          streetAddress: '',
+          city: '',
+          state: '',
+          zipCode: ''
+        }
+      }
     };
   }
 
@@ -233,7 +244,7 @@ export class AddRoomComponent implements OnInit {
   complexChoose(complex: Complex) {
     this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
     this.activeComplex = complex;
-    this.room.complexId = complex.complexId;
+    this.room.complex.complexId = complex.complexId;
   }
 
   // Updates selected address property and display string
