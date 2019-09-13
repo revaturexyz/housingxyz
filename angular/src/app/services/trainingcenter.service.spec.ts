@@ -27,13 +27,13 @@ describe('TrainingcenterService', () => {
   describe('getTrainingCenters', () => {
     const center1: TrainingCenter = {
       centerId: 1,
-      streetAddress: '1001 S. Center St',
+      streetAddress: '701 S Nedderman Dr',
       city: 'Arlington',
       state: 'Texas',
-      zipCode: '70610',
-      centerName: 'UT Arlington',
-      contactNumber: '1231231234'
-    };
+      zipCode: '76019',
+      centerName: 'UT Arlington - Preston Hall',
+      contactNumber: '(703) 570-8181'
+  };
     const center2: TrainingCenter = {
       centerId: 2,
       streetAddress: '123 s. Chicago Ave',
@@ -42,7 +42,7 @@ describe('TrainingcenterService', () => {
       zipCode: '60645',
       centerName: 'UIC',
       contactNumber: '3213213214'
-    };
+  };
     it('should return an Observable<TrainingCenter[]>', () => {
       const someCenters = [center1, center2];
       myProvider.getTrainingCenters().subscribe((center) => {

@@ -5,12 +5,32 @@ import { Address } from '../../interfaces/address';
 import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
 
+const amenity1: Amenity = {
+  amenityId: 1,
+  amenityString:  'Washer/Dryer',
+  isSelected: true
+};
+const amenity2: Amenity = {
+  amenityId: 2,
+  amenityString: 'Smart TV',
+  isSelected: true
+};
+
+const amenityList: Amenity[] = [
+  amenity1,
+  amenity2,
+  { amenityId: 3, amenityString: 'Patio', isSelected: true},
+  { amenityId: 4, amenityString: 'Fully Furnished', isSelected: true},
+  { amenityId: 5, amenityString: 'Full Kitchen', isSelected: true},
+  { amenityId: 6, amenityString: 'Individual Bathrooms', isSelected: true}
+];
+
 const room1: Room = {
   roomId: 0, roomAddress: {
     addressId: 1, streetAddress: '123 Address St', city:
       'Arlington', state: 'TX', zipCode: '12345'
   }, roomNumber: '', numberOfBeds: 2, roomType: '',
-  isOccupied: false, amenities: { amenityId: 1, amenityString: 'washer/dryer' }, startDate:
+  isOccupied: false, amenities: amenityList, startDate:
     new Date(), endDate: new Date(), complexId: 1
 };
 const room2: Room = {
@@ -18,7 +38,7 @@ const room2: Room = {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
     city: 'Arlington', state: 'TX', zipCode: '76019'
   }, roomNumber: '323', numberOfBeds: 9001,
-  roomType: 'Dorm', isOccupied: true, amenities: { amenityId: 2, amenityString: 'Washer/Dryer' },
+  roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenityString: 'Washer/Dryer', isSelected: true}],
   startDate: new Date(), endDate: new Date(), complexId: 2
 };
 
@@ -100,15 +120,7 @@ describe('RoomService', () => {
   describe('getAmenities', () => {
     // getAmenities
     it('should return an Observable<Amenity[]>', () => {
-      const dummyAmenity1: Amenity = {
-        amenityId: 1,
-        amenityString: 'washer/dryer'
-      };
-      const dummyAmenity2: Amenity = {
-        amenityId: 2,
-        amenityString: 'smart TV'
-      };
-      const amenities = [dummyAmenity1, dummyAmenity2];
+      const amenities = [amenity1, amenity2];
       myProvider.getAmenities().subscribe((types) => {
         expect(amenities.length).toBe(2);
         expect(amenities[0]).toEqual(types[0]);
