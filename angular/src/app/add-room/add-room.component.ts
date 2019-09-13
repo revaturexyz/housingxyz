@@ -49,7 +49,7 @@ export class AddRoomComponent implements OnInit {
     private roomService: RoomService,
     private providerService: ProviderService,
     private mapservice: MapsService
-  ) { 
+  ) {
     // Initialize an empty address and room object for our
     // forms
     this.room = {
@@ -78,7 +78,7 @@ export class AddRoomComponent implements OnInit {
     // our first provider from the API
     // and using it as an example
     this.getProviderOnInit();
-    
+
     // Populate the user options and form
     // data objects
     this.getRoomTypesOnInit();
@@ -100,21 +100,21 @@ export class AddRoomComponent implements OnInit {
 
       // Get and verify that the distance from a room to the provider
       // training center is less than or equal to 20 miles
-      console.log("Validating distance to training center");
-      const isValidDistanceTrainerCenter = 
+      console.log('Validating distance to training center');
+      const isValidDistanceTrainerCenter =
         await this.mapservice.checkDistance(
-          this.room.roomAddress, 
+          this.room.roomAddress,
           this.provider.providerTrainingCenter.streetAddress);
 
       if ( isValidDistanceTrainerCenter <= 20) {
 
         // Get and validate that the distance from a room to a provider
         // living complex is less than or equal to five miles
-        console.log("Validating distance to living complex");
-        console.log("Living complex address: " + this.activeComplex.address);
-        const isValidDistanceComplex = 
+        console.log('Validating distance to living complex');
+        console.log('Living complex address: ' + this.activeComplex.address);
+        const isValidDistanceComplex =
           await this.mapservice.checkDistance(
-            this.room.roomAddress, 
+            this.room.roomAddress,
             this.activeComplex.address);
 
         if ( isValidDistanceComplex <= 5 ) {
@@ -153,7 +153,7 @@ export class AddRoomComponent implements OnInit {
     this.providerService.getAddressesByProvider(1).toPromise()
       .then(
         (data) => {
-          console.log("Received response for get addresses");
+          console.log('Received response for get addresses');
           this.addressList = data;
         })
       .catch(
@@ -164,9 +164,9 @@ export class AddRoomComponent implements OnInit {
   // Called in OnInit to populate the amenities list
   getAmenitiesOnInit() {
     this.roomService.getAmenities().toPromise()
-      .then( 
+      .then(
         (data) => {
-          console.log("Received response for get amenities");
+          console.log('Received response for get amenities');
           this.amenities = data;
         })
       .catch(
@@ -178,7 +178,7 @@ export class AddRoomComponent implements OnInit {
   getComplexesOnInit() {
     this.providerService.getComplexes(1).toPromise()
       .then( (data) => {
-        console.log("Received response for get complexes");
+        console.log('Received response for get complexes');
         this.complexList = data;
       })
       .catch(
@@ -191,7 +191,7 @@ export class AddRoomComponent implements OnInit {
     this.roomService.getRoomTypes().toPromise()
       .then(
         (data) => {
-          console.log("Received response for get room types");
+          console.log('Received response for get room types');
           this.types = data;
         })
       .catch(
