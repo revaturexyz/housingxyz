@@ -3,12 +3,14 @@
   <div class="col-md-3 p-0 bg-orange h-md-100">
     <div class="d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
       <div class="logoarea pt-5 pb-5">
+        <!-- Drop down to choose a complex to display the rooms avaiable -->
         <div ngbDropdown class="d-inline-block align-items-center justify-content-center text-center">
           <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
           </div>
         </div>
+        <!-- displays the complexes information once one is choosen. -->
         <div class="col-md-12" text-align="left" *ngIf="show === true">
           <br>
           <div class="card" style="width: 18rem;">
@@ -29,6 +31,7 @@
     <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
       <div class="logoarea pt-5 pb-5">
         <div id="text" text-align="center" *ngIf="show == false">
+          <!-- This message is displayed before a complex is choosen so that there is no blank screen -->
           <mat-card> 
            <mat-card-title>
               Please select a complex in order to show the table of rooms.
@@ -36,6 +39,7 @@
           </mat-card>
         </div> 
         <div *ngIf="show === true">
+          <!-- This message is displayed after a complex has been choosen -->
           <table class="col-md-12 table rightBod" *ngIf="activeComplex">
             <thead class="thead-dark">
               <tr>
