@@ -11,13 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
+import { AddComplexComponent } from './add-complex/add-complex.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    AddComplexComponent
   ],
   imports: [
     BrowserModule,
