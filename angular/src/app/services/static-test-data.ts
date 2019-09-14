@@ -193,4 +193,40 @@ export class TestServiceData {
         contactNumber: '123-123-1234',
         providerTrainingCenter: TestServiceData.trainingcenter
     };
+
+    static testTrainingCenter2Address: Address = {
+        addressId: 8,
+        streetAddress: 'One UTSA Circle',
+        city: 'San Antonio',
+        state: 'TX',
+        zipCode: '78249'
+    };
+
+    static testTrainingCenter2: TrainingCenter = {
+        centerId: 5,
+        streetAddress: TestServiceData.testTrainingCenter2Address,
+        centerName: 'UTSA Training Center',
+        contactNumber: '(482) 482-4824'
+    };
+
+    static testProvider2Address: Address = {
+        addressId: 9,
+        streetAddress: '7114 UTSA Boulevard',
+        city: 'San Antonio',
+        state: 'TX',
+        zipCode: '78249'
+    };
+
+    static testProvider2: Provider = {
+        providerId: 2,
+        companyName: 'Prado Student Living',
+        streetAddress: TestServiceData.testProvider2Address,
+        contactNumber: '(203) 232-2847',
+        providerTrainingCenter: TestServiceData.testTrainingCenter2
+    };
+
+    static testProviders: Provider[] = [
+        TestServiceData.dummyProvider,
+        TestServiceData.testProvider2
+    ];
 }

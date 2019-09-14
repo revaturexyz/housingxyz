@@ -27,9 +27,12 @@ export class ProviderService {
   }
 
   getProviderById(id: number): Observable<Provider> {
+    // Retrieve and add a value to our observable from the test providers
+    // array matching the id if it exists.
     const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
-      sub.next(TestServiceData.dummyProvider);
+      sub.next(TestServiceData.testProviders
+        .find(x => x.providerId == id));
       sub.complete();
     });
     return simpleObservable;
