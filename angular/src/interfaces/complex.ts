@@ -1,9 +1,8 @@
+import { Address } from './address';
+
 export interface Complex {
     complexId: number;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zipCode: string;
+    address: Address;
     complexName: string;
     contactNumber: string;
 }
