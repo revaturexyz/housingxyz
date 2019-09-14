@@ -1,7 +1,7 @@
 <div class="d-md-flex h-md-100 align-items-center">
       <!-- First Half -->
   <div class="col-md-3 p-0 bg-orange h-md-100">
-    <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+    <div class="d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
       <div class="logoarea pt-5 pb-5">
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
@@ -11,14 +11,15 @@
         </div>
         <div class="col-md-12" text-align="left" *ngIf="show === true">
           <br>
-          <mat-card>
-            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Complex Name:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.complexName}} </mat-card-content>
-            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Complex Number:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.contactNumber}}  </mat-card-content>
-            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Street Address:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.streetAddress}}  </mat-card-content>
-            <mat-card-title id="complexInfo" class="col-md-12"> <strong>City:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.city}} </mat-card-content>
-            <mat-card-title id="complexInfo" class="col-md-12"> <strong>State:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.state}} </mat-card-content>
-            <mat-card-title id="complexInfo" class="col-md-12"> <strong>Zip Code:</strong> </mat-card-title> <br> <mat-card-content> {{activeComplex.address.zipCode}} </mat-card-content>
-          </mat-card>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{activeComplex.complexName}}</h5>
+
+              <p class="card-text">{{activeComplex.address.streetAddress}}</p>
+              <p class="card-text">{{activeComplex.address.city}}, {{activeComplex.address.state}} {{activeComplex.address.zipCode}}</p>
+              <p class="card-text">{{activeComplex.contactNumber}}</p>
+            </div>
+          </div>
         </div> 
       </div>
     </div> 
@@ -40,7 +41,7 @@
               <tr>
                 <th scope="col" style="text-center">Room Number</th>
                 <th scope="col" style="text-center">Type</th>
-                <th scope="col" style="text-center">Status</th>
+                <th scope="col" style="text-center">Occupied</th>
                 <th scope="col" style="text-center">Start Date</th>
                 <th scope="col" style="text-center">End Date</th>
               </tr>

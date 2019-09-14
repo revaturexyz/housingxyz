@@ -18,7 +18,7 @@ export class UpdateRoomComponent implements OnInit {
   activeComplex: Complex;
   roomList: Room[];
   complexRooms: Room[];
-  show: boolean = false;
+  show = false;
 
   complexObs: Observer<Complex[]> = {
     next: x => {
