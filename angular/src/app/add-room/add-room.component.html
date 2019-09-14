@@ -95,11 +95,14 @@
                         </div>
                         <div class="col-md-12">
                             <label class="col-md-3">End Date:</label>
-                            <input class="input-border col-md-3" type="date" name="{{displayStart}}" min="startDate" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                            <input class="input-border col-md-3" type="date" name="{{displayStart}}" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
                         </div>
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                            <div *ngIf="validAddress === true"> Invalid address. Please enter a valid address.</div>
+                            <div *ngIf="validDistanceToTraining === true"> The distance between the Room and the TrainingCenter exceeds 20 miles.</div>
+                            <div *ngIf="validationDistanceComplex === true"> The distance between the Room and the TrainingCenter exceeds 5 miles. </div>
                         </div>
                     </div>
                 </form>
