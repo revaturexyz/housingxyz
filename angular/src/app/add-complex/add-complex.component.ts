@@ -15,10 +15,13 @@ export class AddComplexComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.currentProvider = this.providerService.getProviderById(2)
+    this.getProviderOnInit();
+  }
+
+  getProviderOnInit(): void {
+    this.providerService.getProviderById(2)
       .toPromise()
       .then((provider) => this.currentProvider = provider)
       .catch((err) => console.log(err));
   }
-
 }
