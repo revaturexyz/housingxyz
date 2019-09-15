@@ -49,7 +49,6 @@ export class AddComplexComponent implements OnInit {
 
   ngOnInit() {
     this.getProviderOnInit();
-
     this.getAddressesOnInit();
   }
 
@@ -77,7 +76,8 @@ export class AddComplexComponent implements OnInit {
     this.formLivingComplex.address = this.currentAddress;
 
     // If we are showing a user the address form, then they have entered or edited an address
-    // so the ID will be set to zero.
+    // so the ID will be set to zero so it will attempt to be added as a new
+    // address
     if (this.showAddressForm === true) {
       this.formLivingComplex.address.addressId = 0;
     }

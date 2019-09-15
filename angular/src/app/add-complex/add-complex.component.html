@@ -42,57 +42,89 @@
             <ng-container *ngIf="showAddressForm">
                 <div class="form-group">
                     <label for="streetAddress">Street Address</label>
-                    <input type="text" 
-                        [(ngModel)]="currentAddress.streetAddress"
-                        class="form-control" id="streetAddress"
+                    <input type="text"
+                        required
                         name="currentAddress.streetAddress"
+                        [(ngModel)]="currentAddress.streetAddress"
+                        class="form-control"
+                        id="streetAddress"
+                        #streetAddress="ngModel"
                         aria-describedby="streetAddress">
+                    <div *ngIf="streetAddress.invalid && streetAddress.dirty" class="alert alert-danger">Street address is required.</div>
                 </div>
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="city">City</label>
                         <input type="text"
+                            required
+                            name="currentAddress.city"
                             [(ngModel)]="currentAddress.city"
                             class="form-control"
-                            name="currentAddress.city"
-                            id="city" aria-describedby="city">
-                    </div>
+                            id="city"
+                            #city="ngModel"
+                            aria-describedby="city">
+                        </div>
                     <div class="form-group col-md-2">
                         <label for="state">State</label>
                         <input type="text"
+                            required
+                            name="currentAddress.state"
                             [(ngModel)]="currentAddress.state"
                             class="form-control"
-                            name="currentAddress.state"
-                            id="state" aria-describedby="state">
+                            id="state"
+                            #state="ngModel"
+                            aria-describedby="state">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="zipCode">Zipcode</label>
                         <input type="text"
+                            required
+                            pattern="[0-9]{5}"
                             [(ngModel)]="currentAddress.zipCode"
                             class="form-control"
                             name="currentAddress.zipCode"
-                            id="zipCode" aria-describedby="zipCode">
+                            id="zipCode"
+                            #zipCode="ngModel"
+                            aria-describedby="zipCode">
                     </div>
                 </div>
+                <div *ngIf="city.invalid && city.dirty" class="alert alert-danger">City is required.</div>
+                <div *ngIf="state.invalid && state.dirty" class="alert alert-danger">State is required.</div>
+                <div *ngIf="zipCode.invalid && zipCode.dirty" class="alert alert-danger">Zipcode is required and must have five digits.</div>  
                 <div class="form-group">
-                        <button
-                            class="showAddressForm"
-                            (click)="closeAddressForm()">Cancel New Address</button>
-                    </div>
+                    <button
+                        class="showAddressForm"
+                        (click)="closeAddressForm()">Cancel New Address</button>
+                </div>
             </ng-container>
             <hr>
             <div class="form-group">
                 <label for="complexName">Complex Name</label>
-                <input type="text" class="form-control" id="complexName" aria-describedby="complexName">
+                <input type="text" 
+                    required
+                    name="formLivingComplex.complexName"
+                    [(ngModel)]="formLivingComplex.complexName"
+                    #complexName="ngModel"
+                    class="form-control" id="complexName" aria-describedby="complexName">
             </div>
+            <div *ngIf="complexName.invalid && complexName.dirty" class="alert alert-danger">The living complex name is required.</div>
             <div class="form-group">
                 <label for="contactNumber">Contact Number</label>
-                <input type="text" class="form-control" id="complexname" aria-describedby="complexName">
+                <input type="text" 
+                    required
+                    pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"
+                    name="formLivingComplex.complexNumber"
+                    [(ngModel)]="formLivingComplex.contactNumber"
+                    #phoneNumber="ngModel"
+                    class="form-control" id="complexNumber" aria-describedby="complexNumber">
             </div>
+            <div *ngIf="phoneNumber.invalid && phoneNumber.dirty" class="alert alert-danger">Phone number must be at least 7 digits.</div>
             <div class="form-row">
                 <div class="col-md-3 form-group">
                     <button
                         class="showAddressForm"
+                        [disabled]="phoneNumber.invalid || complexName.invalid"
                         (click)="postLivingComplex()">Submit</button>
                 </div>
                 <div class="form-group">
