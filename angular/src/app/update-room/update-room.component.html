@@ -32,11 +32,11 @@
       <div class="logoarea pt-5 pb-5">
         <div id="text" text-align="center" *ngIf="show == false">
           <!-- This message is displayed before a complex is choosen so that there is no blank screen -->
-          <mat-card> 
-           <mat-card-title>
+          <div class="card">
+           <div class="card-title">
               Please select a complex in order to show the table of rooms.
-           </mat-card-title> 
-          </mat-card>
+           </div>
+          </div>
         </div> 
         <div *ngIf="show === true">
           <!-- This message is displayed after a complex has been choosen -->

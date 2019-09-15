@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from '../services/static-test-data';
+import { RouterTestingModule  } from '@angular/router/testing';
 
 const address: Address = {
   addressId: 1,
@@ -21,7 +22,7 @@ describe('AddRoomComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule ],
+      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule ],
       declarations: [ AddRoomComponent ]
     })
     .compileComponents();

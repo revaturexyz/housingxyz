@@ -42,7 +42,7 @@
                         </div>
 
                         <label class="col-md-9"> City: <input [(ngModel)]="room.roomAddress.city" name="room.roomAddress.city" class="input-border" type="text" required minlength="1" maxlength="50" #city="ngModel"> </label> 
-                        <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either to short or to long.</div>
+                        <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either too short or too long.</div>
 
                         <label class="col-md-9"> State: <input [(ngModel)]="room.roomAddress.state" name="room.roomAddress.state" class="input-border" type="text" required minlength ="2" maxlength="50" #state="ngModel"> </label> 
                         <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">Please enter a valid state name or state abbreviation.</div>
@@ -113,7 +113,7 @@
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
-                            <div *ngIf="validAddress" class="alert alert-danger"> Invalid Address, please enter a valid address.</div>
+                            <div *ngIf="validAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
                             <div *ngIf="validDistanceToTraining" class="alert alert-danger"> 
                                 The distance between the room address and the training center address cannot exceed twenty miles.
                             </div>

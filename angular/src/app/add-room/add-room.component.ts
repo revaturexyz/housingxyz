@@ -8,6 +8,8 @@ import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import * as moment from 'moment';
+import { TestServiceData } from '../services/static-test-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dev-add-room',
@@ -58,6 +60,7 @@ export class AddRoomComponent implements OnInit {
   addressShowString = 'Choose Address';
 
   constructor(
+    private router: Router,
     private roomService: RoomService,
     private providerService: ProviderService,
     private mapservice: MapsService
@@ -169,7 +172,14 @@ export class AddRoomComponent implements OnInit {
           this.room.amenities = this.amenities.filter(y => y.isSelected);
 
           console.log(this.room);
-          this.roomService.postRoom(this.room);
+          this.roomService.postRoom(this.room)
+            .toPromise()
+            .then(
+              (result) => {
+                console.log('Post is a success: ' + result);
+                this.router.navigate(['show-rooms']);
+              })
+            .catch((err) => console.log(err));
         } else {
           this.validDistanceToComplex = true;
         }
