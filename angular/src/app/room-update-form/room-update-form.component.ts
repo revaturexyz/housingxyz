@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 import { DatePipe } from '@angular/common';
-import { MatDialog, MatDialogConfig } from "@angular/material";
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AmenityDialogueComponent } from '../amenity-dialogue/amenity-dialogue.component';
 import { RoomService } from '../services/room.service';
 import { Amenity } from 'src/interfaces/amenity';
@@ -31,11 +31,15 @@ export class RoomUpdateFormComponent implements OnInit {
     complete: () => console.log('Observer got amenity complete notification'),
   };
   @Input () room: Room;
+  // emits an event called roomChange to the parent component
   @Output() roomChange = new EventEmitter();
+  // emits an event called deleteRoom to the parent component
   @Output() deleteRoom = new EventEmitter();
 
   constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService) { }
 
+  // initializes data for the dialog, and then calls it to be rendered on screen. This dialog is used
+  // to change the amenities
   openDialog() {
 
     const dialogConfig = new MatDialogConfig();

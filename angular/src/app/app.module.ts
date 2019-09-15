@@ -22,7 +22,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {MatCardModule} from '@angular/material/card';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({

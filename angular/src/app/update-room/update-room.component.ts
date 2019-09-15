@@ -23,7 +23,6 @@ export class UpdateRoomComponent implements OnInit {
   selectedRoom: Room;
   showString = 'Choose Complex';
   highlightRoom: Room;
-  @ViewChild(RoomUpdateFormComponent, {static: false}) childComponent: RoomUpdateFormComponent;
 
   // observer for the service request that returns an observable of complexes.
   // sets the internal complexList: Complex[] to valid data.
@@ -123,7 +122,6 @@ export class UpdateRoomComponent implements OnInit {
     });
     this.selectedRoom = null;
     this.highlightRoom = null;
-    this.childComponent.roomChange.complete();
   }
 
   // this function receives an event from the child and removes the room from the working room list
@@ -132,6 +130,5 @@ export class UpdateRoomComponent implements OnInit {
     this.complexRooms = this.complexRooms.filter(x => x.roomId !== r.roomId);
     this.selectedRoom = null;
     this.highlightRoom = null;
-    this.childComponent.deleteRoom.complete();
   }
 }
