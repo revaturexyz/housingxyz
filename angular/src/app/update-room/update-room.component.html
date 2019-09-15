@@ -33,9 +33,11 @@
         <div id="text" text-align="center" *ngIf="show == false">
           <!-- This message is displayed before a complex is choosen so that there is no blank screen -->
           <div class="card">
-           <div class="card-title">
-              Please select a complex in order to show the table of rooms.
-           </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                Please select a living complex to view its rooms.
+              </h5>
+            </div>
           </div>
         </div> 
         <div *ngIf="show === true">
