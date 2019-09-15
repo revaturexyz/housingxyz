@@ -3,6 +3,7 @@ import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
+import { MapsService } from '../services/maps.service';
 
 @Component({
   selector: 'dev-add-complex',
@@ -24,6 +25,7 @@ export class AddComplexComponent implements OnInit {
   formLivingComplex: Complex;
 
   constructor(
+    private mapsService: MapsService,
     private providerService: ProviderService
   ) {
     // Populate default form values
@@ -49,7 +51,9 @@ export class AddComplexComponent implements OnInit {
     this.getAddressesOnInit();
   }
 
-  postLivingComplex(): void {
+  async postLivingComplex(): Promise<void> {
+    this.isValidAddress = await this.mapsService.verifyAddress(this.currentAddress);
+
     this.formLivingComplex.address = this.currentAddress;
     console.log(this.formLivingComplex);
   }
@@ -59,7 +63,7 @@ export class AddComplexComponent implements OnInit {
   }
 
   getProviderOnInit(): void {
-    this.providerService.getProviderById(2)
+    this.providerService.getProviderById(1)
       .toPromise()
       .then((provider) => this.currentProvider = provider)
       .catch((err) => console.log(err));
