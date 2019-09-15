@@ -65,7 +65,7 @@ export class AddComplexComponent implements OnInit {
     const distance = await this.mapsService
       .checkDistance(
         this.currentAddress,
-        this.currentProvider.providerTrainingCenter.streetAddress
+        this.currentProvider.providerTrainingCenter.address
       );
     this.isValidDistanceToTrainingCenter = distance <= 20;
     console.log('Selected address is close enough to the provider training center: ' + this.isValidDistanceToTrainingCenter);

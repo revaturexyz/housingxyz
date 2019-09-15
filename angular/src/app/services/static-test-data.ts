@@ -24,7 +24,7 @@ export class TestServiceData {
 
     static dummyTrainingCenter: TrainingCenter = {
         centerId: 1,
-        streetAddress: TestServiceData.livPlusAddress,
+        address: TestServiceData.livPlusAddress,
         centerName: 'UT Arlington',
         contactNumber: '3213213214'
     };
@@ -158,7 +158,7 @@ export class TestServiceData {
 
     static trainingcenter: TrainingCenter = {
         centerId: 1,
-        streetAddress: TestServiceData.prestionHall,
+        address: TestServiceData.prestionHall,
         centerName: 'UT Arlington - Preston Hall',
         contactNumber: '(703) 570-8181'
     };
@@ -173,7 +173,7 @@ export class TestServiceData {
 
     static trainingcenter2: TrainingCenter = {
         centerId: 2,
-        streetAddress: TestServiceData.uic,
+        address: TestServiceData.uic,
         centerName: 'UIC',
         contactNumber: '3213213214'
     };
@@ -204,7 +204,7 @@ export class TestServiceData {
 
     static testTrainingCenter2: TrainingCenter = {
         centerId: 5,
-        streetAddress: TestServiceData.testTrainingCenter2Address,
+        address: TestServiceData.testTrainingCenter2Address,
         centerName: 'UTSA Training Center',
         contactNumber: '(482) 482-4824'
     };
