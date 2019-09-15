@@ -1,25 +1,67 @@
-    <div class="col text-center leftBod">
-        <div ngbDropdown class="d-inline-block">
+<div class="d-md-flex h-md-100">
+      <!-- First Half -->
+  <div class="col-md-3 p-0 bg-orange h-md-100">
+    <div class="d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+      <div class="logoarea pt-5 pb-5">
+        <!-- Drop down to choose a complex to display the rooms avaiable -->
+        <div ngbDropdown class="d-inline-block align-items-center justify-content-center text-center">
           <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
           </div>
         </div>
-    </div>
-  <table class="table table-striped rightBod table-bordered" *ngIf="activeComplex">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col" style="text-center">Room Id</th>
-        <th scope="col" style="text-center">Room Number</th>
-        <th scope="col" style="text-center">Type</th>
-        <th scope="col" style="text-center">Status</th>
-        <th scope="col" style="text-center">Start Date</th>
-        <th scope="col" style="text-center">End Date</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let r of complexRooms">
-          <dev-room-details [room]="r"></dev-room-details>
-        </tr>
-    </tbody>
-  </table>
+        <!-- displays the complexes information once one is choosen. -->
+        <div class="col-md-12" text-align="left" *ngIf="show === true">
+          <br>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{activeComplex.complexName}}</h5>
+
+              <p class="card-text">{{activeComplex.address.streetAddress}}</p>
+              <p class="card-text">{{activeComplex.address.city}}, {{activeComplex.address.state}} {{activeComplex.address.zipCode}}</p>
+              <p class="card-text">{{activeComplex.contactNumber}}</p>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div> 
+  </div>    
+      <!-- Second Half -->  
+  <div class="col-md-9 p-0 bg-body h-md-100 loginarea">
+    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+      <div class="logoarea pt-5 pb-5">
+        <div id="text" text-align="center" *ngIf="show == false">
+          <!-- This message is displayed before a complex is choosen so that there is no blank screen -->
+          <mat-card> 
+           <mat-card-title>
+              Please select a complex in order to show the table of rooms.
+           </mat-card-title> 
+          </mat-card>
+        </div> 
+        <div *ngIf="show === true">
+          <!-- This message is displayed after a complex has been choosen -->
+          <table class="col-md-12 table rightBod" *ngIf="activeComplex">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" style="text-center">Room Number</th>
+                <th scope="col" style="text-center">Type</th>
+                <th scope="col" style="text-center">Occupied</th>
+                <th scope="col" style="text-center">Start Date</th>
+                <th scope="col" style="text-center">End Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of complexRooms">
+                  <td scope="col-3" style="text-center">{{r.roomNumber}}</td>
+                  <td scope="col-3" style="text-center">{{r.roomType}}</td>
+                  <td scope="col-3" style="text-center">{{r.isOccupied}}</td>
+                  <td scope="col-3" style="text-center">{{r.startDate | date}}</td>
+                  <td scope="col-3" style="text-center">{{r.endDate | date}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>  
+      </div>     
+    </div>          
+  </div>        
+</div>

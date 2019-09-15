@@ -4,11 +4,13 @@ import { ProviderService } from '../services/provider.service';
 import { Observer } from 'rxjs';
 import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'dev-update-room',
   templateUrl: './update-room.component.html',
-  styleUrls: ['./update-room.component.scss']
+  styleUrls: ['./update-room.component.scss'],
+  providers: [DatePipe]
 })
 export class UpdateRoomComponent implements OnInit {
 
@@ -16,6 +18,7 @@ export class UpdateRoomComponent implements OnInit {
   activeComplex: Complex;
   roomList: Room[];
   complexRooms: Room[];
+  show = false;
 
   complexObs: Observer<Complex[]> = {
     next: x => {
@@ -37,7 +40,7 @@ export class UpdateRoomComponent implements OnInit {
 
   showString = 'Choose Complex';
 
-  constructor(private providerService: ProviderService, private roomService: RoomService) { }
+  constructor(private providerService: ProviderService, private roomService: RoomService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.providerService.getComplexes(1).subscribe(this.complexObs);
@@ -49,5 +52,6 @@ export class UpdateRoomComponent implements OnInit {
     this.activeComplex = complex;
     // console.log(this.roomList);
     this.complexRooms = this.roomList.filter(r => r.complex.complexId === this.activeComplex.complexId);
+    this.show = true;
   }
 }
