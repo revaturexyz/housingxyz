@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
 import { Address } from 'src/interfaces/address';
+import { Complex } from 'src/interfaces/complex';
 
 @Component({
   selector: 'dev-add-complex',
@@ -11,26 +12,50 @@ import { Address } from 'src/interfaces/address';
 export class AddComplexComponent implements OnInit {
   currentProvider: Provider;
 
+  // Properties to show the address select, form, and track
+  // the currently selected address.
   showAddressForm = false;
-
   addresses: Address[] = [];
-  currentAddress: Address = {
-    addressId: 0,
-    streetAddress: '',
-    city: '',
-    state: '',
-    zipCode: ''
-  };
+  currentAddress: Address;
   addressDisplayString = 'Select an Address';
+  isValidAddress: boolean;
+
+
+  formLivingComplex: Complex;
 
   constructor(
     private providerService: ProviderService
-  ) { }
+  ) {
+    // Populate default form values
+    this.currentAddress = {
+      addressId: 0,
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: ''
+    };
+
+    this.formLivingComplex = {
+      complexId: 0,
+      address: this.currentAddress,
+      complexName: '',
+      contactNumber: ''
+    };
+  }
 
   ngOnInit() {
     this.getProviderOnInit();
 
     this.getAddressesOnInit();
+  }
+
+  postLivingComplex(): void {
+    this.formLivingComplex.address = this.currentAddress;
+    console.log(this.formLivingComplex);
+  }
+
+  cancelAddLivingComplex(): void {
+
   }
 
   getProviderOnInit(): void {
