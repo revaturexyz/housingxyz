@@ -4,6 +4,7 @@ import { Provider } from 'src/interfaces/provider';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
 import { MapsService } from '../services/maps.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dev-add-complex',
@@ -19,12 +20,13 @@ export class AddComplexComponent implements OnInit {
   addresses: Address[] = [];
   currentAddress: Address;
   addressDisplayString = 'Select an Address';
-  isValidAddress: boolean;
-
+  isValidAddress = true;
+  isValidDistanceToTrainingCenter = true;
 
   formLivingComplex: Complex;
 
   constructor(
+    private router: Router,
     private mapsService: MapsService,
     private providerService: ProviderService
   ) {
@@ -52,14 +54,38 @@ export class AddComplexComponent implements OnInit {
   }
 
   async postLivingComplex(): Promise<void> {
+    console.log('Selected address: ');
+    console.log(this.currentAddress);
+
     this.isValidAddress = await this.mapsService.verifyAddress(this.currentAddress);
+    console.log('Selected address is valid: ' + this.isValidAddress);
+    if (!this.isValidAddress) {
+      return;
+    }
+
+    const distance = await this.mapsService
+      .checkDistance(
+        this.currentAddress,
+        this.currentProvider.providerTrainingCenter.streetAddress
+      );
+    this.isValidDistanceToTrainingCenter = distance <= 20;
+    console.log('Selected address is close enough to the provider training center: ' + this.isValidDistanceToTrainingCenter);
+    if (!this.isValidDistanceToTrainingCenter) {
+      return;
+    }
 
     this.formLivingComplex.address = this.currentAddress;
+
+    // If we are showing a user the address form, then they have entered or edited an address
+    // so the ID will be set to zero.
+    if (this.showAddressForm === true) {
+      this.formLivingComplex.address.addressId = 0;
+    }
     console.log(this.formLivingComplex);
   }
 
   cancelAddLivingComplex(): void {
-
+    this.router.navigate(['']);
   }
 
   getProviderOnInit(): void {
