@@ -30,25 +30,23 @@ describe('ProviderService', () => {
 
   describe('getProviders', () => {
     it('should return an Observable<Provider[]>', () => {
-    const  someProviders = [provider1];
-    myProvider.getProviders().subscribe((provider) => {
-    expect(provider.length).toBe(1);
-    expect(provider[0].streetAddress).toEqual(someProviders[0].streetAddress);
+      const  someProviders = [provider1];
+      myProvider.getProviders().subscribe((provider) => {
+      expect(provider.length).toBe(1);
+      expect(provider[0].address).toEqual(someProviders[0].address);
+      });
     });
-    });
-
   });
 
   describe('getProviderById', () => {
     it('should return an Observable<Provider>', () => {
-    const  someProviders = provider1;
-    myProvider.getProviderById(1).subscribe((provider) => {
-    expect(provider.companyName).toEqual(someProviders.companyName);
-    expect(provider.streetAddress).toEqual(someProviders.streetAddress);
-    expect(provider.providerTrainingCenter.centerId).toEqual(someProviders.providerTrainingCenter.centerId);
+      const  someProviders = provider1;
+      myProvider.getProviderById(1).subscribe((provider) => {
+      expect(provider.companyName).toEqual(someProviders.companyName);
+      expect(provider.address).toEqual(someProviders.address);
+      expect(provider.providerTrainingCenter.centerId).toEqual(someProviders.providerTrainingCenter.centerId);
+      });
     });
-    });
-
   });
 
   describe('getComplexes', () => {
