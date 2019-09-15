@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
 import { AddComplexComponent } from './add-complex/add-complex.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgbModule,
     // withConfig: remove warning message when using formcontrolname and ngModel
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     StickyNavModule

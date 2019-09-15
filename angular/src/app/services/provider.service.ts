@@ -32,7 +32,7 @@ export class ProviderService {
     const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
       sub.next(TestServiceData.testProviders
-        .find(x => x.providerId == id));
+        .find(x => x.providerId === id));
       sub.complete();
     });
     return simpleObservable;
