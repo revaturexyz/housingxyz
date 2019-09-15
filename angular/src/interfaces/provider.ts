@@ -4,7 +4,7 @@ import { Address } from './address';
 export interface Provider {
     providerId: number;
     companyName: string;
-    streetAddress: Address;
+    address: Address;
     contactNumber: string;
     providerTrainingCenter: TrainingCenter;
 }
