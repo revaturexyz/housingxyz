@@ -1,26 +1,26 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
-import { TrainingcenterService } from './trainingcenter.service';
+import { TrainingCenterService } from './trainingcenter.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TrainingCenter } from 'src/interfaces/trainingcenter';
 import { Complex } from '../../interfaces/complex';
 import { TestServiceData } from './static-test-data';
 
-describe('TrainingcenterService', () => {
-  let myProvider: TrainingcenterService;
+describe('TrainingCenterService', () => {
+  let myProvider: TrainingCenterService;
   let httpMock: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [TrainingcenterService]
+      providers: [TrainingCenterService]
     });
 
     const testBed = getTestBed();
-    myProvider = testBed.get(TrainingcenterService);
+    myProvider = testBed.get(TrainingCenterService);
     httpMock = testBed.get(HttpTestingController);
   });
 
   it('should be created', () => {
-    const service: TrainingcenterService = TestBed.get(TrainingcenterService);
+    const service: TrainingCenterService = TestBed.get(TrainingCenterService);
     expect(service).toBeTruthy();
   });
 

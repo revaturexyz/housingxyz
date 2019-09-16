@@ -10,7 +10,7 @@ import { Complex } from 'src/interfaces/complex';
 @Injectable({
   providedIn: 'root'
 })
-export class TrainingcenterService {
+export class TrainingCenterService {
 
   constructor(private http: HttpClient) { }
 
