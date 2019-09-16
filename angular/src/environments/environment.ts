@@ -8,7 +8,7 @@ export const environment = {
   clientId: '',
   extraQueryParameter: 'nux=1', // This is optional
   endpoints: {
-    'localhost': 'http://192.168.99.100:10080/api/' // Note, this is an object, you could add several things here
+    localhost: 'http://192.168.99.100:10080/api/' // Note, this is an object, you could add several things here
   }
 };
 
