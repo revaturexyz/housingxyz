@@ -198,6 +198,7 @@ export class AddRoomComponent implements OnInit {
       .then(
         (data) => {
           console.log('Received response for get addresses');
+          console.log(data);
           this.addressList = data;
         })
       .catch(
