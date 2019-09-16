@@ -24,15 +24,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // get locations belonging to the provider
+    this.getProviderOnInit();
+    this.getLivingComplexesOnInit();
+  }
+
+  getProviderOnInit(): void {
     this.providerService.getProviderById(1)
-      .subscribe(
-        (provider) => this.provider = provider,
-        (err) => console.log(err)
-      );
+      .toPromise()
+      .then((provider) => this.provider = provider)
+      .catch((err) => console.log(err));
+  }
+
+  getLivingComplexesOnInit(): void {
     this.providerService.getComplexesByProvider(2)
-      .subscribe(
-        (complexes) => this.complexes = complexes,
-        (err) => console.log(err)
-      );
+      .toPromise()
+      .then((complexes) => this.complexes = complexes)
+      .catch((err) => console.log(err));
   }
 }
