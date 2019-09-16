@@ -77,8 +77,8 @@ export class AddRoomComponent implements OnInit {
         zipCode: ''
       },
       roomNumber: '',
-      numberOfBeds: 2,
-      roomType: '',
+      numberOfBeds: 4,
+      roomType: 'Apartment',
       isOccupied: false,
       amenities: null,
       startDate: new Date(),
@@ -108,7 +108,6 @@ export class AddRoomComponent implements OnInit {
 
     this.freshDate = moment();
     if (this.freshDate > this.startDate) {
-      this.startDate.add(1, 'd');
       this.midDate = this.startDate.clone().add(6, 'months');
       this.endDate = this.startDate.clone().add(2, 'y');
     }
@@ -221,6 +220,7 @@ export class AddRoomComponent implements OnInit {
         (data) => {
           console.log('Received response for get amenities');
           this.amenities = data;
+          console.log(data);
         })
       .catch(
         (error) => console.log(error)

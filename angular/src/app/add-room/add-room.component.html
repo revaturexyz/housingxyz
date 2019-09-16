@@ -70,7 +70,7 @@
                         <div class="col-md-12">
                             <label class="col-md-3" for="room.roomType">Room Type: </label>
                             <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
-                                <option>Apartment</option>
+                                <option selected>Apartment</option>
                                 <option>Dorm</option>
                             </select>
                         </div>
@@ -81,19 +81,20 @@
                             <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-8">1 to 5 digits ending with or without a capital letter</div>
                         </div>
                         <!-- Choose the number of beds in the room -->
-                        <div class="col-md-10">
-                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{ room.numberOfBeds }}
-                            <input type="range" min="1" max="8" value="2" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
+                        <div class="col-md-11">
+                            <label class="col-md-5" for="room.numberOfBeds">Number of Beds: </label> {{ room.numberOfBeds }}
+                            <input type="range" min="1" max="8" value="4" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
                         </div>
                         <br><br>
                         <!-- Choose the amenities in the room -->
                         <div class="col-md-8">
                             <label class="col-md-5">Amenities:</label>
                             <br>
-                            <div class="col-md-10">
+                            <div class="col-md-12 col-sm-10 col-xs-10" id="amenityStyle">
                                 <span *ngFor="let amenity of amenities">
-                                    <label for="amenity.amenity" class="col-md-5">{{ amenity.amenity }}</label>
-                                    <input type="checkbox" name="amenity.amenity" [(ngModel)]="amenity.isSelected">
+                                    <label for="amenity.amenity" class="col-md-6">
+                                        <input type="checkbox" name="amenity.amenity" [(ngModel)]="amenity.isSelected">
+                                        &nbsp; {{ amenity.amenity }}</label>
                                 </span>
                             </div>
                         </div>
