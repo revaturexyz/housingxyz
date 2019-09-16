@@ -78,11 +78,11 @@ describe('RoomService', () => {
         expect(room[0].apiAddress).toEqual(someRooms[0].apiAddress);
         expect(room[1].apiAddress).toEqual(someRooms[1].apiAddress);
       });
-      /*// add in the baseurl later
-      const  call = httpMock.expectOne(`${myProvider}/rooms`);
-      expect(call.request.method).toBe("GET");
+      // add in the baseurl later
+      const  call = httpMock.expectOne(`${myProvider.roomUrl}/provider/1`);
+      expect(call.request.method).toBe('GET');
       call.flush(someRooms);
-      httpMock.verify();*/
+      httpMock.verify();
     });
   });
   describe('getRoomById', () => {
@@ -131,6 +131,12 @@ describe('RoomService', () => {
         expect(amenities[0]).toEqual(types[0]);
         expect(amenities[1]).toEqual(types[1]);
       });
+
+      const  call = httpMock.expectOne(`${myProvider.roomUrl}/amenity`);
+      expect(call.request.method).toBe('GET');
+      call.flush(amenities);
+      httpMock.verify();
+
     });
   });
 });
