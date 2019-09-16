@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 
 export class ProviderService {
 
-  apiUrl: string = environment.endpoints.localhost;
+  apiUrl: string = environment.endpoints.providerXYZ;
 
   constructor(private httpBus: HttpClient) { }
 
