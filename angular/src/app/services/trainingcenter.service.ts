@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { Room } from '../../interfaces/room';
-import { Amenity} from '../../interfaces/amenity';
-import { TrainingCenter} from '../../interfaces/trainingcenter';
+import { HttpClient } from '@angular/common/http';
+import { TrainingCenter } from '../../interfaces/trainingcenter';
 import { Observable, of } from 'rxjs';
 import { TestServiceData } from './static-test-data';
 import { Complex } from 'src/interfaces/complex';
@@ -12,13 +10,13 @@ import { Complex } from 'src/interfaces/complex';
 })
 export class TrainingCenterService {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   getTrainingCenters(): Observable<TrainingCenter[]> {
     return of([TestServiceData.trainingcenter, TestServiceData.trainingcenter2]);
   }
 
-  getComplexesByTrainingCenter(centerId: number): Observable<Complex[]> {
+  getComplexesByTrainingCenter(): Observable<Complex[]> {
     return of([TestServiceData.dummyComplex, TestServiceData.dummyComplex2]);
   }
 }
