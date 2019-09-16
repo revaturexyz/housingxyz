@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class RoomService {
-    apiUrl: string = environment.endpoints['localhost'];
+    apiUrl: string = environment.endpoints.localhost;
     constructor(private http: HttpClient) {  }
 
     getRoomById(id: number): Observable<Room> {
