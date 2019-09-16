@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,10 @@ import { TestServiceData } from './static-test-data';
 
 export class ProviderService {
 
-  constructor(private httpBus: HttpClient) { }
+  endPoint: string;
+  constructor(private httpBus: HttpClient) {
+    this.endPoint = environment.endpoints['localhost'];
+  }
 
   getProviders(): Observable<Provider[]> {
     const simpleObservable = new Observable<Provider[]>((sub) => {
@@ -36,15 +40,7 @@ export class ProviderService {
   }
 
   getComplexesByProvider(id: number): Observable<Complex[]> {
-    const simpleObservable = new Observable<Complex[]>((sub) => {
-      // observable execution
-      const complexList: Complex[] = [];
-      complexList.push(TestServiceData.dummyComplex);
-      complexList.push(TestServiceData.dummyComplex2);
-      sub.next(complexList);
-      sub.complete();
-    });
-    return simpleObservable;
+    return this.httpBus.get<Complex[]>(this.endPoint + `Complex/provider/${id}`);
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {
