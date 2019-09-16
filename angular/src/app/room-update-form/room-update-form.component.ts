@@ -1,6 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 import { DatePipe } from '@angular/common';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { AmenityDialogueComponent } from '../amenity-dialogue/amenity-dialogue.component';
+import { RoomService } from '../services/room.service';
+import { Amenity } from 'src/interfaces/amenity';
+import { Observer } from 'rxjs';
+import { ComplexService } from '../services/complex.service';
 
 @Component({
   selector: 'dev-room-update-form',
@@ -16,14 +22,50 @@ export class RoomUpdateFormComponent implements OnInit {
   validStart: boolean;
   validEnd: boolean;
   today: Date;
+  allAmen: Amenity[];
+  allowModStartDate = false;
+
+  amenObs: Observer<Amenity[]> = {
+    next: x => {
+      console.log('Observer got amenities value.');
+      this.room.apiAmenity = x;
+    },
+    error: err => console.error('Observer got amenity error: ' + err),
+    complete: () => console.log('Observer got amenity complete notification'),
+  };
   @Input () room: Room;
+  // emits an event called roomChange to the parent component
   @Output() roomChange = new EventEmitter();
+  // emits an event called deleteRoom to the parent component
   @Output() deleteRoom = new EventEmitter();
 
-  constructor(private datePipe: DatePipe) { }
+  constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService, private complexService: ComplexService) { }
+
+  // initializes data for the dialog, and then calls it to be rendered on screen. This dialog is used
+  // to change the amenities
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      amen: this.allAmen,
+      roomAmen: this.room.apiAmenity
+    };
+
+    const amenityUpdate = this.dialog.open(AmenityDialogueComponent, dialogConfig);
+
+    amenityUpdate.afterClosed().subscribe(this.amenObs);
+  }
 
   ngOnInit() {
     this.today = new Date();
+    this.editing = false;
+    this.complexService.getAmenityByComplex(this.room.apiComplex.complexId).subscribe(a => this.allAmen = a);
+    if (this.datePipe.transform(this.today, 'yyyy-MM-dd') >= this.datePipe.transform(this.room.startDate, 'yyyy-MM-dd')) {
+      this.allowModStartDate = true;
+    }
   }
 
   // this function is bound to a button. Its only purpose is to set an internal flag for whether or not the user

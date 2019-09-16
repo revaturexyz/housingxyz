@@ -1,5 +1,5 @@
 <!-- table to display current details of the selected room with two-way binding -->
-<table class="table table-striped bottomBod table-bordered" *ngIf="room">
+<table class="table table-striped table-dark bottomBod table-bordered" *ngIf="room">
     <thead class="thead-dark">
       <tr>
         <th scope="col" class="text-center">Room Number</th>
@@ -7,8 +7,8 @@
         <th scope="col" class="text-center">Type</th>
         <th scope="col" class="text-center">Occupied</th>
         <th scope="col" class="text-center">Amenities</th>
-        <th scope="col" class="text-center">Start Date</th>
-        <th scope="col" class="text-center">End Date</th>
+        <th scope="col" class="text-center dateBox">Start Date</th>
+        <th scope="col" class="text-center dateBox">End Date</th>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
           <td scope="col" style="text-align: center">{{room.isOccupied}}</td>
           <td scope="col" style="text-align: center">
             <span>|</span>
-            <span *ngFor="let a of room.amenities">| {{a.amenityString}} |</span>
+            <span *ngFor="let a of room.apiAmenity">| {{a.amenity}} |</span>
             <span>|</span>
           </td>
           <td scope="col" style="text-align: center">{{room.startDate | date}}</td>
@@ -45,11 +45,13 @@
             </td>
             <td scope="col" class="text-center">{{room.roomType}}</td>
             <td scope="col" class="text-center">{{room.isOccupied}}</td>
-            <td scope="col" style="text-align: center"></td>
+            <td scope="col" style="text-align: center">
+              <button type="button" class="btn btn-primary" *ngIf="room" (click)="openDialog()">Select Amenities</button>
+            </td>
             <!-- this is the form for the start date of the contract -->
             <td scope="col" class="text-center">
               <form class="form-group" #startDate="ngForm">
-                <input class="form-control" id="startDate" required type="date"
+                <input class="form-control" id="startDate" required type="date" [disabled]="allowModStartDate"
                   [ngModel]="room.startDate | date:'yyyy-MM-dd'" (ngModelChange)="validateStart($event)" name="startDate" #startDate="ngModel"/>
                 <div *ngIf="validStart === false" class="alert alert-danger"> Must be either today or in the future.</div>
               </form>

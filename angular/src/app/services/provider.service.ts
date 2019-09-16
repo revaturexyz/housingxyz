@@ -13,9 +13,10 @@ import { environment } from 'src/environments/environment';
 
 export class ProviderService {
 
-  apiUrl: string = environment.endpoints.providerXYZ;
-
-  constructor(private httpBus: HttpClient) { }
+  apiUrl: string;
+  constructor(private httpBus: HttpClient) {
+    this.apiUrl = environment.endpoints.providerXYZ;
+  }
 
   getProviders(): Observable<Provider[]> {
     const simpleObservable = new Observable<Provider[]>((sub) => {
@@ -40,19 +41,15 @@ export class ProviderService {
     return simpleObservable;
   }
 
-  getComplexesByProvider(providerId: number): Observable<Complex[]> {
-    return this.httpBus.get<Complex[]>(this.apiUrl + 'Complex/provider/' + providerId);
+  getComplexesByProvider(id: number): Observable<Complex[]> {
+    return this.httpBus.get<Complex[]>(this.apiUrl + `Complex/provider/${id}`);
   }
 
   postComplex(complex: Complex, providerId: number) {
-    const postComplexUrl = this.apiUrl + 'Complex/provider/' + providerId;
-
-    return this.httpBus.post(postComplexUrl, JSON.parse(JSON.stringify(complex)));
+    return this.httpBus.post(this.apiUrl + `Complex/provider/${providerId}`, JSON.parse(JSON.stringify(complex)));
   }
 
   getAddressesByProvider(providerId: number): Observable<Address[]> {
-    const addressUrl = this.apiUrl + 'Address/provider/' + providerId;
-
-    return this.httpBus.get<Address[]>(addressUrl);
+    return this.httpBus.get<Address[]>(this.apiUrl + `Address/provider/${providerId}`);
   }
 }

@@ -5,13 +5,17 @@ import { Amenity } from '../../interfaces/amenity';
 import { Observable, of } from 'rxjs';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RoomService {
-
-    constructor(private http: HttpClient) { }
+    
+    apiUrl: string;
+    constructor(private httpBus: HttpClient) {
+    this.apiUrl = environment.endpoints.providerXYZ;
+    }
 
     getRoomById(id: number): Observable<Room> {
         return of(TestServiceData.room);
@@ -20,7 +24,7 @@ export class RoomService {
         return of(r);
     }
     getRoomsByProvider(providerId: number): Observable<Room[]> {
-        return of([TestServiceData.room, TestServiceData.room2]);
+        return this.httpBus.get<Room[]>(this.apiUrl + `Room/provider/${providerId}`);
     }
     getRoomTypes(): Observable<string[]> {
         return of(['Apartment', 'Dorm']);

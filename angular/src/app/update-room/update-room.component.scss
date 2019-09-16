@@ -6,12 +6,9 @@
 
 .bg-body{
     background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
-    background-position: center center;
+    background-position: 90%;
     background-size: cover;
     background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .btn-round { 
@@ -30,6 +27,12 @@
     float: right;
     width: 100%;
     height: 50%;
+}
+
+.rightBod {
+    width: 100%;
+    height: 50vw;
+    overflow: auto;
 }
 
 .centering {
@@ -71,6 +74,7 @@
 #complexInfo{
     font-size: 20px;
     float: left;
+    font-weight: 500;
 }
 @media (min-width: 768px) {
     .h-md-100 { height: 100vh; }
@@ -78,3 +82,12 @@
 .btn-round { border-radius: 30px; }
 .bg-indigo { background: indigo; }
 .text-cyan { color: #35bdff; }
+
+.fillPage {
+    width: 100%;
+    overflow: auto;
+}
+
+.fillDiv {
+    max-height: 100%;
+}

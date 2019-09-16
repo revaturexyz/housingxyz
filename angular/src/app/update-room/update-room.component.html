@@ -4,12 +4,27 @@
   some fields in the component that allows for further progression
   in the page's functionality. -->
 </ng-container>
-<div class="page">
-  <div class="col text-center leftBod">
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
+<div class="d-md-flex h-md-100 align-items-center">
+  <div class="col-md-4 p-0 bg-orange h-md-100">
+    <div class="d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+      <div class="logoarea pt-5 pb-5">
+        <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{showString}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{complex.complexName}}</button>
+            </div>
+        </div>
+        <div class="col-md-12" text-align="left" *ngIf="activeComplex">
+            <br>
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{activeComplex.complexName}}</h5>
+                <p class="card-text" *ngIf="activeComplex.apiAddress">{{activeComplex.apiAddress.streetAddress}}</p>
+                <p class="card-text" *ngIf="activeComplex.apiAddress">{{activeComplex.apiAddress.city}}, {{activeComplex.apiAddress.state}} {{activeComplex.apiAddress.zipCode}}</p>
+                <p class="card-text">{{activeComplex.contactNumber}}</p>
+              </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -19,17 +34,26 @@
     of events on it so that it may be selected. That then updates more fields
     in the component. -->
   </ng-container>
-  <div class="rightBod">
-    <ng-container *ngIf="complexRooms">
-      <dev-room-details *ngFor="let r of complexRooms" [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.card]="true" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom"></dev-room-details>
-    </ng-container>
-  </div>
-  <ng-container *ngIf="false">
-    <!-- This div houses a table to make displaying the form and the selected
-    room details easier. It only renders when a room has been selected from
-    above. -->
-  </ng-container>
-  <div>
-    <dev-room-update-form [room]="selectedRoom" (roomChange)="roomChange($event)" (deleteRoom)="removeRoom($event)"></dev-room-update-form>
+  <div class="col-md-8 bg-body">
+      <div class="p-5 fillDiv">
+          <div class="fillPage">
+            <div class="rightBod">
+              <ng-container *ngIf="complexRooms">
+                <dev-room-details *ngFor="let r of complexRooms" [room]="r" (mouseover)="mouseOn(r)" (mouseout)="mouseOff()" (click)="select(r)" [class.card]="true" [class.hovered]="r === mouseOverRoom" [class.selected]="r === highlightRoom"></dev-room-details>
+              </ng-container>
+            </div>
+            <div class="bottomBod">
+              <ng-container *ngIf="false">
+                <!-- This div houses a component that shows a table to make displaying
+                  the form and the selectedroom details easier. It only renders when
+                  a room has been selected from above. -->
+              </ng-container>
+              <br>
+              <ng-container *ngIf="selectedRoom">
+                <dev-room-update-form [room]="selectedRoom" (roomChange)="roomChange($event)" (deleteRoom)="removeRoom($event)"></dev-room-update-form>
+              </ng-container>
+            </div>
+          </div>
+      </div>
   </div>
 </div>
