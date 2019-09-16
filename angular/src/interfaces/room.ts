@@ -9,8 +9,8 @@ export interface Room {
     numberOfBeds: number;
     roomType: string;
     isOccupied: boolean;
-    amenities: Amenity[];
+    apiAmenity: Amenity[];
     startDate: Date;
     endDate: Date;
-    complex: Complex;
+    apiComplex: Complex;
 }

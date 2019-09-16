@@ -64,7 +64,7 @@ export class UpdateRoomComponent implements OnInit {
     this.clearSelect();
     this.activeComplex = complex;
     // console.log(this.roomList);
-    this.complexRooms = this.roomList.filter(r => r.complex.complexId === this.activeComplex.complexId);
+    this.complexRooms = this.roomList.filter(r => r.apiComplex.complexId === this.activeComplex.complexId);
   }
 
   // this function is bound to an HTML element, and executes every time the mouse is detected to be hovering over the element.
@@ -88,10 +88,10 @@ export class UpdateRoomComponent implements OnInit {
       numberOfBeds : r.numberOfBeds,
       roomType : r.roomType,
       isOccupied : r.isOccupied,
-      amenities : r.amenities,
+      apiAmenity : r.apiAmenity,
       startDate : r.startDate,
       endDate : r.endDate,
-      complex : r.complex
+      apiComplex : r.apiComplex
     };
     this.selectedRoom = newRoom;
     this.highlightRoom = r;
@@ -114,10 +114,10 @@ export class UpdateRoomComponent implements OnInit {
         element.numberOfBeds = r.numberOfBeds;
         element.roomType = r.roomType;
         element.isOccupied = r.isOccupied;
-        element.amenities = r.amenities;
+        element.apiAmenity = r.apiAmenity;
         element.startDate = r.startDate;
         element.endDate = r.endDate;
-        element.complex = r.complex;
+        element.apiComplex = r.apiComplex;
       }
     });
     this.selectedRoom = null;

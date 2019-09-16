@@ -10,7 +10,7 @@
     <ul class="list">
         <li matRipple [matRippleColor]="'rgba(200,200,200,.2)'" [matRippleCentered]="true" class="customChip"
         *ngFor="let a of amenities" (click)="clickEvent(a)" [class.overlay]="selected(a)">
-            {{a.amenityString}}
+            {{a.amenity}}
         </li>
     </ul>
 </mat-dialog-content>

@@ -21,7 +21,11 @@ export class AmenityDialogueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.roomAmenities.forEach(x => this.editedAmenities.push(x));
+    if (this.roomAmenities !== null) {
+      this.roomAmenities.forEach(x => this.editedAmenities.push(x));
+    }
+    console.log(this.roomAmenities);
+    console.log(this.editedAmenities);
   }
 
   // this function is called when the user saves the changed amenities. It returns the list of
@@ -44,10 +48,20 @@ export class AmenityDialogueComponent implements OnInit {
     // if the amenity is already selected, then remove it from the selection list
     // else, add the selected amenity to the list
     if (this.editedAmenities.includes(amen)) {
-      this.editedAmenities = this.editedAmenities.filter(x => x !== amen);
+      this.editedAmenities = this.editedAmenities.filter(x => x.amenityId !== amen.amenityId);
     } else {
       this.editedAmenities.push(amen);
     }
+  }
+
+  match(amen: Amenity): boolean {
+    let boolCheck = false;
+    this.editedAmenities.forEach(x => {
+      if (x.amenityId === amen.amenityId) {
+        boolCheck = true;
+      }
+    });
+    return boolCheck;
   }
 
   // this function takes care of letting the component know which amenities are currently selected
@@ -57,7 +71,7 @@ export class AmenityDialogueComponent implements OnInit {
     }
     // if the amenity is currently selected, then change the display color slightly so the user is notified
     // else, display default color scheme
-    if (this.editedAmenities.includes(amen)) {
+    if (this.match(amen)) {
       return true;
     } else {
       return false;

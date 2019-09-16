@@ -1,5 +1,5 @@
 export interface Amenity {
     amenityId: number;
-    amenityString: string;
+    amenity: string;
     isSelected: boolean;
 }

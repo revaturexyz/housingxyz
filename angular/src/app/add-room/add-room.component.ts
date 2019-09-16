@@ -80,10 +80,10 @@ export class AddRoomComponent implements OnInit {
       numberOfBeds: 2,
       roomType: '',
       isOccupied: false,
-      amenities: null,
+      apiAmenity: null,
       startDate: new Date(),
       endDate: new Date(),
-      complex: {
+      apiComplex: {
         complexId: 0,
         complexName: '',
         contactNumber: '',
@@ -170,7 +170,7 @@ export class AddRoomComponent implements OnInit {
 
           // Set the amenities list values in the room baasedon what is
           // selected
-          this.room.amenities = this.amenities.filter(y => y.isSelected);
+          this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
 
           console.log(this.room);
           this.roomService.postRoom(this.room)
@@ -257,7 +257,7 @@ export class AddRoomComponent implements OnInit {
   complexChoose(complex: Complex) {
     this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
     this.activeComplex = complex;
-    this.room.complex.complexId = complex.complexId;
+    this.room.apiComplex.complexId = complex.complexId;
   }
 
   // Updates selected address property and display string

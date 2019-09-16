@@ -6,6 +6,6 @@
     <mat-card-title>Start: {{room.startDate | date}} | End: {{room.endDate | date}}</mat-card-title>
     <mat-card-subtitle>Occupied: {{room.isOccupied}}</mat-card-subtitle>
     <ul class="list">
-        <li class="customChip" *ngFor="let a of room.amenities">{{a.amenityString}}</li>
+        <li class="customChip" *ngFor="let a of room.apiAmenity">{{a.amenity}}</li>
     </ul>
 </mat-card>

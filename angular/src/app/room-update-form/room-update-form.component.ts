@@ -6,6 +6,7 @@ import { AmenityDialogueComponent } from '../amenity-dialogue/amenity-dialogue.c
 import { RoomService } from '../services/room.service';
 import { Amenity } from 'src/interfaces/amenity';
 import { Observer } from 'rxjs';
+import { ComplexService } from '../services/complex.service';
 
 @Component({
   selector: 'dev-room-update-form',
@@ -22,10 +23,12 @@ export class RoomUpdateFormComponent implements OnInit {
   validEnd: boolean;
   today: Date;
   allAmen: Amenity[];
+  allowModStartDate = false;
+
   amenObs: Observer<Amenity[]> = {
     next: x => {
       console.log('Observer got amenities value.');
-      this.room.amenities = x;
+      this.room.apiAmenity = x;
     },
     error: err => console.error('Observer got amenity error: ' + err),
     complete: () => console.log('Observer got amenity complete notification'),
@@ -36,7 +39,7 @@ export class RoomUpdateFormComponent implements OnInit {
   // emits an event called deleteRoom to the parent component
   @Output() deleteRoom = new EventEmitter();
 
-  constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService) { }
+  constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService, private complexService: ComplexService) { }
 
   // initializes data for the dialog, and then calls it to be rendered on screen. This dialog is used
   // to change the amenities
@@ -48,7 +51,7 @@ export class RoomUpdateFormComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       amen: this.allAmen,
-      roomAmen: this.room.amenities
+      roomAmen: this.room.apiAmenity
     };
 
     const amenityUpdate = this.dialog.open(AmenityDialogueComponent, dialogConfig);
@@ -59,8 +62,10 @@ export class RoomUpdateFormComponent implements OnInit {
   ngOnInit() {
     this.today = new Date();
     this.editing = false;
-    this.room = this.room;
-    this.roomService.getAmenities().subscribe(a => this.allAmen = a);
+    this.complexService.getAmenityByComplex(this.room.apiComplex.complexId).subscribe(a => this.allAmen = a);
+    if (this.datePipe.transform(this.today, 'yyyy-MM-dd') >= this.datePipe.transform(this.room.startDate, 'yyyy-MM-dd')) {
+      this.allowModStartDate = true;
+    }
   }
 
   // this function is bound to a button. Its only purpose is to set an internal flag for whether or not the user
