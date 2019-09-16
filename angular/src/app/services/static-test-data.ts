@@ -45,26 +45,12 @@ export class TestServiceData {
         zipCode: '12345'
     };
 
-    static dummyComplex: Complex = {
-        complexId: 1,
-        address: TestServiceData.livPlusAddress,
-        complexName: 'Liv+ Appartments',
-        contactNumber: '123-123-1234'
-    };
-
     static complexAddress2: Address = {
         addressId: 10,
         streetAddress: '234 Complex St',
         city: 'Arlington',
         state: 'TX',
         zipCode: '23456',
-    };
-
-    static dummyComplex2: Complex = {
-        complexId: 2,
-        address: TestServiceData.complexAddress2,
-        complexName: 'Liv- Appartments',
-        contactNumber: '123-123-1234'
     };
 
     static dummyGender: string[] = ['male', 'female', 'undefined'];
@@ -108,42 +94,6 @@ export class TestServiceData {
         TestServiceData.dummyAmenity5,
         TestServiceData.dummyAmenity6
     ];
-
-    static room: Room = {
-        roomId: 0,
-        roomAddress: TestServiceData.dummyAddress,
-        roomNumber: '',
-        numberOfBeds: 2,
-        roomType: '',
-        isOccupied: false,
-        amenities: TestServiceData.dummmyList,
-        startDate: new Date(),
-        endDate: new Date(),
-        complex: TestServiceData.dummyComplex
-    };
-
-    static room2: Room = {
-        roomId: 0,
-        roomAddress: {
-            addressId: 2,
-            streetAddress: '701 S Nedderman Dr',
-            city: 'Arlington',
-            state: 'TX',
-            zipCode: '76019'
-        },
-        roomNumber: '323',
-        numberOfBeds: 9001,
-        roomType: 'Dorm',
-        isOccupied: true,
-        amenities: [{
-            amenityId: 2,
-            amenityString: 'Washer/Dryer',
-            isSelected: true
-        }],
-        startDate: new Date(),
-        endDate: new Date(),
-        complex: TestServiceData.dummyComplex2
-    };
 
     static postToRoom: Room;
     static postAddress: Address;
@@ -192,6 +142,58 @@ export class TestServiceData {
         address: TestServiceData.liv,
         contactNumber: '123-123-1234',
         providerTrainingCenter: TestServiceData.trainingcenter
+    };
+
+    static dummyComplex: Complex = {
+        complexId: 1,
+        apiProvider: TestServiceData.dummyProvider,
+        apiAddress: TestServiceData.livPlusAddress,
+        complexName: 'Liv+ Appartments',
+        contactNumber: '123-123-1234'
+    };
+
+    static room: Room = {
+        roomId: 0,
+        roomAddress: TestServiceData.dummyAddress,
+        roomNumber: '',
+        numberOfBeds: 2,
+        roomType: '',
+        isOccupied: false,
+        amenities: TestServiceData.dummmyList,
+        startDate: new Date(),
+        endDate: new Date(),
+        complex: TestServiceData.dummyComplex
+    };
+
+    static dummyComplex2: Complex = {
+        complexId: 2,
+        apiProvider: TestServiceData.dummyProvider,
+        apiAddress: TestServiceData.complexAddress2,
+        complexName: 'Liv- Appartments',
+        contactNumber: '123-123-1234'
+    };
+
+    static room2: Room = {
+        roomId: 0,
+        roomAddress: {
+            addressId: 2,
+            streetAddress: '701 S Nedderman Dr',
+            city: 'Arlington',
+            state: 'TX',
+            zipCode: '76019'
+        },
+        roomNumber: '323',
+        numberOfBeds: 9001,
+        roomType: 'Dorm',
+        isOccupied: true,
+        amenities: [{
+            amenityId: 2,
+            amenityString: 'Washer/Dryer',
+            isSelected: true
+        }],
+        startDate: new Date(),
+        endDate: new Date(),
+        complex: TestServiceData.dummyComplex2
     };
 
     static testTrainingCenter2Address: Address = {

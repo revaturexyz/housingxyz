@@ -6,12 +6,15 @@ import { Observable } from 'rxjs';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProviderService {
+
+  apiUrl: string = environment.endpoints['localhost'];
 
   constructor(private httpBus: HttpClient) { }
 
@@ -48,6 +51,16 @@ export class ProviderService {
       sub.complete();
     });
     return simpleObservable;
+  }
+
+  postComplex(complex: Complex, providerId: number) {
+    const postComplexUrl = this.apiUrl + 'Complex/provider/' + providerId;
+
+    this.httpBus.post(postComplexUrl, JSON.parse(JSON.stringify(complex)))
+    .subscribe(
+      data => { console.log('POST is successful', data); },
+      error => { console.log('Error', error); }
+    );
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {

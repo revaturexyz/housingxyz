@@ -14,12 +14,6 @@ import { Router } from '@angular/router';
 export class AddComplexComponent implements OnInit {
   currentProvider: Provider;
 
-  // Properties to show the address select, form, and track
-  // the currently selected address.
-  showAddressForm = false;
-  addresses: Address[] = [];
-  currentAddress: Address;
-  addressDisplayString = 'Select an Address';
   isValidAddress = true;
   isValidDistanceToTrainingCenter = true;
 
@@ -31,17 +25,22 @@ export class AddComplexComponent implements OnInit {
     private providerService: ProviderService
   ) {
     // Populate default form values
-    this.currentAddress = {
-      addressId: 0,
-      streetAddress: '',
-      city: '',
-      state: '',
-      zipCode: ''
-    };
-
     this.formLivingComplex = {
       complexId: 0,
-      address: this.currentAddress,
+      apiProvider: {
+        providerId: 0,
+        address: null,
+        contactNumber: '',
+        companyName: '',
+        providerTrainingCenter: null
+      },
+      apiAddress: {
+        addressId: 0,
+        streetAddress: '',
+        city: '',
+        state: '',
+        zipCode: ''
+      },
       complexName: '',
       contactNumber: ''
     };
@@ -49,14 +48,13 @@ export class AddComplexComponent implements OnInit {
 
   ngOnInit() {
     this.getProviderOnInit();
-    this.getAddressesOnInit();
   }
 
   async postLivingComplex(): Promise<void> {
-    console.log('Selected address: ');
-    console.log(this.currentAddress);
+    console.log('Entered address: ');
+    console.log(this.formLivingComplex.apiAddress);
 
-    this.isValidAddress = await this.mapsService.verifyAddress(this.currentAddress);
+    this.isValidAddress = await this.mapsService.verifyAddress(this.formLivingComplex.apiAddress);
     console.log('Selected address is valid: ' + this.isValidAddress);
     if (!this.isValidAddress) {
       return;
@@ -64,7 +62,7 @@ export class AddComplexComponent implements OnInit {
 
     const distance = await this.mapsService
       .checkDistance(
-        this.currentAddress,
+        this.formLivingComplex.apiAddress,
         this.currentProvider.providerTrainingCenter.address
       );
     this.isValidDistanceToTrainingCenter = distance <= 20;
@@ -73,15 +71,9 @@ export class AddComplexComponent implements OnInit {
       return;
     }
 
-    this.formLivingComplex.address = this.currentAddress;
-
-    // If we are showing a user the address form, then they have entered or edited an address
-    // so the ID will be set to zero so it will attempt to be added as a new
-    // address
-    if (this.showAddressForm === true) {
-      this.formLivingComplex.address.addressId = 0;
-    }
+    this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
     console.log(this.formLivingComplex);
+    this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId);
   }
 
   cancelAddLivingComplex(): void {
@@ -93,34 +85,5 @@ export class AddComplexComponent implements OnInit {
       .toPromise()
       .then((provider) => this.currentProvider = provider)
       .catch((err) => console.log(err));
-  }
-
-  getAddressesOnInit(): void {
-    this.providerService.getAddressesByProvider(2)
-      .toPromise()
-      .then((addresses) => this.addresses = addresses)
-      .catch((err) => console.log(err));
-  }
-
-  openAddressForm(): void {
-    this.showAddressForm = true;
-  }
-
-  closeAddressForm(): void {
-    this.showAddressForm = false;
-    this.addressDisplayString = 'Select an Address';
-    this.currentAddress = {
-      addressId: 0,
-      streetAddress: '',
-      city: '',
-      state: '',
-      zipCode: ''
-    };
-  }
-
-  chooseAddress(address: Address): void {
-    console.log('Choose address called');
-    this.currentAddress = address;
-    this.addressDisplayString = address.streetAddress;
   }
 }
