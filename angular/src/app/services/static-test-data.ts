@@ -154,7 +154,7 @@ export class TestServiceData {
 
     static room: Room = {
         roomId: 0,
-        roomAddress: TestServiceData.dummyAddress,
+        apiAddress: TestServiceData.dummyAddress,
         roomNumber: '',
         numberOfBeds: 2,
         roomType: '',
@@ -162,7 +162,7 @@ export class TestServiceData {
         amenities: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
-        complex: TestServiceData.dummyComplex
+        apiComplex: TestServiceData.dummyComplex
     };
 
     static dummyComplex2: Complex = {
@@ -175,7 +175,7 @@ export class TestServiceData {
 
     static room2: Room = {
         roomId: 0,
-        roomAddress: {
+        apiAddress: {
             addressId: 2,
             streetAddress: '701 S Nedderman Dr',
             city: 'Arlington',
@@ -193,7 +193,7 @@ export class TestServiceData {
         }],
         startDate: new Date(),
         endDate: new Date(),
-        complex: TestServiceData.dummyComplex2
+        apiComplex: TestServiceData.dummyComplex2
     };
 
     static testTrainingCenter2Address: Address = {

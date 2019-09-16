@@ -69,7 +69,7 @@ export class AddRoomComponent implements OnInit {
     // forms
     this.room = {
       roomId: 0,
-      roomAddress: {
+      apiAddress: {
         addressId: 0,
         streetAddress: '',
         city: '',
@@ -83,7 +83,7 @@ export class AddRoomComponent implements OnInit {
       amenities: null,
       startDate: new Date(),
       endDate: new Date(),
-      complex: {
+      apiComplex: {
         complexId: 0,
         complexName: '',
         contactNumber: '',
@@ -137,10 +137,10 @@ export class AddRoomComponent implements OnInit {
     console.log(this.activeComplex.apiAddress);
 
     console.log('Room Address: ');
-    console.log(this.room.roomAddress);
+    console.log(this.room.apiAddress);
 
     // Validate if an entered address can be considered real
-    const isValidAddress = await this.mapservice.verifyAddress(this.room.roomAddress);
+    const isValidAddress = await this.mapservice.verifyAddress(this.room.apiAddress);
     console.log('Address is valid: ' + isValidAddress);
 
     if (isValidAddress) {
@@ -149,7 +149,7 @@ export class AddRoomComponent implements OnInit {
       console.log('Validating distance to training center');
       const isValidDistanceTrainerCenter =
         await this.mapservice.checkDistance(
-          this.room.roomAddress,
+          this.room.apiAddress,
           this.provider.providerTrainingCenter.address);
 
       if ( isValidDistanceTrainerCenter <= 20) {
@@ -159,7 +159,7 @@ export class AddRoomComponent implements OnInit {
         console.log('Living complex address: ' + this.activeComplex.apiAddress);
         const isValidDistanceComplex =
           await this.mapservice.checkDistance(
-            this.room.roomAddress,
+            this.room.apiAddress,
             this.activeComplex.apiAddress);
 
         if ( isValidDistanceComplex <= 5 ) {
@@ -171,8 +171,8 @@ export class AddRoomComponent implements OnInit {
           // selected, then we can assume that a new address has been entered
           // and must set the address ID to zero
           if (this.show) {
-            if (this.room.roomAddress.addressId > 0) {
-              this.room.roomAddress.addressId = 0;
+            if (this.room.apiAddress.addressId > 0) {
+              this.room.apiAddress.addressId = 0;
             }
           }
 
@@ -265,7 +265,7 @@ export class AddRoomComponent implements OnInit {
   complexChoose(complex: Complex) {
     this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
     this.activeComplex = complex;
-    this.room.complex.complexId = complex.complexId;
+    this.room.apiComplex.complexId = complex.complexId;
   }
 
   // Updates selected address property and display string
@@ -273,7 +273,7 @@ export class AddRoomComponent implements OnInit {
   addressChoose(address: Address) {
     this.addressShowString = address.streetAddress;
     this.activeAddress = address;
-    this.room.roomAddress = address;
+    this.room.apiAddress = address;
   }
 
 

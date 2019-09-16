@@ -31,20 +31,20 @@ const amenityList: Amenity[] = [
 ];
 
 const room1: Room = {
-  roomId: 0, roomAddress: {
+  roomId: 0, apiAddress: {
     addressId: 1, streetAddress: '123 Address St', city:
       'Arlington', state: 'TX', zipCode: '12345'
   }, roomNumber: '', numberOfBeds: 2, roomType: '',
   isOccupied: false, amenities: amenityList, startDate:
-    new Date(), endDate: new Date(), complex: complex1
+    new Date(), endDate: new Date(), apiComplex: complex1
 };
 const room2: Room = {
-  roomId: 0, roomAddress: {
+  roomId: 0, apiAddress: {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
     city: 'Arlington', state: 'TX', zipCode: '76019'
   }, roomNumber: '323', numberOfBeds: 9001,
   roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true}],
-  startDate: new Date(), endDate: new Date(), complex: complex2
+  startDate: new Date(), endDate: new Date(), apiComplex: complex2
 };
 
 describe('RoomService', () => {
@@ -75,8 +75,8 @@ describe('RoomService', () => {
         room2];
       myProvider.getRoomsByProvider(1).subscribe((room) => {
         expect(room.length).toBe(2);
-        expect(room[0].roomAddress).toEqual(someRooms[0].roomAddress);
-        expect(room[1].roomAddress).toEqual(someRooms[1].roomAddress);
+        expect(room[0].apiAddress).toEqual(someRooms[0].apiAddress);
+        expect(room[1].apiAddress).toEqual(someRooms[1].apiAddress);
       });
       /*// add in the baseurl later
       const  call = httpMock.expectOne(`${myProvider}/rooms`);
@@ -90,7 +90,7 @@ describe('RoomService', () => {
     it('should return an Observable<Room>', () => {
       const oneRoom = room1;
       myProvider.getRoomById(0).subscribe((room) => {
-        expect(room.roomAddress).toEqual(oneRoom.roomAddress);
+        expect(room.apiAddress).toEqual(oneRoom.apiAddress);
       });
     });
   });

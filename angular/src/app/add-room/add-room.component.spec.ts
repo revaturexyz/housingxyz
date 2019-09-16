@@ -80,7 +80,7 @@ describe('AddRoomComponent', () => {
 
   // postRoomOnSubmit()
   it('should post rooms by id on submit', async () => {
-    component.room.roomAddress = address;
+    component.room.apiAddress = address;
     component.postRoomOnSubmit();
     expect(component.show).toEqual(false);
   });

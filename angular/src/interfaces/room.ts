@@ -4,7 +4,7 @@ import { Complex } from './complex';
 
 export interface Room {
     roomId: number;
-    roomAddress: Address;
+    apiAddress: Address;
     roomNumber: string;
     numberOfBeds: number;
     roomType: string;
@@ -12,5 +12,5 @@ export interface Room {
     amenities: Amenity[];
     startDate: Date;
     endDate: Date;
-    complex: Complex;
+    apiComplex: Complex;
 }
