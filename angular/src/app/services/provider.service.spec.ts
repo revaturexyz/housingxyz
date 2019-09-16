@@ -1,6 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { ProviderService } from './provider.service';
-import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Provider } from '../../interfaces/provider';
 import { TrainingCenter } from '../../interfaces/trainingcenter';
 import { Complex } from 'src/interfaces/complex';
@@ -11,8 +11,8 @@ const provider1: Provider = TestServiceData.dummyProvider;
 const listProvider: Provider[] = TestServiceData.testProviders;
 
 describe('ProviderService', () => {
-  let  myProvider: ProviderService;
-  let  httpMock: HttpTestingController;
+  let myProvider: ProviderService;
+  let httpMock: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -31,21 +31,21 @@ describe('ProviderService', () => {
 
   describe('getProviders', () => {
     it('should return an Observable<Provider[]>', () => {
-      const  someProviders = [provider1];
+      const someProviders = [provider1];
       myProvider.getProviders().subscribe((provider) => {
-      expect(provider.length).toBe(1);
-      expect(provider[0].address).toEqual(someProviders[0].address);
+        expect(provider.length).toBe(1);
+        expect(provider[0].address).toEqual(someProviders[0].address);
       });
     });
   });
 
   describe('getProviderById', () => {
     it('should return an Observable<Provider>', () => {
-      const  someProviders = listProvider;
+      const someProviders = listProvider;
       myProvider.getProviderById(1).subscribe((provider) => {
-      expect(provider.companyName).toEqual(someProviders[1].companyName);
-      expect(provider.address).toEqual(someProviders[1].address);
-      expect(provider.providerTrainingCenter.centerId).toEqual(someProviders[1].providerTrainingCenter.centerId);
+        expect(provider.companyName).toEqual(someProviders[1].companyName);
+        expect(provider.address).toEqual(someProviders[1].address);
+        expect(provider.providerTrainingCenter.centerId).toEqual(someProviders[1].providerTrainingCenter.centerId);
       });
     });
   });
@@ -56,12 +56,32 @@ describe('ProviderService', () => {
     const complex2: Complex = TestServiceData.dummyComplex2;
 
     it('should return an Observable<Complex[]>', () => {
-    const  someComplexes = [complex1, complex2];
-    myProvider.getComplexesByProvider(1).subscribe((complex) => {
-    expect(complex.length).toBe(2);
-    expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
-    expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
+      const someComplexes = [complex1, complex2];
+      myProvider.getComplexesByProvider(1).subscribe((complex) => {
+        expect(complex.length).toBe(2);
+        expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
+        expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
+      });
+      const  call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/${1}`);
+      expect(call.request.method).toBe('GET');
+      call.flush(someComplexes);
+      httpMock.verify();
     });
+
+  });
+
+  describe('postComplex', () => {
+    const complex1: Complex = TestServiceData.dummyComplex;
+
+    it('should return an Observable<Complex[]>', () => {
+      const oneComplex = complex1;
+      myProvider.postComplex(oneComplex, 1).subscribe((complex: Complex) => {
+        expect(complex).toEqual(oneComplex);
+      });
+      const  call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/${1}`);
+      expect(call.request.method).toBe('POST');
+      call.flush(oneComplex);
+      httpMock.verify();
     });
 
   });
@@ -73,7 +93,7 @@ describe('ProviderService', () => {
       city: 'Arlington',
       state: 'TX',
       zipCode: '12345'
-  };
+    };
 
     const address2: Address = {
       addressId: 2,
@@ -81,17 +101,17 @@ describe('ProviderService', () => {
       city: 'Arlington',
       state: 'TX',
       zipCode: '76010'
-  };
+    };
 
 
     it('should return an Observable<Address[]>', () => {
-      const  someAddressess = [address1, address2];
+      const someAddressess = [address1, address2];
       myProvider.getAddressesByProvider(1).subscribe((address) => {
-      expect(address.length).toBe(2);
-      expect(address[0].streetAddress).toEqual(someAddressess[0].streetAddress);
-      expect(address[1].streetAddress).toEqual(someAddressess[1].streetAddress);
+        expect(address.length).toBe(2);
+        expect(address[0].streetAddress).toEqual(someAddressess[0].streetAddress);
+        expect(address[1].streetAddress).toEqual(someAddressess[1].streetAddress);
       });
-      });
+    });
 
   });
 
