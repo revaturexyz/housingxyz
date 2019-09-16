@@ -10,6 +10,7 @@ import { Amenity } from 'src/interfaces/amenity';
 import * as moment from 'moment';
 import { TestServiceData } from '../services/static-test-data';
 import { Router } from '@angular/router';
+import { RoomType } from 'src/interfaces/room-type';
 
 @Component({
   selector: 'dev-add-room',
@@ -44,7 +45,7 @@ export class AddRoomComponent implements OnInit {
 
   // room form data
   provider: Provider;
-  types: string[] = [];
+  types: RoomType[] = [];
   amenities: Amenity[] = [];
 
   // values for displaying and allowing selection
@@ -198,6 +199,7 @@ export class AddRoomComponent implements OnInit {
         (data) => {
           console.log('Received response for get addresses');
           this.addressList = data;
+          console.log(data);
         })
       .catch(
         (error) => console.log(error)
@@ -223,6 +225,7 @@ export class AddRoomComponent implements OnInit {
       .then( (data) => {
         console.log('Received response for get complexes');
         this.complexList = data;
+        console.log(data);
       })
       .catch(
         (error) => console.log(error)

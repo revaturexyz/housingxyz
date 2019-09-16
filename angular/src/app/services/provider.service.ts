@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,49 +14,23 @@ import { TestServiceData } from './static-test-data';
 
 export class ProviderService {
 
+  apiUrl: string = environment.endpoints.localhost;
+
   constructor(private httpBus: HttpClient) { }
 
   getProviders(): Observable<Provider[]> {
-    const simpleObservable = new Observable<Provider[]>((sub) => {
-      // observable execution
-      const provList: Provider[] = [];
-      provList.push(TestServiceData.dummyProvider);
-      sub.next(provList);
-      sub.complete();
-    });
-    return simpleObservable;
+    return this.httpBus.get<Provider[]>(this.apiUrl + 'Provider/');
   }
 
   getProviderById(id: number): Observable<Provider> {
-    const simpleObservable = new Observable<Provider>((sub) => {
-      // observable execution
-      sub.next(TestServiceData.dummyProvider);
-      sub.complete();
-    });
-    return simpleObservable;
+    return this.httpBus.get<Provider>(this.apiUrl + 'Provider/' + id);
   }
 
   getComplexes(id: number): Observable<Complex[]> {
-    const simpleObservable = new Observable<Complex[]>((sub) => {
-      // observable execution
-      const complexList: Complex[] = [];
-      complexList.push(TestServiceData.dummyComplex);
-      complexList.push(TestServiceData.dummyComplex2);
-      sub.next(complexList);
-      sub.complete();
-    });
-    return simpleObservable;
+    return this.httpBus.get<Complex[]>(this.apiUrl + 'Complex/provider/' + id);
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {
-    const simpleObservable = new Observable<Address[]>((sub) => {
-      // observable execution
-      const addrList: Address[] = [];
-      addrList.push(TestServiceData.dummyAddress);
-      addrList.push(TestServiceData.livPlusAddress);
-      sub.next(addrList);
-      sub.complete();
-    });
-    return simpleObservable;
+    return this.httpBus.get<Address[]>(this.apiUrl + 'Address/provider/' + provider);
   }
 }
