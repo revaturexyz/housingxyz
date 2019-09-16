@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Address } from '../../interfaces/address';
 import { Maps } from '../../interfaces/maps/maps';
-import { Observable, of, from } from 'rxjs';
-import { TestServiceData } from './static-test-data';
-import { promise } from 'protractor';
 import { MapsGeoLocation } from '../../interfaces/maps/maps-geo-location';
 import { environment } from '../../environments/environment';
 

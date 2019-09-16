@@ -16,7 +16,7 @@ export class TrainingCenterService {
     return of([TestServiceData.trainingcenter, TestServiceData.trainingcenter2]);
   }
 
-  getComplexesByTrainingCenter(): Observable<Complex[]> {
+  getComplexesByTrainingCenter(centerId: number): Observable<Complex[]> {
     return of([TestServiceData.dummyComplex, TestServiceData.dummyComplex2]);
   }
 }
