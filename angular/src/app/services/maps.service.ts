@@ -6,19 +6,24 @@ import { Observable, of, from } from 'rxjs';
 import { TestServiceData } from './static-test-data';
 import { promise } from 'protractor';
 import { MapsGeoLocation } from '../../interfaces/maps/maps-geo-location';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapsService {
   private geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-  private distUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=';
-  private key = '&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
 
   constructor(private httpClient: HttpClient) { }
 
   async verifyAddress(address: Address): Promise<boolean> {
-    const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
+    const query = this.geocodeUrl +
+      address.streetAddress + '+' +
+      address.city + '+' +
+      address.state + '+' +
+      address.zipCode +
+      '&key=' + environment.googleMapsKey;
+
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
         console.log(mapsResult);
@@ -31,8 +36,14 @@ export class MapsService {
   }
 
   async getCoordinates(address: Address): Promise<MapsGeoLocation> {
-    console.log(address.streetAddress);
-    const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
+    console.log(address);
+    const query = this.geocodeUrl +
+      address.streetAddress + '+' +
+      address.city + '+' +
+      address.state + '+' +
+      address.zipCode +
+      '&key=' + environment.googleMapsKey;
+
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
         console.log('lat:' + mapsResult.results[0].geometry.location.lat);

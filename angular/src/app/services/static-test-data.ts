@@ -139,7 +139,7 @@ export class TestServiceData {
     static dummyProvider: Provider = {
         providerId: 2,
         companyName: 'Liv+',
-        address: TestServiceData.liv,
+        address: TestServiceData.livPlusAddress,
         contactNumber: '123-123-1234',
         providerTrainingCenter: TestServiceData.trainingcenter
     };

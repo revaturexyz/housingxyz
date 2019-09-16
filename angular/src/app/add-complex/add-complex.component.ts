@@ -94,7 +94,10 @@ export class AddComplexComponent implements OnInit {
   getProviderOnInit(): void {
     this.providerService.getProviderById(2)
       .toPromise()
-      .then((provider) => this.currentProvider = provider)
+      .then((provider) => {
+        this.currentProvider = provider;
+        console.log(provider);
+      })
       .catch((err) => console.log(err));
   }
 }
