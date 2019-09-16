@@ -76,10 +76,15 @@ export class AddComplexComponent implements OnInit {
     this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
       .toPromise()
       .then((result) => {
-        console.log('Post is a success: ' + result);
+        console.log('Post is a success: ');
+        console.log(result);
         this.router.navigate(['']);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log('POST failed: ');
+        console.log(err);
+        this.router.navigate(['']);
+      });
   }
 
   cancelAddLivingComplex(): void {
