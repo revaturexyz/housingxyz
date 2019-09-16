@@ -70,7 +70,7 @@
                         <div class="col-md-12">
                             <label class="col-md-3" for="room.roomType">Room Type: </label>
                             <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
-                                <option>Apartment</option>
+                                <option selected>Apartment</option>
                                 <option>Dorm</option>
                             </select>
                         </div>
@@ -90,10 +90,10 @@
                         <div class="col-md-8">
                             <label class="col-md-5">Amenities:</label>
                             <br>
-                            <div class="col-md-10">
+                            <div class="col-md-10 col-sm-10 col-xs-10" style="margin-left:18%;">
                                 <span *ngFor="let amenity of amenities">
-                                    <label for="amenity.amenityString" class="col-md-5">{{ amenity.amenityString }}</label>
-                                    <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                                    <label for="amenity.amenity" class="col-md-5">{{ amenity.amenity }}</label>
+                                    <input type="checkbox" name="amenity.amenity" [(ngModel)]="amenity.isSelected">
                                 </span>
                             </div>
                         </div>
