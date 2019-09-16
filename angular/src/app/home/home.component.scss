@@ -12,14 +12,18 @@
 }
 
 .home-head hr {
-    width: 50%;
+    width: 40%;
 }
 
 .complex-card{
     flex: 0 0 auto;
-    width: 50%;
+    width: 40%;
     margin-right: 4%;
     margin-bottom: 1%;
     border:1px solid #DDD;
     border-radius: 5px;
+}
+
+.complex-card hr {
+    width: 100%;
 }
