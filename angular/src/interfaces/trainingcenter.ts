@@ -2,8 +2,7 @@ import { Address } from './address';
 
 export interface TrainingCenter {
     centerId: number;
-    streetAddress: Address;
+    address: Address;
     centerName: string;
     contactNumber: string;
 }
-

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Provider } from 'src/interfaces/provider';
 import { HttpClient } from '@angular/common/http';
-import { TrainingCenter } from 'src/interfaces/trainingcenter';
 import { Observable } from 'rxjs';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
@@ -14,9 +13,9 @@ import { environment } from 'src/environments/environment';
 
 export class ProviderService {
 
-  endPoint: string;
+  apiUrl: string;
   constructor(private httpBus: HttpClient) {
-    this.endPoint = environment.endpoints['localhost'];
+    this.apiUrl = environment.endpoints.providerXYZ;
   }
 
   getProviders(): Observable<Provider[]> {
@@ -31,27 +30,26 @@ export class ProviderService {
   }
 
   getProviderById(id: number): Observable<Provider> {
+    // Retrieve and add a value to our observable from the test providers
+    // array matching the id if it exists.
     const simpleObservable = new Observable<Provider>((sub) => {
       // observable execution
-      sub.next(TestServiceData.dummyProvider);
+      sub.next(TestServiceData.testProviders
+        .find(x => x.providerId === id));
       sub.complete();
     });
     return simpleObservable;
   }
 
   getComplexesByProvider(id: number): Observable<Complex[]> {
-    return this.httpBus.get<Complex[]>(this.endPoint + `Complex/provider/${id}`);
+    return this.httpBus.get<Complex[]>(this.apiUrl + `Complex/provider/${id}`);
   }
 
-  getAddressesByProvider(provider: number): Observable<Address[]> {
-    const simpleObservable = new Observable<Address[]>((sub) => {
-      // observable execution
-      const addrList: Address[] = [];
-      addrList.push(TestServiceData.dummyAddress);
-      addrList.push(TestServiceData.livPlusAddress);
-      sub.next(addrList);
-      sub.complete();
-    });
-    return simpleObservable;
+  postComplex(complex: Complex, providerId: number) {
+    return this.httpBus.post(this.apiUrl + `Complex/provider/${providerId}`, JSON.parse(JSON.stringify(complex)));
+  }
+
+  getAddressesByProvider(providerId: number): Observable<Address[]> {
+    return this.httpBus.get<Address[]>(this.apiUrl + `Address/provider/${providerId}`);
   }
 }
