@@ -129,6 +129,16 @@ export class AddRoomComponent implements OnInit {
 
 
   async postRoomOnSubmit() {
+
+    console.log('Training Center Addresss: ');
+    console.log(this.provider.providerTrainingCenter.address);
+
+    console.log('Living Complex Address: ');
+    console.log(this.activeComplex.apiAddress);
+
+    console.log('Room Address: ');
+    console.log(this.room.roomAddress);
+
     // Validate if an entered address can be considered real
     const isValidAddress = await this.mapservice.verifyAddress(this.room.roomAddress);
     console.log('Address is valid: ' + isValidAddress);
