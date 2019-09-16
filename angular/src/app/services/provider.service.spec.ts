@@ -2,16 +2,15 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { ProviderService } from './provider.service';
 import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
 import { Provider } from '../../interfaces/provider';
-import { TrainingCenter } from '../../interfaces/trainingcenter';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from '../services/static-test-data';
 
 const provider1: Provider = TestServiceData.dummyProvider;
+const listProvider: Provider[] = TestServiceData.testProviders;
 
 describe('ProviderService', () => {
   let  myProvider: ProviderService;
-  let  httpMock: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -20,7 +19,6 @@ describe('ProviderService', () => {
 
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
-    httpMock = testBed.get(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -30,35 +28,33 @@ describe('ProviderService', () => {
 
   describe('getProviders', () => {
     it('should return an Observable<Provider[]>', () => {
-    const  someProviders = [provider1];
-    myProvider.getProviders().subscribe((provider) => {
-    expect(provider.length).toBe(1);
-    expect(provider[0].streetAddress).toEqual(someProviders[0].streetAddress);
+      const  someProviders = [provider1];
+      myProvider.getProviders().subscribe((provider) => {
+      expect(provider.length).toBe(1);
+      expect(provider[0].address).toEqual(someProviders[0].address);
+      });
     });
-    });
-
   });
 
   describe('getProviderById', () => {
     it('should return an Observable<Provider>', () => {
-    const  someProviders = provider1;
-    myProvider.getProviderById(1).subscribe((provider) => {
-    expect(provider.companyName).toEqual(someProviders.companyName);
-    expect(provider.streetAddress).toEqual(someProviders.streetAddress);
-    expect(provider.providerTrainingCenter.centerId).toEqual(someProviders.providerTrainingCenter.centerId);
+      const  someProviders = listProvider;
+      myProvider.getProviderById(1).subscribe((provider) => {
+      expect(provider.companyName).toEqual(someProviders[1].companyName);
+      expect(provider.address).toEqual(someProviders[1].address);
+      expect(provider.providerTrainingCenter.centerId).toEqual(someProviders[1].providerTrainingCenter.centerId);
+      });
     });
-    });
-
   });
 
-  describe('getComplexes', () => {
+  describe('getComplexesByProvider', () => {
     const complex1: Complex = TestServiceData.dummyComplex;
 
     const complex2: Complex = TestServiceData.dummyComplex2;
 
     it('should return an Observable<Complex[]>', () => {
     const  someComplexes = [complex1, complex2];
-    myProvider.getComplexes(1).subscribe((complex) => {
+    myProvider.getComplexesByProvider(1).subscribe((complex) => {
     expect(complex.length).toBe(2);
     expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
     expect(complex[1].complexName).toEqual(someComplexes[1].complexName);

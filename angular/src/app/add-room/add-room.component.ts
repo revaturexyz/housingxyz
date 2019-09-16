@@ -87,7 +87,8 @@ export class AddRoomComponent implements OnInit {
         complexId: 0,
         complexName: '',
         contactNumber: '',
-        address: {
+        apiProvider: null,
+        apiAddress: {
           addressId: 0,
           streetAddress: '',
           city: '',
@@ -128,30 +129,38 @@ export class AddRoomComponent implements OnInit {
 
 
   async postRoomOnSubmit() {
+
+    console.log('Training Center Addresss: ');
+    console.log(this.provider.providerTrainingCenter.address);
+
+    console.log('Living Complex Address: ');
+    console.log(this.activeComplex.apiAddress);
+
+    console.log('Room Address: ');
+    console.log(this.room.roomAddress);
+
     // Validate if an entered address can be considered real
     const isValidAddress = await this.mapservice.verifyAddress(this.room.roomAddress);
     console.log('Address is valid: ' + isValidAddress);
 
     if (isValidAddress) {
-
       // Get and verify that the distance from a room to the provider
       // training center is less than or equal to 20 miles
       console.log('Validating distance to training center');
       const isValidDistanceTrainerCenter =
         await this.mapservice.checkDistance(
           this.room.roomAddress,
-          this.provider.providerTrainingCenter.streetAddress);
+          this.provider.providerTrainingCenter.address);
 
       if ( isValidDistanceTrainerCenter <= 20) {
-
         // Get and validate that the distance from a room to a provider
         // living complex is less than or equal to five miles
         console.log('Validating distance to living complex');
-        console.log('Living complex address: ' + this.activeComplex.address);
+        console.log('Living complex address: ' + this.activeComplex.apiAddress);
         const isValidDistanceComplex =
           await this.mapservice.checkDistance(
             this.room.roomAddress,
-            this.activeComplex.address);
+            this.activeComplex.apiAddress);
 
         if ( isValidDistanceComplex <= 5 ) {
           this.validAddress = false;
@@ -197,6 +206,7 @@ export class AddRoomComponent implements OnInit {
       .then(
         (data) => {
           console.log('Received response for get addresses');
+          console.log(data);
           this.addressList = data;
         })
       .catch(
@@ -220,7 +230,7 @@ export class AddRoomComponent implements OnInit {
 
   // Called in OnInit to populate the complexes list
   getComplexesOnInit() {
-    this.providerService.getComplexes(1).toPromise()
+    this.providerService.getComplexesByProvider(1).toPromise()
       .then( (data) => {
         console.log('Received response for get complexes');
         this.complexList = data;

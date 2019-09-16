@@ -11,8 +11,9 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class RoomService {
-    apiUrl: string = environment.endpoints.localhost;
-    constructor(private http: HttpClient) {  }
+    roomUrl = `${ environment.endpoints.providerXYZ }Room`;
+
+    constructor(private httpBus: HttpClient) { }
 
     getRoomById(id: number): Observable<Room> {
         return of(TestServiceData.room);
@@ -34,10 +35,10 @@ export class RoomService {
         });
         return simpleObservable;
     }
-    // returns an observable of an array of amenity from the database
-    // these amenities appear on the add room form
+
     getAmenities(): Observable<Amenity[]> {
-        console.log('get amentities method called.\n');
-        return this.http.get<Amenity[]>(this.apiUrl + 'Room/amenity');
+        const amenitiesUrl = `${this.roomUrl}/amenity`;
+        console.log('Get amenities called');
+        return this.httpBus.get<Amenity[]>(amenitiesUrl);
     }
 }
