@@ -57,32 +57,32 @@ export class TestServiceData {
 
     static dummyAmenity1: Amenity = {
         amenityId: 1,
-        amenityString:  'Washer/Dryer',
+        amenity:  'Washer/Dryer',
         isSelected: true
     };
     static dummyAmenity2: Amenity = {
         amenityId: 2,
-        amenityString: 'Smart TV',
+        amenity: 'Smart TV',
         isSelected: true
     };
     static dummyAmenity3: Amenity = {
         amenityId: 3,
-        amenityString: 'Patio',
+        amenity: 'Patio',
         isSelected: true
     };
     static dummyAmenity4: Amenity = {
         amenityId: 4,
-        amenityString: 'Fully Furnished',
+        amenity: 'Fully Furnished',
         isSelected: true
     };
     static dummyAmenity5: Amenity = {
         amenityId: 5,
-        amenityString: 'Full Kitchen',
+        amenity: 'Full Kitchen',
         isSelected: true
     };
     static dummyAmenity6: Amenity = {
         amenityId: 6,
-        amenityString: 'Individual Bathrooms',
+        amenity: 'Individual Bathrooms',
         isSelected: true
     };
 
@@ -188,7 +188,7 @@ export class TestServiceData {
         isOccupied: true,
         amenities: [{
             amenityId: 2,
-            amenityString: 'Washer/Dryer',
+            amenity: 'Washer/Dryer',
             isSelected: true
         }],
         startDate: new Date(),

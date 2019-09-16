@@ -134,7 +134,6 @@ export class AddRoomComponent implements OnInit {
     console.log('Address is valid: ' + isValidAddress);
 
     if (isValidAddress) {
-
       // Get and verify that the distance from a room to the provider
       // training center is less than or equal to 20 miles
       console.log('Validating distance to training center');
@@ -144,7 +143,6 @@ export class AddRoomComponent implements OnInit {
           this.provider.providerTrainingCenter.address);
 
       if ( isValidDistanceTrainerCenter <= 20) {
-
         // Get and validate that the distance from a room to a provider
         // living complex is less than or equal to five miles
         console.log('Validating distance to living complex');
