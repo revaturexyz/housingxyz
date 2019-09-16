@@ -1,13 +1,18 @@
 .home-head{
-    float: left;
     width: 100%;
-    padding: 150px;
+    padding: 100px;
     background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .home-head h1{
     font-size: 57px;
+}
+
+.home-head hr {
+    width: 50%;
 }
 
 .complex-card{

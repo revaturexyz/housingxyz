@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   roomList: object;
   provider: Provider;
   complexes: Complex[];
-  
+
   constructor(
     private providerService: ProviderService,
     private router: Router
