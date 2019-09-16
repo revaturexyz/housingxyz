@@ -1,6 +1,9 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
+import { ProviderService } from '../services/provider.service';
+import { Provider } from 'src/interfaces/provider';
+import { Complex } from 'src/interfaces/complex';
 
 @Component({
   selector: 'dev-home',
@@ -11,37 +14,25 @@ export class HomeComponent implements OnInit {
 
   locationList: object;
   roomList: object;
-
+  provider: Provider;
+  complexes: Complex[];
+  
   constructor(
-    private datasvc: ApiService,
-    private router: Router) { }
-
-  getLocationInfo() {
-    // httpclient get method
-    this.datasvc.getLocationData().subscribe(data => {
-      this.locationList = data; // assign data to location object
-      this.getRoomInfo();
-    });
-  }
-
-  getRoomInfo() {
-    this.datasvc.getRoomData().subscribe(data => {
-      this.roomList = data;
-    });
-  }
-
-  showLocation(id: number) {
-    this.router.navigate(['add-room', id]);
-  }
-
-  updateRoom(id: number) {
-    this.router.navigate(['update-room', id]);
-  }
+    private providerService: ProviderService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     // get locations belonging to the provider
-    setTimeout(() => {
-      this.getLocationInfo();
-    }, 100);
+    this.providerService.getProviderById(1)
+      .subscribe(
+        (provider) => this.provider = provider,
+        (err) => console.log(err)
+      );
+    this.providerService.getComplexesByProvider(2)
+      .subscribe(
+        (complexes) => this.complexes = complexes,
+        (err) => console.log(err)
+      );
   }
 }

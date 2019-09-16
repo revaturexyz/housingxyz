@@ -73,7 +73,13 @@ export class AddComplexComponent implements OnInit {
 
     this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
     console.log(this.formLivingComplex);
-    this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId);
+    this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
+      .toPromise()
+      .then((result) => {
+        console.log('Post is a success: ' + result);
+        this.router.navigate(['']);
+      })
+      .catch((err) => console.log(err));
   }
 
   cancelAddLivingComplex(): void {
@@ -81,7 +87,7 @@ export class AddComplexComponent implements OnInit {
   }
 
   getProviderOnInit(): void {
-    this.providerService.getProviderById(1)
+    this.providerService.getProviderById(2)
       .toPromise()
       .then((provider) => this.currentProvider = provider)
       .catch((err) => console.log(err));

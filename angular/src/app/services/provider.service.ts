@@ -41,26 +41,14 @@ export class ProviderService {
     return simpleObservable;
   }
 
-  getComplexes(id: number): Observable<Complex[]> {
-    const simpleObservable = new Observable<Complex[]>((sub) => {
-      // observable execution
-      const complexList: Complex[] = [];
-      complexList.push(TestServiceData.dummyComplex);
-      complexList.push(TestServiceData.dummyComplex2);
-      sub.next(complexList);
-      sub.complete();
-    });
-    return simpleObservable;
+  getComplexesByProvider(providerId: number): Observable<Complex[]> {
+    return this.httpBus.get<Complex[]>(this.apiUrl + 'Complex/provider/' + providerId);
   }
 
   postComplex(complex: Complex, providerId: number) {
     const postComplexUrl = this.apiUrl + 'Complex/provider/' + providerId;
 
-    this.httpBus.post(postComplexUrl, JSON.parse(JSON.stringify(complex)))
-    .subscribe(
-      data => { console.log('POST is successful', data); },
-      error => { console.log('Error', error); }
-    );
+    return this.httpBus.post(postComplexUrl, JSON.parse(JSON.stringify(complex)));
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {
