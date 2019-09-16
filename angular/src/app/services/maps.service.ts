@@ -60,7 +60,13 @@ export class MapsService {
     console.log(origin);
     const destination = await this.getCoordinates(address2);
     console.log(destination);
-    const R = 3958.8;
+
+    // Uses the Haversine formula to determine the distance
+    // between two coordinates on the globe.
+    //
+    // Our threshold for distance is small enough that
+    // accounting for curvature of the Earth is not be required.
+    const R = 3963.19;
     const dLat = Math.PI / 180 * (destination.lat - origin.lat);
     const dLon = Math.PI / 180 * (destination.lng - origin.lng);
     const a =
