@@ -1,5 +1,8 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProviderService } from '../services/provider.service';
+import { Provider } from 'src/interfaces/provider';
+import { Complex } from 'src/interfaces/complex';
 
 @Component({
   selector: 'dev-home',
@@ -9,12 +12,25 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   locationList: object;
   roomList: object;
+  provider: Provider;
+  complexes: Complex[];
 
-  constructor(private router: Router) { }
+  constructor(
+    private providerService: ProviderService,
+    private router: Router
+  ) { }
 
-  updateRoom(id: number) {
-    this.router.navigate(['update-room', id]);
+  ngOnInit() {
+    // get locations belonging to the provider
+    this.providerService.getProviderById(1)
+      .subscribe(
+        (provider) => this.provider = provider,
+        (err) => console.log(err)
+      );
+    this.providerService.getComplexesByProvider(1)
+      .subscribe(
+        (complexes) => this.complexes = complexes,
+        (err) => console.log(err)
+      );
   }
-
-  ngOnInit() { }
 }

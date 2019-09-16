@@ -8,6 +8,10 @@ import { Address } from 'src/interfaces/address';
 import { TestServiceData } from '../services/static-test-data';
 
 const provider1: Provider = TestServiceData.dummyProvider;
+<<<<<<< HEAD
+=======
+const listProvider: Provider[] = TestServiceData.testProviders;
+>>>>>>> feat-add-complex
 
 describe('ProviderService', () => {
   let  myProvider: ProviderService;
@@ -30,6 +34,7 @@ describe('ProviderService', () => {
 
   describe('getProviders', () => {
     it('should return an Observable<Provider[]>', () => {
+<<<<<<< HEAD
     const  someProviders = [provider1];
     myProvider.getProviders().subscribe((provider) => {
     expect(provider.length).toBe(1);
@@ -37,10 +42,19 @@ describe('ProviderService', () => {
     });
     });
 
+=======
+      const  someProviders = [provider1];
+      myProvider.getProviders().subscribe((provider) => {
+      expect(provider.length).toBe(1);
+      expect(provider[0].address).toEqual(someProviders[0].address);
+      });
+    });
+>>>>>>> feat-add-complex
   });
 
   describe('getProviderById', () => {
     it('should return an Observable<Provider>', () => {
+<<<<<<< HEAD
     const  someProviders = provider1;
     myProvider.getProviderById(1).subscribe((provider) => {
     expect(provider.companyName).toEqual(someProviders.companyName);
@@ -52,13 +66,29 @@ describe('ProviderService', () => {
   });
 
   describe('getComplexes', () => {
+=======
+      const  someProviders = listProvider;
+      myProvider.getProviderById(1).subscribe((provider) => {
+      expect(provider.companyName).toEqual(someProviders[1].companyName);
+      expect(provider.address).toEqual(someProviders[1].address);
+      expect(provider.providerTrainingCenter.centerId).toEqual(someProviders[1].providerTrainingCenter.centerId);
+      });
+    });
+  });
+
+  describe('getComplexesByProvider', () => {
+>>>>>>> feat-add-complex
     const complex1: Complex = TestServiceData.dummyComplex;
 
     const complex2: Complex = TestServiceData.dummyComplex2;
 
     it('should return an Observable<Complex[]>', () => {
     const  someComplexes = [complex1, complex2];
+<<<<<<< HEAD
     myProvider.getComplexes(1).subscribe((complex) => {
+=======
+    myProvider.getComplexesByProvider(1).subscribe((complex) => {
+>>>>>>> feat-add-complex
     expect(complex.length).toBe(2);
     expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
     expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
