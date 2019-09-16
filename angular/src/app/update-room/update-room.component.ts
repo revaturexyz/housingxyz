@@ -43,7 +43,7 @@ export class UpdateRoomComponent implements OnInit {
   constructor(private providerService: ProviderService, private roomService: RoomService, private datePipe: DatePipe) { }
 
   ngOnInit() {
-    this.providerService.getComplexes(1).subscribe(this.complexObs);
+    this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
     this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
   }
 

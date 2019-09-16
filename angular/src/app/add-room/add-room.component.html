@@ -91,8 +91,8 @@
                             <br>
                             <div class="col-md-10">
                                 <span *ngFor="let amenity of amenities">
-                                    <label for="amenity.amenityString" class="col-md-5">{{ amenity.amenityString }}</label>
-                                    <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                                    <label for="amenity.amenity" class="col-md-5">{{ amenity.amenity }}</label>
+                                    <input type="checkbox" name="amenity.amenity" [(ngModel)]="amenity.isSelected">
                                 </span>
                             </div>
                         </div>

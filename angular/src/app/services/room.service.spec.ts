@@ -12,22 +12,22 @@ const complex2: Complex = TestServiceData.dummyComplex2;
 
 const amenity1: Amenity = {
   amenityId: 1,
-  amenityString:  'Washer/Dryer',
+  amenity:  'Washer/Dryer',
   isSelected: true
 };
 const amenity2: Amenity = {
   amenityId: 2,
-  amenityString: 'Smart TV',
+  amenity: 'Smart TV',
   isSelected: true
 };
 
 const amenityList: Amenity[] = [
   amenity1,
   amenity2,
-  { amenityId: 3, amenityString: 'Patio', isSelected: true},
-  { amenityId: 4, amenityString: 'Fully Furnished', isSelected: true},
-  { amenityId: 5, amenityString: 'Full Kitchen', isSelected: true},
-  { amenityId: 6, amenityString: 'Individual Bathrooms', isSelected: true}
+  { amenityId: 3, amenity: 'Patio', isSelected: true},
+  { amenityId: 4, amenity: 'Fully Furnished', isSelected: true},
+  { amenityId: 5, amenity: 'Full Kitchen', isSelected: true},
+  { amenityId: 6, amenity: 'Individual Bathrooms', isSelected: true}
 ];
 
 const room1: Room = {
@@ -43,7 +43,7 @@ const room2: Room = {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
     city: 'Arlington', state: 'TX', zipCode: '76019'
   }, roomNumber: '323', numberOfBeds: 9001,
-  roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenityString: 'Washer/Dryer', isSelected: true}],
+  roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true}],
   startDate: new Date(), endDate: new Date(), complex: complex2
 };
 
