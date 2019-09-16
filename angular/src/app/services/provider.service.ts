@@ -45,10 +45,10 @@ export class ProviderService {
     return this.httpBus.get<Complex[]>(this.apiUrl + 'Complex/provider/' + providerId);
   }
 
-  postComplex(complex: Complex, providerId: number) {
+  postComplex(complex: Complex, providerId: number): Observable<Complex> {
     const postComplexUrl = this.apiUrl + 'Complex/provider/' + providerId;
 
-    return this.httpBus.post(postComplexUrl, JSON.parse(JSON.stringify(complex)));
+    return this.httpBus.post<Complex>(postComplexUrl, JSON.parse(JSON.stringify(complex)));
   }
 
   getAddressesByProvider(provider: number): Observable<Address[]> {
