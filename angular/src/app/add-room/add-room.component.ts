@@ -8,6 +8,8 @@ import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import * as moment from 'moment';
+import { TestServiceData } from '../services/static-test-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dev-add-room',
@@ -26,7 +28,8 @@ export class AddRoomComponent implements OnInit {
   // the form Room object
   room: Room;
 
-  // moments objects and data for validating dates
+  // moments objects used to create validation for the date picker.
+  // Also some string variables to use them in the Html.
   startDate = moment();
   midDate = this.startDate.clone().add(6, 'months');
   endDate = this.startDate.clone().add(2, 'y');
@@ -57,6 +60,7 @@ export class AddRoomComponent implements OnInit {
   addressShowString = 'Choose Address';
 
   constructor(
+    private router: Router,
     private roomService: RoomService,
     private providerService: ProviderService,
     private mapservice: MapsService
@@ -83,7 +87,8 @@ export class AddRoomComponent implements OnInit {
         complexId: 0,
         complexName: '',
         contactNumber: '',
-        address: {
+        apiProvider: null,
+        apiAddress: {
           addressId: 0,
           streetAddress: '',
           city: '',
@@ -136,18 +141,18 @@ export class AddRoomComponent implements OnInit {
       const isValidDistanceTrainerCenter =
         await this.mapservice.checkDistance(
           this.room.roomAddress,
-          this.provider.providerTrainingCenter.streetAddress);
+          this.provider.providerTrainingCenter.address);
 
       if ( isValidDistanceTrainerCenter <= 20) {
 
         // Get and validate that the distance from a room to a provider
         // living complex is less than or equal to five miles
         console.log('Validating distance to living complex');
-        console.log('Living complex address: ' + this.activeComplex.address);
+        console.log('Living complex address: ' + this.activeComplex.apiAddress);
         const isValidDistanceComplex =
           await this.mapservice.checkDistance(
             this.room.roomAddress,
-            this.activeComplex.address);
+            this.activeComplex.apiAddress);
 
         if ( isValidDistanceComplex <= 5 ) {
           this.validAddress = false;
@@ -168,7 +173,14 @@ export class AddRoomComponent implements OnInit {
           this.room.amenities = this.amenities.filter(y => y.isSelected);
 
           console.log(this.room);
-          this.roomService.postRoom(this.room);
+          this.roomService.postRoom(this.room)
+            .toPromise()
+            .then(
+              (result) => {
+                console.log('Post is a success: ' + result);
+                this.router.navigate(['show-rooms']);
+              })
+            .catch((err) => console.log(err));
         } else {
           this.validDistanceToComplex = true;
         }
@@ -186,6 +198,7 @@ export class AddRoomComponent implements OnInit {
       .then(
         (data) => {
           console.log('Received response for get addresses');
+          console.log(data);
           this.addressList = data;
         })
       .catch(

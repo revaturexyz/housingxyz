@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Pipe } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,17 +10,17 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
-import { MsAdalAngular6Module, AuthenticationGuard } from 'microsoft-adal-angular6';
-import { environment } from '../environments/environment';
-import { DatePipe, CommonModule } from '@angular/common';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
-import {MatCardModule} from '@angular/material/card';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
+import { MatCardModule } from '@angular/material/card';
+import { AuthenticationGuard } from 'microsoft-adal-angular6';
+
+import { AddComplexComponent } from './add-complex/add-complex.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +31,15 @@ import { RoomUpdateFormComponent } from './room-update-form/room-update-form.com
     AddRoomComponent,
     UpdateRoomComponent,
     RoomDetailsComponent,
-    RoomUpdateFormComponent
+    RoomUpdateFormComponent,
+    AddComplexComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatCardModule,
     NgbModule,
     MatTableModule,
     MatChipsModule,

@@ -4,6 +4,11 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Address } from '../../interfaces/address';
 import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
+import { Complex } from 'src/interfaces/complex';
+import { TestServiceData } from './static-test-data';
+
+const complex1: Complex = TestServiceData.dummyComplex;
+const complex2: Complex = TestServiceData.dummyComplex2;
 
 const amenity1: Amenity = {
   amenityId: 1,
@@ -31,7 +36,7 @@ const room1: Room = {
       'Arlington', state: 'TX', zipCode: '12345'
   }, roomNumber: '', numberOfBeds: 2, roomType: '',
   isOccupied: false, amenities: amenityList, startDate:
-    new Date(), endDate: new Date(), complexId: 1
+    new Date(), endDate: new Date(), complex: complex1
 };
 const room2: Room = {
   roomId: 0, roomAddress: {
@@ -39,7 +44,7 @@ const room2: Room = {
     city: 'Arlington', state: 'TX', zipCode: '76019'
   }, roomNumber: '323', numberOfBeds: 9001,
   roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenityString: 'Washer/Dryer', isSelected: true}],
-  startDate: new Date(), endDate: new Date(), complexId: 2
+  startDate: new Date(), endDate: new Date(), complex: complex2
 };
 
 describe('RoomService', () => {
