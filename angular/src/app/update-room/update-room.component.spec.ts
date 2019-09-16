@@ -30,25 +30,4 @@ describe('UpdateRoomComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should initialize correctly', () => {
-    expect(component.complexList).toBeTruthy();
-    expect(component.roomList).toBeTruthy();
-  });
-
-
-  it('should choose Complex', () => {
-
-    // given this complex
-    const complex: Complex = TestServiceData.dummyComplex2;
-
-  // execute test case
-    component.complexChoose(complex);
-
-  // assertion
-    expect(component.showString).toEqual(complex.complexName);
-    expect(component.activeComplex).toBe(complex);
-    expect(component.complexRooms).toBeTruthy(); // assertion that the available rooms are filtered successfully
-
-  });
 });
