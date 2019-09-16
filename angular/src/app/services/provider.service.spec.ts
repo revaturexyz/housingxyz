@@ -58,7 +58,7 @@ describe('ProviderService', () => {
 
     it('should return an Observable<Complex[]>', () => {
     const  someComplexes = [complex1, complex2];
-    myProvider.getComplexes(1).subscribe((complex) => {
+    myProvider.getComplexesByProvider(1).subscribe((complex) => {
     expect(complex.length).toBe(2);
     expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
     expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
