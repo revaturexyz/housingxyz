@@ -115,6 +115,7 @@ describe('UpdateRoomComponent', () => {
     component.select(room);
 
     component.clearSelect();
+
     expect(component.selectedRoom).toBeNull();
     expect(component.highlightRoom).toBeNull();
 
@@ -124,6 +125,7 @@ describe('UpdateRoomComponent', () => {
     const room: Room = TestServiceData.room;
 
     component.roomChange(room);
+
     expect(component.selectedRoom).toBeNull();
     expect(component.highlightRoom).toBeNull();
   });
