@@ -23,7 +23,6 @@ export class MapsService {
 
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
-        console.log(mapsResult);
         return mapsResult.status === 'OK';
       })
       .catch((error) => {
@@ -43,8 +42,6 @@ export class MapsService {
 
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
-        console.log('lat:' + mapsResult.results[0].geometry.location.lat);
-        console.log('lng:' + mapsResult.results[0].geometry.location.lng);
         return mapsResult.results[0].geometry.location;
       })
       .catch((error) => {
@@ -54,9 +51,7 @@ export class MapsService {
   }
   async checkDistance(address1: Address, address2: Address): Promise<number> {
     const origin = await this.getCoordinates(address1);
-    console.log(origin);
     const destination = await this.getCoordinates(address2);
-    console.log(destination);
 
     // Uses the Haversine formula to determine the distance
     // between two coordinates on the globe.
@@ -72,7 +67,6 @@ export class MapsService {
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
-    console.log('distance: ' + d + ' miles');
     return d;
   }
 }
