@@ -70,7 +70,7 @@
                         <div class="col-md-12">
                             <label class="col-md-3" for="room.roomType">Room Type: </label>
                             <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.apiRoomType" #roomT="ngModel">
-                                <option *ngFor="let type of types">{{type.roomType}}</option>
+                                <option *ngFor="let type of types" [ngValue]="type" >{{type.roomType}}</option>
                             </select>
                         </div>
                         <!-- Input a room number with or without an ending Capital letter -->

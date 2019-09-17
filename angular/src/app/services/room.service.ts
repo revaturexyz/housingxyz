@@ -20,9 +20,12 @@ export class RoomService {
     getRoomById(id: number): Observable<Room> {
         return of(TestServiceData.room);
     }
-    postRoom(r: Room): Observable<Room> {
-        return of(r);
+    
+    postRoom(room: Room, providerId: number): Observable<Room> {
+        const postRoomUrl = this.roomUrl + 'Room/' + providerId;
+        return this.httpBus.post<Room>(postRoomUrl, JSON.parse(JSON.stringify(room)));
     }
+
     getRoomsByProvider(providerId: number): Observable<Room[]> {
         const providerRoomsUrl = `${this.roomUrl}Room/provider/${providerId}`;
         return this.httpBus.get<Room[]>(providerRoomsUrl);

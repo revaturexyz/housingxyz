@@ -181,7 +181,7 @@ export class AddRoomComponent implements OnInit {
           this.room.amenities = this.amenities.filter(y => y.isSelected);
 
           console.log(this.room);
-          this.roomService.postRoom(this.room)
+          this.roomService.postRoom(this.room, this.provider.providerId)
             .toPromise()
             .then(
               (result) => {
