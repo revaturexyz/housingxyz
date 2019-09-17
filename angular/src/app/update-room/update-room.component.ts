@@ -51,8 +51,13 @@ export class UpdateRoomComponent implements OnInit {
 
   // initializes complexes and all rooms by providers at init time.
   ngOnInit() {
-    this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
-    this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
+    if (localStorage.getItem('currentProvider')) {
+      this.providerService.getComplexesByProvider(JSON.parse(localStorage.getItem('currentProvider')).providerId).subscribe(this.complexObs);
+      this.roomService.getRoomsByProvider(JSON.parse(localStorage.getItem('currentProvider')).providerId).subscribe(this.roomsObs);
+    } else {
+      this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
+      this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
+    }
   }
 
   // funciton that runs when a complex is selected from the dropdown in the HTML.
@@ -63,7 +68,7 @@ export class UpdateRoomComponent implements OnInit {
     this.showString = complex.complexName;
     this.clearSelect();
     this.activeComplex = complex;
-    // console.log(this.roomList);
+    this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
     this.complexRooms = this.roomList.filter(r => r.apiComplex.complexId === this.activeComplex.complexId);
   }
 
@@ -106,6 +111,13 @@ export class UpdateRoomComponent implements OnInit {
 
   // this function receives an event from the child and commits the changes to the working room list
   roomChange(r: Room) {
+    this.roomService.updateRoom(r, 1).subscribe(x => {
+      this.roomChange(r);
+      console.log(x);
+    });
+  }
+
+  makeRoomChanges(r: Room) {
     this.roomList.forEach(element => {
       if (element.roomId === r.roomId) {
         element.roomId = r.roomId;
@@ -126,6 +138,13 @@ export class UpdateRoomComponent implements OnInit {
 
   // this function receives an event from the child and removes the room from the working room list
   removeRoom(r: Room) {
+    this.roomService.deleteRoom(r, 1).subscribe(x => {
+      console.log(x);
+      this.makeRemoveRoom(r);
+    });
+  }
+
+  makeRemoveRoom(r: Room) {
     this.roomList = this.roomList.filter(x => x.roomId !== r.roomId);
     this.complexRooms = this.complexRooms.filter(x => x.roomId !== r.roomId);
     this.selectedRoom = null;

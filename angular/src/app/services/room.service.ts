@@ -46,4 +46,13 @@ export class RoomService {
         });
         return simpleObservable;
     }
+
+    updateRoom(r: Room, providerId: number) {
+        console.log(JSON.stringify(r));
+        return this.httpBus.put<Room>(this.apiUrl + `Room/${providerId}`, r);
+    }
+
+    deleteRoom(r: Room, provider: number) {
+        return this.httpBus.delete(this.apiUrl + `Room/${r.roomId}/provider/${provider}`);
+    }
 }
