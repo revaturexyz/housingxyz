@@ -19,6 +19,7 @@ describe('RoomDetailsComponent', () => {
     fixture = TestBed.createComponent(RoomDetailsComponent);
     component = fixture.componentInstance;
     component.room = TestServiceData.room;
+    component.room.apiRoomType = {typeId: 0 , roomType: 'Apartment'};
     fixture.detectChanges();
   });
 

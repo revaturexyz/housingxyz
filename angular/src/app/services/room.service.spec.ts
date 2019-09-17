@@ -12,7 +12,7 @@ const complex2: Complex = TestServiceData.dummyComplex2;
 
 const amenity1: Amenity = {
   amenityId: 1,
-  amenity:  'Washer/Dryer',
+  amenity: 'Washer/Dryer',
   isSelected: true
 };
 const amenity2: Amenity = {
@@ -24,17 +24,17 @@ const amenity2: Amenity = {
 const amenityList: Amenity[] = [
   amenity1,
   amenity2,
-  { amenityId: 3, amenity: 'Patio', isSelected: true},
-  { amenityId: 4, amenity: 'Fully Furnished', isSelected: true},
-  { amenityId: 5, amenity: 'Full Kitchen', isSelected: true},
-  { amenityId: 6, amenity: 'Individual Bathrooms', isSelected: true}
+  { amenityId: 3, amenity: 'Patio', isSelected: true },
+  { amenityId: 4, amenity: 'Fully Furnished', isSelected: true },
+  { amenityId: 5, amenity: 'Full Kitchen', isSelected: true },
+  { amenityId: 6, amenity: 'Individual Bathrooms', isSelected: true }
 ];
 
 const room1: Room = {
   roomId: 0, apiAddress: {
     addressId: 1, streetAddress: '123 Address St', city:
       'Arlington', state: 'TX', zipCode: '12345'
-  }, roomNumber: '', numberOfBeds: 2, roomType: '',
+  }, roomNumber: '', numberOfBeds: 2, apiRoomType: { typeId: 0, roomType: 'Dorm' },
   isOccupied: false, amenities: amenityList, startDate:
     new Date(), endDate: new Date(), apiComplex: complex1
 };
@@ -42,8 +42,8 @@ const room2: Room = {
   roomId: 0, apiAddress: {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
     city: 'Arlington', state: 'TX', zipCode: '76019'
-  }, roomNumber: '323', numberOfBeds: 9001,
-  roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true}],
+  }, roomNumber: '323', numberOfBeds: 9001, apiRoomType: { typeId: 1, roomType: 'Dorm' },
+  isOccupied: true, amenities: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true }],
   startDate: new Date(), endDate: new Date(), apiComplex: complex2
 };
 
@@ -78,8 +78,7 @@ describe('RoomService', () => {
         expect(room[0].apiAddress).toEqual(someRooms[0].apiAddress);
         expect(room[1].apiAddress).toEqual(someRooms[1].apiAddress);
       });
-      // add in the baseurl later
-      const  call = httpMock.expectOne(`${myProvider.roomUrl}/provider/1`);
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/provider/1`);
       expect(call.request.method).toBe('GET');
       call.flush(someRooms);
       httpMock.verify();
@@ -105,21 +104,30 @@ describe('RoomService', () => {
   });
   describe('getRoomTypes', () => {
     it('should return an Observable<string[]>', () => {
-      const roomGen = ['Apartment', 'Dorm'];
+      const roomGen = [{ typeId: 0, roomType: 'Apartment' }, { typeId: 1, roomType: 'Dorm' }];
       myProvider.getRoomTypes().subscribe((types) => {
         expect(types[0]).toEqual(roomGen[0]);
         expect(types[1]).toEqual(roomGen[1]);
       });
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/type`);
+      expect(call.request.method).toBe('GET');
+      call.flush(roomGen);
+      httpMock.verify();
     });
   });
   describe('getGenders', () => {
     it('should return an Observable<string[]>', () => {
-      const roomGen = ['male', 'female', 'undefined'];
+      const roomGen = [{ genderId: 0, genderType: 'male' },
+      { genderId: 1, genderType: 'female' }, { genderId: 2, genderType: 'undefined' }];
       myProvider.getGenders().subscribe((types) => {
         expect(types[0]).toEqual(roomGen[0]);
         expect(types[1]).toEqual(roomGen[1]);
         expect(types[2]).toEqual(roomGen[2]);
       });
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Gender`);
+      expect(call.request.method).toBe('GET');
+      call.flush(roomGen);
+      httpMock.verify();
     });
   });
   describe('getAmenities', () => {
@@ -132,7 +140,7 @@ describe('RoomService', () => {
         expect(amenities[1]).toEqual(types[1]);
       });
 
-      const  call = httpMock.expectOne(`${myProvider.roomUrl}/amenity`);
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/amenity`);
       expect(call.request.method).toBe('GET');
       call.flush(amenities);
       httpMock.verify();
