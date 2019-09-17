@@ -45,7 +45,7 @@ describe('ProviderService', () => {
       myProvider.getProviderById(1).subscribe((provider) => {
         expect(provider.companyName).toEqual(someProviders[1].companyName);
         expect(provider.address).toEqual(someProviders[1].address);
-        expect(provider.providerTrainingCenter.centerId).toEqual(someProviders[1].providerTrainingCenter.centerId);
+        expect(provider.apiTrainingCenter.centerId).toEqual(someProviders[1].apiTrainingCenter.centerId);
       });
     });
   });
