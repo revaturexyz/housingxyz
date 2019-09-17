@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     } catch {
       this.router.navigate(['/login']);
     }
-    
+
     await this.providerService.getProviderById(providerId)
       .toPromise()
       .then((provider) => this.provider = provider)

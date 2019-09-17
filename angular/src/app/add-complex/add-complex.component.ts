@@ -55,9 +55,9 @@ export class AddComplexComponent implements OnInit {
     this.mapsService.verifyAddress(this.formLivingComplex.apiAddress)
       .then((isValid) => {
 
-        // set our flag and return if not 
+        // set our flag and return if not
         this.isValidAddress = isValid;
-        if(!this.isValidAddress) {
+        if (!this.isValidAddress) {
           return;
         }
 
@@ -75,7 +75,7 @@ export class AddComplexComponent implements OnInit {
 
           // set the complex provider Id for our API call
           this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
-          
+
           // call the API, post a log of our restult, and redirect
           this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
             .toPromise()
@@ -89,7 +89,7 @@ export class AddComplexComponent implements OnInit {
               console.log(err);
               this.router.navigate(['']);
             });
-        })
+        });
       })
       .catch((err) => console.log(err));
   }
