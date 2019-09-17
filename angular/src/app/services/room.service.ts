@@ -24,7 +24,7 @@ export class RoomService {
         return of(r);
     }
     getRoomsByProvider(providerId: number): Observable<Room[]> {
-        const providerRoomsUrl = `${this.roomUrl}/provider/${providerId}`;
+        const providerRoomsUrl = `${this.roomUrl}Room/provider/${providerId}`;
         return this.httpBus.get<Room[]>(providerRoomsUrl);
     }
     getRoomTypes(): Observable<RoomType[]> {

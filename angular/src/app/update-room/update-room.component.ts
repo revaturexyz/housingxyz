@@ -29,28 +29,27 @@ export class UpdateRoomComponent implements OnInit {
     complete: () => console.log('Observer got a complete notification'),
   };
 
-  roomsObs: Observer<Room[]> = {
-    next: x => {
-      console.log('Observer got a next value.');
-      this.roomList = x;
-    },
-    error: err => console.error('Observer got an error: ' + err),
-    complete: () => console.log('Observer got a complete notification'),
-  };
-
   showString = 'Choose Complex';
 
   constructor(private providerService: ProviderService, private roomService: RoomService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
-    this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
+    this.getRoomsOnInit();
+  }
+
+  getRoomsOnInit() {
+    this.roomService.getRoomsByProvider(1)
+      .toPromise()
+      .then((rooms) => this.roomList = rooms)
+      .catch((err) => console.log(err));
   }
 
   complexChoose(complex: Complex) {
     this.showString = complex.complexName;
     this.activeComplex = complex;
-    // console.log(this.roomList);
+    console.log('Setting complex: ');
+    console.log(this.roomList[0].apiRoomType.roomType);
     this.complexRooms = this.roomList.filter(r => r.apiComplex.complexId === this.activeComplex.complexId);
     this.show = true;
   }

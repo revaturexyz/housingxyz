@@ -55,7 +55,7 @@
             <tbody>
                 <tr *ngFor="let r of complexRooms">
                   <td scope="col-3" style="text-center">{{r.roomNumber}}</td>
-                  <td scope="col-3" style="text-center">{{r.roomType}}</td>
+                  <td scope="col-3" style="text-center">{{r.apiRoomType.roomType}}</td>
                   <td scope="col-3" style="text-center">{{r.isOccupied}}</td>
                   <td scope="col-3" style="text-center">{{r.startDate | date}}</td>
                   <td scope="col-3" style="text-center">{{r.endDate | date}}</td>
