@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
     private providerService: ProviderService
   ) { }
 
-  async ngOnInit() {
-    await this.providerService.getProviders()
+  ngOnInit() {
+    this.providerService.getProviders()
       .toPromise()
       .then((providers) => {
         this.providers = providers;
