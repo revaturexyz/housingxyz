@@ -51,11 +51,8 @@ export class AddComplexComponent implements OnInit {
   }
 
   async postLivingComplex(): Promise<void> {
-    console.log('Entered address: ');
-    console.log(this.formLivingComplex.apiAddress);
 
     this.isValidAddress = await this.mapsService.verifyAddress(this.formLivingComplex.apiAddress);
-    console.log('Selected address is valid: ' + this.isValidAddress);
     if (!this.isValidAddress) {
       return;
     }
@@ -66,13 +63,12 @@ export class AddComplexComponent implements OnInit {
         this.currentProvider.apiTrainingCenter.apiAddress
       );
     this.isValidDistanceToTrainingCenter = distance <= 20;
-    console.log('Selected address is close enough to the provider training center: ' + this.isValidDistanceToTrainingCenter);
+
     if (!this.isValidDistanceToTrainingCenter) {
       return;
     }
 
     this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
-    console.log(this.formLivingComplex);
     this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
       .toPromise()
       .then((result) => {
@@ -96,7 +92,6 @@ export class AddComplexComponent implements OnInit {
       .toPromise()
       .then((provider) => {
         this.currentProvider = provider;
-        console.log(provider);
       })
       .catch((err) => console.log(err));
   }

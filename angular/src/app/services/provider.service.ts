@@ -31,7 +31,7 @@ export class ProviderService {
 
   getProviderById(providerId: number): Observable<Provider> {
     const providerUrl = this.apiUrl + 'Provider/' + providerId;
-    
+
     return this.httpBus.get<Provider>(providerUrl);
   }
 
