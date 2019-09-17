@@ -9,7 +9,7 @@ import { Address } from '../../interfaces/address';
 
 
 const complexAdd: Address = TestServiceData.dummyAddress;
-const provider = TestServiceData.testProvider2; 
+const provider = TestServiceData.testProvider2;
 
 describe('AddComplexComponent', () => {
   let component: AddComplexComponent;
