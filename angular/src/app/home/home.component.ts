@@ -22,13 +22,12 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) { }
 
-  async ngOnInit() {
-    // get locations belonging to the provider
-    await this.getProviderOnInit();
-    this.getLivingComplexesOnInit();
+  ngOnInit() {
+    this.getProviderOnInit()
+      .then(() => this.getLivingComplexesOnInit());
   }
 
-  async getProviderOnInit() {
+  getProviderOnInit() {
     let providerId = 0;
     try {
       providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    await this.providerService.getProviderById(providerId)
+    return this.providerService.getProviderById(providerId)
       .toPromise()
       .then((provider) => this.provider = provider)
       .catch((err) => console.log(err));

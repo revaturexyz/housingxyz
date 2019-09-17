@@ -65,32 +65,32 @@ export class AddComplexComponent implements OnInit {
         this.mapsService.checkDistance(
           this.formLivingComplex.apiAddress,
           this.currentProvider.apiTrainingCenter.apiAddress
-        ).then((distance) => {
+          )
+          .then((distance) => {
+            // set the distance flag and return if false
+            this.isValidDistanceToTrainingCenter = distance <= 20;
+            if (!this.isValidDistanceToTrainingCenter) {
+              return;
+            }
 
-          // set the distance flag and return if false
-          this.isValidDistanceToTrainingCenter = distance <= 20;
-          if (!this.isValidDistanceToTrainingCenter) {
-            return;
-          }
+            // set the complex provider Id for our API call
+            this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
 
-          // set the complex provider Id for our API call
-          this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
-
-          // call the API, post a log of our restult, and redirect
-          this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
-            .toPromise()
-            .then((result) => {
-              console.log('Post is a success: ');
-              console.log(result);
-              this.router.navigate(['']);
-            })
-            .catch((err) => {
-              console.log('POST failed: ');
-              console.log(err);
-              this.router.navigate(['']);
+            // call the API, post a log of our restult, and redirect
+            this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
+              .toPromise()
+              .then((result) => {
+                console.log('Post is a success: ');
+                console.log(result);
+                this.router.navigate(['']);
+              })
+              .catch((err) => {
+                console.log('POST failed: ');
+                console.log(err);
+                this.router.navigate(['']);
             });
-        });
-      })
+          });
+        })
       .catch((err) => console.log(err));
   }
 
