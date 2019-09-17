@@ -1,12 +1,10 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { RoomService } from './room.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Address } from '../../interfaces/address';
 import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from './static-test-data';
-import { TrainingcenterService } from './trainingcenter.service';
 
 const complex1: Complex = TestServiceData.dummyComplex;
 const complex2: Complex = TestServiceData.dummyComplex2;

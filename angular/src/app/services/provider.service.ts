@@ -19,13 +19,15 @@ export class ProviderService {
   constructor(private httpBus: HttpClient) { }
 
   getProviders(): Observable<Provider[]> {
-    const url = this.apiUrl + 'Provider/';
-    return this.httpBus.get<Provider[]>(url);
+    const providerUrl = this.apiUrl + 'Provider';
+
+    return this.httpBus.get<Provider[]>(providerUrl);
   }
 
-  getProviderById(id: number): Observable<Provider> {
-    const url = this.apiUrl + 'Provider/' + id;
-    return this.httpBus.get<Provider>(url);
+  getProviderById(providerId: number): Observable<Provider> {
+    const providerUrl = this.apiUrl + 'Provider/' + providerId;
+
+    return this.httpBus.get<Provider>(providerUrl);
   }
 
   getComplexesByProvider(providerId: number): Observable<Complex[]> {
@@ -33,9 +35,10 @@ export class ProviderService {
     return this.httpBus.get<Complex[]>(url);
   }
 
-  postComplex(complex: Complex, providerId: number) {
+  postComplex(complex: Complex, providerId: number): Observable<Complex> {
     const postComplexUrl = this.apiUrl + 'Complex/provider/' + providerId;
-    return this.httpBus.post(postComplexUrl, JSON.parse(JSON.stringify(complex)));
+
+    return this.httpBus.post<Complex>(postComplexUrl, JSON.parse(JSON.stringify(complex)));
   }
 
   getAddressesByProvider(providerId: number): Observable<Address[]> {

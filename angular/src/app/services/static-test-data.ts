@@ -139,7 +139,7 @@ export class TestServiceData {
     static dummyProvider: Provider = {
         providerId: 2,
         companyName: 'Liv+',
-        address: TestServiceData.liv,
+        address: TestServiceData.livPlusAddress,
         contactNumber: '123-123-1234',
         apiTrainingCenter: TestServiceData.trainingcenter
     };
@@ -224,7 +224,7 @@ export class TestServiceData {
         companyName: 'Prado Student Living',
         address: TestServiceData.livPlusAddress,
         contactNumber: '(203) 232-2847',
-        apiTrainingCenter: TestServiceData.trainingcenter
+        apiTrainingCenter: TestServiceData.testTrainingCenter2
     };
 
     static testProviders: Provider[] = [

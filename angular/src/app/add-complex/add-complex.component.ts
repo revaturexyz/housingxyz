@@ -50,51 +50,70 @@ export class AddComplexComponent implements OnInit {
     this.getProviderOnInit();
   }
 
-  async postLivingComplex(): Promise<void> {
-    console.log('Entered address: ');
-    console.log(this.formLivingComplex.apiAddress);
+  postLivingComplex(): void {
+    // verify the complex address
+    this.mapsService.verifyAddress(this.formLivingComplex.apiAddress)
+      .then((isValid) => {
 
-    this.isValidAddress = await this.mapsService.verifyAddress(this.formLivingComplex.apiAddress);
-    console.log('Selected address is valid: ' + this.isValidAddress);
-    if (!this.isValidAddress) {
-      return;
-    }
+        // set our flag and return if not
+        this.isValidAddress = isValid;
+        if (!this.isValidAddress) {
+          return;
+        }
 
-    const distance = await this.mapsService
-      .checkDistance(
-        this.formLivingComplex.apiAddress,
-        this.currentProvider.apiTrainingCenter.apiAddress
-      );
-    this.isValidDistanceToTrainingCenter = distance <= 20;
-    console.log('Selected address is close enough to the provider training center: ' + this.isValidDistanceToTrainingCenter);
-    if (!this.isValidDistanceToTrainingCenter) {
-      return;
-    }
+        // get the distance
+        this.mapsService.checkDistance(
+          this.formLivingComplex.apiAddress,
+          this.currentProvider.apiTrainingCenter.apiAddress
+          )
+          .then((distance) => {
+            // set the distance flag and return if false
+            this.isValidDistanceToTrainingCenter = distance <= 20;
+            if (!this.isValidDistanceToTrainingCenter) {
+              return;
+            }
 
-    this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
-    console.log(this.formLivingComplex);
-    this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
+            // set the complex provider Id for our API call
+            this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
+
+            this.postToService()
+              .then(() => this.router.navigate(['']));
+          });
+        })
+      .catch((err) => console.log(err));
+  }
+
+  private postToService() {
+    // call the API, post a log of our restult, and redirect
+    return this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
       .toPromise()
       .then((result) => {
         console.log('Post is a success: ');
         console.log(result);
-        this.router.navigate(['']);
       })
       .catch((err) => {
         console.log('POST failed: ');
         console.log(err);
-        this.router.navigate(['']);
-      });
+    });
   }
 
   cancelAddLivingComplex(): void {
     this.router.navigate(['']);
   }
 
-  getProviderOnInit(): void {
-    this.providerService.getProviderById(1)
+  getProviderOnInit() {
+    let providerId = 0;
+    try {
+      providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
+    } catch {
+      this.router.navigate(['/login']);
+    }
+
+    this.providerService.getProviderById(providerId)
       .toPromise()
-      .then((provider) => this.currentProvider = provider)
+      .then((provider) => {
+        this.currentProvider = provider;
+      })
       .catch((err) => console.log(err));
   }
 }

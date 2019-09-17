@@ -45,10 +45,11 @@ describe('ProviderService', () => {
 
   describe('getProviderById', () => {
     it('should return an Observable<Provider>', () => {
-      const someProviders = provider2;
+      const someProviders = listProvider;
       myProvider.getProviderById(1).subscribe((provider) => {
-        expect(provider.companyName).toEqual(someProviders.companyName);
-        expect(provider.address).toEqual(someProviders.address);
+        expect(provider.companyName).toEqual(someProviders[1].companyName);
+        expect(provider.address).toEqual(someProviders[1].address);
+        expect(provider.apiTrainingCenter.centerId).toEqual(someProviders[1].apiTrainingCenter.centerId);
       });
       const call = httpMock.expectOne(`${myProvider.apiUrl}Provider/1`);
       expect(call.request.method).toBe('GET');
@@ -69,9 +70,25 @@ describe('ProviderService', () => {
         expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
         expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
       });
-      const call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/1`);
+      const  call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/${1}`);
       expect(call.request.method).toBe('GET');
       call.flush(someComplexes);
+      httpMock.verify();
+    });
+
+  });
+
+  describe('postComplex', () => {
+    const complex1: Complex = TestServiceData.dummyComplex;
+
+    it('should return an Observable<Complex[]>', () => {
+      const oneComplex = complex1;
+      myProvider.postComplex(oneComplex, 1).subscribe((complex: Complex) => {
+        expect(complex).toEqual(oneComplex);
+      });
+      const  call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/${1}`);
+      expect(call.request.method).toBe('POST');
+      call.flush(oneComplex);
       httpMock.verify();
     });
 
@@ -96,16 +113,12 @@ describe('ProviderService', () => {
 
 
     it('should return an Observable<Address[]>', () => {
-      const someAddresses = [address1, address2];
+      const someAddressess = [address1, address2];
       myProvider.getAddressesByProvider(1).subscribe((address) => {
         expect(address.length).toBe(2);
-        expect(address[0].streetAddress).toEqual(someAddresses[0].streetAddress);
-        expect(address[1].streetAddress).toEqual(someAddresses[1].streetAddress);
+        expect(address[0].streetAddress).toEqual(someAddressess[0].streetAddress);
+        expect(address[1].streetAddress).toEqual(someAddressess[1].streetAddress);
       });
-      const call = httpMock.expectOne(`${myProvider.apiUrl}Address/provider/1`);
-      expect(call.request.method).toBe('GET');
-      call.flush(someAddresses);
-      httpMock.verify();
     });
   });
 });
