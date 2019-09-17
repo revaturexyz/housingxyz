@@ -76,22 +76,25 @@ export class AddComplexComponent implements OnInit {
             // set the complex provider Id for our API call
             this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
 
-            // call the API, post a log of our restult, and redirect
-            this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
-              .toPromise()
-              .then((result) => {
-                console.log('Post is a success: ');
-                console.log(result);
-                this.router.navigate(['']);
-              })
-              .catch((err) => {
-                console.log('POST failed: ');
-                console.log(err);
-                this.router.navigate(['']);
-            });
+            this.postToService()
+              .then(() => this.router.navigate(['']));
           });
         })
       .catch((err) => console.log(err));
+  }
+
+  private postToService() {
+    // call the API, post a log of our restult, and redirect
+    return this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
+      .toPromise()
+      .then((result) => {
+        console.log('Post is a success: ');
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log('POST failed: ');
+        console.log(err);
+    });
   }
 
   cancelAddLivingComplex(): void {
