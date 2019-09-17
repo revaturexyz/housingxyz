@@ -32,6 +32,7 @@ export class MapsService {
       });
   }
 
+  // get geo coordinates of an address using Google API
   async getCoordinates(address: Address): Promise<MapsGeoLocation> {
     console.log(address);
     const query = this.geocodeUrl +
@@ -63,7 +64,14 @@ export class MapsService {
     //
     // Our threshold for distance is small enough that
     // accounting for curvature of the Earth is not be required.
-    const R = 3963.19;
+    //
+    // Google has a dedicated API to find distance between two points, in the format of:
+    // https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins= <origin> &destinations= <destination> <key>
+    // https://maps.googleapis.com/maps/api/distancematrix/ is getting blocked by CORS on Angular,
+    // but should be used without issues on the back-end application.
+    // distancematrix calculates driving distance, while this formula returns distance in a straight line.
+    // checkDistance will always return a value somewhat smaller than by distancematrix.
+    const R = 3963.19; // earth radius in miles
     const dLat = Math.PI / 180 * (destination.lat - origin.lat);
     const dLon = Math.PI / 180 * (destination.lng - origin.lng);
     const a =
