@@ -7,7 +7,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestServiceData } from '../services/static-test-data';
 import { Address } from '../../interfaces/address';
 
+
 const complexAdd: Address = TestServiceData.dummyAddress;
+const provider = TestServiceData.testProvider2; 
 
 describe('AddComplexComponent', () => {
   let component: AddComplexComponent;
@@ -24,6 +26,7 @@ describe('AddComplexComponent', () => {
   }));
 
   beforeEach(() => {
+    localStorage.setItem('currentProvider', JSON.stringify(provider));
     fixture = TestBed.createComponent(AddComplexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
