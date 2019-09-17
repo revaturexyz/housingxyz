@@ -89,13 +89,7 @@ export class AddRoomComponent implements OnInit {
         complexName: '',
         contactNumber: '',
         apiProvider: null,
-        apiAddress: {
-          addressId: 0,
-          streetAddress: '',
-          city: '',
-          state: '',
-          zipCode: ''
-        }
+        apiAddress: null
       }
     };
   }
