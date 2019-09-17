@@ -88,7 +88,7 @@ export class AddComplexComponent implements OnInit {
   }
 
   getProviderOnInit() {
-    this.providerService.getProviderById(1)
+    this.providerService.getProviderById(JSON.parse(localStorage.getItem('currentProvider')).providerId)
       .toPromise()
       .then((provider) => {
         this.currentProvider = provider;

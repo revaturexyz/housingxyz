@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   async getProviderOnInit() {
-    await this.providerService.getProviderById(1)
+    await this.providerService.getProviderById(JSON.parse(localStorage.getItem('currentProvider')).providerId)
       .toPromise()
       .then((provider) => this.provider = provider)
       .catch((err) => console.log(err));

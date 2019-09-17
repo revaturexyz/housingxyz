@@ -19,14 +19,9 @@ export class ProviderService {
   constructor(private httpBus: HttpClient) { }
 
   getProviders(): Observable<Provider[]> {
-    const simpleObservable = new Observable<Provider[]>((sub) => {
-      // observable execution
-      const provList: Provider[] = [];
-      provList.push(TestServiceData.dummyProvider);
-      sub.next(provList);
-      sub.complete();
-    });
-    return simpleObservable;
+    const providerUrl = this.apiUrl + 'Provider';
+
+    return this.httpBus.get<Provider[]>(providerUrl);
   }
 
   getProviderById(providerId: number): Observable<Provider> {
