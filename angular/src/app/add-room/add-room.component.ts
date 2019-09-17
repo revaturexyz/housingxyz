@@ -95,12 +95,26 @@ export class AddRoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    // This should be removed when authentication is
-    // enabled as right now we're simply grabbing
-    // our first provider from the API
-    // and using it as an example
-    this.getProviderOnInit();
+    this.getProviderOnInit()
+      .then( () => {
+        this.setUpMomentData();
 
+        // These must only be called after
+        // the promise is resolved as they rely
+        // on current provider information.
+        this.getComplexesOnInit();
+        this.getAddressesOnInit();
+      })
+      .catch((err) => console.log(err));
+
+    this.getRoomTypesOnInit();
+    this.getAmenitiesOnInit();
+    console.log(this.roomService.getRoomTypes());
+    console.log(this.roomService.getRoomsByProvider(1));
+    console.log(this.types);
+  }
+
+  private setUpMomentData() {
     this.freshDate = moment();
     if (this.freshDate > this.startDate) {
       this.midDate = this.startDate.clone().add(6, 'months');
@@ -109,29 +123,9 @@ export class AddRoomComponent implements OnInit {
     this.displayStart = this.startDate.format('YYYY-MM-DD');
     this.displayMid = this.midDate.format('YYYY-MM-DD');
     this.displayEnd = this.endDate.format('YYYY-MM-DD');
-
-    // Populate the user options and form
-    // data objects
-    this.getRoomTypesOnInit();
-    this.getAmenitiesOnInit();
-    this.getComplexesOnInit();
-    this.getAddressesOnInit();
-    console.log(this.roomService.getRoomTypes());
-    console.log(this.roomService.getRoomsByProvider(1));
-    console.log(this.types);
   }
 
-
   async postRoomOnSubmit() {
-
-    console.log('Training Center Addresss: ');
-    console.log(this.provider.apiTrainingCenter.apiAddress);
-
-    console.log('Living Complex Address: ');
-    console.log(this.activeComplex.apiAddress);
-
-    console.log('Room Address: ');
-    console.log(this.room.apiAddress);
 
     // Validate if an entered address can be considered real
     const isValidAddress = await this.mapservice.verifyAddress(this.room.apiAddress);
@@ -196,57 +190,34 @@ export class AddRoomComponent implements OnInit {
 
   // Called in OnInit to populate the addresses list
   getAddressesOnInit() {
-    this.providerService.getAddressesByProvider(1).toPromise()
-      .then(
-        (data) => {
-          console.log('Received response for get addresses');
-          console.log(data);
-          this.addressList = data;
-          console.log(data);
-        })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.providerService.getAddressesByProvider(this.provider.providerId)
+      .toPromise()
+      .then((data) => this.addressList = data)
+      .catch((err) => console.log(err));
   }
 
   // Called in OnInit to populate the amenities list
   getAmenitiesOnInit() {
-    this.roomService.getAmenities().toPromise()
-      .then(
-        (data) => {
-          console.log('Received response for get amenities');
-          this.amenities = data;
-          console.log(data);
-        })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.roomService.getAmenities()
+      .toPromise()
+      .then((data) => this.amenities = data)
+      .catch((err) => console.log(err));
   }
 
   // Called in OnInit to populate the complexes list
   getComplexesOnInit() {
-    this.providerService.getComplexesByProvider(1).toPromise()
-      .then( (data) => {
-        console.log('Received response for get complexes');
-        this.complexList = data;
-        console.log(data);
-      })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.providerService.getComplexesByProvider(this.provider.providerId)
+      .toPromise()
+      .then((data) => this.complexList = data)
+      .catch((err) => console.log(err));
   }
 
   // Called in OnInit to populate room types list
   getRoomTypesOnInit() {
-    this.roomService.getRoomTypes().toPromise()
-      .then(
-        (data) => {
-          console.log('Received response for get room types');
-          this.types = data;
-        })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.roomService.getRoomTypes()
+      .toPromise()
+      .then((data) => this.types = data)
+      .catch((err) => console.log(err));
   }
 
   addForm() {
@@ -275,10 +246,19 @@ export class AddRoomComponent implements OnInit {
 
 
   getProviderOnInit() {
-    this.providerService.getProviderById(1).toPromise()
+    let providerId = 0;
+    try {
+      providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
+    } catch {
+      this.router.navigate(['/login']);
+    }
+
+    return this.providerService.getProviderById(providerId)
+      .toPromise()
       .then((provider) => this.provider = provider)
       .catch((error) => console.log(error));
   }
+
   // Used for client-side validation for date input of the form.
   verifyDates(beg: Date, end: Date): boolean {
     return new Date(beg).getTime() >= new Date(end).getTime();
