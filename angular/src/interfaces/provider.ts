@@ -1,11 +1,10 @@
 import { TrainingCenter } from './trainingcenter';
+import { Address } from './address';
 
 export interface Provider {
+    providerId: number;
     companyName: string;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zipCode: string;
+    address: Address;
     contactNumber: string;
-    providerTrainingCenter: TrainingCenter;
+    apiTrainingCenter: TrainingCenter;
 }

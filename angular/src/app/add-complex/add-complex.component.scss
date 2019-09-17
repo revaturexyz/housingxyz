@@ -1,4 +1,4 @@
-.login-outer{
+.add-complex-outer{
     width: 100%;
     text-align: center;
     padding: 100px;
@@ -8,7 +8,7 @@
     background-position: center;
 }
 
-.login-inner {
+.add-complex-inner {
     width: 50%;
     background-color: white;
     opacity: 0.9;
@@ -17,3 +17,29 @@
     padding: 50px;
     border-radius: 5px;
 }
+
+#add-complex-title {
+    margin-bottom: 3%;
+}
+
+#complexForm input{
+    border: 1px solid gray;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#complexForm label{
+    margin-right: 15px;
+}
+
+.showAddressForm {
+    background-color: grey;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    color: black;
+    opacity: 0.7;
+}
+

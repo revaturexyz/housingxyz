@@ -1,10 +1,8 @@
+import { Address } from './address';
+
 export interface TrainingCenter {
     centerId: number;
-    companyName: string;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zipCode: string;
+    apiAddress: Address;
     centerName: string;
     contactNumber: string;
 }
