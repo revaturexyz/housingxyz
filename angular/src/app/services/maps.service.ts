@@ -33,7 +33,6 @@ export class MapsService {
 
   // get geo coordinates of an address using Google API
   async getCoordinates(address: Address): Promise<MapsGeoLocation> {
-    console.log(address);
     const query = this.geocodeUrl +
       address.streetAddress + '+' +
       address.city + '+' +
@@ -50,6 +49,7 @@ export class MapsService {
         return null;
       });
   }
+
   async checkDistance(address1: Address, address2: Address): Promise<number> {
     const origin = await this.getCoordinates(address1);
     const destination = await this.getCoordinates(address2);
