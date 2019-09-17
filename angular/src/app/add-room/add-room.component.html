@@ -7,8 +7,8 @@
                 <!-- Used to diplay the Training Center information -->
                 <ng-container *ngIf="provider">
                     <h3>Training Center</h3>
-                    <p> {{ provider.providerTrainingCenter.centerName }}</p>
-                    <p> {{ provider.providerTrainingCenter.contactNumber }}</p>
+                    <p> {{ provider.apiTrainingCenter.centerName }}</p>
+                    <p> {{ provider.apiTrainingCenter.contactNumber }}</p>
                 </ng-container>
                 <!-- Drop down to choose a complex -->
                 <div class="col">
@@ -69,9 +69,8 @@
                         <!-- Choose a room type -->
                         <div class="col-md-12">
                             <label class="col-md-3" for="room.roomType">Room Type: </label>
-                            <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
-                                <option selected>Apartment</option>
-                                <option>Dorm</option>
+                            <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.apiRoomType" #roomT="ngModel">
+                                <option *ngFor="let type of types">{{type.roomType}}</option>
                             </select>
                         </div>
                         <!-- Input a room number with or without an ending Capital letter -->

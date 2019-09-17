@@ -24,7 +24,7 @@ export class TestServiceData {
 
     static dummyTrainingCenter: TrainingCenter = {
         centerId: 1,
-        address: TestServiceData.livPlusAddress,
+        apiAddress: TestServiceData.livPlusAddress,
         centerName: 'UT Arlington',
         contactNumber: '3213213214'
     };
@@ -108,7 +108,7 @@ export class TestServiceData {
 
     static trainingcenter: TrainingCenter = {
         centerId: 1,
-        address: TestServiceData.prestionHall,
+        apiAddress: TestServiceData.prestionHall,
         centerName: 'UT Arlington - Preston Hall',
         contactNumber: '(703) 570-8181'
     };
@@ -123,7 +123,7 @@ export class TestServiceData {
 
     static trainingcenter2: TrainingCenter = {
         centerId: 2,
-        address: TestServiceData.uic,
+        apiAddress: TestServiceData.uic,
         centerName: 'UIC',
         contactNumber: '3213213214'
     };
@@ -141,7 +141,7 @@ export class TestServiceData {
         companyName: 'Liv+',
         address: TestServiceData.liv,
         contactNumber: '123-123-1234',
-        providerTrainingCenter: TestServiceData.trainingcenter
+        apiTrainingCenter: TestServiceData.trainingcenter
     };
 
     static dummyComplex: Complex = {
@@ -157,7 +157,7 @@ export class TestServiceData {
         apiAddress: TestServiceData.dummyAddress,
         roomNumber: '',
         numberOfBeds: 2,
-        roomType: '',
+        apiRoomType: null,
         isOccupied: false,
         amenities: TestServiceData.dummmyList,
         startDate: new Date(),
@@ -184,7 +184,7 @@ export class TestServiceData {
         },
         roomNumber: '323',
         numberOfBeds: 9001,
-        roomType: 'Dorm',
+        apiRoomType: null,
         isOccupied: true,
         amenities: [{
             amenityId: 2,
@@ -206,7 +206,7 @@ export class TestServiceData {
 
     static testTrainingCenter2: TrainingCenter = {
         centerId: 5,
-        address: TestServiceData.testTrainingCenter2Address,
+        apiAddress: TestServiceData.testTrainingCenter2Address,
         centerName: 'UTSA Training Center',
         contactNumber: '(482) 482-4824'
     };
@@ -224,7 +224,7 @@ export class TestServiceData {
         companyName: 'Prado Student Living',
         address: TestServiceData.livPlusAddress,
         contactNumber: '(203) 232-2847',
-        providerTrainingCenter: TestServiceData.trainingcenter
+        apiTrainingCenter: TestServiceData.trainingcenter
     };
 
     static testProviders: Provider[] = [

@@ -6,12 +6,14 @@ import { Observable, of } from 'rxjs';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
 import { environment } from 'src/environments/environment';
+import { RoomType } from 'src/interfaces/room-type';
+import { Gender } from 'src/interfaces/gender';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RoomService {
-    roomUrl = `${ environment.endpoints.providerXYZ }Room`;
+    roomUrl = environment.endpoints.providerXYZ;
 
     constructor(private httpBus: HttpClient) { }
 
@@ -25,20 +27,17 @@ export class RoomService {
         const providerRoomsUrl = `${this.roomUrl}/provider/${providerId}`;
         return this.httpBus.get<Room[]>(providerRoomsUrl);
     }
-    getRoomTypes(): Observable<string[]> {
-        return of(['Apartment', 'Dorm']);
+    getRoomTypes(): Observable<RoomType[]> {
+        const url = this.roomUrl + 'Room/type';
+        return this.httpBus.get<RoomType[]>(url);
     }
-    getGenders(): Observable<string[]> {
-        const simpleObservable = new Observable<string[]>((sub) => {
-            const GenderList: string[] = TestServiceData.dummyGender;
-            sub.next(GenderList);
-            sub.complete();
-        });
-        return simpleObservable;
+    getGenders(): Observable<Gender[]> {
+        const url = this.roomUrl + 'Gender';
+        return this.httpBus.get<Gender[]>(url);
     }
 
     getAmenities(): Observable<Amenity[]> {
-        const amenitiesUrl = `${this.roomUrl}/amenity`;
+        const amenitiesUrl = this.roomUrl + 'Room/amenity';
         console.log('Get amenities called');
         return this.httpBus.get<Amenity[]>(amenitiesUrl);
     }

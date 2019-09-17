@@ -32,7 +32,7 @@ export class AddComplexComponent implements OnInit {
         address: null,
         contactNumber: '',
         companyName: '',
-        providerTrainingCenter: null
+        apiTrainingCenter: null
       },
       apiAddress: {
         addressId: 0,
@@ -63,7 +63,7 @@ export class AddComplexComponent implements OnInit {
     const distance = await this.mapsService
       .checkDistance(
         this.formLivingComplex.apiAddress,
-        this.currentProvider.providerTrainingCenter.address
+        this.currentProvider.apiTrainingCenter.apiAddress
       );
     this.isValidDistanceToTrainingCenter = distance <= 20;
     console.log('Selected address is close enough to the provider training center: ' + this.isValidDistanceToTrainingCenter);

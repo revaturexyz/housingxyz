@@ -10,6 +10,7 @@ import { Amenity } from 'src/interfaces/amenity';
 import * as moment from 'moment';
 import { TestServiceData } from '../services/static-test-data';
 import { Router } from '@angular/router';
+import { RoomType } from 'src/interfaces/room-type';
 
 @Component({
   selector: 'dev-add-room',
@@ -44,7 +45,7 @@ export class AddRoomComponent implements OnInit {
 
   // room form data
   provider: Provider;
-  types: string[] = [];
+  types: RoomType[] = [];
   amenities: Amenity[] = [];
 
   // values for displaying and allowing selection
@@ -78,7 +79,7 @@ export class AddRoomComponent implements OnInit {
       },
       roomNumber: '',
       numberOfBeds: 4,
-      roomType: 'Apartment',
+      apiRoomType: null,
       isOccupied: false,
       amenities: null,
       startDate: new Date(),
@@ -130,7 +131,7 @@ export class AddRoomComponent implements OnInit {
   async postRoomOnSubmit() {
 
     console.log('Training Center Addresss: ');
-    console.log(this.provider.providerTrainingCenter.address);
+    console.log(this.provider.apiTrainingCenter.apiAddress);
 
     console.log('Living Complex Address: ');
     console.log(this.activeComplex.apiAddress);
@@ -149,7 +150,7 @@ export class AddRoomComponent implements OnInit {
       const isValidDistanceTrainerCenter =
         await this.mapservice.checkDistance(
           this.room.apiAddress,
-          this.provider.providerTrainingCenter.address);
+          this.provider.apiTrainingCenter.apiAddress);
 
       if ( isValidDistanceTrainerCenter <= 20) {
         // Get and validate that the distance from a room to a provider
@@ -207,6 +208,7 @@ export class AddRoomComponent implements OnInit {
           console.log('Received response for get addresses');
           console.log(data);
           this.addressList = data;
+          console.log(data);
         })
       .catch(
         (error) => console.log(error)
@@ -233,6 +235,7 @@ export class AddRoomComponent implements OnInit {
       .then( (data) => {
         console.log('Received response for get complexes');
         this.complexList = data;
+        console.log(data);
       })
       .catch(
         (error) => console.log(error)
