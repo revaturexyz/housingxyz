@@ -102,7 +102,7 @@
             </div>
         </form>
         <hr>
-        <div class="card">
+        <div *ngIf="currentProvider" class="card">
             <div class="card-body">
                 <div class="card-title">
                     <H5>Your Training Center Information:</H5>
@@ -110,8 +110,8 @@
                 <div class="card-content">
                     <p>Name: {{ currentProvider.apiTrainingCenter.centerName }}</p>
                     <p>Phone Number: {{ currentProvider.apiTrainingCenter.contactNumber }}</p>
-                    <p>{{ currentProvider.apiAddress.streetAddress }}</p>
-                    <p>{{ currentProvider.apiAddress.city }}, {{ currentProvider.apiAddress.state }} {{ currentProvider.apiAddress.zipcode }}</p>
+                    <p>{{ currentProvider.apiTrainingCenter.apiAddress.streetAddress }}</p>
+                    <p>{{ currentProvider.apiTrainingCenter.apiAddress.city }}, {{ currentProvider.apiTrainingCenter.apiAddress.state }} {{ currentProvider.apiTrainingCenter.apiAddress.zipcode }}</p>
                 </div>
             </div>
         </div>
