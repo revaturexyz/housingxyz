@@ -1,6 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { ProviderService } from './provider.service';
-import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Provider } from '../../interfaces/provider';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
@@ -8,9 +8,11 @@ import { TestServiceData } from '../services/static-test-data';
 
 const provider1: Provider = TestServiceData.dummyProvider;
 const listProvider: Provider[] = TestServiceData.testProviders;
+const provider2: Provider = TestServiceData.testProvider2;
 
 describe('ProviderService', () => {
-  let  myProvider: ProviderService;
+  let myProvider: ProviderService;
+  let httpMock: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -19,6 +21,7 @@ describe('ProviderService', () => {
 
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
+    httpMock = testBed.get(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -28,22 +31,29 @@ describe('ProviderService', () => {
 
   describe('getProviders', () => {
     it('should return an Observable<Provider[]>', () => {
-      const  someProviders = [provider1];
+      const someProviders = [provider1];
       myProvider.getProviders().subscribe((provider) => {
-      expect(provider.length).toBe(1);
-      expect(provider[0].address).toEqual(someProviders[0].address);
+        expect(provider.length).toBe(1);
+        expect(provider[0].address).toEqual(someProviders[0].address);
       });
+      const call = httpMock.expectOne(`${myProvider.apiUrl}Provider/`);
+      expect(call.request.method).toBe('GET');
+      call.flush(someProviders);
+      httpMock.verify();
     });
   });
 
   describe('getProviderById', () => {
     it('should return an Observable<Provider>', () => {
-      const  someProviders = listProvider;
+      const someProviders = provider2;
       myProvider.getProviderById(1).subscribe((provider) => {
-      expect(provider.companyName).toEqual(someProviders[1].companyName);
-      expect(provider.address).toEqual(someProviders[1].address);
-      expect(provider.providerTrainingCenter.centerId).toEqual(someProviders[1].providerTrainingCenter.centerId);
+        expect(provider.companyName).toEqual(someProviders.companyName);
+        expect(provider.address).toEqual(someProviders.address);
       });
+      const call = httpMock.expectOne(`${myProvider.apiUrl}Provider/1`);
+      expect(call.request.method).toBe('GET');
+      call.flush(someProviders);
+      httpMock.verify();
     });
   });
 
@@ -53,12 +63,16 @@ describe('ProviderService', () => {
     const complex2: Complex = TestServiceData.dummyComplex2;
 
     it('should return an Observable<Complex[]>', () => {
-    const  someComplexes = [complex1, complex2];
-    myProvider.getComplexesByProvider(1).subscribe((complex) => {
-    expect(complex.length).toBe(2);
-    expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
-    expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
-    });
+      const someComplexes = [complex1, complex2];
+      myProvider.getComplexesByProvider(1).subscribe((complex) => {
+        expect(complex.length).toBe(2);
+        expect(complex[0].complexName).toEqual(someComplexes[0].complexName);
+        expect(complex[1].complexName).toEqual(someComplexes[1].complexName);
+      });
+      const call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/1`);
+      expect(call.request.method).toBe('GET');
+      call.flush(someComplexes);
+      httpMock.verify();
     });
 
   });
@@ -70,7 +84,7 @@ describe('ProviderService', () => {
       city: 'Arlington',
       state: 'TX',
       zipCode: '12345'
-  };
+    };
 
     const address2: Address = {
       addressId: 2,
@@ -78,19 +92,20 @@ describe('ProviderService', () => {
       city: 'Arlington',
       state: 'TX',
       zipCode: '76010'
-  };
+    };
 
 
     it('should return an Observable<Address[]>', () => {
-      const  someAddressess = [address1, address2];
+      const someAddresses = [address1, address2];
       myProvider.getAddressesByProvider(1).subscribe((address) => {
-      expect(address.length).toBe(2);
-      expect(address[0].streetAddress).toEqual(someAddressess[0].streetAddress);
-      expect(address[1].streetAddress).toEqual(someAddressess[1].streetAddress);
+        expect(address.length).toBe(2);
+        expect(address[0].streetAddress).toEqual(someAddresses[0].streetAddress);
+        expect(address[1].streetAddress).toEqual(someAddresses[1].streetAddress);
       });
-      });
-
+      const call = httpMock.expectOne(`${myProvider.apiUrl}Address/provider/1`);
+      expect(call.request.method).toBe('GET');
+      call.flush(someAddresses);
+      httpMock.verify();
+    });
   });
-
-
 });
