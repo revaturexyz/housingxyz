@@ -97,7 +97,7 @@ describe('RoomService', () => {
     // postRoom
     it('should return an Observable<Room>', () => {
       const oneRoom = room1;
-      myProvider.postRoom(oneRoom).subscribe((room) => {
+      myProvider.postRoom(oneRoom, 1).subscribe((room) => {
         expect(room).toEqual(oneRoom);
       });
     });
