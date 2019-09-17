@@ -6,20 +6,13 @@ import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from './static-test-data';
+import { TrainingcenterService } from './trainingcenter.service';
 
 const complex1: Complex = TestServiceData.dummyComplex;
 const complex2: Complex = TestServiceData.dummyComplex2;
 
-const amenity1: Amenity = {
-  amenityId: 1,
-  amenity: 'Washer/Dryer',
-  isSelected: true
-};
-const amenity2: Amenity = {
-  amenityId: 2,
-  amenity: 'Smart TV',
-  isSelected: true
-};
+const amenity1: Amenity = TestServiceData.dummyAmenity1;
+const amenity2: Amenity = TestServiceData.dummyAmenity2;
 
 const amenityList: Amenity[] = [
   amenity1,
@@ -35,7 +28,7 @@ const room1: Room = {
     addressId: 1, streetAddress: '123 Address St', city:
       'Arlington', state: 'TX', zipcode: '12345'
   }, roomNumber: '', numberOfBeds: 2, apiRoomType: { typeId: 0, roomType: 'Dorm' },
-  isOccupied: false, amenities: amenityList, startDate:
+  isOccupied: false, apiAmenity: amenityList, startDate:
     new Date(), endDate: new Date(), apiComplex: complex1
 };
 const room2: Room = {
@@ -43,7 +36,7 @@ const room2: Room = {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
     city: 'Arlington', state: 'TX', zipcode: '76019'
   }, roomNumber: '323', numberOfBeds: 9001, apiRoomType: { typeId: 1, roomType: 'Dorm' },
-  isOccupied: true, amenities: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true }],
+  isOccupied: true, apiAmenity: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true }],
   startDate: new Date(), endDate: new Date(), apiComplex: complex2
 };
 
