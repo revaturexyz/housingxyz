@@ -29,7 +29,14 @@ export class HomeComponent implements OnInit {
   }
 
   async getProviderOnInit() {
-    await this.providerService.getProviderById(JSON.parse(localStorage.getItem('currentProvider')).providerId)
+    let providerId = 0;
+    try {
+      providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
+    } catch {
+      this.router.navigate(['/login']);
+    }
+    
+    await this.providerService.getProviderById(providerId)
       .toPromise()
       .then((provider) => this.provider = provider)
       .catch((err) => console.log(err));
