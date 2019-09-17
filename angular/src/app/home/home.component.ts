@@ -22,21 +22,21 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // get locations belonging to the provider
-    this.getProviderOnInit();
+    await this.getProviderOnInit();
     this.getLivingComplexesOnInit();
   }
 
-  getProviderOnInit(): void {
-    this.providerService.getProviderById(1)
+  async getProviderOnInit() {
+    await this.providerService.getProviderById(1)
       .toPromise()
       .then((provider) => this.provider = provider)
       .catch((err) => console.log(err));
   }
 
   getLivingComplexesOnInit(): void {
-    this.providerService.getComplexesByProvider(2)
+    this.providerService.getComplexesByProvider(this.provider.providerId)
       .toPromise()
       .then((complexes) => this.complexes = complexes)
       .catch((err) => console.log(err));

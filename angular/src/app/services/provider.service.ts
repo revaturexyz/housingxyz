@@ -29,16 +29,10 @@ export class ProviderService {
     return simpleObservable;
   }
 
-  getProviderById(id: number): Observable<Provider> {
-    // Retrieve and add a value to our observable from the test providers
-    // array matching the id if it exists.
-    const simpleObservable = new Observable<Provider>((sub) => {
-      // observable execution
-      sub.next(TestServiceData.testProviders
-        .find(x => x.providerId === id));
-      sub.complete();
-    });
-    return simpleObservable;
+  getProviderById(providerId: number): Observable<Provider> {
+    const providerUrl = this.apiUrl + 'Provider/' + providerId;
+    
+    return this.httpBus.get<Provider>(providerUrl);
   }
 
   getComplexesByProvider(providerId: number): Observable<Complex[]> {
