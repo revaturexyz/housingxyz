@@ -106,18 +106,18 @@
                         <!-- Choose the ending date -->
                         <div class="col-md-12">
                             <label class="col-md-3">End Date:</label>
-                            <input class="input-border col-md-3" type="date" name="{{displayStart}}" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                            <input class="input-border col-md-3" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
                         </div>
                         <!-- The submit and cancel button. Also some validation for a valid address, the distance between
                         the room and training center, and the room and the compex -->
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
-                            <div *ngIf="validAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
-                            <div *ngIf="validDistanceToTraining" class="alert alert-danger"> 
+                            <div *ngIf="invalidAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
+                            <div *ngIf="invalidDistanceToTraining" class="alert alert-danger"> 
                                 The distance between the room address and the training center address cannot exceed twenty miles.
                             </div>
-                            <div *ngIf="validDistanceToComplex" class="alert alert-danger"> 
+                            <div *ngIf="invalidDistanceToComplex" class="alert alert-danger"> 
                                 The distance between the room address and the living complex address cannot exceed five miles.
                             </div>
                         </div>

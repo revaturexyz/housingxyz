@@ -22,9 +22,9 @@ export class AddRoomComponent implements OnInit {
 
   // values to verify entered and selected address
   // meet our validation and distance thresholds
-  validAddress: boolean;
-  validDistanceToTraining: boolean;
-  validDistanceToComplex: boolean;
+  invalidAddress: boolean;
+  invalidDistanceToTraining: boolean;
+  invalidDistanceToComplex: boolean;
 
   // the form Room object
   room: Room;
@@ -130,61 +130,61 @@ export class AddRoomComponent implements OnInit {
     // Validate if an entered address can be considered real
     const isValidAddress = await this.mapservice.verifyAddress(this.room.apiAddress);
     console.log('Address is valid: ' + isValidAddress);
+    if (!isValidAddress) {
+      this.invalidAddress = true;
+      return;
+    }
 
-    if (isValidAddress) {
-      // Get and verify that the distance from a room to the provider
-      // training center is less than or equal to 20 miles
-      console.log('Validating distance to training center');
-      const isValidDistanceTrainerCenter =
-        await this.mapservice.checkDistance(
-          this.room.apiAddress,
-          this.provider.apiTrainingCenter.apiAddress);
+    // Get and verify that the distance from a room to the provider
+    // training center is less than or equal to 20 miles
+    console.log('Validating distance to training center');
+    const isValidDistanceTrainerCenter =
+      await this.mapservice.checkDistance(
+        this.room.apiAddress,
+        this.provider.apiTrainingCenter.apiAddress);
+    if (!(isValidDistanceTrainerCenter <= 20)) {
+      this.invalidDistanceToTraining = true;
+      return;
+    }
 
-      if ( isValidDistanceTrainerCenter <= 20) {
-        // Get and validate that the distance from a room to a provider
-        // living complex is less than or equal to five miles
-        console.log('Validating distance to living complex');
-        console.log('Living complex address: ' + this.activeComplex.apiAddress);
-        const isValidDistanceComplex =
-          await this.mapservice.checkDistance(
-            this.room.apiAddress,
-            this.activeComplex.apiAddress);
+    // Get and validate that the distance from a room to a provider
+    // living complex is less than or equal to five miles
+    console.log('Validating distance to living complex');
+    console.log('Living complex address: ' + this.activeComplex.apiAddress);
+    const isValidDistanceComplex =
+      await this.mapservice.checkDistance(
+        this.room.apiAddress,
+        this.activeComplex.apiAddress);
+    if (!(isValidDistanceComplex <= 5 )) {
+      this.invalidDistanceToComplex = true;
+      return;
+    }
 
-        if ( isValidDistanceComplex <= 5 ) {
-          this.validAddress = false;
-          this.validDistanceToTraining = false;
-          this.validDistanceToComplex = false;
+    // Reset our flags.
+    this.invalidAddress = false;
+    this.invalidDistanceToTraining = false;
+    this.invalidDistanceToComplex = false;
 
-          // If we are showing the address form but an address was previously
-          // selected, then we can assume that a new address has been entered
-          // and must set the address ID to zero
-          if (this.show) {
-            if (this.room.apiAddress.addressId > 0) {
-              this.room.apiAddress.addressId = 0;
-            }
-          }
-
-          // Set the amenities list values in the room baasedon what is
-          // selected
-          this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
-
-          console.log(this.room);
-          this.roomService.postRoom(this.room, this.provider.providerId)
-            .toPromise()
-            .then(
-              (result) => {
-                console.log('Post is a success: ' + result);
-                this.router.navigate(['show-rooms']);
-              })
-            .catch((err) => console.log(err));
-        } else {
-          this.validDistanceToComplex = true;
-        }
-      } else {
-        this.validDistanceToTraining = true;
+    // If we are showing the address form but an address was previously
+    // selected, then we can assume that a new address has been entered
+    // and must set the address ID to zero
+    if (this.show) {
+      if (this.room.apiAddress.addressId > 0) {
+        this.room.apiAddress.addressId = 0;
       }
-    } else {
-      this.validAddress = true;
+    }
+
+    // Set the amenities list values in the room based on what is
+    // selected
+    this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
+
+    console.log(this.room);
+
+    try {
+      await this.roomService.postRoom(this.room, this.provider.providerId).toPromise();
+      this.router.navigate(['show-rooms']);
+    } catch (err) {
+      console.log(err);
     }
   }
 
