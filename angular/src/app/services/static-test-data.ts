@@ -11,7 +11,7 @@ export class TestServiceData {
         streetAddress: '123 Address St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345'
+        zipcode: '12345'
     };
 
     static livPlusAddress: Address = {
@@ -19,7 +19,7 @@ export class TestServiceData {
         streetAddress: '1001 S Center St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '76010'
+        zipcode: '76010'
     };
 
     static dummyTrainingCenter: TrainingCenter = {
@@ -34,7 +34,7 @@ export class TestServiceData {
         streetAddress: '749 South Cooper St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '76010'
+        zipcode: '76010'
     };
 
     static complexAddress1: Address = {
@@ -42,7 +42,7 @@ export class TestServiceData {
         streetAddress: '123 Complex St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345'
+        zipcode: '12345'
     };
 
     static complexAddress2: Address = {
@@ -50,7 +50,7 @@ export class TestServiceData {
         streetAddress: '234 Complex St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '23456',
+        zipcode: '23456',
     };
 
     static dummyGender: string[] = ['male', 'female', 'undefined'];
@@ -103,7 +103,7 @@ export class TestServiceData {
         streetAddress: '701 S Nedderman Dr',
         city: 'Arlington',
         state: 'Texas',
-        zipCode: '76019',
+        zipcode: '76019',
     };
 
     static trainingcenter: TrainingCenter = {
@@ -118,7 +118,7 @@ export class TestServiceData {
         streetAddress: '123 s. Chicago Ave',
         city: 'Chicago',
         state: 'Illinois',
-        zipCode: '60645',
+        zipcode: '60645',
     };
 
     static trainingcenter2: TrainingCenter = {
@@ -133,7 +133,7 @@ export class TestServiceData {
         streetAddress: '123 Address St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345',
+        zipcode: '12345',
     };
 
     static dummyProvider: Provider = {
@@ -159,7 +159,7 @@ export class TestServiceData {
         numberOfBeds: 2,
         apiRoomType: null,
         isOccupied: false,
-        amenities: TestServiceData.dummmyList,
+        apiAmenity: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
         apiComplex: TestServiceData.dummyComplex
@@ -180,13 +180,13 @@ export class TestServiceData {
             streetAddress: '701 S Nedderman Dr',
             city: 'Arlington',
             state: 'TX',
-            zipCode: '76019'
+            zipcode: '76019'
         },
         roomNumber: '323',
         numberOfBeds: 9001,
         apiRoomType: null,
         isOccupied: true,
-        amenities: [{
+        apiAmenity: [{
             amenityId: 2,
             amenity: 'Washer/Dryer',
             isSelected: true
@@ -201,7 +201,7 @@ export class TestServiceData {
         streetAddress: 'One UTSA Circle',
         city: 'San Antonio',
         state: 'TX',
-        zipCode: '78249'
+        zipcode: '78249'
     };
 
     static testTrainingCenter2: TrainingCenter = {
@@ -216,7 +216,7 @@ export class TestServiceData {
         streetAddress: '7114 UTSA Boulevard',
         city: 'San Antonio',
         state: 'TX',
-        zipCode: '78249'
+        zipcode: '78249'
     };
 
     static testProvider2: Provider = {

@@ -75,13 +75,13 @@ export class AddRoomComponent implements OnInit {
         streetAddress: '',
         city: '',
         state: '',
-        zipCode: ''
+        zipcode: ''
       },
       roomNumber: '',
       numberOfBeds: 4,
       apiRoomType: null,
       isOccupied: false,
-      amenities: null,
+      apiAmenity: null,
       startDate: new Date(),
       endDate: new Date(),
       apiComplex: {
@@ -172,7 +172,7 @@ export class AddRoomComponent implements OnInit {
 
           // Set the amenities list values in the room baasedon what is
           // selected
-          this.room.amenities = this.amenities.filter(y => y.isSelected);
+          this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
 
           console.log(this.room);
           this.roomService.postRoom(this.room, this.provider.providerId)

@@ -33,7 +33,7 @@ const amenityList: Amenity[] = [
 const room1: Room = {
   roomId: 0, apiAddress: {
     addressId: 1, streetAddress: '123 Address St', city:
-      'Arlington', state: 'TX', zipCode: '12345'
+      'Arlington', state: 'TX', zipcode: '12345'
   }, roomNumber: '', numberOfBeds: 2, apiRoomType: { typeId: 0, roomType: 'Dorm' },
   isOccupied: false, amenities: amenityList, startDate:
     new Date(), endDate: new Date(), apiComplex: complex1
@@ -41,7 +41,7 @@ const room1: Room = {
 const room2: Room = {
   roomId: 0, apiAddress: {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
-    city: 'Arlington', state: 'TX', zipCode: '76019'
+    city: 'Arlington', state: 'TX', zipcode: '76019'
   }, roomNumber: '323', numberOfBeds: 9001, apiRoomType: { typeId: 1, roomType: 'Dorm' },
   isOccupied: true, amenities: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true }],
   startDate: new Date(), endDate: new Date(), apiComplex: complex2

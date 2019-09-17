@@ -83,7 +83,7 @@ describe('ProviderService', () => {
       streetAddress: '123 Address St',
       city: 'Arlington',
       state: 'TX',
-      zipCode: '12345'
+      zipcode: '12345'
     };
 
     const address2: Address = {
@@ -91,7 +91,7 @@ describe('ProviderService', () => {
       streetAddress: '1001 S Center St',
       city: 'Arlington',
       state: 'TX',
-      zipCode: '76010'
+      zipcode: '76010'
     };
 
 

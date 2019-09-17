@@ -13,7 +13,7 @@ const address: Address = {
   streetAddress: '123 Address St',
   city: 'Arlington',
   state: 'TX',
-  zipCode: '12345'
+  zipcode: '12345'
 };
 
 describe('AddRoomComponent', () => {

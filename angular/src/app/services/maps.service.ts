@@ -18,7 +18,7 @@ export class MapsService {
   constructor(private httpClient: HttpClient) { }
 
   async verifyAddress(address: Address): Promise<boolean> {
-    const query = this.geocodeUrl + address.streetAddress + address.zipCode + this.key;
+    const query = this.geocodeUrl + address.streetAddress + address.zipcode + this.key;
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
         console.log(mapsResult);
@@ -35,7 +35,7 @@ export class MapsService {
     const query = this.geocodeUrl + address.streetAddress + '+' +
       address.city + '+' +
       address.state + '+' +
-      address.zipCode + this.key;
+      address.zipcode + this.key;
     return await this.httpClient.get<Maps>(query).toPromise()
       .then((mapsResult) => {
         console.log('lat:' + mapsResult.results[0].geometry.location.lat);
