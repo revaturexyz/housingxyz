@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { environment } from 'src/environments/environment';
+import { Notify } from 'src/interfaces/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,9 @@ export class ProviderService {
   getAddressesByProvider(providerId: number): Observable<Address[]> {
     const addressUrl = this.apiUrl + 'Address/provider/' + providerId;
     return this.httpBus.get<Address[]>(addressUrl);
+  }
+
+  postRequestByProvider(req: Notify) {
+    return this.httpBus.post(this.apiUrl + `Notification`, req);
   }
 }

@@ -23,6 +23,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
 import { AddComplexComponent } from './add-complex/add-complex.component';
+import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
     RoomDetailsComponent,
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
-    AddComplexComponent
+    AddComplexComponent,
+    RequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,6 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
   ],
   providers: [ ProviderLocation, AuthenticationGuard],
   bootstrap: [ AppComponent ],
-  entryComponents: [AmenityDialogueComponent],
+  entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
 })
 export class AppModule { }

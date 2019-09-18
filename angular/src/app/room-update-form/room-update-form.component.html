@@ -70,3 +70,4 @@
 <button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="room" (click)="removeRoom(room)" [disabled]="room.isOccupied">Remove</button>
 <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="room && !editing" (click)="startEdit()" [disabled]="room.isOccupied">Edit</button>
 <button type="button" class="btn btn-secondary" style="float: right; margin: 20px;" *ngIf="room && editing" (click)="submit(room)" [disabled]="bedNumBool === true || roomNumBool === true || validStart === false || validEnd === false">Submit</button>
+<button type="button" class="btn btn-danger" style="float: right; margin: 20px;" *ngIf="room && room.isOccupied" (click)="openRequestDialog()">Send Change Request</button>
