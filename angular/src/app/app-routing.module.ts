@@ -10,8 +10,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'show-rooms', component: UpdateRoomComponent },
-  // { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate [ MsalGuard]  },
   { path: 'addroom', component: AddRoomComponent},
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent }
