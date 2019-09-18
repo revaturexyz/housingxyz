@@ -9,7 +9,7 @@ import { MsalGuard } from '@azure/msal-angular';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [MsalGuard ] },
   { path: 'show-rooms', component: UpdateRoomComponent },
   { path: 'login', component: LoginComponent, canActivate: [ MsalGuard ]  },
   { path: 'addroom', component: AddRoomComponent},
