@@ -181,7 +181,7 @@ export class UpdateRoomComponent implements OnInit {
     this.selectedRoom = null;
     this.highlightRoom = null;
   }
-  
+
   getProviderOnInit(providerId: number): Promise<Provider> {
     return this.providerService.getProviderById(providerId)
       .toPromise()
