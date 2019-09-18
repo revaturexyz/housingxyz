@@ -19,9 +19,9 @@ export class ComplexService {
   ) {
     this.httpOptions = {
       headers: new HttpHeaders({
-          'Authorization': msalService.getUser().userIdentifier
+          Authorization: msalService.getUser().userIdentifier
       })
-    }
+    };
   }
 
   getAmenityByComplex(id: number): Observable<any> {

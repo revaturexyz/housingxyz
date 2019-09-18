@@ -17,14 +17,14 @@ export class RoomService {
     roomUrl = environment.endpoints.providerXYZ + 'api/';
 
     httpOptions: any;
-    
+
     constructor(
       private httpBus: HttpClient,
       msalService: MsalService
     ) {
       this.httpOptions = {
         headers: new HttpHeaders({
-          'Authorization': msalService.getUser().userIdentifier
+          Authorization: msalService.getUser().userIdentifier
         })
       };
     }
