@@ -1,13 +1,14 @@
 import { Address } from './address';
 import { Amenity } from './amenity';
 import { Complex } from './complex';
+import { RoomType } from './room-type';
 
 export interface Room {
     roomId: number;
-    roomAddress: Address;
+    apiAddress: Address;
     roomNumber: string;
     numberOfBeds: number;
-    roomType: string;
+    apiRoomType: RoomType;
     isOccupied: boolean;
     apiAmenity: Amenity[];
     startDate: Date;

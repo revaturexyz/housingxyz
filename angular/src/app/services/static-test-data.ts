@@ -11,7 +11,7 @@ export class TestServiceData {
         streetAddress: '123 Address St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345'
+        zipcode: '12345'
     };
 
     static livPlusAddress: Address = {
@@ -19,12 +19,12 @@ export class TestServiceData {
         streetAddress: '1001 S Center St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '76010'
+        zipcode: '76010'
     };
 
     static dummyTrainingCenter: TrainingCenter = {
         centerId: 1,
-        address: TestServiceData.livPlusAddress,
+        apiAddress: TestServiceData.livPlusAddress,
         centerName: 'UT Arlington',
         contactNumber: '3213213214'
     };
@@ -34,7 +34,7 @@ export class TestServiceData {
         streetAddress: '749 South Cooper St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '76010'
+        zipcode: '76010'
     };
 
     static complexAddress1: Address = {
@@ -42,7 +42,7 @@ export class TestServiceData {
         streetAddress: '123 Complex St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345'
+        zipcode: '12345'
     };
 
     static complexAddress2: Address = {
@@ -50,7 +50,7 @@ export class TestServiceData {
         streetAddress: '234 Complex St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '23456',
+        zipcode: '23456',
     };
 
     static dummyGender: string[] = ['male', 'female', 'undefined'];
@@ -103,12 +103,12 @@ export class TestServiceData {
         streetAddress: '701 S Nedderman Dr',
         city: 'Arlington',
         state: 'Texas',
-        zipCode: '76019',
+        zipcode: '76019',
     };
 
     static trainingcenter: TrainingCenter = {
         centerId: 1,
-        address: TestServiceData.prestionHall,
+        apiAddress: TestServiceData.prestionHall,
         centerName: 'UT Arlington - Preston Hall',
         contactNumber: '(703) 570-8181'
     };
@@ -118,12 +118,12 @@ export class TestServiceData {
         streetAddress: '123 s. Chicago Ave',
         city: 'Chicago',
         state: 'Illinois',
-        zipCode: '60645',
+        zipcode: '60645',
     };
 
     static trainingcenter2: TrainingCenter = {
         centerId: 2,
-        address: TestServiceData.uic,
+        apiAddress: TestServiceData.uic,
         centerName: 'UIC',
         contactNumber: '3213213214'
     };
@@ -133,15 +133,15 @@ export class TestServiceData {
         streetAddress: '123 Address St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345',
+        zipcode: '12345',
     };
 
     static dummyProvider: Provider = {
         providerId: 2,
         companyName: 'Liv+',
-        address: TestServiceData.liv,
+        address: TestServiceData.livPlusAddress,
         contactNumber: '123-123-1234',
-        providerTrainingCenter: TestServiceData.trainingcenter
+        apiTrainingCenter: TestServiceData.trainingcenter
     };
 
     static dummyComplex: Complex = {
@@ -153,11 +153,11 @@ export class TestServiceData {
     };
 
     static room: Room = {
-        roomId: 1,
-        roomAddress: TestServiceData.dummyAddress,
-        roomNumber: '322',
+        roomId: 0,
+        apiAddress: TestServiceData.dummyAddress,
+        roomNumber: '',
         numberOfBeds: 2,
-        roomType: 'Apartment',
+        apiRoomType: null,
         isOccupied: false,
         apiAmenity: TestServiceData.dummmyList,
         startDate: new Date(),
@@ -175,16 +175,16 @@ export class TestServiceData {
 
     static room2: Room = {
         roomId: 2,
-        roomAddress: {
+        apiAddress: {
             addressId: 2,
             streetAddress: '701 S Nedderman Dr',
             city: 'Arlington',
             state: 'TX',
-            zipCode: '76019'
+            zipcode: '76019'
         },
         roomNumber: '323',
         numberOfBeds: 9001,
-        roomType: 'Dorm',
+        apiRoomType: null,
         isOccupied: true,
         apiAmenity: [{
             amenityId: 2,
@@ -201,12 +201,12 @@ export class TestServiceData {
         streetAddress: 'One UTSA Circle',
         city: 'San Antonio',
         state: 'TX',
-        zipCode: '78249'
+        zipcode: '78249'
     };
 
     static testTrainingCenter2: TrainingCenter = {
         centerId: 5,
-        address: TestServiceData.testTrainingCenter2Address,
+        apiAddress: TestServiceData.testTrainingCenter2Address,
         centerName: 'UTSA Training Center',
         contactNumber: '(482) 482-4824'
     };
@@ -216,7 +216,7 @@ export class TestServiceData {
         streetAddress: '7114 UTSA Boulevard',
         city: 'San Antonio',
         state: 'TX',
-        zipCode: '78249'
+        zipcode: '78249'
     };
 
     static testProvider2: Provider = {
@@ -224,7 +224,7 @@ export class TestServiceData {
         companyName: 'Prado Student Living',
         address: TestServiceData.livPlusAddress,
         contactNumber: '(203) 232-2847',
-        providerTrainingCenter: TestServiceData.trainingcenter
+        apiTrainingCenter: TestServiceData.testTrainingCenter2
     };
 
     static testProviders: Provider[] = [

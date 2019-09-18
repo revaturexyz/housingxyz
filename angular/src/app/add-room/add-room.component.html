@@ -7,8 +7,8 @@
                 <!-- Used to diplay the Training Center information -->
                 <ng-container *ngIf="provider">
                     <h3>Training Center</h3>
-                    <p> {{ provider.providerTrainingCenter.centerName }}</p>
-                    <p> {{ provider.providerTrainingCenter.contactNumber }}</p>
+                    <p> {{ provider.apiTrainingCenter.centerName }}</p>
+                    <p> {{ provider.apiTrainingCenter.contactNumber }}</p>
                 </ng-container>
                 <!-- Drop down to choose a complex -->
                 <div class="col">
@@ -36,18 +36,18 @@
                 <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
                 <form *ngIf="show === true">
                     <div>
-                        <label class="col-md-9">Street Address: <input [(ngModel)]="room.roomAddress.streetAddress" name="room.roomAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
+                        <label class="col-md-9">Street Address: <input [(ngModel)]="room.apiAddress.streetAddress" name="room.apiAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
                         <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
                             Street address must contain at least 5 characters.
                         </div>
 
-                        <label class="col-md-9"> City: <input [(ngModel)]="room.roomAddress.city" name="room.roomAddress.city" class="input-border" type="text" required minlength="1" maxlength="50" #city="ngModel"> </label> 
+                        <label class="col-md-9"> City: <input [(ngModel)]="room.apiAddress.city" name="room.apiAddress.city" class="input-border" type="text" required minlength="1" maxlength="50" #city="ngModel"> </label> 
                         <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either too short or too long.</div>
 
-                        <label class="col-md-9"> State: <input [(ngModel)]="room.roomAddress.state" name="room.roomAddress.state" class="input-border" type="text" required minlength ="2" maxlength="50" #state="ngModel"> </label> 
+                        <label class="col-md-9"> State: <input [(ngModel)]="room.apiAddress.state" name="room.apiAddress.state" class="input-border" type="text" required minlength ="2" maxlength="50" #state="ngModel"> </label> 
                         <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">Please enter a valid state name or state abbreviation.</div>
 
-                        <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.roomAddress.zipCode" name="room.roomAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
+                        <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.apiAddress.zipCode" name="room.apiAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
                         <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
                         <br>
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
@@ -69,9 +69,8 @@
                         <!-- Choose a room type -->
                         <div class="col-md-12">
                             <label class="col-md-3" for="room.roomType">Room Type: </label>
-                            <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.roomType" #roomT="ngModel">
-                                <option>Apartment</option>
-                                <option>Dorm</option>
+                            <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.apiRoomType" #roomT="ngModel">
+                                <option *ngFor="let type of types" [ngValue]="type" >{{type.roomType}}</option>
                             </select>
                         </div>
                         <!-- Input a room number with or without an ending Capital letter -->
@@ -81,19 +80,20 @@
                             <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-8">1 to 5 digits ending with or without a capital letter</div>
                         </div>
                         <!-- Choose the number of beds in the room -->
-                        <div class="col-md-10">
-                            <label class="col-md-5" for="room.numberOfBeds">Number of Bedrooms: </label> {{ room.numberOfBeds }}
-                            <input type="range" min="1" max="8" value="2" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
+                        <div class="col-md-11">
+                            <label class="col-md-5" for="room.numberOfBeds">Number of Beds: </label> {{ room.numberOfBeds }}
+                            <input type="range" min="1" max="8" value="4" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
                         </div>
                         <br><br>
                         <!-- Choose the amenities in the room -->
                         <div class="col-md-8">
                             <label class="col-md-5">Amenities:</label>
                             <br>
-                            <div class="col-md-10">
+                            <div class="col-md-12 col-sm-10 col-xs-10" id="amenityStyle">
                                 <span *ngFor="let amenity of amenities">
-                                    <label for="amenity.amenityString" class="col-md-5">{{ amenity.amenityString }}</label>
-                                    <input type="checkbox" name="amenity.amenityString" [(ngModel)]="amenity.isSelected">
+                                    <label for="amenity.amenity" class="col-md-6">
+                                        <input type="checkbox" name="amenity.amenity" [(ngModel)]="amenity.isSelected">
+                                        &nbsp; {{ amenity.amenity }}</label>
                                 </span>
                             </div>
                         </div>
@@ -106,18 +106,18 @@
                         <!-- Choose the ending date -->
                         <div class="col-md-12">
                             <label class="col-md-3">End Date:</label>
-                            <input class="input-border col-md-3" type="date" name="{{displayStart}}" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                            <input class="input-border col-md-3" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
                         </div>
                         <!-- The submit and cancel button. Also some validation for a valid address, the distance between
                         the room and training center, and the room and the compex -->
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
-                            <div *ngIf="validAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
-                            <div *ngIf="validDistanceToTraining" class="alert alert-danger"> 
+                            <div *ngIf="invalidAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
+                            <div *ngIf="invalidDistanceToTraining" class="alert alert-danger"> 
                                 The distance between the room address and the training center address cannot exceed twenty miles.
                             </div>
-                            <div *ngIf="validDistanceToComplex" class="alert alert-danger"> 
+                            <div *ngIf="invalidDistanceToComplex" class="alert alert-danger"> 
                                 The distance between the room address and the living complex address cannot exceed five miles.
                             </div>
                         </div>

@@ -101,6 +101,20 @@
                     The distance between the living complex and training center cannot exceed twenty miles.
             </div>
         </form>
+        <hr>
+        <div *ngIf="currentProvider" class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <H5>Your Training Center Information:</H5>
+                </div>
+                <div class="card-content">
+                    <p>Name: {{ currentProvider.apiTrainingCenter.centerName }}</p>
+                    <p>Phone Number: {{ currentProvider.apiTrainingCenter.contactNumber }}</p>
+                    <p>{{ currentProvider.apiTrainingCenter.apiAddress.streetAddress }}</p>
+                    <p>{{ currentProvider.apiTrainingCenter.apiAddress.city }}, {{ currentProvider.apiTrainingCenter.apiAddress.state }} {{ currentProvider.apiTrainingCenter.apiAddress.zipcode }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
     

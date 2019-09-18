@@ -6,52 +6,51 @@ import { Observable, of } from 'rxjs';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
 import { environment } from 'src/environments/environment';
+import { RoomType } from 'src/interfaces/room-type';
+import { Gender } from 'src/interfaces/gender';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RoomService {
-    apiUrl: string;
-    constructor(private httpBus: HttpClient) {
-        this.apiUrl = environment.endpoints.providerXYZ;
-    }
+    roomUrl = environment.endpoints.providerXYZ;
+
+    constructor(private httpBus: HttpClient) { }
 
     getRoomById(id: number): Observable<Room> {
         return of(TestServiceData.room);
     }
-    postRoom(r: Room): Observable<Room> {
-        return of(r);
+
+    postRoom(room: Room, providerId: number): Observable<Room> {
+        const postRoomUrl = this.roomUrl + 'Room/' + providerId;
+        return this.httpBus.post<Room>(postRoomUrl, JSON.parse(JSON.stringify(room)));
     }
+
     getRoomsByProvider(providerId: number): Observable<Room[]> {
-        return this.httpBus.get<Room[]>(this.apiUrl + `Room/provider/${providerId}`);
+        const providerRoomsUrl = `${this.roomUrl}Room/provider/${providerId}`;
+        return this.httpBus.get<Room[]>(providerRoomsUrl);
     }
-    getRoomTypes(): Observable<string[]> {
-        return of(['Apartment', 'Dorm']);
+    getRoomTypes(): Observable<RoomType[]> {
+        const url = this.roomUrl + 'Room/type';
+        return this.httpBus.get<RoomType[]>(url);
     }
-    getGenders(): Observable<string[]> {
-        const simpleObservable = new Observable<string[]>((sub) => {
-            const GenderList: string[] = TestServiceData.dummyGender;
-            sub.next(GenderList);
-            sub.complete();
-        });
-        return simpleObservable;
+    getGenders(): Observable<Gender[]> {
+        const url = this.roomUrl + 'Gender';
+        return this.httpBus.get<Gender[]>(url);
     }
+
     getAmenities(): Observable<Amenity[]> {
-        console.log('get amentities method called.\n');
-        const simpleObservable = new Observable<Amenity[]>((sub) => {
-            const AList: Amenity[] = TestServiceData.dummmyList;
-            sub.next(AList);
-            sub.complete();
-        });
-        return simpleObservable;
+        const amenitiesUrl = this.roomUrl + 'Room/amenity';
+        console.log('Get amenities called');
+        return this.httpBus.get<Amenity[]>(amenitiesUrl);
     }
 
     updateRoom(r: Room, providerId: number) {
         console.log(JSON.stringify(r));
-        return this.httpBus.put<Room>(this.apiUrl + `Room/${providerId}`, r);
+        return this.httpBus.put<Room>(this.roomUrl + `Room/${providerId}`, r);
     }
 
     deleteRoom(r: Room, provider: number) {
-        return this.httpBus.delete(this.apiUrl + `Room/${r.roomId}/provider/${provider}`);
+        return this.httpBus.delete(this.roomUrl + `Room/${r.roomId}/provider/${provider}`);
     }
 }

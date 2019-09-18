@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
 import { Complex } from 'src/interfaces/complex';
+import { RedirectService } from '../services/redirect.service';
 
 @Component({
   selector: 'dev-home',
@@ -17,20 +18,32 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private providerService: ProviderService,
-    private router: Router
+    private router: Router,
+    private redirect: RedirectService
   ) { }
 
   ngOnInit() {
-    // get locations belonging to the provider
-    this.providerService.getProviderById(1)
-      .subscribe(
-        (provider) => this.provider = provider,
-        (err) => console.log(err)
-      );
-    this.providerService.getComplexesByProvider(1)
-      .subscribe(
-        (complexes) => this.complexes = complexes,
-        (err) => console.log(err)
-      );
+    this.provider = this.redirect.checkProvider();
+    if (this.provider !== null) {
+      this.getProviderOnInit(this.provider.providerId).then(p => {
+        this.provider = p;
+        this.getLivingComplexesOnInit();
+      });
+    } else {
+    }
+  }
+
+  getProviderOnInit(providerId: number): Promise<Provider> {
+    console.log('this runs before error');
+    return this.providerService.getProviderById(providerId)
+      .toPromise()
+      .then((provider) => this.provider = provider);
+  }
+
+  getLivingComplexesOnInit(): void {
+    this.providerService.getComplexesByProvider(this.provider.providerId)
+      .toPromise()
+      .then((complexes) => this.complexes = complexes)
+      .catch((err) => console.log(err));
   }
 }

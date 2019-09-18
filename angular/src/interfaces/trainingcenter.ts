@@ -2,7 +2,7 @@ import { Address } from './address';
 
 export interface TrainingCenter {
     centerId: number;
-    address: Address;
+    apiAddress: Address;
     centerName: string;
     contactNumber: string;
 }

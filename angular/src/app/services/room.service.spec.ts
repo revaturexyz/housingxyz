@@ -1,7 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { RoomService } from './room.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Address } from '../../interfaces/address';
 import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
 import { Complex } from 'src/interfaces/complex';
@@ -10,41 +9,33 @@ import { TestServiceData } from './static-test-data';
 const complex1: Complex = TestServiceData.dummyComplex;
 const complex2: Complex = TestServiceData.dummyComplex2;
 
-const amenity1: Amenity = {
-  amenityId: 1,
-  amenityString:  'Washer/Dryer',
-  isSelected: true
-};
-const amenity2: Amenity = {
-  amenityId: 2,
-  amenityString: 'Smart TV',
-  isSelected: true
-};
+const amenity1: Amenity = TestServiceData.dummyAmenity1;
+const amenity2: Amenity = TestServiceData.dummyAmenity2;
 
 const amenityList: Amenity[] = [
   amenity1,
   amenity2,
-  { amenityId: 3, amenityString: 'Patio', isSelected: true},
-  { amenityId: 4, amenityString: 'Fully Furnished', isSelected: true},
-  { amenityId: 5, amenityString: 'Full Kitchen', isSelected: true},
-  { amenityId: 6, amenityString: 'Individual Bathrooms', isSelected: true}
+  { amenityId: 3, amenity: 'Patio', isSelected: true },
+  { amenityId: 4, amenity: 'Fully Furnished', isSelected: true },
+  { amenityId: 5, amenity: 'Full Kitchen', isSelected: true },
+  { amenityId: 6, amenity: 'Individual Bathrooms', isSelected: true }
 ];
 
 const room1: Room = {
-  roomId: 0, roomAddress: {
+  roomId: 0, apiAddress: {
     addressId: 1, streetAddress: '123 Address St', city:
-      'Arlington', state: 'TX', zipCode: '12345'
-  }, roomNumber: '', numberOfBeds: 2, roomType: '',
-  isOccupied: false, amenities: amenityList, startDate:
-    new Date(), endDate: new Date(), complex: complex1
+      'Arlington', state: 'TX', zipcode: '12345'
+  }, roomNumber: '', numberOfBeds: 2, apiRoomType: { typeId: 0, roomType: 'Dorm' },
+  isOccupied: false, apiAmenity: amenityList, startDate:
+    new Date(), endDate: new Date(), apiComplex: complex1
 };
 const room2: Room = {
-  roomId: 0, roomAddress: {
+  roomId: 0, apiAddress: {
     addressId: 2, streetAddress: '701 S Nedderman Dr',
-    city: 'Arlington', state: 'TX', zipCode: '76019'
-  }, roomNumber: '323', numberOfBeds: 9001,
-  roomType: 'Dorm', isOccupied: true, amenities: [{ amenityId: 2, amenityString: 'Washer/Dryer', isSelected: true}],
-  startDate: new Date(), endDate: new Date(), complex: complex2
+    city: 'Arlington', state: 'TX', zipcode: '76019'
+  }, roomNumber: '323', numberOfBeds: 9001, apiRoomType: { typeId: 1, roomType: 'Dorm' },
+  isOccupied: true, apiAmenity: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true }],
+  startDate: new Date(), endDate: new Date(), apiComplex: complex2
 };
 
 describe('RoomService', () => {
@@ -75,14 +66,13 @@ describe('RoomService', () => {
         room2];
       myProvider.getRoomsByProvider(1).subscribe((room) => {
         expect(room.length).toBe(2);
-        expect(room[0].roomAddress).toEqual(someRooms[0].roomAddress);
-        expect(room[1].roomAddress).toEqual(someRooms[1].roomAddress);
+        expect(room[0].apiAddress).toEqual(someRooms[0].apiAddress);
+        expect(room[1].apiAddress).toEqual(someRooms[1].apiAddress);
       });
-      /*// add in the baseurl later
-      const  call = httpMock.expectOne(`${myProvider}/rooms`);
-      expect(call.request.method).toBe("GET");
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/provider/1`);
+      expect(call.request.method).toBe('GET');
       call.flush(someRooms);
-      httpMock.verify();*/
+      httpMock.verify();
     });
   });
   describe('getRoomById', () => {
@@ -90,7 +80,7 @@ describe('RoomService', () => {
     it('should return an Observable<Room>', () => {
       const oneRoom = room1;
       myProvider.getRoomById(0).subscribe((room) => {
-        expect(room.roomAddress).toEqual(oneRoom.roomAddress);
+        expect(room.apiAddress).toEqual(oneRoom.apiAddress);
       });
     });
   });
@@ -98,28 +88,41 @@ describe('RoomService', () => {
     // postRoom
     it('should return an Observable<Room>', () => {
       const oneRoom = room1;
-      myProvider.postRoom(oneRoom).subscribe((room) => {
+      myProvider.postRoom(oneRoom, 1).subscribe((room) => {
         expect(room).toEqual(oneRoom);
       });
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/1`);
+      expect(call.request.method).toBe('POST');
+      call.flush(oneRoom);
+      httpMock.verify();
     });
   });
   describe('getRoomTypes', () => {
     it('should return an Observable<string[]>', () => {
-      const roomGen = ['Apartment', 'Dorm'];
+      const roomGen = [{ typeId: 0, roomType: 'Apartment' }, { typeId: 1, roomType: 'Dorm' }];
       myProvider.getRoomTypes().subscribe((types) => {
         expect(types[0]).toEqual(roomGen[0]);
         expect(types[1]).toEqual(roomGen[1]);
       });
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/type`);
+      expect(call.request.method).toBe('GET');
+      call.flush(roomGen);
+      httpMock.verify();
     });
   });
   describe('getGenders', () => {
     it('should return an Observable<string[]>', () => {
-      const roomGen = ['male', 'female', 'undefined'];
+      const roomGen = [{ genderId: 0, genderType: 'male' },
+      { genderId: 1, genderType: 'female' }, { genderId: 2, genderType: 'undefined' }];
       myProvider.getGenders().subscribe((types) => {
         expect(types[0]).toEqual(roomGen[0]);
         expect(types[1]).toEqual(roomGen[1]);
         expect(types[2]).toEqual(roomGen[2]);
       });
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Gender`);
+      expect(call.request.method).toBe('GET');
+      call.flush(roomGen);
+      httpMock.verify();
     });
   });
   describe('getAmenities', () => {
@@ -131,6 +134,12 @@ describe('RoomService', () => {
         expect(amenities[0]).toEqual(types[0]);
         expect(amenities[1]).toEqual(types[1]);
       });
+
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/amenity`);
+      expect(call.request.method).toBe('GET');
+      call.flush(amenities);
+      httpMock.verify();
+
     });
   });
 });
