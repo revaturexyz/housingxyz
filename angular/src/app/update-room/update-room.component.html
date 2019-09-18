@@ -20,7 +20,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{activeComplex.complexName}}</h5>
                 <p class="card-text" *ngIf="activeComplex.apiAddress">{{activeComplex.apiAddress.streetAddress}}</p>
-                <p class="card-text" *ngIf="activeComplex.apiAddress">{{activeComplex.apiAddress.city}}, {{activeComplex.apiAddress.state}} {{activeComplex.apiAddress.zipCode}}</p>
+                <p class="card-text" *ngIf="activeComplex.apiAddress">{{activeComplex.apiAddress.city}}, {{activeComplex.apiAddress.state}} {{activeComplex.apiAddress.zipcode}}</p>
                 <p class="card-text">{{activeComplex.contactNumber}}</p>
               </div>
             </div>
@@ -28,12 +28,8 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="false">
-    <!-- This div houses the room details component. For more details on how
-    that is displayed go to the component itself. In here it just sets a bunch
-    of events on it so that it may be selected. That then updates more fields
-    in the component. -->
-  </ng-container>
+  <!-- End left half of page -->
+  <!-- Begin right half of page -->
   <div class="col-md-8 bg-body">
       <div class="p-5 fillDiv">
           <div class="fillPage">
@@ -43,12 +39,6 @@
               </ng-container>
             </div>
             <div class="bottomBod">
-              <ng-container *ngIf="false">
-                <!-- This div houses a component that shows a table to make displaying
-                  the form and the selectedroom details easier. It only renders when
-                  a room has been selected from above. -->
-              </ng-container>
-              <br>
               <ng-container *ngIf="selectedRoom">
                 <dev-room-update-form [room]="selectedRoom" (roomChange)="roomChange($event)" (deleteRoom)="removeRoom($event)"></dev-room-update-form>
               </ng-container>

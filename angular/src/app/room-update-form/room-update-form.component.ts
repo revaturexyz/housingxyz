@@ -39,7 +39,12 @@ export class RoomUpdateFormComponent implements OnInit {
   // emits an event called deleteRoom to the parent component
   @Output() deleteRoom = new EventEmitter();
 
-  constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService, private complexService: ComplexService) { }
+  constructor(
+    private datePipe: DatePipe,
+    private dialog: MatDialog,
+    private roomService: RoomService,
+    private complexService: ComplexService
+  ) { }
 
   // initializes data for the dialog, and then calls it to be rendered on screen. This dialog is used
   // to change the amenities
