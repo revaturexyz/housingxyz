@@ -17,5 +17,4 @@ export class ComplexService {
   getAmenityByComplex(id: number): Observable<Amenity[]> {
     return this.httpBus.get<Amenity[]>(this.apiUrl + `Complex/${id}/amenity`);
   }
-    
 }
