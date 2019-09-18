@@ -178,8 +178,6 @@ export class AddRoomComponent implements OnInit {
     // selected
     this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
 
-    console.log(this.room);
-
     try {
       await this.roomService.postRoom(this.room, this.provider.providerId).toPromise();
       this.router.navigate(['show-rooms']);
@@ -246,7 +244,6 @@ export class AddRoomComponent implements OnInit {
 
 
   getProviderOnInit(providerId: number): Promise<Provider> {
-    console.log('this runs before error');
     return this.providerService.getProviderById(providerId)
       .toPromise()
       .then((provider) => this.provider = provider);

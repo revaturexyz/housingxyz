@@ -147,7 +147,6 @@ export class RoomUpdateFormComponent implements OnInit {
   // this function executes when a user has decided to make some edits to a room. It sets a matching room in the roomList
   // to the newly edited room, and then clears all flags so that the user's view is cleared.
   submit(r: Room) {
-    console.log('fuck');
     this.roomChange.emit(r);
     this.resetForm();
   }

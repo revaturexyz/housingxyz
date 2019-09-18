@@ -41,12 +41,10 @@ export class RoomService {
 
     getAmenities(): Observable<Amenity[]> {
         const amenitiesUrl = this.roomUrl + 'Room/amenity';
-        console.log('Get amenities called');
         return this.httpBus.get<Amenity[]>(amenitiesUrl);
     }
 
     updateRoom(r: Room, providerId: number) {
-        console.log(JSON.stringify(r));
         return this.httpBus.put<Room>(this.roomUrl + `Room/${providerId}`, r);
     }
 

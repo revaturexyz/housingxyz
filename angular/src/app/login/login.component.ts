@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
       .toPromise()
       .then((providers) => {
         this.providers = providers;
-        console.log(providers);
       })
       .catch((err) => console.log(err));
   }

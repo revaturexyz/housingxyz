@@ -39,7 +39,6 @@ export class RequestDialogComponent implements OnInit {
   // this function is called when the user saves the request. It sends the request then
   // returns control to the parent
   save() {
-    console.log(JSON.stringify(this.req));
     this.providerService.postRequestByProvider(this.req);
     this.dialogRef.close();
   }

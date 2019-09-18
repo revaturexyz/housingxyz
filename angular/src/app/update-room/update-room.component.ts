@@ -6,6 +6,8 @@ import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
 import { DatePipe } from '@angular/common';
 import { RoomUpdateFormComponent } from '../room-update-form/room-update-form.component';
+import { RedirectService } from '../services/redirect.service';
+import { Provider } from 'src/interfaces/provider';
 
 @Component({
   selector: 'dev-update-room',
@@ -23,6 +25,7 @@ export class UpdateRoomComponent implements OnInit {
   selectedRoom: Room;
   showString = 'Choose Complex';
   highlightRoom: Room;
+  provider: Provider;
 
   // observer for the service request that returns an observable of complexes.
   // sets the internal complexList: Complex[] to valid data.
@@ -47,10 +50,24 @@ export class UpdateRoomComponent implements OnInit {
   };
 
   // injects dependency on Provider and Room services.
-  constructor(private providerService: ProviderService, private roomService: RoomService, private datePipe: DatePipe) { }
+  constructor(
+    private providerService: ProviderService,
+    private roomService: RoomService,
+    private datePipe: DatePipe,
+    private redirect: RedirectService
+    ) { }
 
   // initializes complexes and all rooms by providers at init time.
   ngOnInit() {
+    this.provider = this.redirect.checkProvider();
+    if (this.provider !== null) {
+      this.getProviderOnInit(this.provider.providerId).then(p => {
+        this.provider = p;
+        this.getLivingComplexesOnInit();
+        this.getRoomsOnInit();
+      });
+    } else {
+    }
     this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
     this.getRoomsOnInit();
   }
@@ -115,7 +132,6 @@ export class UpdateRoomComponent implements OnInit {
   roomChange(r: Room) {
     this.roomService.updateRoom(r, 1).subscribe(x => {
       this.makeRoomChanges(r);
-      console.log(x);
     });
   }
 
@@ -132,8 +148,6 @@ export class UpdateRoomComponent implements OnInit {
         element.startDate = r.startDate;
         element.endDate = r.endDate;
         element.apiComplex = r.apiComplex;
-        console.log(element);
-        console.log(r);
       }
     });
     this.complexRooms.forEach(element => {
@@ -148,8 +162,6 @@ export class UpdateRoomComponent implements OnInit {
         element.startDate = r.startDate;
         element.endDate = r.endDate;
         element.apiComplex = r.apiComplex;
-        console.log(element);
-        console.log(r);
       }
     });
     this.selectedRoom = null;
@@ -168,5 +180,18 @@ export class UpdateRoomComponent implements OnInit {
     this.complexRooms = this.complexRooms.filter(x => x.roomId !== r.roomId);
     this.selectedRoom = null;
     this.highlightRoom = null;
+  }
+  
+  getProviderOnInit(providerId: number): Promise<Provider> {
+    return this.providerService.getProviderById(providerId)
+      .toPromise()
+      .then((provider) => this.provider = provider);
+  }
+
+  getLivingComplexesOnInit(): void {
+    this.providerService.getComplexesByProvider(this.provider.providerId)
+      .toPromise()
+      .then((complexes) => this.complexList = complexes)
+      .catch((err) => console.log(err));
   }
 }
