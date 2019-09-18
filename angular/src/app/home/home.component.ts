@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
 import { Complex } from 'src/interfaces/complex';
+import { RedirectService } from '../services/redirect.service';
 
 @Component({
   selector: 'dev-home',
@@ -17,26 +18,26 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private providerService: ProviderService,
-    private router: Router
+    private router: Router,
+    private redirect: RedirectService
   ) { }
 
   ngOnInit() {
-    this.getProviderOnInit()
-      .then(() => this.getLivingComplexesOnInit());
+    this.provider = this.redirect.checkProvider();
+    if (this.provider !== null) {
+      this.getProviderOnInit(this.provider.providerId).then(p => {
+        this.provider = p;
+        this.getLivingComplexesOnInit();
+      });
+    } else {
+    }
   }
 
-  getProviderOnInit() {
-    let providerId = 0;
-    try {
-      providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
-    } catch {
-      this.router.navigate(['/login']);
-    }
-
+  getProviderOnInit(providerId: number): Promise<Provider> {
+    console.log('this runs before error');
     return this.providerService.getProviderById(providerId)
       .toPromise()
-      .then((provider) => this.provider = provider)
-      .catch((err) => console.log(err));
+      .then((provider) => this.provider = provider);
   }
 
   getLivingComplexesOnInit(): void {

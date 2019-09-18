@@ -5,6 +5,7 @@ import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
 import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
+import { RedirectService } from '../services/redirect.service';
 
 @Component({
   selector: 'dev-add-complex',
@@ -22,7 +23,8 @@ export class AddComplexComponent implements OnInit {
   constructor(
     private router: Router,
     private mapsService: MapsService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private redirect: RedirectService
   ) {
     // Populate default form values
     this.formLivingComplex = {
@@ -47,7 +49,14 @@ export class AddComplexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProviderOnInit();
+    this.currentProvider = this.redirect.checkProvider();
+    if (this.currentProvider !== null) {
+      this.getProviderOnInit(this.currentProvider.providerId)
+      .then(p => {
+        this.currentProvider = p;
+      });
+    } else {
+    }
   }
 
   postLivingComplex(): void {
@@ -101,19 +110,10 @@ export class AddComplexComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  getProviderOnInit() {
-    let providerId = 0;
-    try {
-      providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
-    } catch {
-      this.router.navigate(['/login']);
-    }
-
-    this.providerService.getProviderById(providerId)
+  getProviderOnInit(providerId: number): Promise<Provider> {
+    console.log('this runs before error');
+    return this.providerService.getProviderById(providerId)
       .toPromise()
-      .then((provider) => {
-        this.currentProvider = provider;
-      })
-      .catch((err) => console.log(err));
+      .then((provider) => this.currentProvider = provider);
   }
 }

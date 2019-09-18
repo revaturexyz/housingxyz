@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dev-login',
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   providerDisplayString = 'Select a Provider';
 
   constructor(
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -28,5 +30,6 @@ export class LoginComponent implements OnInit {
   selectProvider(provider: Provider) {
     localStorage.setItem('currentProvider', JSON.stringify(provider));
     this.providerDisplayString = provider.companyName + ' | ' + provider.contactNumber;
+    this.router.navigateByUrl('/show-rooms');
   }
 }

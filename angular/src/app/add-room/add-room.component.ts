@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { TestServiceData } from '../services/static-test-data';
 import { Router } from '@angular/router';
 import { RoomType } from 'src/interfaces/room-type';
+import { RedirectService } from '../services/redirect.service';
 
 @Component({
   selector: 'dev-add-room',
@@ -64,7 +65,8 @@ export class AddRoomComponent implements OnInit {
     private router: Router,
     private roomService: RoomService,
     private providerService: ProviderService,
-    private mapservice: MapsService
+    private mapservice: MapsService,
+    private redirect: RedirectService
   ) {
     // Initialize an empty address and room object for our
     // forms
@@ -95,23 +97,21 @@ export class AddRoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProviderOnInit()
-      .then( () => {
-        this.setUpMomentData();
+    this.provider = this.redirect.checkProvider();
+    if (this.provider !== null) {
+      this.getProviderOnInit(this.provider.providerId).then(p => {
+        this.provider = p;
 
-        // These must only be called after
-        // the promise is resolved as they rely
-        // on current provider information.
         this.getComplexesOnInit();
         this.getAddressesOnInit();
-      })
-      .catch((err) => console.log(err));
+      });
+    } else {
+    }
+
+    this.setUpMomentData();
 
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
-    console.log(this.roomService.getRoomTypes());
-    console.log(this.roomService.getRoomsByProvider(1));
-    console.log(this.types);
   }
 
   private setUpMomentData() {
@@ -245,18 +245,11 @@ export class AddRoomComponent implements OnInit {
   }
 
 
-  getProviderOnInit() {
-    let providerId = 0;
-    try {
-      providerId = JSON.parse(localStorage.getItem('currentProvider')).providerId;
-    } catch {
-      this.router.navigate(['/login']);
-    }
-
+  getProviderOnInit(providerId: number): Promise<Provider> {
+    console.log('this runs before error');
     return this.providerService.getProviderById(providerId)
       .toPromise()
-      .then((provider) => this.provider = provider)
-      .catch((error) => console.log(error));
+      .then((provider) => this.provider = provider);
   }
 
   // Used for client-side validation for date input of the form.
