@@ -13,7 +13,7 @@ import { Gender } from 'src/interfaces/gender';
     providedIn: 'root'
 })
 export class RoomService {
-    roomUrl = environment.endpoints.providerXYZ;
+    roomUrl = environment.endpoints.providerXYZ + 'api/';
 
     constructor(private httpBus: HttpClient) { }
 
