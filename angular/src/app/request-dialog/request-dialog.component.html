@@ -4,9 +4,11 @@
     when the popup is closed, it sends the changes to the amenities back to the parent component -->
 </ng-container>
 <mat-dialog-content>
-        <h3 mat-dialog-title>Make A Request</h3>
-        <input type="text" class="form-group" [(ngModel)]="req.title" placeholder="Request Title">
-        <textarea type="text" class="form-group" [(ngModel)]="req.reason" placeholder="Please input your request here."></textarea>
+    <h4>Make A Request</h4>
+    <input type="text" class="input-border" [(ngModel)]="req.title" placeholder="Request Title">
+    <div>
+        <textarea type="text" class="input-border" [(ngModel)]="req.reason" placeholder="Please input your request here."></textarea>
+    </div>
 </mat-dialog-content>
 
 <mat-dialog-actions style="float: right;">
