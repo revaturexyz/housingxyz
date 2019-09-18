@@ -4,6 +4,7 @@ import { Complex } from 'src/interfaces/complex';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
+import { RoomType } from 'src/interfaces/room-type';
 
 export class TestServiceData {
     static dummyAddress: Address = {
@@ -231,4 +232,9 @@ export class TestServiceData {
         TestServiceData.dummyProvider,
         TestServiceData.testProvider2
     ];
+
+    static testRoomType: RoomType = {
+        typeId: 1,
+        roomType: 'Dormitory'
+    };
 }

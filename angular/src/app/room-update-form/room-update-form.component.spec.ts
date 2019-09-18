@@ -35,6 +35,7 @@ describe('RoomUpdateFormComponent', () => {
     fixture = TestBed.createComponent(RoomUpdateFormComponent);
     component = fixture.componentInstance;
     component.room = room;
+    component.room.apiRoomType = TestServiceData.testRoomType;
     fixture.detectChanges();
   });
 
