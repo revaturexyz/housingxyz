@@ -14,7 +14,7 @@ export const environment = {
   extraQueryParameter: 'nux=1', // This is optional
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
-    providerXYZ: 'http://192.168.99.100:10080/api/' // Note, this is an object, you could add several things here
+    providerXYZ: 'http://192.168.99.100:10080/' // Note, this is an object, you could add several things here
   }
 };
 

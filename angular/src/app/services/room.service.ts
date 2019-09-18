@@ -14,7 +14,7 @@ import { MsalService } from '@azure/msal-angular';
     providedIn: 'root'
 })
 export class RoomService {
-    roomUrl = environment.endpoints.providerXYZ;
+    roomUrl = environment.endpoints.providerXYZ + 'api/';
 
     httpOptions: any;
     

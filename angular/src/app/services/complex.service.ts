@@ -10,14 +10,13 @@ import { MsalService } from '@azure/msal-angular';
 })
 export class ComplexService {
 
-  apiUrl: string;
+  apiUrl: string =environment.endpoints.providerXYZ + 'api/';
 
   httpOptions: any;
   constructor(
     private httpBus: HttpClient,
     msalService: MsalService
   ) {
-    this.apiUrl = environment.endpoints.providerXYZ;
     this.httpOptions = {
       headers: new HttpHeaders({
           'Authorization': msalService.getUser().userIdentifier
