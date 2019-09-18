@@ -10,4 +10,3 @@ import * as Msal from 'msal';
 export class AppComponent {
   title = 'housingxyz';
 }
-

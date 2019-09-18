@@ -18,7 +18,7 @@ export class MapsService {
       address.streetAddress + '+' +
       address.city + '+' +
       address.state + '+' +
-      address.zipCode +
+      address.zipcode +
       '&key=' + environment.googleMapsKey;
 
     return await this.httpClient.get<Maps>(query).toPromise()
@@ -37,7 +37,7 @@ export class MapsService {
       address.streetAddress + '+' +
       address.city + '+' +
       address.state + '+' +
-      address.zipCode +
+      address.zipcode +
       '&key=' + environment.googleMapsKey;
 
     return await this.httpClient.get<Maps>(query).toPromise()

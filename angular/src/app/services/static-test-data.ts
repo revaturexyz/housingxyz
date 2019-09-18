@@ -11,7 +11,7 @@ export class TestServiceData {
         streetAddress: '123 Address St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345'
+        zipcode: '12345'
     };
 
     static livPlusAddress: Address = {
@@ -19,7 +19,7 @@ export class TestServiceData {
         streetAddress: '1001 S Center St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '76010'
+        zipcode: '76010'
     };
 
     static dummyTrainingCenter: TrainingCenter = {
@@ -34,7 +34,7 @@ export class TestServiceData {
         streetAddress: '749 South Cooper St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '76010'
+        zipcode: '76010'
     };
 
     static complexAddress1: Address = {
@@ -42,7 +42,7 @@ export class TestServiceData {
         streetAddress: '123 Complex St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345'
+        zipcode: '12345'
     };
 
     static complexAddress2: Address = {
@@ -50,39 +50,39 @@ export class TestServiceData {
         streetAddress: '234 Complex St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '23456',
+        zipcode: '23456',
     };
 
     static dummyGender: string[] = ['male', 'female', 'undefined'];
 
     static dummyAmenity1: Amenity = {
         amenityId: 1,
-        amenityString:  'Washer/Dryer',
+        amenity:  'Washer/Dryer',
         isSelected: true
     };
     static dummyAmenity2: Amenity = {
         amenityId: 2,
-        amenityString: 'Smart TV',
+        amenity: 'Smart TV',
         isSelected: true
     };
     static dummyAmenity3: Amenity = {
         amenityId: 3,
-        amenityString: 'Patio',
+        amenity: 'Patio',
         isSelected: true
     };
     static dummyAmenity4: Amenity = {
         amenityId: 4,
-        amenityString: 'Fully Furnished',
+        amenity: 'Fully Furnished',
         isSelected: true
     };
     static dummyAmenity5: Amenity = {
         amenityId: 5,
-        amenityString: 'Full Kitchen',
+        amenity: 'Full Kitchen',
         isSelected: true
     };
     static dummyAmenity6: Amenity = {
         amenityId: 6,
-        amenityString: 'Individual Bathrooms',
+        amenity: 'Individual Bathrooms',
         isSelected: true
     };
 
@@ -103,7 +103,7 @@ export class TestServiceData {
         streetAddress: '701 S Nedderman Dr',
         city: 'Arlington',
         state: 'Texas',
-        zipCode: '76019',
+        zipcode: '76019',
     };
 
     static trainingcenter: TrainingCenter = {
@@ -118,7 +118,7 @@ export class TestServiceData {
         streetAddress: '123 s. Chicago Ave',
         city: 'Chicago',
         state: 'Illinois',
-        zipCode: '60645',
+        zipcode: '60645',
     };
 
     static trainingcenter2: TrainingCenter = {
@@ -133,7 +133,7 @@ export class TestServiceData {
         streetAddress: '123 Address St',
         city: 'Arlington',
         state: 'TX',
-        zipCode: '12345',
+        zipcode: '12345',
     };
 
     static dummyProvider: Provider = {
@@ -154,15 +154,15 @@ export class TestServiceData {
 
     static room: Room = {
         roomId: 0,
-        roomAddress: TestServiceData.dummyAddress,
+        apiAddress: TestServiceData.dummyAddress,
         roomNumber: '',
         numberOfBeds: 2,
-        roomType: '',
+        apiRoomType: null,
         isOccupied: false,
-        amenities: TestServiceData.dummmyList,
+        apiAmenity: TestServiceData.dummmyList,
         startDate: new Date(),
         endDate: new Date(),
-        complex: TestServiceData.dummyComplex
+        apiComplex: TestServiceData.dummyComplex
     };
 
     static dummyComplex2: Complex = {
@@ -175,25 +175,25 @@ export class TestServiceData {
 
     static room2: Room = {
         roomId: 0,
-        roomAddress: {
+        apiAddress: {
             addressId: 2,
             streetAddress: '701 S Nedderman Dr',
             city: 'Arlington',
             state: 'TX',
-            zipCode: '76019'
+            zipcode: '76019'
         },
         roomNumber: '323',
         numberOfBeds: 9001,
-        roomType: 'Dorm',
+        apiRoomType: null,
         isOccupied: true,
-        amenities: [{
+        apiAmenity: [{
             amenityId: 2,
-            amenityString: 'Washer/Dryer',
+            amenity: 'Washer/Dryer',
             isSelected: true
         }],
         startDate: new Date(),
         endDate: new Date(),
-        complex: TestServiceData.dummyComplex2
+        apiComplex: TestServiceData.dummyComplex2
     };
 
     static testTrainingCenter2Address: Address = {
@@ -201,7 +201,7 @@ export class TestServiceData {
         streetAddress: 'One UTSA Circle',
         city: 'San Antonio',
         state: 'TX',
-        zipCode: '78249'
+        zipcode: '78249'
     };
 
     static testTrainingCenter2: TrainingCenter = {
@@ -216,13 +216,13 @@ export class TestServiceData {
         streetAddress: '7114 UTSA Boulevard',
         city: 'San Antonio',
         state: 'TX',
-        zipCode: '78249'
+        zipcode: '78249'
     };
 
     static testProvider2: Provider = {
         providerId: 1,
         companyName: 'Prado Student Living',
-        address: TestServiceData.testProvider2Address,
+        address: TestServiceData.livPlusAddress,
         contactNumber: '(203) 232-2847',
         apiTrainingCenter: TestServiceData.testTrainingCenter2
     };

@@ -1,0 +1,129 @@
+<!-- Used for the split screen -->
+<div class="d-md-flex h-md-100 align-items-center">
+    <!-- Left side of the split screen -->
+    <div class="col-md-4 p-0 bg-orange h-md-100">
+        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+                <!-- Used to diplay the Training Center information -->
+                <ng-container *ngIf="provider">
+                    <h3>Training Center</h3>
+                    <p> {{ provider.apiTrainingCenter.centerName }}</p>
+                    <p> {{ provider.apiTrainingCenter.contactNumber }}</p>
+                </ng-container>
+                <!-- Drop down to choose a complex -->
+                <div class="col">
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ complexShowString }}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                          <button ngbDropdownItem (click)="complexChoose(complex)" *ngFor="let complex of complexList">{{ complex.complexName }}</button>
+                        </div>
+                    </div>
+                </div> 
+
+                <br>
+                <!-- Drop down to let you choose a predetermined address -->
+                <div *ngIf="show === false" class="col">
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ addressShowString }}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                          <button ngbDropdownItem (click)="addressChoose(address)" *ngFor="let address of addressList">{{ address.streetAddress }}</button>
+                        </div>
+                    </div>
+                </div> 
+
+                <br>
+                <!-- form to give the user a chance to input an address if one of the predetermined one doesnt work -->
+                <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
+                <form *ngIf="show === true">
+                    <div>
+                        <label class="col-md-9">Street Address: <input [(ngModel)]="room.apiAddress.streetAddress" name="room.apiAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
+                        <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
+                            Street address must contain at least 5 characters.
+                        </div>
+
+                        <label class="col-md-9"> City: <input [(ngModel)]="room.apiAddress.city" name="room.apiAddress.city" class="input-border" type="text" required minlength="1" maxlength="50" #city="ngModel"> </label> 
+                        <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">City name is either too short or too long.</div>
+
+                        <label class="col-md-9"> State: <input [(ngModel)]="room.apiAddress.state" name="room.apiAddress.state" class="input-border" type="text" required minlength ="2" maxlength="50" #state="ngModel"> </label> 
+                        <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">Please enter a valid state name or state abbreviation.</div>
+
+                        <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.apiAddress.zipCode" name="room.apiAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
+                        <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
+                        <br>
+                        <button class="btn btn-secondary" (click)="back()">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+        
+    <!-- The right side of the page -->
+    <div class="col-md-8 p-0 bg-body h-md-100 loginarea">
+        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+                <form id="roomForm">
+                    <h1>Add Room</h1>
+                    <br>
+                    <div class="container">
+                        <!-- Choose a room type -->
+                        <div class="col-md-12">
+                            <label class="col-md-3" for="room.roomType">Room Type: </label>
+                            <select class="input-border col-md-3 input-border" name="room.roomType" required [(ngModel)]="room.apiRoomType" #roomT="ngModel">
+                                <option *ngFor="let type of types" [ngValue]="type" >{{type.roomType}}</option>
+                            </select>
+                        </div>
+                        <!-- Input a room number with or without an ending Capital letter -->
+                        <div class="col-md-12">
+                            <label for="room.roomNumber" class="col-md-3">Room Number: </label>
+                            <input type="text" name="room.roomNumber" class="input-border col-md-3" required pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
+                            <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-8">1 to 5 digits ending with or without a capital letter</div>
+                        </div>
+                        <!-- Choose the number of beds in the room -->
+                        <div class="col-md-11">
+                            <label class="col-md-5" for="room.numberOfBeds">Number of Beds: </label> {{ room.numberOfBeds }}
+                            <input type="range" min="1" max="8" value="4" step="1" class="slider" name="room.numberOfBeds" [(ngModel)]="room.numberOfBeds" >
+                        </div>
+                        <br><br>
+                        <!-- Choose the amenities in the room -->
+                        <div class="col-md-8">
+                            <label class="col-md-5">Amenities:</label>
+                            <br>
+                            <div class="col-md-12 col-sm-10 col-xs-10" id="amenityStyle">
+                                <span *ngFor="let amenity of amenities">
+                                    <label for="amenity.amenity" class="col-md-6">
+                                        <input type="checkbox" name="amenity.amenity" [(ngModel)]="amenity.isSelected">
+                                        &nbsp; {{ amenity.amenity }}</label>
+                                </span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <!-- Choose the starting date -->
+                        <div class="col-md-12">
+                            <label for="StartDate" class="col-md-3">Start Date:</label>
+                            <input class="input-border col-md-3" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}" required [(ngModel)]="room.startDate" #sd="ngModel"><span *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty" class="alert alert-danger col-md-3">Start date must be before end date.</span>
+                        </div>
+                        <!-- Choose the ending date -->
+                        <div class="col-md-12">
+                            <label class="col-md-3">End Date:</label>
+                            <input class="input-border col-md-3" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                        </div>
+                        <!-- The submit and cancel button. Also some validation for a valid address, the distance between
+                        the room and training center, and the room and the compex -->
+                        <div id="topbutton">
+                            <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
+                            <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                            <div *ngIf="invalidAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
+                            <div *ngIf="invalidDistanceToTraining" class="alert alert-danger"> 
+                                The distance between the room address and the training center address cannot exceed twenty miles.
+                            </div>
+                            <div *ngIf="invalidDistanceToComplex" class="alert alert-danger"> 
+                                The distance between the room address and the living complex address cannot exceed five miles.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>   
+</div>

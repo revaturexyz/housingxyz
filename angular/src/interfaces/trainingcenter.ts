@@ -6,4 +6,3 @@ export interface TrainingCenter {
     centerName: string;
     contactNumber: string;
 }
-
