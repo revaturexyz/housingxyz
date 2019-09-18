@@ -31,4 +31,29 @@ describe('AmenityDialogueComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return null on clickEvent() when editedAmenities is null', () => {
+    fixture.detectChanges();
+    component.editedAmenities = null;
+    const result = component.clickEvent(amenity1);
+    expect(result).toBeUndefined();
+  });
+
+  it('should add amenity on clickEvent() to editedAmenities if amenity is not in editedAmenities', () => {
+    fixture.detectChanges();
+    const amenity3 = {amenityId: 4, amenity: 'Washer No Dryer Unit', isSelected: true};
+    component.clickEvent(amenity3);
+    expect(component.editedAmenities).toContain(amenity3);
+  });
+
+  fit('should remove amenity on clickEvent() to editedAmenities', () => {
+    fixture.detectChanges();
+    component.editedAmenities.push(amenity1);
+    component.clickEvent(amenity1);
+    let removed = false;
+    if (!component.editedAmenities.includes(amenity1)) {
+      removed = true;
+    }
+    expect(removed).toBeTruthy();
+  });
 });
