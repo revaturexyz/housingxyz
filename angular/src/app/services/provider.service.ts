@@ -19,7 +19,7 @@ export class ProviderService {
 
   constructor(
     private httpBus: HttpClient,
-    private msalService: MsalService
+    msalService: MsalService
   ) {
     this.apiUrl = environment.endpoints.providerXYZ;
     this.httpOptions = {
@@ -31,30 +31,26 @@ export class ProviderService {
 
   getProviders(): Observable<any> {
     const providerUrl = this.apiUrl + 'Provider';
-
     return this.httpBus.get<Provider[]>(providerUrl, this.httpOptions);
   }
 
   getProviderById(providerId: number): Observable<any> {
     const providerUrl = this.apiUrl + 'Provider/' + providerId;
-
     return this.httpBus.get<Provider>(providerUrl, this.httpOptions);
   }
 
   getComplexesByProvider(providerId: number): Observable<any> {
     const url = this.apiUrl + 'Complex/provider/' + providerId;
-
     return this.httpBus.get<Complex[]>(url, this.httpOptions);
   }
 
   postComplex(complex: Complex, providerId: number): Observable<HttpEvent<Complex>> {
     const postComplexUrl = this.apiUrl + 'Complex/provider/' + providerId;
-
     return this.httpBus.post<Complex>(postComplexUrl, JSON.parse(JSON.stringify(complex)), this.httpOptions);
   }
 
-  getAddressesByProvider(providerId: number): Observable<Address[]> {
+  getAddressesByProvider(providerId: number): Observable<any> {
     const addressUrl = this.apiUrl + 'Address/provider/' + providerId;
-    return this.httpBus.get<Address[]>(addressUrl);
+    return this.httpBus.get<Address[]>(addressUrl, this.httpOptions);
   }
 }
