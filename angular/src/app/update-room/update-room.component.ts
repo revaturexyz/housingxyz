@@ -52,7 +52,14 @@ export class UpdateRoomComponent implements OnInit {
   // initializes complexes and all rooms by providers at init time.
   ngOnInit() {
     this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
-    this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
+    this.getRoomsOnInit();
+  }
+
+  getRoomsOnInit() {
+    this.roomService.getRoomsByProvider(1)
+      .toPromise()
+      .then((rooms) => this.roomList = rooms)
+      .catch((err) => console.log(err));
   }
 
   // funciton that runs when a complex is selected from the dropdown in the HTML.
@@ -83,10 +90,10 @@ export class UpdateRoomComponent implements OnInit {
   select(r: Room) {
     const newRoom: Room = {
       roomId : r.roomId,
-      roomAddress : r.roomAddress,
+      apiAddress : r.apiAddress,
       roomNumber : r.roomNumber,
       numberOfBeds : r.numberOfBeds,
-      roomType : r.roomType,
+      apiRoomType : r.apiRoomType,
       isOccupied : r.isOccupied,
       apiAmenity : r.apiAmenity,
       startDate : r.startDate,
@@ -109,10 +116,10 @@ export class UpdateRoomComponent implements OnInit {
     this.roomList.forEach(element => {
       if (element.roomId === r.roomId) {
         element.roomId = r.roomId;
-        element.roomAddress = r.roomAddress;
+        element.apiAddress = r.apiAddress;
         element.roomNumber = r.roomNumber;
         element.numberOfBeds = r.numberOfBeds;
-        element.roomType = r.roomType;
+        element.apiRoomType = r.apiRoomType;
         element.isOccupied = r.isOccupied;
         element.apiAmenity = r.apiAmenity;
         element.startDate = r.startDate;

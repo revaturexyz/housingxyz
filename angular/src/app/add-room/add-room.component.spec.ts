@@ -13,7 +13,7 @@ const address: Address = {
   streetAddress: '123 Address St',
   city: 'Arlington',
   state: 'TX',
-  zipCode: '12345'
+  zipcode: '12345'
 };
 
 describe('AddRoomComponent', () => {
@@ -80,7 +80,7 @@ describe('AddRoomComponent', () => {
 
   // postRoomOnSubmit()
   it('should post rooms by id on submit', async () => {
-    component.room.roomAddress = address;
+    component.room.apiAddress = address;
     component.postRoomOnSubmit();
     expect(component.show).toEqual(false);
   });

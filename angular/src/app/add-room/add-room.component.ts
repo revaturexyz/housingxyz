@@ -10,6 +10,8 @@ import { Amenity } from 'src/interfaces/amenity';
 import * as moment from 'moment';
 import { TestServiceData } from '../services/static-test-data';
 import { Router } from '@angular/router';
+import { RoomType } from 'src/interfaces/room-type';
+import { RedirectService } from '../services/redirect.service';
 
 @Component({
   selector: 'dev-add-room',
@@ -21,9 +23,9 @@ export class AddRoomComponent implements OnInit {
 
   // values to verify entered and selected address
   // meet our validation and distance thresholds
-  validAddress: boolean;
-  validDistanceToTraining: boolean;
-  validDistanceToComplex: boolean;
+  invalidAddress: boolean;
+  invalidDistanceToTraining: boolean;
+  invalidDistanceToComplex: boolean;
 
   // the form Room object
   room: Room;
@@ -44,7 +46,7 @@ export class AddRoomComponent implements OnInit {
 
   // room form data
   provider: Provider;
-  types: string[] = [];
+  types: RoomType[] = [];
   amenities: Amenity[] = [];
 
   // values for displaying and allowing selection
@@ -63,22 +65,23 @@ export class AddRoomComponent implements OnInit {
     private router: Router,
     private roomService: RoomService,
     private providerService: ProviderService,
-    private mapservice: MapsService
+    private mapservice: MapsService,
+    private redirect: RedirectService
   ) {
     // Initialize an empty address and room object for our
     // forms
     this.room = {
       roomId: 0,
-      roomAddress: {
+      apiAddress: {
         addressId: 0,
         streetAddress: '',
         city: '',
         state: '',
-        zipCode: ''
+        zipcode: ''
       },
       roomNumber: '',
-      numberOfBeds: 2,
-      roomType: '',
+      numberOfBeds: 4,
+      apiRoomType: null,
       isOccupied: false,
       apiAmenity: null,
       startDate: new Date(),
@@ -88,160 +91,133 @@ export class AddRoomComponent implements OnInit {
         complexName: '',
         contactNumber: '',
         apiProvider: null,
-        apiAddress: {
-          addressId: 0,
-          streetAddress: '',
-          city: '',
-          state: '',
-          zipCode: ''
-        }
+        apiAddress: null
       }
     };
   }
 
   ngOnInit() {
-    // This should be removed when authentication is
-    // enabled as right now we're simply grabbing
-    // our first provider from the API
-    // and using it as an example
-    this.getProviderOnInit();
+    this.provider = this.redirect.checkProvider();
+    if (this.provider !== null) {
+      this.getProviderOnInit(this.provider.providerId).then(p => {
+        this.provider = p;
 
+        this.getComplexesOnInit();
+        this.getAddressesOnInit();
+      });
+    } else {
+    }
+
+    this.setUpMomentData();
+
+    this.getRoomTypesOnInit();
+    this.getAmenitiesOnInit();
+  }
+
+  private setUpMomentData() {
     this.freshDate = moment();
     if (this.freshDate > this.startDate) {
-      this.startDate.add(1, 'd');
       this.midDate = this.startDate.clone().add(6, 'months');
       this.endDate = this.startDate.clone().add(2, 'y');
     }
     this.displayStart = this.startDate.format('YYYY-MM-DD');
     this.displayMid = this.midDate.format('YYYY-MM-DD');
     this.displayEnd = this.endDate.format('YYYY-MM-DD');
-
-    // Populate the user options and form
-    // data objects
-    this.getRoomTypesOnInit();
-    this.getAmenitiesOnInit();
-    this.getComplexesOnInit();
-    this.getAddressesOnInit();
-    console.log(this.roomService.getRoomTypes());
-    console.log(this.roomService.getRoomsByProvider(1));
-    console.log(this.types);
   }
 
-
   async postRoomOnSubmit() {
+
     // Validate if an entered address can be considered real
-    const isValidAddress = await this.mapservice.verifyAddress(this.room.roomAddress);
+    const isValidAddress = await this.mapservice.verifyAddress(this.room.apiAddress);
     console.log('Address is valid: ' + isValidAddress);
+    if (!isValidAddress) {
+      this.invalidAddress = true;
+      return;
+    }
 
-    if (isValidAddress) {
+    // Get and verify that the distance from a room to the provider
+    // training center is less than or equal to 20 miles
+    console.log('Validating distance to training center');
+    const isValidDistanceTrainerCenter =
+      await this.mapservice.checkDistance(
+        this.room.apiAddress,
+        this.provider.apiTrainingCenter.apiAddress);
+    if (!(isValidDistanceTrainerCenter <= 20)) {
+      this.invalidDistanceToTraining = true;
+      return;
+    }
 
-      // Get and verify that the distance from a room to the provider
-      // training center is less than or equal to 20 miles
-      console.log('Validating distance to training center');
-      const isValidDistanceTrainerCenter =
-        await this.mapservice.checkDistance(
-          this.room.roomAddress,
-          this.provider.providerTrainingCenter.address);
+    // Get and validate that the distance from a room to a provider
+    // living complex is less than or equal to five miles
+    console.log('Validating distance to living complex');
+    console.log('Living complex address: ' + this.activeComplex.apiAddress);
+    const isValidDistanceComplex =
+      await this.mapservice.checkDistance(
+        this.room.apiAddress,
+        this.activeComplex.apiAddress);
+    if (!(isValidDistanceComplex <= 5 )) {
+      this.invalidDistanceToComplex = true;
+      return;
+    }
 
-      if ( isValidDistanceTrainerCenter <= 20) {
+    // Reset our flags.
+    this.invalidAddress = false;
+    this.invalidDistanceToTraining = false;
+    this.invalidDistanceToComplex = false;
 
-        // Get and validate that the distance from a room to a provider
-        // living complex is less than or equal to five miles
-        console.log('Validating distance to living complex');
-        console.log('Living complex address: ' + this.activeComplex.apiAddress);
-        const isValidDistanceComplex =
-          await this.mapservice.checkDistance(
-            this.room.roomAddress,
-            this.activeComplex.apiAddress);
-
-        if ( isValidDistanceComplex <= 5 ) {
-          this.validAddress = false;
-          this.validDistanceToTraining = false;
-          this.validDistanceToComplex = false;
-
-          // If we are showing the address form but an address was previously
-          // selected, then we can assume that a new address has been entered
-          // and must set the address ID to zero
-          if (this.show) {
-            if (this.room.roomAddress.addressId > 0) {
-              this.room.roomAddress.addressId = 0;
-            }
-          }
-
-          // Set the amenities list values in the room baasedon what is
-          // selected
-          this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
-
-          console.log(this.room);
-          this.roomService.postRoom(this.room)
-            .toPromise()
-            .then(
-              (result) => {
-                console.log('Post is a success: ' + result);
-                this.router.navigate(['show-rooms']);
-              })
-            .catch((err) => console.log(err));
-        } else {
-          this.validDistanceToComplex = true;
-        }
-      } else {
-        this.validDistanceToTraining = true;
+    // If we are showing the address form but an address was previously
+    // selected, then we can assume that a new address has been entered
+    // and must set the address ID to zero
+    if (this.show) {
+      if (this.room.apiAddress.addressId > 0) {
+        this.room.apiAddress.addressId = 0;
       }
-    } else {
-      this.validAddress = true;
+    }
+
+    // Set the amenities list values in the room based on what is
+    // selected
+    this.room.apiAmenity = this.amenities.filter(y => y.isSelected);
+
+    console.log(this.room);
+
+    try {
+      await this.roomService.postRoom(this.room, this.provider.providerId).toPromise();
+      this.router.navigate(['show-rooms']);
+    } catch (err) {
+      console.log(err);
     }
   }
 
   // Called in OnInit to populate the addresses list
   getAddressesOnInit() {
-    this.providerService.getAddressesByProvider(1).toPromise()
-      .then(
-        (data) => {
-          console.log('Received response for get addresses');
-          console.log(data);
-          this.addressList = data;
-        })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.providerService.getAddressesByProvider(this.provider.providerId)
+      .toPromise()
+      .then((data) => this.addressList = data)
+      .catch((err) => console.log(err));
   }
 
   // Called in OnInit to populate the amenities list
   getAmenitiesOnInit() {
-    this.roomService.getAmenities().toPromise()
-      .then(
-        (data) => {
-          console.log('Received response for get amenities');
-          this.amenities = data;
-        })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.roomService.getAmenities()
+      .toPromise()
+      .then((data) => this.amenities = data)
+      .catch((err) => console.log(err));
   }
 
   // Called in OnInit to populate the complexes list
   getComplexesOnInit() {
-    this.providerService.getComplexesByProvider(1).toPromise()
-      .then( (data) => {
-        console.log('Received response for get complexes');
-        this.complexList = data;
-      })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.providerService.getComplexesByProvider(this.provider.providerId)
+      .toPromise()
+      .then((data) => this.complexList = data)
+      .catch((err) => console.log(err));
   }
 
   // Called in OnInit to populate room types list
   getRoomTypesOnInit() {
-    this.roomService.getRoomTypes().toPromise()
-      .then(
-        (data) => {
-          console.log('Received response for get room types');
-          this.types = data;
-        })
-      .catch(
-        (error) => console.log(error)
-      );
+    this.roomService.getRoomTypes()
+      .toPromise()
+      .then((data) => this.types = data)
+      .catch((err) => console.log(err));
   }
 
   addForm() {
@@ -265,15 +241,17 @@ export class AddRoomComponent implements OnInit {
   addressChoose(address: Address) {
     this.addressShowString = address.streetAddress;
     this.activeAddress = address;
-    this.room.roomAddress = address;
+    this.room.apiAddress = address;
   }
 
 
-  getProviderOnInit() {
-    this.providerService.getProviderById(1).toPromise()
-      .then((provider) => this.provider = provider)
-      .catch((error) => console.log(error));
+  getProviderOnInit(providerId: number): Promise<Provider> {
+    console.log('this runs before error');
+    return this.providerService.getProviderById(providerId)
+      .toPromise()
+      .then((provider) => this.provider = provider);
   }
+
   // Used for client-side validation for date input of the form.
   verifyDates(beg: Date, end: Date): boolean {
     return new Date(beg).getTime() >= new Date(end).getTime();

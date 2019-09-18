@@ -6,5 +6,5 @@ export interface Provider {
     companyName: string;
     address: Address;
     contactNumber: string;
-    providerTrainingCenter: TrainingCenter;
+    apiTrainingCenter: TrainingCenter;
 }
