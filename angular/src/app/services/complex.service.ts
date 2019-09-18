@@ -8,10 +8,9 @@ import { Amenity } from 'src/interfaces/amenity';
   providedIn: 'root'
 })
 export class ComplexService {
-
-  apiUrl: string;
+  apiUrl = environment.endpoints.providerXYZ;
   constructor(private httpBus: HttpClient) {
-    this.apiUrl = environment.endpoints.providerXYZ;
+    
   }
 
   getAmenityByComplex(id: number): Observable<Amenity[]> {
