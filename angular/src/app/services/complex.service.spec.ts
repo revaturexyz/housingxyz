@@ -11,7 +11,7 @@ const amenity2: Amenity = TestServiceData.dummyAmenity2;
 describe('ComplexService', () => {
   let myProvider: ComplexService;
   let httpMock: HttpTestingController;
-  beforeEach(() => { 
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ComplexService]

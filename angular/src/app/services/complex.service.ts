@@ -9,9 +9,9 @@ import { Amenity } from 'src/interfaces/amenity';
 })
 export class ComplexService {
   apiUrl = environment.endpoints.providerXYZ;
-  constructor(private httpBus: HttpClient) {
-    
-  }
+  constructor(
+    private httpBus: HttpClient
+  ) { }
 
   getAmenityByComplex(id: number): Observable<Amenity[]> {
     return this.httpBus.get<Amenity[]>(this.apiUrl + `Complex/${id}/amenity`);

@@ -15,13 +15,11 @@ describe('RoomUpdateFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, MatDialogModule, HttpClientTestingModule ],
       declarations: [ RoomUpdateFormComponent ],
-      
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    
     fixture = TestBed.createComponent(RoomUpdateFormComponent);
     component = fixture.componentInstance;
     component.room = room;

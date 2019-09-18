@@ -11,7 +11,7 @@ const amenity2: Amenity = TestServiceData.dummyAmenity2;
 describe('AmenityDialogueComponent', () => {
   let component: AmenityDialogueComponent;
   let fixture: ComponentFixture<AmenityDialogueComponent>;
-  let data: Amenity[] = [amenity1, amenity2];
+  const data: Amenity[] = [amenity1, amenity2];
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AmenityDialogueComponent],
@@ -46,7 +46,7 @@ describe('AmenityDialogueComponent', () => {
     expect(component.editedAmenities).toContain(amenity3);
   });
 
-  fit('should remove amenity on clickEvent() to editedAmenities', () => {
+  it('should remove amenity on clickEvent() to editedAmenities', () => {
     fixture.detectChanges();
     component.editedAmenities.push(amenity1);
     component.clickEvent(amenity1);
