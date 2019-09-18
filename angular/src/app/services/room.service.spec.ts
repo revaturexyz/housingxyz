@@ -91,6 +91,10 @@ describe('RoomService', () => {
       myProvider.postRoom(oneRoom, 1).subscribe((room) => {
         expect(room).toEqual(oneRoom);
       });
+      const call = httpMock.expectOne(`${myProvider.roomUrl}Room/1`);
+      expect(call.request.method).toBe('POST');
+      call.flush(oneRoom);
+      httpMock.verify();
     });
   });
   describe('getRoomTypes', () => {
