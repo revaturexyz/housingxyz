@@ -1,21 +1,32 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { UpdateRoomComponent } from './update-room.component';
 import { RoomUpdateFormComponent } from '../room-update-form/room-update-form.component';
 import { RoomDetailsComponent } from '../room-details/room-details.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from '../services/static-test-data';
 import { DebugElement } from '@angular/core';
 import { Room } from 'src/interfaces/room';
+import { ProviderService } from '../services/provider.service';
+import { Observable, from } from 'rxjs';
+import { RoomService } from '../services/room.service';
+
+const complexes: Complex[] = [TestServiceData.dummyComplex, TestServiceData.dummyComplex2];
+const rooms: Room[] = [TestServiceData.room, TestServiceData.room2];
+const complexOb: Observable<Complex[]> = from([complexes]);
+const roomOb: Observable<Room[]> = from([rooms]);
 
 describe('UpdateRoomComponent', () => {
   let component: UpdateRoomComponent;
   let fixture: ComponentFixture<UpdateRoomComponent>;
-
+  let myProvider: ProviderService;
+  let myRoom: RoomService;
+  let httpMock: HttpTestingController;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent ],
-      imports: [ HttpClientTestingModule ]
+      imports: [ HttpClientTestingModule ],
+      providers: [ProviderService, RoomService]
     })
     .overrideComponent(RoomUpdateFormComponent, {
         set: { template: '<div></div>'}}
@@ -23,29 +34,27 @@ describe('UpdateRoomComponent', () => {
     .overrideComponent(RoomDetailsComponent, {
         set: { template: '<div></div>'}}
     );
+    const testBed = getTestBed();
+    myProvider = testBed.get(ProviderService);
+    myRoom = testBed.get(RoomService);
+    httpMock = testBed.get(HttpTestingController);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UpdateRoomComponent);
+    spyOn(myProvider, 'getComplexesByProvider').and.returnValue(complexOb);
+    spyOn(myRoom, 'getRoomsByProvider').and.returnValue(roomOb);
     component = fixture.componentInstance;
+    component.roomList = rooms;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeDefined();
-    expect(component.complexList).toBeTruthy();
-    expect(component.roomList).toBeTruthy();
-    expect(component.activeComplex).toBeFalsy();
-    expect(component.showString).toEqual('Choose Complex');
-    expect(component.complexRooms).toBeFalsy();
-    expect(component.mouseOverRoom).toBeFalsy();
-    expect(component.selectedRoom).toBeFalsy();
-    expect(component.highlightRoom).toBeFalsy();
   });
 
   it('should initialize correctly', () => {
     expect(component.complexList).toBeTruthy();
-    expect(component.roomList).toBeTruthy();
   });
 
 
