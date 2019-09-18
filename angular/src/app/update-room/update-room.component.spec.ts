@@ -1,51 +1,75 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { UpdateRoomComponent } from './update-room.component';
 import { RoomUpdateFormComponent } from '../room-update-form/room-update-form.component';
 import { RoomDetailsComponent } from '../room-details/room-details.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from '../services/static-test-data';
 import { DebugElement } from '@angular/core';
 import { Room } from 'src/interfaces/room';
+import { ProviderService } from '../services/provider.service';
+import { Observable, from } from 'rxjs';
+import { RoomService } from '../services/room.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
+import { User } from 'msal';
+
+const complexes: Complex[] = [TestServiceData.dummyComplex, TestServiceData.dummyComplex2];
+const rooms: Room[] = [TestServiceData.room, TestServiceData.room2];
+const obRoom: Observable<Room> = from([TestServiceData.room]);
+const complexOb: Observable<Complex[]> = from([complexes]);
+const roomOb: Observable<Room[]> = from([rooms]);
+
+class MockMsalService {
+  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+}
 
 describe('UpdateRoomComponent', () => {
   let component: UpdateRoomComponent;
   let fixture: ComponentFixture<UpdateRoomComponent>;
-
+  let myProvider: ProviderService;
+  let myRoom: RoomService;
+  let httpMock: HttpTestingController;
+  let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent ],
-      imports: [ HttpClientTestingModule ]
+      declarations: [UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule, MsalModule],
+      providers: [ProviderService, RoomService, { provide: MsalGuard, useValue: {} },
+        { provide: MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG,
+          useValue: {} }]
     })
-    .overrideComponent(RoomUpdateFormComponent, {
-        set: { template: '<div></div>'}}
-    )
-    .overrideComponent(RoomDetailsComponent, {
-        set: { template: '<div></div>'}}
-    );
+      .overrideComponent(RoomUpdateFormComponent, {
+        set: { template: '<div></div>' }
+      }
+      )
+      .overrideComponent(RoomDetailsComponent, {
+        set: { template: '<div></div>' }
+      }
+      );
+    const testBed = getTestBed();
+    myProvider = testBed.get(ProviderService);
+    myRoom = testBed.get(RoomService);
+    httpMock = testBed.get(HttpTestingController);
+    msalService = testBed.get(MsalService);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UpdateRoomComponent);
+    spyOn(myProvider, 'getComplexesByProvider').and.returnValue(complexOb);
+    spyOn(myRoom, 'getRoomsByProvider').and.returnValue(roomOb);
     component = fixture.componentInstance;
+    component.roomList = rooms;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeDefined();
-    expect(component.complexList).toBeTruthy();
-    expect(component.roomList).toBeTruthy();
-    expect(component.activeComplex).toBeFalsy();
-    expect(component.showString).toEqual('Choose Complex');
-    expect(component.complexRooms).toBeFalsy();
-    expect(component.mouseOverRoom).toBeFalsy();
-    expect(component.selectedRoom).toBeFalsy();
-    expect(component.highlightRoom).toBeFalsy();
   });
 
   it('should initialize correctly', () => {
     expect(component.complexList).toBeTruthy();
-    expect(component.roomList).toBeTruthy();
   });
 
 
@@ -54,10 +78,10 @@ describe('UpdateRoomComponent', () => {
     // given this complex
     const complex: Complex = TestServiceData.dummyComplex2;
 
-  // execute test case
+    // execute test case
     component.complexChoose(complex);
 
-  // assertion
+    // assertion
     expect(component.showString).toEqual(complex.complexName);
     expect(component.activeComplex).toBe(complex);
     expect(component.complexRooms).toBeTruthy(); // assertion that the available rooms are filtered successfully
@@ -123,8 +147,9 @@ describe('UpdateRoomComponent', () => {
 
   it('should update room on roomChange()', () => {
     const room: Room = TestServiceData.room;
-
+    component.complexRooms = rooms;
     component.roomChange(room);
+    component.makeRemoveRoom(room);
 
     expect(component.selectedRoom).toBeNull();
     expect(component.highlightRoom).toBeNull();

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { environment } from 'src/environments/environment';
+import { Notify } from 'src/interfaces/notification';
 import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
@@ -51,5 +52,9 @@ export class ProviderService {
   getAddressesByProvider(providerId: number): Observable<any> {
     const addressUrl = this.apiUrl + 'Address/provider/' + providerId;
     return this.httpBus.get<Address[]>(addressUrl, this.httpOptions);
+  }
+
+  postRequestByProvider(req: Notify) {
+    return this.httpBus.post(this.apiUrl + `Notification`, req, this.httpOptions);
   }
 }

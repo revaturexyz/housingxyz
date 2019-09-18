@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddComplexComponent } from './add-complex/add-complex.component';
+import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
 
@@ -36,7 +37,8 @@ import { environment } from 'src/environments/environment';
     RoomDetailsComponent,
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
-    AddComplexComponent
+    AddComplexComponent,
+    RequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +71,6 @@ import { environment } from 'src/environments/environment';
     useClass: MsalInterceptor,
     multi: true }],
   bootstrap: [ AppComponent ],
-  entryComponents: [AmenityDialogueComponent],
+  entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
 })
 export class AppModule { }

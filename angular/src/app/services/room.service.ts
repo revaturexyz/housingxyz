@@ -26,7 +26,7 @@ export class RoomService {
         headers: new HttpHeaders({
           'Authorization': msalService.getUser().userIdentifier
         })
-      }
+      };
     }
 
     getRoomById(id: number): Observable<Room> {
@@ -54,5 +54,13 @@ export class RoomService {
     getAmenities(): Observable<any> {
         const amenitiesUrl = this.roomUrl + 'Room/amenity';
         return this.httpBus.get<Amenity[]>(amenitiesUrl, this.httpOptions);
+    }
+
+    updateRoom(r: Room, providerId: number) {
+        return this.httpBus.put<Room>(this.roomUrl + `Room/${providerId}`, r, this.httpOptions);
+    }
+
+    deleteRoom(r: Room, provider: number) {
+        return this.httpBus.delete(this.roomUrl + `Room/${r.roomId}/provider/${provider}`, this.httpOptions);
     }
 }

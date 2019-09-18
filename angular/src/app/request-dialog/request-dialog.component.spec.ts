@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
-import { RoomUpdateFormComponent } from './room-update-form.component';
+import { RequestDialogComponent } from './request-dialog.component';
+import { MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Amenity } from 'src/interfaces/amenity';
 import { TestServiceData } from '../services/static-test-data';
 import { Room } from 'src/interfaces/room';
 import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
@@ -12,19 +13,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 const room: Room = TestServiceData.room;
 
-describe('RoomUpdateFormComponent', () => {
-  let component: RoomUpdateFormComponent;
-  let fixture: ComponentFixture<RoomUpdateFormComponent>;
+describe('RequestDialogComponent', () => {
+  let component: RequestDialogComponent;
+  let fixture: ComponentFixture<RequestDialogComponent>;
+  const data: Room = room;
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MatDialogModule, HttpClientTestingModule, MsalModule, RouterTestingModule],
-      declarations: [RoomUpdateFormComponent],
-      providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
-
+      declarations: [ RequestDialogComponent ],
+      imports: [ MatDialogModule, FormsModule, HttpClientTestingModule, MsalModule, RouterTestingModule ],
+      providers: [{
+        provide: MatDialogRef,
+        useValue: {
+          close: (dialogResult: any) => { }
+      }}, {provide: MAT_DIALOG_DATA,
+        useValue: data
+      },
+      {provide: MsalGuard, useValue: {}}, MsalService, {provide: MSAL_CONFIG, useValue: {}}]
     })
-      .compileComponents();
-
+    .compileComponents();
     const testBed = getTestBed();
     msalService = testBed.get(MsalService);
     spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
@@ -32,9 +39,9 @@ describe('RoomUpdateFormComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoomUpdateFormComponent);
+    fixture = TestBed.createComponent(RequestDialogComponent);
     component = fixture.componentInstance;
-    component.room = room;
+    component.requestRoom = data;
     fixture.detectChanges();
   });
 

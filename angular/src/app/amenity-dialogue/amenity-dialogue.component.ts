@@ -24,8 +24,6 @@ export class AmenityDialogueComponent implements OnInit {
     if (this.roomAmenities !== null) {
       this.roomAmenities.forEach(x => this.editedAmenities.push(x));
     }
-    console.log(this.roomAmenities);
-    console.log(this.editedAmenities);
   }
 
   // this function is called when the user saves the changed amenities. It returns the list of

@@ -10,7 +10,7 @@ import { MsalService } from '@azure/msal-angular';
 })
 export class ComplexService {
 
-  apiUrl: string =environment.endpoints.providerXYZ + 'api/';
+  apiUrl: string = environment.endpoints.providerXYZ + 'api/';
 
   httpOptions: any;
   constructor(
