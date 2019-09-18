@@ -10,9 +10,11 @@ import { Room } from 'src/interfaces/room';
 import { ProviderService } from '../services/provider.service';
 import { Observable, from } from 'rxjs';
 import { RoomService } from '../services/room.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const complexes: Complex[] = [TestServiceData.dummyComplex, TestServiceData.dummyComplex2];
 const rooms: Room[] = [TestServiceData.room, TestServiceData.room2];
+const obRoom: Observable<Room> = from([TestServiceData.room]);
 const complexOb: Observable<Complex[]> = from([complexes]);
 const roomOb: Observable<Room[]> = from([rooms]);
 
@@ -24,16 +26,18 @@ describe('UpdateRoomComponent', () => {
   let httpMock: HttpTestingController;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent ],
-      imports: [ HttpClientTestingModule ],
+      declarations: [UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [ProviderService, RoomService]
     })
-    .overrideComponent(RoomUpdateFormComponent, {
-        set: { template: '<div></div>'}}
-    )
-    .overrideComponent(RoomDetailsComponent, {
-        set: { template: '<div></div>'}}
-    );
+      .overrideComponent(RoomUpdateFormComponent, {
+        set: { template: '<div></div>' }
+      }
+      )
+      .overrideComponent(RoomDetailsComponent, {
+        set: { template: '<div></div>' }
+      }
+      );
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
     myRoom = testBed.get(RoomService);
@@ -63,10 +67,10 @@ describe('UpdateRoomComponent', () => {
     // given this complex
     const complex: Complex = TestServiceData.dummyComplex2;
 
-  // execute test case
+    // execute test case
     component.complexChoose(complex);
 
-  // assertion
+    // assertion
     expect(component.showString).toEqual(complex.complexName);
     expect(component.activeComplex).toBe(complex);
     expect(component.complexRooms).toBeTruthy(); // assertion that the available rooms are filtered successfully
@@ -132,8 +136,9 @@ describe('UpdateRoomComponent', () => {
 
   it('should update room on roomChange()', () => {
     const room: Room = TestServiceData.room;
-
+    component.complexRooms = rooms;
     component.roomChange(room);
+    component.makeRemoveRoom(room);
 
     expect(component.selectedRoom).toBeNull();
     expect(component.highlightRoom).toBeNull();
