@@ -5,6 +5,10 @@ import { Amenity } from '../../interfaces/amenity';
 import { Room } from '../../interfaces/room';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from './static-test-data';
+import { User } from 'msal';
+import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 
 const complex1: Complex = TestServiceData.dummyComplex;
 const complex2: Complex = TestServiceData.dummyComplex2;
@@ -38,19 +42,26 @@ const room2: Room = {
   startDate: new Date(), endDate: new Date(), apiComplex: complex2
 };
 
+class MockMsalService {
+  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+}
+
 describe('RoomService', () => {
   // let injector: TestBed;
   let myProvider: RoomService;
   let httpMock: HttpTestingController;
+  let msalService: MsalService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [RoomService]
+      imports: [HttpClientTestingModule, MsalModule, RouterTestingModule],
+      providers: [RoomService, { provide: MsalGuard, useValue: {} }, { provide:
+        MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG, useValue: {} }]
     });
 
     const testBed = getTestBed();
     myProvider = testBed.get(RoomService);
     httpMock = testBed.get(HttpTestingController);
+    msalService = testBed.get(MsalService);
   });
 
   it('should be created', () => {

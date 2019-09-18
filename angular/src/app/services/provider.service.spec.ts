@@ -7,23 +7,33 @@ import { Address } from 'src/interfaces/address';
 import { TestServiceData } from '../services/static-test-data';
 import { PartialObserver } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
+import { User } from 'msal';
+import { MsalService, MsalGuard } from '@azure/msal-angular';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 
 const provider1: Provider = TestServiceData.dummyProvider;
 const listProvider: Provider[] = TestServiceData.testProviders;
 const provider2: Provider = TestServiceData.testProvider2;
 
+class MockMsalService {
+  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+}
+
 describe('ProviderService', () => {
   let myProvider: ProviderService;
   let httpMock: HttpTestingController;
+  let msalService: MsalService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProviderService]
+      providers: [ProviderService, { provide: MsalGuard, useValue: {} }, { provide:
+        MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG, useValue: {} }]
     });
 
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
     httpMock = testBed.get(HttpTestingController);
+    msalService = testBed.get(MsalService);
   });
 
   it('should be created', () => {

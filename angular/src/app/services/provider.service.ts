@@ -25,9 +25,9 @@ export class ProviderService {
     this.apiUrl = environment.endpoints.providerXYZ;
     this.httpOptions = {
       headers: new HttpHeaders({
-          'Authorization': msalService.getUser().userIdentifier
+          Authorization: msalService.getUser().userIdentifier
       })
-    }
+    };
   }
 
   getProviders(): Observable<any> {

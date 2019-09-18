@@ -11,6 +11,9 @@ import { ProviderService } from '../services/provider.service';
 import { Observable, from } from 'rxjs';
 import { RoomService } from '../services/room.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
+import { User } from 'msal';
 
 const complexes: Complex[] = [TestServiceData.dummyComplex, TestServiceData.dummyComplex2];
 const rooms: Room[] = [TestServiceData.room, TestServiceData.room2];
@@ -18,17 +21,24 @@ const obRoom: Observable<Room> = from([TestServiceData.room]);
 const complexOb: Observable<Complex[]> = from([complexes]);
 const roomOb: Observable<Room[]> = from([rooms]);
 
+class MockMsalService {
+  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+}
+
 describe('UpdateRoomComponent', () => {
   let component: UpdateRoomComponent;
   let fixture: ComponentFixture<UpdateRoomComponent>;
   let myProvider: ProviderService;
   let myRoom: RoomService;
   let httpMock: HttpTestingController;
+  let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [ProviderService, RoomService]
+      imports: [HttpClientTestingModule, RouterTestingModule, MsalModule],
+      providers: [ProviderService, RoomService, { provide: MsalGuard, useValue: {} },
+        { provide: MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG,
+          useValue: {} }]
     })
       .overrideComponent(RoomUpdateFormComponent, {
         set: { template: '<div></div>' }
@@ -42,6 +52,7 @@ describe('UpdateRoomComponent', () => {
     myProvider = testBed.get(ProviderService);
     myRoom = testBed.get(RoomService);
     httpMock = testBed.get(HttpTestingController);
+    msalService = testBed.get(MsalService);
   }));
 
   beforeEach(() => {
