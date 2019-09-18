@@ -6,6 +6,7 @@ import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from './static-test-data';
 import { environment } from 'src/environments/environment';
+import { Notify } from 'src/interfaces/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,9 @@ export class ProviderService {
 
   getAddressesByProvider(providerId: number): Observable<Address[]> {
     return this.httpBus.get<Address[]>(this.apiUrl + `Address/provider/${providerId}`);
+  }
+
+  postRequestByProvider(req: Notify) {
+    return this.httpBus.post(this.apiUrl + `Notification`, req);
   }
 }

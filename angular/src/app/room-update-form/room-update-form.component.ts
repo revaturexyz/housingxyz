@@ -7,6 +7,7 @@ import { RoomService } from '../services/room.service';
 import { Amenity } from 'src/interfaces/amenity';
 import { Observer } from 'rxjs';
 import { ComplexService } from '../services/complex.service';
+import { RequestDialogComponent } from '../request-dialog/request-dialog.component';
 
 @Component({
   selector: 'dev-room-update-form',
@@ -57,6 +58,20 @@ export class RoomUpdateFormComponent implements OnInit {
     const amenityUpdate = this.dialog.open(AmenityDialogueComponent, dialogConfig);
 
     amenityUpdate.afterClosed().subscribe(this.amenObs);
+  }
+
+  openRequestDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      reqRoom: this.room
+    }
+
+    const requestSend = this.dialog.open(RequestDialogComponent, dialogConfig);
+
+    requestSend.afterClosed().subscribe(x => console.log("Request made."))
   }
 
   ngOnInit() {
@@ -116,7 +131,7 @@ export class RoomUpdateFormComponent implements OnInit {
   // this function updates a boolean every time the end date is changed in the date picker. If the date is invalid, it sets
   // the flag to false. Otherwise it sets it to true.
   validateEnd(event: any) {
-    if (this.datePipe.transform(this.room.startDate, 'yyyy-MM-dd') <= this.datePipe.transform(event, 'yyyy-MM-dd')) {
+    if (this.datePipe.transform(this.room.startDate, 'yyyy-MM-dd') < this.datePipe.transform(event, 'yyyy-MM-dd')) {
       this.validEnd = true;
       this.room.endDate = event;
     } else {

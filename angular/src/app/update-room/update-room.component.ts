@@ -112,7 +112,7 @@ export class UpdateRoomComponent implements OnInit {
   // this function receives an event from the child and commits the changes to the working room list
   roomChange(r: Room) {
     this.roomService.updateRoom(r, 1).subscribe(x => {
-      this.roomChange(r);
+      this.makeRoomChanges(r);
       console.log(x);
     });
   }
@@ -130,6 +130,24 @@ export class UpdateRoomComponent implements OnInit {
         element.startDate = r.startDate;
         element.endDate = r.endDate;
         element.apiComplex = r.apiComplex;
+        console.log(element);
+        console.log(r);
+      }
+    });
+    this.complexRooms.forEach(element => {
+      if (element.roomId === r.roomId) {
+        element.roomId = r.roomId;
+        element.roomAddress = r.roomAddress;
+        element.roomNumber = r.roomNumber;
+        element.numberOfBeds = r.numberOfBeds;
+        element.roomType = r.roomType;
+        element.isOccupied = r.isOccupied;
+        element.apiAmenity = r.apiAmenity;
+        element.startDate = r.startDate;
+        element.endDate = r.endDate;
+        element.apiComplex = r.apiComplex;
+        console.log(element);
+        console.log(r);
       }
     });
     this.selectedRoom = null;
@@ -139,7 +157,6 @@ export class UpdateRoomComponent implements OnInit {
   // this function receives an event from the child and removes the room from the working room list
   removeRoom(r: Room) {
     this.roomService.deleteRoom(r, 1).subscribe(x => {
-      console.log(x);
       this.makeRemoveRoom(r);
     });
   }
