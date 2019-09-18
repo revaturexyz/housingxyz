@@ -111,7 +111,6 @@ export class AddComplexComponent implements OnInit {
   }
 
   getProviderOnInit(providerId: number): Promise<Provider> {
-    console.log('this runs before error');
     return this.providerService.getProviderById(providerId)
       .toPromise()
       .then((provider) => this.currentProvider = provider);

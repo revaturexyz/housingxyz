@@ -5,7 +5,7 @@
         <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
             <div class="logoarea pt-5 pb-5">
                 <!-- Used to diplay the Training Center information -->
-                <ng-container *ngIf="provider">
+                <ng-container *ngIf="provider && provider.apiTrainingCenter">
                     <h3>Training Center</h3>
                     <p> {{ provider.apiTrainingCenter.centerName }}</p>
                     <p> {{ provider.apiTrainingCenter.contactNumber }}</p>

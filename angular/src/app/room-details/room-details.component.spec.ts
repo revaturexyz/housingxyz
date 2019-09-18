@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RoomDetailsComponent } from './room-details.component';
-
 import { TestServiceData } from '../services/static-test-data';
+import { MatCardModule, MatChipsModule } from '@angular/material';
 
 describe('RoomDetailsComponent', () => {
   let component: RoomDetailsComponent;
@@ -10,6 +9,7 @@ describe('RoomDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ MatCardModule, MatChipsModule ],
       declarations: [ RoomDetailsComponent ]
     })
     .compileComponents();

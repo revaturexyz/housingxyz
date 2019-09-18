@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 
 import { AddRoomComponent } from './add-room.component';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
 import { TestServiceData } from '../services/static-test-data';
-import { RouterTestingModule  } from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
+import { User } from 'msal';
 
 const address: Address = {
   addressId: 1,
@@ -19,13 +22,19 @@ const address: Address = {
 describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
   let fixture: ComponentFixture<AddRoomComponent>;
-
+  let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule ],
-      declarations: [ AddRoomComponent ]
+      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule, MsalModule],
+      declarations: [AddRoomComponent],
+      providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
+
     })
-    .compileComponents();
+      .compileComponents();
+    const testBed = getTestBed();
+    msalService = testBed.get(MsalService);
+    spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
+
   }));
 
   beforeEach(() => {

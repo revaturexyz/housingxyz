@@ -5,23 +5,35 @@ import { Provider } from '../../interfaces/provider';
 import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { TestServiceData } from '../services/static-test-data';
+import { PartialObserver } from 'rxjs';
+import { HttpEvent } from '@angular/common/http';
+import { User } from 'msal';
+import { MsalService, MsalGuard } from '@azure/msal-angular';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 
 const provider1: Provider = TestServiceData.dummyProvider;
 const listProvider: Provider[] = TestServiceData.testProviders;
 const provider2: Provider = TestServiceData.testProvider2;
 
+class MockMsalService {
+  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+}
+
 describe('ProviderService', () => {
   let myProvider: ProviderService;
   let httpMock: HttpTestingController;
+  let msalService: MsalService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProviderService]
+      providers: [ProviderService, { provide: MsalGuard, useValue: {} }, { provide:
+        MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG, useValue: {} }]
     });
 
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
     httpMock = testBed.get(HttpTestingController);
+    msalService = testBed.get(MsalService);
   });
 
   it('should be created', () => {
@@ -83,8 +95,9 @@ describe('ProviderService', () => {
 
     it('should return an Observable<Complex[]>', () => {
       const oneComplex = complex1;
-      myProvider.postComplex(oneComplex, 1).subscribe((complex: Complex) => {
-        expect(complex).toEqual(oneComplex);
+      myProvider.postComplex(oneComplex, 1).subscribe((complex: HttpEvent<Complex>) => {
+        console.log(complex);
+        expect(complex).toBeTruthy();
       });
       const call = httpMock.expectOne(`${myProvider.apiUrl}Complex/provider/${1}`);
       expect(call.request.method).toBe('POST');

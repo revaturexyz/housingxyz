@@ -4,6 +4,7 @@ import { Complex } from 'src/interfaces/complex';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
+import { RoomType } from 'src/interfaces/room-type';
 
 export class TestServiceData {
     static dummyAddress: Address = {
@@ -174,7 +175,7 @@ export class TestServiceData {
     };
 
     static room2: Room = {
-        roomId: 0,
+        roomId: 2,
         apiAddress: {
             addressId: 2,
             streetAddress: '701 S Nedderman Dr',
@@ -189,7 +190,7 @@ export class TestServiceData {
         apiAmenity: [{
             amenityId: 2,
             amenity: 'Washer/Dryer',
-            isSelected: true
+            isSelected: false
         }],
         startDate: new Date(),
         endDate: new Date(),
@@ -231,4 +232,9 @@ export class TestServiceData {
         TestServiceData.dummyProvider,
         TestServiceData.testProvider2
     ];
+
+    static testRoomType: RoomType = {
+        typeId: 1,
+        roomType: 'Dormitory'
+    };
 }

@@ -17,10 +17,8 @@ export class RedirectService {
       if (this.provider == null) {
         this.router.navigateByUrl('/login');
       }
-      console.log(this.provider);
       return this.provider;
     } catch {
-      console.log('in the checkProvider catch');
       this.router.navigateByUrl('/login');
     }
   }

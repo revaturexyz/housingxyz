@@ -6,6 +6,11 @@ export const environment = {
   production: false,
   tenant: '',
   clientId: '',
+  identity: {
+    authority: 'https://identityxyz.b2clogin.com/identity.revature.xyz/b2c_1_signup_signin',
+    clientID: 'fac95bb7-bd11-4ecf-b30b-fdd6ddd13bcd',
+    validateAuthority: false
+  },
   extraQueryParameter: 'nux=1', // This is optional
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
