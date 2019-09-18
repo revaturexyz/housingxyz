@@ -47,7 +47,7 @@
                         <label class="col-md-9"> State: <input [(ngModel)]="room.apiAddress.state" name="room.apiAddress.state" class="input-border" type="text" required minlength ="2" maxlength="50" #state="ngModel"> </label> 
                         <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">Please enter a valid state name or state abbreviation.</div>
 
-                        <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.apiAddress.zipCode" name="room.apiAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
+                        <label class="col-md-9"> Zip Code: <input [(ngModel)]="room.apiAddress.zipcode" name="room.apiAddress.zipCode" class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel"> </label> 
                         <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">Zip code must be exactly least 5 numbers.</div>
                         <br>
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
