@@ -15,7 +15,7 @@
         <tr>
           <td scope="col" style="text-align: center">{{room.roomNumber}}</td>
           <td scope="col" style="text-align: center">{{room.numberOfBeds}}</td>
-          <td scope="col" style="text-align: center">{{room.roomType}}</td>
+          <td scope="col" style="text-align: center">{{room.apiRoomType.roomType}}</td>
           <td scope="col" style="text-align: center">{{room.isOccupied}}</td>
           <td scope="col" style="text-align: center">
             <span>|</span>
@@ -43,7 +43,7 @@
                     <div *ngIf="bedNum.invalid && (bedNum.dirty || bedNum.touched)" class="alert alert-danger"> Must be a single digit between 1 and 8.</div>
                 </form>
             </td>
-            <td scope="col" class="text-center">{{room.roomType}}</td>
+            <td scope="col" class="text-center">{{room.apiRoomType.roomType}}</td>
             <td scope="col" class="text-center">{{room.isOccupied}}</td>
             <td scope="col" style="text-align: center">
               <button type="button" class="btn btn-primary" *ngIf="room" (click)="openDialog()">Select Amenities</button>
