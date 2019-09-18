@@ -15,7 +15,10 @@ export class RequestDialogComponent implements OnInit {
   req: Notify;
 
   // receives data from parent component about itself as well as injected data for initialization
-  constructor(private dialogRef: MatDialogRef<RequestDialogComponent>, @Inject(MAT_DIALOG_DATA) data, private providerService: ProviderService) {
+  constructor(
+    private dialogRef: MatDialogRef<RequestDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data,
+    private providerService: ProviderService) {
     this.requestRoom = data.reqRoom;
   }
 
@@ -29,7 +32,7 @@ export class RequestDialogComponent implements OnInit {
       roomID: this.requestRoom.roomId,
       title: '',
       reason: ''
-    }
+    };
     this.req = note;
   }
 

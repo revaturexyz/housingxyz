@@ -52,7 +52,9 @@ export class UpdateRoomComponent implements OnInit {
   // initializes complexes and all rooms by providers at init time.
   ngOnInit() {
     if (localStorage.getItem('currentProvider')) {
-      this.providerService.getComplexesByProvider(JSON.parse(localStorage.getItem('currentProvider')).providerId).subscribe(this.complexObs);
+      this.providerService
+      .getComplexesByProvider(JSON.parse(localStorage.getItem('currentProvider')).providerId)
+      .subscribe(this.complexObs);
       this.roomService.getRoomsByProvider(JSON.parse(localStorage.getItem('currentProvider')).providerId).subscribe(this.roomsObs);
     } else {
       this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);

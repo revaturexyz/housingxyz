@@ -40,7 +40,12 @@ export class RoomUpdateFormComponent implements OnInit {
   // emits an event called deleteRoom to the parent component
   @Output() deleteRoom = new EventEmitter();
 
-  constructor(private datePipe: DatePipe, private dialog: MatDialog, private roomService: RoomService, private complexService: ComplexService) { }
+  constructor(
+    private datePipe: DatePipe,
+    private dialog: MatDialog,
+    private roomService: RoomService,
+    private complexService: ComplexService
+    ) { }
 
   // initializes data for the dialog, and then calls it to be rendered on screen. This dialog is used
   // to change the amenities
@@ -67,11 +72,11 @@ export class RoomUpdateFormComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       reqRoom: this.room
-    }
+    };
 
     const requestSend = this.dialog.open(RequestDialogComponent, dialogConfig);
 
-    requestSend.afterClosed().subscribe(x => console.log("Request made."))
+    requestSend.afterClosed().subscribe(x => console.log('Request made.'));
   }
 
   ngOnInit() {

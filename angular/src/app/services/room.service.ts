@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class RoomService {
-    
+
     apiUrl: string;
     constructor(private httpBus: HttpClient) {
     this.apiUrl = environment.endpoints.providerXYZ;
