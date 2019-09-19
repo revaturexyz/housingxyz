@@ -21,30 +21,37 @@ import { RedirectService } from '../services/redirect.service';
 
 export class AddRoomComponent implements OnInit {
 
-  // values to verify entered and selected address
-  // meet our validation and distance thresholds
+  // These booleans are used to either show or not show the error messages for
+  // entered and selected addresses to make sure they meet our validation and distance thresholds
   invalidAddress: boolean;
   invalidDistanceToTraining: boolean;
   invalidDistanceToComplex: boolean;
 
   // the form Room object
+  // It is a default room needed to help the form with two way binding.
+  // Initialized below.
   room: Room;
 
-  // moments objects used to create validation for the date picker.
-  // Also some string variables to use them in the Html.
+  // Moments objects used to create validation for the date picker.
+  // An easier way to store and manipulate the dates for proper validation.  
   startDate = moment();
   midDate = this.startDate.clone().add(6, 'months');
   endDate = this.startDate.clone().add(2, 'y');
   freshDate;
+
+  // These variables are used so that when we convert the moments into strings
+  // they are stored in the proper format to use in the Html. 
   displayStart;
   displayMid;
   displayEnd;
 
 
-  // used for hiding or displaying the address form
+  // This variable is used to display the add address form when a new address needs
+  // to be created.
   show = false;
 
-  // room form data
+  // values for displaying and allowing selection
+  // of the room type, amenities, and the provider. 
   provider: Provider;
   types: RoomType[] = [];
   amenities: Amenity[] = [];
@@ -70,6 +77,7 @@ export class AddRoomComponent implements OnInit {
   ) {
     // Initialize an empty address and room object for our
     // forms
+    // The variable is declared above.
     this.room = {
       roomId: 0,
       apiAddress: {
@@ -96,9 +104,13 @@ export class AddRoomComponent implements OnInit {
     };
   }
 
+  // This methods runs when the component is called.
   ngOnInit() {
+
+    // Checks to make sure there is a provider picked.  
     this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
+    // If so we get the providers information, complexes, and the address
       this.getProviderOnInit(this.provider.providerId).then(p => {
         this.provider = p;
 
@@ -108,23 +120,33 @@ export class AddRoomComponent implements OnInit {
     } else {
     }
 
+    // Here we get the room types, amenities, and we work with moments for 
+    // the date picker validation. 
     this.setUpMomentData();
 
     this.getRoomTypesOnInit();
     this.getAmenitiesOnInit();
   }
 
+  // This method is used to help with the date picker validation
   private setUpMomentData() {
+    // We create a moment with todays date.
     this.freshDate = moment();
+    // If todays date is greater than the start date of the date picker.
     if (this.freshDate > this.startDate) {
+      // Here we change the startDate to today so that the user can not pick a date later than today.
+      // We then add 6 months (the furthest the start date can be) and then add 2 years 
+      // ( the furthest that an end date can be)
       this.midDate = this.startDate.clone().add(6, 'months');
       this.endDate = this.startDate.clone().add(2, 'y');
     }
+    // Here we format and conver the moments into string to be used in the HTML 
     this.displayStart = this.startDate.format('YYYY-MM-DD');
     this.displayMid = this.midDate.format('YYYY-MM-DD');
     this.displayEnd = this.endDate.format('YYYY-MM-DD');
   }
 
+  // Posts a room to the date base.
   async postRoomOnSubmit() {
 
     // Validate if an entered address can be considered real
@@ -218,10 +240,12 @@ export class AddRoomComponent implements OnInit {
       .catch((err) => console.log(err));
   }
 
+  // called when te button to add an address is clicked to display the form. 
   addForm() {
     this.show = true;
   }
 
+  // called when the cancel button on the add address form is clicked to hide the form. 
   back() {
     this.show = false;
   }
@@ -242,7 +266,7 @@ export class AddRoomComponent implements OnInit {
     this.room.apiAddress = address;
   }
 
-
+  // Called in OnInit to get the provider that was choosen at the beginning.
   getProviderOnInit(providerId: number): Promise<Provider> {
     return this.providerService.getProviderById(providerId)
       .toPromise()
