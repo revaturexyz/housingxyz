@@ -62,7 +62,6 @@ export class UpdateRoomComponent implements OnInit {
         this.getLivingComplexesOnInit();
         this.getRoomsOnInit();
       });
-    } else {
     }
     this.providerService.getComplexesByProvider(this.provider.providerId).subscribe(this.complexObs);
     this.getRoomsOnInit();
