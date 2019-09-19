@@ -11,6 +11,9 @@ export class RedirectService {
 
   constructor(private router: Router) { }
 
+  // this function checks if there is currently a provider in local storage as a cookie.
+  // if the provider does not exist in local data, a user must select one before proceeding.
+  // if this is the case, it automatically redirects the user to the right page.
   checkProvider() {
     try {
       this.provider = JSON.parse(localStorage.getItem('currentProvider'));

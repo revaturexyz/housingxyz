@@ -4,8 +4,6 @@ import { ProviderService } from '../services/provider.service';
 import { Observer } from 'rxjs';
 import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
-import { DatePipe } from '@angular/common';
-import { RoomUpdateFormComponent } from '../room-update-form/room-update-form.component';
 import { RedirectService } from '../services/redirect.service';
 import { Provider } from 'src/interfaces/provider';
 
@@ -13,7 +11,6 @@ import { Provider } from 'src/interfaces/provider';
   selector: 'dev-update-room',
   templateUrl: './update-room.component.html',
   styleUrls: ['./update-room.component.scss'],
-  providers: [DatePipe]
 })
 export class UpdateRoomComponent implements OnInit {
 
@@ -53,7 +50,6 @@ export class UpdateRoomComponent implements OnInit {
   constructor(
     private providerService: ProviderService,
     private roomService: RoomService,
-    private datePipe: DatePipe,
     private redirect: RedirectService
     ) { }
 
@@ -66,14 +62,13 @@ export class UpdateRoomComponent implements OnInit {
         this.getLivingComplexesOnInit();
         this.getRoomsOnInit();
       });
-    } else {
     }
-    this.providerService.getComplexesByProvider(1).subscribe(this.complexObs);
+    this.providerService.getComplexesByProvider(this.provider.providerId).subscribe(this.complexObs);
     this.getRoomsOnInit();
   }
 
   getRoomsOnInit() {
-    this.roomService.getRoomsByProvider(1)
+    this.roomService.getRoomsByProvider(this.provider.providerId)
       .toPromise()
       .then((rooms) => this.roomList = rooms)
       .catch((err) => console.log(err));
@@ -87,7 +82,7 @@ export class UpdateRoomComponent implements OnInit {
     this.showString = complex.complexName;
     this.clearSelect();
     this.activeComplex = complex;
-    this.roomService.getRoomsByProvider(1).subscribe(this.roomsObs);
+    this.roomService.getRoomsByProvider(this.provider.providerId).subscribe(this.roomsObs);
     this.complexRooms = this.roomList.filter(r => r.apiComplex.complexId === this.activeComplex.complexId);
   }
 
@@ -130,39 +125,53 @@ export class UpdateRoomComponent implements OnInit {
 
   // this function receives an event from the child and commits the changes to the working room list
   roomChange(r: Room) {
-    this.roomService.updateRoom(r, 1).subscribe(x => {
+    this.roomService.updateRoom(r, this.provider.providerId).subscribe(x => {
       this.makeRoomChanges(r);
     });
   }
 
+  // this function copies the values of a list room to the values of an input room
+  roomDataReplace(element: Room, input: Room) {
+    element.roomId = input.roomId;
+    element.apiAddress = input.apiAddress;
+    element.roomNumber = input.roomNumber;
+    element.numberOfBeds = input.numberOfBeds;
+    element.apiRoomType = input.apiRoomType;
+    element.isOccupied = input.isOccupied;
+    element.apiAmenity = input.apiAmenity;
+    element.startDate = input.startDate;
+    element.endDate = input.endDate;
+    element.apiComplex = input.apiComplex;
+  }
+
+  // updates the roomList of all rooms with the newly updated room data
+  // also updates the complexRooms list with all the rooms of the complex so that the changes
+  // are immediately visible to the user
   makeRoomChanges(r: Room) {
-    this.roomList.forEach(element => this.copyRoomDate(r, element));
-    this.complexRooms.forEach(element => this.copyRoomDate(r, element));
+    this.roomList.forEach(element => {
+      if (element.roomId === r.roomId) {
+        this.roomDataReplace(element, r);
+      }
+    });
+    this.complexRooms.forEach(element => {
+      if (element.roomId === r.roomId) {
+        this.roomDataReplace(element, r);
+      }
+    });
     this.selectedRoom = null;
     this.highlightRoom = null;
   }
 
-  private copyRoomDate(source: Room, destination: Room): void {
-    if (destination.roomId === source.roomId) {
-      destination.roomId = source.roomId;
-      destination.apiAddress = source.apiAddress;
-      destination.roomNumber = source.roomNumber;
-      destination.numberOfBeds = source.numberOfBeds;
-      destination.apiRoomType = source.apiRoomType;
-      destination.isOccupied = source.isOccupied;
-      destination.apiAmenity = source.apiAmenity;
-      destination.startDate = source.startDate;
-      destination.endDate = source.endDate;
-      destination.apiComplex = source.apiComplex;
-    }
-  }
-  // this function receives an event from the child and removes the room from the working room list
+  // this function receives an event from the child and removes the room from the working room list.
   removeRoom(r: Room) {
-    this.roomService.deleteRoom(r, 1).subscribe(x => {
+    this.roomService.deleteRoom(r, this.provider.providerId).subscribe(x => {
       this.makeRemoveRoom(r);
     });
   }
 
+  // this function is called after a user attempts to delete a room if the removal is successful
+  // it updates the list of all the rooms and the list of all rooms in the complex to reflect the removal
+  // as an immediate update visible to the user.
   makeRemoveRoom(r: Room) {
     this.roomList = this.roomList.filter(x => x.roomId !== r.roomId);
     this.complexRooms = this.complexRooms.filter(x => x.roomId !== r.roomId);

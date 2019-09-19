@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 import { DatePipe } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AmenityDialogueComponent } from '../amenity-dialogue/amenity-dialogue.component';
-import { RoomService } from '../services/room.service';
 import { Amenity } from 'src/interfaces/amenity';
 import { Observer } from 'rxjs';
 import { ComplexService } from '../services/complex.service';
@@ -15,7 +14,7 @@ import { RequestDialogComponent } from '../request-dialog/request-dialog.compone
   styleUrls: ['./room-update-form.component.scss'],
   providers: [DatePipe],
 })
-export class RoomUpdateFormComponent implements OnInit {
+export class RoomUpdateFormComponent implements OnInit, OnChanges {
 
   editing = false;
   bedNumBool: boolean;
@@ -43,7 +42,6 @@ export class RoomUpdateFormComponent implements OnInit {
   constructor(
     private datePipe: DatePipe,
     private dialog: MatDialog,
-    private roomService: RoomService,
     private complexService: ComplexService
     ) { }
 
@@ -86,6 +84,11 @@ export class RoomUpdateFormComponent implements OnInit {
     if (this.datePipe.transform(this.today, 'yyyy-MM-dd') >= this.datePipe.transform(this.room.startDate, 'yyyy-MM-dd')) {
       this.allowModStartDate = true;
     }
+  }
+
+  // this function gets called every time the input room is changed. It resets a flag for editing
+  ngOnChanges() {
+    this.editing = false;
   }
 
   // this function is bound to a button. Its only purpose is to set an internal flag for whether or not the user
