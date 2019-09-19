@@ -15,11 +15,11 @@ export class RedirectService {
     try {
       this.provider = JSON.parse(localStorage.getItem('currentProvider'));
       if (this.provider == null) {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/provider-select');
       }
       return this.provider;
     } catch {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/provider-select');
     }
   }
 }

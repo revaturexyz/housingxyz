@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProviderLocation } from 'src/models/location';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { ProviderSelectComponent } from './provider-select/provider-select.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
@@ -31,7 +30,7 @@ import { environment } from 'src/environments/environment';
     AppComponent,
     NavComponent,
     HomeComponent,
-    LoginComponent,
+    ProviderSelectComponent,
     AddRoomComponent,
     UpdateRoomComponent,
     RoomDetailsComponent,
@@ -66,7 +65,7 @@ import { environment } from 'src/environments/environment';
       navigateToLoginRequestUrl: false
     })
   ],
-  providers: [ ProviderLocation, {
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MsalInterceptor,
     multi: true }],
