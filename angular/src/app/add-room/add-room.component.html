@@ -22,6 +22,7 @@
 
                 <br>
                 <!-- Drop down to let you choose a predetermined address -->
+                <!-- If the add address button is clicked this is hiden -->
                 <div *ngIf="show === false" class="col">
                     <div ngbDropdown class="d-inline-block">
                         <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ addressShowString }}</button>
@@ -33,9 +34,12 @@
 
                 <br>
                 <!-- form to give the user a chance to input an address if one of the predetermined one doesnt work -->
+                <!-- Only shows when the add address button is clicked -->
                 <button class="btn btn-secondary" *ngIf="show === false"(click)="addForm()">Add Address</button>
                 <form *ngIf="show === true">
                     <div>
+                        <!-- The div's with the alert id are only displayed when there is invalid information 
+                        so there is a generated error message to help guide the user to fix there mistakes.-->
                         <label class="col-md-9">Street Address: <input [(ngModel)]="room.apiAddress.streetAddress" name="room.apiAddress.streetAddress" class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel"> </label>
                         <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty" class="alert alert-danger alert-dismissable" role="alert">
                             Street address must contain at least 5 characters.
@@ -53,7 +57,6 @@
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -77,6 +80,7 @@
                         <div class="col-md-12">
                             <label for="room.roomNumber" class="col-md-3">Room Number: </label>
                             <input type="text" name="room.roomNumber" class="input-border col-md-3" required pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
+                            <!-- Displayed error message if something is invalid in the room number -->
                             <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-8">1 to 5 digits ending with or without a capital letter</div>
                         </div>
                         <!-- Choose the number of beds in the room -->
@@ -99,6 +103,7 @@
                         </div>
                         <br><br>
                         <!-- Choose the starting date -->
+                        <!-- The min and the max for the dates are the moments that we created in the component.ts file. -->
                         <div class="col-md-12">
                             <label for="StartDate" class="col-md-3">Start Date:</label>
                             <input class="input-border col-md-3" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}" required [(ngModel)]="room.startDate" #sd="ngModel"><span *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty" class="alert alert-danger col-md-3">Start date must be before end date.</span>
@@ -108,11 +113,12 @@
                             <label class="col-md-3">End Date:</label>
                             <input class="input-border col-md-3" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
                         </div>
-                        <!-- The submit and cancel button. Also some validation for a valid address, the distance between
-                        the room and training center, and the room and the compex -->
+                        <!-- The submit and cancel button. There is also some validation on the submit button so that it is greyed
+                        out if there are any errors in the form that need to be fixed.  -->
                         <div id="topbutton">
                             <button class="btn btn-secondary" type="submit" (click)="postRoomOnSubmit()" [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">Submit</button>
                             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                            <!-- Some validation for a valid address, the distance between the room and training center, and the room and the compex -->
                             <div *ngIf="invalidAddress" class="alert alert-danger"> The room address is invalid. Please enter a valid address.</div>
                             <div *ngIf="invalidDistanceToTraining" class="alert alert-danger"> 
                                 The distance between the room address and the training center address cannot exceed twenty miles.
