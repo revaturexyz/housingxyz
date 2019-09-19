@@ -55,12 +55,13 @@ export class AddComplexComponent implements OnInit {
   }
 
   ngOnInit() {
+    // This is not how redirects should work if no provider is selected.
+    // It is likely a guard will need to be implemented to accomplish this task.
     this.currentProvider = this.redirect.checkProvider();
     if (this.currentProvider !== null) {
       this.getProviderOnInit(this.currentProvider.providerId).then((p) => {
         this.currentProvider = p;
       });
-    } else {
     }
   }
 

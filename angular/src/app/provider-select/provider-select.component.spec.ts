@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LoginComponent } from './login.component';
+import { ProviderSelectComponent } from './provider-select.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MsalModule, MsalGuard, MsalService } from '@azure/msal-angular';
 import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 import { User } from 'msal';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('ProviderSelect', () => {
+  let component: ProviderSelectComponent;
+  let fixture: ComponentFixture<ProviderSelectComponent>;
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MsalModule, RouterTestingModule],
-      declarations: [LoginComponent],
+      declarations: [ProviderSelectComponent],
       providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
     })
       .compileComponents();
@@ -23,7 +23,7 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(ProviderSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

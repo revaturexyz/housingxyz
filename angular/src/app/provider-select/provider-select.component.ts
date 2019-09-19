@@ -4,11 +4,11 @@ import { Provider } from 'src/interfaces/provider';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'dev-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'dev-provider-select',
+  templateUrl: './provider-select.component.html',
+  styleUrls: ['./provider-select.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class ProviderSelectComponent implements OnInit {
   providers: Provider[] = [];
   providerDisplayString = 'Select a Provider';
 

@@ -8,7 +8,6 @@ import { Address } from 'src/interfaces/address';
 import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import * as moment from 'moment';
-import { TestServiceData } from '../services/static-test-data';
 import { Router } from '@angular/router';
 import { RoomType } from 'src/interfaces/room-type';
 import { RedirectService } from '../services/redirect.service';
@@ -106,8 +105,8 @@ export class AddRoomComponent implements OnInit {
 
   // This methods runs when the component is called.
   ngOnInit() {
-
-    // Checks to make sure there is a provider picked.
+    // This is not how redirects should work if no provider is selected.
+    // It is likely a guard will need to be implemented to accomplish this task.
     this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
     // If so we get the providers information, complexes, and the address
@@ -117,7 +116,6 @@ export class AddRoomComponent implements OnInit {
         this.getComplexesOnInit();
         this.getAddressesOnInit();
       });
-    } else {
     }
 
     // Here we get the room types, amenities, and we work with moments for
