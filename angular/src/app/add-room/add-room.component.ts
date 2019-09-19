@@ -33,14 +33,14 @@ export class AddRoomComponent implements OnInit {
   room: Room;
 
   // Moments objects used to create validation for the date picker.
-  // An easier way to store and manipulate the dates for proper validation.  
+  // An easier way to store and manipulate the dates for proper validation.
   startDate = moment();
   midDate = this.startDate.clone().add(6, 'months');
   endDate = this.startDate.clone().add(2, 'y');
   freshDate;
 
   // These variables are used so that when we convert the moments into strings
-  // they are stored in the proper format to use in the Html. 
+  // they are stored in the proper format to use in the Html.
   displayStart;
   displayMid;
   displayEnd;
@@ -51,7 +51,7 @@ export class AddRoomComponent implements OnInit {
   show = false;
 
   // values for displaying and allowing selection
-  // of the room type, amenities, and the provider. 
+  // of the room type, amenities, and the provider.
   provider: Provider;
   types: RoomType[] = [];
   amenities: Amenity[] = [];
@@ -107,7 +107,7 @@ export class AddRoomComponent implements OnInit {
   // This methods runs when the component is called.
   ngOnInit() {
 
-    // Checks to make sure there is a provider picked.  
+    // Checks to make sure there is a provider picked.
     this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
     // If so we get the providers information, complexes, and the address
@@ -120,8 +120,8 @@ export class AddRoomComponent implements OnInit {
     } else {
     }
 
-    // Here we get the room types, amenities, and we work with moments for 
-    // the date picker validation. 
+    // Here we get the room types, amenities, and we work with moments for
+    // the date picker validation.
     this.setUpMomentData();
 
     this.getRoomTypesOnInit();
@@ -135,12 +135,12 @@ export class AddRoomComponent implements OnInit {
     // If todays date is greater than the start date of the date picker.
     if (this.freshDate > this.startDate) {
       // Here we change the startDate to today so that the user can not pick a date later than today.
-      // We then add 6 months (the furthest the start date can be) and then add 2 years 
+      // We then add 6 months (the furthest the start date can be) and then add 2 years
       // ( the furthest that an end date can be)
       this.midDate = this.startDate.clone().add(6, 'months');
       this.endDate = this.startDate.clone().add(2, 'y');
     }
-    // Here we format and conver the moments into string to be used in the HTML 
+    // Here we format and conver the moments into string to be used in the HTML
     this.displayStart = this.startDate.format('YYYY-MM-DD');
     this.displayMid = this.midDate.format('YYYY-MM-DD');
     this.displayEnd = this.endDate.format('YYYY-MM-DD');
@@ -240,12 +240,12 @@ export class AddRoomComponent implements OnInit {
       .catch((err) => console.log(err));
   }
 
-  // called when te button to add an address is clicked to display the form. 
+  // called when te button to add an address is clicked to display the form.
   addForm() {
     this.show = true;
   }
 
-  // called when the cancel button on the add address form is clicked to hide the form. 
+  // called when the cancel button on the add address form is clicked to hide the form.
   back() {
     this.show = false;
   }
