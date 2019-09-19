@@ -136,38 +136,26 @@ export class UpdateRoomComponent implements OnInit {
   }
 
   makeRoomChanges(r: Room) {
-    this.roomList.forEach(element => {
-      if (element.roomId === r.roomId) {
-        element.roomId = r.roomId;
-        element.apiAddress = r.apiAddress;
-        element.roomNumber = r.roomNumber;
-        element.numberOfBeds = r.numberOfBeds;
-        element.apiRoomType = r.apiRoomType;
-        element.isOccupied = r.isOccupied;
-        element.apiAmenity = r.apiAmenity;
-        element.startDate = r.startDate;
-        element.endDate = r.endDate;
-        element.apiComplex = r.apiComplex;
-      }
-    });
-    this.complexRooms.forEach(element => {
-      if (element.roomId === r.roomId) {
-        element.roomId = r.roomId;
-        element.apiAddress = r.apiAddress;
-        element.roomNumber = r.roomNumber;
-        element.numberOfBeds = r.numberOfBeds;
-        element.apiRoomType = r.apiRoomType;
-        element.isOccupied = r.isOccupied;
-        element.apiAmenity = r.apiAmenity;
-        element.startDate = r.startDate;
-        element.endDate = r.endDate;
-        element.apiComplex = r.apiComplex;
-      }
-    });
+    this.roomList.forEach(element => this.copyRoomDate(r, element));
+    this.complexRooms.forEach(element => this.copyRoomDate(r, element));
     this.selectedRoom = null;
     this.highlightRoom = null;
   }
 
+  private copyRoomDate(source: Room, destination: Room): void {
+    if (destination.roomId === source.roomId) {
+      destination.roomId = source.roomId;
+      destination.apiAddress = source.apiAddress;
+      destination.roomNumber = source.roomNumber;
+      destination.numberOfBeds = source.numberOfBeds;
+      destination.apiRoomType = source.apiRoomType;
+      destination.isOccupied = source.isOccupied;
+      destination.apiAmenity = source.apiAmenity;
+      destination.startDate = source.startDate;
+      destination.endDate = source.endDate;
+      destination.apiComplex = source.apiComplex;
+    }
+  }
   // this function receives an event from the child and removes the room from the working room list
   removeRoom(r: Room) {
     this.roomService.deleteRoom(r, 1).subscribe(x => {
