@@ -3,33 +3,33 @@
     <caption hidden>A table of room details.</caption>
     <thead class="thead-dark">
       <tr>
-        <th scope="col" class="text-center">Room Number</th>
-        <th scope="col" class="text-center">Number of Beds</th>
-        <th scope="col" class="text-center">Type</th>
-        <th scope="col" class="text-center">Occupied</th>
-        <th scope="col" class="text-center">Amenities</th>
-        <th scope="col" class="text-center dateBox">Start Date</th>
-        <th scope="col" class="text-center dateBox">End Date</th>
+        <th class="col text-center">Room Number</th>
+        <th class="col text-center">Number of Beds</th>
+        <th class="col text-center">Type</th>
+        <th class="col text-center">Occupied</th>
+        <th class="col text-center">Amenities</th>
+        <th class="col text-center dateBox">Start Date</th>
+        <th class="col text-center dateBox">End Date</th>
       </tr>
     </thead>
     <tbody>
         <tr>
-          <td scope="col" style="text-align: center">{{room.roomNumber}}</td>
-          <td scope="col" style="text-align: center">{{room.numberOfBeds}}</td>
-          <td scope="col" style="text-align: center">{{room.apiRoomType.roomType}}</td>
-          <td scope="col" style="text-align: center">{{room.isOccupied}}</td>
-          <td scope="col" style="text-align: center">
+          <td class="col text-center">{{room.roomNumber}}</td>
+          <td class="col text-center">{{room.numberOfBeds}}</td>
+          <td class="col text-center">{{room.apiRoomType.roomType}}</td>
+          <td class="col text-center">{{room.isOccupied}}</td>
+          <td class="col text-center">
             <span>|</span>
             <span *ngFor="let a of room.apiAmenity">| {{a.amenity}} |</span>
             <span>|</span>
           </td>
-          <td scope="col" style="text-align: center">{{room.startDate | date}}</td>
-          <td scope="col" style="text-align: center">{{room.endDate | date}}</td>
+          <td class="col text-center">{{room.startDate | date}}</td>
+          <td class="col text-center">{{room.endDate | date}}</td>
         </tr>
         <!-- this row begins the display for the forms. Only displays when the user has clicked to edit the room -->
         <tr *ngIf="editing">
           <!-- this is the form for the room number. -->
-            <td scope="col" class="text-center">
+            <td class="col text-center">
               <form class="form-group" #roomNum="ngForm">
                 <input maxlength="7" class="form-control" id="roomNum" required type="text" [pattern]="'^(?=.*\\d)[a-zA-Z0-9]*$'"
                   [(ngModel)]="room.roomNumber" name="roomNum" #roomNum="ngModel" (keyup)="roomNumValid(roomNum.invalid)"/>
@@ -37,20 +37,20 @@
               </form>
             </td>
             <!-- this is the form for the number of beds -->
-            <td scope="col" class="text-center">
+            <td class="col text-center">
                 <form class="form-group" #bedNum="ngForm">
                     <input maxlength="1" class="form-control" id="bedNum" required type="text" [pattern]="'^(?=.*\\d)[1-8]{1,1}$'"
                       [(ngModel)]="room.numberOfBeds" name="bedNum" #bedNum="ngModel" (keyup)="bedNumValid(bedNum.invalid)"/>
                     <div *ngIf="bedNum.invalid && (bedNum.dirty || bedNum.touched)" class="alert alert-danger"> Must be a single digit between 1 and 8.</div>
                 </form>
             </td>
-            <td scope="col" class="text-center">{{room.apiRoomType.roomType}}</td>
-            <td scope="col" class="text-center">{{room.isOccupied}}</td>
-            <td scope="col" style="text-align: center">
+            <td class="col text-center">{{room.apiRoomType.roomType}}</td>
+            <td class="col text-center">{{room.isOccupied}}</td>
+            <td class="col text-center">
               <button type="button" class="btn btn-primary" *ngIf="room" (click)="openDialog()">Select Amenities</button>
             </td>
             <!-- this is the form for the start date of the contract -->
-            <td scope="col" class="text-center">
+            <td class="col text-center">
               <form class="form-group" #startDate="ngForm">
                 <input class="form-control" id="startDate" required type="date" [disabled]="allowModStartDate"
                   [ngModel]="room.startDate | date:'yyyy-MM-dd'" (ngModelChange)="validateStart($event)" name="startDate" #startDate="ngModel"/>
@@ -58,7 +58,7 @@
               </form>
             </td>
             <!-- this is the form for end date of the contract -->
-            <td scope="col" class="text-center">
+            <td class="col text-center">
               <form class="form-group" #endDate="ngForm">
                 <input class="form-control" id="endDate" required type="date"
                   [ngModel]="room.endDate | date:'yyyy-MM-dd'" (ngModelChange)="validateEnd($event)" name="endDate" #endDate="ngModel"/>

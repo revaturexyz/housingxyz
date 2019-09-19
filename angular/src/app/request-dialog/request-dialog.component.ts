@@ -19,9 +19,12 @@ export class RequestDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<RequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
     private providerService: ProviderService) {
+    // upon construction, uses the injected data to initialize the room field
     this.requestRoom = data.reqRoom;
   }
 
+  // initializes the notification object to basic data. Currently functions for a hard coded provider
+  // needs to be refactored to allow for dynamic provider ID setting
   ngOnInit() {
     if (this.requestRoom == null) {
       this.close();
