@@ -23,13 +23,14 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // This is not how redirects should work if no provider is selected.
+    // It is likely a guard will need to be implemented to accomplish this task.
     this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
       this.getProviderOnInit(this.provider.providerId).then(p => {
         this.provider = p;
         this.getLivingComplexesOnInit();
       });
-    } else {
     }
   }
 
