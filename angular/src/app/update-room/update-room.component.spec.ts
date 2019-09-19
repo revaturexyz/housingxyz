@@ -61,6 +61,7 @@ describe('UpdateRoomComponent', () => {
     spyOn(myRoom, 'getRoomsByProvider').and.returnValue(roomOb);
     component = fixture.componentInstance;
     component.roomList = rooms;
+    component.provider = TestServiceData.dummyProvider;
     fixture.detectChanges();
   });
 
