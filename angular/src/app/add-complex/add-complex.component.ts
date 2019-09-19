@@ -57,7 +57,7 @@ export class AddComplexComponent implements OnInit {
       .then(p => {
         this.currentProvider = p;
       });
-    } 
+    }
   }
 
   postLivingComplex(): void {
