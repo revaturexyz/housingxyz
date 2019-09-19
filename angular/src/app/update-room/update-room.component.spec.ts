@@ -14,6 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
 import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 import { User } from 'msal';
+import { RedirectService } from '../services/redirect.service';
 
 const complexes: Complex[] = [TestServiceData.dummyComplex, TestServiceData.dummyComplex2];
 const rooms: Room[] = [TestServiceData.room, TestServiceData.room2];
@@ -30,13 +31,14 @@ describe('UpdateRoomComponent', () => {
   let fixture: ComponentFixture<UpdateRoomComponent>;
   let myProvider: ProviderService;
   let myRoom: RoomService;
+  let myRedirect: RedirectService;
   let httpMock: HttpTestingController;
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, MsalModule],
-      providers: [ProviderService, RoomService, { provide: MsalGuard, useValue: {} },
+      providers: [ProviderService, RoomService, RedirectService, { provide: MsalGuard, useValue: {} },
         { provide: MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG,
           useValue: {} }]
     })
@@ -51,6 +53,7 @@ describe('UpdateRoomComponent', () => {
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
     myRoom = testBed.get(RoomService);
+    myRedirect = testBed.get(RedirectService);
     httpMock = testBed.get(HttpTestingController);
     msalService = testBed.get(MsalService);
   }));
@@ -59,9 +62,9 @@ describe('UpdateRoomComponent', () => {
     fixture = TestBed.createComponent(UpdateRoomComponent);
     spyOn(myProvider, 'getComplexesByProvider').and.returnValue(complexOb);
     spyOn(myRoom, 'getRoomsByProvider').and.returnValue(roomOb);
+    spyOn(myRedirect, 'checkProvider').and.returnValue(TestServiceData.dummyProvider);
     component = fixture.componentInstance;
     component.roomList = rooms;
-    component.provider = TestServiceData.dummyProvider;
     fixture.detectChanges();
   });
 
