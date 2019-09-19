@@ -13,11 +13,17 @@ import { RedirectService } from '../services/redirect.service';
   styleUrls: ['./add-complex.component.scss']
 })
 export class AddComplexComponent implements OnInit {
+  // the values to the provider object are set on initialization
   currentProvider: Provider;
 
+  // these boolean flags are overwritten by promises returned from
+  // the verifyAddress service method that is called by the postLivingComplex method
+  // they are then attribute binded to the template to display an error message to
+  // the user if the address is invalid
   isValidAddress = true;
   isValidDistanceToTrainingCenter = true;
 
+  // the values to the complex object are set in the constructor
   formLivingComplex: Complex;
 
   constructor(
@@ -51,19 +57,19 @@ export class AddComplexComponent implements OnInit {
   ngOnInit() {
     this.currentProvider = this.redirect.checkProvider();
     if (this.currentProvider !== null) {
-      this.getProviderOnInit(this.currentProvider.providerId)
-      .then(p => {
+      this.getProviderOnInit(this.currentProvider.providerId).then((p) => {
         this.currentProvider = p;
       });
     } else {
     }
   }
 
+  // this method is called when the Submit button is clicked
   postLivingComplex(): void {
     // verify the complex address
-    this.mapsService.verifyAddress(this.formLivingComplex.apiAddress)
+    this.mapsService
+      .verifyAddress(this.formLivingComplex.apiAddress)
       .then((isValid) => {
-
         // set our flag and return if not
         this.isValidAddress = isValid;
         if (!this.isValidAddress) {
@@ -71,10 +77,8 @@ export class AddComplexComponent implements OnInit {
         }
 
         // get the distance
-        this.mapsService.checkDistance(
-          this.formLivingComplex.apiAddress,
-          this.currentProvider.apiTrainingCenter.apiAddress
-          )
+        this.mapsService
+          .checkDistance(this.formLivingComplex.apiAddress, this.currentProvider.apiTrainingCenter.apiAddress)
           .then((distance) => {
             // set the distance flag and return if false
             this.isValidDistanceToTrainingCenter = distance <= 20;
@@ -84,18 +88,19 @@ export class AddComplexComponent implements OnInit {
 
             // set the complex provider Id for our API call
             this.formLivingComplex.apiProvider.providerId = this.currentProvider.providerId;
-
-            this.postToService()
+            // calls upon this service method to send a post request
+            this.postToService() // and redirects the page after the promise is kept
               .then(() => this.router.navigate(['']));
           });
-        })
+      })
       .catch((err) => console.log(err));
   }
 
   private postToService() {
     // call the API, post a log of our restult, and redirect
-    return this.providerService.postComplex(this.formLivingComplex, this.currentProvider.providerId)
-      .toPromise()
+    return this.providerService // postComplex makes a post request via a HttpClient object and thus returns an Observable
+      .postComplex(this.formLivingComplex, this.currentProvider.providerId)
+      .toPromise()  // that first needs to be converted to a promise
       .then((result) => {
         console.log('Post is a success: ');
         console.log(result);
@@ -103,16 +108,22 @@ export class AddComplexComponent implements OnInit {
       .catch((err) => {
         console.log('POST failed: ');
         console.log(err);
-    });
+      });
   }
 
+  // this method is called if the user clicks the Cancel button
   cancelAddLivingComplex(): void {
     this.router.navigate(['']);
   }
 
+  // this method returns a provider from the database
+  // based on its Id, this method is called when the page
+  // first loads and when that's the case, should return the provider with
+  // the default provider value of 1.
   getProviderOnInit(providerId: number): Promise<Provider> {
-    return this.providerService.getProviderById(providerId)
+    return this.providerService
+      .getProviderById(providerId)
       .toPromise()
-      .then((provider) => this.currentProvider = provider);
+      .then((provider) => (this.currentProvider = provider));
   }
 }
