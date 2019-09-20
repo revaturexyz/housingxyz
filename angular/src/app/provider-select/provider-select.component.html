@@ -1,13 +1,15 @@
 <div class="login-outer">
-    <div class="login-inner">
-        <h3>Select a provider</h3>
-        <hr>
-        <div *ngIf="providers" ngbDropdown class="d-inline-block">
-            <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ providerDisplayString }}</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem (click)="selectProvider(provider)" *ngFor="let provider of providers">{{ provider.companyName + ' |  ' + provider.contactNumber }}</button>
-            </div>
-        </div>
-        <hr>
+  <div class="login-inner">
+    <h3>Select a provider</h3>
+    <hr>
+    <div *ngIf="providers" ngbDropdown class="d-inline-block">
+      <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ providerDisplayString }}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem *ngFor="let provider of providers" (click)="selectProvider(provider)">
+          {{ provider.companyName + ' |  ' + provider.contactNumber }}
+        </button>
+      </div>
     </div>
+    <hr>
+  </div>
 </div>

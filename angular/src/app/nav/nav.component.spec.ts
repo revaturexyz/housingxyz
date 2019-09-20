@@ -23,7 +23,6 @@ describe('NavComponent', () => {
     });
   }));
 
-
   it('should create nav component', () => {
     expect(component).toBeTruthy();
   });

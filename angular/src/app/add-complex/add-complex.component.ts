@@ -18,7 +18,7 @@ export class AddComplexComponent implements OnInit {
 
   // these boolean flags are overwritten by promises returned from
   // the verifyAddress service method that is called by the postLivingComplex method
-  // they are then attribute binded to the template to display an error message to
+  // they are then attribute-bound to the template to display an error message to
   // the user if the address is invalid
   isValidAddress = true;
   isValidDistanceToTrainingCenter = true;

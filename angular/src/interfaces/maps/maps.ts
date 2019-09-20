@@ -1,4 +1,5 @@
 import { MapsDetails } from './maps-details';
+
 // The Google Mapps Geocode API returns a complex object, most of which we do not use.
 // We map the returned object to this nested interface.
 //
@@ -11,6 +12,6 @@ import { MapsDetails } from './maps-details';
 //
 // Exact matches for an address result in one result.
 export interface Maps {
-    results: MapsDetails[];
-    status: string;
+  results: MapsDetails[];
+  status: string;
 }

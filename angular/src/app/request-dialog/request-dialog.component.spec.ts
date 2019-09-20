@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { RequestDialogComponent } from './request-dialog.component';
-import { MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA  } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Amenity } from 'src/interfaces/amenity';
@@ -20,22 +20,25 @@ describe('RequestDialogComponent', () => {
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RequestDialogComponent ],
-      imports: [ MatDialogModule, FormsModule, HttpClientTestingModule, MsalModule, RouterTestingModule ],
-      providers: [{
-        provide: MatDialogRef,
-        useValue: {
-          close: (dialogResult: any) => { }
-      }}, {provide: MAT_DIALOG_DATA,
-        useValue: data
-      },
-      {provide: MsalGuard, useValue: {}}, MsalService, {provide: MSAL_CONFIG, useValue: {}}]
+      declarations: [RequestDialogComponent],
+      imports: [MatDialogModule, FormsModule, HttpClientTestingModule, MsalModule, RouterTestingModule],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {
+            close: (dialogResult: any) => { }
+          }
+        },
+        { provide: MAT_DIALOG_DATA, useValue: data },
+        { provide: MsalGuard, useValue: {} },
+        MsalService,
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
     const testBed = getTestBed();
     msalService = testBed.get(MsalService);
     spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
-
   }));
 
   beforeEach(() => {

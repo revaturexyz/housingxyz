@@ -9,7 +9,6 @@ import { MsalGuard, MsalService, MsalModule } from '@azure/msal-angular';
 import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 import { User } from 'msal';
 
-
 const complexAdd: Address = TestServiceData.dummyAddress;
 const provider = TestServiceData.testProvider2;
 
@@ -22,14 +21,17 @@ describe('AddComplexComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AddComplexComponent],
       imports: [FormsModule, HttpClientTestingModule, RouterTestingModule, MsalModule],
-      providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
+      providers: [
+        { provide: MsalGuard, useValue: {} },
+        MsalService,
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     })
       .compileComponents();
     const testBed = getTestBed();
     httpMock = testBed.get(HttpTestingController);
     msalService = testBed.get(MsalService);
     spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
-
   }));
 
   beforeEach(() => {
@@ -68,5 +70,4 @@ describe('AddComplexComponent', () => {
     component.postLivingComplex();
     expect(component.isValidDistanceToTrainingCenter).toBeFalsy();
   });
-
 });

@@ -13,7 +13,7 @@ const amenity1: Amenity = TestServiceData.dummyAmenity1;
 const amenity2: Amenity = TestServiceData.dummyAmenity2;
 
 class MockMsalService {
-  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+  getUser(): User { return new User('1', 'chris', 'master', 'test', new Object()); }
 }
 
 describe('ComplexService', () => {
@@ -23,16 +23,20 @@ describe('ComplexService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MsalModule, RouterTestingModule],
-      providers: [ComplexService, { provide: MsalGuard, useValue: {} }, { provide:
-        MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG, useValue: {} }]
+      providers: [
+        ComplexService,
+        { provide: MsalGuard, useValue: {} },
+        { provide: MsalService, useClass: MockMsalService },
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     });
 
     const testBed = getTestBed();
     myProvider = testBed.get(ComplexService);
     httpMock = testBed.get(HttpTestingController);
     msalService = testBed.get(MsalService);
-
   });
+
   it('should be created', () => {
     const service: ComplexService = TestBed.get(ComplexService);
     expect(service).toBeTruthy();
@@ -43,7 +47,8 @@ describe('ComplexService', () => {
     it('should return an Observable<Amenity[]>', () => {
       const someAmenity = [
         amenity1,
-        amenity2];
+        amenity2
+      ];
       myProvider.getAmenityByComplex(1).subscribe((amenity) => {
         expect(amenity.length).toBe(someAmenity.length);
         expect(amenity).toEqual(someAmenity);

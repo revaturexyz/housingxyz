@@ -12,8 +12,8 @@ describe('ProviderSelect', () => {
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MsalModule, RouterTestingModule],
       declarations: [ProviderSelectComponent],
+      imports: [HttpClientTestingModule, MsalModule, RouterTestingModule],
       providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
     })
       .compileComponents();

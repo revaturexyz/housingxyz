@@ -39,11 +39,10 @@ export class AddRoomComponent implements OnInit {
   freshDate;
 
   // These variables are used so that when we convert the moments into strings
-  // they are stored in the proper format to use in the Html.
+  // they are stored in the proper format to use in the HTML.
   displayStart;
   displayMid;
   displayEnd;
-
 
   // This variable is used to display the add address form when a new address needs
   // to be created.
@@ -109,7 +108,7 @@ export class AddRoomComponent implements OnInit {
     // It is likely a guard will need to be implemented to accomplish this task.
     this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
-    // If so we get the providers information, complexes, and the address
+      // If so we get the providers information, complexes, and the address
       this.getProviderOnInit(this.provider.providerId).then(p => {
         this.provider = p;
 
@@ -175,7 +174,7 @@ export class AddRoomComponent implements OnInit {
       await this.mapservice.checkDistance(
         this.room.apiAddress,
         this.activeComplex.apiAddress);
-    if (!(isValidDistanceComplex <= 5 )) {
+    if (!(isValidDistanceComplex <= 5)) {
       this.invalidDistanceToComplex = true;
       return;
     }

@@ -23,7 +23,7 @@ const complexOb: Observable<Complex[]> = from([complexes]);
 const roomOb: Observable<Room[]> = from([rooms]);
 
 class MockMsalService {
-  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+  getUser(): User { return new User('1', 'chris', 'master', 'test', new Object()); }
 }
 
 describe('UpdateRoomComponent', () => {
@@ -38,18 +38,21 @@ describe('UpdateRoomComponent', () => {
     TestBed.configureTestingModule({
       declarations: [UpdateRoomComponent, RoomDetailsComponent, RoomUpdateFormComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, MsalModule],
-      providers: [ProviderService, RoomService, RedirectService, { provide: MsalGuard, useValue: {} },
-        { provide: MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG,
-          useValue: {} }]
+      providers: [
+        ProviderService,
+        RoomService,
+        RedirectService,
+        { provide: MsalGuard, useValue: {} },
+        { provide: MsalService, useClass: MockMsalService },
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     })
       .overrideComponent(RoomUpdateFormComponent, {
         set: { template: '<div></div>' }
-      }
-      )
+      })
       .overrideComponent(RoomDetailsComponent, {
         set: { template: '<div></div>' }
-      }
-      );
+      });
     const testBed = getTestBed();
     myProvider = testBed.get(ProviderService);
     myRoom = testBed.get(RoomService);
@@ -76,7 +79,6 @@ describe('UpdateRoomComponent', () => {
     expect(component.complexList).toBeTruthy();
   });
 
-
   it('should choose Complex on chooseComplex()', () => {
 
     // given this complex
@@ -89,7 +91,6 @@ describe('UpdateRoomComponent', () => {
     expect(component.showString).toEqual(complex.complexName);
     expect(component.activeComplex).toBe(complex);
     expect(component.complexRooms).toBeTruthy(); // assertion that the available rooms are filtered successfully
-
   });
 
   it('should have <div> with class page', () => {
@@ -98,7 +99,7 @@ describe('UpdateRoomComponent', () => {
     expect(div).toBeTruthy();
   });
 
-  it('should have <div> with class "page" with two <div> children of class "leftBod" and "rightBod" ', () => {
+  it('should have <div> with class "page" with two <div> children of class "leftBod" and "rightBod"', () => {
     const pageDebug: DebugElement = fixture.debugElement;
     const pageElement: HTMLElement = pageDebug.nativeElement;
     const child1 = pageElement.getElementsByClassName('leftBod');
@@ -146,7 +147,6 @@ describe('UpdateRoomComponent', () => {
 
     expect(component.selectedRoom).toBeNull();
     expect(component.highlightRoom).toBeNull();
-
   });
 
   it('should update room on roomChange()', () => {
@@ -167,5 +167,4 @@ describe('UpdateRoomComponent', () => {
     expect(component.selectedRoom).toBeNull();
     expect(component.highlightRoom).toBeNull();
   });
-
 });

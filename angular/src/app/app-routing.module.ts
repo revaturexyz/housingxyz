@@ -7,19 +7,19 @@ import { HomeComponent } from './home/home.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { MsalGuard } from '@azure/msal-angular';
 
-
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [MsalGuard ] },
+  { path: '', component: HomeComponent, canActivate: [MsalGuard] },
   { path: 'show-rooms', component: UpdateRoomComponent },
-  { path: 'provider-select', component: ProviderSelectComponent, canActivate: [ MsalGuard ]  },
-  { path: 'addroom', component: AddRoomComponent},
+  { path: 'provider-select', component: ProviderSelectComponent, canActivate: [MsalGuard] },
+  { path: 'addroom', component: AddRoomComponent },
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),
-                       ],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

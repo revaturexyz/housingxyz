@@ -33,7 +33,7 @@ export class RoomUpdateFormComponent implements OnInit, OnChanges {
     error: err => console.error('Observer got amenity error: ' + err),
     complete: () => console.log('Observer got amenity complete notification'),
   };
-  @Input () room: Room;
+  @Input() room: Room;
   // emits an event called roomChange to the parent component
   @Output() roomChange = new EventEmitter();
   // emits an event called deleteRoom to the parent component
@@ -43,7 +43,7 @@ export class RoomUpdateFormComponent implements OnInit, OnChanges {
     private datePipe: DatePipe,
     private dialog: MatDialog,
     private complexService: ComplexService
-    ) { }
+  ) { }
 
   // initializes data for the dialog, and then calls it to be rendered on screen. This dialog is used
   // to change the amenities

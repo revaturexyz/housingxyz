@@ -18,17 +18,19 @@ describe('RoomUpdateFormComponent', () => {
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MatDialogModule, HttpClientTestingModule, MsalModule, RouterTestingModule],
       declarations: [RoomUpdateFormComponent],
-      providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
-
+      imports: [FormsModule, MatDialogModule, HttpClientTestingModule, MsalModule, RouterTestingModule],
+      providers: [
+        { provide: MsalGuard, useValue: {} },
+        MsalService,
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     })
       .compileComponents();
 
     const testBed = getTestBed();
     msalService = testBed.get(MsalService);
     spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
-
   }));
 
   beforeEach(() => {
