@@ -24,7 +24,7 @@ export class ProviderService {
   ) {
     this.httpOptions = {
       headers: new HttpHeaders({
-          Authorization: msalService.getUser().userIdentifier
+        Authorization: msalService.getUser().userIdentifier
       })
     };
   }

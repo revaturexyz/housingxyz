@@ -16,7 +16,7 @@ const listProvider: Provider[] = TestServiceData.testProviders;
 const provider2: Provider = TestServiceData.testProvider2;
 
 class MockMsalService {
-  getUser(): User {return new User('1', 'chris', 'master', 'test', new Object()); }
+  getUser(): User { return new User('1', 'chris', 'master', 'test', new Object()); }
 }
 
 describe('ProviderService', () => {
@@ -26,8 +26,12 @@ describe('ProviderService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProviderService, { provide: MsalGuard, useValue: {} }, { provide:
-        MsalService, useClass: MockMsalService }, { provide: MSAL_CONFIG, useValue: {} }]
+      providers: [
+        ProviderService,
+        { provide: MsalGuard, useValue: {} },
+        { provide: MsalService, useClass: MockMsalService },
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     });
 
     const testBed = getTestBed();
@@ -87,7 +91,6 @@ describe('ProviderService', () => {
       call.flush(someComplexes);
       httpMock.verify();
     });
-
   });
 
   describe('postComplex', () => {
@@ -104,7 +107,6 @@ describe('ProviderService', () => {
       call.flush(oneComplex);
       httpMock.verify();
     });
-
   });
 
   describe('getAddressesByProvider', () => {
@@ -124,17 +126,16 @@ describe('ProviderService', () => {
       zipcode: '76010'
     };
 
-
     it('should return an Observable<Address[]>', () => {
-      const someAddressess = [address1, address2];
+      const someAddresses = [address1, address2];
       myProvider.getAddressesByProvider(1).subscribe((address) => {
         expect(address.length).toBe(2);
-        expect(address[0].streetAddress).toEqual(someAddressess[0].streetAddress);
-        expect(address[1].streetAddress).toEqual(someAddressess[1].streetAddress);
+        expect(address[0].streetAddress).toEqual(someAddresses[0].streetAddress);
+        expect(address[1].streetAddress).toEqual(someAddresses[1].streetAddress);
       });
       const call = httpMock.expectOne(`${myProvider.apiUrl}Address/provider/${1}`);
       expect(call.request.method).toBe('GET');
-      call.flush(someAddressess);
+      call.flush(someAddresses);
       httpMock.verify();
     });
   });

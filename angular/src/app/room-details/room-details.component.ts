@@ -9,9 +9,8 @@ import { Room } from 'src/interfaces/room';
 export class RoomDetailsComponent implements OnInit {
   constructor() { }
 
-  @Input () room: Room;
+  @Input() room: Room;
 
   ngOnInit() {
   }
-
 }

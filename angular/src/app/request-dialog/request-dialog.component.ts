@@ -50,5 +50,4 @@ export class RequestDialogComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
 }

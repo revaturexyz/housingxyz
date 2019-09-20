@@ -9,17 +9,17 @@ describe('RoomDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MatCardModule, MatChipsModule ],
-      declarations: [ RoomDetailsComponent ]
+      declarations: [RoomDetailsComponent],
+      imports: [MatCardModule, MatChipsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RoomDetailsComponent);
     component = fixture.componentInstance;
     component.room = TestServiceData.room;
-    component.room.apiRoomType = {typeId: 0 , roomType: 'Apartment'};
+    component.room.apiRoomType = { typeId: 0, roomType: 'Apartment' };
     fixture.detectChanges();
   });
 

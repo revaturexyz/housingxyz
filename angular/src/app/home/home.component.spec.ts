@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, inject, getTestBed } from '@angular/c
 import { HomeComponent } from './home.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
 import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
 import { User } from 'msal';
@@ -13,7 +13,7 @@ describe('HomeComponent', () => {
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [HomeComponent],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
@@ -21,14 +21,16 @@ describe('HomeComponent', () => {
         ReactiveFormsModule,
         MsalModule
       ],
-      providers: [{provide: MsalGuard, useValue: {}}, MsalService, {provide: MSAL_CONFIG, useValue: {}}]
-
+      providers: [
+        { provide: MsalGuard, useValue: {} },
+        MsalService,
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
     const testBed = getTestBed();
     msalService = testBed.get(MsalService);
     spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
-
   }));
 
   beforeEach(() => {

@@ -12,8 +12,9 @@ import { StickyNavModule } from 'ng2-sticky-nav';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
-import { MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatDialogModule } from '@angular/material';
+import {
+  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule
+} from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
@@ -65,11 +66,14 @@ import { environment } from 'src/environments/environment';
       navigateToLoginRequestUrl: false
     })
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: MsalInterceptor,
-    multi: true }],
-  bootstrap: [ AppComponent ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    }
+  ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

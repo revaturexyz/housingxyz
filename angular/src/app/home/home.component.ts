@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';

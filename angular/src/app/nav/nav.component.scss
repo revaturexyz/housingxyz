@@ -1,68 +1,68 @@
-.nav-bar{
-    box-sizing: border-box;
-    width: 100%;
-    font-size: 12px;
-    overflow: hidden;  
-    opacity: 0.9;
-    z-index: 10;
-    border-bottom: 1px solid gray;
+.nav-bar {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 12px;
+  overflow: hidden;
+  opacity: 0.9;
+  z-index: 10;
+  border-bottom: 1px solid gray;
 }
 
-.menubar, .revlogo{
-    float: left;
-    height: 100px;
+.menubar,
+.revlogo {
+  float: left;
+  height: 100px;
 }
 
-.menubar{
-    width: 60%;
-    background-color: white;
+.menubar {
+  width: 60%;
+  background-color: white;
 }
 
-.revlogo{
-    width: 40%;
-    cursor: pointer;
-    background-color: white;
+.revlogo {
+  width: 40%;
+  cursor: pointer;
+  background-color: white;
 }
 
-.menubar ul{
-    float: right;
-    padding-top: 53px;
-    margin-right: 10%;
+.menubar ul {
+  float: right;
+  padding-top: 53px;
+  margin-right: 10%;
 }
 
-.menubar li{
-    float: left;
-    margin-left: 18px;
-    list-style: none;
-    padding-bottom: 7px;
+.menubar li {
+  float: left;
+  margin-left: 18px;
+  list-style: none;
+  padding-bottom: 7px;
 }
 
-.menubar li a{
-    text-decoration: none;
-    color: #444;
-    font-family: sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
+.menubar li a {
+  text-decoration: none;
+  color: #444;
+  font-family: sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.menubar li:hover{
-    border-bottom: 2px solid darkorange;
-    cursor: pointer;
+.menubar li:hover {
+  border-bottom: 2px solid darkorange;
+  cursor: pointer;
 }
 
-.revlogo img{
-    float: left;
-    padding-top: 30px !important;
-    margin-left: 15%;
+.revlogo img {
+  float: left;
+  padding-top: 30px !important;
+  margin-left: 15%;
 }
 
-#btn-login{
-    color: #fb752c; 
-    font-size: 11.5px;
+#btn-login {
+  color: #fb752c;
+  font-size: 11.5px;
 }
 
-#icon-user{
-    color: #fb752c; 
-    margin-right: 5px;
+#icon-user {
+  color: #fb752c;
+  margin-right: 5px;
 }
-

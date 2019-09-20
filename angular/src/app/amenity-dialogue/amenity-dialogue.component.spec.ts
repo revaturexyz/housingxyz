@@ -16,7 +16,10 @@ describe('AmenityDialogueComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AmenityDialogueComponent],
       imports: [MatDialogModule, MatRippleModule],
-      providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: data }]
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: data }
+      ]
     })
       .compileComponents();
   }));
@@ -41,7 +44,7 @@ describe('AmenityDialogueComponent', () => {
 
   it('should add amenity on clickEvent() to editedAmenities if amenity is not in editedAmenities', () => {
     fixture.detectChanges();
-    const amenity3 = {amenityId: 4, amenity: 'Washer No Dryer Unit', isSelected: true};
+    const amenity3 = { amenityId: 4, amenity: 'Washer No Dryer Unit', isSelected: true };
     component.clickEvent(amenity3);
     expect(component.editedAmenities).toContain(amenity3);
   });

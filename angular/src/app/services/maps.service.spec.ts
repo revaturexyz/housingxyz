@@ -5,6 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestServiceData } from './static-test-data';
 import { Address } from '../../interfaces/address';
 import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent';
+import { environment } from 'src/environments/environment';
 
 const newAdd: Address = TestServiceData.dummyAddress;
 const livAdd: Address = TestServiceData.livPlusAddress;
@@ -35,7 +36,7 @@ describe('MapsService', async () => {
       mockAdd.city + '+' +
       mockAdd.state + '+' +
       mockAdd.zipcode +
-      '&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A';
+      '&key=' + environment.googleMapsKey;
     myProvider.verifyAddress(mockAdd).then(result => {
       expect(result).toBeFalsy();
     });
@@ -53,7 +54,7 @@ describe('MapsService', async () => {
     });
     const call = httpMock.expectOne(`https://maps.googleapis.com/maps/api/geocode/json`
       + `?address=${mockAdd.streetAddress}+${mockAdd.city}+${mockAdd.state}+${mockAdd.zipcode}`
-      + `&key=AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A`);
+      + `&key=` + environment.googleMapsKey);
     expect(call.request.method).toBe('GET');
     call.flush(mockAdd);
     httpMock.verify();

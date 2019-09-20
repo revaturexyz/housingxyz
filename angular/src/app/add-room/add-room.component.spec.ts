@@ -25,16 +25,18 @@ describe('AddRoomComponent', () => {
   let msalService: MsalService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule, MsalModule],
       declarations: [AddRoomComponent],
-      providers: [{ provide: MsalGuard, useValue: {} }, MsalService, { provide: MSAL_CONFIG, useValue: {} }]
-
+      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule, MsalModule],
+      providers: [
+        { provide: MsalGuard, useValue: {} },
+        MsalService,
+        { provide: MSAL_CONFIG, useValue: {} }
+      ]
     })
       .compileComponents();
     const testBed = getTestBed();
     msalService = testBed.get(MsalService);
     spyOn(msalService, 'getUser').and.returnValue(new User('1', 'chris', 'master', 'test', new Object()));
-
   }));
 
   beforeEach(() => {
@@ -69,14 +71,12 @@ describe('AddRoomComponent', () => {
 
   // complexChoose(complex: Complex)
   it('should choose Complex on complexChoose()', () => {
-
     const complex: Complex = TestServiceData.dummyComplex2;
 
     component.complexChoose(complex);
 
     expect(component.activeComplex.complexName).toEqual(complex.complexName);
     expect(component.activeComplex).toBe(complex);
-
   });
 
   // addressChoose(address: Address)
@@ -93,5 +93,4 @@ describe('AddRoomComponent', () => {
     component.postRoomOnSubmit();
     expect(component.show).toEqual(false);
   });
-
 });

@@ -51,7 +51,7 @@ export class UpdateRoomComponent implements OnInit {
     private providerService: ProviderService,
     private roomService: RoomService,
     private redirect: RedirectService
-    ) { }
+  ) { }
 
   // initializes complexes and all rooms by providers at init time.
   ngOnInit() {
@@ -76,8 +76,8 @@ export class UpdateRoomComponent implements OnInit {
 
   // funciton that runs when a complex is selected from the dropdown in the HTML.
   // sets two internal variables:
-  //     showString which has default value of "Choose Complex"
-  //     activeComplex which simply houses the currently selected complex. It is null by default.
+  //   showString which has default value of "Choose Complex"
+  //   activeComplex which simply houses the currently selected complex. It is null by default.
   complexChoose(complex: Complex) {
     this.showString = complex.complexName;
     this.clearSelect();
@@ -101,16 +101,16 @@ export class UpdateRoomComponent implements OnInit {
   // It also internally sets a variable, highlightRoom, to let the HTML know which room is selected and thus highlight it.
   select(r: Room) {
     const newRoom: Room = {
-      roomId : r.roomId,
-      apiAddress : r.apiAddress,
-      roomNumber : r.roomNumber,
-      numberOfBeds : r.numberOfBeds,
-      apiRoomType : r.apiRoomType,
-      isOccupied : r.isOccupied,
-      apiAmenity : r.apiAmenity,
-      startDate : r.startDate,
-      endDate : r.endDate,
-      apiComplex : r.apiComplex
+      roomId: r.roomId,
+      apiAddress: r.apiAddress,
+      roomNumber: r.roomNumber,
+      numberOfBeds: r.numberOfBeds,
+      apiRoomType: r.apiRoomType,
+      isOccupied: r.isOccupied,
+      apiAmenity: r.apiAmenity,
+      startDate: r.startDate,
+      endDate: r.endDate,
+      apiComplex: r.apiComplex
     };
     this.selectedRoom = newRoom;
     this.highlightRoom = r;

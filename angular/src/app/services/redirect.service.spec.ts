@@ -5,7 +5,7 @@ import { RedirectService } from './redirect.service';
 
 describe('RedirectService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [ RouterTestingModule ]
+    imports: [RouterTestingModule]
   }));
 
   it('should be created', () => {

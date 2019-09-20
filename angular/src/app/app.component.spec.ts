@@ -5,12 +5,11 @@ import { NavComponent } from './nav/nav.component';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-
 @Component({
   selector: 'dev-nav',
   template: '<p ngClass="testing">Mock nav Component</p>'
 })
-class MockNavComponent {}
+class MockNavComponent { }
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -18,13 +17,13 @@ describe('AppComponent', () => {
   let compiled: any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         AppComponent,
         MockNavComponent
       ],
+      imports: [
+        RouterTestingModule
+      ]
     }).compileComponents();
   }));
 
