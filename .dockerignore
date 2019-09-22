@@ -1,32 +1,47 @@
 # housingxyz :: dockerignore
 
-## angular
-**/dist/
-
-## dotnet
-.vscode/
-bin/
-obj/
-
-## jekyll
-.jekyll-cache/
-.sass-cache/
-
-.jekyll-metadata
-
-## macos
-.DS_Store
-
-## nodejs
-**/node_modules/
+## git
+.git/
 
 ## project
 .azure/
 .github/
+**/dockerfile
 
-.editorconfig
-.gitignore
-.markdownlint.yaml
-CHANGELOG.md
-LICENSE.txt
-README.md
+## angular
+**/coverage/
+**/dist/
+
+## docker
+**/dockerup*
+!**/dockerup.yaml
+
+## dotnet
+**/.vscode/
+**/.vs/
+**/bin/
+**/obj/
+
+## jekyll
+**/.jekyll-cache/
+**/.sass-cache/
+
+**/.jekyll-metadata
+
+## macos
+**/.DS_Store
+
+## nodejs
+**/node_modules/
+
+## react
+
+## terraform
+**/.terraform/
+
+**/*.hcl
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+
+## vuejs
