@@ -56,9 +56,9 @@ import { environment } from 'src/environments/environment';
     BrowserAnimationsModule,
     MatRippleModule,
     MsalModule.forRoot({
-      clientID: environment.identity.clientID,
-      authority: environment.identity.authority,
-      validateAuthority: environment.identity.validateAuthority,
+      clientID: environment.clientID,
+      authority: environment.authority,
+      validateAuthority: environment.validateAuthority,
       // redirectUri: 'https://housingpre.revature.xyz/',
       // redirectUri: 'http://localhost:4200/',
       cacheLocation: 'localStorage',

@@ -4,17 +4,14 @@
 
 export const environment = {
   production: false,
-  tenant: '',
-  clientId: '',
-  identity: {
-    authority: 'https://identityxyz.b2clogin.com/identity.revature.xyz/b2c_1_signup_signin',
-    clientID: 'fac95bb7-bd11-4ecf-b30b-fdd6ddd13bcd',
-    validateAuthority: false
-  },
-  extraQueryParameter: 'nux=1', // This is optional
+  authority: 'https://identityxyz.b2clogin.com/identity.revature.xyz/b2c_1_signup_signin',
+  clientID: 'fac95bb7-bd11-4ecf-b30b-fdd6ddd13bcd',
+  validateAuthority: false,
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
-    providerXYZ: 'http://192.168.99.100:10080/' // Note, this is an object, you could add several things here
+    providerXYZ: 'http://192.168.99.100:10080/'
+    // providerXYZ: 'http://localhost:10080/'
+    // providerXYZ: 'http://localhost:5000/'
   }
 };
 
