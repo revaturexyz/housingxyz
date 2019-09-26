@@ -37,7 +37,7 @@
             aria-describedby="state">
         </div>
         <div class="form-group col-md-4">
-          <label for="zipCode">Zipcode</label>
+          <label for="zipCode">ZIP Code</label>
           <input type="text" required pattern="[0-9]{5}" [(ngModel)]="formLivingComplex.apiAddress.zipcode"
             class="form-control" name="formLivingComplex.apiAddress.zipCode" id="zipCode" #zipCode="ngModel"
             aria-describedby="zipCode">
@@ -49,7 +49,7 @@
       <div *ngIf="city.invalid && city.dirty" class="alert alert-danger">City is required.</div>
       <div *ngIf="state.invalid && state.dirty" class="alert alert-danger">State is required.</div>
       <div *ngIf="zipCode.invalid && zipCode.dirty" class="alert alert-danger">
-        Zipcode is required and must have five digits.
+        ZIP code is required and must have five digits.
       </div>
 
       <hr>
@@ -79,7 +79,7 @@
       <!-- The regular expression checks if the phone number is 10 consecutive digits or contains parenthesis or hyphens -->
       <!-- 1234567890, (123) 456-7890, and 123-456-7890 are all valid phone number format patterns -->
       <div *ngIf="phoneNumber.invalid && phoneNumber.dirty" class="alert alert-danger">
-        Phone number must be at least 7 digits.
+        Phone number must be in a 10-digit format.
       </div>
 
       <!-- Start of markup for submit and cancel buttons -->
@@ -115,7 +115,7 @@
     <hr>
 
     <!-- The address of the complex is displayed via an Angular Material card -->
-    <div *ngIf="currentProvider" class="card">
+    <div *ngIf="currentProvider && currentProvider.apiTrainingCenter" class="card">
       <div class="card-body">
         <div class="card-title">
           <h5>Your Training Center Information:</h5>
