@@ -9,7 +9,7 @@
 
 ## reviewer
 
-- @fredbelotte
+- @escalonn
 
 ## contributing
 
