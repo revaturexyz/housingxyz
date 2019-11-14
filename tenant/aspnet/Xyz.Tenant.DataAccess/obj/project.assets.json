@@ -1485,6 +1485,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "Xyz.Tenant.Lib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/Xyz.Tenant.Lib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Xyz.Tenant.Lib.dll": {}
+        }
       }
     }
   },
@@ -5315,6 +5325,11 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "Xyz.Tenant.Lib/1.0.0": {
+      "type": "project",
+      "path": "../Xyz.Tenant.Lib/Xyz.Tenant.Lib.csproj",
+      "msbuildProject": "../Xyz.Tenant.Lib/Xyz.Tenant.Lib.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5324,7 +5339,8 @@
       "Microsoft.EntityFrameworkCore.InMemory >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 3.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 3.0.1",
-      "Npgsql.EntityFrameworkCore.PostgreSQL.Design >= 1.1.0"
+      "Npgsql.EntityFrameworkCore.PostgreSQL.Design >= 1.1.0",
+      "Xyz.Tenant.Lib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5352,7 +5368,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
+              "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
