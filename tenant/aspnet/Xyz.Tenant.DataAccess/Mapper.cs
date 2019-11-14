@@ -4,5 +4,6 @@ namespace Xyz.Tenant.DataAccess
 {
     public class Mapper
     {
+      
     }
 }

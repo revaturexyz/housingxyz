@@ -9,6 +9,9 @@ namespace Xyz.Tenant.DataAccess.Repository
 {
   public class TenantRepository : ITenantRepository 
   {
+
+
+
     public Task AddAsync()
     {
       throw new NotImplementedException();     
