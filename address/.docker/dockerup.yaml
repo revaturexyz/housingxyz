@@ -1,0 +1,33 @@
+# addressxyz :: docker-compose
+
+networks:
+  addressxyz_localhost:
+
+services:
+  api:
+    depends_on:
+      - "db"
+    deploy:
+      replicas: 1
+    image: addressxyz
+    networks:
+      - addressxyz_localhost
+    ports:
+      - "10080:80"
+      - "10443:443"
+  db:
+    deploy:
+      replicas: 1
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - addressxyz_localhost
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Password12345"
+      POSTGRES_DB: "postgres"
+      ACCEPT_EULA: "Yes"
+
+version: '3.7'
