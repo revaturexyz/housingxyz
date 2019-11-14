@@ -2,7 +2,7 @@
 
 ## project
 .azure/
-.docker/
+.docker/docker*
 .terraformup/
 .gitignore
 CHANGELOG.md
