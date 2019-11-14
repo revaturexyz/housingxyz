@@ -32,10 +32,26 @@ namespace Xyz.Tenant.Api.Controllers
     /// </summary>
     /// <returns></returns>
         // GET: api/Tenants
-    [HttpGet]
-    public IEnumerable<string> Get()
+    [HttpGet(Name = "GetAll")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync()
     {
-      return new string[] { "value1", "value2" };
+      var tenant = await _tenantRepository.GetAllAsync();
+
+      return tenant.Select(t => new ApiTenant
+      {
+        Id = t.Id,
+        FirstName = t.FirstName,
+        LastName = t.LastName,
+        Email = t.Email,
+        AddressId = t.AddressId,
+        RoomId = t.RoomId,
+        CarId = t.CarId
+
+      });
+      
     }
     /// <summary>
     /// Get Tenant by Id
@@ -48,11 +64,11 @@ namespace Xyz.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Xyz.Tenant.Api.Models.ApiTenant>> GetTenantByIdAsync([FromRoute] int id)
+    public async Task<ActionResult<Xyz.Tenant.Api.Models.ApiTenant>> GetByIdAsync([FromRoute] int id)
     {
       try
       {
-        var tenant = await _tenantRepository.GetTenantByIdAsync(id);//this is a repository function that should be async and return Task<IEnumerable<Xyz.Tenant.Lib.Models.Tenant>>
+        var tenant = await _tenantRepository.GetByIdAsync(id);//this is a repository function that should be async and return Task<IEnumerable<Xyz.Tenant.Lib.Models.Tenant>>
         var apiTenant = new ApiTenant { Id = tenant.Id,
                                         FirstName = tenant.FirstName,
                                         LastName = tenant.LastName,
@@ -73,12 +89,24 @@ namespace Xyz.Tenant.Api.Controllers
       }
 
     }
-
+    /// <summary>
+    /// Posts Tenants to Db
+    /// </summary>
+    /// <param name="value"></param>
     // POST: api/Tenants
-    [HttpPost]
-        public void Post([FromBody] string value)
+    [HttpPost("RegisterTenant", Name = "RegisterTenant")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async void PostAsync([FromBody] ApiTenant tenant)
         {
-          
+      //TODO: Implement PostAsync
+      //    var libTenant = await _tenantRepository.
+      //    {
+      //      Id = c
+      //    }
+      //var result = await _complexRepository.AddAsync(libTenant, providerId);
+      //return Created($"api/Complex/{result.ComplexId}", ApiModelFactory.MakeApiComplex(result));
+      
         }
 
         // PUT: api/Tenants/5
