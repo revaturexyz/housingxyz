@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {}
+    "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {}
   },
   "projects": {
-    "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
+    "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
+        "projectUniqueName": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
         "projectName": "Xyz.Tenant.Lib",
-        "projectPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
-        "packagesPath": "C:\\Users\\jhmoh\\.nuget\\packages\\",
-        "outputPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\obj\\",
+        "projectPath": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
+        "packagesPath": "C:\\Users\\colto_000\\.nuget\\packages\\",
+        "outputPath": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jhmoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\colto_000\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
