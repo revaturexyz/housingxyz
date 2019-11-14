@@ -12,4 +12,8 @@
     <ProjectReference Include="..\Xyz.AccountService.Lib\Xyz.AccountService.Lib.csproj" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+  
 </Project>

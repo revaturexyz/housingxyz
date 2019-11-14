@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xyz.AccountService.Api", "Xyz.AccountService\Xyz.AccountService.Api.csproj", "{958570FD-3805-4DF5-886E-775476720212}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xyz.AccountService.Api", "Xyz.AccountService\Xyz.AccountService.Api.csproj", "{958570FD-3805-4DF5-886E-775476720212}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xyz.AccountService.Lib", "Xyz.AccountService.Lib\Xyz.AccountService.Lib.csproj", "{F5296346-C32D-41DA-85B4-1EEE660F4FDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xyz.AccountService.Lib", "Xyz.AccountService.Lib\Xyz.AccountService.Lib.csproj", "{F5296346-C32D-41DA-85B4-1EEE660F4FDD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xyz.AccountService.DataAccess", "Xyz.AccountService.DataAccess\Xyz.AccountService.DataAccess.csproj", "{A21D062D-3E4F-45E4-BE8E-92972B20D8AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xyz.AccountService.DataAccess", "Xyz.AccountService.DataAccess\Xyz.AccountService.DataAccess.csproj", "{A21D062D-3E4F-45E4-BE8E-92972B20D8AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
