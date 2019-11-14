@@ -6,6 +6,7 @@ using Revature.Room.Api.Models;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
 
 namespace ServiceBusMessaging
 {
@@ -42,6 +43,7 @@ namespace ServiceBusMessaging
     private async Task ProcessMessagesAsync(Message message, CancellationToken token)
     {
       var myRoom = JsonConvert.DeserializeObject<Room>(Encoding.UTF8.GetString(message.Body));
+      Console.WriteLine($"Received- RoomID:{myRoom.RoomID}, RoomNumber:{myRoom.RoomNumber}");
       await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
     }
 
