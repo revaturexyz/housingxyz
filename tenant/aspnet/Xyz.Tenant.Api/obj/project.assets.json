@@ -2496,6 +2496,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Xyz.Tenant.Lib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/Xyz.Tenant.Lib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Xyz.Tenant.Lib.dll": {}
+        }
       }
     }
   },
@@ -8113,6 +8123,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Xyz.Tenant.Lib/1.0.0": {
+      "type": "project",
+      "path": "../Xyz.Tenant.Lib/Xyz.Tenant.Lib.csproj",
+      "msbuildProject": "../Xyz.Tenant.Lib/Xyz.Tenant.Lib.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -8120,7 +8135,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 3.0.0",
       "Microsoft.Extensions.Logging.Debug >= 3.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.0.0"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.0.0",
+      "Xyz.Tenant.Lib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8148,7 +8164,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
+              "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
