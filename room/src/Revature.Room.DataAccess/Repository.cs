@@ -18,6 +18,11 @@ namespace Revature.Room.DataAccess
       _map = mapper;
     }
 
+    public void CreateRoom(Lib.Room myRoom)
+    {
+      throw new NotImplementedException();
+    }
+
     public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
       int complexId,
       string roomNumber,

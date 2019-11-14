@@ -13,5 +13,6 @@ namespace Revature.Room.Lib
       RoomType? roomType,
       Gender? gender,
       DateTime? endDate);
+    void CreateRoom(Room myRoom);
   }
 }

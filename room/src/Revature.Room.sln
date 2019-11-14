@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Room.DataAccess", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Room.Tests", "Revature.Room.Tests\Revature.Room.Tests.csproj", "{9DC03EB8-9511-4317-884D-25C668DB73C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreSender", "CoreSender\CoreSender.csproj", "{70FBB1E7-716D-409E-BFA0-37C2199B246D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreSender", "CoreSender\CoreSender.csproj", "{70FBB1E7-716D-409E-BFA0-37C2199B246D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreReceiver", "CoreReceiver\CoreReceiver.csproj", "{BC9545DF-527E-4BD6-8158-CA9719FE3701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreReceiver", "CoreReceiver\CoreReceiver.csproj", "{BC9545DF-527E-4BD6-8158-CA9719FE3701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Room.Processor", "Revature.Room.Processor\Revature.Room.Processor.csproj", "{130C1643-4FCC-4E2E-BA03-EA39A4980563}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,18 @@ Global
 		{BC9545DF-527E-4BD6-8158-CA9719FE3701}.Release|x64.Build.0 = Release|Any CPU
 		{BC9545DF-527E-4BD6-8158-CA9719FE3701}.Release|x86.ActiveCfg = Release|Any CPU
 		{BC9545DF-527E-4BD6-8158-CA9719FE3701}.Release|x86.Build.0 = Release|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Debug|x64.Build.0 = Debug|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Debug|x86.Build.0 = Debug|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Release|x64.ActiveCfg = Release|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Release|x64.Build.0 = Release|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Release|x86.ActiveCfg = Release|Any CPU
+		{130C1643-4FCC-4E2E-BA03-EA39A4980563}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
