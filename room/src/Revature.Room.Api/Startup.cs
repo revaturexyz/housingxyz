@@ -40,11 +40,14 @@ namespace Revature.Room.Api
       });
 
       services.AddScoped<ServiceBusSender>();
+      services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
 
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
       });
+
+
 
       services.AddControllers();
     }
@@ -63,6 +66,9 @@ namespace Revature.Room.Api
       {
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
+
+      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 
