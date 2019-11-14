@@ -45,7 +45,7 @@ namespace CoreReceiver
 
                 // Indicates whether the message pump should automatically complete the messages after returning from user callback.
                 // False below indicates the complete operation is handled by the user callback as in ProcessMessagesAsync().
-                AutoComplete = true
+                AutoComplete = false
             };
 
             // Register the function that processes messages.
