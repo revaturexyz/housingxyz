@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Xyz.Tenant.Lib.Interface;
 using Xyz.Tenant.Api;
+using Xyz.Tenant.Api.Models;
 
 namespace Xyz.Tenant.Api.Controllers
 {
@@ -47,13 +48,19 @@ namespace Xyz.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Xyz.Tenant.Api.Models.Tenant>> GetTenantByIdAsync([FromRoute] int id)
+    public async Task<ActionResult<Xyz.Tenant.Api.Models.ApiTenant>> GetTenantByIdAsync([FromRoute] int id)
     {
       try
       {
         var tenant = await _tenantRepository.GetTenantByIdAsync(id);//this is a repository function that should be async and return Task<IEnumerable<Xyz.Tenant.Lib.Models.Tenant>>
-                                                                        //given an int Id
-        return Ok(tenant);
+        var apiTenant = new ApiTenant { Id = tenant.Id,
+                                        FirstName = tenant.FirstName,
+                                        LastName = tenant.LastName,
+                                        Email = tenant.Email,
+                                        AddressId = tenant.AddressId,
+                                        RoomId = tenant.RoomId,
+                                        CarId = tenant.CarId };                                             //given an int Id
+        return Ok(apiTenant);
 
       }
       catch(ArgumentException)
