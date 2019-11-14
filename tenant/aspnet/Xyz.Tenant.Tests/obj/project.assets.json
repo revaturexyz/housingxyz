@@ -6580,19 +6580,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\colto_000\\.nuget\\packages\\": {}
+    "C:\\Users\\Victoria\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
+      "projectUniqueName": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
       "projectName": "Xyz.Tenant.Tests",
-      "projectPath": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
-      "packagesPath": "C:\\Users\\colto_000\\.nuget\\packages\\",
-      "outputPath": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\obj\\",
+      "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
+      "packagesPath": "C:\\Users\\Victoria\\.nuget\\packages\\",
+      "outputPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\colto_000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Victoria\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

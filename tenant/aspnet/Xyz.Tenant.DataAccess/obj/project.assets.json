@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.0": []
   },
   "packageFolders": {
-    "C:\\Users\\colto_000\\.nuget\\packages\\": {}
+    "C:\\Users\\Victoria\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
+      "projectUniqueName": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
       "projectName": "Xyz.Tenant.DataAccess",
-      "projectPath": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
-      "packagesPath": "C:\\Users\\colto_000\\.nuget\\packages\\",
-      "outputPath": "C:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\obj\\",
+      "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
+      "packagesPath": "C:\\Users\\Victoria\\.nuget\\packages\\",
+      "outputPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\colto_000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Victoria\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
