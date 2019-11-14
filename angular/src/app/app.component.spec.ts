@@ -1,35 +1,48 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { NavComponent } from './nav/nav.component';
+import { Component } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+@Component({
+  selector: 'dev-nav',
+  template: '<p ngClass="testing">Mock nav Component</p>'
+})
+class MockNavComponent { }
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let app: any;
+  let compiled: any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [
+        AppComponent,
+        MockNavComponent
+      ],
       imports: [
         RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      ]
     }).compileComponents();
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
+    fixture.detectChanges();
+    compiled = fixture.debugElement.nativeElement;
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'housingxyz'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('housingxyz');
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to housingxyz!');
+  it('should render child nav component', () => {
+    expect(fixture.debugElement.query(By.css('.testing')).nativeElement.textContent).toContain('Mock nav Component');
   });
 });

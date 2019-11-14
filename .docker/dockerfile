@@ -2,7 +2,7 @@
 
 ## arguments
 ARG NGINX_VERSION=1.17
-ARG NODE_VERSION=12.5
+ARG NODE_VERSION=12.10
 
 ## stage - base
 FROM node:${NODE_VERSION} as base
@@ -12,9 +12,8 @@ RUN npm clean-install
 
 ## stage - build
 FROM base as build
-ARG ANGULAR_CONFIGURATION
 COPY ./angular .
-RUN npm run build -- --configuration=${ANGULAR_CONFIGURATION}
+RUN npm run build
 
 ## stage - deploy
 FROM nginx:${NGINX_VERSION} as deploy

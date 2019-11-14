@@ -4,7 +4,7 @@
 [![code analysis](https://sonarcloud.io/api/project_badges/measure?project=housingxyz&metric=alert_status)](https://sonarcloud.io/dashboard?id=housingxyz)
 [![code coverage](https://sonarcloud.io/api/project_badges/measure?project=housingxyz&metric=coverage)](https://sonarcloud.io/dashboard?id=housingxyz)
 
-the project website
+the housing project web interface
 
 ## maintainer
 

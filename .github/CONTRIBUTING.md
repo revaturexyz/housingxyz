@@ -1,9 +1,5 @@
 # housingxyz :: contributing
 
-## code of conduct
-
-this project is governed under the terms of the [Contributor Covenant Code of Conduct][code-of-conduct-url].
-
 ## license
 
 this project is developed under the terms of the [MIT License][mit-license-url].
