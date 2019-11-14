@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gpyof\\Desktop\\tenant service\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {}
+    "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gpyof\\Desktop\\tenant service\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
+    "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gpyof\\Desktop\\tenant service\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
+        "projectUniqueName": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
         "projectName": "Xyz.Tenant.Lib",
-        "projectPath": "C:\\Users\\gpyof\\Desktop\\tenant service\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
-        "packagesPath": "C:\\Users\\gpyof\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gpyof\\Desktop\\tenant service\\aspnet\\Xyz.Tenant.Lib\\obj\\",
+        "projectPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj",
+        "packagesPath": "C:\\Users\\jhmoh\\.nuget\\packages\\",
+        "outputPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gpyof\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jhmoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

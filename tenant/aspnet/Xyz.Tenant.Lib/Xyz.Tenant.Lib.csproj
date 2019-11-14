@@ -8,7 +8,6 @@
     <Folder Include="BusinessLogic\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Interface\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
