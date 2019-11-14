@@ -21,14 +21,13 @@ namespace Revature.Room.Api.Controllers
     {
       _serviceBusSender = servicebus ?? throw new ArgumentNullException();
     }
-
     // GET: api/<controller>
     [HttpGet]
     public IEnumerable<string> Get()
     {
       return new string[] { "Service Bus", "Stuff" };
     }
-
+        
     // GET api/<controller>/5
     [HttpGet("{id}")]
     public string Get(int id)
