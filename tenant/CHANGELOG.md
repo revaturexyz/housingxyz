@@ -11,5 +11,5 @@ read the [release note][release-note-url] for details
 
 this project is developed under the terms of the [MIT License][mit-license-url].
 
-[mit-license-url]: #to be added
-[release-note-url]: #to be added
+[mit-license-url]: https://github.com/revaturexyz/housingxyz/blob/master/LICENSE.txt 'MIT LICENSE'
+[release-note-url]: https://github.com/revaturexyz/housingxyz/releases 'RELEASE NOTE'

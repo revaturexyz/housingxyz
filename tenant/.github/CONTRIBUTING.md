@@ -1,4 +1,0 @@
-# tenantxyz :: contributing
-
-## license
-TODO
