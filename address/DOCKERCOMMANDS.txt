@@ -1,0 +1,18 @@
+      #Map 10080 port as Guest port and 10080 port as Host port on vmbox -> 
+      #If your using windows 10 home and docker toolbox 
+      #In order to access your containerized web api application: localhost:10080/api/address
+      # ':80' here is where the applicaiton is exposed on the dockerfile
+
+docker image build -f .docker/dockerfile -t addressxyz .
+docker-compose -f .docker/dockerup.yaml up 
+docker-compose -f .docker/dockerup.yaml down
+
+dotnet ef migrations add address_db_entity --project Xyz.Address.Dbx/Xyz.Address.Dbx.csproj --startup-project
+Xyz.Address.Api/Xyz.Address.Api.csproj --context AddressDbContext --output-dir Migrations
+
+dotnet ef database update --project Xyz.Address.Dbx/Xyz.Address.Dbx.csproj --startup-project Xyz.Address.Api/X
+yz.Address.Api.csproj --context AddressDbContext
+
+when running the web api
+
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
