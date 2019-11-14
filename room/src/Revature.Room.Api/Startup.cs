@@ -38,6 +38,8 @@ namespace Revature.Room.Api
         });
       });
 
+      services.AddScoped<ServiceBusSender>();
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
