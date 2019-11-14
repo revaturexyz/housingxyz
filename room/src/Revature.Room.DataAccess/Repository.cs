@@ -29,23 +29,23 @@ namespace Revature.Room.DataAccess
       IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId);
       if (roomNumber != null)
       {
-        rooms.Where(r => r.RoomNumber == roomNumber);
+        rooms = rooms.Where(r => r.RoomNumber == roomNumber);
       }
       if (numberOfBeds != null)
       {
-        rooms.Where(r => r.NumberOfBeds == numberOfBeds);
+        rooms = rooms.Where(r => r.NumberOfBeds == numberOfBeds);
       }
       if (roomType != null)
       {
-        rooms.Where(r => r.RoomType == roomType);
+        rooms = rooms.Where(r => r.RoomType == roomType);
       }
       if (gender != null)
       {
-        rooms.Where(r => r.Gender == gender);
+        rooms = rooms.Where(r => r.Gender == gender);
       }
       if (endDate != null)
       {
-        rooms.Where(r => endDate < r.LeaseEnd);
+        rooms = rooms.Where(r => endDate < r.LeaseEnd);
       }
       return await _map.ParseRooms(rooms);
     }
