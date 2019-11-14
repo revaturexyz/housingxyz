@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Victoria\\.nuget\\packages\\": {}
+    "C:\\Users\\jhmoh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
+      "projectUniqueName": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
       "projectName": "Xyz.Tenant.DataAccess",
-      "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
-      "packagesPath": "C:\\Users\\Victoria\\.nuget\\packages\\",
-      "outputPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\obj\\",
+      "projectPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\Xyz.Tenant.DataAccess.csproj",
+      "packagesPath": "C:\\Users\\jhmoh\\.nuget\\packages\\",
+      "outputPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Victoria\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jhmoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
