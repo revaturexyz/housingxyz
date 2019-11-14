@@ -18,35 +18,36 @@ namespace Revature.Room.DataAccess
       _map = mapper;
     }
 
-    public async Task<Lib.Room> GetRoom(int complexId, string roomNumber)
+    public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
+      int complexId,
+      string roomNumber,
+      int? numberOfBeds,
+      RoomType? roomType,
+      Gender? gender,
+      DateTime? endDate)
     {
-      return await _map.ParseRoom(_context.Room.FirstOrDefault(r => r.ComplexID == complexId && r.RoomNumber == roomNumber));
-    }
-
-    public async Task<IEnumerable<Lib.Room>> GetRoomsBeforeLeaseEndDate(int complexId, DateTime endDate)
-    {
-      return await _map.ParseRooms(_context.Room.Where(r => r.ComplexID == complexId && endDate < r.LeaseEnd).ToList());
-    }
-
-    public async Task<IEnumerable<Lib.Room>> GetRoomsOfComplex(int complexId)
-    {
-      return await _map.ParseRooms(_context.Room.Where(r => r.ComplexID == complexId).ToList());
-    }
-
-    public async Task<IEnumerable<Lib.Room>> GetRoomsOfGender(int complexId, Gender gender)
-    {
-      return await _map.ParseRooms(_context.Room.Where(r => r.ComplexID == complexId && r.Gender == gender).ToList());
-    }
-
-    public async Task<IEnumerable<Lib.Room>> GetRoomsWithNumberOfBeds(int complexId, int numOfBeds)
-    {
-      //return roomsFromDB.Select(async r => await _map.ParseRoom(r));
-      return await _map.ParseRooms(_context.Room.Where(r => r.ComplexID == complexId && r.NumberOfBeds == numOfBeds).ToList());
-    }
-
-    public async Task<IEnumerable<Lib.Room>> GetRoomsWithType(int complexId, RoomType roomType)
-    {
-      return await _map.ParseRooms(_context.Room.Where(r => r.ComplexID == complexId && r.RoomType == roomType).ToList());
+      IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId);
+      if (roomNumber != null)
+      {
+        rooms.Where(r => r.RoomNumber == roomNumber);
+      }
+      if (numberOfBeds != null)
+      {
+        rooms.Where(r => r.NumberOfBeds == numberOfBeds);
+      }
+      if (roomType != null)
+      {
+        rooms.Where(r => r.RoomType == roomType);
+      }
+      if (gender != null)
+      {
+        rooms.Where(r => r.Gender == gender);
+      }
+      if (endDate != null)
+      {
+        rooms.Where(r => endDate < r.LeaseEnd);
+      }
+      return await _map.ParseRooms(rooms);
     }
   }
 }

@@ -36,7 +36,7 @@ namespace Revature.Room.DataAccess
       });
     }
 
-    public async Task<IEnumerable<Lib.Room>> ParseRooms(List<Entities.Room> roomsFromDB)
+    public async Task<IEnumerable<Lib.Room>> ParseRooms(IEnumerable<Entities.Room> roomsFromDB)
     {
       List<Lib.Room> roomsToReturn = new List<Lib.Room>();
       foreach (var item in roomsFromDB)

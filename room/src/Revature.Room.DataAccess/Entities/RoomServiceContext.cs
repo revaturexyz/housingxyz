@@ -41,6 +41,31 @@ namespace Revature.Room.DataAccess.Entities
 
         entity.Property(r => r.ComplexID)
         .IsRequired();
+
+        entity.HasData(
+         new Entities.Room()
+        {
+          RoomID = 1,
+          RoomNumber = "2428B",
+          RoomType = Lib.RoomType.Apartment,
+          NumberOfBeds = 4,
+          Gender = Lib.Gender.Female,
+          ComplexID = 1,
+          LeaseEnd = DateTime.Today.AddMonths(2),
+          LeaseStart = DateTime.Now.AddHours(3)
+        },
+        new Entities.Room()
+        {
+          RoomID = 2,
+          RoomNumber = "221B",
+          RoomType = Lib.RoomType.Apartment,
+          NumberOfBeds = 4,
+          Gender = Lib.Gender.Male,
+          ComplexID = 1,
+          LeaseEnd = DateTime.Today.AddMonths(2),
+          LeaseStart = DateTime.Now.AddHours(3)
+        }
+        ); 
       });
     }
   }
