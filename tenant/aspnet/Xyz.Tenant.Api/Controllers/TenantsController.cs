@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +11,15 @@ namespace Xyz.Tenant.Api.Controllers
     [ApiController]
     public class TenantsController : ControllerBase
     {
+        
+        //private readonly IDataAccess db;
+
+        //public TenantsController(IDataAccess dataAccess)
+        //{
+        //  db = dataAccess;
+        //}
+
+
         // GET: api/Tenants
         [HttpGet]
         public IEnumerable<string> Get()
