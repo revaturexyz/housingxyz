@@ -7,6 +7,10 @@ namespace Revature.Room.Api.Models
 {
   public class Room
   {
+    public Room()
+    {
+
+    }
     public int RoomID { get; set; }
     public string RoomNumber { get; set; }
   }

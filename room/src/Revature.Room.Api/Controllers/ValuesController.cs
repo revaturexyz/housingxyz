@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using r = Revature.Room.Api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using ServiceBusMessaging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,6 +15,13 @@ namespace Revature.Room.Api.Controllers
   [Route("api/[controller]")]
   public class ValuesController : Controller
   {
+    private readonly ServiceBusSender _serviceBusSender;
+
+    public ValuesController(ServiceBusSender servicebus)
+    {
+      _serviceBusSender = servicebus ?? throw new ArgumentNullException();
+    }
+
     // GET: api/<controller>
     [HttpGet]
     public IEnumerable<string> Get()
@@ -27,23 +38,23 @@ namespace Revature.Room.Api.Controllers
 
     // POST api/<controller>
     [HttpPost]
-    [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Room), StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> Create([FromBody][Required] Payload request)
+    [ProducesResponseType(typeof(r.Room), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(r.Room), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Create([FromBody][Required] r.Room request)
     {
-      if (data.Any(d => d.Id == request.Id))
-      {
-        return Conflict($"data with id {request.Id} already exists");
-      }
+      // Checks for existing data
+      //if (data.Any(d => d.Id == request.Id))
+      //{
+      //  return Conflict($"data with id {request.Id} already exists");
+      //}
 
-      data.Add(request);
+      //data.Add(request);
 
       // Send this to the bus for the other services
-      await _serviceBusSender.SendMessage(new MyPayload
+      await _serviceBusSender.SendMessage(new r.Room
       {
-        Goals = request.Goals,
-        Name = request.Name,
-        Delete = false
+        RoomID = request.RoomID,
+        RoomNumber = request.RoomNumber,
       });
 
       return Ok(request);
