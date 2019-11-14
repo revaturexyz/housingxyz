@@ -39,6 +39,8 @@ namespace Revature.Room.DataAccess.Entities
         entity.Property(r => r.LeaseStart)
         .IsRequired();
 
+        entity.Property(r => r.ComplexID)
+        .IsRequired();
       });
     }
   }

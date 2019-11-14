@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Room.DataAccess;
 using Revature.Room.DataAccess.Entities;
+using Revature.Room.Lib;
 using Serilog;
 
 namespace Revature.Room.Api
@@ -45,6 +47,7 @@ namespace Revature.Room.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
       });
       services.AddDbContext<RoomServiceContext>(options => options.UseNpgsql(Configuration.GetConnectionString("RoomService")));
+      services.AddScoped<IRepository, Repository>();
       services.AddControllers();
     }
 
