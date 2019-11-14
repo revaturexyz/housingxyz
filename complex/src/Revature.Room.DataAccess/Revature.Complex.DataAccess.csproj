@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Revature.Room.Lib\Revature.Room.Lib.csproj" />
+    <ProjectReference Include="..\Revature.Room.Lib\Revature.Complex.Lib.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Room.Api", "Revature.Room.Api\Revature.Room.Api.csproj", "{31702692-BE95-4638-BBC1-9B034F9EFF5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.Api", "Revature.Room.Api\Revature.Complex.Api.csproj", "{31702692-BE95-4638-BBC1-9B034F9EFF5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Room.Lib", "Revature.Room.Lib\Revature.Room.Lib.csproj", "{F92E3341-568D-47D3-B3E8-3108BCF3AC44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.Lib", "Revature.Room.Lib\Revature.Complex.Lib.csproj", "{F92E3341-568D-47D3-B3E8-3108BCF3AC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Room.DataAccess", "Revature.Room.DataAccess\Revature.Room.DataAccess.csproj", "{F7716F2A-E7EA-4572-AB19-4C3B0A714D97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.DataAccess", "Revature.Room.DataAccess\Revature.Complex.DataAccess.csproj", "{F7716F2A-E7EA-4572-AB19-4C3B0A714D97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Room.Tests", "Revature.Room.Tests\Revature.Room.Tests.csproj", "{9DC03EB8-9511-4317-884D-25C668DB73C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.Tests", "Revature.Room.Tests\Revature.Complex.Tests.csproj", "{9DC03EB8-9511-4317-884D-25C668DB73C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{31702692-BE95-4638-BBC1-9B034F9EFF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +69,11 @@ Global
 		{9DC03EB8-9511-4317-884D-25C668DB73C5}.Release|x64.Build.0 = Release|Any CPU
 		{9DC03EB8-9511-4317-884D-25C668DB73C5}.Release|x86.ActiveCfg = Release|Any CPU
 		{9DC03EB8-9511-4317-884D-25C668DB73C5}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F92FCCAD-92CF-431F-BFE9-B77351E12F87}
 	EndGlobalSection
 EndGlobal

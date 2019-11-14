@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Revature.Room.Api\Revature.Room.Api.csproj" />
-    <ProjectReference Include="..\Revature.Room.DataAccess\Revature.Room.DataAccess.csproj" />
-    <ProjectReference Include="..\Revature.Room.Lib\Revature.Room.Lib.csproj" />
+    <ProjectReference Include="..\Revature.Room.Api\Revature.Complex.Api.csproj" />
+    <ProjectReference Include="..\Revature.Room.DataAccess\Revature.Complex.DataAccess.csproj" />
+    <ProjectReference Include="..\Revature.Room.Lib\Revature.Complex.Lib.csproj" />
   </ItemGroup>
 
 </Project>
