@@ -1,6 +1,6 @@
 # housing :: readme
 
-[![build status](https://dev.azure.com/revaturexyz/arlington/_apis/build/status/revaturexyz.housingxyz?branchName=master)](https://dev.azure.com/revaturexyz/arlington/_build/latest?definitionId=16&branchName=master)
+[![build status](https://dev.azure.com/revaturexyz/arlington/_apis/build/status/housing.housing?branchName=master)](https://dev.azure.com/revaturexyz/arlington/_build/latest?definitionId=16&branchName=master)
 [![code analysis](https://sonarcloud.io/api/project_badges/measure?project=housingxyz&metric=alert_status)](https://sonarcloud.io/dashboard?id=housingxyz)
 [![code coverage](https://sonarcloud.io/api/project_badges/measure?project=housingxyz&metric=coverage)](https://sonarcloud.io/dashboard?id=housingxyz)
 
