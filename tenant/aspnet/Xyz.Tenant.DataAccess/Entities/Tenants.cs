@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Xyz.Tenant.DataAccess.Entities
 {
-  class Tenants
+  public class Tenants
   {
     public int Id { get; set; }
     public string FirstName { get; set; }
