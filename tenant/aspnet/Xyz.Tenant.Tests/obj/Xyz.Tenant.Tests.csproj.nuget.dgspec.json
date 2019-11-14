@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj": {}
+    "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj": {}
   },
   "projects": {
-    "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj": {
+    "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
+        "projectUniqueName": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
         "projectName": "Xyz.Tenant.Tests",
-        "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
-        "packagesPath": "C:\\Users\\Victoria\\.nuget\\packages\\",
-        "outputPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\obj\\",
+        "projectPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\Xyz.Tenant.Tests.csproj",
+        "packagesPath": "C:\\Users\\jhmoh\\.nuget\\packages\\",
+        "outputPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Victoria\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jhmoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
