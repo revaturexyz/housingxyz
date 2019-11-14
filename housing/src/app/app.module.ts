@@ -23,8 +23,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
-import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
-import { environment } from 'src/environments/environment';
+import { AuthGuard } from './guards/auth.guard';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -54,22 +54,12 @@ import { environment } from 'src/environments/environment';
     MatDialogModule,
     StickyNavModule,
     BrowserAnimationsModule,
-    MatRippleModule,
-    MsalModule.forRoot({
-      clientID: environment.clientID,
-      authority: environment.authority,
-      validateAuthority: environment.validateAuthority,
-      // redirectUri: 'https://housingpre.revature.xyz/',
-      // redirectUri: 'http://localhost:4200/',
-      cacheLocation: 'localStorage',
-      postLogoutRedirectUri: 'http://localhost:4200/login/',
-      navigateToLoginRequestUrl: false
-    })
+    MatRippleModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
+      useClass: InterceptorService,
       multi: true
     }
   ],
