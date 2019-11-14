@@ -1,12 +1,13 @@
 # housing :: dockerignore
 
-## git
-.git/
-
 ## project
 .azure/
-.github/
-**/dockerfile
+.docker/
+.terraformup/
+.gitignore
+CHANGELOG.md
+LICENSE.txt
+README.md
 
 ## angular
 **/coverage/
