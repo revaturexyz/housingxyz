@@ -1,0 +1,36 @@
+# addressxyz :: dockerignore
+
+## angular
+**/dist/
+
+## dotnet
+.vs/
+.vscode/
+bin/
+obj/
+
+appsettings.*
+!appsettings.json
+
+## jekyll
+.jekyll-cache/
+.sass-cache/
+
+.jekyll-metadata
+
+## macos
+.DS_Store
+
+## nodejs
+**/node_modules/
+
+## project
+.azure/
+.github/
+
+.editorconfig
+.gitignore
+.markdownlint.yaml
+CHANGELOG.md
+LICENSE.txt
+README.md
