@@ -1,0 +1,17 @@
+# housing :: docker-compose
+
+networks:
+  housing_localhost:
+
+services:
+  web:
+    deploy:
+      replicas: 1
+    image: housing
+    networks:
+      - housing_localhost
+    ports:
+      - 10080:80
+      - 10443:443
+
+version: '3.7'

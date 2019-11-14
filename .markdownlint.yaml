@@ -1,6 +1,0 @@
-# housingxyz :: markdownlint
-
-## set max line length for content and heading
-MD013:
-  heading_line_length: 50
-  line_length: 100
