@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.0": {}
+    ".NETCoreApp,Version=v3.0": {
+      "Xyz.Tenant.Lib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/Xyz.Tenant.Lib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Xyz.Tenant.Lib.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Xyz.Tenant.Lib/1.0.0": {
+      "type": "project",
+      "path": "../Xyz.Tenant.Lib/Xyz.Tenant.Lib.csproj",
+      "msbuildProject": "../Xyz.Tenant.Lib/Xyz.Tenant.Lib.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.0": []
+    ".NETCoreApp,Version=v3.0": [
+      "Xyz.Tenant.Lib >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Victoria\\.nuget\\packages\\": {}
@@ -32,7 +51,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
+              "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

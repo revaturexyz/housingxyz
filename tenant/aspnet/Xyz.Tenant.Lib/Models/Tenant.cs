@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Xyz.Tenant.Lib.Models
 {
-  class Tenant
+  public class Tenant
   {
     private int _id;
     private string _firstName;
