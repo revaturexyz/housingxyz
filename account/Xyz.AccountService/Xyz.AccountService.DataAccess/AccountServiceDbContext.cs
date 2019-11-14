@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xyz.AccountService.DataAccess.Entities;
 
-namespace Xyz.AccountService.DataAccess.Entities
+namespace Xyz.AccountService.DataAccess
 {
 	public class AccountServiceDbContext : DbContext
 	{
