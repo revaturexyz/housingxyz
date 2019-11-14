@@ -8140,19 +8140,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Victoria\\.nuget\\packages\\": {}
+    "C:\\Users\\jhmoh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Api\\Xyz.Tenant.Api.csproj",
+      "projectUniqueName": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Api\\Xyz.Tenant.Api.csproj",
       "projectName": "Xyz.Tenant.Api",
-      "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Api\\Xyz.Tenant.Api.csproj",
-      "packagesPath": "C:\\Users\\Victoria\\.nuget\\packages\\",
-      "outputPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Api\\obj\\",
+      "projectPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Api\\Xyz.Tenant.Api.csproj",
+      "packagesPath": "C:\\Users\\jhmoh\\.nuget\\packages\\",
+      "outputPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Victoria\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jhmoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8165,8 +8165,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
-              "projectPath": "D:\\revature\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj"
+            "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj": {
+              "projectPath": "D:\\Project3\\housingxyz\\tenant\\aspnet\\Xyz.Tenant.Lib\\Xyz.Tenant.Lib.csproj"
             }
           }
         }
