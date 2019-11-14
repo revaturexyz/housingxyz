@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
-namespace Revature.Room.Api
+namespace Revature.Complex.Api
 {
   public static class Program
   {

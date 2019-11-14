@@ -6,11 +6,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
-namespace Revature.Room.Api
+namespace Revature.Complex.Api
 {
   public class Startup
   {
-    private const string ConnectionStringName = "RoomDb";
+    private const string ConnectionStringName = "ComplexDb";
     private const string CorsPolicyName = "RevatureCorsPolicy";
 
     public Startup(IConfiguration configuration)
@@ -40,7 +40,7 @@ namespace Revature.Room.Api
 
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Complex", Version = "v1" });
       });
 
       services.AddControllers();
@@ -58,7 +58,7 @@ namespace Revature.Room.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
       });
 
       app.UseRouting();
