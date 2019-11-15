@@ -10,7 +10,7 @@ namespace Xyz.AccountService.DataAccess.Entities
 		{
 			Notification = new HashSet<Notification>();
 		}
-		public int CoordinatorId { get; set; }
+		public Guid CoordinatorId { get; set; }
 		public string TrainingName { get; set; }
 		public string TrainingAddress { get; set; }
 		public string Name { get; set; }
