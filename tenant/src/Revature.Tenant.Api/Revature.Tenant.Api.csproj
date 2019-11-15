@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xyz.Tenant.Lib\Xyz.Tenant.Lib.csproj" />
+    <ProjectReference Include="..\Xyz.Tenant.Lib\Revature.Tenant.Lib.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Xyz.Tenant.Lib.Models
+namespace Revature.Tenant.Lib.Models
 {
   public class Car
   {
@@ -19,6 +19,5 @@ namespace Xyz.Tenant.Lib.Models
     public string Model { get; set; }
     public string Color { get; set; }
     public string Year { get; set; }
-
   }
 }

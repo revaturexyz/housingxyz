@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Xyz.Tenant.Api.Controllers
+namespace Revature.Tenant.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

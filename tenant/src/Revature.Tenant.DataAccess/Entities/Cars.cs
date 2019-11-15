@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Xyz.Tenant.DataAccess.Entities
+namespace Revature.Tenant.DataAccess.Entities
 {
-  class Cars
+  public class Cars
   {
     public int Id { get; set; }
     public string LicensePlate { get; set; }

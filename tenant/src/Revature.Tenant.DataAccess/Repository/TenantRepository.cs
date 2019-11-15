@@ -1,17 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Xyz.Tenant.Lib.Interface;
-using Xyz.Tenant.Lib.Models;
+using Revature.Tenant.Lib.Interface;
 
-namespace Xyz.Tenant.DataAccess.Repository
+namespace Revature.Tenant.DataAccess.Repository
 {
   public class TenantRepository : ITenantRepository 
   {
-
-
-
     public Task AddAsync()
     {
       throw new NotImplementedException();     

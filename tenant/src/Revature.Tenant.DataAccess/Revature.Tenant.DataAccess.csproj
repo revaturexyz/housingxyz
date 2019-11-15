@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xyz.Tenant.Lib\Xyz.Tenant.Lib.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -21,6 +17,11 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
   </ItemGroup>
 
 </Project>
