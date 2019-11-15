@@ -14,6 +14,10 @@ namespace ComplexServiceDatabase.Model
 
         public virtual DbSet<Complex> Complex { get; set; }
 
+        public virtual DbSet<AmenityComplex> AmenityComplex { get; set; }
+        public virtual DbSet<AmenityRoom> AmenityRoom { get; set; }
+        public virtual DbSet<Amenity> Amenity { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Complex>(entity =>
@@ -73,12 +77,15 @@ namespace ComplexServiceDatabase.Model
                 entity.HasOne(e => e.Amenity)
                       .WithMany(d => d.AmenityComplex)
                       .HasForeignKey(p => p.AmenityId)
-                      .IsRequired();
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.ClientSetNull);
+                
 
                 entity.HasOne(e => e.Complex)
                       .WithMany(d => d.AmentityComplex)
                       .HasForeignKey(p => p.ComplexId)
-                      .IsRequired();
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasData
                 (
@@ -97,7 +104,8 @@ namespace ComplexServiceDatabase.Model
                 entity.HasOne(e => e.Amenity)
                       .WithMany(d => d.AmenityRoom)
                       .HasForeignKey(p => p.AmenityId)
-                      .IsRequired();
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.Property(e => e.RoomId)
                     .IsRequired();

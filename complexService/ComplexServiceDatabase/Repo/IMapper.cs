@@ -15,6 +15,6 @@ namespace ComplexServiceDatabase.Repo
         public Entity.AmenityRoom MapAmenityRoomtoE(Logic.AmenityRoom ar);
         public Logic.AmenityRoom MapEtoAmenityRoom(Entity.AmenityRoom ar);
         public Entity.Complex MapComplextoE(Logic.Complex c);
-        public Logic.Complex MapEtoComplex(Entity.Complex c)
+        public Logic.Complex MapEtoComplex(Entity.Complex c);
     }
 }
