@@ -1,5 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { CoordinatorService } from './coordinator.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CoordinatorService', () => {
     let myCoordinator: CoordinatorService;
@@ -8,7 +9,8 @@ describe('CoordinatorService', () => {
             imports: [
             ],
             providers: [
-                CoordinatorService
+                CoordinatorService,
+                HttpClientTestingModule
             ]
         });
 
