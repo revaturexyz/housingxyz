@@ -20,7 +20,7 @@ namespace Revature.Room.DataAccess.Entities
     {
       modelBuilder.Entity<Gender>(entity =>
       {
-        entity.Property(g => g.Type).IsRequired();
+        entity.HasKey(g => g.Type);
         entity.HasData(
           new Gender() { Type = "Male"},
           new Gender() { Type = "Female"},
@@ -29,9 +29,10 @@ namespace Revature.Room.DataAccess.Entities
       });
 
       modelBuilder.Entity<RoomType>(
+        
         entity =>
         {
-          entity.Property(r => r.Type).IsRequired();
+          entity.HasKey(r => r.Type);
           entity.HasData(
             new RoomType() { Type = "Apartment" },
             new RoomType() { Type = "Dormitory" },
@@ -42,7 +43,7 @@ namespace Revature.Room.DataAccess.Entities
 
       modelBuilder.Entity<Room>(entity =>
       {
-        entity.Property(r => r.RoomID);
+        entity.HasKey(r => r.RoomID);
         entity.Property(r => r.RoomNumber)
         .IsRequired();
 
