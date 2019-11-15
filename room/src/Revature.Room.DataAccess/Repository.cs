@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
 using Data = Revature.Room.DataAccess.Entities;
@@ -86,7 +87,7 @@ namespace Revature.Room.DataAccess
       string gender,
       DateTime? endDate)
     {
-      IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId);
+      IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId).Include(r => r.Gender).Include(r => r.RoomType);
       if (roomNumber != null)
       {
         rooms = rooms.Where(r => r.RoomNumber == roomNumber);

@@ -42,7 +42,7 @@ namespace Revature.Room.DataAccess.Entities
 
       modelBuilder.Entity<Room>(entity =>
       {
-        entity.Property(r => r.RoomID).ValueGeneratedOnAdd();
+        entity.Property(r => r.RoomID);
         entity.Property(r => r.RoomNumber)
         .IsRequired();
 
