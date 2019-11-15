@@ -7,7 +7,6 @@ using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
 using Data = Revature.Room.DataAccess.Entities;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Room.DataAccess
 {
@@ -17,6 +16,10 @@ namespace Revature.Room.DataAccess
     private readonly IMapper _map;
     private readonly ILogger<Repository> _logger;
 
+    public Repository(RoomServiceContext context)
+    {
+      _context = context;
+    }
     public Repository(RoomServiceContext context, IMapper mapper, ILogger<Repository> logger)
     {
       _context = context;
@@ -35,36 +38,46 @@ namespace Revature.Room.DataAccess
 
     }
 
-    public async Task ReadRoom(Lib.Room myRoom)
+    public async Task<List<Lib.Room>> ReadRoom(Guid roomId)
     {
+      //if Guid does not exist then it will return all rooms
+      if (roomId == null)
+      {
+        List<Data.Room> roomList = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
+
+        _logger.LogInformation("Entered in a null Guid, so reading all rooms!", roomId);
+
+
+        return _map.ParseRooms(roomList).ToList();
+      }
+
+      //Find room by Guid and return that particular room
+      List<Data.Room> listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).Where(r => r.RoomID == roomId).ToListAsync();
+
+      _logger.LogInformation("Read a particular room!", roomId);
+
+      return _map.ParseRooms(listRoom).ToList();
 
     }
+
+    //Update room by Guid
     public async Task UpdateRoom(Lib.Room myRoom)
     {
-      //Either use the Guid or RoomNumber to find room by.  Most likely using Guyd which is RoomID
-      Data.Room roomEntity = _context.Room.Where(r => r.RoomID == myRoom.RoomID).Include(r => r.Gender).Include(r => r.RoomType).First();
+      Data.Room roomEntity = _context.Room.Where(r => r.RoomID == myRoom.RoomID)
+        .Include(r => r.Gender)
+        .Include(r => r.RoomType)
+        .First() ?? throw new ArgumentNullException("There is not such room!", nameof(roomEntity));
+
       try
       {
 
-        if (roomEntity == null)
-        {
-          throw new ArgumentNullException("There is no such room!", nameof(myRoom));
-        }
-
-        //Figure out why _context.Gender does not work
         roomEntity.Gender.Type = myRoom.Gender;
         roomEntity.LeaseStart = myRoom.LeaseStart;
         roomEntity.LeaseEnd = myRoom.LeaseEnd;
-
-
-      }
-      catch(ArgumentNullException e)
-      {
-        _logger.LogError("There is no such room!", myRoom);
       }
       catch(InvalidOperationException e)
       {
-        _logger.LogError("Invalid operation. Can't change those!",myRoom);
+        _logger.LogError("Invalid operation, can't update those!", myRoom);
       }
 
 
@@ -72,6 +85,7 @@ namespace Revature.Room.DataAccess
       _logger.LogInformation("Updating room successful!",myRoom);
     }
 
+    //Deletes room by id
     public async Task DeleteRoom(int roomId)
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
