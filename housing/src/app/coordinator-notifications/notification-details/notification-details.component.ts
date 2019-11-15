@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CoordinatorNotification } from '../../../interfaces/coordinatorNotification';
 
+import * as moment from 'moment';
+
 import {Address} from '../../../interfaces/address';
 import {TrainingCenter} from '../../../interfaces/trainingcenter';
 
@@ -11,6 +13,7 @@ import {TrainingCenter} from '../../../interfaces/trainingcenter';
 })
 export class NotificationDetailsComponent implements OnInit {
 
+// Seed :
 currentNotification: CoordinatorNotification = {
   notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
   providerId: 3,
@@ -64,4 +67,13 @@ currentNotification: CoordinatorNotification = {
   ngOnInit() {
   }
 
+  dateCalculator(date: Date, currentNotification: CoordinatorNotification) {
+    let expire = 7;
+    if (currentNotification.trial) {
+      expire = 7;
+    } else if (currentNotification.extendedTrial) {
+      expire = 0;
+    }
+    return moment(date).add(expire, 'days').format('MM/DD/YYYY');
+  }
 }
