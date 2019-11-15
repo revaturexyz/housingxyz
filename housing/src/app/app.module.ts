@@ -25,8 +25,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
-import { AddTenantComponent } from './add-tenant/add-tenant.component';
-import { ShowTenantComponent } from './show-tenant/show-tenant.component';
+import { CoordinatorModule } from './coordinator.module';
 
 @NgModule({
   declarations: [
@@ -40,9 +39,7 @@ import { ShowTenantComponent } from './show-tenant/show-tenant.component';
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent,
-    AddTenantComponent,
-    ShowTenantComponent
+    RequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +65,8 @@ import { ShowTenantComponent } from './show-tenant/show-tenant.component';
       cacheLocation: 'localStorage',
       postLogoutRedirectUri: 'http://localhost:4200/login/',
       navigateToLoginRequestUrl: false
-    })
+    }),
+    CoordinatorModule
   ],
   providers: [
     {

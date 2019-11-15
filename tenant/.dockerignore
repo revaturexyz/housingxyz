@@ -1,8 +1,8 @@
-# tenantxyz :: dockerignore
+# tenant :: dockerignore
 
 ## project
 *
-!aspnet/
+!src/
 **/*.sln
 **/*.Tests/
 

@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Repository\" />
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
   </ItemGroup>
 
 </Project>

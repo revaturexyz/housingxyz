@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RoomDetailsComponent } from './room-details/room-details.component';
-import { NavComponent } from './nav/nav.component';
+import { HttpClientModule } from '@angular/common/http';
 
-
+// Module for Coordinator UI, imported into root module: App.module.ts
 @NgModule({
   declarations: [
-    NavComponent,
-    RoomDetailsComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+  ],
 })
 export class CoordinatorModule { }

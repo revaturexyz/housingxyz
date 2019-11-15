@@ -14,10 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiTests\ControllerTests\" />
-    <Folder Include="ApiTests\ModelTests\" />
-    <Folder Include="DataTests\" />
-    <Folder Include="LibTests\" />
+    <ProjectReference Include="..\Revature.Tenant.Api\Revature.Tenant.Api.csproj" />
+    <ProjectReference Include="..\Revature.Tenant.DataAccess\Revature.Tenant.DataAccess.csproj" />
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
   </ItemGroup>
 
 </Project>
