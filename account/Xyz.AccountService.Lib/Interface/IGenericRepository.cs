@@ -10,7 +10,7 @@ namespace Xyz.AccountService.Lib.Interface
 	{
 		/* Provider Account Repositories */
 		public Task<ProviderAccount> GetProviderAccountById(Guid providerId);
-		public Task AddNewProviderAccount(ProviderAccount newAccount);
+		public void AddNewProviderAccount(ProviderAccount newAccount);
 		public Task UpdateProviderAccount(ProviderAccount providerAccount);
 		public Task DeleteProviderAccount(Guid providerId);
 		/* End */
@@ -23,7 +23,7 @@ namespace Xyz.AccountService.Lib.Interface
 
 		/* Notification Repositories */
 		public Task<Notification> GetNotificationById(Guid providerId);
-		public Task AddNewNotification(Notification newNofi);
+		public void AddNewNotification(Notification newNofi);
 		public Task UpdateNotification(Notification notification);
 		public Task DeleteNotificationById(Guid providerId);
 		/* End */

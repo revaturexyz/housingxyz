@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,53 +18,89 @@ namespace Xyz.AccountService.DataAccess.Repositories
 		}
 
 		/* Provider Repos */
-		public Task<ProviderAccount> GetProviderAccountById(Guid providerId)
+		public async Task<ProviderAccount> GetProviderAccountById(Guid providerId)
 		{
-			throw new NotImplementedException();
+			var provider = await _context.ProviderAccount.AsNoTracking().FirstOrDefaultAsync(p =>p.ProviderId == providerId);
+			if (provider == null)
+			{
+				return null;
+			}
+			else
+			{
+				return Mapper.MapProvider(provider);
+			}
 		}
-		public Task AddNewProviderAccount(ProviderAccount newAccount)
+		public void  AddNewProviderAccount(ProviderAccount newAccount)
 		{
-			throw new NotImplementedException();
+			var newEntity = Mapper.MapProvider(newAccount);
+			_context.Add(newEntity);
 		}
-		public Task UpdateProviderAccount(ProviderAccount providerAccount)
+		public async Task UpdateProviderAccount(ProviderAccount providerAccount)
 		{
-			throw new NotImplementedException();
+			var oldEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
+			var updatedEntity = Mapper.MapProvider(providerAccount);
+
+			_context.Entry(oldEntity).CurrentValues.SetValues(updatedEntity);
 		}
-		public Task DeleteProviderAccount(Guid providerId)
+		public async Task DeleteProviderAccount(Guid providerId)
 		{
-			throw new NotImplementedException();
+			var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
+			_context.Remove(entityToBeRemoved);
 		}	
 		/* End */
 
 		/* Coordinator Repos */
-		public Task<CoordinatorAccount> GetCoordinatorAccountById(Guid coordinatorId)
+		public async Task<CoordinatorAccount> GetCoordinatorAccountById(Guid coordinatorId)
 		{
-			throw new NotImplementedException();
+			var coordinator = await _context.CoordinatorAccount.AsNoTracking().FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
+			if (coordinator == null)
+			{
+				return null;
+			}
+			else
+			{
+				return Mapper.MapCoordinator(coordinator);
+			}
 		}
 		/* End */
 
 		/* Notification Repos */
-		public Task<Notification> GetNotificationById(Guid providerId)
+		public async Task<Notification> GetNotificationById(Guid providerId)
 		{
-			throw new NotImplementedException();
+			var provider = await _context.ProviderAccount.AsNoTracking().FirstOrDefaultAsync(p => p.ProviderId == providerId);
+			if (provider == null)
+			{
+				return null;
+			}
+			else
+			{
+				var notification = await _context.Notification.AsNoTracking().FirstOrDefaultAsync(p => p.ProviderId == providerId);
+				return Mapper.MapNotification(notification);
+			}
 		}
-		public Task AddNewNotification(Notification newNofi)
+		public void AddNewNotification(Notification newNofi)
 		{
-			throw new NotImplementedException();
+			var newEntity = Mapper.MapNotification(newNofi);
+			_context.Add(newEntity);
 		}
-		public Task DeleteNotificationById(Guid providerId)
+		public async Task DeleteNotificationById(Guid providerId)
 		{
-			throw new NotImplementedException();
+			var entityToBeRemoved = await _context.Notification.FindAsync(providerId);
+			_context.Remove(entityToBeRemoved);
 		}
-		public Task UpdateNotification(Notification notification)
+		public async Task UpdateNotification(Notification notification)
 		{
-			throw new NotImplementedException();
+			var oldEntity = await _context.Notification.FindAsync(notification.ProviderId);
+			var updatedEntity = Mapper.MapNotification(notification);
+
+			_context.Entry(oldEntity).CurrentValues.SetValues(updatedEntity);
 		}
 		/* End */
 
-		public Task Save()
+		public async Task Save()
 		{
-			throw new NotImplementedException();
+			// TODO: Ideally put a log message here to notify when saving
+			await _context.SaveChangesAsync();
 		}
 		public ValueTask DisposeAsync()
 		{

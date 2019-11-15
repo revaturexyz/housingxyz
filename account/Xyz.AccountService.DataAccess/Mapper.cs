@@ -6,7 +6,7 @@ namespace Xyz.AccountService.DataAccess
 {
 	public class Mapper
 	{
-		public static Lib.Model.ProviderAccount MapProviders(Entities.ProviderAccount provider)
+		public static Lib.Model.ProviderAccount MapProvider(Entities.ProviderAccount provider)
 		{
 			return new Lib.Model.ProviderAccount
 			{
