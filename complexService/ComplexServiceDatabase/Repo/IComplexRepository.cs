@@ -18,6 +18,8 @@ namespace ComplexServiceDatabase.Repo
         public IEnumerable<Logic.Amenity> ReadAmenityList();
         public IEnumerable<Logic.Amenity> ReadAmenityListByComplexId(Guid guid);
         public IEnumerable<Logic.Amenity> ReadAmenityListByRoomId(Guid roomId);
+        public int ReadAmenittiesbyString(string amentityType);
+
 
 
     }

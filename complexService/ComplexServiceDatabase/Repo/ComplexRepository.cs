@@ -157,5 +157,14 @@ namespace ComplexServiceDatabase.Repo
             return amenities;
 
         }
+
+        public int ReadAmenittiesbyString(string amentityType)
+        {
+            var amenities = _context.Amenity.Where(a => a.AmenityType == amentityType)
+                                                        .AsNoTracking()
+                                                        .FirstOrDefault();
+            return amenities.AmenityId;
+
+        }
     }
 }
