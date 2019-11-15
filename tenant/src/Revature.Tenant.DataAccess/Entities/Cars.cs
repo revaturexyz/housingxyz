@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
-  class Cars
+  public class Cars
   {
     public int Id { get; set; }
     public string LicensePlate { get; set; }

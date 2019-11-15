@@ -1,79 +1,148 @@
-
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Revature.Tenant.Lib.Interface;
+using Revature.Tenant.Api.Models;
+using System.Linq;
 
 namespace Revature.Tenant.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TenantsController : ControllerBase
+  [Route("api/[controller]")]
+  [ApiController]
+  public class TenantsController : ControllerBase
+  {
+
+    private readonly ITenantRepository _tenantRepository;
+
+    public TenantsController(ITenantRepository tenantRepository)
     {
-    //private readonly IDataAccess db;
+      _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant Cannot be null");
+    }
 
-    //public TenantsController(IDataAccess dataAccess)
-    //{
-    //  db = dataAccess;
-    //}
-
-
-    [HttpPost]
-    [ProducesResponseType(typeof(Lib.Models.Tenant), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Lib.Models.Tenant), StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> Create([FromBody][Required] Lib.Models.Tenant request)
+    /// <summary>
+    /// Get all tenants
+    /// </summary>
+    /// <returns></returns>
+        // GET: api/Tenants
+    [HttpGet(Name = "GetAll")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync()
     {
-      if (data.Any(d => d.Id == request.Id))
+      var tenant = await _tenantRepository.GetAllAsync();
+
+      return tenant.Select(t => new ApiTenant
       {
-        return Conflict($"data with id {request.Id} already exists");
+        Id = t.Id,
+        Email = t.Email,
+        Gender = t.Gender,
+        FirstName = t.FirstName,
+        LastName = t.LastName,
+        AddressId = t.AddressId,
+        RoomId = t.RoomId,
+        CarId = t.CarId
+
+      }).ToList();
+    }
+    /// <summary>
+    /// Get Tenant by Id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    // GET: api/Tenants/5
+    //api/[controller]
+    [HttpGet("{id}", Name = "Get")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ApiTenant>> GetByIdAsync([FromRoute] int id)
+    {
+      try
+      {
+        var tenant = await _tenantRepository.GetByIdAsync(id);
+        var apiTenant = new ApiTenant
+        {
+          Id = tenant.Id,
+          Email = tenant.Email,
+          Gender = tenant.Gender,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId
+        };
+
+        return Ok(apiTenant);
+
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
       }
 
-      data.Add(request);
-
-      // Send this to the bus for the other services
-      await _serviceBusSender.SendMessage(new MyPayload
+    }
+    /// <summary>
+    /// Posts Tenants to Db
+    /// </summary>
+    /// <param name="value"></param>
+    // POST: api/Tenants
+    [HttpPost("RegisterTenant", Name = "RegisterTenant")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
+    {
+      try
       {
-        Goals = request.Goals,
-        Name = request.Name,
-        Delete = false
-      });
+        var newTenant = new Lib.Models.Tenant
+        {
+          Id = tenant.Id,
+          Email = tenant.Email,
+          Gender = tenant.Gender,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId
+        };
 
-      return Ok(request);
+        await _tenantRepository.AddAsync(newTenant);
+
+        ICollection<Lib.Models.Tenant> tenents = await _tenantRepository.GetAllAsync();
+        newTenant = tenents.First(t => t.Email == newTenant.Email);
+
+        ApiTenant apiTenant = new ApiTenant
+        {
+          Id = tenant.Id,
+          Email = tenant.Email,
+          Gender = tenant.Gender,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId
+        };
+
+        return Created($"api/Tenant/{apiTenant.Id}", apiTenant);
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
     }
-
-    // GET: api/Tenants
-    [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Tenants/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Tenants
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Tenants/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
+  }
 }

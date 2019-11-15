@@ -8,7 +8,7 @@ namespace Revature.Tenant.Lib.Interface
 {
   public interface ITenantRepository : IDisposable
   {
-    public Task AddAsync();
+    public Task AddAsync(Lib.Models.Tenant tenant);
     public Task<Models.Tenant> GetByIdAsync(int id);
     public Task<ICollection<Models.Tenant>> GetAllAsync();
     public Task DeleteByIdAsync(int id);
