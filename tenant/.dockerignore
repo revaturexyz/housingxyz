@@ -2,7 +2,7 @@
 
 ## project
 *
-!aspnet/
+!src/
 **/*.sln
 **/*.Tests/
 

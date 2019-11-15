@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Xyz.Tenant.Api
+namespace Revature.Tenant.Api
 {
     public class Program
     {

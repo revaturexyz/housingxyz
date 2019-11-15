@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Xyz.Tenant.Api": {
+    "Revature.Tenant.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast", //TODO: Change this

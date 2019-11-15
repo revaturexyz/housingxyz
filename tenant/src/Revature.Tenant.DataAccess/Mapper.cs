@@ -1,6 +1,6 @@
 using System;
 
-namespace Xyz.Tenant.DataAccess
+namespace Revature.Tenant.DataAccess
 {
     public class Mapper
     {
