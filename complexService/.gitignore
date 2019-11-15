@@ -1,6 +1,48 @@
+# room :: gitignore
 
-# Created by https://www.gitignore.io/api/csharp,visualstudio
-# Edit at https://www.gitignore.io/?templates=csharp,visualstudio
+## angular
+coverage/
+dist/
+
+## docker
+dockerup*
+!dockerup.yaml
+
+## dotnet
+.vscode/
+.vs/
+bin/
+obj/
+
+appsettings.*
+!appsettings.json
+
+## jekyll
+.jekyll-cache/
+.sass-cache/
+
+.jekyll-metadata
+
+## macos
+.DS_Store
+
+## nodejs
+node_modules/
+
+## react
+
+## terraform
+.terraform/
+
+*.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+## vuejs
+
+# Created by https://www.gitignore.io/api/csharp,visualstudio,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=csharp,visualstudio,visualstudiocode
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -353,6 +395,17 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
 ### VisualStudio ###
 
 # User-specific files
@@ -509,4 +562,4 @@ MigrationBackup/
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 
-# End of https://www.gitignore.io/api/csharp,visualstudio
+# End of https://www.gitignore.io/api/csharp,visualstudio,visualstudiocode

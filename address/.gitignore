@@ -1,0 +1,42 @@
+# addressxyz :: gitignore
+
+## angular
+coverage/
+dist/
+
+## docker
+dockerup*
+!dockerup.yaml
+
+## dotnet
+.vs/
+.vscode/
+bin/
+obj/
+
+appsettings.*
+!appsettings.json
+
+## jekyll
+.jekyll-cache/
+.sass-cache/
+
+.jekyll-metadata
+
+## macos
+.DS_Store
+
+## nodejs
+node_modules/
+
+## react
+
+## terraform
+.terraform/
+
+*.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+## vuejs

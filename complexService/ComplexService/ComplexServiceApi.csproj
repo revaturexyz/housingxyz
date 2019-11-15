@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -17,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ComplexServiceDatabase\ComplexServiceDatabase.csproj" />
     <ProjectReference Include="..\ComplexServiceLogic\ComplexServiceLogic.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
