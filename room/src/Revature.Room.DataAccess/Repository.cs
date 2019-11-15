@@ -19,11 +19,11 @@ namespace Revature.Room.DataAccess
     }
 
     public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
-      int complexId,
+      Guid complexId,
       string roomNumber,
       int? numberOfBeds,
-      RoomType? roomType,
-      Gender? gender,
+      string roomType,
+      string gender,
       DateTime? endDate)
     {
       IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId);
@@ -37,17 +37,17 @@ namespace Revature.Room.DataAccess
       }
       if (roomType != null)
       {
-        rooms = rooms.Where(r => r.RoomType == roomType);
+        rooms = rooms.Where(r => r.RoomType.Type == roomType);
       }
       if (gender != null)
       {
-        rooms = rooms.Where(r => r.Gender == gender);
+        rooms = rooms.Where(r => r.Gender.Type == gender);
       }
       if (endDate != null)
       {
         rooms = rooms.Where(r => endDate < r.LeaseEnd);
       }
-      return await _map.ParseRooms(rooms);
+      return _map.ParseRooms(rooms);
     }
   }
 }

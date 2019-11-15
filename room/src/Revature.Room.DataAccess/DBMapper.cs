@@ -1,3 +1,4 @@
+using Revature.Room.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,9 +12,9 @@ namespace Revature.Room.DataAccess
       {
         RoomID = Room.RoomID,
         ComplexID = Room.ComplexID,
-        Gender = Room.Gender,
+        Gender = Room.Gender.Type,
         RoomNumber = Room.RoomNumber,
-        RoomType = Room.RoomType,
+        RoomType = Room.Gender.Type,
         NumberOfBeds = Room.NumberOfBeds,
         LeaseStart = Room.LeaseStart,
         LeaseEnd = Room.LeaseEnd

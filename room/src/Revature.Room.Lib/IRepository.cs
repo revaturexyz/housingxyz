@@ -7,11 +7,11 @@ namespace Revature.Room.Lib
   public interface IRepository
   {
     Task<IEnumerable<Room>> GetFilteredRooms(
-      int complexId,
+      Guid complexId,
       string roomNumber,
       int? numberOfBeds,
-      RoomType? roomType,
-      Gender? gender,
+      string roomType,
+      string gender,
       DateTime? endDate);
   }
 }

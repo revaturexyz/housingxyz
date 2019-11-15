@@ -22,11 +22,11 @@ namespace Revature.Room.Api.Controllers
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e
     public async Task<IActionResult> GetFilteredRooms(
-      int complexId,
+      Guid complexId,
       [FromQuery] string roomNumber,
       [FromQuery] int? numberOfBeds,
-      [FromQuery] RoomType? roomType,
-      [FromQuery] Gender? gender,
+      [FromQuery] string roomType,
+      [FromQuery] string gender,
       [FromQuery] DateTime? endDate)
     {
       IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRooms(
