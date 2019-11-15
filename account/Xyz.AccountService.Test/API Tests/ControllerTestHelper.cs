@@ -59,13 +59,14 @@ namespace Xyz.AccountService.Test
         //constructor
         public ControllerTestHelper()
         {
-            SetUpCoordinators();
-            SetUpProviderAccount();
             SetUpNotifications();
+            SetUpCoordinators(INotificationList);
+            SetUpProviderAccount(INotificationList);
+            
             SetUpMocks();
         }
 
-        private void SetUpCoordinators()
+        private void SetUpCoordinators(List<Notification> nList)
         {
             ICoordinators = new List<CoordinatorAccount>
             {
@@ -79,14 +80,8 @@ namespace Xyz.AccountService.Test
                     TrainingName = "Arlington",
                     TrainingAddress = "604 S. West, Arlington, TX, 76010",
 
-
-                    Notification = new Notification()
-                    {
-                        ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
-                        CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
-                        Status = "Marmalaide", // string required for this... ***
-                        AccountExpire = nowPSev
-                    }
+                    //1
+                    Notification = nList[0]
                 },
                 //2
                 new CoordinatorAccount
@@ -98,16 +93,10 @@ namespace Xyz.AccountService.Test
                     TrainingName = "Honolulu",
                     TrainingAddress = "555 Kaumakani St, Honolulu, HI 96825",
 
-
-                    Notification = new Notification()
-                    {
-                        ProviderId = new Guid("j0hny5xx-was5-h7r3-4ndd-l3ftth1smssg"),
-                        CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6aaa"),
-                        Status = "Marmalaide", // string required for this... ***
-                        AccountExpire = nowPSev
-                        
-                    }
+                    //2
+                    Notification = nList[1]
                 },
+                //3
                 new CoordinatorAccount
                 {
                     CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-aaaaac5d6bbb"),
@@ -117,22 +106,15 @@ namespace Xyz.AccountService.Test
                     TrainingName = "NYC Midtown Center",
                     TrainingAddress = "348 e 66th st new york ny 10065",
 
-
-                    Notification = new Notification()
-                    {
-                        ProviderId = new Guid("j08ny5xx-w455-h7r3-4ndd-l3f77h15m55g"),
-                        CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-aaaaac5d6bbb"),
-                        Status = "Marmalaide", // string required for this... ***
-                        AccountExpire = nowPSev
-                        
-                    }
+                    //3
+                    Notification =nList[2]
                 },
 
 
             };
         }
 
-        private void SetUpProviderAccount()
+        private void SetUpProviderAccount(List<Notification> nList )
         {
             IProviderAccountList = new List<ProviderAccount>
             {
@@ -145,17 +127,41 @@ namespace Xyz.AccountService.Test
                     Status = "Strawberry Jelly",
                     AccountCreated = now,
                     Expire = nowPSev,
-                    Notification = new Notification()
-                    {
-                        ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
-                        CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
-                        Status = "Marmalaide", 
-                        AccountExpire = nowPSev
-                    }
+                    Notification = nList[0]
+
+
+                },
+                
+                new ProviderAccount
+                {
+                    ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
+                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    Name = "Billys Big Discount Dorms",
+                    Password = "54321",
+                    Status = "Strawberry Jelly",
+                    AccountCreated = now,
+                    Expire = nowPSev,
+                    Notification = nList[1]
+
+
+                },
+
+                //
+                new ProviderAccount
+                {
+                    ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
+                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    Name = "Billys Big Discount Dorms",
+                    Password = "54321",
+                    Status = "Strawberry Jelly",
+                    AccountCreated = now,
+                    Expire = nowPSev,
+                    Notification = nList[2]
+
 
                 }
 
-            };
+        };
         }
 
         private void SetUpNotifications()
@@ -170,7 +176,26 @@ namespace Xyz.AccountService.Test
                         CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
                         Status = "Marmalaide", 
                         AccountExpire = nowPSev
+                },
+                new Notification
+                {
+                    ProviderId = new Guid("j0hny5xx-was5-h7r3-4ndd-l3ftth1smssg"),
+                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6aaa"),
+                    Status = "Marmalaide", // string required for this... ***
+                    AccountExpire = nowPSev
+
+                },
+                
+                new Notification()
+                {
+                    ProviderId = new Guid("j08ny5xx-w455-h7r3-4ndd-l3f77h15m55g"),
+                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-aaaaac5d6bbb"),
+                    Status = "Marmalaide", // string required for this... ***
+                    AccountExpire = nowPSev
+
                 }
+
+
             };
         }
 
@@ -180,8 +205,8 @@ namespace Xyz.AccountService.Test
         {
             IRepository = new Mock<Xyz.AccountService.Lib.Interface.IGenericRepository>();
 
-            //Note: CoordinatorAccountController may require IoC for the IRepository.Object
-            ICoordinatorAccountController = new CoordinatorAccountController();
+            
+            ICoordinatorAccountController = new CoordinatorAccountController(IRepository.Object);
 
             ICoordinatorAccountController.ControllerContext = new ControllerContext();//mvc
             ICoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();//http
