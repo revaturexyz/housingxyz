@@ -84,5 +84,52 @@ namespace Revature.Room.Tests
 
       Assert.NotNull(resultRoom);
     }
+
+    [Fact]
+    public async Task RepoUpdateTest()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>().UseInMemoryDatabase("UpdateRoom").Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      var mapper = new DBMapper();
+
+      var newRoom = new Revature.Room.DataAccess.Entities.Room
+      {
+        RoomID = newRoomID,
+        ComplexID = newComplexID,
+        Gender = new DataAccess.Entities.Gender { Type = newGender },
+        RoomNumber = newRoomNumber,
+        RoomType = new DataAccess.Entities.RoomType { Type = newRoomType },
+        NumberOfBeds = newNumOfBeds,
+        LeaseStart = newLeaseStart,
+        LeaseEnd = newLeaseEnd
+      };
+
+      var updatedRoom = new Revature.Room.Lib.Room
+      {
+        RoomID = newRoomID,
+        ComplexID = newComplexID,
+        Gender = "Male",
+        RoomNumber = newRoomNumber,
+        RoomType = "Dorm",
+        NumberOfBeds = newNumOfBeds,
+        LeaseStart = newLeaseStart,
+        LeaseEnd = newLeaseEnd
+      };
+
+      testContext.Add(newRoom);
+
+
+      Repository repo = new Repository(testContext, mapper);
+
+
+      await repo.UpdateRoom(updatedRoom);
+
+      var assertRoom = testContext.Room.Find(newRoom.RoomID);
+
+
+      Assert.Equal("Male", assertRoom.Gender.Type);
+
+    }
   }
 }
