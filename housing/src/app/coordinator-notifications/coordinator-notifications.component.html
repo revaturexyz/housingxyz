@@ -12,7 +12,7 @@
         </div>
         <div class="notifications-container">
           <a routerLinkActive="router-link-active" *ngFor="let notification of notifications" [routerLink]="['/coordinator-notifications/' + notification.notificationId]" class="notifications-row">
-            <div class="notification-expires">3 days</div>
+            <div class="notification-expires">{{notification.date}}</div>
             <div class="notification-name truncate">{{notification.companyName}}</div>
           </a>
         </div>

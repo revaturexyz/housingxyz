@@ -27,6 +27,7 @@ import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
+import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CoordinatorNotificationsComponent } from './coordinator-notifications/c
     AddComplexComponent,
     RequestDialogComponent,
     AddProviderComponent,
-    CoordinatorNotificationsComponent
+    CoordinatorNotificationsComponent,
+    NotificationDetailsComponent
   ],
   imports: [
     BrowserModule,

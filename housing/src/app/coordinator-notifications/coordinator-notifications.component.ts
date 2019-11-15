@@ -13,93 +13,72 @@ export class CoordinatorNotificationsComponent implements OnInit {
     notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
     providerId: 2,
     centerId: 2,
-    date: Date,
+    date: '3 days',
     companyName: 'Stark Properties, Inc'
     },
     {
-      notificationId: 6,
-      centerId: 0,
-      apiAddress: null,
-      centerName: 'Liv +',
-      contactNumber: '2143367788'
+    notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+    providerId: 2,
+    centerId: 2,
+    date: '3 days',
+    companyName: 'Lark Properties, Inc Singing by the Grassy Path at the Downtown Disco'
     },
     {
-      notificationId: 7,
-      centerId: 1,
-      apiAddress: null,
-      centerName: 'Sunshine Springs on the Hillside Waterfall Incoporated by the Rainbow over Dreams Lost in Code',
-      contactNumber: '2141231112'
+    notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+    providerId: 2,
+    centerId: 2,
+    date: '3 days',
+    companyName: 'Park Properties, Inc'
     },
     {
-      notificationId: 8,
-      centerId: 3,
-      apiAddress: null,
-      centerName: 'Courtshire Yards',
-      contactNumber: '2141231112'
+    notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+    providerId: 2,
+    centerId: 2,
+    date: '3 days',
+    companyName: 'Wthark Properties, Inc'
     },
     {
-      notificationId: 9,
-      centerId: 4,
-      apiAddress: null,
-      centerName: 'Liv +',
-      contactNumber: '2143367788'
+    notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+    providerId: 2,
+    centerId: 2,
+    date: '3 days',
+    companyName: 'Mzzzark Properties, Inc'
     },
     {
-      notificationId: 1,
-      centerId: 5,
-      apiAddress: null,
-      centerName: 'Sunshine Springs',
-      contactNumber: '2141231112'
-    },
-    {
-      notificationId: 2,
-      centerId: 6,
-      apiAddress: null,
-      centerName: 'Courtshire Yards',
-      contactNumber: '2141231112'
-    },
-    {
-      notificationId: 3,
-      centerId: 0,
-      apiAddress: null,
-      centerName: 'Liv +',
-      contactNumber: '2143367788'
-    },
-    {
-      notificationId: 4,
-      centerId: 1,
-      apiAddress: null,
-      centerName: 'Sunshine Springs',
-      contactNumber: '2141231112'
-    },
-    {
-      notificationId: 5,
-      centerId: 3,
-      apiAddress: null,
-      centerName: 'Courtshire Yards',
-      contactNumber: '2141231112'
-    },
-    {
-      notificationId: 6,
-      centerId: 4,
-      apiAddress: null,
-      centerName: 'Liv +',
-      contactNumber: '2143367788'
-    },
-    {
-      notificationId: 7,
-      centerId: 5,
-      apiAddress: null,
-      centerName: 'Sunshine Springs',
-      contactNumber: '2141231112'
-    },
-    {
-      notificationId: 8,
-      centerId: 6,
-      apiAddress: null,
-      centerName: 'Courtshire Yards',
-      contactNumber: '2141231112'
-    }
+      notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+      providerId: 2,
+      centerId: 2,
+      date: '3 days',
+      companyName: 'Stark Properties, Inc'
+      },
+      {
+      notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+      providerId: 2,
+      centerId: 2,
+      date: '3 days',
+      companyName: 'Lark Properties, Inc Singing by the Grassy Path at the Downtown Disco'
+      },
+      {
+      notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+      providerId: 2,
+      centerId: 2,
+      date: '11/21/2007',
+      companyName: 'Park Properties, Inc'
+      },
+      {
+      notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+      providerId: 2,
+      centerId: 2,
+      date: '11/21/2007',
+      companyName: 'Wthark Properties, Inc'
+      },
+      {
+      notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+      providerId: 2,
+      centerId: 2,
+      date: '11/21/2007',
+      companyName: 'Mzzzark Properties, Inc'
+      }
   ]
 
   constructor() { }
