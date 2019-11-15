@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Revature.Room.Lib;
+using ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,14 +11,17 @@ namespace Revature.Room.Api.Controllers
   [ApiController]
   public class RoomsController : ControllerBase
   {
+    private readonly ServiceBusSender _busSender;
+    private readonly IRepository _repository;
+
     /// <summary>
     /// Controller for the Rooms
     /// </summary>
-    private readonly IRepository _repository;
 
-    public RoomsController(IRepository repository)
+    public RoomsController(IRepository repository, ServiceBusSender busSender)
     {
       _repository = repository;
+      _busSender = busSender ?? throw new ArgumentNullException();
     }
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e

@@ -43,8 +43,7 @@ namespace Revature.Room.Api
         });
       });
 
-      services.AddScoped<ServiceBusSender>();
-      services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+
 
       services.AddSwaggerGen(c =>
       {
@@ -54,6 +53,10 @@ namespace Revature.Room.Api
 
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<IMapper, DBMapper>();
+
+      services.AddScoped<ServiceBusSender>();
+      services.AddScoped<IServiceBusConsumer, ServiceBusConsumer>();
+
       services.AddControllers();
     }
 

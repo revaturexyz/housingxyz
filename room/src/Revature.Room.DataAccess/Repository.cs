@@ -33,6 +33,13 @@ namespace Revature.Room.DataAccess
 
     }
 
+    public async Task DeleteRoom(int roomId)
+    {
+      var roomEntity = await _context.Room.FindAsync(roomId);
+      _context.Remove(roomEntity);
+      _logger.LogInformation("Successfully removed room from database!", roomEntity);
+    }
+
     public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
       int complexId,
       string roomNumber,

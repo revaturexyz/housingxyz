@@ -13,6 +13,9 @@ namespace Revature.Room.Lib
       RoomType? roomType,
       Gender? gender,
       DateTime? endDate);
+
     public Task CreateRoom(Room myRoom);
+
+    public Task DeleteRoom(int roomId);
   }
 }
