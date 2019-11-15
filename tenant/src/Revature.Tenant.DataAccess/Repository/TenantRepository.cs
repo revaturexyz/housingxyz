@@ -1,12 +1,13 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
-
   public class TenantRepository : ITenantRepository 
   {
     private readonly TenantsContext _context;
@@ -24,9 +25,10 @@ namespace Revature.Tenant.DataAccess.Repository
 
       await _context.Tenants.AddAsync(newTenant);
     }
+
     public async Task<Lib.Models.Tenant> GetByIdAsync(int id)
     {
-      Tenants tenant = await _context.Tenants.FindAsync(id);
+      Tenants tenant = await _context.Tenants.Include(t => t.Cars).FirstAsync(t => t.Id == id);
 
       if (tenant == null)
       {
@@ -35,29 +37,79 @@ namespace Revature.Tenant.DataAccess.Repository
 
       return _mapper.MapTenant((tenant));
     }
-    public Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
+
+    public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
     {
-      List<Tenants> tenants = _context.Tenants.AsNoTracking().ToListAsync();
+      List<Tenants> tenants = await _context.Tenants.Include(t => t.Cars).AsNoTracking().ToListAsync();
+
       return tenants.Select(t => new Lib.Models.Tenant
       {
-        Id = 
-      })
+        Id = t.Id,
+        Email = t.Email,
+        Gender = t.Gender,
+        FirstName = t.FirstName,
+        LastName = t.LastName,
+        AddressId = t.AddressId,
+        RoomId = t.RoomId,
+        CarId = t.CarId,
+        Car = new Lib.Models.Car
+        {
+          Id = t.Cars.Id,
+          LicensePlate = t.Cars.LicensePlate,
+          Make = t.Cars.Make,
+          Model = t.Cars.Model,
+          Color = t.Cars.Color,
+          Year = t.Cars.Year,
+        },
+      }).ToList();
     }
-    public Task DeleteByIdAsync(int id)
+
+    public async Task DeleteByIdAsync(int id)
     {
-      throw new NotImplementedException();
+      Tenants tenant = await _context.Tenants.FindAsync(id);
+
+      _context.Remove(tenant);
     }
-    public Task UpdateAsync(Lib.Models.Tenant tenant)
+
+    public async Task UpdateAsync(Lib.Models.Tenant tenant)
     {
-      throw new NotImplementedException();
+      Tenants currentTenant = await _context.Tenants.FindAsync(tenant.Id);
+
+      if (currentTenant == null)
+      {
+        throw new InvalidOperationException("Invalid Tenant Id");
+      }
+
+      Tenants newTenant = _mapper.MapTenant(tenant);
+      _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
     }
-    public Task SaveAsync()
+
+    public async Task SaveAsync()
     {
-      throw new NotImplementedException();
+      await _context.SaveChangesAsync();
     }
+
+    #region IDisposable Support
+    private bool _disposedValue = false; // To detect redundant calls
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!_disposedValue)
+      {
+        if (disposing)
+        {
+          _context.Dispose();
+        }
+
+        _disposedValue = true;
+      }
+    }
+
+    // This code added to correctly implement the disposable pattern.
     public void Dispose()
     {
-      throw new NotImplementedException();
+      Dispose(true);
     }
+    #endregion
   }
 }

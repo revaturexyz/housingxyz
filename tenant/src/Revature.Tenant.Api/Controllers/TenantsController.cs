@@ -26,7 +26,7 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <returns></returns>
         // GET: api/Tenants
-    [HttpGet(Name = "GetAll")]
+    [HttpGet(Name = "GetAllAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -44,7 +44,6 @@ namespace Revature.Tenant.Api.Controllers
         AddressId = t.AddressId,
         RoomId = t.RoomId,
         CarId = t.CarId
-
       }).ToList();
     }
 
@@ -55,7 +54,7 @@ namespace Revature.Tenant.Api.Controllers
     /// <returns></returns>
     // GET: api/Tenants/5
     //api/[controller]
-    [HttpGet("{id}", Name = "Get")]
+    [HttpGet("{id}", Name = "GetByIdAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -112,15 +111,7 @@ namespace Revature.Tenant.Api.Controllers
           CarId = tenant.CarId
         };
 
-        try
-        {
-          await _tenantRepository.AddAsync(newTenant);
-        }
-        catch
-        {
-          return BadRequest();
-        }
-
+        await _tenantRepository.AddAsync(newTenant);
 
         ICollection<Lib.Models.Tenant> tenents = await _tenantRepository.GetAllAsync();
         newTenant = tenents.First(t => t.Email == newTenant.Email);

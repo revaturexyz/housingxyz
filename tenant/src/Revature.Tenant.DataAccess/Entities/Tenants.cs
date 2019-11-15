@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
@@ -14,5 +12,7 @@ namespace Revature.Tenant.DataAccess.Entities
     public Guid AddressId { get; set; }
     public int RoomId { get; set; }
     public int CarId { get; set; }
+
+    public virtual Cars Cars { get; set; }
   }
 }

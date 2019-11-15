@@ -16,10 +16,20 @@ namespace Revature.Tenant.DataAccess
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
+
+        Car = new Lib.Models.Car
+        {
+          Id = tenant.Cars.Id,
+          LicensePlate = tenant.Cars.LicensePlate,
+          Make = tenant.Cars.Make,
+          Model = tenant.Cars.Model,
+          Color = tenant.Cars.Color,
+          Year = tenant.Cars.Year,
+        },
       };
     }
 
-    public Entities.Tenants MapTenants(Lib.Models.Tenant tenant)
+    public Entities.Tenants MapTenant(Lib.Models.Tenant tenant)
     {
       return new Entities.Tenants
       {
@@ -31,9 +41,19 @@ namespace Revature.Tenant.DataAccess
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
+
+        Cars = new Entities.Cars
+        {
+          Id = tenant.Car.Id,
+          LicensePlate = tenant.Car.LicensePlate,
+          Make = tenant.Car.Make,
+          Model = tenant.Car.Model,
+          Color = tenant.Car.Color,
+          Year = tenant.Car.Year,
+        },
       };
     }
-    public Lib.Models.Car mapCar(Entities.Cars car)
+    public Lib.Models.Car MapCar(Entities.Cars car)
     {
       return new Lib.Models.Car
       {
@@ -45,7 +65,7 @@ namespace Revature.Tenant.DataAccess
         Year = car.Year,
       };
     }
-    public Entities.Cars mapCar(Lib.Models.Car car)
+    public Entities.Cars MapCar(Lib.Models.Car car)
     {
       return new Entities.Cars
       {
