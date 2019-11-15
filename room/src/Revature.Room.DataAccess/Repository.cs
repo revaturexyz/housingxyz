@@ -24,7 +24,7 @@ namespace Revature.Room.DataAccess
 
     public async Task CreateRoom(Lib.Room myRoom)
     {
-      Data.Room roomEntity = await _map.ParseRoom(myRoom);
+      Data.Room roomEntity = _map.ParseRoom(myRoom);
       await _context.AddAsync(roomEntity);
       await _context.SaveChangesAsync();
 
@@ -41,35 +41,35 @@ namespace Revature.Room.DataAccess
     }
 
     public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
-      int complexId,
+      Guid complexId,
       string roomNumber,
       int? numberOfBeds,
-      RoomType? roomType,
-      Gender? gender,
+      string roomType,
+      string gender,
       DateTime? endDate)
     {
       IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId);
       if (roomNumber != null)
       {
-        rooms.Where(r => r.RoomNumber == roomNumber);
+        rooms = rooms.Where(r => r.RoomNumber == roomNumber);
       }
       if (numberOfBeds != null)
       {
-        rooms.Where(r => r.NumberOfBeds == numberOfBeds);
+        rooms = rooms.Where(r => r.NumberOfBeds == numberOfBeds);
       }
       if (roomType != null)
       {
-        rooms.Where(r => r.RoomType == roomType);
+        rooms = rooms.Where(r => r.RoomType.Type == roomType);
       }
       if (gender != null)
       {
-        rooms.Where(r => r.Gender == gender);
+        rooms = rooms.Where(r => r.Gender.Type == gender);
       }
       if (endDate != null)
       {
-        rooms.Where(r => endDate < r.LeaseEnd);
+        rooms = rooms.Where(r => endDate < r.LeaseEnd);
       }
-      return await _map.ParseRooms(rooms);
+      return _map.ParseRooms(rooms);
     }
   }
 }

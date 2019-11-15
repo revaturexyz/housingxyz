@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Revature.Room.DataAccess.Entities;
@@ -9,9 +10,10 @@ using Revature.Room.DataAccess.Entities;
 namespace Revature.Room.DataAccess.Migrations
 {
     [DbContext(typeof(RoomServiceContext))]
-    partial class RoomServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20191115171727_TryingtoseedDtaa")]
+    partial class TryingtoseedDtaa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,20 +29,6 @@ namespace Revature.Room.DataAccess.Migrations
                     b.HasKey("Type");
 
                     b.ToTable("Gender");
-
-                    b.HasData(
-                        new
-                        {
-                            Type = "Male"
-                        },
-                        new
-                        {
-                            Type = "Female"
-                        },
-                        new
-                        {
-                            Type = "NonBinary"
-                        });
                 });
 
             modelBuilder.Entity("Revature.Room.DataAccess.Entities.Room", b =>
@@ -82,14 +70,12 @@ namespace Revature.Room.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            RoomID = new Guid("249e5358-169a-4bc6-aa0f-c054952456fd"),
-                            ComplexID = new Guid("b5e050aa-6bfc-46ad-9a69-90b1f99ed606"),
-                            GenderType = "Female",
+                            RoomID = new Guid("d1962b8d-927a-4575-abf5-a7b8dae959f3"),
+                            ComplexID = new Guid("ad70c75f-e562-4f8d-891e-a3b7953513f3"),
                             LeaseEnd = new DateTime(2020, 2, 15, 0, 0, 0, 0, DateTimeKind.Local),
-                            LeaseStart = new DateTime(2019, 11, 15, 12, 3, 23, 65, DateTimeKind.Local).AddTicks(256),
+                            LeaseStart = new DateTime(2019, 11, 15, 11, 17, 26, 974, DateTimeKind.Local).AddTicks(1090),
                             NumberOfBeds = 4,
-                            RoomNumber = "2428B",
-                            RoomTypeType = "Apartment"
+                            RoomNumber = "2428B"
                         });
                 });
 
@@ -101,20 +87,6 @@ namespace Revature.Room.DataAccess.Migrations
                     b.HasKey("Type");
 
                     b.ToTable("RoomType");
-
-                    b.HasData(
-                        new
-                        {
-                            Type = "Apartment"
-                        },
-                        new
-                        {
-                            Type = "Dormitory"
-                        },
-                        new
-                        {
-                            Type = "TownHouse"
-                        });
                 });
 
             modelBuilder.Entity("Revature.Room.DataAccess.Entities.Room", b =>
