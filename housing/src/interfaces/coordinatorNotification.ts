@@ -1,3 +1,5 @@
+import { Provider } from './provider';
+
 export interface CoordinatorNotification {
   notificationId: string;
   providerId: number;
@@ -6,6 +8,7 @@ export interface CoordinatorNotification {
   active: boolean;
   trial: boolean;
   extendedTrial: boolean;
+  providerDetails: Provider;
 }
 
 // This check can see if account is usable by provider:
