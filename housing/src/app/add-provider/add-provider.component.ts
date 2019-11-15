@@ -35,7 +35,7 @@ export class AddProviderComponent implements OnInit {
       centerName: 'Courtshire Yards',
       contactNumber: '2141231112'
     }
-  ]
+  ];
 
   constructor(
     private router: Router,

@@ -58,7 +58,7 @@ currentNotification: CoordinatorNotification = {
     contactNumber: '1234678999',
   }
   }
-}
+};
 
   constructor() {
     // currentNotification = GET IT BOY

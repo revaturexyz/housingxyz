@@ -420,7 +420,7 @@ export class CoordinatorNotificationsComponent implements OnInit {
       }
       }
     },
-  ]
+  ];
 
   constructor() { }
 
