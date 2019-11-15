@@ -25,6 +25,8 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
+import { AddTenantComponent } from './add-tenant/add-tenant.component';
+import { ShowTenantComponent } from './show-tenant/show-tenant.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { environment } from 'src/environments/environment';
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent
+    RequestDialogComponent,
+    AddTenantComponent,
+    ShowTenantComponent
   ],
   imports: [
     BrowserModule,
