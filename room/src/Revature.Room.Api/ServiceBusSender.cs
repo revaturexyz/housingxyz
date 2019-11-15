@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System;
-using Revature.Room.Api.Models;
+using Revature.Room.Lib;
 
 namespace ServiceBusMessaging
 {

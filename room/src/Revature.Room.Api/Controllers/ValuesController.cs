@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BL = Revature.Room.Lib;
 using System.Threading.Tasks;
-using r = Revature.Room.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using ServiceBusMessaging;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,9 +38,9 @@ namespace Revature.Room.Api.Controllers
 
     // POST api/<controller>
     [HttpPost]
-    [ProducesResponseType(typeof(r.Room), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(r.Room), StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> Create([FromBody][Required] r.Room request)
+    [ProducesResponseType(typeof(BL.Room), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BL.Room), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Create([FromBody][Required] BL.Room request)
     {
       // Checks for existing data
       //if (data.Any(d => d.Id == request.Id))
@@ -50,7 +51,7 @@ namespace Revature.Room.Api.Controllers
       //data.Add(request);
 
       // Send this to the bus for the other services
-      await _serviceBusSender.SendMessage(new r.Room
+      await _serviceBusSender.SendMessage(new BL.Room
       {
         RoomID = request.RoomID,
         RoomNumber = request.RoomNumber,

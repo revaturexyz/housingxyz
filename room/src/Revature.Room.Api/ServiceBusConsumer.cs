@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
+using Revature.Room.DataAccess;
 
 namespace ServiceBusMessaging
 {
@@ -55,7 +56,8 @@ namespace ServiceBusMessaging
       }
       catch (Exception ex)
       {
-        // log exception
+        // TODO: log exception properly
+        Console.WriteLine(ex.Message);
       }
       finally
       {
