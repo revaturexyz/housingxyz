@@ -113,7 +113,7 @@ namespace Xyz.AccountService.DataAccess
 
 				entity.Property(e => e.Status)
 					.IsRequired()
-					.HasMaxLength(60);
+					.HasMaxLength(100);
 
 				entity.Property(e => e.AccountExpire)
 					.IsRequired();

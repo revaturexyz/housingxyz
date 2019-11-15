@@ -12,5 +12,6 @@ namespace Xyz.AccountService.Lib.Model
 		public string Password { get; set; }
 		public string TrainingName { get; set; }
 		public string TrainingAddress { get; set; }
+		public Notification Notification { get; set; }
 	}
 }
