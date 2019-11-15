@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace Revature.Tenant.DataAccess.Entities
 {
-  public class Cars
+  class Cars
   {
     public int Id { get; set; }
     public string LicensePlate { get; set; }

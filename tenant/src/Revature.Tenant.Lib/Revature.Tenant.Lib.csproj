@@ -8,5 +8,8 @@
     <Folder Include="BusinessLogic\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="4.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
 </Project>

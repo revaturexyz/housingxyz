@@ -1,4 +1,5 @@
 using System;
+
 namespace Revature.Tenant.Lib.Models
 {
   public class Tenant

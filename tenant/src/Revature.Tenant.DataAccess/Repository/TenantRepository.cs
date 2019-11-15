@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Revature.Tenant.Lib.Interface;
+using Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
