@@ -6,6 +6,7 @@ using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
 using Data = Revature.Room.DataAccess.Entities;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Room.DataAccess
 {
@@ -31,6 +32,43 @@ namespace Revature.Room.DataAccess
       //Log here, not too sure about myRoom
       _logger.LogInformation("Successfully added room to database!", myRoom);
 
+    }
+
+    public async Task ReadRoom(Lib.Room myRoom)
+    {
+
+    }
+    public async Task UpdateRoom(Lib.Room myRoom)
+    {
+      //Either use the Guid or RoomNumber to find room by.  Most likely using Guyd which is RoomID
+      Data.Room roomEntity = _context.Room.Where(r => r.RoomID == myRoom.RoomID).Include(r => r.Gender).Include(r => r.RoomType).First();
+      try
+      {
+
+        if (roomEntity == null)
+        {
+          throw new ArgumentNullException("There is no such room!", nameof(myRoom));
+        }
+
+        //Figure out why _context.Gender does not work
+        roomEntity.Gender.Type = myRoom.Gender;
+        roomEntity.LeaseStart = myRoom.LeaseStart;
+        roomEntity.LeaseEnd = myRoom.LeaseEnd;
+
+
+      }
+      catch(ArgumentNullException e)
+      {
+        _logger.LogError("There is no such room!", myRoom);
+      }
+      catch(InvalidOperationException e)
+      {
+        _logger.LogError("Invalid operation. Can't change those!",myRoom);
+      }
+
+
+      await _context.SaveChangesAsync();
+      _logger.LogInformation("Updating room successful!",myRoom);
     }
 
     public async Task DeleteRoom(int roomId)

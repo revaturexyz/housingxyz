@@ -16,6 +16,10 @@ namespace Revature.Room.Lib
 
     public Task CreateRoom(Room myRoom);
 
+    public Task ReadRoom(Room myRoom);
+
+    public Task UpdateRoom(Room myRoom);
+
     public Task DeleteRoom(int roomId);
   }
 }
