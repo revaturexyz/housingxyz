@@ -6,6 +6,7 @@ import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
+import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'show-rooms', component: UpdateRoomComponent },
   { path: 'provider-select', component: ProviderSelectComponent, canActivate: [MsalGuard] },
   { path: 'add-provider', component: AddProviderComponent },
+  { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent },
   { path: 'addroom', component: AddRoomComponent },
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
