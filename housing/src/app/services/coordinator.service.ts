@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
 })
+
+// Service for AJAX Calls to various Rest APIs needed by Coordinators
 export class CoordinatorService {
   // add url from environment - need to add coordinator to endpoints
 
@@ -14,12 +15,10 @@ export class CoordinatorService {
   httpOptions: any;
 
   constructor(
-    private httpbus: HttpClient,
-    msalService: MsalService
+    private httpbus: HttpClient
   ) {
     this.httpOptions = {
       headers: new HttpHeaders({
-        Authorization: msalService.getUser().userIdentifier
       })
     };
   }

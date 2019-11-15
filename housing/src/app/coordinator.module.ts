@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
+import { HttpClientModule } from '@angular/common/http';
 
-
+// Module for Coordinator UI, imported into root module: App.module.ts
 @NgModule({
   declarations: [
   ],
@@ -12,11 +11,6 @@ import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
     HttpClientModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true
-    }
   ],
 })
 export class CoordinatorModule { }
