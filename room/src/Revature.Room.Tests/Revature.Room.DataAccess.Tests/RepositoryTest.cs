@@ -92,14 +92,15 @@ namespace Revature.Room.Tests
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
       var mapper = new DBMapper();
+      testContext.Database.EnsureCreated();
 
       var newRoom = new Revature.Room.DataAccess.Entities.Room
       {
         RoomID = newRoomID,
         ComplexID = newComplexID,
-        Gender = new DataAccess.Entities.Gender { Type = newGender },
+        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
         RoomNumber = newRoomNumber,
-        RoomType = new DataAccess.Entities.RoomType { Type = newRoomType },
+        RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == "Apartment"),
         NumberOfBeds = newNumOfBeds,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
@@ -118,6 +119,7 @@ namespace Revature.Room.Tests
       };
 
       testContext.Add(newRoom);
+      await testContext.SaveChangesAsync();
 
 
       Repository repo = new Repository(testContext, mapper);

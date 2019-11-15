@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ServiceBusMessaging
 {
-  public class ServiceBusSender
+  public class ServiceBusSender : IServiceBusSender
   {
     //The connection string can be found from the Azure portal
     //in the shared access policies

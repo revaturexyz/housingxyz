@@ -11,14 +11,14 @@ namespace Revature.Room.Api.Controllers
   [ApiController]
   public class RoomsController : ControllerBase
   {
-    private readonly ServiceBusSender _busSender;
+    private readonly IServiceBusSender _busSender;
     private readonly IRepository _repository;
 
     /// <summary>
     /// Controller for the Rooms
     /// </summary>
 
-    public RoomsController(IRepository repository, ServiceBusSender busSender)
+    public RoomsController(IRepository repository, IServiceBusSender busSender)
     {
       _repository = repository;
       _busSender = busSender ?? throw new ArgumentNullException();

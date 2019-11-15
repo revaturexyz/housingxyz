@@ -47,15 +47,10 @@ namespace Revature.Room.DataAccess
     //Update room by Guid
     public async Task UpdateRoom(Lib.Room myRoom)
     {
-      Data.Room roomEntity = _context.Room.Where(r => r.RoomID == myRoom.RoomID)
+      Data.Room roomEntity = await _context.Room.Where(r => r.RoomID == myRoom.RoomID)
         .Include(r => r.Gender)
         .Include(r => r.RoomType)
-        .First() ?? throw new ArgumentNullException("There is not such room!", nameof(roomEntity));
-
-      if (roomEntity == null)
-      {
-        throw new ArgumentNullException("There is no such room!", nameof(myRoom));
-      }
+        .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is not such room!", nameof(roomEntity));
 
       //Figure out why _context.Gender does not work
       roomEntity.Gender.Type = myRoom.Gender;

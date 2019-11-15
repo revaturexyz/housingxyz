@@ -15,6 +15,9 @@ namespace Revature.Room.DataAccess.Entities
     }
 
     public DbSet<Room> Room { get; set; }
+    public DbSet<Gender> Gender { get; set; }
+
+    public DbSet<RoomType> RoomType { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
