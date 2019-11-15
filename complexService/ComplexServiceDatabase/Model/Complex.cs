@@ -31,6 +31,6 @@ namespace ComplexServiceDatabase.Model
         /// </summary>
         public string ContactNumber { get; set; }
 
-        public ICollection<AmenityComplex> AmentityComplex { get; set; }
+        public virtual ICollection<AmenityComplex> AmentityComplex { get; set; }
     }
 }

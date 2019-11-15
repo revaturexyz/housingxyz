@@ -24,7 +24,7 @@ namespace ComplexServiceDatabase.Repo
 
         public async Task<string> CreateComplexAsync(Logic.Complex lComplex)
         {
-            Complex complex = Mapper.MapComplextoE(lComplex);
+            Complex complex = _map.MapComplextoE(lComplex);
 
             await _context.AddAsync(complex);
             await _context.SaveChangesAsync().ConfigureAwait(false);

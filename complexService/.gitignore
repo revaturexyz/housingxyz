@@ -1,5 +1,7 @@
 # room :: gitignore
 
+*.sln
+
 ## angular
 coverage/
 dist/

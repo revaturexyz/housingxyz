@@ -37,16 +37,16 @@ namespace ComplexServiceDatabase.Model
                 entity.Property(e => e.ContactNumber)
                   .HasMaxLength(20);
 
-                entity.HasData(
-                  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
-                      ProviderId = Guid.NewGuid(), ComplexName = "Liv+", ContactNumber = "8177517911" },
-                  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
-                      ProviderId = Guid.NewGuid(), ComplexName = "SampleComplex", ContactNumber = "4445550506" },
-                  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
-                      ProviderId = Guid.NewGuid(), ComplexName = "Complex", ContactNumber = "7771112222" },
-                  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
-                      ProviderId = Guid.NewGuid(), ComplexName = "ComplexNearMe", ContactNumber = "3332221111" }
-                );
+                //entity.HasData(
+                //  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
+                //      ProviderId = Guid.NewGuid(), ComplexName = "Liv+", ContactNumber = "8177517911" },
+                //  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
+                //      ProviderId = Guid.NewGuid(), ComplexName = "SampleComplex", ContactNumber = "4445550506" },
+                //  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
+                //      ProviderId = Guid.NewGuid(), ComplexName = "Complex", ContactNumber = "7771112222" },
+                //  new Complex { ComplexId = Guid.NewGuid(), AddressId = Guid.NewGuid(),
+                //      ProviderId = Guid.NewGuid(), ComplexName = "ComplexNearMe", ContactNumber = "3332221111" }
+                //);
                
             });
 
@@ -60,19 +60,23 @@ namespace ComplexServiceDatabase.Model
 
                 entity.Property(e => e.Description);
 
-                entity.HasData
-                (
-                    new Amenity { AmenityId = 1, AmenityType = "Test1", Description = "Description1" },
-                    new Amenity { AmenityId = 2, AmenityType = "Test2", Description = "" },
-                    new Amenity { AmenityId = 3, AmenityType = "Test3", Description = "Description3"}
-                );
+                //entity.HasData
+                //(
+                //    new Amenity { AmenityId = 1, AmenityType = "Test1", Description = "Description1" },
+                //    new Amenity { AmenityId = 2, AmenityType = "Test2", Description = "" },
+                //    new Amenity { AmenityId = 3, AmenityType = "Test3", Description = "Description3"}
+                //);
                 
             });
 
             modelBuilder.Entity<AmenityComplex>(entity =>
             {
                 entity.Property(e => e.AmenityComplexId)
-                      .UseIdentityColumn();
+                      .UseIdentityColumn()
+                      .IsRequired();
+
+                entity.HasIndex(c => c.AmenityComplexId)
+                      .IsUnique();
 
                 entity.HasOne(e => e.Amenity)
                       .WithMany(d => d.AmenityComplex)
@@ -87,19 +91,23 @@ namespace ComplexServiceDatabase.Model
                       .IsRequired()
                       .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasData
-                (
-                    new AmenityComplex { AmenityComplexId = 1, AmenityId = 1, ComplexId = Guid.NewGuid() },
-                    new AmenityComplex { AmenityComplexId = 2, AmenityId = 2, ComplexId = Guid.NewGuid() },
-                    new AmenityComplex { AmenityComplexId = 3, AmenityId = 3, ComplexId = Guid.NewGuid() }
-                );
+                //entity.HasData
+                //(
+                //    new AmenityComplex { AmenityComplexId = 1, AmenityId = 1, ComplexId = Guid.NewGuid() },
+                //    new AmenityComplex { AmenityComplexId = 2, AmenityId = 2, ComplexId = Guid.NewGuid() },
+                //    new AmenityComplex { AmenityComplexId = 3, AmenityId = 3, ComplexId = Guid.NewGuid() }
+                //);
 
             });
 
             modelBuilder.Entity<AmenityRoom>(entity =>
             {
                 entity.Property(e => e.AmenityRoomId)
-                      .UseIdentityColumn();
+                      .UseIdentityColumn()
+                      .IsRequired();
+
+                entity.HasIndex(c => c.AmenityRoomId)
+                      .IsUnique();
 
                 entity.HasOne(e => e.Amenity)
                       .WithMany(d => d.AmenityRoom)
@@ -110,12 +118,12 @@ namespace ComplexServiceDatabase.Model
                 entity.Property(e => e.RoomId)
                     .IsRequired();
 
-                entity.HasData
-                (
-                    new AmenityComplex { AmenityComplexId = 1, AmenityId = 1, ComplexId = Guid.NewGuid() },
-                    new AmenityComplex { AmenityComplexId = 2, AmenityId = 2, ComplexId = Guid.NewGuid() },
-                    new AmenityComplex { AmenityComplexId = 3, AmenityId = 3, ComplexId = Guid.NewGuid() }
-                );
+                //entity.HasData
+                //(
+                //    new AmenityComplex { AmenityComplexId = 1, AmenityId = 1, ComplexId = Guid.NewGuid() },
+                //    new AmenityComplex { AmenityComplexId = 2, AmenityId = 2, ComplexId = Guid.NewGuid() },
+                //    new AmenityComplex { AmenityComplexId = 3, AmenityId = 3, ComplexId = Guid.NewGuid() }
+                //);
 
             });
         }

@@ -6,9 +6,9 @@ using Entity = ComplexServiceDatabase.Model;
 
 namespace ComplexServiceDatabase.Repo
 {
-    public static class Mapper : IMapper
+    public class Mapper : IMapper
     {
-        public static Entity.Amenity MapAmenitytoE(Logic.Amenity amenity)
+        public Entity.Amenity MapAmenitytoE(Logic.Amenity amenity)
         {
             return new Entity.Amenity
             {
@@ -18,7 +18,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Logic.Amenity MapEtoAmenity(Entity.Amenity amenity)
+        public Logic.Amenity MapEtoAmenity(Entity.Amenity amenity)
         {
             return new Logic.Amenity
             {
@@ -28,7 +28,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Entity.AmenityComplex MapAmenityComplextoE(Logic.AmenityComplex ac)
+        public Entity.AmenityComplex MapAmenityComplextoE(Logic.AmenityComplex ac)
         {
             return new Entity.AmenityComplex
             {
@@ -38,7 +38,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Logic.AmenityComplex MapEtoAmenityComplex(Entity.AmenityComplex ac)
+        public Logic.AmenityComplex MapEtoAmenityComplex(Entity.AmenityComplex ac)
         {
             return new Logic.AmenityComplex
             {
@@ -48,7 +48,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Entity.AmenityRoom MapAmenityRoomtoE(Logic.AmenityRoom ar)
+        public Entity.AmenityRoom MapAmenityRoomtoE(Logic.AmenityRoom ar)
         {
             return new Entity.AmenityRoom
             {
@@ -58,7 +58,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Logic.AmenityRoom MapEtoAmenityRoom(Entity.AmenityRoom ar)
+        public Logic.AmenityRoom MapEtoAmenityRoom(Entity.AmenityRoom ar)
         {
             return new Logic.AmenityRoom
             {
@@ -68,7 +68,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Entity.Complex MapComplextoE(Logic.Complex c)
+        public Entity.Complex MapComplextoE(Logic.Complex c)
         {
             return new Entity.Complex
             {
@@ -80,7 +80,7 @@ namespace ComplexServiceDatabase.Repo
             };
         }
 
-        public static Logic.Complex MapEtoComplex(Entity.Complex c)
+        public Logic.Complex MapEtoComplex(Entity.Complex c)
         {
             return new Logic.Complex
             {

@@ -8,7 +8,7 @@ namespace ComplexServiceDatabase.Repo
 {
     public interface IMapper
     {
-        public Entity.Amenity MapAmenitytoE(Logic.Amenity amenity);
+        public abstract Entity.Amenity MapAmenitytoE(Logic.Amenity amenity);
         public Logic.Amenity MapEtoAmenity(Entity.Amenity amenity);
         public Entity.AmenityComplex MapAmenityComplextoE(Logic.AmenityComplex ac);
         public Logic.AmenityComplex MapEtoAmenityComplex(Entity.AmenityComplex ac);

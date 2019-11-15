@@ -10,8 +10,8 @@ namespace ComplexServiceDatabase.Model
         public string AmenityType { get; set; }
         public string Description { get; set; }
 
-        public ICollection<AmenityRoom> AmenityRoom { get; set; }
+        public virtual ICollection<AmenityRoom> AmenityRoom { get; set; }
 
-        public ICollection<AmenityComplex> AmenityComplex { get; set; }
+        public virtual ICollection<AmenityComplex> AmenityComplex { get; set; }
     }
 }
