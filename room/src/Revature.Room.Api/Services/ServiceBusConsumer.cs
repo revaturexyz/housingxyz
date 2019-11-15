@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using Revature.Room.DataAccess;
 using Serilog.Core;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ServiceBusMessaging
 {
@@ -18,22 +20,21 @@ namespace ServiceBusMessaging
     Task CloseQueueAsync();
   }
 
-  public class ServiceBusConsumer : IServiceBusConsumer
+  public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer 
   {
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
     private readonly IRepository _repo;
     private const string QUEUE_NAME = "TestQ";
-
+    private readonly IServiceProvider Services;
     private readonly ILogger<Repository> _logger;
 
-    public ServiceBusConsumer(IConfiguration configuration, IRepository repo, ILogger<Repository> logger)
+    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<Repository> logger)
     {
       _configuration = configuration;
-      _repo = repo ?? throw new ArgumentNullException(); //TODO
       _queueClient = new QueueClient(
       _configuration.GetConnectionString("ServiceBus"), QUEUE_NAME);
-
+      Services = services;
       _logger = logger;
     }
 
@@ -50,30 +51,34 @@ namespace ServiceBusMessaging
 
     private async Task ProcessMessagesAsync(Message message, CancellationToken token)
     {
-      // TODO: look
-      try
+      // Dispose of this scope after done using repository service
+      //   Necessary due to singleton service (bus service) consuming a scoped service (repo)
+      using (var scope = Services.CreateScope())
       {
-        _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-        Room myRoom = JsonConvert.DeserializeObject<Room>(Encoding.UTF8.GetString(message.Body));
+        var _repo = scope.ServiceProvider.GetRequiredService<IRepository>();
+        try
+        {
+          _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
+          Room myRoom = JsonConvert.DeserializeObject<Room>(Encoding.UTF8.GetString(message.Body));
 
-        // Persist our new data into the repository but not if Deserialization throws exception
-        //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible
+          // Persist our new data into the repository but not if Deserialization throws exception
+          //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible
 
-        await _repo.CreateRoom(myRoom);
-       
+          await _repo.CreateRoom(myRoom);
+
+        }
+        catch (Exception ex)
+        {
+          _logger.LogError(string.Format("Message did not convert properly.", message.Body), ex);
+        }
+        finally
+        {
+          // Alert bus service that message was received
+          await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
+        }
+
       }
-      catch (Exception ex)
-      {
-        // TODO: log exception properly
-        //Console.WriteLine(ex.Message);
-        //Declared a logger above and logged error here
-        _logger.LogError(string.Format("Message did not convert properly.", message.Body), ex);
-      }
-      finally
-      {
-        // Alert bus service that message was received
-        await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
-      }
+
     }
 
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
@@ -86,6 +91,11 @@ namespace ServiceBusMessaging
     public async Task CloseQueueAsync()
     {
       await _queueClient.CloseAsync();
+    }
+
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+      throw new NotImplementedException();
     }
   }
 }
