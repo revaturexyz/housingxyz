@@ -4,15 +4,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { NavComponent } from './nav/nav.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
-import { AddTenantComponent } from './add-tenant/add-tenant.component';
-import { ShowTenantComponent } from './show-tenant/show-tenant.component';
+
 
 @NgModule({
   declarations: [
     NavComponent,
-    RoomDetailsComponent,
-    AddTenantComponent,
-    ShowTenantComponent
+    RoomDetailsComponent
   ],
   imports: [
     CommonModule,
