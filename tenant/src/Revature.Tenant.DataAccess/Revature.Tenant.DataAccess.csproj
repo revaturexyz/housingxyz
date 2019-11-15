@@ -23,6 +23,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
   </ItemGroup>
 
 </Project>

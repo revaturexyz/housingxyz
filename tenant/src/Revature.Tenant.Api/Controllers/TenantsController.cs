@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,6 @@ namespace Revature.Tenant.Api.Controllers
     [ApiController]
     public class TenantsController : ControllerBase
     {
-
     //private readonly IDataAccess db;
 
     //public TenantsController(IDataAccess dataAccess)
