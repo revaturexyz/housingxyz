@@ -8,25 +8,23 @@ namespace Xyz.AccountService.Lib.Interface
 {
 	public interface IGenericRepository : IAsyncDisposable
 	{
-		/* Provider Account Repositories */
+		#region Provider Account Repositories
 		public Task<ProviderAccount> GetProviderAccountById(Guid providerId);
 		public void AddNewProviderAccount(ProviderAccount newAccount);
 		public Task UpdateProviderAccount(ProviderAccount providerAccount);
 		public Task DeleteProviderAccount(Guid providerId);
-		/* End */
-
-		/* Coordinator Account Repositories */
+		#endregion
+		#region
 		public Task<CoordinatorAccount> GetCoordinatorAccountById(Guid coordinatorId);
 		//public Task UpdateCoordinatorAccount(CoordinatorAccount coordinatorAccount);
 		//public Task DeleteCoordinatorAccount(Guid coordinatorId);
-		/* End */
-
-		/* Notification Repositories */
+		#endregion
+		#region
 		public Task<Notification> GetNotificationById(Guid providerId);
 		public void AddNewNotification(Notification newNofi);
 		public Task UpdateNotification(Notification notification);
 		public Task DeleteNotificationById(Guid providerId);
-		/* End */
+		#endregion
 
 		public Task Save();
 

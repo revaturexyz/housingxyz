@@ -13,5 +13,7 @@ namespace Xyz.AccountService.Lib.Model
 		public string Status { get; set; }
 		public DateTime AccountCreated { get; set; }
 		public DateTime Expire { get; set; }
+		public Notification Notification { get; set; }
+
 	}
 }

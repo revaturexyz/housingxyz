@@ -27,15 +27,14 @@ namespace Xyz.AccountService.DataAccess
 
 				entity.Property(e => e.Name)
 					.IsRequired()
-					.HasMaxLength(60);
+					.HasMaxLength(100);
 
 				entity.Property(e => e.Password)
 					.IsRequired()
-					.HasMaxLength(60);
+					.HasMaxLength(100);
 
 				entity.Property(e => e.Status)
-					.IsRequired()
-					.HasMaxLength(60);
+					.IsRequired();
 
 				entity.Property(e => e.AccountCreated)
 					.IsRequired();
@@ -68,19 +67,19 @@ namespace Xyz.AccountService.DataAccess
 
 				entity.Property(e => e.Name)
 					.IsRequired()
-					.HasMaxLength(60);
+					.HasMaxLength(100);
 
 				entity.Property(e => e.Password)
 					.IsRequired()
-					.HasMaxLength(60);
+					.HasMaxLength(100);
 
 				entity.Property(e => e.TrainingName)
 					.IsRequired()
-					.HasMaxLength(60);
+					.HasMaxLength(100);
 
 				entity.Property(e => e.TrainingAddress)
 					.IsRequired()
-					.HasMaxLength(75);
+					.HasMaxLength(100);
 
 				entity.HasOne(e => e.Provider)
 					.WithOne(p => p.Coordinator)
@@ -118,6 +117,8 @@ namespace Xyz.AccountService.DataAccess
 
 				entity.Property(e => e.AccountExpire)
 					.IsRequired();
+
+		
 
 				entity.HasData
 				(new Entities.Notification 
