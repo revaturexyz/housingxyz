@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
