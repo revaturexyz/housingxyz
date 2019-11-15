@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Xyz.Tenant.Lib.Interface;
 using Xyz.Tenant.Api;
 using Xyz.Tenant.Api.Models;
+//using Xyz.Tenant.Lib.Exceptions;
 
 namespace Xyz.Tenant.Api.Controllers
 {
@@ -14,12 +15,6 @@ namespace Xyz.Tenant.Api.Controllers
   public class TenantsController : ControllerBase
   {
 
-    //private readonly IDataAccess db;
-
-    //public TenantsController(IDataAccess dataAccess)
-    //{
-    //  db = dataAccess;
-    //}
     private readonly ITenantRepository _tenantRepository;
 
     public TenantsController(ITenantRepository tenantRepository)
@@ -51,7 +46,7 @@ namespace Xyz.Tenant.Api.Controllers
         CarId = t.CarId
 
       });
-      
+
     }
     /// <summary>
     /// Get Tenant by Id
@@ -69,21 +64,24 @@ namespace Xyz.Tenant.Api.Controllers
       try
       {
         var tenant = await _tenantRepository.GetByIdAsync(id);//this is a repository function that should be async and return Task<IEnumerable<Xyz.Tenant.Lib.Models.Tenant>>
-        var apiTenant = new ApiTenant { Id = tenant.Id,
-                                        FirstName = tenant.FirstName,
-                                        LastName = tenant.LastName,
-                                        Email = tenant.Email,
-                                        AddressId = tenant.AddressId,
-                                        RoomId = tenant.RoomId,
-                                        CarId = tenant.CarId };                                             //given an int Id
+        var apiTenant = new ApiTenant
+        {
+          Id = tenant.Id,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          Email = tenant.Email,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId
+        };
         return Ok(apiTenant);
 
       }
-      catch(ArgumentException)
+      catch (ArgumentException)
       {
         return NotFound();
       }
-      catch(Exception e)
+      catch (Exception e)
       {
         return StatusCode(500, e.Message);
       }
@@ -97,28 +95,89 @@ namespace Xyz.Tenant.Api.Controllers
     [HttpPost("RegisterTenant", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async void PostAsync([FromBody] ApiTenant tenant)
+    public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
+    {
+      try
+      {
+        var newTenant = new Tenant
         {
-      //TODO: Implement PostAsync
-      //    var libTenant = await _tenantRepository.
-      //    {
-      //      Id = c
-      //    }
-      //var result = await _complexRepository.AddAsync(libTenant, providerId);
-      //return Created($"api/Complex/{result.ComplexId}", ApiModelFactory.MakeApiComplex(result));
-      
-        }
+          Id = tenant.Id,
+          FullName = tenant.FullName,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          Email = tenant.Email,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId
+        };
 
-        // PUT: api/Tenants/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        var result = await _tenantRepository.AddAsync(newTenant);
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        return Created($"api/Tenant/{result.TenantId}", tenant);
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
     }
+  }
 }
+
+ 
+  ///// <summary>
+  ///// Update the Tenant
+  ///// </summary>
+  ///// <param name="id"></param>
+  ///// <param name="gender"></param>
+  ///// <returns></returns>
+  ///// 
+  //// PUT: api/Tenants/5
+  //[HttpPut("{id}")]
+  //[ProducesResponseType(StatusCodes.Status200OK)]
+  //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+  //[ProducesResponseType(StatusCodes.Status404NotFound)]
+  //public async Task<ActionResult> PutAsync([FromRoute]int id, [FromBody]Tenant tenant)
+  //{
+  //  try
+  //  {
+  //    await _tenantRepository.UpdateTenant(id, tenant); //this is a repo function that takes in tenant id and tenant object
+  //    return Ok();
+  //  }
+  //  catch(ArgumentOutOfRangeException)
+  //  {
+  //    return NotFound();  
+  //  }
+  //  catch(ArgumentNotFoundException e)
+  //  {
+  //    if (e.Name is "Tenant")
+  //    {
+  //      return NotFound();
+  //    }
+  //    return BadRequest(e.Message);
+  //  }
+  //  catch (ArgumentException e)
+  //  {
+  //    return BadRequest(e.Message);
+  //  }
+  //  catch (Exception e)
+  //  {
+  //    return StatusCode(500, e.Message);
+  //  }
+  //}
+  //}
+
+  //// DELETE: api/ApiWithActions/5
+  //[HttpDelete("{id}")]
+  //public void Delete(int id)
+  //{
+
+  //}
+
