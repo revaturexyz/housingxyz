@@ -4,7 +4,7 @@
   "scripts": {
     "build": "ng build --configuration=production",
     "build:dev": "ng build",
-    "inspect": "sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dproject.settings=../.azure/sonarcloudup.properties",
+    "inspect": "sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dproject.settings=.azure/sonarcloudup.properties",
     "test": "ng test --browsers=FirefoxHeadless --code-coverage --watch=false",
     "test:dev": "ng test",
     "lint": "ng lint"
@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~8.2.7",
     "@angular/platform-browser-dynamic": "~8.2.7",
     "@angular/router": "~8.2.7",
+    "@auth0/auth0-spa-js": "^1.5.0",
     "@azure/msal-angular": "^0.1.4",
     "@material/card": "^3.2.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",

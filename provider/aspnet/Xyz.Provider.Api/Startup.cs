@@ -35,7 +35,18 @@ namespace Xyz.Provider.Api
 
       services.AddDbContext<RevatureHousingDbContext>(options =>
       {
+        /* //Try something else
         if (Configuration.GetConnectionString(ConnectionStringName) is string connectionString)
+        {
+          options.UseSqlServer(connectionString, sqlOptions =>
+          {
+            sqlOptions.EnableRetryOnFailure(); // connection resiliency
+          });
+        }
+        */
+
+        //reference Secrets class instead
+        if ( Secret.ProviderDb is string connectionString)
         {
           options.UseSqlServer(connectionString, sqlOptions =>
           {

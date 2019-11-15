@@ -14,7 +14,8 @@ namespace Xyz.Provider.Lib.BusinessLogic
     private readonly ILogger _logger;
 
     // Google's API key
-#warning using the static class ignored for now
+
+    #warning using the static class ignored for now
     private const string ApiKey = Secret.key;
 
 
