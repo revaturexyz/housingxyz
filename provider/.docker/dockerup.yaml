@@ -1,0 +1,33 @@
+# providerxyz :: docker-compose
+
+networks:
+  providerxyz_localhost:
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: .docker/dockerfile
+    image: providerxyz
+    depends_on:
+      - data
+    ports:
+      - 10080:80
+    networks:
+      - providerxyz_localhost
+    deploy:
+      replicas: 1
+    environment:
+      ConnectionStrings__ProviderDb: 'Server=data;Database=providerDb;User Id=sa;Password=Pass@word;ConnectRetryCount=3'
+  data:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    networks:
+      - providerxyz_localhost
+    deploy:
+      replicas: 1
+      resources:
+        reservations:
+          memory: 2G
+    environment:
+      SA_PASSWORD: 'Pass@word'
+      ACCEPT_EULA: 'Yes'
+version: '3.7'
