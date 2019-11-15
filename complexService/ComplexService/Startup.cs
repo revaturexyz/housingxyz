@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using ComplexServiceLogic;
+using ComplexServiceDatabase.Model;
+using ComplexServiceDatabase.Repo;
 
 namespace ComplexService
 {
@@ -46,13 +50,15 @@ namespace ComplexService
 
             // among the services you register for DI (dependency injection)
             // should be your DbContext.
-            //services.AddDbContext<SWTDbContext>(options =>
-            //{
-            //    options.UseNpgsql(connectionString);
-            //});
-            //services.AddControllers();
 
-            //services.AddScoped<IRepo, Repo>();
+            services.AddDbContext<ComplexDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString);
+            });
+
+            services.AddControllers();
+
+            services.AddScoped<IComplexRepository, ComplexRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
