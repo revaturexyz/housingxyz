@@ -138,9 +138,9 @@ namespace ComplexServiceApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("CreateAmentity")]
-        public ActionResult<IEnumerable<Amenity>> CreateAmenity()
+        public ActionResult CreateAmenity(Amenity apiAmenity)
         {
-            throw new Exception();
+          return  _complexRepository.CreateAmenityAsync(amenity)
         }
 
 
