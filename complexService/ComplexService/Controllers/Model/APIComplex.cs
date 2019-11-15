@@ -8,12 +8,9 @@ namespace ComplexServiceApi.Controllers.Model
 {
     public class APIComplex
     {
-
-        public int ComplexId { get; set; }
-
-        public string ApiAddressGUID { get; set; }
-
-        public string  ApiProviderGUID { get; set; }
+        
+        public APIComplexAddress Address { get; set; }
+        public List<string> ComplexAmentiy { get; set; }
 
         [StringLength(100)]
         public string ComplexName { get; set; }
@@ -21,6 +18,10 @@ namespace ComplexServiceApi.Controllers.Model
         [StringLength(20)]
         public string ContactNumber { get; set; }
 
-        public ICollection<string> ApiRoomsGUID { get; set; }
+        public Guid ProviderID { get; set; }
+
+        
+
+
     }
 }

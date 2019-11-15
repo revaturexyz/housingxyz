@@ -16,8 +16,6 @@ namespace ComplexServiceApi.Controllers.Model
         public bool HasAmenity { get; set; }
         public string ApiRoomType { get; set; }
 
-        public string StartDate { get; set; }
-        // Check to see that end date is after start date
-        public DateTime? EndDate { get; set; }
+
     }
 }
