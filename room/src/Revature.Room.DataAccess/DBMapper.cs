@@ -1,49 +1,29 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Revature.Room.DataAccess.Entities;
-using Revature.Room.Lib;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Revature.Room.DataAccess
 {
   public class DBMapper : IMapper
   {
-    public async Task<Entities.Room> ParseRoom(Lib.Room Room)
+    public Lib.Room ParseRoom(Entities.Room Room)
     {
-      return await Task.FromResult(new Entities.Room()
+      return new Lib.Room()
       {
+        RoomID = Room.RoomID,
         ComplexID = Room.ComplexID,
-        Gender = Room.Gender,
+        Gender = Room.Gender.Type,
         RoomNumber = Room.RoomNumber,
-        RoomType = Room.RoomType,
+        RoomType = Room.Gender.Type,
         NumberOfBeds = Room.NumberOfBeds,
         LeaseStart = Room.LeaseStart,
         LeaseEnd = Room.LeaseEnd
-      });
+      };
     }
 
-    public async Task<Lib.Room> ParseRoom(Entities.Room Room)
+    public IEnumerable<Lib.Room> ParseRooms(IEnumerable<Entities.Room> roomsFromDB)
     {
-      return await Task.FromResult(new Lib.Room()
-      {
-        ComplexID = Room.ComplexID,
-        Gender = Room.Gender,
-        RoomNumber = Room.RoomNumber,
-        RoomType = Room.RoomType,
-        NumberOfBeds = Room.NumberOfBeds,
-        LeaseStart = Room.LeaseStart,
-        LeaseEnd = Room.LeaseEnd,
-        RoomID = Room.RoomID
-      });
-    }
-
-    public async Task<IEnumerable<Lib.Room>> ParseRooms(IEnumerable<Entities.Room> roomsFromDB)
-    {
-      List<Lib.Room> roomsToReturn = new List<Lib.Room>();
-      foreach (var item in roomsFromDB)
-      {
-        roomsToReturn.Add(await ParseRoom(item));
-      }
-      return await Task.FromResult(roomsToReturn);
+      return roomsFromDB.Select(r => ParseRoom(r));
     }
   }
 }

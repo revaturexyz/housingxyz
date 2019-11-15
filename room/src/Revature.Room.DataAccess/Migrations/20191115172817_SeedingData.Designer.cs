@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Revature.Room.DataAccess.Entities;
@@ -9,9 +10,10 @@ using Revature.Room.DataAccess.Entities;
 namespace Revature.Room.DataAccess.Migrations
 {
     [DbContext(typeof(RoomServiceContext))]
-    partial class RoomServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20191115172817_SeedingData")]
+    partial class SeedingData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,14 +84,12 @@ namespace Revature.Room.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            RoomID = new Guid("249e5358-169a-4bc6-aa0f-c054952456fd"),
-                            ComplexID = new Guid("b5e050aa-6bfc-46ad-9a69-90b1f99ed606"),
-                            GenderType = "Female",
+                            RoomID = new Guid("4cb45dcc-1426-43c2-b331-368afbfd934b"),
+                            ComplexID = new Guid("4949e178-82c5-4fe2-87f2-8143d9d93bc0"),
                             LeaseEnd = new DateTime(2020, 2, 15, 0, 0, 0, 0, DateTimeKind.Local),
-                            LeaseStart = new DateTime(2019, 11, 15, 12, 3, 23, 65, DateTimeKind.Local).AddTicks(256),
+                            LeaseStart = new DateTime(2019, 11, 15, 11, 28, 17, 335, DateTimeKind.Local).AddTicks(4386),
                             NumberOfBeds = 4,
-                            RoomNumber = "2428B",
-                            RoomTypeType = "Apartment"
+                            RoomNumber = "2428B"
                         });
                 });
 

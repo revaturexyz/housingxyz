@@ -1,19 +1,25 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Room.Lib
 {
   public class Room
   {
-    public int RoomID { get; set; }
+    private int _numberOfBeds;
+    public Guid RoomID { get; set; }
     public string RoomNumber { get; set; }
-    public int NumberOfBeds { get; set; }
-    public Gender Gender { get; set; }
-    public RoomType RoomType { get; set; }
+    public int NumberOfBeds
+    {
+      get => _numberOfBeds;
+      set
+      {
+        if (value > 0) _numberOfBeds = value;
+      }
+    }
+    public string Gender { get; set; }
+    public string RoomType { get; set; }
     public DateTime LeaseStart { get; set; }
     public DateTime LeaseEnd { get; set; }
 
-    public int ComplexID { get; set; }
+    public Guid ComplexID { get; set; }
   }
 }

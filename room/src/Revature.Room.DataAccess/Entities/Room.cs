@@ -1,21 +1,25 @@
-using Revature.Room.Lib;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Revature.Room.DataAccess.Entities
 {
   public class Room
   {
     [Key]
-    public int RoomID { get; set; }
+    public Guid RoomID { get; set; }
 
     public string RoomNumber { get; set; }
+
+    [Range(1, int.MaxValue)]
     public int NumberOfBeds { get; set; }
+
     public Gender Gender { get; set; }
+
     public RoomType RoomType { get; set; }
     public DateTime LeaseStart { get; set; }
     public DateTime LeaseEnd { get; set; }
 
-    public int ComplexID { get; set; }
+    public Guid ComplexID { get; set; }
   }
 }

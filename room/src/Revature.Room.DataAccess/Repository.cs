@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
 
@@ -19,14 +20,14 @@ namespace Revature.Room.DataAccess
     }
 
     public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
-      int complexId,
+      Guid complexId,
       string roomNumber,
       int? numberOfBeds,
-      RoomType? roomType,
-      Gender? gender,
+      string roomType,
+      string gender,
       DateTime? endDate)
     {
-      IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId);
+      IEnumerable<Entities.Room> rooms = _context.Room.Where(r => r.ComplexID == complexId).Include(r => r.Gender).Include(r => r.RoomType);
       if (roomNumber != null)
       {
         rooms = rooms.Where(r => r.RoomNumber == roomNumber);
@@ -37,17 +38,17 @@ namespace Revature.Room.DataAccess
       }
       if (roomType != null)
       {
-        rooms = rooms.Where(r => r.RoomType == roomType);
+        rooms = rooms.Where(r => r.RoomType.Type == roomType);
       }
       if (gender != null)
       {
-        rooms = rooms.Where(r => r.Gender == gender);
+        rooms = rooms.Where(r => r.Gender.Type == gender);
       }
       if (endDate != null)
       {
         rooms = rooms.Where(r => endDate < r.LeaseEnd);
       }
-      return await _map.ParseRooms(rooms);
+      return _map.ParseRooms(rooms);
     }
   }
 }
