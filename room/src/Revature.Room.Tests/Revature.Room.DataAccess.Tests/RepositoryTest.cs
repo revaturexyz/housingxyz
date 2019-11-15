@@ -32,7 +32,7 @@ namespace Revature.Room.Tests
         .UseInMemoryDatabase("CreateRoomShouldCreateAsync")
         .Options;
 
-      var assembleContext = new RoomServiceContext(options);
+      using var assembleContext = new RoomServiceContext(options);
       var mapper = new DBMapper();
 
       var assembleRoom = new BusinessLogic.Room
