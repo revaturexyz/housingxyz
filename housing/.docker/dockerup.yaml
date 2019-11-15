@@ -5,8 +5,9 @@ networks:
 
 services:
   web:
-    deploy:
-      replicas: 1
+    build:
+      context: ..
+      dockerfile: .docker/dockerfile
     image: housing
     networks:
       - housing_localhost
