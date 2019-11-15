@@ -11,7 +11,7 @@ import { CoordinatorNotificationsComponent } from './coordinator-notifications/c
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [MsalGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'show-rooms', component: UpdateRoomComponent },
   { path: 'provider-select', component: ProviderSelectComponent, canActivate: [AuthGuard] },
   { path: 'add-provider', component: AddProviderComponent },
