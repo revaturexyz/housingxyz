@@ -25,6 +25,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
+import { AddProviderComponent } from './add-provider/add-provider.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { InterceptorService } from './services/interceptor.service';
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent
+    RequestDialogComponent,
+    AddProviderComponent
   ],
   imports: [
     BrowserModule,
