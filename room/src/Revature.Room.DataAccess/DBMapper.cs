@@ -7,6 +7,7 @@ namespace Revature.Room.DataAccess
 {
   public class DBMapper : IMapper
   {
+    //Business --> Entity
     public async Task<Entities.Room> ParseRoom(Lib.Room Room)
     {
       return await Task.FromResult(new Entities.Room()
@@ -21,6 +22,7 @@ namespace Revature.Room.DataAccess
       });
     }
 
+    //Entity --> Business
     public async Task<Lib.Room> ParseRoom(Entities.Room Room)
     {
       return await Task.FromResult(new Lib.Room()

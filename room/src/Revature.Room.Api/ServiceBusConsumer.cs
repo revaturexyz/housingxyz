@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System;
 using Revature.Room.DataAccess;
+using Serilog.Core;
 
 namespace ServiceBusMessaging
 {
@@ -24,12 +25,16 @@ namespace ServiceBusMessaging
     private readonly IRepository _repo;
     private const string QUEUE_NAME = "TestQ";
 
-    public ServiceBusConsumer(IConfiguration configuration, IRepository repo)
+    private readonly ILogger<Repository> _logger;
+
+    public ServiceBusConsumer(IConfiguration configuration, IRepository repo, ILogger<Repository> logger)
     {
       _configuration = configuration;
       _repo = repo ?? throw new ArgumentNullException(); //TODO
       _queueClient = new QueueClient(
       _configuration.GetConnectionString("ServiceBus"), QUEUE_NAME);
+
+      _logger = logger;
     }
 
     public void RegisterOnMessageHandlerAndReceiveMessages()
@@ -45,19 +50,24 @@ namespace ServiceBusMessaging
 
     private async Task ProcessMessagesAsync(Message message, CancellationToken token)
     {
-      // Parse message into Business Logic room model
       // TODO: look
       try
       {
+        _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
         Room myRoom = JsonConvert.DeserializeObject<Room>(Encoding.UTF8.GetString(message.Body));
 
         // Persist our new data into the repository but not if Deserialization throws exception
-        _repo.CreateRoom(myRoom);
+        //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible
+
+        await _repo.CreateRoom(myRoom);
+       
       }
       catch (Exception ex)
       {
         // TODO: log exception properly
-        Console.WriteLine(ex.Message);
+        //Console.WriteLine(ex.Message);
+        //Declared a logger above and logged error here
+        _logger.LogError(string.Format("Message did not convert properly.", message.Body), ex);
       }
       finally
       {

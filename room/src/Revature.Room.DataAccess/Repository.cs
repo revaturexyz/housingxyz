@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
+using Data = Revature.Room.DataAccess.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Room.DataAccess
 {
@@ -11,16 +13,24 @@ namespace Revature.Room.DataAccess
   {
     private readonly RoomServiceContext _context;
     private readonly IMapper _map;
+    private readonly ILogger<Repository> _logger;
 
-    public Repository(RoomServiceContext context, IMapper mapper)
+    public Repository(RoomServiceContext context, IMapper mapper, ILogger<Repository> logger)
     {
       _context = context;
       _map = mapper;
+      _logger = logger;
     }
 
-    public void CreateRoom(Lib.Room myRoom)
+    public async Task CreateRoom(Lib.Room myRoom)
     {
-      throw new NotImplementedException();
+      Data.Room roomEntity = await _map.ParseRoom(myRoom);
+      await _context.AddAsync(roomEntity);
+      await _context.SaveChangesAsync();
+
+      //Log here, not too sure about myRoom
+      _logger.LogInformation("Successfully added room to database!", myRoom);
+
     }
 
     public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
