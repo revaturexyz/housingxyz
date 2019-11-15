@@ -7,7 +7,6 @@ namespace Revature.Room.DataAccess.Entities
   public class Room
   {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid RoomID { get; set; }
 
     public string RoomNumber { get; set; }
