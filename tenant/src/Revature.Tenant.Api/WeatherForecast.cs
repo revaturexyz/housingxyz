@@ -1,7 +1,7 @@
 //TODO: Delete this file
 using System;
 
-namespace Xyz.Tenant.Api
+namespace Revature.Tenant.Api
 {
     public class WeatherForecast
     {

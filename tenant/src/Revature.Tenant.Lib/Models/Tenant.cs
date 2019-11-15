@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Xyz.Tenant.Lib.Models
+namespace Revature.Tenant.Lib.Models
 {
   public class Tenant
   {

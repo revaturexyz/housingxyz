@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Xyz.Tenant.DataAccess.Entities
+namespace Revature.Tenant.DataAccess.Entities
 {
   public class TenantsContext : DbContext
   {

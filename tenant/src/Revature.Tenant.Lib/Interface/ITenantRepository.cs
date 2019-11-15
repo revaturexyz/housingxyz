@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Xyz.Tenant.Lib.Models;
+using Revature.Tenant.Lib.Models;
 
-namespace Xyz.Tenant.Lib.Interface
+namespace Revature.Tenant.Lib.Interface
 {
   public interface ITenantRepository : IDisposable
   {
