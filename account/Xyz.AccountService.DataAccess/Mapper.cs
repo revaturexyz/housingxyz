@@ -42,7 +42,7 @@ namespace Xyz.AccountService.DataAccess
 				CoordinatorId = coordinator.CoordinatorId,
 				Name = coordinator.Name,
 				Password = coordinator.Password,
-				TrainingName = coordinator.TrainingName,
+				TrainingCenterLocation = coordinator.TrainingCenterLocation,
 				TrainingAddress = coordinator.TrainingAddress,
 				Email = coordinator.Email
 			};
@@ -54,7 +54,7 @@ namespace Xyz.AccountService.DataAccess
 				CoordinatorId = coordinator.CoordinatorId,
 				Name = coordinator.Name,
 				Password = coordinator.Password,
-				TrainingName = coordinator.TrainingName,
+				TrainingCenterLocation = coordinator.TrainingCenterLocation,
 				TrainingAddress = coordinator.TrainingAddress,
 				Email = coordinator.Email
 			};

@@ -73,7 +73,7 @@ namespace Xyz.AccountService.DataAccess
 					.IsRequired()
 					.HasMaxLength(100);
 
-				entity.Property(e => e.TrainingName)
+				entity.Property(e => e.TrainingCenterLocation)
 					.IsRequired()
 					.HasMaxLength(100);
 
@@ -96,7 +96,7 @@ namespace Xyz.AccountService.DataAccess
 					Email = "example@gmail.com",
 					Name = "Revature",
 					Password = "password",
-					TrainingName = "Arlington",
+					TrainingCenterLocation = "Arlington",
 					TrainingAddress = "123 Main St, TX, 77075"
 				});
 			});

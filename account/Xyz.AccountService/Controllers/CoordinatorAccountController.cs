@@ -33,7 +33,7 @@ namespace Xyz.AccountService.Api.Controllers
 				CoordinatorId = x.CoordinatorId,
 				Email = x.Email,
 				Password = x.Password,
-				TrainingName = x.TrainingName,
+				TrainingCenterLocation = x.TrainingCenterLocation,
 				TrainingAddress = x.TrainingAddress,
 			});
 		}
