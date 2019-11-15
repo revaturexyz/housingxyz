@@ -27,11 +27,30 @@ namespace Revature.Room.DataAccess
       await _context.SaveChangesAsync();
     }
 
+    public async Task<List<Lib.Room>> ReadRoom(Guid roomId)
+    {
+      //if Guid does not exist then it will return all rooms
+      if (roomId == null)
+      {
+        List<Data.Room> roomList = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
+
+        return _map.ParseRooms(roomList).ToList();
+      }
+
+      //Find room by Guid and return that particular room
+      List<Data.Room> listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).Where(r => r.RoomID == roomId).ToListAsync();
+
+      return _map.ParseRooms(listRoom).ToList();
+
+    }
+
+    //Update room by Guid
     public async Task UpdateRoom(Lib.Room myRoom)
     {
-      //Either use the Guid or RoomNumber to find room by.  Most likely using Guyd which is RoomID
-      Data.Room roomEntity = _context.Room.Where(r => r.RoomID == myRoom.RoomID).Include(r => r.Gender).Include(r => r.RoomType).First();
-
+      Data.Room roomEntity = _context.Room.Where(r => r.RoomID == myRoom.RoomID)
+        .Include(r => r.Gender)
+        .Include(r => r.RoomType)
+        .First() ?? throw new ArgumentNullException("There is not such room!", nameof(roomEntity));
 
       if (roomEntity == null)
       {
@@ -47,6 +66,7 @@ namespace Revature.Room.DataAccess
       await _context.SaveChangesAsync();
     }
 
+    //Deletes room by id
     public async Task DeleteRoom(int roomId)
     {
       var roomEntity = await _context.Room.FindAsync(roomId);

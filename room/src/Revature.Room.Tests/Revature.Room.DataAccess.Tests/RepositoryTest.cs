@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace Revature.Room.Tests
 {
@@ -53,6 +54,35 @@ namespace Revature.Room.Tests
       var assertContext = new RoomServiceContext(options);
 
       Assert.NotNull(assertContext.Room.Find(newRoomID));
+    }
+
+    [Fact]
+    public async Task RepoReadTest()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>().UseInMemoryDatabase("ReadRoom").Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      var mapper = new DBMapper();
+
+
+      var newRoom = new Revature.Room.DataAccess.Entities.Room
+      {
+        RoomID = newRoomID,
+        ComplexID = newComplexID,
+        Gender = new DataAccess.Entities.Gender { Type = newGender },
+        RoomNumber = newRoomNumber,
+        RoomType = new DataAccess.Entities.RoomType { Type = newRoomType },
+        NumberOfBeds = newNumOfBeds,
+        LeaseStart = newLeaseStart,
+        LeaseEnd = newLeaseEnd
+      };
+
+      testContext.Add(newRoom);
+      Repository repo = new Repository(testContext, mapper);
+
+      var resultRoom = await repo.ReadRoom(newRoomID);
+
+      Assert.NotNull(resultRoom);
     }
   }
 }
