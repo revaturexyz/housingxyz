@@ -16,9 +16,11 @@ namespace Revature.Room.DataAccess
     private readonly IMapper _map;
     private readonly ILogger<Repository> _logger;
 
-    public Repository(RoomServiceContext context)
+
+    public Repository(RoomServiceContext context, IMapper mapper)
     {
       _context = context;
+      _map = mapper;
     }
     public Repository(RoomServiceContext context, IMapper mapper, ILogger<Repository> logger)
     {
