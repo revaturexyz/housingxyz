@@ -19,6 +19,7 @@ namespace Xyz.AccountService.DataAccess
 				Expire = provider.Expire,
 			};
 		}
+
 		public static Entities.ProviderAccount MapProvider(Lib.Model.ProviderAccount provider)
 		{
 			return new Entities.ProviderAccount
@@ -30,6 +31,7 @@ namespace Xyz.AccountService.DataAccess
 				Status = provider.Status,
 				AccountCreated = provider.AccountCreated,
 				Expire = provider.Expire,
+
 			};
 		}
 

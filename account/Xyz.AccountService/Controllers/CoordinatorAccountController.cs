@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Xyz.AccountService.Api.Models;
+using Xyz.AccountService.Lib.Interface;
 
 namespace Xyz.AccountService.Api.Controllers
 {
@@ -11,36 +13,29 @@ namespace Xyz.AccountService.Api.Controllers
     [ApiController]
     public class CoordinatorAccountController : ControllerBase
     {
-        // GET: api/CoordinatorAccount
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+		private readonly IGenericRepository _repo;
 
-        // GET: api/CoordinatorAccount/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+		public CoordinatorAccountController(IGenericRepository urepo)
+		{
+			_repo = urepo ?? throw new ArgumentNullException("Cannot be null.", nameof(urepo));
+		}
 
-        // POST: api/CoordinatorAccount
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/CoordinatorAccount/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+		// GET: api/CoordinatorAccount/5
+		public async Task<ActionResult> Get(Guid coordinatorId)
+		{
+			var x = await _repo.GetCoordinatorAccountById(coordinatorId);
+			if (x == null)
+			{
+				return NotFound();
+			}
+			return Ok(new CoordinatorViewModel()
+			{
+				CoordinatorId = x.CoordinatorId,
+				Email = x.Email,
+				Password = x.Password,
+				TrainingName = x.TrainingName,
+				TrainingAddress = x.TrainingAddress,
+			});
+		}
     }
 }
