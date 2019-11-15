@@ -47,6 +47,7 @@ namespace Revature.Tenant.Api.Controllers
 
       }).ToList();
     }
+
     /// <summary>
     /// Get Tenant by Id
     /// </summary>
@@ -76,7 +77,6 @@ namespace Revature.Tenant.Api.Controllers
         };
 
         return Ok(apiTenant);
-
       }
       catch (ArgumentException)
       {
@@ -86,8 +86,8 @@ namespace Revature.Tenant.Api.Controllers
       {
         return StatusCode(500, e.Message);
       }
-
     }
+
     /// <summary>
     /// Posts Tenants to Db
     /// </summary>
@@ -112,7 +112,15 @@ namespace Revature.Tenant.Api.Controllers
           CarId = tenant.CarId
         };
 
-        await _tenantRepository.AddAsync(newTenant);
+        try
+        {
+          await _tenantRepository.AddAsync(newTenant);
+        }
+        catch
+        {
+          return BadRequest();
+        }
+
 
         ICollection<Lib.Models.Tenant> tenents = await _tenantRepository.GetAllAsync();
         newTenant = tenents.First(t => t.Email == newTenant.Email);
