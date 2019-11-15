@@ -24,7 +24,6 @@ namespace ServiceBusMessaging
   {
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
-    private readonly IRepository _repo;
     private const string QUEUE_NAME = "TestQ";
     private readonly IServiceProvider Services;
     private readonly ILogger<Repository> _logger;
