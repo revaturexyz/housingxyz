@@ -29,6 +29,14 @@ hr {
   align-items: center;
 }
 
+.account-type-holder  {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .account-type-header{
   padding: 3px;
   font-size: 12px;
@@ -37,7 +45,7 @@ hr {
   color: inherit;
   padding: 5px;
   width: 100%;
-  text-align: left;
+  text-align: center;
 }
 
 .records-container{
@@ -53,7 +61,7 @@ hr {
   font-size: 12px;
   font-style: italic;
   color: black;
-  background-color: #f26925;
+  border-bottom: 1px black solid;
   color: inherit;
   padding: 3px 15px;
   width: 100%;
@@ -61,8 +69,8 @@ hr {
 }
 
 .records-address{
-  background-color: lightgray;
-
+  border-bottom: 1px black solid;
+  margin-bottom: 16px;
 }
 
 .citystatezip{

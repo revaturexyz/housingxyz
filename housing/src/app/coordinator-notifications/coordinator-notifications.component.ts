@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoordinatorNotificationsComponent implements OnInit {
 
-
+  p = 1; // Pagination control variable
   public notifications: Array<any> = [
     {
     notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',

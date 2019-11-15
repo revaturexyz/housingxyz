@@ -4,10 +4,8 @@
         <hr />
         <div class="account-type">
           <!--*ngIf="expression" Expires logic goes here, dependant on date (moment.js) -->
-          <div>
-            <div class="account-type-header">
-              Account type:
-            </div>
+          <div class="account-type-holder">
+            <div class="account-type-header">Account type : </div>
             <div *ngIf="currentNotification.extendedTrial">
               Extended Trial Account
             </div>
@@ -15,8 +13,8 @@
               Trial Account
             </div>
           </div>
-          <div>
-            <div class="account-type-header">Expires on :</div>
+          <div  class="account-type-holder">
+            <div class="account-type-header">Expires on : </div>
             <div>11/21/2019</div>
           </div>
         </div>
@@ -44,6 +42,13 @@
             <div class="records-header">Phone</div>
             <div class="records-row">
               <div>{{ currentNotification.providerDetails.contactNumber }}</div>
+            </div>
+          </div>
+
+          <div class="records-address">
+            <div class="records-header">Selected Training Center</div>
+            <div class="records-row">
+              <div>{{ currentNotification.centerDetails.centerName }}</div>
             </div>
           </div>
 

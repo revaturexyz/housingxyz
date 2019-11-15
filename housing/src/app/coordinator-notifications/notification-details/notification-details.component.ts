@@ -15,6 +15,18 @@ currentNotification: CoordinatorNotification = {
   notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
   providerId: 3,
   centerId: 2,
+  centerDetails: {
+  centerId: 2,
+  apiAddress: {
+    addressId: 5,
+    streetAddress: '123 Main',
+    city: 'Dallas',
+    state: 'Tx',
+    zipcode: '75055',
+  },
+  centerName: 'UT Arlington',
+  contactNumber: '2143369999'
+  },
   createdDate: new Date('11/15/2019'),
   active: true,
   trial: false,

@@ -1,9 +1,11 @@
 import { Provider } from './provider';
+import { TrainingCenter } from './trainingcenter'
 
 export interface CoordinatorNotification {
   notificationId: string;
   providerId: number;
   centerId: number;
+  centerDetails: TrainingCenter;
   createdDate: Date;
   active: boolean;
   trial: boolean;

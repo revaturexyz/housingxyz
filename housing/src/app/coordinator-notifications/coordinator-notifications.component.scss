@@ -106,6 +106,10 @@ hr {
   align-items: center;
 }
 
+.pagination::ng-deep .ngx-pagination .current {
+  background: #f26925 !important;
+}
+
 .truncate {
   white-space: nowrap;
   overflow: hidden;

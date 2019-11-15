@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
     StickyNavModule,
     BrowserAnimationsModule,
     MatRippleModule,
+    [BrowserModule, NgxPaginationModule],
     MsalModule.forRoot({
       clientID: environment.clientID,
       authority: environment.authority,

@@ -11,11 +11,13 @@
           <div class="notification-name truncate">Business Name</div>
         </div>
         <div class="notifications-container">
-          <a routerLinkActive="router-link-active" *ngFor="let notification of notifications" [routerLink]="['/coordinator-notifications/' + notification.notificationId]" class="notifications-row">
+          <a routerLinkActive="router-link-active" *ngFor="let notification of notifications | paginate: { itemsPerPage: 5, currentPage: p }" [routerLink]="['/coordinator-notifications/' + notification.notificationId]" class="notifications-row">
+
             <div class="notification-expires">{{notification.date}}</div>
             <div class="notification-name truncate">{{notification.companyName}}</div>
           </a>
         </div>
+        <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
 </div>
