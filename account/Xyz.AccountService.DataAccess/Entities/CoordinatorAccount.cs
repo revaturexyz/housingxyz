@@ -11,7 +11,7 @@ namespace Xyz.AccountService.DataAccess.Entities
 			Notification = new HashSet<Notification>();
 		}
 		public Guid CoordinatorId { get; set; }
-		public string TrainingName { get; set; }
+		public string TrainingCenterLocation { get; set; }
 		public string TrainingAddress { get; set; }
 		public string Name { get; set; }
 		public string Password { get; set; }
