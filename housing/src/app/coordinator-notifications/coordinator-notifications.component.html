@@ -1,1 +1,23 @@
-<p>coordinator-notifications works!</p>
+<div class="outer">
+  <div class="inner">
+    <div id="title">
+      <h3>Providers Awaiting Approval</h3>
+      <hr />
+        <div class="notifications-directions">
+          Click a record to see its details.
+        </div>
+        <div class="notifications-header">
+          <div class="notification-expires">Expires in</div>
+          <div class="notification-name truncate">Business Name</div>
+        </div>
+        <div class="notifications-container">
+          <a routerLinkActive="router-link-active" *ngFor="let notification of notifications" [routerLink]="['/coordinator-notifications/' + notification.notificationId]" class="notifications-row">
+            <div class="notification-expires">3 days</div>
+            <div class="notification-name truncate">{{notification.companyName}}</div>
+          </a>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Good pagination solution here: https://www.npmjs.com/package/ngx-pagination -->
