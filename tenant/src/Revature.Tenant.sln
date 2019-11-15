@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
+
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Tenant.Api", "Revature.Tenant.Api\Revature.Tenant.Api.csproj", "{E815A776-B5CB-41FF-ACE8-75D599A349EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Tenant.DataAccess", "Revature.Tenant.DataAccess\Revature.Tenant.DataAccess.csproj", "{C6EEF1DB-D1F5-4799-8111-8178689D0D17}"
