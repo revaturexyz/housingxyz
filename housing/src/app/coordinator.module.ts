@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { NavComponent } from './nav/nav.component';
-import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 
 
 @NgModule({
@@ -15,12 +14,6 @@ import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
     CommonModule,
     HttpClientModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true
-    }
-  ],
+  providers: [],
 })
 export class CoordinatorModule { }
