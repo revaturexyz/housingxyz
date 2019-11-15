@@ -26,6 +26,9 @@ import { RequestDialogComponent } from './request-dialog/request-dialog.componen
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { AddProviderComponent } from './add-provider/add-provider.component';
+import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
+import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
     AmenityDialogueComponent,
     AddComplexComponent,
     RequestDialogComponent,
-    AddProviderComponent
+    AddProviderComponent,
+    CoordinatorNotificationsComponent,
+    NotificationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,8 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
     MatDialogModule,
     StickyNavModule,
     BrowserAnimationsModule,
-    MatRippleModule
+    MatRippleModule,
+    [BrowserModule, NgxPaginationModule]
   ],
   providers: [
     {

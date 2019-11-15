@@ -15,7 +15,7 @@ import { RedirectService } from '../services/redirect.service';
 export class AddProviderComponent implements OnInit {
 
   formProvider: Provider;
-
+  public selectOptionInvalid = '';
   public seededComplexes: Array<TrainingCenter> = [
     {
       centerId: 0,
@@ -75,18 +75,11 @@ export class AddProviderComponent implements OnInit {
   postAddProvider() {
     console.log('Handle Submit');
 
-    // // call the API, post a log of our restult, and redirect
-    // return this.providerService 
-    //   .postRequestByProvider()
-    //   .toPromise()  // that first needs to be converted to a promise
-    //   .then((result) => {
-    //     console.log('Post is a success: ');
-    //     console.log(result);
-    //   })
-    //   .catch((err) => {
-    //     console.log('POST failed: ');
-    //     console.log(err);
-    //   });
+    // This will need to post the provider into the system
+    //        with an expiration of 7 days.
+    // This will need to post a new notification into the system.
+    //
+
   }
 
     // this method is called if the user clicks the Cancel button

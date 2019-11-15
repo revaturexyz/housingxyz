@@ -25,7 +25,7 @@
         <div *ngIf="phoneNumber.invalid && phoneNumber.dirty" class="alert alert-danger">
           Phone number must be in a 10-digit format.
         </div>
-  
+
       <!-- End of phone number input -->
 
       <!-- Start of street address input -->
@@ -71,13 +71,13 @@
 
       <div class="form-group">
         <label for="trainingCenter">Select a Training Center</label>
-        <select name="formProvider.api.TrainingCenter" [(ngModel)]="formProvider.apiTrainingCenter" #trainingCenter="ngModel" class="form-control" id="trainingCenter" aria-describedby="trainingCenter" required>
-          <option value="" selected disabled>Select A Training Center</option>
+        <select name="formProvider.api.TrainingCenter" [(ngModel)]="selectOptionInvalid" #trainingCenter="ngModel" class="form-control" id="trainingCenter" aria-describedby="trainingCenter" required>
+          <option value="" disabled>Select A Training Center</option>
            <option *ngFor="let center of seededComplexes"
-                    [ngValue]="center.Value">
+                    [ngValue]="center">
                     {{ center.centerName + ' |  ' + center.contactNumber }}
                 </option>
-         
+
         </select>
       </div>
 
@@ -90,7 +90,8 @@
 									streetAddress.invalid ||
 									city.invalid ||
 									state.invalid ||
-                  zipCode.invalid"
+                  zipCode.invalid ||
+                  trainingCenter.invalid"
                   (click)="postAddProvider()">
             Submit
           </button>
