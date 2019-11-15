@@ -11,6 +11,8 @@ namespace Revature.Room.DataAccess.Entities
     public Guid RoomID { get; set; }
 
     public string RoomNumber { get; set; }
+
+    [Range(1, int.MaxValue)]
     public int NumberOfBeds { get; set; }
 
     public Gender Gender { get; set; }
