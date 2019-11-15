@@ -5,10 +5,8 @@ namespace Revature.Room.DataAccess
 {
   public interface IMapper
   {
-    public Task<Entities.Room> ParseRoom(Lib.Room Room);
+    public Lib.Room ParseRoom(Entities.Room Room);
 
-    public Task<Lib.Room> ParseRoom(Entities.Room Room);
-
-    Task<IEnumerable<Lib.Room>> ParseRooms(IEnumerable<Entities.Room> roomsFromDB);
+    IEnumerable<Lib.Room> ParseRooms(IEnumerable<Entities.Room> roomsFromDB);
   }
 }
