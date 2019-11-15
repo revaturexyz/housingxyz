@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +6,7 @@ namespace Xyz.AccountService.DataAccess
 {
 	public class Mapper
 	{
-		public static Lib.Model.ProviderAccount MapProvider(Entities.ProviderAccount provider)
+		public Lib.Model.ProviderAccount MapProvider(Entities.ProviderAccount provider)
 		{
 			return new Lib.Model.ProviderAccount
 			{
@@ -20,7 +20,7 @@ namespace Xyz.AccountService.DataAccess
 			};
 		}
 
-		public static Entities.ProviderAccount MapProvider(Lib.Model.ProviderAccount provider)
+		public Entities.ProviderAccount MapProvider(Lib.Model.ProviderAccount provider)
 		{
 			return new Entities.ProviderAccount
 			{
@@ -35,7 +35,7 @@ namespace Xyz.AccountService.DataAccess
 			};
 		}
 
-		public static Lib.Model.CoordinatorAccount MapCoordinator(Entities.CoordinatorAccount coordinator)
+		public Lib.Model.CoordinatorAccount MapCoordinator(Entities.CoordinatorAccount coordinator)
 		{
 			return new Lib.Model.CoordinatorAccount
 			{
@@ -47,7 +47,7 @@ namespace Xyz.AccountService.DataAccess
 				Email = coordinator.Email
 			};
 		}
-		public static Entities.CoordinatorAccount MapCoordinator(Lib.Model.CoordinatorAccount coordinator)
+		public Entities.CoordinatorAccount MapCoordinator(Lib.Model.CoordinatorAccount coordinator)
 		{
 			return new Entities.CoordinatorAccount
 			{
@@ -60,7 +60,7 @@ namespace Xyz.AccountService.DataAccess
 			};
 		}
 
-		public static Lib.Model.Notification MapNotification(Entities.Notification nofi)
+		public Lib.Model.Notification MapNotification(Entities.Notification nofi)
 		{
 			return new Lib.Model.Notification
 			{
@@ -70,7 +70,7 @@ namespace Xyz.AccountService.DataAccess
 				AccountExpire = nofi.AccountExpire
 			};
 		}
-		public static Entities.Notification MapNotification(Lib.Model.Notification nofi)
+		public Entities.Notification MapNotification(Lib.Model.Notification nofi)
 		{
 			return new Entities.Notification
 			{
