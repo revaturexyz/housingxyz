@@ -12,7 +12,7 @@ RUN npm ci
 
 ## stage - build
 FROM base as build
-COPY src ./
+COPY . ./
 RUN npm run build
 
 ## stage - deploy
