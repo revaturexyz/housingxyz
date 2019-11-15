@@ -1,33 +1,25 @@
-# addressxyz :: docker-compose
+# address :: docker-compose
 
 networks:
-  addressxyz_localhost:
-
+  address_localhost:
 services:
-  api:
+  web:
+    build:
+      context: ..
+      dockerfile: .docker/dockerfile
+    image: address
     depends_on:
-      - "db"
-    deploy:
-      replicas: 1
-    image: addressxyz
-    networks:
-      - addressxyz_localhost
+      - data
     ports:
-      - "10080:80"
-      - "10443:443"
-  db:
-    deploy:
-      replicas: 1
-    image: postgres
-    ports:
-      - "5432:5432"
-    restart: always
+      - 10080:80
     networks:
-      - addressxyz_localhost
+      - address_localhost
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "Password12345"
-      POSTGRES_DB: "postgres"
-      ACCEPT_EULA: "Yes"
-
+      ConnectionStrings__AddressDb: 'Host=data;Database=address;Username=postgres;Password=Pass@word'
+  data:
+    image: postgres:12.0
+    networks:
+      - address_localhost
+    environment:
+      POSTGRES_PASSWORD: 'Pass@word'
 version: '3.7'
