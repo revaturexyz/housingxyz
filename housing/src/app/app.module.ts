@@ -28,7 +28,8 @@ import { InterceptorService } from './services/interceptor.service';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CoordinatorModule } from './coordinator.module';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     StickyNavModule,
     BrowserAnimationsModule,
     MatRippleModule,
-    [BrowserModule, NgxPaginationModule]
+    NgxPaginationModule,
+    CoordinatorModule
   ],
   providers: [
     {
