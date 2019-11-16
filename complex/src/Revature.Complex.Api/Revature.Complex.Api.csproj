@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Revature.Complex.DataAccess\Revature.Complex.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

@@ -8,4 +8,9 @@
     <ProjectReference Include="..\Revature.Complex.Lib\Revature.Complex.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>
