@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Revature.Complex.Lib\Revature.Complex.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApiTests\" />
+    <Folder Include="DataTests\" />
+    <Folder Include="LibTests\" />
+  </ItemGroup>
+
 </Project>
