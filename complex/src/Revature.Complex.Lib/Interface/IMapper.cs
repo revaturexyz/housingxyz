@@ -4,7 +4,7 @@ using System.Text;
 using Entity = Revature.Complex.DataAccess.Models;
 using Logic = Revature.Complex.Lib.Models;
 
-namespace Revature.Complex.Lib
+namespace Revature.Complex.Lib.Interface
 {
   public interface IMapper
   {
