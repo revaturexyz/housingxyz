@@ -1,5 +1,5 @@
 import { Provider } from './provider';
-import { TrainingCenter } from './trainingcenter'
+import { TrainingCenter } from './trainingcenter';
 
 export interface CoordinatorNotification {
   notificationId: string;
@@ -11,7 +11,7 @@ export interface CoordinatorNotification {
   trial: boolean;
   extendedTrial: boolean;
   providerDetails: Provider;
-};
+}
 
 // This check can see if account is usable by provider:
 // trialCheck = (trial && date > createdDate + 7)
