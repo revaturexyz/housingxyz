@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Revature.Complex.Lib.Interface;
 using Logic = Revature.Complex.Lib.Models;
-using Entity = Revature.Complex.DataAccess.Entites;
+using Entity = Revature.Complex.DataAccess.Entities;
 
 namespace Revature.Complex.DataAccess
 {
-  public class Mapper : IMapper
+  public class Mapper
   {
     public Entity.Amenity MapAmenitytoE(Logic.Amenity amenity)
     {
