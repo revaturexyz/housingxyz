@@ -1,4 +1,4 @@
-# tenantxyz :: docker-compose
+# tenant :: docker-compose
 
 networks:
   tenant_localhost:
@@ -15,8 +15,7 @@ services:
     networks:
       - tenant_localhost
     environment:
-## TODO: Check connection string once created
-      ConnectionStrings__TenantDb: 'Host=data;Database=tenant;Username=postgres;Password=Pass@word' 
+      ConnectionStrings__TenantDb: 'Host=data;Database=tenant;Username=postgres;Password=Pass@word'
   data:
     image: postgres:12.0
     networks:

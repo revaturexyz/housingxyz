@@ -25,6 +25,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
+import { CoordinatorModule } from './coordinator.module';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { environment } from 'src/environments/environment';
       cacheLocation: 'localStorage',
       postLogoutRedirectUri: 'http://localhost:4200/login/',
       navigateToLoginRequestUrl: false
-    })
+    }),
+    CoordinatorModule
   ],
   providers: [
     {
