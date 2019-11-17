@@ -296,7 +296,6 @@ namespace Revature.Complex.Tests.DataTests
       testContext.SaveChanges();
 
       List<Logic.Amenity> am = await repo.ReadAmenityListAsync();
-      int i = 0;
 
       Assert.Equal(1, am[0].AmenityId);
       Assert.Equal("Test2", am[1].AmenityType);
@@ -322,8 +321,6 @@ namespace Revature.Complex.Tests.DataTests
 
       List<Logic.Amenity> am = await repo.ReadAmenityListByComplexIdAsync(cId1);
 
-      int i = 0;
-
       Assert.Equal("Fridge", am[0].AmenityType);
       Assert.Equal("Test2", am[1].AmenityType);
     }
@@ -346,7 +343,6 @@ namespace Revature.Complex.Tests.DataTests
       testContext.SaveChanges();
 
       List<Logic.Amenity> am = await repo.ReadAmenityListByRoomIdAsync(rId);
-      int i = 0;
 
       Assert.Equal("Fridge", am[0].AmenityType);
       Assert.Equal("Test2", am[1].AmenityType);
