@@ -33,11 +33,13 @@ namespace Revature.Complex.DataAccess.Repository
       return "Create!!";
     }
 
-    public IEnumerable<Logic.Complex> ReadComplexList()
+    public async Task<List<Logic.Complex>> ReadComplexListAsync()
     {
       try
       {
-        return _context.Complex.Select(_map.MapEtoComplex);
+        List<Entity.Complex> complices = await _context.Complex.ToListAsync();
+
+        return complices.Select(_map.MapEtoComplex).ToList();
       }
       catch (ArgumentNullException ex)
       {
@@ -73,7 +75,7 @@ namespace Revature.Complex.DataAccess.Repository
       return "Update completed";
     }
 
-    public string DeleteComplex(Guid complexId)
+    public async Task<string> DeleteComplexAsync(Guid complexId)
     {
       Entity.Complex target = _context.Complex.Find(complexId);
 
@@ -84,7 +86,7 @@ namespace Revature.Complex.DataAccess.Repository
       else
       {
         _context.Remove(target);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return "delete completed";
       }
@@ -121,33 +123,39 @@ namespace Revature.Complex.DataAccess.Repository
       return "new Amenity created";
     }
 
-    public IEnumerable<Logic.Amenity> ReadAmenityList()
+    public async Task<List<Logic.Amenity>> ReadAmenityListAsync()
     {
-      return _context.Amenity.Select(_map.MapEtoAmenity);
+      try
+      {
+        List<Entity.Amenity> amenities = await _context.Amenity.ToListAsync();
+
+        return amenities.Select(_map.MapEtoAmenity).ToList();
+      }
+      catch (ArgumentNullException ex)
+      {
+        throw ex;
+      }
     }
 
-    public IEnumerable<Logic.Amenity> ReadAmenityListByComplexId(Guid guid)
+    public async Task<List<Logic.Amenity>> ReadAmenityListByComplexIdAsync(Guid complexId)
     {
       List<Entity.AmenityComplex> amenityComplices
-          = _context.AmenityComplex.Where(a => a.ComplexId == guid)
-                                  .AsNoTracking()
-                                  .ToList();
+        = _context.AmenityComplex.Where(a => a.ComplexId == complexId).ToList();
 
       List<Logic.Amenity> amenities = new List<Logic.Amenity>();
       foreach (var ac in amenityComplices)
       {
-        amenities.Add(_map.MapEtoAmenity(_context.Amenity.Find(ac.AmenityId)));
+        amenities.Add(_map.MapEtoAmenity(await _context.Amenity.FindAsync(ac.AmenityId)));
       }
 
       return amenities;
 
     }
 
-    public IEnumerable<Logic.Amenity> ReadAmenityListByRoomId(Guid roomId)
+    public async Task<List<Logic.Amenity>> ReadAmenityListByRoomIdAsync(Guid roomId)
     {
-      List<Entity.AmenityRoom> amenityRooms = _context.AmenityRoom.Where(a => a.RoomId == roomId)
-                                                  .AsNoTracking()
-                                                  .ToList();
+      List<Entity.AmenityRoom> amenityRooms
+        = await _context.AmenityRoom.Where(a => a.RoomId == roomId).AsNoTracking().ToListAsync();
 
       List<Logic.Amenity> amenities = new List<Logic.Amenity>();
       foreach (var ac in amenityRooms)
