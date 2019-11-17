@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
     <ProjectReference Include="..\Revature.Tenant.DataAccess\Revature.Tenant.DataAccess.csproj" />
+
   </ItemGroup>
 
 </Project>

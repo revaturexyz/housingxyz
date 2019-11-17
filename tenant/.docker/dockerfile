@@ -1,10 +1,13 @@
+
 # tenant :: docker
+
 
 ## arguments
 ARG DOTNET_VERSION=3.0
 
 ## stage - restore
 FROM mcr.microsoft.com/dotnet/core/sdk:${DOTNET_VERSION} as restore
+
 WORKDIR /src
 COPY src/Revature.Tenant.Api/*.csproj Revature.Tenant.Api/
 COPY src/Revature.Tenant.DataAccess/*.csproj Revature.Tenant.DataAccess/
