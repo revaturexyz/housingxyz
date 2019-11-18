@@ -198,11 +198,11 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenitiesroom/{roomGuid}")]
     //GET: api/complex/amenitiesroom/{roomGuid}
-    public ActionResult<IEnumerable<Logic.Amenity>> GetRoomAmenities([FromRoute]Guid roomGuid)
+    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetRoomAmenities([FromRoute]Guid roomGuid)
     {
       try
       {
-        var x = _complexRepository.ReadAmenityListByRoomId(roomGuid);
+        var x = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
         return Ok(x);
 
       }
@@ -226,11 +226,11 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenitiescomplex/{complexGuid}")]
     //GET: api/complex/amenitiescomplex/{complexGuid}
-    public ActionResult<IEnumerable<Logic.Amenity>> GetComplexAmenities([FromRoute]Guid complexGuid)
+    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetComplexAmenities([FromRoute]Guid complexGuid)
     {
       try
       {
-        var x = _complexRepository.ReadAmenityListByComplexId(complexGuid);
+        var x = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
         return Ok(x);
 
       }
@@ -254,12 +254,12 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenities")]
     //GET: api/complex/amenities
-    public ActionResult<IEnumerable<Logic.Amenity>> GetAllAmenities()
+    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetAllAmenities()
     {
 
       try
       {
-        return Ok(_complexRepository.ReadAmenityList());
+        return Ok( await _complexRepository.ReadAmenityListAsync());
       }
       catch (ArgumentException)
       {

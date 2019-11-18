@@ -13,7 +13,8 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
-  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule
+  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatFormFieldModule, MatSelectModule,
+  MatOptionModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
@@ -26,6 +27,7 @@ import { RequestDialogComponent } from './request-dialog/request-dialog.componen
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
 import { CoordinatorModule } from './coordinator.module';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { CoordinatorModule } from './coordinator.module';
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent
+    RequestDialogComponent,
+    ManageComplexComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,9 @@ import { CoordinatorModule } from './coordinator.module';
     MatDialogModule,
     StickyNavModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
     MatRippleModule,
     MsalModule.forRoot({
       clientID: environment.clientID,

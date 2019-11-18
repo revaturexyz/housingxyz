@@ -9,37 +9,115 @@ namespace Revature.Address.Lib
     public class Address
     {
 
-    private int _id { get; set; }
+    private Guid _id { get; set; }
     private string _street { get; set; }
     private string _city { get; set; }
     private string _state { get; set; }
     private string _country { get; set; }
     private string _zipCode { get; set; }
 
-    [Column("Key", Order = 1)]
-    public Guid Id { get; set; }
+    public Guid Id
+    {
+      get => _id;
+      set
+      {
+        if (value == null)
+          throw new ArgumentException("Id must be set", nameof(value));
 
-    [Required(ErrorMessage = "Street is required.")]
-    [Column("Street", Order = 2, TypeName = "nvarchar(50)")]
-    public string Street { get; set; }
+        _id = value;
+      }
+    }
+    public string Street
+    {
+      get
+      {
 
-    [Required(ErrorMessage = "City is required.")]
-    [Column("City", Order = 3, TypeName = "nvarchar(50)")]
-    public string City { get; set; }
+        if (_street == null)
+          throw new ArgumentException("Street is not set", nameof(_street));
 
-    [Required(ErrorMessage = "State Province is required.")]
-    [Column("StateProvince", Order = 4, TypeName = "nvarchar(50)")]
-    public string State { get; set; }
+        return _street;
+      }
+      set
+      {
+        if (value == "")
+          throw new ArgumentException("Street must not be empty", nameof(value));
 
-    [Required(ErrorMessage = "Country is required.")]
-    [Column("Country", Order = 5, TypeName = "nvarchar(2)")]
-    public string Country { get; set; }
+        _street = value;
+      }
+    }
+    public string City
+    {
+      get
+      {
+        if (_city == null)
+          throw new ArgumentException("City is not set", nameof(_city));
 
-    [Required(ErrorMessage = "Postal Code is required.")]
-    [DataType(DataType.PostalCode)]
-    [MaxLength(5)]
-    [Column("PostalCode", Order = 6)]
-    public string ZipCode { get; set; }
+        return _city;
+      }
+      set
+      {
+        if (value == "")
+          throw new ArgumentException("City must not be empty", nameof(value));
+
+        _city = value;
+      }
+    }
+    public string State
+    {
+      get
+      {
+
+        if (_state == null)
+          throw new ArgumentException("State is not set", nameof(_city));
+
+        return _state;
+      }
+      set
+      {
+        if (value == "")
+          throw new ArgumentException("State must not be empty", nameof(value));
+
+        _state = value;
+      }
+    }
+
+    public string Country {
+      get
+      {
+
+        if (_country == null)
+          throw new ArgumentException("State is not set", nameof(_city));
+
+        return _country;
+      }
+      set
+      {
+        if (value == "")
+          throw new ArgumentException("State must not be empty", nameof(value));
+
+        _country = value;
+      }
+    }
+
+
+    public string ZipCode
+    {
+      get
+      {
+
+        if (_zipCode == null)
+          throw new ArgumentException("Zip code is not set", nameof(_zipCode));
+
+        return _zipCode;
+      }
+      set
+      {
+        if (value == "")
+          throw new ArgumentException("Zip code must not be empty", nameof(value));
+
+        _zipCode = value;
+      }
+    }
 
   }
 }
