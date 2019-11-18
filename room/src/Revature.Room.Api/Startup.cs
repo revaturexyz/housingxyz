@@ -9,6 +9,7 @@ using Revature.Room.DataAccess;
 using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
 using Serilog;
+using ServiceBusMessaging;
 
 namespace Revature.Room.Api
 {
@@ -42,6 +43,8 @@ namespace Revature.Room.Api
         });
       });
 
+
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
@@ -50,6 +53,10 @@ namespace Revature.Room.Api
 
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<IMapper, DBMapper>();
+
+      services.AddScoped<ServiceBusSender>();
+      services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+
       services.AddControllers();
     }
 
@@ -67,6 +74,9 @@ namespace Revature.Room.Api
       {
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
+
+      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 

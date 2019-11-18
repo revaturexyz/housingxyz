@@ -11,7 +11,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
@@ -21,10 +23,6 @@
     <ProjectReference Include="..\Revature.Room.Api\Revature.Room.Api.csproj" />
     <ProjectReference Include="..\Revature.Room.DataAccess\Revature.Room.DataAccess.csproj" />
     <ProjectReference Include="..\Revature.Room.Lib\Revature.Room.Lib.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Revature.Room.DataAccess.Tests\" />
   </ItemGroup>
 
 </Project>

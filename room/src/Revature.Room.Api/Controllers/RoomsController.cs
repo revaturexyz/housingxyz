@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Revature.Room.Lib;
+using ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,18 +11,21 @@ namespace Revature.Room.Api.Controllers
   [ApiController]
   public class RoomsController : ControllerBase
   {
+    private readonly IServiceBusSender _busSender;
+    private readonly IRepository _repository;
+
     /// <summary>
     /// Controller for the Rooms
     /// </summary>
-    private readonly IRepository _repository;
 
-    public RoomsController(IRepository repository)
+    public RoomsController(IRepository repository, IServiceBusSender busSender)
     {
       _repository = repository;
+      _busSender = busSender ?? throw new ArgumentNullException();
     }
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e
-    public async Task<IActionResult> GetFilteredRooms(
+    public async Task<IActionResult> GetFilteredRoomsAsync(
       Guid complexId,
       [FromQuery] string roomNumber,
       [FromQuery] int? numberOfBeds,
@@ -29,7 +33,7 @@ namespace Revature.Room.Api.Controllers
       [FromQuery] string gender,
       [FromQuery] DateTime? endDate)
     {
-      IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRooms(
+      IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
         complexId,
         roomNumber,
         numberOfBeds,

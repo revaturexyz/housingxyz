@@ -15,11 +15,15 @@ namespace Revature.Room.DataAccess.Entities
     }
 
     public DbSet<Room> Room { get; set; }
+    public DbSet<Gender> Gender { get; set; }
+
+    public DbSet<RoomType> RoomType { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<Gender>(entity =>
       {
+        entity.HasKey(g => g.Type);
         entity.HasData(
           new Gender() { Type = "Male"},
           new Gender() { Type = "Female"},
@@ -28,8 +32,10 @@ namespace Revature.Room.DataAccess.Entities
       });
 
       modelBuilder.Entity<RoomType>(
+        
         entity =>
         {
+          entity.HasKey(r => r.Type);
           entity.HasData(
             new RoomType() { Type = "Apartment" },
             new RoomType() { Type = "Dormitory" },
@@ -40,7 +46,7 @@ namespace Revature.Room.DataAccess.Entities
 
       modelBuilder.Entity<Room>(entity =>
       {
-        entity.Property(r => r.RoomID);
+        entity.HasKey(r => r.RoomID);
         entity.Property(r => r.RoomNumber)
         .IsRequired();
 
@@ -55,6 +61,9 @@ namespace Revature.Room.DataAccess.Entities
 
         entity.Property(r => r.ComplexID)
         .IsRequired();
+
+
+
         entity.HasData(
           new
           {
