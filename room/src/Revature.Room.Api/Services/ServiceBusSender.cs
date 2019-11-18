@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using Revature.Room.Lib;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace ServiceBusMessaging
 {
@@ -52,6 +53,17 @@ namespace ServiceBusMessaging
 
     //ServiceBus message for reading a room
     public async Task SendReadMessage(Room roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending read message: ", data);
+      await _queueClient.SendAsync(message);
+    }
+
+    //SeviceBus message for reading a room of IEnumerable
+    public async Task SendReadMessage(IEnumerable<Room> roomToSend)
     {
       string data = JsonConvert.SerializeObject(roomToSend);
 

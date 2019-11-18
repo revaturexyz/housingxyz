@@ -49,6 +49,25 @@ namespace Revature.Room.Api.Controllers
     }
 
     //Other HTTP Get goes here
+    //For Read
+    //Should I map Logic model to Database model?
+    [HttpGet("{roomId}", Name = "GetRoom")]
+    public async Task<IEnumerable<Lib.Room>> GetRoomAsync(Guid roomId)
+    {
+      if (roomId == null)
+      {
+        IEnumerable<Lib.Room> roomListNull = await _repository.ReadRoomAsync(roomId);
+
+        await _busSender.SendReadMessage(roomListNull);
+
+        return roomListNull;
+      }
+      IEnumerable<Lib.Room> roomListNotNull = await _repository.ReadRoomAsync(roomId);
+
+      await _busSender.SendReadMessage(roomListNotNull);
+
+      return roomListNotNull;
+    }
 
     [HttpPost]
     public async Task<IActionResult> PostRoomAsync
@@ -71,7 +90,7 @@ namespace Revature.Room.Api.Controllers
 
       //Will change route http after we have a HTTP GET
 
-      return CreatedAtRoute("api/complexes/{complexId}/rooms", new { RoomID = createdRoom.RoomID }, createdRoom);
+      return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomID }, createdRoom);
 
     }
 
