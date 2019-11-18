@@ -1,0 +1,101 @@
+.leftBod {
+  float: left;
+  width: 50%;
+  height: 50%;
+}
+
+.bg-body {
+  background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.btn-round {
+  border-radius: 30px;
+}
+
+.bg-orange {
+  background: #fa752c;
+}
+
+.table {
+  float: right;
+  overflow: auto !important;
+  width: 50%;
+  height: 30vw !important;
+}
+
+.bottomBod {
+  margin-top: 1.8em;
+  width: 100%;
+  height: 40%;
+}
+
+.rightBod {
+  width: 100%;
+  height: 50vh;
+  overflow: auto;
+  opacity: 0.85;
+}
+
+.centering {
+  justify-items: center;
+  align-items: center;
+}
+
+.hovered,
+.selected {
+  background: darkgrey !important;
+}
+
+.minWidth {
+  width: 14%;
+}
+
+.maxHeight {
+  height: 24px !important;
+  overflow-y: clip;
+}
+
+.page {
+  height: 100%;
+  color: black;
+  margin: 10%;
+  opacity: 0.7;
+  width: 100%;
+}
+
+#text {
+  opacity: 0.7;
+}
+
+#complexInfo {
+  font-size: 20px;
+  float: left;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .h-md-100 {
+    height: 100vh;
+  }
+}
+
+.bg-indigo {
+  background: indigo;
+}
+
+.text-cyan {
+  color: #35bdff;
+}
+
+.fillPage {
+  width: 100%;
+  overflow: auto;
+}
+
+.fillDiv {
+  max-height: 100%;
+}

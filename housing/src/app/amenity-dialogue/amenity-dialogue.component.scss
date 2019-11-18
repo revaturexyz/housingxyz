@@ -1,0 +1,18 @@
+.customChip {
+  background-color: rgb(163, 163, 163);
+  border-radius: 16px;
+  padding: 7px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  height: 1px;
+  color: rgb(0, 0, 0);
+  margin: 4px;
+  cursor: default;
+}
+
+.overlay {
+  background-color: rgb(30, 0, 165, 0.3);
+}

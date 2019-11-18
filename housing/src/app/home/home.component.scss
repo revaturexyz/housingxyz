@@ -1,0 +1,29 @@
+.home-head {
+  width: 100%;
+  padding: 100px;
+  background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.home-head h1 {
+  font-size: 57px;
+}
+
+.home-head hr {
+  width: 40%;
+}
+
+.complex-card {
+  flex: 0 0 auto;
+  width: 40%;
+  margin-right: 4%;
+  margin-bottom: 1%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.complex-card hr {
+  width: 100%;
+}

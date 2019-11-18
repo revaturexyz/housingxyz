@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Revature.Account.Api\Revature.Account.Api.csproj" />
+    <ProjectReference Include="..\Revature.Account.DataAccess\Revature.Account.DataAccess.csproj" />
+    <ProjectReference Include="..\Revature.Account.Lib\Revature.Account.Lib.csproj" />
+  </ItemGroup>
+
+</Project>
