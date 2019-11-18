@@ -9,6 +9,7 @@ WORKDIR /src
 COPY src/Revature.Address.Api/*.csproj Revature.Address.Api/
 COPY src/Revature.Address.DataAccess/*.csproj Revature.Address.DataAccess/
 COPY src/Revature.Address.Lib/*.csproj Revature.Address.Lib/
+RUN dotnet restore *.Api
 
 ## stage - publish
 FROM restore as publish
@@ -16,9 +17,6 @@ COPY src/Revature.Address.Api/ Revature.Address.Api/
 COPY src/Revature.Address.DataAccess/ Revature.Address.DataAccess/
 COPY src/Revature.Address.Lib/ Revature.Address.Lib/
 RUN dotnet publish *.Api --configuration Release --no-restore --output /src/dist
-
-## copies config
-COPY .docker/config.docker.json config.json/
 
 
 ## stage - deploy
