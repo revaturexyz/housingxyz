@@ -15,7 +15,7 @@ namespace Revature.Complex.DataAccess.Repository
 
     private readonly Entity.ComplexDbContext _context;
     private readonly Mapper _map;
-    private readonly ILogger logger;
+    private readonly ILogger log;
 
     public Repository(Entity.ComplexDbContext context, Mapper mapper)
     {
@@ -166,5 +166,57 @@ namespace Revature.Complex.DataAccess.Repository
       return amenities;
 
     }
-  }
+
+    public async Task<List<Logic.Complex>> ReadComplexByProviderIdAsync(Guid pId)
+    {
+      List<Entity.Complex> complices = await _context.Complex.Where(c => c.ProviderId == pId).ToListAsync();
+
+      return complices.Select(_map.MapEtoComplex).ToList();
+    }
+
+    public async Task<string> UpdateAmenityAsync(Logic.Amenity amenity)
+    {
+      try
+      {
+        Entity.Amenity eAmenity = await _context.Amenity.FindAsync(amenity.AmenityId);
+
+        if (amenity.AmenityType != null)
+        {
+          eAmenity.AmenityType = amenity.AmenityType;
+        }
+        if (amenity.Description != null)
+        {
+          eAmenity.Description = amenity.Description;
+        }
+
+        _context.Amenity.OrderBy(a => a.AmenityId);
+        await _context.SaveChangesAsync();
+
+        return "Amenity Updated";
+      }
+      catch(ArgumentNullException ex)
+      {
+        throw ex;
+      }
+    }
+
+    public async Task<string> DeleteAmenityAsync(Logic.Amenity amenity)
+    {
+      try
+      {
+        Entity.Amenity dAmenity = await _context.Amenity.FindAsync(amenity.AmenityId);
+        _context.Remove(dAmenity);
+
+        await _context.SaveChangesAsync();
+
+        return "Amenity deleted";
+      }
+      catch (InvalidOperationException ex)
+      {
+        return "cannot find target amenity to delete";
+      }
+
+
+    }
+  }//end of class
 }

@@ -9,7 +9,7 @@ namespace Revature.Complex.Api.Models
   public class ApiRoom
   {
     [Required]
-    public int RoomGUID { get; set; }
+    public Guid RoomGUID { get; set; }
     // Must have between 1 and 10 beds
     [Range(1, 10)]
     public int NumberOfBeds { get; set; }

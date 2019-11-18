@@ -47,7 +47,7 @@ namespace Revature.Complex.DataAccess.Entities
         entity.HasData(
           new Complex
           {
-            ComplexId = Guid.NewGuid(),
+            ComplexId = cId1,
             AddressId = Guid.NewGuid(),
             ProviderId = Guid.NewGuid(),
             ComplexName = "Liv+",
@@ -84,7 +84,10 @@ namespace Revature.Complex.DataAccess.Entities
       modelBuilder.Entity<Amenity>(entity =>
       {
         entity.Property(e => e.AmenityId)
-            .UseIdentityColumn();
+            .IsRequired();
+
+        entity.HasIndex(e => e.AmenityId)
+            .IsUnique();
 
         entity.Property(e => e.AmenityType)
             .IsRequired();
@@ -93,9 +96,9 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-            new Amenity { AmenityId = 1, AmenityType = "Test1", Description = "Description1" },
-            new Amenity { AmenityId = 2, AmenityType = "Test2", Description = "" },
-            new Amenity { AmenityId = 3, AmenityType = "Test3", Description = "Description3" }
+            new Amenity { AmenityId = Guid.NewGuid(), AmenityType = "Test1", Description = "Description1" },
+            new Amenity { AmenityId = Guid.NewGuid(), AmenityType = "Test2", Description = "" },
+            new Amenity { AmenityId = Guid.NewGuid(), AmenityType = "Test3", Description = "Description3" }
         );
 
       });
@@ -103,7 +106,6 @@ namespace Revature.Complex.DataAccess.Entities
       modelBuilder.Entity<AmenityComplex>(entity =>
       {
         entity.Property(e => e.AmenityComplexId)
-              .UseIdentityColumn()
               .IsRequired();
 
         entity.HasIndex(c => c.AmenityComplexId)
@@ -124,9 +126,9 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-            new AmenityComplex { AmenityComplexId = 1, AmenityId = 1, ComplexId = cId1 },
-            new AmenityComplex { AmenityComplexId = 2, AmenityId = 2, ComplexId = cId1 },
-            new AmenityComplex { AmenityComplexId = 3, AmenityId = 1, ComplexId = cId2 }
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), ComplexId = cId1 },
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), ComplexId = cId1 },
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), ComplexId = cId2 }
         );
 
       });
@@ -134,7 +136,6 @@ namespace Revature.Complex.DataAccess.Entities
       modelBuilder.Entity<AmenityRoom>(entity =>
       {
         entity.Property(e => e.AmenityRoomId)
-              .UseIdentityColumn()
               .IsRequired();
 
         entity.HasIndex(c => c.AmenityRoomId)
@@ -151,9 +152,9 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-            new AmenityRoom { AmenityRoomId = 1, AmenityId = 3, RoomId = rId1 },
-            new AmenityRoom { AmenityRoomId = 2, AmenityId = 2, RoomId = rId1 },
-            new AmenityRoom { AmenityRoomId = 3, AmenityId = 3, RoomId = rId2 }
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), RoomId = rId1 },
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), RoomId = rId1 },
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), RoomId = rId2 }
         );
 
       });

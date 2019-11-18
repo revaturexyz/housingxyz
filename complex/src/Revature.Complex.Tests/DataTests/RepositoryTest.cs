@@ -13,6 +13,7 @@ namespace Revature.Complex.Tests.DataTests
 {
   public class RepositoryTest
   {
+    # region data to test 
     public static Guid cId1 = Guid.NewGuid();
     public static Guid aId1 = Guid.NewGuid();
     public static Guid pId1 = Guid.NewGuid();
@@ -20,6 +21,12 @@ namespace Revature.Complex.Tests.DataTests
     public static Guid aId2 = Guid.NewGuid();
     public static Guid pId2 = Guid.NewGuid();
     public static Guid rId = Guid.NewGuid();
+    public static Guid amId1 = Guid.NewGuid();
+    public static Guid amId2 = Guid.NewGuid();
+    public static Guid acId1 = Guid.NewGuid();
+    public static Guid acId2 = Guid.NewGuid();
+    public static Guid arId1 = Guid.NewGuid();
+    public static Guid arId2 = Guid.NewGuid();
 
     public Logic.Complex complex1 = new Logic.Complex
     {
@@ -59,66 +66,67 @@ namespace Revature.Complex.Tests.DataTests
 
     public Logic.AmenityRoom ar = new Logic.AmenityRoom
     {
-      AmenityRoomId = 4,
+      AmenityRoomId = arId1,
       RoomId = rId,
-      AmenityId = 1
+      AmenityId = amId1
     };
 
     public Logic.AmenityComplex ac = new Logic.AmenityComplex
     {
-      AmenityComplexId = 4,
+      AmenityComplexId = acId1,
       ComplexId = cId1,
-      AmenityId = 1
+      AmenityId = amId1
     };
 
     public Entity.AmenityComplex acE1 = new Entity.AmenityComplex
     {
-      AmenityComplexId = 4,
+      AmenityComplexId = acId1,
       ComplexId = cId1,
-      AmenityId = 1
+      AmenityId = amId1
     };
 
     public Entity.AmenityComplex acE2 = new Entity.AmenityComplex
     {
-      AmenityComplexId = 3,
+      AmenityComplexId = acId2,
       ComplexId = cId1,
-      AmenityId = 2
+      AmenityId = amId2
     };
 
     public Logic.Amenity amenity = new Logic.Amenity
     {
-      AmenityId = 4,
+      AmenityId = amId1,
       AmenityType = "Fridge",
       Description = "frozen"
     };
 
     public Entity.Amenity am1 = new Entity.Amenity
     {
-      AmenityId = 1,
+      AmenityId = amId1,
       AmenityType = "Fridge",
       Description = "to freeze"
     };
 
     public Entity.Amenity am2 = new Entity.Amenity
     {
-      AmenityId = 2,
+      AmenityId = amId2,
       AmenityType = "Test2",
       Description = "to heat"
     };
 
     public Entity.AmenityRoom arE1 = new Entity.AmenityRoom
     {
-      AmenityRoomId = 4,
+      AmenityRoomId = arId1,
       RoomId = rId,
-      AmenityId = 1
+      AmenityId = amId1
     };
 
     public Entity.AmenityRoom arE2 = new Entity.AmenityRoom
     {
-      AmenityRoomId = 3,
+      AmenityRoomId = arId2,
       RoomId = rId,
-      AmenityId = 2
+      AmenityId = amId2
     };
+    #endregion 
 
     [Fact]
     public async void CreateComplexAsyncTest()
@@ -240,9 +248,9 @@ namespace Revature.Complex.Tests.DataTests
       Repository repo = new Repository(testContext, mapper);
 
       string result = await repo.CreateAmenityRoomAsync(ar);
-      int check = testContext.AmenityRoom.First().AmenityRoomId;
+      Guid check = testContext.AmenityRoom.First().AmenityRoomId;
 
-      Assert.Equal(4, check);
+      Assert.Equal(check, ar.AmenityRoomId);
     }
 
     [Fact]
@@ -257,9 +265,9 @@ namespace Revature.Complex.Tests.DataTests
       Repository repo = new Repository(testContext, mapper);
 
       string result = await repo.CreateAmenityComplexAsync(ac);
-      int check = testContext.AmenityComplex.First().AmenityComplexId;
+      Guid check = testContext.AmenityComplex.First().AmenityComplexId;
 
-      Assert.Equal(4, check);
+      Assert.Equal(check, ac.AmenityComplexId);
     }
 
     [Fact]
@@ -275,9 +283,9 @@ namespace Revature.Complex.Tests.DataTests
 
       string result = await repo.CreateAmenityAsync(amenity);
 
-      int check = testContext.Amenity.First().AmenityId;
+      Guid check = testContext.Amenity.First().AmenityId;
 
-      Assert.Equal(4, check);
+      Assert.Equal(amenity.AmenityId, check);
     }
 
     [Fact]
@@ -297,7 +305,7 @@ namespace Revature.Complex.Tests.DataTests
 
       List<Logic.Amenity> am = await repo.ReadAmenityListAsync();
 
-      Assert.Equal(1, am[0].AmenityId);
+      Assert.Equal(am1.AmenityId, am[0].AmenityId);
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
@@ -347,5 +355,98 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Fridge", am[0].AmenityType);
       Assert.Equal("Test2", am[1].AmenityType);
     }
-  }
+
+    [Fact]
+    public async void ReadComplexByProviderIDTest()
+    {
+      Mapper mapper = new Mapper();
+      DbContextOptions<Entity.ComplexDbContext> options
+          = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
+              .UseInMemoryDatabase("ReadComplexByProviderIDTest")
+              .Options;
+      using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
+      Repository repo = new Repository(testContext, mapper);
+
+      Entity.Complex complexE3 = new Entity.Complex
+      {
+        ComplexId = Guid.NewGuid(),
+        AddressId = Guid.NewGuid(),
+        ProviderId = pId1,
+        ComplexName = "XXX",
+        ContactNumber = "1234567895"
+      };
+
+      testContext.Add(complexE1);
+      testContext.Add(complexE2);
+      testContext.Add(complexE3);
+      testContext.SaveChanges();
+
+      List<Logic.Complex> complices = await repo.ReadComplexByProviderIdAsync(pId1);
+
+      Assert.Equal("Liv+", complices[0].ComplexName);
+      Assert.Equal("XXX", complices[1].ComplexName);
+    }
+
+    [Fact]
+    public async void UpdateAmenityAsyncTest()
+    {
+      Mapper mapper = new Mapper();
+      DbContextOptions<Entity.ComplexDbContext> options
+          = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
+              .UseInMemoryDatabase("UpdateAmenityAsyncTest")
+              .Options;
+      using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
+      Repository repo = new Repository(testContext, mapper);
+
+      testContext.Add(am1);
+      testContext.Add(am2);
+
+      Logic.Amenity update1 = new Logic.Amenity
+      {
+        AmenityId = amId1,
+        AmenityType = "Microwave",
+        Description = "To heat foods"
+      };
+
+      await repo.UpdateAmenityAsync(update1);
+      Entity.Amenity check1 = testContext.Amenity.Find(amId1);
+
+      Assert.Equal("Microwave", check1.AmenityType);
+    }
+
+    [Fact]
+    public async void DeleteAmenityAsyncTest()
+    {
+      Mapper mapper = new Mapper();
+      DbContextOptions<Entity.ComplexDbContext> options
+          = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
+              .UseInMemoryDatabase("DeleteAmenityAsyncTest")
+              .Options;
+      using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
+      Repository repo = new Repository(testContext, mapper);
+
+      Guid amId3 = Guid.NewGuid();
+      Entity.Amenity am3 = new Entity.Amenity
+      {
+        AmenityId = amId3,
+        AmenityType = "Pool",
+        Description = "swimming"
+      };
+
+      testContext.Add(am1);
+      testContext.Add(am2);
+      testContext.Add(am3);
+
+      Logic.Amenity delete1 = new Logic.Amenity
+      {
+        AmenityId = amId1
+      };
+
+      await repo.DeleteAmenityAsync(delete1);
+
+      Entity.Amenity check = testContext.Amenity.First();
+
+      Assert.Equal(amId2, check.AmenityId);
+    }
+  } 
 }
