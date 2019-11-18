@@ -16,40 +16,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class CoordinatorNotificationsComponent implements OnInit {
 
-  displayedColumns = ['expires', 'companyName'];
-  dataSource = new MatTableDataSource<CoordinatorNotification>(notifications);
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-  p = 1; // Pagination control variable
-
-  constructor( private router: Router ) { }
-
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  dateCalculator(date: Date, currentNotification: CoordinatorNotification) {
-    let expire = 7;
-    if (currentNotification.trial) {
-      expire = 7;
-    } else if (currentNotification.extendedTrial) {
-      expire = 30;
-    }
-    return moment(date).add(expire, 'days').format('MM/DD/YYYY');
-  }
-
-  getRecord(row: any) {
-    console.log(row);
-    this.router.navigate(['/coordinator-notifications/' + row.notificationId]);
-
-
-  }
-
-}
-
-// Seed :
-const notifications: Array<CoordinatorNotification> = [
+  // Seed :
+  notifications: Array<CoordinatorNotification> = [
   {
     notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
     providerId: 3,
@@ -456,3 +424,35 @@ const notifications: Array<CoordinatorNotification> = [
     }
   },
 ];
+
+  displayedColumns = ['expires', 'companyName'];
+  dataSource = new MatTableDataSource<CoordinatorNotification>(notifications);
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  p = 1; // Pagination control variable
+
+  constructor( private router: Router ) { }
+
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  dateCalculator(date: Date, currentNotification: CoordinatorNotification) {
+    let expire = 7;
+    if (currentNotification.trial) {
+      expire = 7;
+    } else if (currentNotification.extendedTrial) {
+      expire = 30;
+    }
+    return moment(date).add(expire, 'days').format('MM/DD/YYYY');
+  }
+
+  getRecord(row: any) {
+    console.log(row);
+    this.router.navigate(['/coordinator-notifications/' + row.notificationId]);
+
+
+  }
+
+}

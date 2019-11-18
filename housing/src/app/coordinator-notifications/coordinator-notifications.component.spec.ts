@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications.component';
 
-import { MatTableModule, MatPaginatorModule } from '@angular/material'
+import { MatTableModule, MatPaginatorModule } from '@angular/material';
 
 describe('CoordinatorNotificationsComponent', () => {
   let component: CoordinatorNotificationsComponent;

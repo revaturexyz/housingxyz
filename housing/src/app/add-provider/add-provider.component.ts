@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { ProviderService } from '../services/provider.service';
+// import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
 import { TrainingCenter } from 'src/interfaces/trainingCenter';
 import { Address } from 'src/interfaces/address';
@@ -43,7 +43,7 @@ export class AddProviderComponent implements OnInit {
   constructor(
     private router: Router,
     private mapsService: MapsService,
-    //private providerService: ProviderService,
+    // private providerService: ProviderService,
     private redirect: RedirectService
     ) {
       this.formProvider = {
