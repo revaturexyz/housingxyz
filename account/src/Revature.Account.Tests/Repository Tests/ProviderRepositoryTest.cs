@@ -65,7 +65,9 @@ namespace Revature.Account.Test.Repository_Tests
         ProviderId = providerId,
         CoordinatorId = coordinatorId,
         Name = "Testing",
+        Password = "ABCxyz123",
         Status = "Pending",
+        AccountCreated = DateTime.Now,
         Expire = DateTime.Now.AddDays(7)
       };
       arrangeContext.ProviderAccount.Add(arrangeProvider);
@@ -74,7 +76,9 @@ namespace Revature.Account.Test.Repository_Tests
         ProviderId = providerId,
         CoordinatorId = coordinatorId,
         Name = updatedName,
+        Password = "ABCxyz123",
         Status = updatedStatus,
+        AccountCreated = DateTime.Now,
         Expire = DateTime.Now.AddDays(30)
       };
 
@@ -85,7 +89,7 @@ namespace Revature.Account.Test.Repository_Tests
 
       // Assert
       var assertContext = new AccountDbContext(options);
-      var assertProvider = assertContext.ProviderAccount.First(p => p.Name == updatedName);
+      var assertProvider = assertContext.ProviderAccount.First(p => p.ProviderId == providerId);
       Assert.Equal(updatedName, assertProvider.Name);
       Assert.Equal(updatedStatus, assertProvider.Status);
     }

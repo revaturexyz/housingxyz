@@ -12,19 +12,19 @@ namespace Revature.Account.Lib.Model
     public Guid ProviderId { get; set; }
 		public Guid CoordinatorId { get; set; }
 		public string Name
-    {
-      get { return _name; }
+    { get { return _name; }
       set
       {
         ValidateInput(value);
+        _name = value;
       }
     }
 		public string Password
-    {
-      get { return _password;  }
+    { get { return _password; }
       set
       {
         ValidateInput(value);
+        _password = value;
       }
     }
 		public string Status { get; set; }
@@ -43,6 +43,5 @@ namespace Revature.Account.Lib.Model
         throw new ArgumentException("Your Input cannot be empty string.", nameof(value));
       }
     }
-
   }
 }
