@@ -13,8 +13,8 @@ namespace Revature.Tenant.Lib.Models
     private string _firstName;
     private string _lastName;
     private Guid _addressId;
-    private int _roomId;
-    private int _carId;
+    private Guid _roomId;
+    private Guid _carId;
 
     public Car Car { get; set; }
 
@@ -98,36 +98,35 @@ namespace Revature.Tenant.Lib.Models
     }
 
 
-    public int RoomId
+    public Guid RoomId
     {
       get => _roomId;
       set
       {
-        if (value < 0)
+        if (value == Guid.Empty)
         {
-          throw new ArgumentException("Room Id must not be negative", nameof(value));
+          throw new ArgumentException("Room Id must not be empty", nameof(value));
         }
 
         _roomId = value;
       }
     }
 
-    public int CarId
+    public Guid CarId
     {
       get => _carId;
       set
       {
-        if (value < 0)
+        if (value == Guid.Empty)
         {
-          throw new ArgumentException("Car Id must not be negative", nameof(value));
+          throw new ArgumentException("Car Id must not be empty", nameof(value));
         }
 
         _carId = value;
       }
     }
 
-    public string Gender { get; set; }
+    public string Gender { get => _gender; set => _gender = value; }
     public string FullName { get => FirstName + " " + LastName; }
-    public Guid AddressId { get; set; }
-  }
+    public Guid AddressId { get => _addressId; set => _addressId = value; }  }
 }

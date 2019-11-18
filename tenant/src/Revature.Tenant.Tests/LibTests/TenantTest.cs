@@ -26,7 +26,7 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void Tenant_Room_Id_Empty()
     {
-      Assert.Throws<ArgumentException>(() => new Lib.Models.Tenant { RoomId = -1 });
+      Assert.Throws<ArgumentException>(() => new Lib.Models.Tenant { RoomId = Guid.Empty });
     }
 
     [Fact]
@@ -38,7 +38,7 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void Tenant_Car_Id_Empty()
     {
-      Assert.Throws<ArgumentException>(() => new Lib.Models.Tenant { CarId = -1 });
+      Assert.Throws<ArgumentException>(() => new Lib.Models.Tenant { CarId = Guid.Empty });
     }
 
     [Fact]

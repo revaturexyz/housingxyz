@@ -15,6 +15,7 @@ namespace Revature.Tenant.Lib.Models
     private string _model;
     private string _color;
     private string _year;
+    private string _state;
 
     public int Id
     {
@@ -133,6 +134,27 @@ namespace Revature.Tenant.Lib.Models
         }
 
         _year = value;
+      }
+    }
+
+    public string State
+    {
+      get
+      {
+        if (_state == null)
+        {
+          throw new ArgumentException("State is not set", nameof(_state));
+        }
+
+        return _state;
+      }
+      set {
+        if (value == "")
+        {
+          throw new ArgumentException("State must not be empty", nameof(value));
+        }
+
+        _state = value;
       }
     }
   }

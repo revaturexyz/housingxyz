@@ -43,5 +43,11 @@ namespace Revature.Tenant.Tests.LibTests
             Assert.Throws<ArgumentException>(() => new Lib.Models.Car { Color = "" });
         }
 
+    [Fact]
+    public void Car_State_Empty()
+    {
+      Assert.Throws<ArgumentException>(() => new Lib.Models.Car { State = "" });
     }
+
+  }
 }
