@@ -1,29 +1,21 @@
 # account :: docker-compose
-#Docker yaml version
 
 networks:
   account_localhost:
-services: #Runs 2 services. Web and Data
+services:
   web:
-    #Tells it where to build from. Finds the dockerfile in the directory
     build:
       context: ..
       dockerfile: .docker/dockerfile
-    #uses the account image
     image: account
-    #self explanitory. Depends on the data service to run
     depends_on:
       - data
-    #runs on port 10080:80
     ports:
       - 10080:80
-    #Uses the accountxyz_localhost network localhost
     networks:
       - account_localhost
-    #deploys 1 replica
     deploy:
       replicas: 1
-    #Environment variables; in this case, a connection string for the DB
     environment:
       ConnectionStrings__AccountDb: 'Host=data;Database=account;Username=postgres;Password=Pass@word'
   data:
