@@ -23,8 +23,6 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
-import { AuthGuard } from './guards/auth.guard';
-import { InterceptorService } from './services/interceptor.service';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
@@ -68,13 +66,7 @@ import { CoordinatorModule } from './coordinator.module';
     NgxPaginationModule,
     CoordinatorModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
-  ],
+  providers: [  ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
   bootstrap: [AppComponent]
 })

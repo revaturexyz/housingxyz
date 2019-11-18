@@ -6,14 +6,13 @@ import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
-import { AuthGuard } from './guards/auth.guard';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent },
   { path: 'show-rooms', component: UpdateRoomComponent },
-  { path: 'provider-select', component: ProviderSelectComponent, canActivate: [AuthGuard] },
+  { path: 'provider-select', component: ProviderSelectComponent },
   { path: 'add-provider', component: AddProviderComponent },
   { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent },
   { path: 'coordinator-notifications/:id', component: NotificationDetailsComponent },
