@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Revature.Room.DataAccess.Entities;
 using Revature.Room.DataAccess;
-using BusinessLogic = Revature.Room.Lib;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.Extensions.Logging;
+using Revature.Room.DataAccess.Entities;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+using BusinessLogic = Revature.Room.Lib;
 
 namespace Revature.Room.Tests
 {
@@ -26,6 +25,7 @@ namespace Revature.Room.Tests
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
 
     /* End of Room Properties */
+
     [Fact]
     public async Task CreateRoomShouldCreateAsync()
     {
@@ -34,7 +34,8 @@ namespace Revature.Room.Tests
         .Options;
 
       using var assembleContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DBMapper(assembleContext);
+      assembleContext.Database.EnsureCreated();
 
       var assembleRoom = new BusinessLogic.Room
       {
@@ -62,8 +63,8 @@ namespace Revature.Room.Tests
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>().UseInMemoryDatabase("ReadRoom").Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
-
+      var mapper = new DBMapper(testContext);
+      testContext.Database.EnsureCreated();
 
       var newRoom = new Revature.Room.DataAccess.Entities.Room
       {
@@ -91,7 +92,7 @@ namespace Revature.Room.Tests
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>().UseInMemoryDatabase("UpdateRoom").Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
 
       var newRoom = new Revature.Room.DataAccess.Entities.Room
@@ -121,17 +122,13 @@ namespace Revature.Room.Tests
       testContext.Add(newRoom);
       await testContext.SaveChangesAsync();
 
-
       Repository repo = new Repository(testContext, mapper);
-
 
       await repo.UpdateRoom(updatedRoom);
 
       var assertRoom = testContext.Room.Find(newRoom.RoomID);
 
-
       Assert.Equal("Male", assertRoom.Gender.Type);
-
     }
   }
 }
