@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Revature.Address.Api.Controllers
 
     // GET: api/Users/5
     [Route("{id}")]
-    [HttpGet("{id}", Name = "Get")]
+    [HttpGet]
     public async Task<ActionResult<AddressModel>> Get(Guid id)
     {
       Revature.Address.Lib.Address address = (await db.GetAddressesAsync(id: id)).FirstOrDefault();
@@ -64,6 +65,7 @@ namespace Revature.Address.Api.Controllers
       {
         await db.AddAddressAsync(newAddress);
         await db.SaveAsync();
+        return Ok("Address uccessfuly created");
       }
       catch (InvalidOperationException ex)
       {
@@ -71,8 +73,15 @@ namespace Revature.Address.Api.Controllers
       }
 
       Log.Information("New user {name}");
-      return CreatedAtRoute("Get", new { address.Id }, address);
     }
+
+    //public async Task<string> CallingGoogleApi(string street, string city, string state, HttpClient http)
+    //{
+    //  string baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    //  baseUrl += $"{street},+{city},+{state}&key=AIzaSyBcdxdQRVwksvda1g4tMhjfvEWnpQcrBsA";
+    //  var res = await http.GetAsync(baseUrl);
+    //  return await res.Content.ReadAsStringAsync();
+    //}
 
   }
 }

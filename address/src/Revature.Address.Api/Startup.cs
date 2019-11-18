@@ -27,7 +27,7 @@ namespace Revature.Address.Api
     public void ConfigureServices(IServiceCollection services)
     {
 
-      services.AddEntityFrameworkNpgsql().AddDbContext<AddressDbContext>(options =>
+      services.AddDbContext<AddressDbContext>(options =>
                options.UseNpgsql(Configuration.GetConnectionString(ConnectionStringName)));
 
       services.AddCors(options =>

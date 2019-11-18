@@ -1,0 +1,323 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\revature\\housingxyz\\complexService\\ComplexServiceTest\\ComplexServiceTest.csproj": {}
+  },
+  "projects": {
+    "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj",
+        "projectName": "ComplexServiceDatabase",
+        "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj",
+        "packagesPath": "C:\\Users\\MarkC\\.nuget\\packages\\",
+        "outputPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MarkC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj": {
+                "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj",
+        "projectName": "ComplexServiceLogic",
+        "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj",
+        "packagesPath": "C:\\Users\\MarkC\\.nuget\\packages\\",
+        "outputPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MarkC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\revature\\housingxyz\\complexService\\ComplexServiceTest\\ComplexServiceTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\revature\\housingxyz\\complexService\\ComplexServiceTest\\ComplexServiceTest.csproj",
+        "projectName": "ComplexServiceTest",
+        "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceTest\\ComplexServiceTest.csproj",
+        "packagesPath": "C:\\Users\\MarkC\\.nuget\\packages\\",
+        "outputPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MarkC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj": {
+                "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj"
+              },
+              "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj": {
+                "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj"
+              },
+              "C:\\revature\\housingxyz\\complexService\\ComplexService\\ComplexServiceApi.csproj": {
+                "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexService\\ComplexServiceApi.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.2.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\revature\\housingxyz\\complexService\\ComplexService\\ComplexServiceApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\revature\\housingxyz\\complexService\\ComplexService\\ComplexServiceApi.csproj",
+        "projectName": "ComplexServiceApi",
+        "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexService\\ComplexServiceApi.csproj",
+        "packagesPath": "C:\\Users\\MarkC\\.nuget\\packages\\",
+        "outputPath": "C:\\revature\\housingxyz\\complexService\\ComplexService\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MarkC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj": {
+                "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceDatabase\\ComplexServiceDatabase.csproj"
+              },
+              "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj": {
+                "projectPath": "C:\\revature\\housingxyz\\complexService\\ComplexServiceLogic\\ComplexServiceLogic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

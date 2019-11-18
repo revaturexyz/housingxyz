@@ -18,42 +18,12 @@ namespace Revature.Address.DataAccess.Entities
     {
       modelBuilder.Entity<Address>(entity =>
       {
-        entity.Property(e => e.Street).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.City).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.State).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.Country).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.ZipCode).IsRequired().HasMaxLength(50);
-
-        entity.HasData
-        (
-          new Address
-          {
-            Id = Guid.NewGuid(),
-            Street = "123 1st Ave",
-            City = "Arlinton",
-            State = "TX",
-            Country = "USA",
-            ZipCode = "76010"
-          },
-          new Address
-          {
-            Id = Guid.NewGuid(),
-            Street = "123 2st Ave",
-            City = "Arlinton",
-            State = "TX",
-            Country = "USA",
-            ZipCode = "76010"
-          },
-          new Address
-          {
-            Id = Guid.NewGuid(),
-            Street = "123 2st Ave",
-            City = "Arlinton",
-            State = "TX",
-            Country = "USA",
-            ZipCode = "76010"
-          }
-        );
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Street).IsRequired();
+        entity.Property(e => e.City).IsRequired();
+        entity.Property(e => e.State).IsRequired();
+        entity.Property(e => e.Country).IsRequired();
+        entity.Property(e => e.ZipCode).IsRequired().HasMaxLength(5);
       });
     }
   }

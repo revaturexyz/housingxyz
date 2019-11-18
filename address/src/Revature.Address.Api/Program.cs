@@ -1,11 +1,13 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Revature.Address.DataAccess.Entities;
 using Serilog;
 using Serilog.Events;
+using Revature.Address.DataAccess.Entities;
 
 namespace Revature.Address.Api
 {
@@ -19,6 +21,7 @@ namespace Revature.Address.Api
       {
         Log.Information("Building web host");
         using var host = CreateHostBuilder(args).Build();
+        await EnsureDatabaseCreatedAsync(host);
 
         Log.Information("Starting web host");
         await host.RunAsync();
