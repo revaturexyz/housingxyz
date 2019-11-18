@@ -18,7 +18,7 @@ namespace Revature.Room.DataAccess.Tests
       //arrange
       var mockRepo = new Mock<IRepository>();
       var mockServiceBus = new Mock<IServiceBusSender>();
-      mockRepo.Setup<Task<IEnumerable<Lib.Room>>>(r => r.GetFilteredRooms(
+      mockRepo.Setup<Task<IEnumerable<Lib.Room>>>(r => r.GetFilteredRoomsAsync(
         It.IsAny<Guid>(),
         It.IsAny<string>(),
         It.IsAny<int>(),
@@ -34,7 +34,7 @@ namespace Revature.Room.DataAccess.Tests
         ));
       var controller = new RoomsController(mockRepo.Object, mockServiceBus.Object);
       //act
-      var result = await controller.GetFilteredRooms(Guid.NewGuid(), "", 1, "", "", DateTime.Now);
+      var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now);
 
       //assert
       Assert.IsAssignableFrom<OkObjectResult>(result);

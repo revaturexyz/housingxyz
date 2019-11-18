@@ -63,7 +63,7 @@ namespace ServiceBusMessaging
           // Persist our new data into the repository but not if Deserialization throws exception
           //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible
 
-          await _repo.CreateRoom(myRoom);
+          await _repo.CreateRoomAsync(myRoom);
 
         }
         catch (Exception ex)

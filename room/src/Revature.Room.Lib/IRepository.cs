@@ -6,7 +6,7 @@ namespace Revature.Room.Lib
 {
   public interface IRepository
   {
-    Task<IEnumerable<Room>> GetFilteredRooms(
+    Task<IEnumerable<Room>> GetFilteredRoomsAsync(
       Guid complexId,
       string roomNumber,
       int? numberOfBeds,
@@ -14,12 +14,14 @@ namespace Revature.Room.Lib
       string gender,
       DateTime? endDate);
 
-    public Task CreateRoom(Room myRoom);
+    public Task CreateRoomAsync(Room myRoom);
 
-    public Task<List<Room>> ReadRoom(Guid roomId);
+    public Task<List<Room>> ReadRoomAsync(Guid roomId);
 
-    public Task UpdateRoom(Room myRoom);
+    public Task UpdateRoomAsync(Room myRoom);
 
-    public Task DeleteRoom(Guid roomId);
+    public Task DeleteRoomAsync(Guid roomId);
+
+    public Task SaveAsync();
   }
 }

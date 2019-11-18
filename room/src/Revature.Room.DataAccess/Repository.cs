@@ -20,14 +20,14 @@ namespace Revature.Room.DataAccess
       _map = mapper;
     }
 
-    public async Task CreateRoom(Lib.Room myRoom)
+    public async Task CreateRoomAsync(Lib.Room myRoom)
     {
       Data.Room roomEntity = _map.ParseRoom(myRoom);
       await _context.AddAsync(roomEntity);
       await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Lib.Room>> ReadRoom(Guid roomId)
+    public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
     {
       //if Guid does not exist then it will return all rooms
       if (roomId == null)
@@ -47,7 +47,7 @@ namespace Revature.Room.DataAccess
     }
 
     //Update room by Guid
-    public async Task UpdateRoom(Lib.Room myRoom)
+    public async Task UpdateRoomAsync(Lib.Room myRoom)
     {
       Data.Room roomEntity = await _context.Room.Where(r => r.RoomID == myRoom.RoomID)
         .Include(r => r.Gender)
@@ -59,18 +59,16 @@ namespace Revature.Room.DataAccess
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
 
-
-      await _context.SaveChangesAsync();
     }
 
     //Deletes room by id
-    public async Task DeleteRoom(Guid roomId)
+    public async Task DeleteRoomAsync(Guid roomId)
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);
     }
 
-    public async Task<IEnumerable<Lib.Room>> GetFilteredRooms(
+    public async Task<IEnumerable<Lib.Room>> GetFilteredRoomsAsync(
       Guid complexId,
       string roomNumber,
       int? numberOfBeds,
@@ -102,9 +100,14 @@ namespace Revature.Room.DataAccess
       return _map.ParseRooms(rooms);
     }
 
-    public Task ReadRoom(Lib.Room myRoom)
+    /// <summary>
+    /// Persist changes to the database. Called after a unit of work has been completed.
+    /// </summary>
+    /// <returns></returns>
+    public async Task SaveAsync()
     {
-      throw new NotImplementedException();
+      await _context.SaveChangesAsync();
     }
+
   }
 }
