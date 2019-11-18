@@ -29,14 +29,7 @@ namespace Revature.Address.Lib
     }
     public string Street
     {
-      get
-      {
-
-        if (_street == null)
-          throw new ArgumentException("Street is not set", nameof(_street));
-
-        return _street;
-      }
+      get => _street;
       set
       {
         if (value == "")
@@ -47,13 +40,7 @@ namespace Revature.Address.Lib
     }
     public string City
     {
-      get
-      {
-        if (_city == null)
-          throw new ArgumentException("City is not set", nameof(_city));
-
-        return _city;
-      }
+      get => _city;
       set
       {
         if (value == "")
@@ -64,14 +51,7 @@ namespace Revature.Address.Lib
     }
     public string State
     {
-      get
-      {
-
-        if (_state == null)
-          throw new ArgumentException("State is not set", nameof(_city));
-
-        return _state;
-      }
+      get => _state;
       set
       {
         if (value == "")
@@ -82,14 +62,7 @@ namespace Revature.Address.Lib
     }
 
     public string Country {
-      get
-      {
-
-        if (_country == null)
-          throw new ArgumentException("State is not set", nameof(_city));
-
-        return _country;
-      }
+      get => _country;
       set
       {
         if (value == "")
@@ -102,14 +75,7 @@ namespace Revature.Address.Lib
 
     public string ZipCode
     {
-      get
-      {
-
-        if (_zipCode == null)
-          throw new ArgumentException("Zip code is not set", nameof(_zipCode));
-
-        return _zipCode;
-      }
+      get => _zipCode;
       set
       {
         if (value == "")

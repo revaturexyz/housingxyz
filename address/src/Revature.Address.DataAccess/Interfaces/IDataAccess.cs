@@ -8,6 +8,7 @@ namespace Revature.Address.Lib.Interfaces
   {
     public Task AddAddressAsync(Address address);
     public Task<ICollection<Address>> GetAddressesAsync(Guid? id = null, Address address = null);
+    public Task<bool> DeleteAddressAsync(Guid id);
     public Task SaveAsync();
   }
 }
