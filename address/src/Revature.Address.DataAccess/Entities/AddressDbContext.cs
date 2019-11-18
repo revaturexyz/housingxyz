@@ -18,11 +18,12 @@ namespace Revature.Address.DataAccess.Entities
     {
       modelBuilder.Entity<Address>(entity =>
       {
-        entity.Property(e => e.Street).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.City).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.State).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.Country).IsRequired().HasMaxLength(50);
-        entity.Property(e => e.ZipCode).IsRequired().HasMaxLength(50);
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Street).IsRequired();
+        entity.Property(e => e.City).IsRequired();
+        entity.Property(e => e.State).IsRequired();
+        entity.Property(e => e.Country).IsRequired();
+        entity.Property(e => e.ZipCode).IsRequired().HasMaxLength(5);
       });
     }
   }
