@@ -5,6 +5,7 @@ using Moq;
 using Revature.Complex.Lib.Models;
 using Revature.Complex.Lib.Interface;
 using Xunit;
+using Revature.Complex.Api.Controllers;
 
 namespace Revature.Complex.Tests.ApiTests
 {
