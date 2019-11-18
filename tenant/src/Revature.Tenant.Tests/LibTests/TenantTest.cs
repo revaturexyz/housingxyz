@@ -8,7 +8,9 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void Tenant_Id_Test()
     {
-      Assert.Throws<ArgumentException>(() => new Lib.Models.Tenant { Id = -1 });
+      Guid newG = new Guid();
+      Lib.Models.Tenant tenant = new Lib.Models.Tenant { Id = newG };
+      Assert.Equal(newG, tenant.AddressId);
     }
 
     [Fact]
@@ -26,7 +28,9 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void Tenant_Room_Id_Empty()
     {
-      Assert.Throws<ArgumentException>(() => new Lib.Models.Tenant { RoomId = -1 });
+      Guid newG = new Guid();
+      Lib.Models.Tenant tenant = new Lib.Models.Tenant { RoomId = newG };
+      Assert.Equal(newG, tenant.AddressId);
     }
 
     [Fact]

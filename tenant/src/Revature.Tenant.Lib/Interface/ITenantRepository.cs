@@ -20,7 +20,7 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
     /// <returns>A tenant</returns>
-    public Task<Models.Tenant> GetByIdAsync(int id);
+    public Task<Models.Tenant> GetByIdAsync(Guid id);
 
     /// <summary>
     /// Gets a list of all tenants
@@ -32,7 +32,7 @@ namespace Revature.Tenant.Lib.Interface
     /// Deletes a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
-    public Task DeleteByIdAsync(int id);
+    public Task DeleteByIdAsync(Guid id);
 
     /// <summary>
     /// Updates values associated to a tenant.

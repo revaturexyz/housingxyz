@@ -43,7 +43,8 @@ namespace Revature.Tenant.Api.Controllers
         LastName = t.LastName,
         AddressId = t.AddressId,
         RoomId = t.RoomId,
-        CarId = t.CarId
+        CarId = t.CarId,
+        BatchId = t.BatchId
       }).ToList();
     }
 
@@ -58,7 +59,7 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ApiTenant>> GetByIdAsync([FromRoute] int id)
+    public async Task<ActionResult<ApiTenant>> GetByIdAsync([FromRoute] Guid id)
     {
       try
       {
@@ -72,7 +73,8 @@ namespace Revature.Tenant.Api.Controllers
           LastName = tenant.LastName,
           AddressId = tenant.AddressId,
           RoomId = tenant.RoomId,
-          CarId = tenant.CarId
+          CarId = tenant.CarId,
+          BatchId = tenant.BatchId
         };
 
         return Ok(apiTenant);
@@ -108,7 +110,8 @@ namespace Revature.Tenant.Api.Controllers
           LastName = tenant.LastName,
           AddressId = tenant.AddressId,
           RoomId = tenant.RoomId,
-          CarId = tenant.CarId
+          CarId = tenant.CarId,
+          BatchId = tenant.BatchId
         };
 
         await _tenantRepository.AddAsync(newTenant);
@@ -125,7 +128,8 @@ namespace Revature.Tenant.Api.Controllers
           LastName = tenant.LastName,
           AddressId = tenant.AddressId,
           RoomId = tenant.RoomId,
-          CarId = tenant.CarId
+          CarId = tenant.CarId,
+          BatchId = tenant.BatchId
         };
 
         return Created($"api/Tenant/{apiTenant.Id}", apiTenant);

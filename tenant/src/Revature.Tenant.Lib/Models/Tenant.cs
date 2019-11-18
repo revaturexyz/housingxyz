@@ -7,25 +7,26 @@ namespace Revature.Tenant.Lib.Models
   /// </summary>
   public class Tenant
   {
-    private int _id;
+    private Guid _id;
     private string _email;
     private string _gender;
     private string _firstName;
     private string _lastName;
     private Guid _addressId;
-    private int _roomId;
+    private Guid _roomId;
     private int _carId;
+    private int _batchId;
 
     public Car Car { get; set; }
 
-    public int Id
+    public Guid Id
     {
       get => _id;
       set
       {
-        if (value < 0)
+        if (value == Guid.Empty)
         {
-          throw new ArgumentException("Id must not be negative", nameof(value));
+          throw new ArgumentException("Id must not be empty", nameof(value));
         }
 
         _id = value;
@@ -98,17 +99,15 @@ namespace Revature.Tenant.Lib.Models
     }
 
 
-    public int RoomId
+    public Guid RoomId
     {
       get => _roomId;
       set
       {
-        if (value < 0)
+        if (value == Guid.Empty)
         {
-          throw new ArgumentException("Room Id must not be negative", nameof(value));
+          throw new ArgumentException("Room Id must not be empty", nameof(value));
         }
-
-        _roomId = value;
       }
     }
 
@@ -126,8 +125,42 @@ namespace Revature.Tenant.Lib.Models
       }
     }
 
-    public string Gender { get; set; }
+    public string Gender
+    {
+      get
+      {
+        if (_gender == null)
+        {
+          throw new ArgumentException("Gender is not set", nameof(_gender));
+        }
+
+        return _gender;
+      }
+      set
+      {
+        if (value == "")
+        {
+          throw new ArgumentException("Gender Must not be empty", nameof(value));
+        }
+
+        _gender = value;
+      }
+    }
     public string FullName { get => FirstName + " " + LastName; }
-    public Guid AddressId { get; set; }
+    public Guid AddressId { get => _addressId; set => _addressId = value; }
+    public int BatchId
+    {
+      get => _batchId;
+      set
+      {
+        if (value < 0)
+        {
+          throw new ArgumentException("Batch Id must not be negative", nameof(value));
+        }
+
+        _batchId = value;
+      }
+    }
+
   }
 }

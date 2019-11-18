@@ -10,6 +10,8 @@ namespace Revature.Tenant.DataAccess.Entities
 
     public virtual DbSet<Tenants> Tenants { get; set; }
     public virtual DbSet<Cars> Cars { get; set; }
+
+    public virtual DbSet<Batches> Batches { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<Tenants>(entity =>
@@ -19,6 +21,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.Gender).IsRequired();
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
+        entity.Property(t => t.BatchId).IsRequired();
         entity.HasOne(t => t.Cars).WithMany(c => c.Tenants).HasForeignKey(t => t.CarId);
       });
 
@@ -31,6 +34,15 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(c => c.Color).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Year).IsRequired();
       });
+
+      builder.Entity<Batches>(entity =>
+     {
+       entity.HasKey(b => b.Id);
+       entity.Property(b => b.BatchLanguage).IsRequired().HasMaxLength(100);
+       entity.Property(b => b.StartDate).IsRequired();
+       entity.Property(b => b.EndDate).IsRequired();
+
+     });
     }
   }
 }
