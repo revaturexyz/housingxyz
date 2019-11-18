@@ -22,7 +22,7 @@ namespace Revature.Complex.Tests.ApiTests
 
       //act
       var controller = new AmenityController(_complexRepo.Object);
-      var model = Assert.IsType<List<Amenity>>(await controller.GetAmenitiestAsync());
+      var model = Assert.IsType<List<Amenity>>(await controller.GetAmenitiesAsync());
 
       //assert
       Assert.IsType<List<Amenity>>(model);

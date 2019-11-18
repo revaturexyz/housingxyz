@@ -167,7 +167,7 @@ namespace Revature.Complex.DataAccess.Repository
 
     }
 
-    public async Task<List<Logic.Complex>> ReadComplexByProviderID(Guid pId)
+    public async Task<List<Logic.Complex>> ReadComplexByProviderIdAsync(Guid pId)
     {
       List<Entity.Complex> complices = await _context.Complex.Where(c => c.ProviderId == pId).ToListAsync();
 
@@ -180,8 +180,14 @@ namespace Revature.Complex.DataAccess.Repository
       {
         Entity.Amenity eAmenity = await _context.Amenity.FindAsync(amenity.AmenityId);
 
-        eAmenity.AmenityType = amenity.AmenityType;
-        eAmenity.Description = amenity.Description;
+        if (amenity.AmenityType != null)
+        {
+          eAmenity.AmenityType = amenity.AmenityType;
+        }
+        if (amenity.Description != null)
+        {
+          eAmenity.Description = amenity.Description;
+        }
 
         _context.Amenity.OrderBy(a => a.AmenityId);
         await _context.SaveChangesAsync();
@@ -205,21 +211,12 @@ namespace Revature.Complex.DataAccess.Repository
 
         return "Amenity deleted";
       }
-      catch( ArgumentNullException ex )
+      catch (InvalidOperationException ex)
       {
-        Entity.Amenity dAmenity1 = _context.Amenity.Where(a => a.AmenityType == amenity.AmenityType
-                                                           || a.Description == amenity.Description)
-                                                  .AsNoTracking().First();
-        _context.Remove(dAmenity1);
-
-        await _context.SaveChangesAsync();
-
-        return "Amenity deleted";
+        return "cannot find target amenity to delete";
       }
-      catch( ArgumentException ex)
-      {
-        throw;
-      }
+
+
     }
   }//end of class
 }

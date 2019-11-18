@@ -67,7 +67,7 @@ namespace Revature.Complex.Api.Controllers
 
         foreach (var type in apiComplex.ComplexAmentiy)
         {
-          int id = 1; //_complexRepository.ReadAmenittiesbyString(type);
+          Guid id = Guid.NewGuid(); //_complexRepository.ReadAmenittiesbyString(type);
           AmenityComplex.AmenityId = id;
           AmenityComplex.ComplexId = complex.ComplexId;
 
@@ -175,7 +175,7 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderID(providerId);
+        List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderIdAsync(providerId);
         List<List<Logic.Amenity>> amenities = new List<List<Logic.Amenity>>();
 
         foreach( Logic.Complex complex in complices)

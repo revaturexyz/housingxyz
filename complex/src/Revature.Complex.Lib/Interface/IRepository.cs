@@ -18,7 +18,7 @@ namespace Revature.Complex.Lib.Interface
     public Task<List<Logic.Amenity>> ReadAmenityListAsync();
     public Task<List<Logic.Amenity>> ReadAmenityListByComplexIdAsync(Guid guid);
     public Task<List<Logic.Amenity>> ReadAmenityListByRoomIdAsync(Guid roomId);
-    public Task<List<Logic.Complex>> ReadComplexByProviderID(Guid pId);
+    public Task<List<Logic.Complex>> ReadComplexByProviderIdAsync(Guid pId);
     public Task<string> UpdateAmenityAsync(Logic.Amenity amenity);
     public Task<string> DeleteAmenityAsync(Logic.Amenity amenity);
   }

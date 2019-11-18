@@ -7,7 +7,7 @@ namespace Revature.Complex.Api.Models
 {
   public class ApiAmenity
   {
-    public int AmenityId { get; set; }
+    public Guid AmenityId { get; set; }
     public string AmenityType { get; set; }
     public string Description { get; set; }
     
