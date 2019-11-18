@@ -13,6 +13,8 @@ namespace Revature.Tenant.Lib.Interface
     /// Adds a new tenant object as well as its associated properties.
     /// </summary>
     /// <param name="tenant">The Tenant</param>
+    /// <exception cref="System.ArgumentNullException">Thrown when tenant is null
+    /// <exception cref="System.ArgumentException">Thrown when tenant info is incorrect
     public Task AddAsync(Models.Tenant tenant);
 
     /// <summary>
@@ -20,6 +22,7 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
     /// <returns>A tenant</returns>
+    /// <exception cref="System.ArgumentOutOfRangeException">Thrown when id does not exist
     public Task<Models.Tenant> GetByIdAsync(int id);
 
     /// <summary>
@@ -32,12 +35,14 @@ namespace Revature.Tenant.Lib.Interface
     /// Deletes a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
+    /// <exception cref="System.ArgumentOutOfRangeException">Thrown when id does not exist
     public Task DeleteByIdAsync(int id);
 
     /// <summary>
     /// Updates values associated to a tenant.
     /// </summary>
     /// <param name="tenant">The tenant with changed values</param>
+    /// <exception cref="System.ArgumentException">Thrown when tenant info is incorrect
     public Task UpdateAsync(Models.Tenant tenant);
 
     /// <summary>
