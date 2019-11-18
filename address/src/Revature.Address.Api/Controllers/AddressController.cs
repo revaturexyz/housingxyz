@@ -51,7 +51,7 @@ namespace Revature.Address.Api.Controllers
 
     [HttpPost]
     [Filters.GoogleAddressValidator]
-    public async Task<ActionResult> PostUser([FromQuery] AddressModel address)
+    public async Task<ActionResult> PostUser([FromBody] AddressModel address)
     {
       //if (ModelState.IsValid)
       //{
@@ -76,7 +76,8 @@ namespace Revature.Address.Api.Controllers
         {
           return BadRequest($"{ex.Message}");
         }
-      //} else
+      //}
+      //else
       //{
       //  return BadRequest("Invalid Address");
       //}
