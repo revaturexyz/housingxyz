@@ -17,7 +17,7 @@ describe('InterceptorService', () => {
   // let service: DataService;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  const authService: any = {getTokenSilently$: Observable.of("token")};
+  const authService: any = {getTokenSilently$: Observable.of('token')};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
