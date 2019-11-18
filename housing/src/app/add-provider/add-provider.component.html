@@ -1,0 +1,164 @@
+<div class="add-provider-outer">
+    <div class="add-provider-inner">
+      <div id="add-provider-title">
+        <h3>Add a Provider</h3>
+      </div>
+
+      <hr>
+      <!-- Start of form -->
+    <form id="AddProviderForm">
+
+      <!--Start of Company Name-->
+        <div class="form-group">
+          <label for="providerName">Company Name</label>
+          <input type="text"
+            id="companyName"
+            name="companyName"
+            #companyName="ngModel"
+            [(ngModel)]="formProvider.companyName"
+            class="form-control"
+            aria-describedby="companyName"
+            required>
+          <!-- Dirty is so the error message is not displayed when the page first loads  -->
+          <div *ngIf="companyName.invalid && companyName.dirty" class="alert alert-danger">
+            Your Company's name is required.
+          </div>
+        </div>
+        <!--End of Company Name-->
+
+      <!-- Start of phone number input -->
+      <div class="form-group">
+          <label for="contactNumber">Contact Number</label>
+          <input type="text"
+          id="contactNumber"
+          name="contactNumber"
+          #contactNumber="ngModel"
+          [(ngModel)]="formProvider.contactNumber"
+          class="form-control"
+          aria-describedby="providerNumber"
+          required pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$">
+        </div>
+        <!-- The regular expression checks if the phone number is 10 consecutive digits or contains parenthesis or hyphens -->
+        <!-- 1234567890, (123) 456-7890, and 123-456-7890 are all valid phone number format patterns -->
+        <div *ngIf="contactNumber.invalid && contactNumber.dirty" class="alert alert-danger">
+          Phone number must be in a 10-digit format.
+        </div>
+      <!-- End of phone number input -->
+
+      <!-- Start of street address input -->
+      <div class="form-group">
+        <label for="streetAddress">Street Address</label>
+        <input type="text"
+        id="streetAddress"
+        name="streetAddress"
+        [(ngModel)]="formProvider.address.streetAddress"
+        #streetAddress="ngModel"
+        class="form-control"
+        aria-describedby="streetAddress"
+        required>
+        <!-- Dirty is so the error message is not displayed when the page first loads  -->
+        <div *ngIf="streetAddress.invalid && streetAddress.dirty" class="alert alert-danger">
+          Street address is required.
+        </div>
+      </div>
+      <!-- End of street address input -->
+
+      <!-- Start of city, state, and zip code inputs, because 6+2+4=12, all 3 inputs display on one row -->
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="city">City</label>
+          <input type="text"
+          id="city"
+          name="city"
+          [(ngModel)]="formProvider.address.city"
+          #city="ngModel"
+          class="form-control"
+          aria-describedby="city"
+          required>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="state">State</label>
+          <input type="text"
+            id="state"
+            name="state"
+            [(ngModel)]="formProvider.address.state"
+            #state="ngModel"
+            class="form-control"
+            aria-describedby="state"
+            required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="zipCode">ZIP Code</label>
+          <input type="text"
+          id="zipCode"
+          name="zipCode"
+          #zipCode="ngModel"
+          [(ngModel)]="formProvider.address.zipcode"
+          class="form-control"
+          aria-describedby="zipCode"
+          required pattern="[0-9]{5}">
+        </div>
+      </div>
+
+      <!-- Alerts that are displayed if any of the city, state, and/or zip code inputs are invalid -->
+      <div *ngIf="city.invalid && city.dirty" class="alert alert-danger">City is required.</div>
+      <div *ngIf="state.invalid && state.dirty" class="alert alert-danger">State is required.</div>
+      <div *ngIf="zipCode.invalid && zipCode.dirty" class="alert alert-danger">ZIP code is required and must have five digits.</div>
+      <!-- End of city, state, and zip code inputs -->
+
+      <hr>
+
+      <!-- Start of training center input select -->
+
+      <div class="form-group">
+        <label for="apiTrainingCenter">Select a Training Center</label>
+        <select
+        id="apiTrainingCenter"
+        name="apiTrainingCenter"
+        [(ngModel)]="selectOptionInvalid"
+        #apiTrainingCenter="ngModel"
+        class="form-control"
+        aria-describedby="apiTrainingCenter"
+        required>
+          <option value="" disabled>Select A Training Center</option>
+          <option *ngFor="let center of seededComplexes" [ngValue]="center">
+            {{ center.centerName + ' |  ' + center.contactNumber }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Start of markup for submit and cancel buttons -->
+      <div class="form-row">
+        <div class="col-md-6 form-group">
+          <!-- If any of the inputs are invalid, the submit button will be disabled -->
+          <button class="showAddressForm" [disabled]="contactNumber.invalid ||
+                  companyName.invalid ||
+									streetAddress.invalid ||
+									city.invalid ||
+									state.invalid ||
+                  zipCode.invalid ||
+                  apiTrainingCenter.invalid"
+                  (click)="postAddProvider()">
+            Submit
+          </button>
+        </div>
+        <div class="col-md-6 form-group">
+          <button class="showAddressForm" (click)="cancelAddProvider()">Cancel</button>
+        </div>
+      </div>
+      <!-- End of markup for submit and cancel buttons -->
+
+      <!-- When the user clicks the submit button, a method is called to verify that the address is an actual one -->
+      <!-- For example, 123 Not A Real Address St would cause this alert to proc -->
+
+      <!-- <div *ngIf="!isValidAddress" class="alert alert-danger">
+        The selected address is invalid. Please enter a valid address.
+      </div>
+      <div *ngIf="!isValidDistanceToTrainingCenter" class="alert alert-danger">
+        The distance between the living provider and training center cannot exceed twenty miles.
+      </div> -->
+
+    </form>
+    <!-- End of form -->
+  </div>
+</div>

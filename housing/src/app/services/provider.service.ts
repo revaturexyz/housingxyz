@@ -18,16 +18,7 @@ export class ProviderService {
 
   httpOptions: any;
 
-  constructor(
-    private httpBus: HttpClient,
-    msalService: MsalService
-  ) {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: msalService.getUser().userIdentifier
-      })
-    };
-  }
+  constructor(private httpBus: HttpClient) { }
 
   getProviders(): Observable<any> {
     const providerUrl = this.apiUrl + 'Provider';

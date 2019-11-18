@@ -1,0 +1,111 @@
+.outer {
+  width: 100%;
+  text-align: center;
+  padding: 100px;
+  background-image: url("https://engineering.stanford.edu/sites/default/files/styles/full_width_banner_tall/public/buildings-shape.jpg?itok=FWLFiW7H");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+hr {
+  margin: 3px;
+}
+
+.inner {
+  width: 50%;
+  background-color: white;
+  opacity: 0.9;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 50px;
+  border-radius: 5px;
+}
+
+.account-type  {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account-type-holder  {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account-type-header{
+  padding: 3px;
+  font-size: 12px;
+  font-style: italic;
+  color: black;
+  color: inherit;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+.records-container{
+  overflow-y: scroll;
+  max-height: 300px;
+  min-height: 250px;
+  margin-bottom: 3%;
+  padding-bottom: 3%;
+}
+
+.records-header{
+  padding: 3px;
+  font-size: 12px;
+  font-style: italic;
+  color: black;
+  border-bottom: 1px black solid;
+  color: inherit;
+  padding: 3px 15px;
+  width: 100%;
+  text-align: left;
+}
+
+.records-address{
+  border-bottom: 1px black solid;
+  margin-bottom: 16px;
+}
+
+.citystatezip{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.records-actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.records-btn {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10px;
+  color: black;
+  opacity: 0.7;
+}
+
+.notifications-header{
+  font-size: 10px;
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  color: inherit;
+  padding: 5px;
+  display:flex;
+  flex-direction: row;
+}
