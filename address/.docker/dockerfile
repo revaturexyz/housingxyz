@@ -24,7 +24,5 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:${DOTNET_VERSION} as deploy
 WORKDIR /api
 ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
-HEALTHCHECK --timeout=5s CMD curl --fail http://localhost/health || exit
 COPY --from=publish /src/dist/ ./
 CMD dotnet *.Api.dll
-
