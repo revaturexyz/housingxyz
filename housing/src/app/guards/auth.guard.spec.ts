@@ -13,16 +13,16 @@ class BlankComponent {
 
 describe('AuthGuard', () => {
   let injector: TestBed;
-  let authService: any = { isAuthenticated$: Observable.of(true)};
+  const authService: any = { isAuthenticated$: Observable.of(true)};
   let guard: AuthGuard;
-  let routeMock: any = { snapshot: {}};
-  let routeStateMock: any = { snapshot: {}, url: '/provider-select'};
-  let routerMock = {navigate: jasmine.createSpy('navigate')}
-  
+  const routeMock: any = { snapshot: {}};
+  const routeStateMock: any = { snapshot: {}, url: '/provider-select'};
+  const routerMock = {navigate: jasmine.createSpy('navigate')};
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AuthGuard, 
+      providers: [AuthGuard,
         { provide: Router, useValue: routerMock },
         { provide: AuthService, useValue: authService }]
     });
@@ -31,7 +31,7 @@ describe('AuthGuard', () => {
   injector = getTestBed();
   guard = new AuthGuard(authService);
 
-  it('should ...', inject([AuthGuard], (guard: AuthGuard) => {
+  it('should ...', inject([AuthGuard], () => {
     expect(guard).toBeTruthy();
   }));
 
@@ -39,7 +39,7 @@ describe('AuthGuard', () => {
     await (guard.canActivate(routeMock, routeStateMock) as Observable<boolean>).subscribe(res => {
       expect(res).toEqual(true);
       done();
-    })
+    });
   });
 });
 

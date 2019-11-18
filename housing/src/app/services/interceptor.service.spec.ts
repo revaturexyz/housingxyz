@@ -32,11 +32,11 @@ describe('InterceptorService', () => {
         multi: true,
       },
     ]
-  })
+  });
 
-  // service = TestBed.get(DataService);
-  httpMock = TestBed.get(HttpTestingController);
-});
+    // service = TestBed.get(DataService);
+    httpMock = TestBed.get(HttpTestingController);
+  });
 
   it('should be created', () => {
     const service: InterceptorService = TestBed.get(InterceptorService);
@@ -48,9 +48,9 @@ describe('InterceptorService', () => {
     service.getPosts().subscribe(response => {
       expect(response).toBeTruthy();
     });
-  
+
     const httpRequest = httpMock.expectOne(`${service.ROOT_URL}/posts`);
-  
+
     expect(httpRequest.request.headers.has('Authorization')).toEqual(true);
   });*/
 });
