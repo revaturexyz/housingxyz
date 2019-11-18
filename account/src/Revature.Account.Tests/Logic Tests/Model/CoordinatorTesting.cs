@@ -27,6 +27,14 @@ namespace Revature.Account.Test.Logic_Tests.Model
     }
 
     [Fact]
+    public void CoordinatorPasswordEmptyException()
+    {
+      string emptyString = "";
+
+      Assert.Throws<ArgumentException>(() => coordinator.Password = emptyString);
+    }
+
+    [Fact]
     public void CoordinatorEmailException()
     {
       string invalidEmail = "abcgmail.com";

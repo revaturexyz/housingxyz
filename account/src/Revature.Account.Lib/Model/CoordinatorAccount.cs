@@ -16,7 +16,7 @@ namespace Revature.Account.Lib.Model
 			get { return _name;  }
 			set
 			{
-				ValidateInput(value); // really need it?
+				ValidateInput(value);
 			}
 		}
 		public string Email
@@ -40,7 +40,7 @@ namespace Revature.Account.Lib.Model
       get { return _password; }
       set
       {
-
+        ValidateInput(value);
       }
     }
 		public string TrainingName { get; set; }
@@ -57,7 +57,6 @@ namespace Revature.Account.Lib.Model
 			{
 				throw new ArgumentException("Your Input cannot be empty string.", nameof(value));
 			}
-
 		}
 	}
 }
