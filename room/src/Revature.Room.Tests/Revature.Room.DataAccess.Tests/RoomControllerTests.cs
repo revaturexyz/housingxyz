@@ -18,6 +18,7 @@ namespace Revature.Room.DataAccess.Tests
       //arrange
       var mockRepo = new Mock<IRepository>();
       var mockServiceBus = new Mock<IServiceBusSender>();
+
       mockRepo.Setup<Task<IEnumerable<Lib.Room>>>(r => r.GetFilteredRoomsAsync(
         It.IsAny<Guid>(),
         It.IsAny<string>(),
@@ -30,7 +31,6 @@ namespace Revature.Room.DataAccess.Tests
           {
             new Lib.Room()
           }
-
         ));
       var controller = new RoomsController(mockRepo.Object, mockServiceBus.Object);
       //act
@@ -38,6 +38,21 @@ namespace Revature.Room.DataAccess.Tests
 
       //assert
       Assert.IsAssignableFrom<OkObjectResult>(result);
+    }
+
+    [Fact]
+    public async Task DeleteRoomAsyncShouldDeleteRoom()
+    {
+      var mockRepo = new Mock<IRepository>();
+      var mockServiceBus = new Mock<IServiceBusSender>();
+
+      Guid testGuid = Guid.NewGuid();
+
+
+      var controller = new RoomsController(mockRepo.Object, mockServiceBus.Object);
+      var result = await controller.DeleteRoomAsync(testGuid);
+
+      Assert.IsAssignableFrom<NoContentResult>(result);
     }
   }
 }

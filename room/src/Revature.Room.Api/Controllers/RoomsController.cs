@@ -128,7 +128,7 @@ namespace Revature.Room.Api.Controllers
 
       await _busSender.SendDeleteMessage(ro);
 
-      return Ok(ro);
+      return NoContent();
     }
   }
 }
