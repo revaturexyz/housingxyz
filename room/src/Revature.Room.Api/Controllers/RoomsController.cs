@@ -71,13 +71,14 @@ namespace Revature.Room.Api.Controllers
 
     [HttpPost]
     public async Task<IActionResult> PostRoomAsync
-      ([FromBody, Bind("ComplexID, RoomID, RoomNumber, NumberOfBeds, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
+      ([FromBody, Bind("ComplexID, RoomID, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
     {
       Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room {
         ComplexID = room.ComplexID,
         RoomID = room.RoomID,
         RoomNumber = room.RoomNumber,
         NumberOfBeds = room.NumberOfBeds,
+        NumberOfOccupants = room.NumberOfOccupants,
         Gender = room.Gender,
         RoomType = room.RoomType,
         LeaseStart = room.LeaseStart,
@@ -105,6 +106,7 @@ namespace Revature.Room.Api.Controllers
       Revature.Room.Lib.Room newRo = new Revature.Room.Lib.Room
       {
         Gender = Lroom.Gender,
+        NumberOfOccupants = Lroom.NumberOfOccupants,
         LeaseStart = Lroom.LeaseStart,
         LeaseEnd = Lroom.LeaseEnd
       };

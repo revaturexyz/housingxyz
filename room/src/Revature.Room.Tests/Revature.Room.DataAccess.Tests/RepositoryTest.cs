@@ -24,8 +24,13 @@ namespace Revature.Room.Tests
     private string newRoomNumber = "2002";
     private string newRoomType = "Dormitory";
     private int newNumOfBeds = 4;
+
+    private int newNumOfOccupants = 2;
+
     private DateTime newLeaseStart = new DateTime(2000, 1, 1);
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
+
+    private DateTime endDate = new DateTime(2001, 3, 15);
 
     /* End of Room Properties */
 
@@ -40,6 +45,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = newRoomType,
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -56,6 +62,23 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = context.RoomType.FirstOrDefault(g => g.Type == newRoomType),
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
+        LeaseStart = newLeaseStart,
+        LeaseEnd = newLeaseEnd
+      };
+    }
+
+    private DataAccess.Entities.Room PresetEntityRoom2(RoomServiceContext context)
+    {
+      return new Revature.Room.DataAccess.Entities.Room
+      {
+        RoomID = newRoomID,
+        ComplexID = newComplexID,
+        Gender = context.Gender.FirstOrDefault(g => g.Type == "Male"),
+        RoomNumber = newRoomNumber,
+        RoomType = context.RoomType.FirstOrDefault(g => g.Type == newRoomType),
+        NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -83,6 +106,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = newRoomType,
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -143,6 +167,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == newRoomType),
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -167,6 +192,48 @@ namespace Revature.Room.Tests
     }
 
     [Fact]
+    public async Task UpdateRoomUpdatesOccupants()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("UpdateRoomUpdatesOccupants")
+      .Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      var mapper = new DBMapper(testContext);
+      testContext.Database.EnsureCreated();
+
+      var oldRoom = new Revature.Room.DataAccess.Entities.Room
+      {
+        RoomID = newRoomID,
+        ComplexID = newComplexID,
+        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
+        RoomNumber = newRoomNumber,
+        RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == newRoomType),
+        NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = 4,
+        LeaseStart = newLeaseStart,
+        LeaseEnd = newLeaseEnd
+      };
+
+      var updatedRoom = PresetBLRoom();
+
+      testContext.Add(oldRoom);
+      await testContext.SaveChangesAsync();
+
+      using var actContext = new RoomServiceContext(options);
+
+      Repository repo = new Repository(actContext, mapper);
+
+      await repo.UpdateRoomAsync(updatedRoom);
+      await actContext.SaveChangesAsync();
+
+      var assertRoom = actContext.Room.Find(oldRoom.RoomID);
+
+      Assert.Equal(2, assertRoom.NumberOfOccupants);
+
+    }
+
+    [Fact]
     public async Task RepoReadCheckGenderTest()
     {
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
@@ -185,6 +252,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == newRoomType),
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -220,6 +288,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == newRoomType),
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -282,6 +351,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == "Dormitory"),
         NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -289,18 +359,43 @@ namespace Revature.Room.Tests
       testContext.Add(newRoom1);
       testContext.Add(newRoom2);
       testContext.SaveChanges();
-      //await repo.CreateRoom(newRoom);
 
       using var assertContext = new RoomServiceContext(options);
       var repo = new Repository(assertContext, mapper); 
-      //testContext = new RoomServiceContext(options);
 
       await repo.DeleteRoomAsync(newRoomID2);
       assertContext.SaveChanges();
 
       Assert.Null(assertContext.Room.Find(newRoomID2));
 
-      //Assert.
+    }
+
+    [Fact]
+    public async Task RepoGetVacantShouldReturnAvailableRoomsBasedOnFilter()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("RepoGetVacantFilter")
+      .Options;
+
+      using RoomServiceContext assembleContext = new RoomServiceContext(options);
+      var mapper = new DBMapper(assembleContext);
+
+      var newRoom = PresetEntityRoom(assembleContext);
+      var newRoom2 = PresetEntityRoom2(assembleContext);
+
+      assembleContext.Add(newRoom);
+      assembleContext.Add(newRoom2);
+      assembleContext.SaveChanges();
+
+      using var actContext = new RoomServiceContext(options);
+      var repo = new Repository(actContext, mapper);
+
+      await repo.GetVacantFilteredRoomsByGenderandEndDateAsync("Female", endDate);
+      assembleContext.SaveChanges();
+
+      var assertContext = new RoomServiceContext(options);
+
+      Assert.Null(assertContext.Room.Find(newRoomID));
     }
 
   }
