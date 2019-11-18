@@ -108,5 +108,9 @@ namespace Revature.Room.DataAccess
       await _context.SaveChangesAsync();
     }
 
+    public async Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
+    {
+      return await _context.Room.Where(r => r.Gender.Type == gender && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds).Select(r => r.RoomID).ToListAsync();
+    }
   }
 }

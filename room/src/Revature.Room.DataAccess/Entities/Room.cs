@@ -13,7 +13,7 @@ namespace Revature.Room.DataAccess.Entities
 
     [Range(1, int.MaxValue)]
     public int NumberOfBeds { get; set; }
-
+    public int NumberOfOccupants { get; set; }
     public Gender Gender { get; set; }
 
     public RoomType RoomType { get; set; }

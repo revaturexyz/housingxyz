@@ -23,5 +23,6 @@ namespace Revature.Room.Lib
     public Task DeleteRoomAsync(Guid roomId);
 
     public Task SaveAsync();
+    public Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate);
   }
 }

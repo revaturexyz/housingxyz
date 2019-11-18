@@ -24,7 +24,8 @@ namespace Revature.Room.DataAccess
         RoomType = Room.RoomType.Type,
         NumberOfBeds = Room.NumberOfBeds,
         LeaseStart = Room.LeaseStart,
-        LeaseEnd = Room.LeaseEnd
+        LeaseEnd = Room.LeaseEnd,
+        NumberOfOccupants = Room.NumberOfOccupants
       };
     }
 
@@ -39,7 +40,8 @@ namespace Revature.Room.DataAccess
         RoomType = getRoomtype(Room.RoomType),
         NumberOfBeds = Room.NumberOfBeds,
         LeaseStart = Room.LeaseStart,
-        LeaseEnd = Room.LeaseEnd
+        LeaseEnd = Room.LeaseEnd,
+        NumberOfOccupants = Room.NumberOfOccupants
       };
     }
 
