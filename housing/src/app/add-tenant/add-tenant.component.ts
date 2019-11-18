@@ -20,7 +20,13 @@ export class AddTenantComponent implements OnInit {
     ) { }
 
   async postTenantOnSubmit() {
-    this.coordService.PostTenant();
+    try{
+      await this.coordService.PostTenant(this.tenant);
+      this.router.navigate(['show-tenant']);
+    } catch(err)
+    {
+      console.log(err);
+    }
   }
   // Posts a room to the date base.
   // async postRoomOnSubmit() {
