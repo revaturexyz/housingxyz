@@ -25,10 +25,6 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
-import { AddProviderComponent } from './add-provider/add-provider.component';
-import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
-import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { CoordinatorModule } from './coordinator.module';
 
 @NgModule({
@@ -43,10 +39,7 @@ import { CoordinatorModule } from './coordinator.module';
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent,
-    AddProviderComponent,
-    CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    RequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +58,6 @@ import { CoordinatorModule } from './coordinator.module';
     StickyNavModule,
     BrowserAnimationsModule,
     MatRippleModule,
-    NgxPaginationModule,
     CoordinatorModule
   ],
   providers: [
