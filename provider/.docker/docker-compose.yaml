@@ -1,0 +1,36 @@
+# providerxyz :: docker-compose
+#Docker yaml version
+version: '3.7'
+
+networks:
+  providerxyz_localhost:
+services: #Runs 2 services. Web and Data
+  data:
+    image: postgres:12.0
+    networks:
+      - providerxyz_localhost
+    environment:
+      POSTGRES_PASSWORD: 'Pass@word'
+      POSTGRES_DB: 'provider'
+  web:
+    #Tells it where to build from. Finds the dockerfile in the directory
+    build:
+      context: ..
+      dockerfile: .docker/dockerfile
+    #uses the providerxyz image
+    image: providerxyz
+    #self explanitory. Depends on the data service to run
+    depends_on:
+      - data
+    #runs on port 10080:80
+    ports:
+      - 10080:80
+    #Uses the providerxyz_localhost network localhost
+    networks:
+      - providerxyz_localhost
+    #deploys 1 replica
+    deploy:
+      replicas: 1
+    #Environment variables; in this case, a connection string for the DB
+    environment:
+      ConnectionStrings__ProviderDb: 'Host=data;Database=provider;Username=postgres;Password=Pass@word'
