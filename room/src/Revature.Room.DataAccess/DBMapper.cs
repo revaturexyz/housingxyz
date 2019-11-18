@@ -1,5 +1,4 @@
 using Revature.Room.DataAccess.Entities;
-using Revature.Room.Lib;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +6,12 @@ namespace Revature.Room.DataAccess
 {
   public class DBMapper : IMapper
   {
+    private readonly RoomServiceContext _context;
+
+    public DBMapper(RoomServiceContext context)
+    {
+      _context = context;
+    }
 
     public Lib.Room ParseRoom(Entities.Room Room)
     {
@@ -29,19 +34,28 @@ namespace Revature.Room.DataAccess
       {
         RoomID = Room.RoomID,
         ComplexID = Room.ComplexID,
-        Gender = new Entities.Gender { Type = Room.Gender },
+        Gender = getGender(Room.Gender),
         RoomNumber = Room.RoomNumber,
-        RoomType = new Entities.RoomType { Type = Room.RoomType },
+        RoomType = getRoomtype(Room.RoomType),
         NumberOfBeds = Room.NumberOfBeds,
         LeaseStart = Room.LeaseStart,
         LeaseEnd = Room.LeaseEnd
       };
     }
 
+    private RoomType getRoomtype(string roomType)
+    {
+      return _context.RoomType.FirstOrDefault(r => r.Type == roomType);
+    }
+
+    private Gender getGender(string gender)
+    {
+      return _context.Gender.FirstOrDefault(g => g.Type == gender);
+    }
+
     public IEnumerable<Lib.Room> ParseRooms(IEnumerable<Entities.Room> roomsFromDB)
     {
       return roomsFromDB.Select(r => ParseRoom(r));
     }
-
   }
 }

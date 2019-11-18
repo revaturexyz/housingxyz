@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Revature.Room.DataAccess.Entities;
 using Revature.Room.DataAccess;
-using BusinessLogic = Revature.Room.Lib;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.Extensions.Logging;
+using Revature.Room.DataAccess.Entities;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+using BusinessLogic = Revature.Room.Lib;
 
 namespace Revature.Room.Tests
 {
@@ -51,7 +50,8 @@ namespace Revature.Room.Tests
         .Options;
 
       using var assembleContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DBMapper(assembleContext);
+      assembleContext.Database.EnsureCreated();
 
       var assembleRoom = new BusinessLogic.Room
       {
@@ -82,9 +82,8 @@ namespace Revature.Room.Tests
         .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
+      var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
-      var mapper = new DBMapper();
-      
 
       
       var newRoom = new Revature.Room.DataAccess.Entities.Room
@@ -99,12 +98,9 @@ namespace Revature.Room.Tests
         LeaseEnd = newLeaseEnd
       };
 
-      
+      testContext.Add(newRoom);
       Repository repo = new Repository(testContext, mapper);
 
-      testContext.Add(newRoom);
-
-      //ResultRoom is empty
       var resultRoom = await repo.ReadRoom(newRoomID);
 
       //Test passes,but it "fails" because resultRoom has nothing in it, but it references to something so
@@ -118,7 +114,7 @@ namespace Revature.Room.Tests
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>().UseInMemoryDatabase("UpdateRoom").Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
 
       var newRoom = new Revature.Room.DataAccess.Entities.Room
@@ -148,17 +144,13 @@ namespace Revature.Room.Tests
       testContext.Add(newRoom);
       await testContext.SaveChangesAsync();
 
-
       Repository repo = new Repository(testContext, mapper);
-
 
       await repo.UpdateRoom(updatedRoom);
 
       var assertRoom = testContext.Room.Find(newRoom.RoomID);
 
-
       Assert.Equal("Male", assertRoom.Gender.Type);
-
     }
 
     [Fact]
@@ -169,7 +161,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DBMapper(testContext);
       Repository repo = new Repository(testContext, mapper);
 
       var newRoom = new Revature.Room.DataAccess.Entities.Room
@@ -208,7 +200,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DBMapper(testContext);
       Repository repo = new Repository(testContext, mapper);
 
       var newRoom = new Revature.Room.DataAccess.Entities.Room

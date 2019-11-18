@@ -17,8 +17,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockBus = new Mock<IServiceBusSender>();
-
+      var mockServiceBus = new Mock<IServiceBusSender>();
       mockRepo.Setup<Task<IEnumerable<Lib.Room>>>(r => r.GetFilteredRooms(
         It.IsAny<Guid>(),
         It.IsAny<string>(),
@@ -33,7 +32,7 @@ namespace Revature.Room.DataAccess.Tests
           }
 
         ));
-      var controller = new RoomsController(mockRepo.Object, mockBus.Object);
+      var controller = new RoomsController(mockRepo.Object, mockServiceBus.Object);
       //act
       var result = await controller.GetFilteredRooms(Guid.NewGuid(), "", 1, "", "", DateTime.Now);
 
