@@ -6,6 +6,7 @@ import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { MsalGuard } from '@azure/msal-angular';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [MsalGuard] },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'provider-select', component: ProviderSelectComponent, canActivate: [MsalGuard] },
   { path: 'addroom', component: AddRoomComponent },
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
-  { path: 'add-complex', component: AddComplexComponent }
+  { path: 'add-complex', component: AddComplexComponent },
+  { path: 'manage-complex', component: ManageComplexComponent}
 ];
 
 @NgModule({
