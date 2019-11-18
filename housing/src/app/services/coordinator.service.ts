@@ -9,4 +9,15 @@ import { environment } from 'src/environments/environment';
 // Service for AJAX Calls to various Rest APIs needed by Coordinators
 export class CoordinatorService {
 
+  GetTenant() {}
+
+  GetTenantById() {}
+
+  GetTenantByGender() {}
+
+  PostTenant() {}
+
+  PutTenant() {}
+
+  DeleteTenant() {}
 }
