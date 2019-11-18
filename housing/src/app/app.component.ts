@@ -14,7 +14,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.auth.localAuthSetup();
     this.auth.handleAuthCallback();
-
-    this.auth.getUser$().subscribe( res => console.log(res));
   }
 }

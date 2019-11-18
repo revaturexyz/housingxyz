@@ -1,3 +1,7 @@
+// Auth0 Quickstart code taken from https://auth0.com/docs/quickstart/spa/angular2
+
+// Used to add tokens into headers of outgoing requests.
+
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,

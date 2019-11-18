@@ -1,3 +1,6 @@
+// These rules are currently in use at auth0.com and are listed here
+// for documentation purposes only.
+
 // Add permissions to tokens (turned off unless really needed)
 function (user, context, callback) {
     var map = require('array-map');

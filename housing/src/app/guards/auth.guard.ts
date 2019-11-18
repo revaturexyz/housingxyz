@@ -1,3 +1,6 @@
+// Auth0 Quickstart code taken from https://auth0.com/docs/quickstart/spa/angular2
+// Used to prevent unauthenticated users from accessing a page.
+
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';

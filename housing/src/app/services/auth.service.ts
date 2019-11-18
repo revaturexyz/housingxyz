@@ -1,3 +1,7 @@
+// Auth0 Quickstart code taken from https://auth0.com/docs/quickstart/spa/angular2
+
+// Used to access the Auth0 API.
+
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
