@@ -15,11 +15,11 @@ services:
     networks:
       - room_localhost
     environment:
-      ConnectionStrings__RoomService: 'Host=salt.db.elephantsql.com;Database=exsekkwz;User Id=exsekkwz;Password=L5bXnAwiTDGJcJWlbw9kG5Ym1-byePNQ'
+      ConnectionStrings__RoomDb: 'Host=data;Database=room;Username=postgres;Password=Pass@word'
   data:
     image: postgres:12.0
     networks:
       - room_localhost
     environment:
-      POSTGRES_PASSWORD: 'Password=L5bXnAwiTDGJcJWlbw9kG5Ym1-byePNQ'
+      POSTGRES_PASSWORD: 'Pass@word'
 version: '3.7'

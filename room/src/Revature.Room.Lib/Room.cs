@@ -15,6 +15,7 @@ namespace Revature.Room.Lib
         if (value > 0) _numberOfBeds = value;
       }
     }
+    public int NumberOfOccupants { get; set; }
     public string Gender { get; set; }
     public string RoomType { get; set; }
     public DateTime LeaseStart { get; set; }

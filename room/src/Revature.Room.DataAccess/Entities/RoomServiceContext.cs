@@ -62,7 +62,8 @@ namespace Revature.Room.DataAccess.Entities
         entity.Property(r => r.ComplexID)
         .IsRequired();
 
-
+        entity.Property(r => r.NumberOfOccupants)
+        .IsRequired();
 
         entity.HasData(
           new
@@ -74,7 +75,8 @@ namespace Revature.Room.DataAccess.Entities
             RoomID = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456fd"),
             ComplexID = Guid.Parse("b5e050aa-6bfc-46ad-9a69-90b1f99ed606"),
             NumberOfBeds = 4,
-            RoomNumber = "2428B"
+            RoomNumber = "2428B",
+            NumberOfOccupants = 2
           }
           ); 
       });
