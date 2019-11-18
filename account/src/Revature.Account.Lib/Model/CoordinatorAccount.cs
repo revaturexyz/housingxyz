@@ -17,6 +17,7 @@ namespace Revature.Account.Lib.Model
 			set
 			{
 				ValidateInput(value);
+        _name = value;
 			}
 		}
 		public string Email
@@ -41,6 +42,7 @@ namespace Revature.Account.Lib.Model
       set
       {
         ValidateInput(value);
+        _password = value;
       }
     }
 		public string TrainingName { get; set; }
