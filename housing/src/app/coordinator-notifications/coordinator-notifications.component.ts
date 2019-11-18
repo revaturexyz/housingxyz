@@ -426,7 +426,7 @@ export class CoordinatorNotificationsComponent implements OnInit {
 ];
 
   displayedColumns = ['expires', 'companyName'];
-  dataSource = new MatTableDataSource<CoordinatorNotification>(notifications);
+  dataSource = new MatTableDataSource<CoordinatorNotification>(this.notifications);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 

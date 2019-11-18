@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
-import { TrainingCenter } from 'src/interfaces/trainingCenter';
+import { TrainingCenter } from 'src/interfaces/trainingcenter';
 import { Address } from 'src/interfaces/address';
 import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
