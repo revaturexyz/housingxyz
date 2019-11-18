@@ -6,16 +6,16 @@ ARG DOTNET_VERSION=3.0
 ## stage - restore
 FROM mcr.microsoft.com/dotnet/core/sdk:${DOTNET_VERSION} as restore
 WORKDIR /src
-COPY src/Xyz.AccountService/*.csproj Revature.Account.Api/
-COPY src/Xyz.AccountService.DataAccess/*.csproj Revature.Account.DataAccess/
+COPY src/Revature.Account.Api/*.csproj Revature.Account.Api/
+COPY src/Revature.Account.DataAccess/*.csproj Revature.Account.DataAccess/
 COPY src/Revature.Account.Lib/*.csproj Revature.Account.Lib/
 RUN dotnet restore *.Api
 
 ## stage - publish
 FROM restore as publish
-COPY src/Xyz.AccountService/ Revature.Account.Api/
-COPY src/Xyz.AccountService.DataAccess/ Revature.Account.DataAccess/
-COPY src/Xyz.AccountService.Lib/ Revature.Account.Lib/
+COPY src/Revature.Account.Api/ Revature.Account.Api/
+COPY src/Revature.Account.DataAccess/ Revature.Account.DataAccess/
+COPY src/Revature.Account.Lib/ Revature.Account.Lib/
 RUN dotnet publish *.Api --configuration Release --no-restore --output /src/dist
 
 ## stage - deploy
