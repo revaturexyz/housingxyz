@@ -16,6 +16,7 @@ namespace Revature.Tenant.DataAccess
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
+        BatchId = tenant.BatchId,
 
         Car = new Lib.Models.Car
         {
@@ -41,6 +42,7 @@ namespace Revature.Tenant.DataAccess
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
+        BatchId = tenant.BatchId,
 
         Cars = new Entities.Cars
         {
@@ -75,6 +77,27 @@ namespace Revature.Tenant.DataAccess
         Model = car.Model,
         Color = car.Color,
         Year = car.Year,
+      };
+    }
+
+    public Entities.Batches MapBatch(Lib.Models.Batch batch)
+    {
+      return new Entities.Batches
+      {
+        Id = batch.Id,
+        BatchLanguage = batch.BatchLanguage,
+        StartDate = batch.StartDate,
+        EndDate = batch.EndDate
+      };
+    }
+    public Lib.Models.Batch MapBatch(Entities.Batches batches)
+    {
+      return new Lib.Models.Batch
+      {
+        Id = batches.Id,
+        BatchLanguage = batches.BatchLanguage,
+        StartDate = batches.StartDate,
+        EndDate = batches.EndDate
       };
     }
   }

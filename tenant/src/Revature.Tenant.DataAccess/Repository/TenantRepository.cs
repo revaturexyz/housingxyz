@@ -43,7 +43,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
     /// <returns>A tenant</returns>
-    public async Task<Lib.Models.Tenant> GetByIdAsync(int id)
+    public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
       Tenants tenant = await _context.Tenants.Include(t => t.Cars).FirstAsync(t => t.Id == id);
 
@@ -70,7 +70,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// Deletes a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
-    public async Task DeleteByIdAsync(int id)
+    public async Task DeleteByIdAsync(Guid id)
     {
       Tenants tenant = await _context.Tenants.FindAsync(id);
 
@@ -94,6 +94,27 @@ namespace Revature.Tenant.DataAccess.Repository
       _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
     }
 
+    /// <summary>
+    /// Takes in a tenant Id and checks if the tenant has a car. 
+    /// </summary>
+    /// <param name="tenantId">tenant Id</param>
+    /// <returns>True if Tenant has Car, returns false if the Tenant has no car</returns>
+    public async Task<bool> HasCarAsync(int tenantId)
+    {
+      Tenants currentTenant = await _context.Tenants.FindAsync(tenantId);
+      if (currentTenant == null)
+      {
+        throw new InvalidOperationException("Invalid Tenant Id");
+      }
+      else if (currentTenant.CarId > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
     /// <summary>
     /// This persists changes to data base. 
     /// </summary>

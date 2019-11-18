@@ -13,13 +13,13 @@ namespace Revature.Tenant.Tests.DataTests
         {
             Lib.Models.Tenant tenant = new Lib.Models.Tenant
             {
-                Id = 1,
+                Id = new Guid(),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
                 AddressId = new Guid(),
-                RoomId = 1,
+                RoomId = new Guid(),
                 CarId = 1,
               Car = new Lib.Models.Car
               {
@@ -47,13 +47,13 @@ namespace Revature.Tenant.Tests.DataTests
         {
             DataAccess.Entities.Tenants tenants = new DataAccess.Entities.Tenants
             {
-                Id = 1,
+                Id = new Guid(),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
                 AddressId = new Guid(),
-                RoomId = 1,
+                RoomId = new Guid(),
                 CarId = 1,
               Cars = new DataAccess.Entities.Cars
               {
