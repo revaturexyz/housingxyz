@@ -1,28 +1,140 @@
-<div>
-    <form>
-        <label>
-            Email
-        </label>
-        <input type="text">
-        <label>
-            Gender
-        </label>
-        <select>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="NonBinary">NaN</option>
-        </select>
-        <label>
-            FirstName
-        </label>
-        <input type="text">
-        <label>
-            LastName
-        </label>
-        <input type="text">
-        <label>
-            Address
-        </label>
-        <input type="text">
-    </form>
-</div>
+<!-- Used for the split screen -->
+<div class="d-md-flex h-md-100 align-items-center">
+        <!-- Left side of the split screen -->
+        <div class="col-md-4 p-0 bg-orange h-md-100">
+          <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+              <!-- Drop down to choose a Training Center -->
+              <div class="col">
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ complexShowString }}</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem *ngFor="let coord of coordList" (click)="coordChoose(coord)">
+                      {{ coord.coordName }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+      
+              <br>
+              <!-- Choose the starting date -->
+              <!-- The min and the max for the dates are the moments that we created in the component.ts file. -->
+                <div class="col">
+                    <label for="StartDate" class="col-md-3">Start Date:</label>
+                    <input class="input-border col-md-3" type="date" name="StartDate" min="{{displayStart}}"
+                      max="{{displayMid}}" required [(ngModel)]="room.startDate" #sd="ngModel">
+                    <span *ngIf="verifyDates(room.startDate, room.endDate) && sd.dirty && ed.dirty"
+                      class="alert alert-danger col-md-3">
+                      Start date must be before end date.
+                    </span>
+                </div>
+                <!-- Choose the ending date -->
+                <div class="col">
+                    <label class="col-md-3">End Date:</label>
+                    <input class="input-border col-md-3" type="date" name="EndDate" min="{{displayStart}}"
+                      max="{{displayEnd}}" required [(ngModel)]="room.endDate" #ed="ngModel">
+                </div>
+                <br>
+              <!-- Drop down to let you choose a predetermined address -->
+              <div *ngIf="show === false" class="col">
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ langShowString }}</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="langChoose(lang)" *ngFor="let lang of langList">
+                      {{ lang.langName }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- The right side of the page -->
+        <div class="col-md-8 p-0 bg-body h-md-100 loginarea">
+          <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+              <form id="tenantForm">
+                <h1>Add Tenant</h1>
+                <br>
+                <div class="container">
+                  <!-- Enter Email -->
+                  <div class="col-md-12">
+                    <label class="col-md-3" for="tenant.email">Email:</label>
+                        <input type="text" name="tenant.email" class="input-border col-md-3" required
+                            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*" 
+                            [(ngModel)]="tenant.email" #tenEmail="ngModel">
+                    <!-- <select class="input-border col-md-3 input-border" name="room.roomType" required
+                      [(ngModel)]="room.apiRoomType" #roomT="ngModel">
+                      <option *ngFor="let type of types" [ngValue]="type">{{type.roomType}}</option>
+                    </select> -->
+                  </div>
+                  <!-- Enter First Nae -->
+                  <div class="col-md-12">
+                    <label for="tenant.firstName" class="col-md-3">First Name:</label>
+                        <input type="text" name="tenant.firstName" class="input-border col-md-3" required
+                            pattern="[a-zA-Z ]*" [(ngModel)]="tenant.firstName" #tenFName="ngModel">
+                    <!-- <input type="text" name="room.roomNumber" class="input-border col-md-3" required
+                      pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel"> -->
+                    <!-- Displayed error message if something is invalid in the room number -->
+                    <!-- <div *ngIf="roomNum.invalid && roomNum.dirty" class="alert alert-danger col-md-8">
+                      1 to 5 digits ending with or without a capital letter
+                    </div> -->
+                  </div>
+                  <!-- Enter Last Name -->
+                  <div class="col-md-11">
+                    <label class="col-md-5" for="tenant.lastName">Last Name:</label>
+                        <input type="text" name="tenant.lastName" class="input-border col-md-3" required
+                            pattern="[a-zA-Z ]*" [(ngModel)]="tenant.lastName" #tenFName="ngModel">
+                    <!-- {{ room.numberOfBeds }}
+                    <input type="text" name="room.roomNumber" class="input-border col-md-3" required
+                      pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel"> -->
+                  </div>
+                  <br><br>
+                  <!-- Enter Gender -->
+                  <div class="col-md-8">
+                    <label class="col-md-5">Gender:</label>
+                        <select class="input-border col-md-3 input-border" name="tenant.gender" required
+                      [(ngModel)]="tenant.gender" #roomT="ngModel">
+                      <option *ngFor="let gender of genders" [ngValue]="type">{{tenant.gender}}</option>
+                    </select>
+                    <br>
+                    <!-- <div class="col-md-12 col-sm-10 col-xs-10" id="amenityStyle">
+                      <span *ngFor="let amenity of amenities">
+                        <label for="amenity.amenity" class="col-md-6">
+                            <input type="text" name="room.roomNumber" class="input-border col-md-3" required
+                            pattern="[0-9]{1,5}[A-Z]{0,1}" [(ngModel)]="room.roomNumber" #roomNum="ngModel">
+                        </label>
+                      </span>
+                    </div> -->
+                  </div>
+                  <br><br>
+                  
+                  <!--
+                  The submit and cancel button. There is also some validation on the submit button so that it is greyed
+                  out if there are any errors in the form that need to be fixed.
+                  -->
+                  <div id="topbutton">
+                    <button class="btn btn-secondary" type="submit" (click)="postTenantOnSubmit()"
+                      [disabled]="roomNum.invalid || roomT.invalid || verifyDates(room.startDate, room.endDate)">
+                      Submit
+                    </button>
+                    <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+                    <!-- Some validation for a valid address, the distance between the room and training center, and the room and the complex -->
+                    <!-- <div *ngIf="invalidAddress" class="alert alert-danger">
+                      The room address is invalid. Please enter a valid address.
+                    </div>
+                    <div *ngIf="invalidDistanceToTraining" class="alert alert-danger">
+                      The distance between the room address and the training center address cannot exceed twenty miles.
+                    </div>
+                    <div *ngIf="invalidDistanceToComplex" class="alert alert-danger">
+                      The distance between the room address and the living complex address cannot exceed five miles.
+                    </div> -->
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
