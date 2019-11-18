@@ -1,4 +1,5 @@
-# tenantxyz :: editorconfig
+# tenant :: editorconfig
+
 
 [*]
 charset = utf-8

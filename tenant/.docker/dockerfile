@@ -1,21 +1,24 @@
-# tenantxyz :: docker
+
+# tenant :: docker
+
 
 ## arguments
 ARG DOTNET_VERSION=3.0
 
 ## stage - restore
 FROM mcr.microsoft.com/dotnet/core/sdk:${DOTNET_VERSION} as restore
-WORKDIR /aspnet
-COPY src/Revature.Tenant.Api/*.csproj Revature.Provider.Api/
-COPY src/Revature.Tenant.DataAccess/*.csproj Revature.Provider.DataAccess/
-COPY src/Revature.Tenant.Lib/*.csproj Revature.Provider.Lib/
+
+WORKDIR /src
+COPY src/Revature.Tenant.Api/*.csproj Revature.Tenant.Api/
+COPY src/Revature.Tenant.DataAccess/*.csproj Revature.Tenant.DataAccess/
+COPY src/Revature.Tenant.Lib/*.csproj Revature.Tenant.Lib/
 RUN dotnet restore *.Api
 
-# ## stage - publish
+## stage - publish
 FROM restore as publish
-COPY src/Revature.Tenant.Api/*.csproj Revature.Provider.Api/
-COPY src/Revature.Tenant.DataAccess/*.csproj Revature.Provider.DataAccess/
-COPY src/Revature.Tenant.Lib/*.csproj Revature.Provider.Lib/
+COPY src/Revature.Tenant.Api/ Revature.Tenant.Api/
+COPY src/Revature.Tenant.DataAccess/ Revature.Tenant.DataAccess/
+COPY src/Revature.Tenant.Lib/ Revature.Tenant.Lib/
 RUN dotnet publish *.Api --configuration Release --no-restore --output /src/dist
 
 ## stage - deploy
