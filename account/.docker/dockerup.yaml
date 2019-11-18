@@ -1,17 +1,9 @@
 # account :: docker-compose
 #Docker yaml version
-version: '3.7'
 
 networks:
   accountxyz_localhost:
 services: #Runs 2 services. Web and Data
-  data:
-    image: postgres:12.0
-    networks:
-      - account_localhost
-    environment:
-      POSTGRES_PASSWORD: 'Pass@word'
-      POSTGRES_DB: 'account'
   web:
     #Tells it where to build from. Finds the dockerfile in the directory
     build:
@@ -33,4 +25,11 @@ services: #Runs 2 services. Web and Data
       replicas: 1
     #Environment variables; in this case, a connection string for the DB
     environment:
-      ConnectionStrings__ProviderDb: 'Host=data;Database=provider;Username=postgres;Password=Pass@word'
+      ConnectionStrings__AccountDb: 'Host=data;Database=account;Username=postgres;Password=Pass@word'
+  data:
+    image: postgres:12.0
+    networks:
+      - account_localhost
+    environment:
+      POSTGRES_PASSWORD: 'Pass@word'
+version: '3.7'

@@ -1,4 +1,4 @@
-# providerxyz :: dockerignore
+# account :: dockerignore
 
 ## project
 *
@@ -13,9 +13,8 @@
 **/dist/
 
 ## docker
-**/docker-compose*
-!**/docker-compose.yaml
-!**/*.json
+**/dockerup*
+!**/dockerup.yaml
 
 ## dotnet
 **/.vscode/
