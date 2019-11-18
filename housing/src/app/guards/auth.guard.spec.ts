@@ -5,6 +5,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { AuthGuard } from './auth.guard';
 
+class BlankComponent {
+
+}
+
 describe('AuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,7 +29,3 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   }));
 });
-
-class BlankComponent {
-
-}

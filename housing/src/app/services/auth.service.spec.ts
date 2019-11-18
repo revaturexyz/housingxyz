@@ -5,6 +5,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { AuthService } from './auth.service';
 
+class BlankComponent {
+
+}
+
 describe('AuthService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [RouterTestingModule.withRoutes([
@@ -23,7 +27,3 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 });
-
-class BlankComponent {
-
-}

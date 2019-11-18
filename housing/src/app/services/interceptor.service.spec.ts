@@ -5,6 +5,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { InterceptorService } from './interceptor.service';
 
+class BlankComponent {
+
+}
+
 describe('InterceptorService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [RouterTestingModule.withRoutes([
@@ -23,7 +27,3 @@ describe('InterceptorService', () => {
     expect(service).toBeTruthy();
   });
 });
-
-class BlankComponent {
-
-}
