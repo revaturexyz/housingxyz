@@ -13,7 +13,8 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
-  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule
+  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatFormFieldModule, MatSelectModule,
+  MatOptionModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
@@ -55,6 +56,9 @@ import { CoordinatorModule } from './coordinator.module';
     MatDialogModule,
     StickyNavModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
     MatRippleModule,
     MsalModule.forRoot({
       clientID: environment.clientID,
