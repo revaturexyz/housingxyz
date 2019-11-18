@@ -2,10 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>120385bd-8616-4c26-97a6-5b682e1a5edc</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
+    <ProjectReference Include="..\Revature.Tenant.DataAccess\Revature.Tenant.DataAccess.csproj" />
+
   </ItemGroup>
 
 </Project>
