@@ -38,9 +38,11 @@ namespace Revature.Room.DataAccess
       }
 
       //Find room by Guid and return that particular room
-      List<Data.Room> listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).Where(r => r.RoomID == roomId).ToListAsync();
+      var listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
 
-      return _map.ParseRooms(listRoom).ToList();
+      var x = listRoom.Where(r => r.RoomID == roomId).ToList();
+
+      return _map.ParseRooms(x).ToList();
 
     }
 
@@ -62,7 +64,7 @@ namespace Revature.Room.DataAccess
     }
 
     //Deletes room by id
-    public async Task DeleteRoom(int roomId)
+    public async Task DeleteRoom(Guid roomId)
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);

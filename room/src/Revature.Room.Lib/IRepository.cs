@@ -20,6 +20,6 @@ namespace Revature.Room.Lib
 
     public Task UpdateRoom(Room myRoom);
 
-    public Task DeleteRoom(int roomId);
+    public Task DeleteRoom(Guid roomId);
   }
 }
