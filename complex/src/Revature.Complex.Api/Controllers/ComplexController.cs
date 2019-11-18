@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Complex.Lib.Interface;
 using Revature.Complex.Api.Models;
 using Logic = Revature.Complex.Lib.Models;
+using Microsoft.Extensions.Logging;
 
 
 namespace Revature.Complex.Api.Controllers
@@ -16,6 +17,7 @@ namespace Revature.Complex.Api.Controllers
   public class ComplexController : Controller
   {
     private readonly IRepository _complexRepository;
+    private readonly ILogger log;
 
     public ComplexController(IRepository complexRepository)
     {
@@ -24,10 +26,11 @@ namespace Revature.Complex.Api.Controllers
 
     #region Create
     // POST: api/complex/createcomplex
-    [HttpPost("CreateComplex")]
+    [HttpPost("PostComplex")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiComplex>> CreateComplex([FromBody] ApiComplex apiComplex)
+    //GET: api/complex/PostComplex
+    public async Task<ActionResult<ApiComplex>> PostComplexAsync([FromBody]ApiComplex apiComplex)
     {
 
       ApiComplexAddress CompAddr = new ApiComplexAddress()
@@ -48,7 +51,7 @@ namespace Revature.Complex.Api.Controllers
       {
         AddressId = AddressToSend.AddressId,
         ComplexId = new Guid(),
-        ProviderId = apiComplex.ProviderID,
+        ProviderId = apiComplex.ProviderId,
         ContactNumber = apiComplex.ContactNumber,
         ComplexName = apiComplex.ComplexName
       };
@@ -99,76 +102,48 @@ namespace Revature.Complex.Api.Controllers
 
     }
 
-    /// <summary>
-    /// This should create a new amenity type to add to database
-    /// </summary>
-    /// <param name="apiAmenity"></param>
-    /// <returns></returns>
+    
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpPost("AddAmenity")]
-    //POST: api/complex/addamenity
-    public async Task<ActionResult> AddAdditionalAmenityToDB(ApiAmenity apiAmenity)
+    [HttpGet("Getallcomplex")]
+    //POST: api/complex/Getallcomplex
+    public async Task<ActionResult<List<ApiComplex>>> GetAllComplexAsync()
     {
-      Logic.Amenity amen = new Logic.Amenity()
-      {
-        AmenityType = apiAmenity.AmenityType,
-        Description = apiAmenity.Description
-      };
       try
       {
-        await _complexRepository.CreateAmenityAsync(amen);
-        return StatusCode(201);
+        List<Logic.Complex> complices = await _complexRepository.ReadComplexListAsync();
+        List<ApiComplex> apiComplices = new List<ApiComplex>();
+
+        //foreach complex, get address from address service
+        //create Apicomplex object for each complex we have
+        //return them.
+
+        foreach ( Logic.Complex com in complices)
+        {
+          ApiComplex complex = new ApiComplex
+          {
+            ComplexId = com.ComplexId,
+            // apiaddress
+            ProviderId = com.ProviderId,
+            ComplexName = com.ComplexName,
+            ContactNumber = com.ContactNumber
+            //complex amenity
+          };
+          apiComplices.Add(complex);
+        }
+
+        return Ok(apiComplices);
       }
-      catch (ArgumentException)
+      catch( ArgumentNullException ex )
       {
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch( Exception ex )
       {
-        return Conflict(e.Message);
+        return StatusCode(500, ex.Message);
       }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
+
     }
-
-
-    /// <summary>
-    /// this is 
-    /// </summary>
-    /// <param name="apiComplexAmenityList"></param>
-    /// <returns></returns>
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpPost("CreateAmenity")]
-    //POST: api/complex/createamenity
-    /*public async Task<ActionResult> CreateAmenityComplexList(IEnumerable<ApiAmenity> apiComplexAmenityList)
-    {
-        AmenityComplex AmenityComplex = new AmenityComplex();
-        foreach (var amenity in apiComplexAmenityList)
-        {
-            var id = _complexRepository.ReadAmenittiesbyString(amenity.AmenityType);
-            AmenityComplex.AmenityId = id;
-            AmenityComplex.ComplexId = amenity.ComplexId;
-            try
-            {
-                // await _complexRepository._EditComplexAmenityAsync(AmenityComplex1);// code to edit in repo
-                return NoContent();
-            }
-            catch (ArgumentException)
-            {
-                return NotFound();
-            }
-            catch (InvalidOperationException e)
-            {
-                return Conflict(e.Message);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
-    }*/
 
     #endregion
 
@@ -177,7 +152,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{complexGuid}")]
     //GET: api/complex/{complexGuid}
-    public async Task<ActionResult<ApiComplex>> GetComplexInfo([FromRoute]Guid complexGuid)
+    public async Task<ActionResult<ApiComplex>> GetComplexByIdAsync([FromRoute]Guid complexGuid)
     {
       var x = await _complexRepository.ReadComplexAsync(complexGuid);
       //var address = await serviceBus.GetAddress(To, x.AddressId);
@@ -187,104 +162,32 @@ namespace Revature.Complex.Api.Controllers
         //Address = address;
         ComplexName = x.ComplexName,
         ContactNumber = x.ContactNumber,
-        ProviderID = x.ProviderId
+        ProviderId = x.ProviderId
 
       };
-
-
-    }
-
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet("amenitiesroom/{roomGuid}")]
-    //GET: api/complex/amenitiesroom/{roomGuid}
-    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetRoomAmenities([FromRoute]Guid roomGuid)
-    {
-      try
-      {
-        var x = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
-        return Ok(x);
-
-      }
-      catch (ArgumentException)
-      {
-        return NotFound();
-      }
-      catch (InvalidOperationException e)
-      {
-        return Conflict(e.Message);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
-
-
-    }
-
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet("amenitiescomplex/{complexGuid}")]
-    //GET: api/complex/amenitiescomplex/{complexGuid}
-    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetComplexAmenities([FromRoute]Guid complexGuid)
-    {
-      try
-      {
-        var x = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
-        return Ok(x);
-
-      }
-      catch (ArgumentException)
-      {
-        return NotFound();
-      }
-      catch (InvalidOperationException e)
-      {
-        return Conflict(e.Message);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
-
-
-    }
-
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet("amenities")]
-    //GET: api/complex/amenities
-    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetAllAmenities()
-    {
-
-      try
-      {
-        return Ok( await _complexRepository.ReadAmenityListAsync());
-      }
-      catch (ArgumentException)
-      {
-        return NotFound();
-      }
-      catch (InvalidOperationException e)
-      {
-        return Conflict(e.Message);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("provierId/{providerID}")]
     //GET: api/complex/provierId/{providerID}
-    public ActionResult<IEnumerable<ApiComplex>> GetAllBaseOnProviderID([FromRoute] Guid providerID)
+    public async Task<ActionResult<IEnumerable<ApiComplex>>> GetComplexListByProviderId([FromRoute]Guid providerId)
     {
-
       try
       {
-        return Ok(/*_complexRepository.ReadComplexByProviderID(providerID)*/); //needs to do in repo
+        List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderID(providerId);
+        List<List<Logic.Amenity>> amenities = new List<List<Logic.Amenity>>();
+
+        foreach( Logic.Complex complex in complices)
+        {
+          amenities.Add(await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId));
+        }
+
+        //foreach complex, get address from address service
+        //create Apicomplex object for each complex we have
+        //return them.
+
+        return Ok();
       }
       catch (ArgumentException)
       {

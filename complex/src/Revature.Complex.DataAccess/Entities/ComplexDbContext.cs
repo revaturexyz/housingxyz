@@ -47,7 +47,7 @@ namespace Revature.Complex.DataAccess.Entities
         entity.HasData(
           new Complex
           {
-            ComplexId = Guid.NewGuid(),
+            ComplexId = cId1,
             AddressId = Guid.NewGuid(),
             ProviderId = Guid.NewGuid(),
             ComplexName = "Liv+",

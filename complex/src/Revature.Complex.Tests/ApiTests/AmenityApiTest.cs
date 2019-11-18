@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Revature.Complex.Tests.ApiTests
 {
-  public class ComplexApiTest
+  public class AmenityApiTest
   {
     public async void GetAllAmenitiesShouldReturnOk() //not aysnc T_T
     {
@@ -21,8 +21,8 @@ namespace Revature.Complex.Tests.ApiTests
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object);
-      var model = Assert.IsType<List<Amenity>>(controller.GetAllAmenities());
+      var controller = new AmenityController(_complexRepo.Object);
+      var model = Assert.IsType<List<Amenity>>(await controller.GetAmenitiestAsync());
 
       //assert
       Assert.IsType<List<Amenity>>(model);
