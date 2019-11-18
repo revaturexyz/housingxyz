@@ -2,7 +2,7 @@
 #Docker yaml version
 
 networks:
-  accountxyz_localhost:
+  account_localhost:
 services: #Runs 2 services. Web and Data
   web:
     #Tells it where to build from. Finds the dockerfile in the directory
