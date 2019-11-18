@@ -8,17 +8,29 @@ using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
+  /// <summary>
+  /// A repository for managing data access for tenant onjects and their cars.
+  /// </summary>
   public class TenantRepository : ITenantRepository 
   {
     private readonly TenantsContext _context;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// Initializes a new tenant repository given a suitable tenant data source.
+    /// </summary>
+    /// <param name="context">The data source</param>
+    /// <param name="mapper">The mapper</param>
     public TenantRepository(TenantsContext context, IMapper mapper)
     {
       _context = context;
       _mapper = mapper;
     }
 
+    /// <summary>
+    /// Adds a new tenant object as well as its associated properties.
+    /// </summary>
+    /// <param name="tenant">The Tenant</param>
     public async Task AddAsync(Lib.Models.Tenant tenant)
     {
       Tenants newTenant = _mapper.MapTenant(tenant);
@@ -26,6 +38,11 @@ namespace Revature.Tenant.DataAccess.Repository
       await _context.Tenants.AddAsync(newTenant);
     }
 
+    /// <summary>
+    /// Gets a tenant using their id.
+    /// </summary>
+    /// <param name="id">The ID of the tenant</param>
+    /// <returns>A tenant</returns>
     public async Task<Lib.Models.Tenant> GetByIdAsync(int id)
     {
       Tenants tenant = await _context.Tenants.Include(t => t.Cars).FirstAsync(t => t.Id == id);
@@ -38,32 +55,21 @@ namespace Revature.Tenant.DataAccess.Repository
       return _mapper.MapTenant((tenant));
     }
 
+    /// <summary>
+    /// Gets a list of all tenants
+    /// </summary>
+    /// <returns>The collection of all tenants</returns>
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
     {
       List<Tenants> tenants = await _context.Tenants.Include(t => t.Cars).AsNoTracking().ToListAsync();
 
-      return tenants.Select(t => new Lib.Models.Tenant
-      {
-        Id = t.Id,
-        Email = t.Email,
-        Gender = t.Gender,
-        FirstName = t.FirstName,
-        LastName = t.LastName,
-        AddressId = t.AddressId,
-        RoomId = t.RoomId,
-        CarId = t.CarId,
-        Car = new Lib.Models.Car
-        {
-          Id = t.Cars.Id,
-          LicensePlate = t.Cars.LicensePlate,
-          Make = t.Cars.Make,
-          Model = t.Cars.Model,
-          Color = t.Cars.Color,
-          Year = t.Cars.Year,
-        },
-      }).ToList();
+      return tenants.Select((_mapper.MapTenant)).ToList();
     }
 
+    /// <summary>
+    /// Deletes a tenant using their id.
+    /// </summary>
+    /// <param name="id">The ID of the tenant</param>
     public async Task DeleteByIdAsync(int id)
     {
       Tenants tenant = await _context.Tenants.FindAsync(id);
@@ -71,6 +77,10 @@ namespace Revature.Tenant.DataAccess.Repository
       _context.Remove(tenant);
     }
 
+    /// <summary>
+    /// Updates values associated to a tenant.
+    /// </summary>
+    /// <param name="tenant">The tenant with changed values</param>
     public async Task UpdateAsync(Lib.Models.Tenant tenant)
     {
       Tenants currentTenant = await _context.Tenants.FindAsync(tenant.Id);
@@ -84,6 +94,9 @@ namespace Revature.Tenant.DataAccess.Repository
       _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
     }
 
+    /// <summary>
+    /// This persists changes to data base. 
+    /// </summary>
     public async Task SaveAsync()
     {
       await _context.SaveChangesAsync();

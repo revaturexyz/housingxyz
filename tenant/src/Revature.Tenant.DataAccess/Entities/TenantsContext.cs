@@ -17,18 +17,18 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.HasKey(t => t.Id);
         entity.Property(t => t.Email).IsRequired();
         entity.Property(t => t.Gender).IsRequired();
-        entity.Property(t => t.FirstName).IsRequired().HasMaxLength(60);
-        entity.Property(t => t.LastName).IsRequired().HasMaxLength(60);
+        entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
+        entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.HasOne(t => t.Cars).WithMany(c => c.Tenants).HasForeignKey(t => t.CarId);
       });
 
       builder.Entity<Cars>(entity =>
       {
         entity.HasKey(c => c.Id);
-        entity.Property(c => c.LicensePlate).IsRequired().HasMaxLength(75);
-        entity.Property(c => c.Make).IsRequired().HasMaxLength(75);
-        entity.Property(c => c.Model).IsRequired().HasMaxLength(75);
-        entity.Property(c => c.Color).IsRequired().HasMaxLength(75);
+        entity.Property(c => c.LicensePlate).IsRequired().HasMaxLength(100);
+        entity.Property(c => c.Make).IsRequired().HasMaxLength(100);
+        entity.Property(c => c.Model).IsRequired().HasMaxLength(100);
+        entity.Property(c => c.Color).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Year).IsRequired();
       });
     }

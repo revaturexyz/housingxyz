@@ -15,7 +15,7 @@ namespace Revature.Tenant.Tests.DataTests
             {
                 Id = 1,
                 Email = "joemo@web.com",
-                Gender = new Guid(),
+                Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
                 AddressId = new Guid(),
@@ -49,7 +49,7 @@ namespace Revature.Tenant.Tests.DataTests
             {
                 Id = 1,
                 Email = "joemo@web.com",
-                Gender = new Guid(),
+                Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
                 AddressId = new Guid(),

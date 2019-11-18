@@ -2,6 +2,11 @@ using System;
 
 namespace Revature.Tenant.Lib.Models
 {
+  /// <summary>
+  /// Some tenants will arrive to training with cars.
+  /// This defines their vehicle information for housing purposes.
+  /// Not all tenants will have cars.
+  /// </summary>
   public class Car
   {
     private int _id;
@@ -18,7 +23,6 @@ namespace Revature.Tenant.Lib.Models
       {
         if (value < 0)
         {
-
           throw new ArgumentException("Id must not be negative", nameof(value));
         }
 
@@ -31,8 +35,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_licensePlate == null)
+        {
           throw new ArgumentException("License plate is not set", nameof(_licensePlate));
-
+        }
         return _licensePlate;
       }
       set
@@ -51,8 +56,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_make == null)
+        {
           throw new ArgumentException("Make is not set", nameof(_make));
-
+        }
         return _make;
       }
       set
@@ -71,7 +77,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_model == null)
+        {
           throw new ArgumentException("Model is not set", nameof(_model));
+        }
 
         return _model;
       }
@@ -90,7 +98,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_color == null)
+        {
           throw new ArgumentException("Color is not set", nameof(_color));
+        }
 
         return _color;
       }
@@ -109,7 +119,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_year == null)
+        {
           throw new ArgumentException("Year is not set", nameof(_year));
+        }
 
         return _year;
       }

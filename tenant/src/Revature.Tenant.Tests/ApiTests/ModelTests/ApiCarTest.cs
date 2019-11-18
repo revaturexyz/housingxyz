@@ -1,7 +1,8 @@
 
 namespace Revature.Tenant.Tests.ApiTests.ModelTests
 {
-  class ApiCar
+  class ApiCarTest
   {
+    //TODO add tests for Api Car model
   }
 }

@@ -2,11 +2,14 @@ using System;
 
 namespace Revature.Tenant.Lib.Models
 {
+  /// <summary>
+  /// Defines a tenant object that has a name and several properties that include their basic information.
+  /// </summary>
   public class Tenant
   {
     private int _id;
     private string _email;
-    private Guid _gender;
+    private string _gender;
     private string _firstName;
     private string _lastName;
     private Guid _addressId;
@@ -35,8 +38,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_email == null)
+        {
           throw new ArgumentException("Email is not set", nameof(_email));
-
+        }
         return _email;
       }
       set
@@ -56,8 +60,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_firstName == null)
+        {
           throw new ArgumentException("First name is not set", nameof(_firstName));
-
+        }
         return _firstName;
       }
       set
@@ -75,7 +80,9 @@ namespace Revature.Tenant.Lib.Models
       get
       {
         if (_lastName == null)
+        {
           throw new ArgumentException("Last name is not set", nameof(_lastName));
+        }
 
         return _lastName;
       }
@@ -119,7 +126,7 @@ namespace Revature.Tenant.Lib.Models
       }
     }
 
-    public Guid Gender { get; set; }
+    public string Gender { get; set; }
     public string FullName { get => FirstName + " " + LastName; }
     public Guid AddressId { get; set; }
   }
