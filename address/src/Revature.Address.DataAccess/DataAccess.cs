@@ -48,6 +48,17 @@ namespace Revature.Address.DataAccess
       return addresses.Select(_mapper.MapAddress).ToList();
     }
 
+    public async Task<bool> DeleteAddressAsync(Guid id)
+    {
+      if (await _context.Addresses.FindAsync(id) is Entities.Address item)
+      {
+        _context.Addresses.Remove(item);
+        await _context.SaveChangesAsync();
+        return true;
+      }
+      return false;
+    }
+
     public async Task SaveAsync()
     {
       await _context.SaveChangesAsync();
