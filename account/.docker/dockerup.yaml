@@ -14,8 +14,6 @@ services:
       - 10080:80
     networks:
       - account_localhost
-    deploy:
-      replicas: 1
     environment:
       ConnectionStrings__AccountDb: 'Host=data;Database=account;Username=postgres;Password=Pass@word'
   data:
