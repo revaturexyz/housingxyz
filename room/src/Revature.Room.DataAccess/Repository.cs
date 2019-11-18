@@ -24,7 +24,6 @@ namespace Revature.Room.DataAccess
     {
       Data.Room roomEntity = _map.ParseRoom(myRoom);
       await _context.AddAsync(roomEntity);
-      await _context.SaveChangesAsync();
     }
 
     public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
@@ -55,7 +54,7 @@ namespace Revature.Room.DataAccess
         .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is not such room!", nameof(roomEntity));
 
       //Figure out why _context.Gender does not work
-      roomEntity.Gender.Type = myRoom.Gender;
+      roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
 
