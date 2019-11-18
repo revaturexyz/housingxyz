@@ -5,6 +5,11 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
+using System.Text;
+using System.Threading;
+using Microsoft.Azure.ServiceBus;
+
+
 namespace Revature.Tenant.Api
 {
   public static class Program
@@ -32,7 +37,6 @@ namespace Revature.Tenant.Api
         Log.CloseAndFlush();
       }
     }
-
     public static void ConfigureLogger()
     {
       Log.Logger = new LoggerConfiguration()

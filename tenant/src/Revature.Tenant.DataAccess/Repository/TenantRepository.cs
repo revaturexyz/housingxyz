@@ -11,7 +11,7 @@ namespace Revature.Tenant.DataAccess.Repository
   /// <summary>
   /// A repository for managing data access for tenant onjects and their cars.
   /// </summary>
-  public class TenantRepository : ITenantRepository 
+  public class Repository : ITenantRepository 
   {
     private readonly TenantsContext _context;
     private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="context">The data source</param>
     /// <param name="mapper">The mapper</param>
-    public TenantRepository(TenantsContext context, IMapper mapper)
+    public Repository(TenantsContext context, IMapper mapper)
     {
       _context = context;
       _mapper = mapper;
