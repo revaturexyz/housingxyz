@@ -72,7 +72,7 @@ namespace Revature.Room.Tests
     {
       return new Revature.Room.DataAccess.Entities.Room
       {
-        RoomID = newRoomID,
+        RoomID = newRoomID2,
         ComplexID = newComplexID,
         Gender = context.Gender.FirstOrDefault(g => g.Type == "Male"),
         RoomNumber = newRoomNumber,
@@ -374,10 +374,11 @@ namespace Revature.Room.Tests
     public async Task RepoGetVacantShouldReturnAvailableRoomsBasedOnFilter()
     {
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
-      .UseInMemoryDatabase("RepoGetVacantFilter")
+      .UseInMemoryDatabase("RepoGetVacantShouldReturnAvailableRoomsBasedOnFilter")
       .Options;
 
       using RoomServiceContext assembleContext = new RoomServiceContext(options);
+      assembleContext.Database.EnsureCreated();
       var mapper = new DBMapper(assembleContext);
 
       var newRoom = PresetEntityRoom(assembleContext);
@@ -390,12 +391,14 @@ namespace Revature.Room.Tests
       using var actContext = new RoomServiceContext(options);
       var repo = new Repository(actContext, mapper);
 
-      await repo.GetVacantFilteredRoomsByGenderandEndDateAsync("Female", endDate);
-      assembleContext.SaveChanges();
+      var filterRoom = await repo.GetVacantFilteredRoomsByGenderandEndDateAsync("Female", endDate);
 
       var assertContext = new RoomServiceContext(options);
 
-      Assert.Null(assertContext.Room.Find(newRoomID));
+      Assert.NotNull(filterRoom);
+
+      Assert.Equal(newRoomID.ToString(), filterRoom.FirstOrDefault(r => r == newRoomID).ToString());
+
     }
 
   }
