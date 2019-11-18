@@ -1,9 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Revature.Address.DataAccess.Entities;
 
 namespace Revature.Address.Api
 {
@@ -17,6 +19,7 @@ namespace Revature.Address.Api
       {
         Log.Information("Building web host");
         using var host = CreateHostBuilder(args).Build();
+        await EnsureDatabaseCreatedAsync(host);
 
         Log.Information("Starting web host");
         await host.RunAsync();
@@ -50,5 +53,24 @@ namespace Revature.Address.Api
           webBuilder.UseStartup<Startup>();
           webBuilder.UseSerilog();
         });
+
+    public static async Task EnsureDatabaseCreatedAsync(IHost host)
+    {
+      using var scope = host.Services.CreateScope();
+      var serviceProvider = scope.ServiceProvider;
+
+      Log.Information("Ensuring database created");
+      using var context = serviceProvider.GetRequiredService<AddressDbContext>();
+
+      var created = await context.Database.EnsureCreatedAsync();
+      if (created)
+      {
+        Log.Information("Database created");
+      }
+      else
+      {
+        Log.Information("Database already exists; not created");
+      }
+    }
   }
 }
