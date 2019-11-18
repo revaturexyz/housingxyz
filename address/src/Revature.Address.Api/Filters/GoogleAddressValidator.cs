@@ -23,7 +23,7 @@ namespace Revature.Address.Api.Filters
       {
         counter += 1;
       }
-      string street = addressModelProperties[counter++].Split("=")[1].ToString().Replace("%20", " ");
+      string street = addressModelProperties[counter++].Split("=")[1].ToString().Replace("%20", "+");
       var city = addressModelProperties[counter++].Split("=")[1].ToString();
       var state = addressModelProperties[counter++].Split("=")[1].ToString().ToUpper();
       var country = addressModelProperties[counter++].Split("=")[1].ToString().ToUpper();
