@@ -1,10 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Router} from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { InterceptorService } from './interceptor.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 class BlankComponent {
 
@@ -13,6 +16,8 @@ class BlankComponent {
 describe('InterceptorService', () => {
   // let service: DataService;
   let httpMock: HttpTestingController;
+  let httpClient: HttpClient;
+  const authService: any = {getTokenSilently$: Observable.of("token")};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,6 +32,10 @@ describe('InterceptorService', () => {
       HttpClientTestingModule],
     providers: [
       {
+        provide: AuthService,
+        useValue: authService
+      },
+      {
         provide: HTTP_INTERCEPTORS,
         useClass: InterceptorService,
         multi: true,
@@ -34,8 +43,8 @@ describe('InterceptorService', () => {
     ]
   });
 
-    // service = TestBed.get(DataService);
     httpMock = TestBed.get(HttpTestingController);
+    httpClient = TestBed.get(HttpClient);
   });
 
   it('should be created', () => {
@@ -43,14 +52,19 @@ describe('InterceptorService', () => {
     expect(service).toBeTruthy();
   });
 
-  // Can be implemented when there is an API call to make
-  /*it('should add an Authorization header', () => {
-    service.getPosts().subscribe(response => {
-      expect(response).toBeTruthy();
-    });
+  // Couldnt get this to work.
+  /* it('adds Authorization header', fakeAsync(async () => {
 
-    const httpRequest = httpMock.expectOne(`${service.ROOT_URL}/posts`);
+    await httpClient.get('/data').subscribe(
+        response => {
+            expect(response).toBeTruthy();
+        }
+    );
 
-    expect(httpRequest.request.headers.has('Authorization')).toEqual(true);
-  });*/
+    const req = httpMock.expectOne(r => r.headers.has('Authorization'));
+
+    req.flush({ hello: 'world' });
+    httpMock.verify();
+  }));*/
+
 });
