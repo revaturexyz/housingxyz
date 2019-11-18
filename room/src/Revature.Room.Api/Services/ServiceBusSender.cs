@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using Revature.Room.Lib;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace ServiceBusMessaging
 {
@@ -26,6 +27,9 @@ namespace ServiceBusMessaging
 
     }
 
+    //Have to figure out how to differentiate between the HTTP CRUD requests when sending a message
+
+    //General servicebus message for room.  Placeholder?
     public async Task SendMessage(Room roomToSend)
     {
       string data = JsonConvert.SerializeObject(roomToSend);
@@ -35,5 +39,62 @@ namespace ServiceBusMessaging
       _logger.LogInformation("ServiceBus sending message: ", data);
       await _queueClient.SendAsync(message);
     }
+
+    //ServiceBus message for creating a room
+    public async Task SendCreateMessage(Room roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending create message: ", data);
+      await _queueClient.SendAsync(message);
+    }
+
+    //ServiceBus message for reading a room
+    public async Task SendReadMessage(Room roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending read message: ", data);
+      await _queueClient.SendAsync(message);
+    }
+
+    //SeviceBus message for reading a room of IEnumerable
+    public async Task SendReadMessage(IEnumerable<Room> roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending read message: ", data);
+      await _queueClient.SendAsync(message);
+    }
+
+    //ServiceBus message for updating a room
+    public async Task SendUpdateMessage(Room roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending update message: ", data);
+      await _queueClient.SendAsync(message);
+    }
+
+    //ServiceBus message for deleting a room
+    public async Task SendDeleteMessage(Room roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending delete message: ", data);
+      await _queueClient.SendAsync(message);
+    }
+
+
   }
 }

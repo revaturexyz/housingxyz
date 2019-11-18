@@ -57,6 +57,7 @@ namespace Revature.Room.DataAccess
       roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
+      roomEntity.NumberOfOccupants = myRoom.NumberOfOccupants;
 
     }
 
