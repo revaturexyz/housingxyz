@@ -26,6 +26,7 @@ namespace Revature.Tenant.DataAccess
           Model = tenant.Cars.Model,
           Color = tenant.Cars.Color,
           Year = tenant.Cars.Year,
+          State = tenant.Cars.State
         },
       };
     }
@@ -52,6 +53,7 @@ namespace Revature.Tenant.DataAccess
           Model = tenant.Car.Model,
           Color = tenant.Car.Color,
           Year = tenant.Car.Year,
+          State = tenant.Car.State
         },
       };
     }
@@ -65,6 +67,7 @@ namespace Revature.Tenant.DataAccess
         Model = car.Model,
         Color = car.Color,
         Year = car.Year,
+        State = car.State
       };
     }
     public Entities.Cars MapCar(Lib.Models.Car car)
@@ -77,6 +80,7 @@ namespace Revature.Tenant.DataAccess
         Model = car.Model,
         Color = car.Color,
         Year = car.Year,
+        State = car.State
       };
     }
 

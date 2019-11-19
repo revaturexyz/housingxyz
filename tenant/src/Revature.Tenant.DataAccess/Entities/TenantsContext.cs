@@ -34,6 +34,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(c => c.Model).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Color).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Year).IsRequired();
+        entity.Property(c => c.State).IsRequired();
       });
 
       builder.Entity<Batches>(entity =>
