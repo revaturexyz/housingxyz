@@ -1,4 +1,4 @@
-
+import { Car } from './car';
 
 export interface Tenant {
     tenantId: string;
@@ -8,7 +8,7 @@ export interface Tenant {
     lastName: string;
     addressId: string;
     roomId: number;
-    carId: number;
+    car: Car;
     startDate: Date;
     endDate: Date;
     langName: string;

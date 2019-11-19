@@ -72,7 +72,29 @@ export class AddTenantComponent implements OnInit {
   constructor(
     private coordService: CoordinatorService,
     private router: Router
-    ) { }
+    ) { 
+      this.tenant = {
+        tenantId: '',
+        email: '',
+        gender: '',
+        firstName: '',
+        lastName: '',
+        addressId: '',
+        roomId: 0,
+        car: {
+          carId: 0,
+          licensePlate: '',
+          make: '',
+          model: '',
+          color: '',
+          year: '',
+          state: ''
+        },
+        startDate: new Date(),
+        endDate: new Date(),
+        langName: ''
+      };
+    }
 
   ngOnInit() {
     console.log("Show: "+ this.show);
