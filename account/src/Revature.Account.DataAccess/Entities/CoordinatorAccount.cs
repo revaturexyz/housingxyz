@@ -8,7 +8,7 @@ namespace Revature.Account.DataAccess.Entities
   {
     public CoordinatorAccount()
     {
-      Notification = new HashSet<Notification>();
+      Notifications = new HashSet<Notification>();
     }
     public Guid CoordinatorId { get; set; }
     public string TrainingName { get; set; }

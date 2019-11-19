@@ -87,8 +87,7 @@ namespace Revature.Account.Tests.APITests
                     Password = "54321",
                     Status = "Strawberry Jelly",
                     AccountCreated = now,
-                    Expire = nowPSev,
-                    Notification = nList[0]
+                    Expire = nowPSev
                 },
                 new ProviderAccount
                 {
@@ -98,8 +97,7 @@ namespace Revature.Account.Tests.APITests
                     Password = "54321",
                     Status = "Strawberry Jelly",
                     AccountCreated = now,
-                    Expire = nowPSev,
-                    Notification = nList[1]
+                    Expire = nowPSev
                 },
                 new ProviderAccount
                 {
@@ -109,8 +107,7 @@ namespace Revature.Account.Tests.APITests
                     Password = "54321",
                     Status = "Strawberry Jelly",
                     AccountCreated = now,
-                    Expire = nowPSev,
-                    Notification = nList[2]
+                    Expire = nowPSev
                 }
         };
     }
