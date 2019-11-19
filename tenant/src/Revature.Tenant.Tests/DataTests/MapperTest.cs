@@ -13,13 +13,13 @@ namespace Revature.Tenant.Tests.DataTests
         {
             Lib.Models.Tenant tenant = new Lib.Models.Tenant
             {
-                Id = new Guid(),
+                Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
-                AddressId = new Guid(),
-                RoomId = new Guid(),
+                AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+                RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
                 CarId = 1,
               Car = new Lib.Models.Car
               {
@@ -48,13 +48,13 @@ namespace Revature.Tenant.Tests.DataTests
         {
             DataAccess.Entities.Tenants tenants = new DataAccess.Entities.Tenants
             {
-                Id = new Guid(),
+                Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
-                AddressId = new Guid(),
-                RoomId = new Guid(),
+                AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+                RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
                 CarId = 1,
               Cars = new DataAccess.Entities.Cars
               {
