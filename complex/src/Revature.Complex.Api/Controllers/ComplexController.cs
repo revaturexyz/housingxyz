@@ -24,89 +24,16 @@ namespace Revature.Complex.Api.Controllers
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
     }
 
-    #region Create
-    // POST: api/complex/createcomplex
-    [HttpPost("PostComplex")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //GET: api/complex/PostComplex
-    public async Task<ActionResult<ApiComplex>> PostComplexAsync([FromBody]ApiComplex apiComplex)
-    {
+    #region GET
 
-      ApiComplexAddress CompAddr = new ApiComplexAddress()
-      {
-        StreetAddress = apiComplex.Address.StreetAddress,
-        City = apiComplex.Address.City,
-        State = apiComplex.Address.State,
-        ZipCode = apiComplex.Address.ZipCode
-      };
-
-      ///this is for creating a Guid to send to address service 
-      ApiAddress AddressToSend = new ApiAddress
-      {
-        ComplexAddress = CompAddr
-      };
-
-      Logic.Complex complex = new Logic.Complex()
-      {
-        AddressId = AddressToSend.AddressId,
-        ComplexId = new Guid(),
-        ProviderId = apiComplex.ProviderId,
-        ContactNumber = apiComplex.ContactNumber,
-        ComplexName = apiComplex.ComplexName
-      };
-
-      #region code call repo
-
-      Logic.AmenityComplex AmenityComplex = new Logic.AmenityComplex();
-
-
-      try
-      {
-        await _complexRepository.CreateComplexAsync(complex);
-
-        foreach (var type in apiComplex.ComplexAmentiy)
-        {
-          Guid id = Guid.NewGuid(); //_complexRepository.ReadAmenittiesbyString(type);
-          AmenityComplex.AmenityId = id;
-          AmenityComplex.ComplexId = complex.ComplexId;
-
-          await _complexRepository.CreateAmenityComplexAsync(AmenityComplex);
-        }
-
-        #region Code to sent address to other serivce Need to fill
-        // serviceBus.sentInfor(To, data)
-
-
-        #endregion
-
-        return Created($"api/Complex/{complex.ComplexId}", apiComplex);
-
-      }
-      catch (ArgumentException)
-      {
-        return NotFound();
-      }
-      catch (InvalidOperationException e)
-      {
-        return Conflict(e.Message);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
-
-
-      #endregion
-
-
-    }
-
-    
+    /// <summary>
+    /// (GET) Call Repository to read all existed complices from database 
+    /// </summary>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("Getallcomplex")]
-    //POST: api/complex/Getallcomplex
+    //GET: api/complex/Getallcomplex
     public async Task<ActionResult<List<ApiComplex>>> GetAllComplexAsync()
     {
       try
@@ -145,20 +72,22 @@ namespace Revature.Complex.Api.Controllers
 
     }
 
-    #endregion
-
-    #region Get
+    /// <summary>
+    /// (GET) Call Repository and Address service to get specific complex info by complex Id
+    /// </summary>
+    /// <param name="complexGuid"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{complexGuid}")]
     //GET: api/complex/{complexGuid}
     public async Task<ActionResult<ApiComplex>> GetComplexByIdAsync([FromRoute]Guid complexGuid)
     {
-      var x = await _complexRepository.ReadComplexAsync(complexGuid);
+      var x = await _complexRepository.ReadComplexByIdAsync(complexGuid);
       //var address = await serviceBus.GetAddress(To, x.AddressId);
       return new ApiComplex()
       {
-
+        ComplexId = x.ComplexId,
         //Address = address;
         ComplexName = x.ComplexName,
         ContactNumber = x.ContactNumber,
@@ -167,27 +96,36 @@ namespace Revature.Complex.Api.Controllers
       };
     }
 
+    /// <summary>
+    /// (GET) Call Repository and Address service to get specific complex info by complex name and phone number
+    /// </summary>
+    /// <param name="complexName"></param>
+    /// <param name="ComplexNumber"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet("provierId/{providerID}")]
-    //GET: api/complex/provierId/{providerID}
-    public async Task<ActionResult<IEnumerable<ApiComplex>>> GetComplexListByProviderId([FromRoute]Guid providerId)
+    [HttpGet("{complexName}/{ComplexNumber}")]
+    //GET: api/complex/{complexName/ComplexNumber}
+    public async Task<ActionResult<ApiComplex>> GetComplexByNameAndNumber([FromRoute]string complexName, string ComplexNumber)
     {
       try
       {
-        List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderIdAsync(providerId);
-        List<List<Logic.Amenity>> amenities = new List<List<Logic.Amenity>>();
+        Logic.Complex lcomplex = await _complexRepository.ReadComplexByNameAndNumberAsync(complexName, ComplexNumber);
 
-        foreach( Logic.Complex complex in complices)
+        List<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId);
+
+        //GET address from address service via complexid
+
+        ApiComplex apiComplex = new ApiComplex
         {
-          amenities.Add(await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId));
-        }
-
-        //foreach complex, get address from address service
-        //create Apicomplex object for each complex we have
-        //return them.
-
-        return Ok();
+          ComplexId = lcomplex.ComplexId,
+          //Address =
+          ProviderId = lcomplex.ProviderId,
+          ComplexName = lcomplex.ComplexName,
+          ContactNumber = lcomplex.ContactNumber,
+          ComplexAmentiy = amenities
+        };
+        return Ok(apiComplex);
       }
       catch (ArgumentException)
       {
@@ -204,125 +142,231 @@ namespace Revature.Complex.Api.Controllers
     }
 
 
+    /// <summary>
+    /// (GET) Call Repository and Address service to get complices' info for specific provider by provider Id
+    /// </summary>
+    /// <param name="providerId"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpGet("provierId/{providerId}")]
+    //GET: api/complex/provierId/{providerID}
+    public async Task<ActionResult<IEnumerable<ApiComplex>>> GetComplexListByProviderId([FromRoute]Guid providerId)
+    {
+      try
+      {
+        List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderIdAsync(providerId);
+        List<ApiComplex> apiComplices = new List<ApiComplex>();
+
+        foreach( Logic.Complex complex in complices)
+        {
+          ApiComplexAddress address = new ApiComplexAddress
+          {
+            AddressId = complex.AddressId
+          };
+
+          ApiComplex apiComplextoAdd = new ApiComplex
+          {
+            ComplexId = complex.ComplexId,
+            Address = address,
+            ProviderId = complex.ProviderId,
+            ComplexName = complex.ComplexName,
+            ContactNumber = complex.ContactNumber,
+            ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId)
+          };
+          apiComplices.Add(apiComplextoAdd);
+          //amenities.Add(await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId));
+        }
+
+        //foreach complex, get address from address service
+        //create Apicomplex object for each complex we have
+        //return them.
+
+        return Ok(apiComplices);
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
+    }
+
     #endregion
 
-    #region Put
+    #region POST
 
-    /*[HttpPut("editcomplex")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-
-    public Task<ActionResult> EditComplex([FromBody] APIComplex apiComplex)// repo lacks await 
+    /// <summary>
+    /// (POST)
+    /// 1. Call Repository to insert new complex in the database
+    /// 2. Send complex address to Address Service
+    /// </summary>
+    /// <param name="apiComplex"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpPost("PostComplex")]
+    //Post: api/complex/PostComplex
+    public async Task<ActionResult<ApiComplex>> PostComplexAsync([FromBody]ApiComplex apiComplex)
     {
+      Guid addressId = Guid.NewGuid();
+      ApiComplexAddress CompAddr = new ApiComplexAddress()
+      {
+        AddressId = addressId,
+        StreetAddress = apiComplex.Address.StreetAddress,
+        City = apiComplex.Address.City,
+        State = apiComplex.Address.State,
+        ZipCode = apiComplex.Address.ZipCode
+      };
 
-        APIComplexAddress CompAddr = new APIComplexAddress()
+      Guid complexId = Guid.NewGuid();
+
+      Logic.Complex complex = new Logic.Complex()
+      {
+        ComplexId = complexId,
+        AddressId = addressId,
+        ProviderId = apiComplex.ProviderId,
+        ContactNumber = apiComplex.ContactNumber,
+        ComplexName = apiComplex.ComplexName
+      };
+
+      #region code call repo
+
+      Logic.AmenityComplex AmenityComplex = new Logic.AmenityComplex();
+
+      try
+      {
+        await _complexRepository.CreateComplexAsync(complex);
+        List<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
+
+        Guid amenityComplexId;
+        AmenityComplex.ComplexId = complex.ComplexId;
+
+        foreach (var amenity in apiComplex.ComplexAmentiy)
         {
-            StreetAddress = apiComplex.Address.StreetAddress,
-            City = apiComplex.Address.City,
-            State = apiComplex.Address.State,
-            ZipCode = apiComplex.Address.ZipCode
-        };
-
-        ///this is for creating a Guid to send to address service 
-        AddressToSent AddressToSend = new AddressToSent
-        {
-            ComplexAddress = CompAddr
-        };
-
-        Complex complex = new Complex()
-        {
-            AddressId = AddressToSend.AddressId,
-            ComplexId = new Guid(),
-            ProviderId = apiComplex.ProviderID,
-            ContactNumber = apiComplex.ContactNumber,
-            ComplexName = apiComplex.ComplexName
-
-
-        };
-
-
-        #region code call repo
-        AmenityComplex AmenityComplex1 = new AmenityComplex();
-        foreach (var type in apiComplex.ComplexAmentiy)
-        {
-            var id = _complexRepository.ReadAmenittiesbyString(type);
-            AmenityComplex1.AmenityId = id;
-            AmenityComplex1.ComplexId = complex.ComplexId;
-            try
+          foreach (var am in amenities)
+          {
+            if (am.AmenityType == amenity.AmenityType)
             {
-               // await _complexRepository._EditComplexAmenityAsync(AmenityComplex1);// code to edit in repo
-               return NoContent()
+              AmenityComplex.AmenityId = am.AmenityId;
+
+              amenityComplexId = Guid.NewGuid();
+              AmenityComplex.AmenityComplexId = amenityComplexId;
             }
-            catch (ArgumentException)
-            {
-                return NotFound();
-            }
-            catch (InvalidOperationException e)
-            {
-                return Conflict(e.Message);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
+          }
+
+          await _complexRepository.CreateAmenityComplexAsync(AmenityComplex);
         }
 
-
-        try
-        {
-            // await _complexRepository.EditComplexAmenityAsync(complex);
-
-            #region Code to sent address to other serivce Need to fill
-            // serviceBus.sentInfor(To, data)
+        #region Code to sent address to other serivce Need to fill
+        // serviceBus.sentInfor(To, data)
 
 
-            #endregion
-
-            return NoContent()
-
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
-        catch (InvalidOperationException e)
-        {
-            return Conflict(e.Message);
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, e.Message);
-        }
         #endregion
 
-    }*/
-    /*
-    public async Task<ActionResult> EditComplexAmenity([FromBody] IEnumerable<ApiAmenity> amenityList)
+        return Created($"api/Complex/{complex.ComplexId}", apiComplex);
+
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
+
+
+      #endregion
+
+
+    }
+
+    /// <summary>
+    /// (POST)
+    /// 1. Call Repository to insert Amenity of rooms into the database
+    /// 2. Repackage the Rooms' object and send them to Room service
+    /// </summary>
+    /// <param name="apiRooms"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpPost("PostRooms")]
+    //POST: api/complex/PostRooms
+    public async Task<ActionResult> PostRooms([FromBody]IEnumerable<ApiRoom> apiRooms)
     {
-        AmenityComplex AmenityComplex = new AmenityComplex();
-        foreach (var amenity in amenityList)
+      List<ApiRoomtoSend> apiRoomtoSends = new List<ApiRoomtoSend>();
+      ApiRoomtoSend arts = new ApiRoomtoSend();
+      Logic.AmenityRoom amenityRoom = new Logic.AmenityRoom();
+
+      try
+      {
+        foreach (ApiRoom apiRoom in apiRooms)
         {
-            var id = _complexRepository.ReadAmenittiesbyString(amenity.AmenityType);
-            AmenityComplex.AmenityId = id;
-            AmenityComplex.ComplexId = amenity.ComplexId;
-            try
-            {
-                 await _complexRepository.upda(AmenityComplex);// code to edit in repo
-                return NoContent();
-            }
-            catch (ArgumentException)
-            {
-                return NotFound();
-            }
-            catch (InvalidOperationException e)
-            {
-                return Conflict(e.Message);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
+          arts.RoomId = Guid.NewGuid();
+          arts.RoomNumber = apiRoom.RoomNumber;
+          arts.ComplexId = apiRoom.ComplexId;
+          arts.Gender = "default";
+          arts.NumberOfBeds = apiRoom.NumberOfBeds;
+          arts.RoomType = apiRoom.ApiRoomType;
+          arts.LeaseStart = apiRoom.LeaseStart;
+          arts.LeaseEnd = apiRoom.LeaseEnd;
+          apiRoomtoSends.Add(arts);
+
+          amenityRoom.AmenityRoomId = Guid.NewGuid();
+          amenityRoom.RoomId = arts.RoomId;
+          foreach (ApiAmenity amenity in apiRoom.Amenities)
+          {
+            amenityRoom.AmenityId = amenity.AmenityId;
+            await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
+          }
+
         }
-    }**/
+        IEnumerable<ApiRoomtoSend> roomtoSends = apiRoomtoSends;
+
+        //Send {roomtoSends} to room service
+
+        return StatusCode(201);
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
+    }
+
+    #endregion
+
+    #region PUT
+
+    //[ProducesResponseType(StatusCodes.Status204NoContent)]
+    //[HttpPut("editcomplex")]
+    //PUT: api/complex/editcomplex
+    //public Task<ActionResult> PutComplex([FromBody]ApiComplex apiComplex)
+    //{  
+
+    //}
+
+    #endregion
+
+    #region DELETE
 
     #endregion
   }

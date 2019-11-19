@@ -24,6 +24,11 @@ namespace Revature.Complex.DataAccess.Entities
     public Guid cId4 = Guid.NewGuid();
     public Guid rId1 = Guid.NewGuid();
     public Guid rId2 = Guid.NewGuid();
+    public Guid amId1 = Guid.NewGuid();
+    public Guid amId2 = Guid.NewGuid();
+    public Guid amId3 = Guid.NewGuid();
+    public Guid amId4 = Guid.NewGuid();
+    public Guid amId5 = Guid.NewGuid();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -96,9 +101,11 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-            new Amenity { AmenityId = Guid.NewGuid(), AmenityType = "Test1", Description = "Description1" },
-            new Amenity { AmenityId = Guid.NewGuid(), AmenityType = "Test2", Description = "" },
-            new Amenity { AmenityId = Guid.NewGuid(), AmenityType = "Test3", Description = "Description3" }
+            new Amenity { AmenityId = amId1, AmenityType = "fridge", Description = "to keep foods fresh" },
+            new Amenity { AmenityId = amId2, AmenityType = "microwave", Description = "" },
+            new Amenity { AmenityId = amId3, AmenityType = "pool", Description = "swmming" },
+            new Amenity { AmenityId = amId4, AmenityType = "kitchen", Description = "cook" },
+            new Amenity { AmenityId = amId5, AmenityType = "", Description = "work out" }
         );
 
       });
@@ -126,9 +133,10 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), ComplexId = cId1 },
-            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), ComplexId = cId1 },
-            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), ComplexId = cId2 }
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = amId1, ComplexId = cId1 },
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = amId2, ComplexId = cId1 },
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = amId2, ComplexId = cId2 },
+            new AmenityComplex { AmenityComplexId = Guid.NewGuid(), AmenityId = amId4, ComplexId = cId2 }
         );
 
       });
@@ -152,9 +160,10 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), RoomId = rId1 },
-            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), RoomId = rId1 },
-            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = Guid.NewGuid(), RoomId = rId2 }
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = amId1, RoomId = rId1 },
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = amId4, RoomId = rId1 },
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = amId5, RoomId = rId2 },
+            new AmenityRoom { AmenityRoomId = Guid.NewGuid(), AmenityId = amId2, RoomId = rId2 }
         );
 
       });
