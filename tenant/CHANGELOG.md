@@ -4,7 +4,6 @@
 
 ### INITIAL RELEASE 🎉:: 2019-08-20 :: @fredbelotte
 
-
 read the [release note][release-note-url] for details
 
 ## license
