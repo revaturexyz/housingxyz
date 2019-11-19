@@ -60,7 +60,7 @@ describe('InterceptorService', () => {
         response => {
             expect(response).toBeTruthy();
 
-            const req = httpMock.expectOne(r => true/*r => r.headers.has('Authorization')*/);
+            const req = httpMock.expectOne(r => r.headers.has('Authorization'));
 
             req.flush({ hello: 'world' });
             httpMock.verify();
