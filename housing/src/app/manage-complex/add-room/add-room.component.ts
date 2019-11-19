@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { Room } from '../../../interfaces/room';
+import { RoomType } from '../../../interfaces/room-type';
+import { Gender } from '../../../interfaces/gender';
+import { Complex } from 'src/interfaces/complex';
 
 @Component({
   selector: 'dev-add-room',
@@ -9,24 +14,44 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class AddRoomComponent implements OnInit {
 
-  constructor() { }
+  seededRoomTypes: Array<RoomType> = [
+    { typeId: 0, roomType: 'Deluxe' },
+    { typeId: 1, roomType: 'Suite' },
+    { typeId: 2, roomType: 'Basement' }
+  ];
+
+  seededGenderTypes: Array<Gender> = [
+    { genderId: 0, genderType: 'Unspecified' },
+    { genderId: 1, genderType: 'Male' },
+    { genderId: 2, genderType: 'Female' }
+  ];
+
+  formRoom: Room;
+
+  public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
+  public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
+
+  @Input() complex: Complex;
+
+  constructor() {
+    this.formRoom = {
+      roomId: null,
+      apiAddress: null,
+      roomNumber: null,
+      numberOfBeds: null,
+      apiRoomType: null,
+      isOccupied: false,
+      apiAmenity: null,
+      startDate: null,
+      endDate: null,
+      apiComplex: null,
+      gender: null,
+      leaseLength: null
+    }
+   }
 
   ngOnInit() {
   }
-
-  // roomId: number;
-  // apiAddress: Address;
-  // roomNumber: string;
-  // numberOfBeds: number;
-  // apiRoomType: RoomType;
-  // isOccupied: boolean;
-  // apiAmenity: Amenity[];
-  // startDate: Date;
-  // endDate: Date;
-  // apiComplex: Complex;
-  // gender: string;
-  // leaseLength: number;
-
 
   postAddRoom() {
     console.log('Add Button Pressed');

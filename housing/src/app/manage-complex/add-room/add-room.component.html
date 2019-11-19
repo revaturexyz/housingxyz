@@ -1,8 +1,6 @@
-<p>add-room works!</p>
-
 <div class="add-room-container">
 
-  <h3 class="add-room-header"> Add Room to Complex </h3>
+  <h3 class="add-room-header"> Add a room to {{ complex.complexName }} </h3>
   <hr />
 
   <div class="add-room-options">
@@ -49,22 +47,20 @@
           <select
           id="gender"
           name="gender"
-          [(ngModel)]="selectOptionInvalid"
+          [(ngModel)]="selectOptionGenderInvalid"
           #gender="ngModel"
           class="form-control"
           aria-describedby="gender"
           required>
             <option value="" disabled>Select Gender</option>
-            <option [ngValue]="male">
-                Male
-            </option>
-            <option [ngValue]="female">
-                Female
-            </option>
-            <option [ngValue]="unspecified">
-                Unspecified
+            <option *ngFor="let gender of seededGenderTypes" [ngValue]="gender">
+              {{ gender.genderType }}
             </option>
           </select>
+        </div>
+        <!-- Dirty is so the error message is not displayed when the page first loads  -->
+        <div *ngIf="gender.invalid && gender.dirty" class="alert alert-danger">
+          A gender for occupants is required.
         </div>
         <!-- End of gender input select -->
 
@@ -74,16 +70,20 @@
           <select
           id="apiRoomType"
           name="apiRoomType"
-          [(ngModel)]="selectOptionInvalid"
+          [(ngModel)]="selectOptionRoomTypeInvalid"
           #apiRoomType="ngModel"
           class="form-control"
           aria-describedby="apiRoomType"
           required>
             <option value="" disabled>Select Room Type</option>
-            <option *ngFor="let roomType of seededRoomTypes" [ngValue]="center">
+            <option *ngFor="let roomType of seededRoomTypes" [ngValue]="roomType">
               {{ roomType.roomType }}
             </option>
           </select>
+        </div>
+        <!-- Dirty is so the error message is not displayed when the page first loads  -->
+        <div *ngIf="apiRoomType.invalid && apiRoomType.dirty" class="alert alert-danger">
+          A room type is required.
         </div>
         <!-- End of Room Type select -->
 
@@ -111,13 +111,13 @@
       <div class="form-row">
         <div class="col-md-6 form-group">
           <!-- If any of the inputs are invalid, the submit button will be disabled -->
-          <button class="showAddressForm" [disabled]="leaseLength.invalid || apiRoomType.invalid || gender.invalid || numberOfBeds.invalid || roomNumber.invalid"
+          <button class="add-room-btn" [disabled]="leaseLength.invalid || apiRoomType.invalid || gender.invalid || numberOfBeds.invalid || roomNumber.invalid"
             (click)="postAddRoom()">
               Submit
           </button>
         </div>
         <div class="col-md-6 form-group">
-          <button class="showAddressForm" (click)="cancelAddRoom()">Cancel</button>
+          <button class="add-room-btn" (click)="cancelAddRoom()">Cancel</button>
         </div>
       </div>
     </form>
