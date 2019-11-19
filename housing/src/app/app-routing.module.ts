@@ -10,16 +10,18 @@ import { CoordinatorNotificationsComponent } from './coordinator-notifications/c
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'show-rooms', component: UpdateRoomComponent },
-  { path: 'provider-select', component: ProviderSelectComponent },
+  { path: 'provider-select', component: ProviderSelectComponent, canActivate: [AuthGuard] },
   { path: 'add-provider', component: AddProviderComponent },
   { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent },
   { path: 'coordinator-notifications/:id', component: NotificationDetailsComponent },
-  { path: 'addroom', component: AddRoomComponent },
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
   { path: 'addroom', component: AddRoomComponent }
+  
+import { AuthGuard } from './guards/auth.guard';
+  
 ];
 
 @NgModule({

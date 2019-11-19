@@ -26,6 +26,8 @@ import { RequestDialogComponent } from './request-dialog/request-dialog.componen
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
+import { AuthGuard } from './guards/auth.guard';
+import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 
 @NgModule({
@@ -64,7 +66,13 @@ import { CoordinatorModule } from './coordinator.module';
     MatRippleModule,
     CoordinatorModule
   ],
-  providers: [  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
   bootstrap: [AppComponent]
 })
