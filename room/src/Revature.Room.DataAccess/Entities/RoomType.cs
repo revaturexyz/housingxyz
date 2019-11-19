@@ -5,6 +5,7 @@ namespace Revature.Room.DataAccess.Entities
   /// </summary>
   public class RoomType
   {
+    public int RoomTypeId { get; set; }
     public string Type { get; set; }
   }
 }

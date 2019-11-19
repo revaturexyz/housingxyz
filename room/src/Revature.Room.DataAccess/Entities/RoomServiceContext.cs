@@ -23,23 +23,35 @@ namespace Revature.Room.DataAccess.Entities
     {
       modelBuilder.Entity<Gender>(entity =>
       {
-        entity.HasKey(g => g.Type);
+        entity.HasKey(g => g.GenderId);
+        entity.Property(g => g.GenderId)
+        .UseIdentityColumn()
+        .IsRequired();
+
+        entity.Property(g => g.Type)
+        .IsRequired();
+
         entity.HasData(
-          new Gender() { Type = "Male" },
-          new Gender() { Type = "Female" },
-          new Gender() { Type = "NonBinary" }
-          );
+          new Gender() { GenderId = 1, Type = "Male" },
+          new Gender() { GenderId = 2, Type = "Female" },
+          new Gender() { GenderId = 3, Type = "NonBinary" }
+          ) ;
       });
 
       modelBuilder.Entity<RoomType>(
 
         entity =>
         {
-          entity.HasKey(r => r.Type);
+          entity.HasKey(r => r.RoomTypeId);
+          entity.Property(r => r.RoomTypeId)
+          .UseIdentityColumn()
+          .IsRequired();
+          entity.Property(r => r.Type)
+          .IsRequired();
           entity.HasData(
-            new RoomType() { Type = "Apartment" },
-            new RoomType() { Type = "Dormitory" },
-            new RoomType() { Type = "TownHouse" }
+            new RoomType() { RoomTypeId = 1, Type = "Apartment" },
+            new RoomType() { RoomTypeId = 2, Type = "Dormitory" },
+            new RoomType() { RoomTypeId = 3, Type = "TownHouse" }
             );
         }
         );
@@ -68,8 +80,8 @@ namespace Revature.Room.DataAccess.Entities
         entity.HasData(
           new
           {
-            RoomTypeType = "Apartment",
-            GenderType = "Female",
+            RoomTypeId = 1,
+            GenderId = 1,
             LeaseEnd = DateTime.Today.AddMonths(3),
             LeaseStart = DateTime.Now,
             RoomId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456fd"),
