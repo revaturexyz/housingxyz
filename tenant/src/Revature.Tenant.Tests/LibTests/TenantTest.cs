@@ -38,7 +38,7 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void Tenant_Car_Id_Empty()
     {
-      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Tenant { CarId = Guid.Empty });
+      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Tenant { CarId = -1 });
     }
 
     [Fact]

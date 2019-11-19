@@ -14,7 +14,8 @@ namespace Revature.Tenant.Lib.Models
     private string _lastName;
     private Guid _addressId;
     private Guid _roomId;
-    private Guid _carId;
+    private int _carId;
+    private int _batchId;
 
     public Car Car { get; set; }
 
@@ -109,14 +110,14 @@ namespace Revature.Tenant.Lib.Models
       }
     }
 
-    public Guid CarId
+    public int CarId
     {
       get => _carId;
       set
       {
-        if (value == Guid.Empty)
+        if (value < 0)
         {
-          throw new ArgumentException("Car Id must not be empty", nameof(value));
+          throw new ArgumentOutOfRangeException("Car Id must not be negative", nameof(value));
         }
 
         _carId = value;
@@ -157,6 +158,20 @@ namespace Revature.Tenant.Lib.Models
         }
 
         _addressId = value;
+      }
+    }
+
+    public int BatchId
+    {
+      get => _batchId;
+      set
+      {
+        if (value < 0)
+        {
+          throw new ArgumentOutOfRangeException("Batch Id must not be negative", nameof(value));
+        }
+
+        _batchId = value;
       }
     }
   }

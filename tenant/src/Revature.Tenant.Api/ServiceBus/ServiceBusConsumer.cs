@@ -24,9 +24,9 @@ namespace Revature.Tenant.Api.ServiceBus
     private readonly QueueClient _queueClient;
     private const string QUEUE_NAME = "testing";
     private readonly IServiceProvider Services;
-    private readonly ILogger<Repository> _logger;
+    private readonly ILogger<TenantRepository> _logger;
 
-    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<Repository> logger)
+    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<TenantRepository> logger)
     {
       _configuration = configuration;
       _queueClient = new QueueClient(

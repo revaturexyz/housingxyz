@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.Lib.Interface;
+using Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
   /// <summary>
   /// A repository for managing data access for tenant onjects and their cars.
   /// </summary>
-  public class Repository : ITenantRepository 
+  public class TenantRepository : ITenantRepository 
   {
     private readonly TenantsContext _context;
     private readonly IMapper _mapper;
@@ -21,7 +22,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="context">The data source</param>
     /// <param name="mapper">The mapper</param>
-    public Repository(TenantsContext context, IMapper mapper)
+    public TenantRepository(TenantsContext context, IMapper mapper)
     {
       _context = context;
       _mapper = mapper;

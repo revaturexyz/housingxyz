@@ -7,7 +7,7 @@ using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Api.Models;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using ServiceBusMessaging;
+using Revature.Tenant.Api.ServiceBus;
 
 namespace Revature.Tenant.Api.Controllers
 {
