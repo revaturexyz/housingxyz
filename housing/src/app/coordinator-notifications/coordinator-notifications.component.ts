@@ -17,53 +17,7 @@ import {MatTableDataSource} from '@angular/material/table';
 export class CoordinatorNotificationsComponent implements OnInit {
 
   // Seed :
-  notifications: Array<CoordinatorNotification> = [
-  {
-    notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
-    providerId: 3,
-    centerId: 2,
-    centerDetails: {
-    centerId: 2,
-    apiAddress: {
-      addressId: 5,
-      streetAddress: '123 Main',
-      city: 'Dallas',
-      state: 'Tx',
-      zipcode: '75055',
-    },
-    centerName: 'UT Arlington',
-    contactNumber: '2143369999'
-    },
-    createdDate: new Date('11/05/2019'),
-    active: true,
-    trial: false,
-    extendedTrial: true,
-    providerDetails: {
-    providerId: 3,
-    companyName: 'Evergreen properties',
-    address: {
-      addressId: 5,
-      streetAddress: '123 Main',
-      city: 'Dallas',
-      state: 'Tx',
-      zipcode: '75055',
-    },
-    contactNumber: '1234567890',
-    apiTrainingCenter: {
-      centerId: 7,
-      apiAddress: {
-        addressId: 6,
-        streetAddress: '123 Main',
-        city: 'Dallas',
-        state: 'Tx',
-        zipcode: '75055',
-      },
-      centerName: 'UT Arlington',
-      contactNumber: '1234678999',
-    }
-    }
-  },
-];
+  notifications: Array<CoordinatorNotification> = [];
 
   displayedColumns = ['expires', 'companyName'];
   dataSource = new MatTableDataSource<CoordinatorNotification>(this.notifications);
