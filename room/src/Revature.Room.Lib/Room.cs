@@ -5,7 +5,7 @@ namespace Revature.Room.Lib
   public class Room
   {
     private int _numberOfBeds;
-    public Guid RoomID { get; set; }
+    public Guid RoomId { get; set; }
     public string RoomNumber { get; set; }
     public int NumberOfBeds
     {
@@ -21,6 +21,6 @@ namespace Revature.Room.Lib
     public DateTime LeaseStart { get; set; }
     public DateTime LeaseEnd { get; set; }
 
-    public Guid ComplexID { get; set; }
+    public Guid ComplexId { get; set; }
   }
 }

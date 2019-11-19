@@ -7,7 +7,7 @@ namespace Revature.Room.DataAccess.Entities
   public class Room
   {
     
-    public Guid RoomID { get; set; }
+    public Guid RoomId { get; set; }
 
     public string RoomNumber { get; set; }
 
@@ -20,6 +20,6 @@ namespace Revature.Room.DataAccess.Entities
     public DateTime LeaseStart { get; set; }
     public DateTime LeaseEnd { get; set; }
 
-    public Guid ComplexID { get; set; }
+    public Guid ComplexId { get; set; }
   }
 }

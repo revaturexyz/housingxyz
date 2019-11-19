@@ -71,11 +71,11 @@ namespace Revature.Room.Api.Controllers
 
     [HttpPost]
     public async Task<IActionResult> PostRoomAsync
-      ([FromBody, Bind("ComplexID, RoomID, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
+      ([FromBody, Bind("ComplexId, RoomId, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
     {
       Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room {
-        ComplexID = room.ComplexID,
-        RoomID = room.RoomID,
+        ComplexId = room.ComplexId,
+        RoomId = room.RoomId,
         RoomNumber = room.RoomNumber,
         NumberOfBeds = room.NumberOfBeds,
         NumberOfOccupants = room.NumberOfOccupants,
@@ -91,7 +91,7 @@ namespace Revature.Room.Api.Controllers
 
       //Will change route http after we have a HTTP GET
 
-      return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomID }, createdRoom);
+      return CreatedAtRoute("GetRoom", new { RoomId = createdRoom.RoomId }, createdRoom);
 
     }
 
@@ -99,9 +99,9 @@ namespace Revature.Room.Api.Controllers
     public async Task<IActionResult> PutRoomAsync(Guid id, [FromBody] Revature.Room.Lib.Room Lroom)
     {
       Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-      ro.RoomID = id;
+      ro.RoomId = id;
 
-      IEnumerable<Revature.Room.Lib.Room> IERooms = await _repository.ReadRoomAsync(ro.RoomID);
+      IEnumerable<Revature.Room.Lib.Room> IERooms = await _repository.ReadRoomAsync(ro.RoomId);
 
       Revature.Room.Lib.Room newRo = new Revature.Room.Lib.Room
       {
@@ -123,9 +123,9 @@ namespace Revature.Room.Api.Controllers
     public async Task<IActionResult> DeleteRoomAsync(Guid id)
     {
       Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-      ro.RoomID = id;
+      ro.RoomId = id;
 
-      await _repository.DeleteRoomAsync(ro.RoomID);
+      await _repository.DeleteRoomAsync(ro.RoomId);
       await _repository.SaveAsync();
 
       await _busSender.SendDeleteMessage(ro);
