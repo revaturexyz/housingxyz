@@ -24,15 +24,7 @@ namespace Revature.Tenant.Lib.Models
     }
     public string BatchLanguage
     {
-      get
-      {
-        if (_batchLanguage == null)
-        {
-          throw new ArgumentNullException("Batch Language is not set", nameof(_batchLanguage));
-        }
-
-        return _batchLanguage;
-      }
+      get => _batchLanguage;
       set
       {
         if (value == "")
@@ -45,15 +37,7 @@ namespace Revature.Tenant.Lib.Models
     }
     public DateTime StartDate
     {
-      get
-      {
-        if (_startDate == null)
-        {
-          throw new ArgumentNullException("Start Date is not set", nameof(_startDate));
-        }
-
-        return _startDate;
-      }
+      get => _startDate;
       set
       {
         if (value == null)
@@ -66,15 +50,7 @@ namespace Revature.Tenant.Lib.Models
     public DateTime EndDate
 
     {
-      get
-      {
-        if (_endDate == null)
-        {
-          throw new ArgumentNullException("Start Date is not set", nameof(_endDate));
-        }
-
-        return _endDate;
-      }
+      get => _endDate;
       set
       {
         if (value == null)
