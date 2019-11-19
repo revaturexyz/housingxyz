@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Room.Lib;
 using ServiceBusMessaging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Revature.Room.Api.Controllers
@@ -26,12 +26,13 @@ namespace Revature.Room.Api.Controllers
 
     // GET: api/rooms?gender=g&endDate=e
     [HttpGet]
-    public async Task<IList<Guid>> GetAsync(
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAsync(
           [FromQuery] string gender,
           [FromQuery] DateTime endDate
           )
     {
-      return await _repository.GetVacantFilteredRoomsByGenderandEndDateAsync(gender, endDate);
+      return Ok(await _repository.GetVacantFilteredRoomsByGenderandEndDateAsync(gender, endDate));
     }
   }
 }

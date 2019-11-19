@@ -73,7 +73,8 @@ namespace Revature.Room.DataAccess
       int? numberOfBeds,
       string roomType,
       string gender,
-      DateTime? endDate)
+      DateTime? endDate,
+      Guid? roomId)
     {
       IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId).Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
       if (roomNumber != null)
@@ -95,6 +96,10 @@ namespace Revature.Room.DataAccess
       if (endDate != null)
       {
         rooms = rooms.Where(r => endDate < r.LeaseEnd);
+      }
+      if (roomId != null)
+      {
+        rooms = rooms.Where(r => r.RoomId == roomId);
       }
       return _map.ParseRooms(rooms);
     }
