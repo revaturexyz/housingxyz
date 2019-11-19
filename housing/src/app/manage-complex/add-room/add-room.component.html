@@ -6,11 +6,120 @@
   <hr />
 
   <div class="add-room-options">
+    <form id="AddRoomForm">
+      <!--Start of roomNumber-->
+        <div class="form-group">
+          <label for="roomNumber">Room Number</label>
+          <input type="text"
+            id="roomNumber"
+            name="roomNumber"
+            #roomNumber="ngModel"
+            [(ngModel)]="formRoom.roomNumber"
+            class="form-control"
+            aria-describedby="roomNumber"
+            required>
+          <!-- Dirty is so the error message is not displayed when the page first loads  -->
+          <div *ngIf="roomNumber.invalid && roomNumber.dirty" class="alert alert-danger">
+            A room number is required.
+          </div>
+        </div>
+        <!--End of roomNumber-->
 
-    <form>
+        <!--Start of numberOfBeds-->
+        <div class="form-group">
+          <label for="numberOfBeds">Number of Beds</label>
+          <input type="number"
+            id="numberOfBeds"
+            name="numberOfBeds"
+            #numberOfBeds="ngModel"
+            [(ngModel)]="formRoom.numberOfBeds"
+            class="form-control"
+            aria-describedby="numberOfBeds"
+            required>
+          <!-- Dirty is so the error message is not displayed when the page first loads  -->
+          <div *ngIf="numberOfBeds.invalid && numberOfBeds.dirty" class="alert alert-danger">
+            Number of beds is required.
+          </div>
+        </div>
+        <!--End of numberOfBeds-->
 
+      <!-- Start of gender input select -->
+      <div class="form-group">
+          <label for="gender">Select Gender</label>
+          <select
+          id="gender"
+          name="gender"
+          [(ngModel)]="selectOptionInvalid"
+          #gender="ngModel"
+          class="form-control"
+          aria-describedby="gender"
+          required>
+            <option value="" disabled>Select Gender</option>
+            <option [ngValue]="male">
+                Male
+            </option>
+            <option [ngValue]="female">
+                Female
+            </option>
+            <option [ngValue]="unspecified">
+                Unspecified
+            </option>
+          </select>
+        </div>
+        <!-- End of gender input select -->
+
+      <!-- Start of Room Type input select -->
+      <div class="form-group">
+          <label for="apiRoomType">Select Room Type</label>
+          <select
+          id="apiRoomType"
+          name="apiRoomType"
+          [(ngModel)]="selectOptionInvalid"
+          #apiRoomType="ngModel"
+          class="form-control"
+          aria-describedby="apiRoomType"
+          required>
+            <option value="" disabled>Select Room Type</option>
+            <option *ngFor="let roomType of seededRoomTypes" [ngValue]="center">
+              {{ roomType.roomType }}
+            </option>
+          </select>
+        </div>
+        <!-- End of Room Type select -->
+
+        <!--Start of leaseLength-->
+        <div class="form-group">
+            <label for="leaseLength">Lease Length</label>
+            <input type="number"
+              id="leaseLength"
+              name="leaseLength"
+              #leaseLength="ngModel"
+              [(ngModel)]="formRoom.leaseLength"
+              class="form-control"
+              aria-describedby="leaseLength"
+              required>
+            <!-- Dirty is so the error message is not displayed when the page first loads  -->
+            <div *ngIf="leaseLength.invalid && leaseLength.dirty" class="alert alert-danger">
+              A room number is required.
+            </div>
+          </div>
+          <!--End of leaseLength-->
+
+      <hr />
+
+      <!-- Start of markup for submit and cancel buttons | leaseLength, apiRoomType, gender, numberOfBeds, roomNumber -->
+      <div class="form-row">
+        <div class="col-md-6 form-group">
+          <!-- If any of the inputs are invalid, the submit button will be disabled -->
+          <button class="showAddressForm" [disabled]="leaseLength.invalid || apiRoomType.invalid || gender.invalid || numberOfBeds.invalid || roomNumber.invalid"
+            (click)="postAddRoom()">
+              Submit
+          </button>
+        </div>
+        <div class="col-md-6 form-group">
+          <button class="showAddressForm" (click)="cancelAddRoom()">Cancel</button>
+        </div>
+      </div>
     </form>
-
   </div>
-
 </div>
