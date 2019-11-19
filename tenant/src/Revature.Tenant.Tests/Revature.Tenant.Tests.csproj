@@ -12,9 +12,11 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
-  
+
   <ItemGroup>
+    <ProjectReference Include="..\Revature.Tenant.Api\Revature.Tenant.Api.csproj" />
+    <ProjectReference Include="..\Revature.Tenant.DataAccess\Revature.Tenant.DataAccess.csproj" />
     <ProjectReference Include="..\Revature.Tenant.Lib\Revature.Tenant.Lib.csproj" />
   </ItemGroup>
-  
+
 </Project>
