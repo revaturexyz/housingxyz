@@ -109,16 +109,71 @@
   h1 {
     margin-left: 35%;
   }
+
+  h2 {
+    margin-left: 35%;
+  }
   
   button {
     margin: 3%;
+  }
+
+  .container {
+    display: table;
+    height: 100%;
+    width: 100%;
+  }
+
+  .split {
+    height: 100%;
+    width: 50%;
+    display: table-cell;
+    z-index: 1;
+    top: 0;
+    overflow: hidden;
+    padding-top: 20px;
+  }
+  
+  .left {
+    background-color: white;
+  }
+
+  .right {
+    background-color: white;
+  }
+
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
   
   #tenantForm {
     color: black;
     background-color: white;
     opacity: 0.65;
-    width: 80%;
+    height: 100%;
+    width: 100%;
+  }
+
+  #carForm{
+    color: black;
+    background-color: white;
+    opacity: 0.65;
+    height: 100%;
+    min-height: 50%;
+    width: 70%;
+  }
+
+  #tenFormDetail{
+    color: black;
+    background-color: white;
+    opacity: 0.65;
+    height: 25%;
+    min-height: 50%;
+    width: 70%;
   }
   
   #alert {
