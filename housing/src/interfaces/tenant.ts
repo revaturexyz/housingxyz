@@ -1,5 +1,6 @@
 import { Car } from './car';
 import { Batch } from './batch';
+import { TenantAddress } from './tenantAddress';
 
 export interface Tenant {
     tenantId: string;
@@ -7,8 +8,7 @@ export interface Tenant {
     gender: string;
     firstName: string;
     lastName: string;
-    addressId: string;
-    roomId: number;
+    tenantAddress: TenantAddress;
     car: Car;
     batch: Batch;
 }

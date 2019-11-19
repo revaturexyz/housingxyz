@@ -98,6 +98,7 @@
                   </select>
                 </div>
               <br>
+              <button class="btn btn-secondary" *ngIf="!address" (click)="addAddress()">Add Address</button>
               <button class="btn btn-secondary" *ngIf="!show" (click)="addForm()">Add Car</button>
               </div>
             </div>
@@ -152,6 +153,64 @@
                     </form>
               </div>
             </div>
+
+            <div class="split right" *ngIf="address">
+              <div class="centered">
+                  <form>
+                      <div id="addressForm">
+                        <h2>Add Address</h2>
+                            <label class="col-md-9">
+                                Street:
+                                <input [(ngModel)]="tenant.address.street" name="tenant.address.street"
+                                  class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Street address must contain at least 5 characters.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                City:
+                                <input [(ngModel)]="tenant.address.city" name="tenant.address.city" class="input-border" type="text"
+                                  required minlength="1" maxlength="50" #city="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">
+                                City name is either too short or too long.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                State:
+                                <input [(ngModel)]="tenant.address.state" name="tenant.address.state" class="input-border" type="text"
+                                  required minlength="2" maxlength="50" #state="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">
+                                Please enter a valid state name or state abbreviation.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                Country:
+                                <input [(ngModel)]="tenant.address.country" name="tenant.address.country" class="input-border"
+                                  type="text" #country="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="country.invalid && country.dirty" class="alert alert-danger">
+                                Please enter a valid country name or country abbreviation.
+                              </div>
+
+                              <label class="col-md-9">
+                                Zip Code:
+                                <input [(ngModel)]="tenant.address.zipCode" name="tenant.address.zipCode" class="input-border"
+                                  type="text" pattern="[0-9]{5}" #zip="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">
+                                Zip code must be exactly least 5 numbers.
+                              </div>
+                        <br>
+                        <button class="btn btn-secondary" (click)="return()">Cancel</button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+
           </div>
           <br><br>
 

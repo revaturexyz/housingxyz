@@ -17,6 +17,8 @@ export class AddTenantComponent implements OnInit {
 
   show: boolean = false;
 
+  address = false;
+
 
   
 
@@ -37,10 +39,18 @@ export class AddTenantComponent implements OnInit {
     this.show = true;
   }
 
+  addAddress() {
+    this.address = true;
+  }
+
 
   // called when the cancel button on the add address form is clicked to hide the form.
   back() {
     this.show = false;
+  }
+
+  return() {
+    this.address = false;
   }
 
   
@@ -79,8 +89,14 @@ export class AddTenantComponent implements OnInit {
         gender: '',
         firstName: '',
         lastName: '',
-        addressId: '',
-        roomId: 0,
+        tenantAddress: {
+          addressId: '',
+          street: '',
+          city: '',
+          state: '',
+          country: '',
+          zipCode: ''
+        },
         car: {
           carId: 0,
           licensePlate: '',
