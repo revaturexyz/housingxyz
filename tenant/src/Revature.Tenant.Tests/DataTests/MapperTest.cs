@@ -100,6 +100,7 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(car.Model, cars.Model);
             Assert.Equal(car.Year, cars.Year);
             Assert.Equal(car.Color, cars.Color);
+            Assert.Equal(car.State, cars.State);
         }
 
         [Fact]
@@ -123,6 +124,7 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(cars.Model, car.Model);
             Assert.Equal(cars.Year, car.Year);
             Assert.Equal(cars.Color, car.Color);
-        }
+            Assert.Equal(cars.State, car.State);
+    }
     }
 }
