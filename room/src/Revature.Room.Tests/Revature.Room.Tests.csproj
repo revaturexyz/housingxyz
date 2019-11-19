@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -24,5 +24,4 @@
     <ProjectReference Include="..\Revature.Room.DataAccess\Revature.Room.DataAccess.csproj" />
     <ProjectReference Include="..\Revature.Room.Lib\Revature.Room.Lib.csproj" />
   </ItemGroup>
-
 </Project>

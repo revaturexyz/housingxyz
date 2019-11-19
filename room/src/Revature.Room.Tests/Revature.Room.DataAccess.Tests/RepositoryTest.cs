@@ -15,17 +15,18 @@ namespace Revature.Room.Tests
   public class RepositoryTest
   {
     /* Preset valid room properties */
-    private Guid newRoomID = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
+    private Guid newRoomId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
 
-    private Guid newRoomID2 = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456de");
+    private Guid newRoomId2 = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456de");
 
-    private Guid newComplexID = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
+    private Guid newComplexId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
     private string newGender = "Female";
     private string newRoomNumber = "2002";
     private string newRoomType = "Dormitory";
     private int newNumOfBeds = 4;
 
     private int newNumOfOccupants = 2;
+    private int newNumOfOccupants2 = 3;
 
     private DateTime newLeaseStart = new DateTime(2000, 1, 1);
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
@@ -39,8 +40,8 @@ namespace Revature.Room.Tests
     {
       return new BusinessLogic.Room
       {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
+        RoomId = newRoomId,
+        ComplexId = newComplexId,
         Gender = newGender,
         RoomNumber = newRoomNumber,
         RoomType = newRoomType,
@@ -56,8 +57,8 @@ namespace Revature.Room.Tests
     {
       return new Revature.Room.DataAccess.Entities.Room
       {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
+        RoomId = newRoomId,
+        ComplexId = newComplexId,
         Gender = context.Gender.FirstOrDefault(g => g.Type == newGender),
         RoomNumber = newRoomNumber,
         RoomType = context.RoomType.FirstOrDefault(g => g.Type == newRoomType),
@@ -72,13 +73,13 @@ namespace Revature.Room.Tests
     {
       return new Revature.Room.DataAccess.Entities.Room
       {
-        RoomID = newRoomID2,
-        ComplexID = newComplexID,
+        RoomId = newRoomId2,
+        ComplexId = newComplexId,
         Gender = context.Gender.FirstOrDefault(g => g.Type == "Male"),
         RoomNumber = newRoomNumber,
         RoomType = context.RoomType.FirstOrDefault(g => g.Type == newRoomType),
         NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
+        NumberOfOccupants = newNumOfOccupants2,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -98,18 +99,7 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper(assembleContext);
       assembleContext.Database.EnsureCreated();
 
-      var assembleRoom = new BusinessLogic.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = newGender,
-        RoomNumber = newRoomNumber,
-        RoomType = newRoomType,
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var assembleRoom = PresetBLRoom();
 
       var actRepo = new Repository(assembleContext, mapper);
       await actRepo.CreateRoomAsync(assembleRoom);
@@ -117,7 +107,7 @@ namespace Revature.Room.Tests
 
       using var assertContext = new RoomServiceContext(options);
 
-      Assert.NotNull(assertContext.Room.Find(newRoomID));
+      Assert.NotNull(assertContext.Room.Find(newRoomId));
     }
 
     [Fact]
@@ -139,14 +129,11 @@ namespace Revature.Room.Tests
       using var assertContext = new RoomServiceContext(options);
       Repository repo = new Repository(assertContext, mapper);
 
-      var resultRoomList = await repo.ReadRoomAsync(newRoomID);
-      //Test passes,but it "fails" because resultRoom has nothing in it, but it references to something so
-      //technically it's not null.
-      //Fixed
-      Assert.NotNull(resultRoomList);
-      Assert.Equal(newRoomID, resultRoomList.FirstOrDefault().RoomID);
-    }
+      var resultRoomList = await repo.ReadRoomAsync(newRoomId);
 
+      Assert.NotNull(resultRoomList);
+      Assert.Equal(newRoomId, resultRoomList.FirstOrDefault().RoomId);
+    }
 
     [Fact]
     public async Task UpdateRoomUpdatesGenderAndRoomType()
@@ -159,21 +146,10 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
 
-      var oldRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var oldRoom = PresetEntityRoom2(testContext);
 
       var updatedRoom = PresetBLRoom();
-
+      updatedRoom.RoomId = newRoomId2;
       testContext.Add(oldRoom);
       await testContext.SaveChangesAsync();
 
@@ -185,10 +161,9 @@ namespace Revature.Room.Tests
       await repo.UpdateRoomAsync(updatedRoom);
       await actContext.SaveChangesAsync();
 
-      var assertRoom = actContext.Room.Find(oldRoom.RoomID);
+      var assertRoom = actContext.Room.Find(oldRoom.RoomId);
 
       Assert.Equal("Female", assertRoom.Gender.Type);
-
     }
 
     [Fact]
@@ -202,21 +177,10 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
 
-      var oldRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = 4,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var oldRoom = PresetEntityRoom2(testContext);
 
       var updatedRoom = PresetBLRoom();
-
+      updatedRoom.RoomId = newRoomId2;
       testContext.Add(oldRoom);
       await testContext.SaveChangesAsync();
 
@@ -227,10 +191,9 @@ namespace Revature.Room.Tests
       await repo.UpdateRoomAsync(updatedRoom);
       await actContext.SaveChangesAsync();
 
-      var assertRoom = actContext.Room.Find(oldRoom.RoomID);
+      var assertRoom = actContext.Room.Find(oldRoom.RoomId);
 
-      Assert.Equal(2, assertRoom.NumberOfOccupants);
-
+      Assert.Equal(newNumOfOccupants, assertRoom.NumberOfOccupants);
     }
 
     [Fact]
@@ -244,18 +207,7 @@ namespace Revature.Room.Tests
       testContext.Database.EnsureCreated();
       var mapper = new DBMapper(testContext);
 
-      var newRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var newRoom = PresetEntityRoom2(testContext);
 
       testContext.Add(newRoom);
       testContext.SaveChanges();
@@ -263,16 +215,16 @@ namespace Revature.Room.Tests
       using var actContext = new RoomServiceContext(options);
       Repository repo = new Repository(actContext, mapper);
 
-      var resultRoom = await repo.ReadRoomAsync(newRoom.RoomID);
+      var resultRoom = await repo.ReadRoomAsync(newRoom.RoomId);
 
       Assert.Equal("Male", resultRoom.FirstOrDefault().Gender);
     }
 
     [Fact]
-    public async Task RepoReadCheckRoomID()
+    public async Task RepoReadCheckRoomId()
     {
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
-        .UseInMemoryDatabase("RepoReadCheckRoomID")
+        .UseInMemoryDatabase("RepoReadCheckRoomId")
         .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
@@ -280,18 +232,7 @@ namespace Revature.Room.Tests
 
       var mapper = new DBMapper(testContext);
 
-      var newRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID2,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var newRoom = PresetEntityRoom2(testContext);
 
       testContext.Add(newRoom);
       testContext.SaveChanges();
@@ -299,9 +240,9 @@ namespace Revature.Room.Tests
       using var actContext = new RoomServiceContext(options);
       Repository repo = new Repository(actContext, mapper);
 
-      var resultRoom = await repo.ReadRoomAsync(newRoom.RoomID);
+      var resultRoom = await repo.ReadRoomAsync(newRoom.RoomId);
 
-      Assert.Equal(newRoomID2.ToString(), resultRoom.FirstOrDefault().RoomID.ToString());
+      Assert.Equal(newRoomId2.ToString(), resultRoom.FirstOrDefault().RoomId.ToString());
     }
 
     [Fact]
@@ -321,13 +262,12 @@ namespace Revature.Room.Tests
 
       using var actContext = new RoomServiceContext(options);
       var repo = new Repository(actContext, mapper);
-      await repo.DeleteRoomAsync(newRoomID);
+      await repo.DeleteRoomAsync(newRoomId);
       actContext.SaveChanges();
 
       var assertContext = new RoomServiceContext(options);
 
-      Assert.Null(assertContext.Room.Find(newRoomID));
-
+      Assert.Null(assertContext.Room.Find(newRoomId));
     }
 
     //Test where we add two rooms, but delete one to see if it's actually in there
@@ -343,31 +283,19 @@ namespace Revature.Room.Tests
 
       var newRoom1 = PresetEntityRoom(testContext);
 
-      var newRoom2 = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID2,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == "Dormitory"),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var newRoom2 = PresetEntityRoom2(testContext);
 
       testContext.Add(newRoom1);
       testContext.Add(newRoom2);
       testContext.SaveChanges();
 
       using var assertContext = new RoomServiceContext(options);
-      var repo = new Repository(assertContext, mapper); 
+      var repo = new Repository(assertContext, mapper);
 
-      await repo.DeleteRoomAsync(newRoomID2);
+      await repo.DeleteRoomAsync(newRoomId2);
       assertContext.SaveChanges();
 
-      Assert.Null(assertContext.Room.Find(newRoomID2));
-
+      Assert.Null(assertContext.Room.Find(newRoomId2));
     }
 
     [Fact]
@@ -397,9 +325,7 @@ namespace Revature.Room.Tests
 
       Assert.NotNull(filterRoom);
 
-      Assert.Equal(newRoomID.ToString(), filterRoom.FirstOrDefault(r => r == newRoomID).ToString());
-
+      Assert.Equal(newRoomId.ToString(), filterRoom.FirstOrDefault(r => r == newRoomId).ToString());
     }
-
   }
 }

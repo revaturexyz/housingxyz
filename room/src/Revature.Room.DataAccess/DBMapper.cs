@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Revature.Room.DataAccess
 {
+  /// <summary>
+  /// Mapper class that maps between DB Entity Objects and Business Logic Objects
+  /// </summary>
   public class DBMapper : IMapper
   {
     private readonly RoomServiceContext _context;
@@ -17,8 +20,8 @@ namespace Revature.Room.DataAccess
     {
       return new Lib.Room()
       {
-        RoomID = Room.RoomID,
-        ComplexID = Room.ComplexID,
+        RoomId = Room.RoomId,
+        ComplexId = Room.ComplexId,
         Gender = Room.Gender.Type,
         RoomNumber = Room.RoomNumber,
         RoomType = Room.RoomType.Type,
@@ -33,8 +36,8 @@ namespace Revature.Room.DataAccess
     {
       return new Entities.Room
       {
-        RoomID = Room.RoomID,
-        ComplexID = Room.ComplexID,
+        RoomId = Room.RoomId,
+        ComplexId = Room.ComplexId,
         Gender = getGender(Room.Gender),
         RoomNumber = Room.RoomNumber,
         RoomType = getRoomtype(Room.RoomType),
