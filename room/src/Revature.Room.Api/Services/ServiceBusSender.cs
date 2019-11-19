@@ -57,6 +57,9 @@ namespace ServiceBusMessaging
     //Service bus doesn't have to be RESTFUL, we only need to care about sending message via Service bus
     //to POST, PUT, and DELETE.
 
+    //LEARNED THE ROOM SERVICE IS NOT SENDING ANYTHING, JUST RECEIVING.
+    //WILL REMOVE UNNECESSARY SEND MESSAGES
+
     //ServiceBus message for creating a room
     public async Task SendCreateMessage(Room roomToSend)
     {
