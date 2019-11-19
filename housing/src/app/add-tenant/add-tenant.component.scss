@@ -1,6 +1,30 @@
+#parent
+{
+  overflow: hidden;
+}
+.child
+{
+  margin-top: 5%;
+  max-height: 80%;
+  overflow-y: scroll;
+}
+#formContainer
+{
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+.tenFormLabel
+{
+  display: flex;
+  flex-flow: column-reverse wrap;
+}
 #header {
     text-align: center;
   }
+#addTenantTitle
+{
+  position: absolute;
+}
   
   .input-border {
     width: 100%;
@@ -122,6 +146,8 @@
     display: table;
     height: 100%;
     width: 100%;
+    height: auto;
+    margin-top: 25px;
   }
 
   .split {
@@ -130,41 +156,42 @@
     display: table-cell;
     z-index: 1;
     top: 0;
-    overflow: hidden;
     padding-top: 20px;
   }
   
   .left {
+    left: 0;
     background-color: white;
   }
 
   .right {
+    right: 0%;
     background-color: white;
   }
 
   .centered {
-    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    display: inline-block;
+    width: auto;
   }
   
   #tenantForm {
     color: black;
     background-color: white;
     opacity: 0.65;
-    height: 100%;
-    width: 100%;
+    height:auto;
+    text-align: center;
+    overflow: hidden;
   }
 
   #carForm{
     color: black;
     background-color: white;
     opacity: 0.65;
-    height: 100%;
+    height: 25%;
     min-height: 50%;
-    width: 70%;
+    width: 50%;
   }
 
   #tenFormDetail{
@@ -173,7 +200,8 @@
     opacity: 0.65;
     height: 25%;
     min-height: 50%;
-    width: 70%;
+    width: auto;
+    display: inline-block;
   }
   
   #alert {

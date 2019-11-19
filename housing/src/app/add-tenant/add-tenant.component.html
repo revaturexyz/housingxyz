@@ -57,47 +57,46 @@
     </div>
   </div>
 
-
   <!-- The right side of the page -->
-  <div class="col-md-8 p-0 bg-body h-md-100 loginarea">
-    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
-      <div class="logoarea pt-8 pb-8 col-md-12">
+  <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
+    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
+      <div class="logoarea pt-8 pb-8 col-md-12" >
         <div id="tenantForm">
-          <h1>Add Tenant</h1>
+          <h1 id="addTenantTitle">Add Tenant</h1>
           <br>
           <div class="container">
-            <div id="tenFormDetail" class="split left">
+            <div id="tenFormDetail">
               <div class="centered">
               <!-- Enter Email -->
-              <div class="col-md-10">
-                <label class="col-md-3" for="tenant.email">Email:</label>
-                <input type="text" name="tenant.email" class="input-border col-md-6" required
-                  pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*" [(ngModel)]="tenant.email"
-                  #tenEmail="ngModel">
-              </div>
+                <div>
+                  <label for="tenant.email" class="tenFormLabel">Email:</label>
+                  <input type="text" name="tenant.email" class="input-border col-md-6" required
+                    pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*" [(ngModel)]="tenant.email"
+                    #tenEmail="ngModel">
+                </div>
 
-              <!-- Enter First Name -->
-              <div class="col-md-10">
-                <label for="tenant.firstName" class="col-md-3">First Name:</label>
-                <input type="text" name="tenant.firstName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
-                  [(ngModel)]="tenant.firstName" #tenFName="ngModel">
-              </div>
+                <!-- Enter First Name -->
+                <div class="tenFormItem">
+                  <label for="tenant.firstName" class="tenFormLabel">First Name:</label>
+                  <input type="text" name="tenant.firstName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
+                    [(ngModel)]="tenant.firstName" #tenFName="ngModel">
+                </div>
 
               <!-- Enter Last Name -->
-              <div class="col-md-10">
-                <label class="col-md-3" for="tenant.lastName">Last Name:</label>
-                <input type="text" name="tenant.lastName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
-                  [(ngModel)]="tenant.lastName" #tenFName="ngModel">
-              </div>
+                <div class="tenFormItem">
+                  <label class="tenFormLabel" for="tenant.lastName">Last Name:</label>
+                  <input type="text" name="tenant.lastName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
+                    [(ngModel)]="tenant.lastName" #tenFName="ngModel">
+                </div>
 
-              <!-- Enter Gender -->
-              <div class="col-md-10">
-                <label class="col-md-3">Gender:</label>
-                <select class="input-border col-md-6 input-border" name="tenant.gender" required
-                  [(ngModel)]="tenant.gender" #tenGender="ngModel">
-                  <option *ngFor="let gender of genders" [ngValue]="type">{{tenant.gender}}</option>
-                </select>
-              </div>
+                <!-- Enter Gender -->
+                <div class="tenFormItem">
+                  <label class="tenFormLabel">Gender:</label>
+                  <select class="input-border col-md-6 input-border" name="tenant.gender" required
+                    [(ngModel)]="tenant.gender" #tenGender="ngModel">
+                    <option *ngFor="let gender of genders" [ngValue]="type">{{tenant.gender}}</option>
+                  </select>
+                </div>
               <br>
               <button class="btn btn-secondary" *ngIf="!show" (click)="addForm()">Add Car</button>
               </div>
@@ -107,9 +106,9 @@
             <!-- Only shows when the add address sbutton is clicked -->
 
             
-            <div class="split right">
+            <div class="split right" *ngIf="show">
               <div class="centered">
-                  <form *ngIf="show">
+                  <form>
                       <div id="carForm">
                         <h2>Add Car</h2>
                             <label class="col-md-9">
@@ -166,18 +165,9 @@
               Submit
             </button>
             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
-            <!-- Some validation for a valid address, the distance between the tenant and training center, and the tenant and the complex -->
-            <!-- <div *ngIf="invalidAddress" class="alert alert-danger">
-                      The tenant address is invalid. Please enter a valid address.
-                    </div>
-                    <div *ngIf="invalidDistanceToTraining" class="alert alert-danger">
-                      The distance between the tenant address and the training center address cannot exceed twenty miles.
-                    </div>
-                    <div *ngIf="invalidDistanceToComplex" class="alert alert-danger">
-                      The distance between the tenant address and the living complex address cannot exceed five miles.
-                    </div> -->
           </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
