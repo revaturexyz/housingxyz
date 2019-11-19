@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.Lib.Interface;
-using Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
