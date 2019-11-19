@@ -40,10 +40,6 @@ namespace Revature.Tenant.Lib.Models
       get => _startDate;
       set
       {
-        if (value == null)
-        {
-          throw new ArgumentNullException("Start Date must not be empty", nameof(value));
-        }
         _startDate = value;
       }
     }
@@ -53,10 +49,6 @@ namespace Revature.Tenant.Lib.Models
       get => _endDate;
       set
       {
-        if (value == null)
-        {
-          throw new ArgumentNullException("End Date must not be empty", nameof(value));
-        }
         _endDate = value;
       }
 
