@@ -26,6 +26,8 @@ namespace Revature.Room.Tests
     private int newNumOfBeds = 4;
 
     private int newNumOfOccupants = 2;
+    private int newNumOfOccupants2 = 3;
+
 
     private DateTime newLeaseStart = new DateTime(2000, 1, 1);
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
@@ -78,7 +80,7 @@ namespace Revature.Room.Tests
         RoomNumber = newRoomNumber,
         RoomType = context.RoomType.FirstOrDefault(g => g.Type == newRoomType),
         NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
+        NumberOfOccupants = newNumOfOccupants2,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -98,18 +100,7 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper(assembleContext);
       assembleContext.Database.EnsureCreated();
 
-      var assembleRoom = new BusinessLogic.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = newGender,
-        RoomNumber = newRoomNumber,
-        RoomType = newRoomType,
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var assembleRoom = PresetBLRoom();
 
       var actRepo = new Repository(assembleContext, mapper);
       await actRepo.CreateRoomAsync(assembleRoom);
@@ -140,9 +131,7 @@ namespace Revature.Room.Tests
       Repository repo = new Repository(assertContext, mapper);
 
       var resultRoomList = await repo.ReadRoomAsync(newRoomID);
-      //Test passes,but it "fails" because resultRoom has nothing in it, but it references to something so
-      //technically it's not null.
-      //Fixed
+      
       Assert.NotNull(resultRoomList);
       Assert.Equal(newRoomID, resultRoomList.FirstOrDefault().RoomID);
     }
@@ -159,21 +148,10 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
 
-      var oldRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var oldRoom = PresetEntityRoom2(testContext);
 
       var updatedRoom = PresetBLRoom();
-
+      updatedRoom.RoomID = newRoomID2;
       testContext.Add(oldRoom);
       await testContext.SaveChangesAsync();
 
@@ -202,21 +180,10 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper(testContext);
       testContext.Database.EnsureCreated();
 
-      var oldRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(r => r.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = 4,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var oldRoom = PresetEntityRoom2(testContext);
 
       var updatedRoom = PresetBLRoom();
-
+      updatedRoom.RoomID = newRoomID2;
       testContext.Add(oldRoom);
       await testContext.SaveChangesAsync();
 
@@ -229,7 +196,7 @@ namespace Revature.Room.Tests
 
       var assertRoom = actContext.Room.Find(oldRoom.RoomID);
 
-      Assert.Equal(2, assertRoom.NumberOfOccupants);
+      Assert.Equal(newNumOfOccupants, assertRoom.NumberOfOccupants);
 
     }
 
@@ -244,18 +211,7 @@ namespace Revature.Room.Tests
       testContext.Database.EnsureCreated();
       var mapper = new DBMapper(testContext);
 
-      var newRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var newRoom = PresetEntityRoom2(testContext);
 
       testContext.Add(newRoom);
       testContext.SaveChanges();
@@ -280,18 +236,7 @@ namespace Revature.Room.Tests
 
       var mapper = new DBMapper(testContext);
 
-      var newRoom = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID2,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == newRoomType),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var newRoom = PresetEntityRoom2(testContext);
 
       testContext.Add(newRoom);
       testContext.SaveChanges();
@@ -343,18 +288,7 @@ namespace Revature.Room.Tests
 
       var newRoom1 = PresetEntityRoom(testContext);
 
-      var newRoom2 = new Revature.Room.DataAccess.Entities.Room
-      {
-        RoomID = newRoomID2,
-        ComplexID = newComplexID,
-        Gender = testContext.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = testContext.RoomType.FirstOrDefault(g => g.Type == "Dormitory"),
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
-      };
+      var newRoom2 = PresetEntityRoom2(testContext);
 
       testContext.Add(newRoom1);
       testContext.Add(newRoom2);
