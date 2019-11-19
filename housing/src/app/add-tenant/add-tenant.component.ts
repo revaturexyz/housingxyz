@@ -3,6 +3,8 @@ import { CoordinatorService } from '../services/coordinator.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { Tenant } from '../../interfaces/tenant';
+import { RedirectService } from '../services/redirect.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'dev-add-tenant',
@@ -13,11 +15,10 @@ export class AddTenantComponent implements OnInit {
 
   tenant: Tenant;
 
+  show: boolean = false;
 
-  constructor(
-    private coordService: CoordinatorService,
-    private router: Router
-    ) { }
+
+  
 
   async postTenantOnSubmit() {
     try{
@@ -28,6 +29,20 @@ export class AddTenantComponent implements OnInit {
       console.log(err);
     }
   }
+
+  // called when te button to add an address is clicked to display the form.
+  
+  addForm() {
+    this.show = true;
+  }
+
+
+  // called when the cancel button on the add address form is clicked to hide the form.
+  back() {
+    this.show = false;
+  }
+
+  
   // Posts a room to the date base.
   // async postRoomOnSubmit() {
 
@@ -53,7 +68,14 @@ export class AddTenantComponent implements OnInit {
   displayMid;
   displayEnd;
 
+  constructor(
+    private coordService: CoordinatorService,
+    private router: Router
+    ) { }
+
   ngOnInit() {
+    console.log("Show: "+ this.show);
+
   }
 
 
