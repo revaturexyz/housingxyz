@@ -5,6 +5,7 @@ namespace Revature.Room.DataAccess.Entities
   /// </summary>
   public class Gender
   {
+    public int GenderId { get; set; }
     public string Type { get; set; }
   }
 }
