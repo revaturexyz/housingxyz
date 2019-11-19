@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
+
+using Swashbuckle;
+
 namespace Revature.Account.Api
 {
   public class Startup
