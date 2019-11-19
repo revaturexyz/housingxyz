@@ -1,5 +1,0 @@
-C:\revature\housingxyz\complexService\ComplexServiceLogic\bin\Debug\netcoreapp3.0\ComplexServiceLogic.deps.json
-C:\revature\housingxyz\complexService\ComplexServiceLogic\bin\Debug\netcoreapp3.0\ComplexServiceLogic.dll
-C:\revature\housingxyz\complexService\ComplexServiceLogic\obj\Debug\netcoreapp3.0\ComplexServiceLogic.csprojAssemblyReference.cache
-C:\revature\housingxyz\complexService\ComplexServiceLogic\obj\Debug\netcoreapp3.0\ComplexServiceLogic.AssemblyInfoInputs.cache
-C:\revature\housingxyz\complexService\ComplexServiceLogic\obj\Debug\netcoreapp3.0\ComplexServiceLogic.AssemblyInfo.cs
