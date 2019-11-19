@@ -39,8 +39,8 @@
         <br>
         <!-- form to give the user a chance to input an address if one of the predetermined ones doesnt work -->
         <!-- Only shows when the add address button is clicked -->
-        <button class="btn btn-secondary" *ngIf="show === false" (click)="addForm()">Add Address</button>
-        <form *ngIf="show === true">
+        <button class="btn btn-secondary" *ngIf="!show" (click)="addForm()">Add Address</button>
+        <form *ngIf="show">
           <div>
             <!--
             The divs with the alert id are only displayed when there is invalid information
