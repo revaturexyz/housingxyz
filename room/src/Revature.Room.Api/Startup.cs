@@ -43,12 +43,11 @@ namespace Revature.Room.Api
         });
       });
 
-
-
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
       });
+
       services.AddDbContext<RoomServiceContext>(options => options.UseNpgsql(Configuration.GetConnectionString("RoomDb")));
 
       services.AddScoped<IRepository, Repository>();
@@ -72,7 +71,7 @@ namespace Revature.Room.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
 
       var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();

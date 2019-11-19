@@ -25,14 +25,14 @@ namespace Revature.Room.DataAccess.Entities
       {
         entity.HasKey(g => g.Type);
         entity.HasData(
-          new Gender() { Type = "Male"},
-          new Gender() { Type = "Female"},
-          new Gender() { Type = "NonBinary"}
+          new Gender() { Type = "Male" },
+          new Gender() { Type = "Female" },
+          new Gender() { Type = "NonBinary" }
           );
       });
 
       modelBuilder.Entity<RoomType>(
-        
+
         entity =>
         {
           entity.HasKey(r => r.Type);
@@ -78,7 +78,7 @@ namespace Revature.Room.DataAccess.Entities
             RoomNumber = "2428B",
             NumberOfOccupants = 2
           }
-          ); 
+          );
       });
     }
   }

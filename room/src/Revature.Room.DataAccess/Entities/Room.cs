@@ -1,18 +1,17 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Revature.Room.DataAccess.Entities
 {
   public class Room
   {
-    
     public Guid RoomId { get; set; }
 
     public string RoomNumber { get; set; }
 
     [Range(1, int.MaxValue)]
     public int NumberOfBeds { get; set; }
+
     public int NumberOfOccupants { get; set; }
     public Gender Gender { get; set; }
 

@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using System.Linq;
-
 namespace Revature.Room.Api.Controllers
 {
+  /// <summary>
+  /// Controller for commmunicating with the complex service
+  /// </summary>
   [Route("api/complexes/{complexId}/rooms")]
   [ApiController]
   public class ComplexController : ControllerBase
@@ -26,8 +27,18 @@ namespace Revature.Room.Api.Controllers
       _busSender = busSender ?? throw new ArgumentNullException();
     }
 
+    /// <summary>
+    /// This controller method is to get rooms based on filters applied (roomNumber, numberOfBeds, etc)
+    /// </summary>
+    /// <param name="complexId"></param>
+    /// <param name="roomNumber"></param>
+    /// <param name="numberOfBeds"></param>
+    /// <param name="roomType"></param>
+    /// <param name="gender"></param>
+    /// <param name="endDate"></param>
+    /// <returns></returns>
+
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e
-    //This controller method is to get rooms based on filters applied (roomNumber, numberOfBeds, etc)
     public async Task<IActionResult> GetFilteredRoomsAsync(
       Guid complexId,
       [FromQuery] string roomNumber,
@@ -48,9 +59,14 @@ namespace Revature.Room.Api.Controllers
       return Ok(rooms);
     }
 
+    /// <summary>
+    /// Controller method for getting a specific room using room id
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+
     //Other HTTP Get goes here
-    //For Read
-    //Should I map Logic model to Database model?
+
     [HttpGet("{roomId}", Name = "GetRoom")]
     public async Task<IEnumerable<Lib.Room>> GetRoomAsync(Guid roomId)
     {
@@ -69,11 +85,17 @@ namespace Revature.Room.Api.Controllers
       return roomListNotNull;
     }
 
+    /// <summary>
+    /// Controller method for adding a room
+    /// </summary>
+    /// <param name="room"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> PostRoomAsync
       ([FromBody, Bind("ComplexId, RoomId, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
     {
-      Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room {
+      Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room
+      {
         ComplexId = room.ComplexId,
         RoomId = room.RoomId,
         RoomNumber = room.RoomNumber,
@@ -92,8 +114,14 @@ namespace Revature.Room.Api.Controllers
       //Will change route http after we have a HTTP GET
 
       return CreatedAtRoute("GetRoom", new { RoomId = createdRoom.RoomId }, createdRoom);
-
     }
+
+    /// <summary>
+    /// Controller method for updating a room
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="Lroom"></param>
+    /// <returns></returns>
 
     [HttpPut("{id}")]
     public async Task<IActionResult> PutRoomAsync(Guid id, [FromBody] Revature.Room.Lib.Room Lroom)
@@ -118,6 +146,12 @@ namespace Revature.Room.Api.Controllers
 
       return Ok(newRo);
     }
+
+    /// <summary>
+    /// Controller method for deleting a room
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
 
     [HttpDelete]
     public async Task<IActionResult> DeleteRoomAsync(Guid id)

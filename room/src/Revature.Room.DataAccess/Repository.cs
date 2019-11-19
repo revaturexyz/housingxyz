@@ -1,10 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Revature.Room.DataAccess.Entities;
+using Revature.Room.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Revature.Room.DataAccess.Entities;
-using Revature.Room.Lib;
+
 using Data = Revature.Room.DataAccess.Entities;
 
 namespace Revature.Room.DataAccess
@@ -42,7 +43,6 @@ namespace Revature.Room.DataAccess
       var x = listRoom.Where(r => r.RoomId == roomId).ToList();
 
       return _map.ParseRooms(x).ToList();
-
     }
 
     //Update room by Guid
@@ -58,7 +58,6 @@ namespace Revature.Room.DataAccess
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
       roomEntity.NumberOfOccupants = myRoom.NumberOfOccupants;
-
     }
 
     //Deletes room by id

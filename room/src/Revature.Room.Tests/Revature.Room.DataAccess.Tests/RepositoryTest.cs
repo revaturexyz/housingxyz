@@ -28,7 +28,6 @@ namespace Revature.Room.Tests
     private int newNumOfOccupants = 2;
     private int newNumOfOccupants2 = 3;
 
-
     private DateTime newLeaseStart = new DateTime(2000, 1, 1);
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
 
@@ -131,11 +130,10 @@ namespace Revature.Room.Tests
       Repository repo = new Repository(assertContext, mapper);
 
       var resultRoomList = await repo.ReadRoomAsync(newRoomId);
-      
+
       Assert.NotNull(resultRoomList);
       Assert.Equal(newRoomId, resultRoomList.FirstOrDefault().RoomId);
     }
-
 
     [Fact]
     public async Task UpdateRoomUpdatesGenderAndRoomType()
@@ -166,7 +164,6 @@ namespace Revature.Room.Tests
       var assertRoom = actContext.Room.Find(oldRoom.RoomId);
 
       Assert.Equal("Female", assertRoom.Gender.Type);
-
     }
 
     [Fact]
@@ -197,7 +194,6 @@ namespace Revature.Room.Tests
       var assertRoom = actContext.Room.Find(oldRoom.RoomId);
 
       Assert.Equal(newNumOfOccupants, assertRoom.NumberOfOccupants);
-
     }
 
     [Fact]
@@ -272,7 +268,6 @@ namespace Revature.Room.Tests
       var assertContext = new RoomServiceContext(options);
 
       Assert.Null(assertContext.Room.Find(newRoomId));
-
     }
 
     //Test where we add two rooms, but delete one to see if it's actually in there
@@ -295,13 +290,12 @@ namespace Revature.Room.Tests
       testContext.SaveChanges();
 
       using var assertContext = new RoomServiceContext(options);
-      var repo = new Repository(assertContext, mapper); 
+      var repo = new Repository(assertContext, mapper);
 
       await repo.DeleteRoomAsync(newRoomId2);
       assertContext.SaveChanges();
 
       Assert.Null(assertContext.Room.Find(newRoomId2));
-
     }
 
     [Fact]
@@ -332,8 +326,6 @@ namespace Revature.Room.Tests
       Assert.NotNull(filterRoom);
 
       Assert.Equal(newRoomId.ToString(), filterRoom.FirstOrDefault(r => r == newRoomId).ToString());
-
     }
-
   }
 }
