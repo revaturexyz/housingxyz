@@ -7,6 +7,8 @@ import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
 import { RedirectService } from '../services/redirect.service';
 
+import { TestServiceData } from '../services/static-test-data';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,31 +16,14 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './add-provider.component.html',
   styleUrls: ['./add-provider.component.scss']
 })
+
+// Component to display form for adding a Provider to the system
 export class AddProviderComponent implements OnInit {
 
   formProvider: Provider;
 
   public selectOptionInvalid = '';
-  public seededComplexes: Array<TrainingCenter> = [
-    {
-      centerId: 0,
-      apiAddress: null,
-      centerName: 'Liv +',
-      contactNumber: '2143367788'
-    },
-    {
-      centerId: 1,
-      apiAddress: null,
-      centerName: 'Sunshine Springs',
-      contactNumber: '2141231112'
-    },
-    {
-      centerId: 3,
-      apiAddress: null,
-      centerName: 'Courtshire Yards',
-      contactNumber: '2141231112'
-    }
-  ];
+  public seededComplexes = TestServiceData.testTrainingCenters;
 
   constructor(
     private router: Router,

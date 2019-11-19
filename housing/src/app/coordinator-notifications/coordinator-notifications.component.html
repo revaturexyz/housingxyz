@@ -3,40 +3,24 @@
     <div id="title">
       <h3>Providers Awaiting Approval</h3>
       <hr />
-        <div class="notifications-directions">
-          Click a record to see its details.
-        </div>
-        <div class="notifications-container">
-
-            <table mat-table [dataSource]="dataSource" class="notifications-table">
-
-              <!--Expires Column-->
-              <ng-container matColumnDef="expires">
-
-                  <th mat-header-cell *matHeaderCellDef class="notifications-header">Expires on</th>
-                  <td matt-cell *matCellDef="let notification"> {{ dateCalculator(notification.createdDate, notification) }} </td>
-
-              </ng-container>
-
-              <!--Company Name Column-->
-              <ng-container matColumnDef="companyName">
-                <th mat-header-cell *matHeaderCellDef  class="notifications-header"> Business Name </th>
-                <td matt-cell *matCellDef="let notification" class="truncate"> {{ notification.providerDetails.companyName }} </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="getRecord(row)" class="notifications-row"></tr>
-
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-          <!-- <a routerLinkActive="router-link-active" *ngFor="let notification of notifications | paginate: { itemsPerPage: 5, currentPage: p }" [routerLink]="['/coordinator-notifications/' + notification.notificationId]" class="notifications-row">
-
-            <div class="notification-expires"> {{ dateCalculator(notification.date, notification) }} </div>
-            <div class="notification-name truncate">{{notification.providerDetails.companyName}}</div>
-          </a> -->
-        </div>
+      <div class="notifications-directions"> Click a record to see its details. </div>
+      <div class="notifications-container">
+        <table mat-table [dataSource]="dataSource" class="notifications-table">
+          <!--Expires Column-->
+          <ng-container matColumnDef="expires">
+              <th mat-header-cell *matHeaderCellDef class="notifications-header">Expires on</th>
+              <td matt-cell *matCellDef="let notification"> {{ dateCalculator(notification.createdDate, notification) }} </td>
+          </ng-container>
+          <!--Company Name Column-->
+          <ng-container matColumnDef="companyName">
+            <th mat-header-cell *matHeaderCellDef  class="notifications-header"> Business Name </th>
+            <td matt-cell *matCellDef="let notification" class="truncate"> {{ notification.providerDetails.companyName }} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="getRecord(row)" class="notifications-row"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
     </div>
   </div>
 </div>
