@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.ServiceBus
 {
-  interface IServiceBusConsumer
+  public interface IServiceBusConsumer
   {
+    void RegisterOnMessageHandlerAndReceiveMessages();
+    Task CloseQueueAsync();
   }
 }

@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Revature.Tenant.Lib.Models;
 
-namespace ServiceBusMessaging
+namespace Revature.Tenant.Api.ServiceBus
 {
   public interface IServiceBusSender
   {
-    Task SendMessage(Tenant tenantToSend);
+    Task SendMessage(Lib.Models.Tenant tenantToSend);
   }
 }
