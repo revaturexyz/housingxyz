@@ -14,7 +14,7 @@ using System.Globalization;
 
 namespace ServiceBusMessaging
 {
-  public class ServiceBusSender : IServiceBusSender
+  public class ServiceBusSender
   {
     //The connection string can be found from the Azure portal
     //in the shared access policies

@@ -85,7 +85,7 @@ namespace ServiceBusMessaging
               await _repo.UpdateRoomAsync(myRoom.room);
               break;
             case 2:
-              await _repo.DeleteRoomAsync(myRoom.room.RoomID);
+              await _repo.DeleteRoomAsync(myRoom.room.RoomId);
               break;
 
             default:
