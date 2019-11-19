@@ -11,6 +11,7 @@ using Revature.Room.DataAccess;
 using Serilog.Core;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Revature.Room.Lib.Models;
 
 namespace ServiceBusMessaging
 {
@@ -58,12 +59,29 @@ namespace ServiceBusMessaging
         try
         {
           _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-          Room myRoom = JsonConvert.DeserializeObject<Room>(Encoding.UTF8.GetString(message.Body));
+          ComplexMessage myRoom = JsonConvert.DeserializeObject<ComplexMessage>(Encoding.UTF8.GetString(message.Body));
 
           // Persist our new data into the repository but not if Deserialization throws exception
           //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible
 
-          await _repo.CreateRoomAsync(myRoom);
+          //Operation type is the CUD that you want to implement like create, update, or delete
+          //Case 0 = create, Case 1 = update, Case 2 = delete
+          switch (myRoom.operationType)
+          {
+            case 0:
+              await _repo.CreateRoomAsync(myRoom.room);
+              break;
+            case 1:
+              await _repo.UpdateRoomAsync(myRoom.room);
+              break;
+            case 2:
+              await _repo.DeleteRoomAsync(myRoom.room.RoomID);
+              break;
+
+            default:
+
+              break;
+          }
 
         }
         catch (Exception ex)
