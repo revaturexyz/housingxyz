@@ -22,7 +22,8 @@ namespace Revature.Room.Lib
       int? numberOfBeds,
       string roomType,
       string gender,
-      DateTime? endDate);
+      DateTime? endDate,
+      Guid? roomId);
 
     /// <summary>
     /// Method that adds a room to the database

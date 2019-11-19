@@ -24,7 +24,8 @@ namespace Revature.Room.DataAccess.Tests
         It.IsAny<int>(),
         It.IsAny<string>(),
         It.IsAny<string>(),
-        It.IsAny<DateTime>()))
+        It.IsAny<DateTime>(),
+        It.IsAny<Guid>()))
         .Returns(Task.FromResult<IEnumerable<Lib.Room>>(
           new List<Lib.Room>()
           {
@@ -34,7 +35,7 @@ namespace Revature.Room.DataAccess.Tests
         ));
       var controller = new ComplexController(mockRepo.Object, mockServiceBus.Object);
       //act
-      var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now);
+      var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now, Guid.NewGuid());
 
       //assert
       Assert.IsAssignableFrom<OkObjectResult>(result);
