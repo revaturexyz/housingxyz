@@ -43,16 +43,12 @@ namespace Revature.Room.Api.Controllers
         roomType,
         gender,
         endDate);
-      //Add a _busSender here
-
-      await _busSender.SendRestMessage(Ok());
 
       return Ok(rooms);
     }
 
-    //Other HTTP Get goes here
     //For Read
-    //Should I map Logic model to Database model?
+    //Should I map Logic model to Database model
     [HttpGet("{roomId}", Name = "GetRoom")]
     public async Task<IEnumerable<Lib.Room>> GetRoomAsync(Guid roomId)
     {
@@ -60,17 +56,9 @@ namespace Revature.Room.Api.Controllers
       {
         IEnumerable<Lib.Room> roomListNull = await _repository.ReadRoomAsync(roomId);
 
-        //await _busSender.SendReadMessage(roomListNull);
-
-        await _busSender.SendRestMessage(Ok());
-
         return roomListNull;
       }
       IEnumerable<Lib.Room> roomListNotNull = await _repository.ReadRoomAsync(roomId);
-
-      //await _busSender.SendReadMessage(roomListNotNull);
-
-      await _busSender.SendRestMessage(Ok());
 
       return roomListNotNull;
     }
@@ -93,10 +81,7 @@ namespace Revature.Room.Api.Controllers
       await _repository.CreateRoomAsync(createdRoom);
       await _repository.SaveAsync();
 
-      //await _busSender.SendCreateMessage(createdRoom);
-      await _busSender.SendRestMessage(StatusCode(201));
-
-      //Will change route http after we have a HTTP GET
+      await _busSender.SendCreateMessage(createdRoom);
 
       return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomID }, createdRoom);
 
@@ -121,9 +106,7 @@ namespace Revature.Room.Api.Controllers
       await _repository.UpdateRoomAsync(newRo);
       await _repository.SaveAsync();
 
-      //await _busSender.SendUpdateMessage(newRo);
-
-      await _busSender.SendRestMessage(Ok());
+      await _busSender.SendUpdateMessage(newRo);
 
       return Ok(newRo);
     }
@@ -137,8 +120,7 @@ namespace Revature.Room.Api.Controllers
       await _repository.DeleteRoomAsync(ro.RoomID);
       await _repository.SaveAsync();
 
-      //await _busSender.SendDeleteMessage(ro);
-      await _busSender.SendRestMessage(NoContent());
+      await _busSender.SendDeleteMessage(ro);
 
       return NoContent();
     }
