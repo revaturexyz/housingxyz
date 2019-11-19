@@ -36,7 +36,7 @@ namespace ServiceBusMessaging
     {
       _configuration = configuration;
       _queueClient = new QueueClient(
-      _configuration.GetConnectionString("Endpoint=sb"), QUEUE_NAME);
+      _configuration.GetConnectionString("ServiceBus"), QUEUE_NAME);
       Services = services;
       _logger = logger;
     }
