@@ -45,6 +45,8 @@ namespace Revature.Room.Api.Controllers
         endDate);
       //Add a _busSender here
 
+      await _busSender.SendRestMessage(Ok());
+
       return Ok(rooms);
     }
 
@@ -58,13 +60,17 @@ namespace Revature.Room.Api.Controllers
       {
         IEnumerable<Lib.Room> roomListNull = await _repository.ReadRoomAsync(roomId);
 
-        await _busSender.SendReadMessage(roomListNull);
+        //await _busSender.SendReadMessage(roomListNull);
+
+        await _busSender.SendRestMessage(Ok());
 
         return roomListNull;
       }
       IEnumerable<Lib.Room> roomListNotNull = await _repository.ReadRoomAsync(roomId);
 
-      await _busSender.SendReadMessage(roomListNotNull);
+      //await _busSender.SendReadMessage(roomListNotNull);
+
+      await _busSender.SendRestMessage(Ok());
 
       return roomListNotNull;
     }
@@ -87,7 +93,8 @@ namespace Revature.Room.Api.Controllers
       await _repository.CreateRoomAsync(createdRoom);
       await _repository.SaveAsync();
 
-      await _busSender.SendCreateMessage(createdRoom);
+      //await _busSender.SendCreateMessage(createdRoom);
+      await _busSender.SendRestMessage(StatusCode(201));
 
       //Will change route http after we have a HTTP GET
 
@@ -114,7 +121,9 @@ namespace Revature.Room.Api.Controllers
       await _repository.UpdateRoomAsync(newRo);
       await _repository.SaveAsync();
 
-      await _busSender.SendUpdateMessage(newRo);
+      //await _busSender.SendUpdateMessage(newRo);
+
+      await _busSender.SendRestMessage(Ok());
 
       return Ok(newRo);
     }
@@ -128,7 +137,8 @@ namespace Revature.Room.Api.Controllers
       await _repository.DeleteRoomAsync(ro.RoomID);
       await _repository.SaveAsync();
 
-      await _busSender.SendDeleteMessage(ro);
+      //await _busSender.SendDeleteMessage(ro);
+      await _busSender.SendRestMessage(NoContent());
 
       return NoContent();
     }

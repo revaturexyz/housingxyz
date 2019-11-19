@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Revature.Room.Lib;
 
 namespace ServiceBusMessaging
@@ -17,5 +18,7 @@ namespace ServiceBusMessaging
     Task SendUpdateMessage(Room roomToSend);
 
     Task SendDeleteMessage(Room roomToSend);
+
+    Task SendRestMessage(IActionResult roomToSend);
   }
 }

@@ -7,6 +7,7 @@ using System;
 using Revature.Room.Lib;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ServiceBusMessaging
 {
@@ -39,6 +40,22 @@ namespace ServiceBusMessaging
       _logger.LogInformation("ServiceBus sending message: ", data);
       await _queueClient.SendAsync(message);
     }
+
+    //Passing an IActionResult to make it restful
+    //IActionResult is already JSON so, should we
+    //serialize again?
+    public async Task SendRestMessage(IActionResult roomToSend)
+    {
+      string data = JsonConvert.SerializeObject(roomToSend);
+
+      Message message = new Message(Encoding.UTF8.GetBytes(data));
+
+      _logger.LogInformation("ServiceBus sending message: ", data);
+      await _queueClient.SendAsync(message);
+
+
+    }
+
 
     //ServiceBus message for creating a room
     public async Task SendCreateMessage(Room roomToSend)
