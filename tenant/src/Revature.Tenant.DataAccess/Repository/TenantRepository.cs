@@ -44,13 +44,15 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
     /// <returns>A tenant</returns>
+    /// <exception cref="System.ArgumentNullException">Thrown when id does not exist</exception>
+
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
       Tenants tenant = await _context.Tenants.Include(t => t.Cars).FirstAsync(t => t.Id == id);
 
       if (tenant == null)
       {
-        throw new ArgumentException();
+        throw new ArgumentNullException();
       }
 
       return _mapper.MapTenant((tenant));
@@ -82,13 +84,14 @@ namespace Revature.Tenant.DataAccess.Repository
     /// Updates values associated to a tenant.
     /// </summary>
     /// <param name="tenant">The tenant with changed values</param>
+    /// <exception cref="System.ArgumentNullException">Thrown when id does not exist</exception>
     public async Task UpdateAsync(Lib.Models.Tenant tenant)
     {
       Tenants currentTenant = await _context.Tenants.FindAsync(tenant.Id);
 
       if (currentTenant == null)
       {
-        throw new InvalidOperationException("Invalid Tenant Id");
+        throw new ArgumentNullException();
       }
 
       Tenants newTenant = _mapper.MapTenant(tenant);
@@ -100,12 +103,13 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="tenantId">tenant Id</param>
     /// <returns>True if Tenant has Car, returns false if the Tenant has no car</returns>
+    /// /// <exception cref="System.ArgumentNullException">Thrown when id does not exist</exception>
     public async Task<bool> HasCarAsync(int tenantId)
     {
       Tenants currentTenant = await _context.Tenants.FindAsync(tenantId);
       if (currentTenant == null)
       {
-        throw new InvalidOperationException("Invalid Tenant Id");
+        throw new ArgumentNullException("Invalid Tenant Id");
       }
       else if (currentTenant.CarId > 0)
       {

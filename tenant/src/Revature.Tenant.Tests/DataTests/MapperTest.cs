@@ -13,17 +13,16 @@ namespace Revature.Tenant.Tests.DataTests
         {
             Lib.Models.Tenant tenant = new Lib.Models.Tenant
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
-                AddressId = new Guid(),
-                RoomId = new Guid(),
+                AddressId = Guid.NewGuid(),
+                RoomId = Guid.NewGuid(),
                 CarId = 1,
               Car = new Lib.Models.Car
               {
-                Id = 0,
                 LicensePlate = "LicensePlate",
                 Make = "Make",
                 Model = "Model",
@@ -48,17 +47,16 @@ namespace Revature.Tenant.Tests.DataTests
         {
             DataAccess.Entities.Tenants tenants = new DataAccess.Entities.Tenants
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
-                AddressId = new Guid(),
-                RoomId = new Guid(),
+                AddressId = Guid.NewGuid(),
+                RoomId = Guid.NewGuid(),
                 CarId = 1,
               Cars = new DataAccess.Entities.Cars
               {
-                Id = 0,
                 LicensePlate = "LicensePlate",
                 Make = "Make",
                 Model = "Model",
@@ -83,14 +81,12 @@ namespace Revature.Tenant.Tests.DataTests
         {
             Lib.Models.Car car = new Lib.Models.Car
             {
-                Id = 1,
                 Make = "Toyota",
-                Model = "Corrolla",
+                Model = "Corolla",
                 Year = "1992",
                 Color = "Green",
                 LicensePlate = "ABC123",
                 State = "TX"
-               
             };
 
             DataAccess.Entities.Cars cars = mapper.MapCar(car);
