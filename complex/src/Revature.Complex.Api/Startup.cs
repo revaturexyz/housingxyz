@@ -5,11 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Revature.Complex.Lib.Interface;
-using Revature.Complex.DataAccess.Repository;
-using Revature.Complex.DataAccess;
-using Revature.Complex.DataAccess.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Complex.Api
 {
@@ -48,11 +43,6 @@ namespace Revature.Complex.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Complex", Version = "v1" });
       });
 
-      services.AddDbContext<ComplexDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ComplexDb")));
-
-      services.AddScoped<IRepository, Repository>();
-      services.AddScoped<Mapper>();
-
       services.AddControllers();
     }
 
@@ -68,7 +58,7 @@ namespace Revature.Complex.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
       });
 
       app.UseRouting();
