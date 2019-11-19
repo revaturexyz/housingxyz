@@ -15,37 +15,32 @@ class BlankComponent {
 
 describe('InterceptorService', () => {
   // let service: DataService;
-  let httpMock: HttpTestingController;
-  let httpClient: HttpClient;
-  const authService: any = { getTokenSilently$() { Observable.of('token'); } };
+  const authService: any = { getTokenSilently$() { return Observable.of('token'); } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-      {
-        path: '',
-        component: BlankComponent
-      }, {
-        path: 'login-splash',
-        component: BlankComponent
-      }]),
-      HttpClientModule,
-      HttpClientTestingModule],
-    providers: [
-      {
-        provide: AuthService,
-        useValue: authService
-      },
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: InterceptorService,
-        multi: true,
-      },
-    ]
-  });
-
-    httpMock = TestBed.get(HttpTestingController);
-    httpClient = TestBed.get(HttpClient);
+      imports: [RouterTestingModule.withRoutes([
+        {
+          path: '',
+          component: BlankComponent
+        }, {
+          path: 'login-splash',
+          component: BlankComponent
+        }]),
+        HttpClientModule,
+        HttpClientTestingModule],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: authService
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: InterceptorService,
+          multi: true,
+        },
+      ]
+    });
   });
 
   it('should be created', () => {
@@ -53,20 +48,14 @@ describe('InterceptorService', () => {
     expect(service).toBeTruthy();
   });
 
-  // Couldnt get this to work.
-  it('adds Authorization header', async () => {
+  it('adds Authorization header', inject(
+    [HttpTestingController, HttpClient],
+    (httpMock: HttpTestingController, httpClient: HttpClient) => {
 
-    await httpClient.get('http://test.com').subscribe(
-        response => {
-            expect(response).toBeTruthy();
-
-            const req = httpMock.expectOne(r => r.headers.has('Authorization'));
-
-            req.flush({ hello: 'world' });
-            httpMock.verify();
-        }
-    );
-
-  });
+      httpClient.get('https://google.com').subscribe();
+      const req = httpMock.expectOne(r => r.headers.has('Authorization'));
+      expect(req).toBeTruthy();
+      httpMock.verify();
+  }));
 
 });
