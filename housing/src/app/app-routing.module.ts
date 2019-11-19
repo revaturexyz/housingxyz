@@ -8,6 +8,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -19,10 +20,7 @@ const routes: Routes = [
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
   { path: 'addroom', component: AddRoomComponent }
-  
-import { AuthGuard } from './guards/auth.guard';
-  
-];
+  ];
 
 @NgModule({
   imports: [
