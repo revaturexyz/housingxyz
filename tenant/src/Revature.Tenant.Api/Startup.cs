@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Tenant.Api.ServiceBus;
+using Revature.Tenant.Lib.Interface;
 using Serilog;
 
 namespace Revature.Tenant.Api
@@ -42,6 +44,9 @@ namespace Revature.Tenant.Api
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Tenant", Version = "v1" });
       });
+
+      services.AddScoped<IServiceBusSender, ServiceBusSender>();
+      services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
 
       services.AddControllers();
     }
