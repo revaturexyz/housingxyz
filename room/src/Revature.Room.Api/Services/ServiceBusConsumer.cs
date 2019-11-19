@@ -143,10 +143,11 @@ namespace ServiceBusMessaging
       await _queueClient.CloseAsync();
     }
     /// <summary>
-    /// An async execute that throws an exception ifnot implemented
+    /// Inherited from the Background service, so far no use for it just yet
     /// </summary>
     /// <param name="stoppingToken"></param>
     /// <returns></returns>
+    /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
       throw new NotImplementedException();
