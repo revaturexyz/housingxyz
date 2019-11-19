@@ -10,6 +10,9 @@ using Data = Revature.Room.DataAccess.Entities;
 
 namespace Revature.Room.DataAccess
 {
+  /// <summary>
+  /// Class in charge of methods that affect the state and data in the Room DB
+  /// </summary>
   public class Repository : IRepository
   {
     private readonly RoomServiceContext _context;

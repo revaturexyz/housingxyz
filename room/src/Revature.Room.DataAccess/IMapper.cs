@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Revature.Room.DataAccess
 {
+  /// <summary>
+  /// Interface for a mapper that maps between DB Entity objects and Business Logic Objects and vice versa
+  /// </summary>
   public interface IMapper
   {
     /// <summary>

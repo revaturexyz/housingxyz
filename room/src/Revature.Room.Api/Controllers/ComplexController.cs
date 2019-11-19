@@ -18,10 +18,6 @@ namespace Revature.Room.Api.Controllers
     private readonly IServiceBusSender _busSender;
     private readonly IRepository _repository;
 
-    /// <summary>
-    /// Controller for the Rooms
-    /// </summary>
-
     public ComplexController(IRepository repository, IServiceBusSender busSender)
     {
       _repository = repository;
