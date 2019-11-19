@@ -24,12 +24,14 @@ namespace Revature.Room.DataAccess
       _map = mapper;
     }
 
+    //Creates a room
     public async Task CreateRoomAsync(Lib.Room myRoom)
     {
       Data.Room roomEntity = _map.ParseRoom(myRoom);
       await _context.AddAsync(roomEntity);
     }
 
+    //Read/Get a room by Guid id
     public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
     {
       //if Guid does not exist then it will return all rooms
@@ -63,7 +65,7 @@ namespace Revature.Room.DataAccess
       roomEntity.NumberOfOccupants = myRoom.NumberOfOccupants;
     }
 
-    //Deletes room by id
+    //Deletes room by Guid id
     public async Task DeleteRoomAsync(Guid roomId)
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
