@@ -23,6 +23,29 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.BatchId).IsRequired();
         entity.HasOne(t => t.Cars).WithMany(c => c.Tenants).HasForeignKey(t => t.CarId);
+
+        entity.HasData
+        (
+          new Tenants()
+          {
+            Email = "nick@revature.com",
+            Gender = "Male",
+            FirstName = "Nick",
+            LastName = "Escals",
+            BatchId = 1,
+            CarId = 2
+          },
+          new Tenants()
+          {
+            Email = "sue@revature.com",
+            Gender = "Female",
+            FirstName = "Sue",
+            LastName = "Lemons",
+            BatchId = 2,
+            CarId = 1
+          }
+        );
+
       });
 
       builder.Entity<Cars>(entity =>
@@ -34,6 +57,30 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(c => c.Model).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Color).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Year).IsRequired();
+        entity.Property(c => c.State).IsRequired();
+
+        entity.HasData
+        (
+            new Cars()
+            {
+              LicensePlate = "ABC123",
+              Make = "Ford",
+              Model = "F150",
+              Color = "White",
+              Year = "1996",
+              State = "Louisiana"
+            },
+            new Cars()
+            {
+              LicensePlate = "456DEF",
+              Make = "Honda",
+              Model = "VTX 1300",
+              Color = "Orange",
+              Year = "2006",
+              State = "Texas"
+            }
+        );
+
       });
 
       builder.Entity<Batches>(entity =>
@@ -43,6 +90,22 @@ namespace Revature.Tenant.DataAccess.Entities
        entity.Property(b => b.BatchLanguage).IsRequired().HasMaxLength(100);
        entity.Property(b => b.StartDate).IsRequired();
        entity.Property(b => b.EndDate).IsRequired();
+
+       entity.HasData
+        (
+            new Batches()
+            {
+              BatchLanguage = "C#",
+              StartDate = new System.DateTime(2018, 02, 11),
+              EndDate = new System.DateTime(2019, 06, 07)
+            },
+            new Batches()
+            {
+              BatchLanguage = "Java",
+              StartDate = new System.DateTime(2019, 01, 31),
+              EndDate = new System.DateTime(2019, 08, 22)
+            }
+        );
 
      });
     }
