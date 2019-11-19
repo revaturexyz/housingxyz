@@ -66,8 +66,6 @@ namespace Revature.Account.DataAccess
             .HasMaxLength(100);
         entity.Property(e => e.AccountExpire)
             .IsRequired();
-        entity.Property(e => e.Provider)
-            .IsRequired();
         entity.HasOne(e => e.Coordinator)
             .WithMany(n => n.Notifications)
             .HasForeignKey(p => p.CoordinatorId)

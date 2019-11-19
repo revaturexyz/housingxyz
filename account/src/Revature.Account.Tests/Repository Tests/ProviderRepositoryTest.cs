@@ -42,7 +42,7 @@ namespace Revature.Account.Test.Repository_Tests
       actContext.SaveChanges();
       // Assert
       using var assertContext = new AccountDbContext(options);
-      var assertProvider = assertContext.ProviderAccount.First(p => p.ProviderId == newProvider.ProviderId);
+      var assertProvider = assertContext.ProviderAccount.FirstOrDefault(p => p.ProviderId == newProvider.ProviderId);
       Assert.NotNull(assertProvider);
     }
     [Fact]

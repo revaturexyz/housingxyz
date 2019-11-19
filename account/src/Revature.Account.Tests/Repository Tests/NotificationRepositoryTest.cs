@@ -16,14 +16,13 @@ namespace Revature.Account.Tests.Repository_Tests
     public Guid providerId = Guid.NewGuid();
     public Guid notificationId = Guid.NewGuid();
     [Fact]
-    public async void GetNotificationByProviderIdTest()
+    public async void GetNotificationByIdAsyncTest()
     {
       // Arrange
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("GetNotificationByProviderIdTest")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      var testId = providerId;
       var testProviderEntity = new DataAccess.Entities.ProviderAccount
       {
         CoordinatorId = coordinatorId,
@@ -45,12 +44,13 @@ namespace Revature.Account.Tests.Repository_Tests
       };
       arrangeContext.Notification.Add(testNotificationEntity);
       arrangeContext.SaveChanges();
+      var testId = testNotificationEntity.NotificationId;
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
       // Act
       var result = await repo.GetNotificationByIdAsync(testId);
       // Assert
-      Assert.Equal(testId, result.ProviderId);
+      Assert.Equal(testId, result.NotificationId);
     }
     [Fact]
     public void AddNewNotificationTest()
