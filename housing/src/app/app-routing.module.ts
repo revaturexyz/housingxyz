@@ -6,6 +6,7 @@ import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'addroom', component: AddRoomComponent },
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
-  { path: 'addroom', component: AddRoomComponent }
+  { path: 'addroom', component: AddRoomComponent },
+  { path: 'manage-complex', component:ManageComplexComponent}
 ];
 
 @NgModule({

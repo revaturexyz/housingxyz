@@ -13,19 +13,20 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
-  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule
+  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatFormFieldModule, MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CoordinatorModule } from './coordinator.module';
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent
+    RequestDialogComponent,
+    ManageComplexComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,16 @@ import { CoordinatorModule } from './coordinator.module';
     StickyNavModule,
     BrowserAnimationsModule,
     MatRippleModule,
-    CoordinatorModule
+    CoordinatorModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatRippleModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [
     {
