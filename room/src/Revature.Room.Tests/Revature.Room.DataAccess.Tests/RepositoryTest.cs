@@ -55,7 +55,7 @@ namespace Revature.Room.Tests
     // Use to set up a valid entity room
     private DataAccess.Entities.Room PresetEntityRoom(RoomServiceContext context)
     {
-      return new Revature.Room.DataAccess.Entities.Room
+      return new DataAccess.Entities.Room
       {
         RoomId = newRoomId,
         ComplexId = newComplexId,
@@ -71,7 +71,7 @@ namespace Revature.Room.Tests
 
     private DataAccess.Entities.Room PresetEntityRoom2(RoomServiceContext context)
     {
-      return new Revature.Room.DataAccess.Entities.Room
+      return new DataAccess.Entities.Room
       {
         RoomId = newRoomId2,
         ComplexId = newComplexId,
