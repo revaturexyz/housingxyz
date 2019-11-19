@@ -26,12 +26,14 @@ namespace Revature.Room.Lib
     /// Logic for checking that the Number of Beds is greater than zero
     /// Server side validation
     /// </summary>
+    /// <exception cref="ArgumentException">Thrown when given an invalid number of beds</exception>
     public int NumberOfBeds
     {
       get => _numberOfBeds;
       set
       {
         if (value > 0) _numberOfBeds = value;
+        else throw new ArgumentException("Number of beds must be greater than zero");
       }
     }
 

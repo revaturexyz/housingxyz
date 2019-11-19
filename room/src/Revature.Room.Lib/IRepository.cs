@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Revature.Room.Lib
 {
+  /// <summary>
+  /// Interface for the Repository 
+  /// </summary>
   public interface IRepository
   {
     /// <summary>
