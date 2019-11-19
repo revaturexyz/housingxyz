@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Revature.Room.Api.Controllers;
 using Revature.Room.Lib;
-using ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,7 +16,6 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockServiceBus = new Mock<IServiceBusSender>();
       mockRepo.Setup<Task<IEnumerable<Lib.Room>>>(r => r.GetFilteredRoomsAsync(
         It.IsAny<Guid>(),
         It.IsAny<string>(),
@@ -33,7 +31,7 @@ namespace Revature.Room.DataAccess.Tests
           }
 
         ));
-      var controller = new ComplexController(mockRepo.Object, mockServiceBus.Object);
+      var controller = new ComplexController(mockRepo.Object);
       //act
       var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now, Guid.NewGuid());
 
