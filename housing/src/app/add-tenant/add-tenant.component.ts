@@ -90,9 +90,12 @@ export class AddTenantComponent implements OnInit {
           year: '',
           state: ''
         },
-        startDate: new Date(),
-        endDate: new Date(),
-        langName: ''
+        batch: {
+          batchId: 0,
+          batchLanguage: '',
+          startDate: new Date(),
+          endDate: new Date()
+        }
       };
     }
 

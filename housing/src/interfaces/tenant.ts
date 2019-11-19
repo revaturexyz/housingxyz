@@ -1,4 +1,5 @@
 import { Car } from './car';
+import { Batch } from './batch';
 
 export interface Tenant {
     tenantId: string;
@@ -9,7 +10,5 @@ export interface Tenant {
     addressId: string;
     roomId: number;
     car: Car;
-    startDate: Date;
-    endDate: Date;
-    langName: string;
+    batch: Batch;
 }

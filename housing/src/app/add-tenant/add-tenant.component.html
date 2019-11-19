@@ -28,8 +28,8 @@
         <div class="col">
             <label for="StartDate" class="col-md-3">Start Date:</label>
             <input class="input-border col-md-9" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}"
-              required [(ngModel)]="tenant.startDate" #sd="ngModel">
-            <span *ngIf="verifyDates(tenant.startDate, tenant.endDate) && sd.dirty && ed.dirty"
+              required [(ngModel)]="tenant.batch.startDate" #sd="ngModel">
+            <span *ngIf="verifyDates(tenant.batch.startDate, tenant.batch.endDate) && sd.dirty && ed.dirty"
               class="alert alert-danger col-md-3">
               Start date must be before end date.
             </span>
@@ -38,7 +38,7 @@
           <div class="col">
             <label class="col-md-3">End Date:</label>
             <input class="input-border col-md-9" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}"
-              required [(ngModel)]="tenant.endDate" #ed="ngModel">
+              required [(ngModel)]="tenant.batch.endDate" #ed="ngModel">
           </div>
 
         <br>
