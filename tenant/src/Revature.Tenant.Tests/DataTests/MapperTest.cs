@@ -29,6 +29,7 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Model",
                 Color = "Color",
                 Year = "Year",
+                State = "TX"
               },
             };
 
@@ -63,6 +64,7 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Model",
                 Color = "Color",
                 Year = "Year",
+                State = "TX"
               },
             };
 
@@ -86,7 +88,9 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Corrolla",
                 Year = "1992",
                 Color = "Green",
-                LicensePlate = "ABC123"
+                LicensePlate = "ABC123",
+                State = "TX"
+               
             };
 
             DataAccess.Entities.Cars cars = mapper.MapCar(car);
@@ -108,7 +112,8 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Corrolla",
                 Year = "1992",
                 Color = "Green",
-                LicensePlate = "ABC123"
+                LicensePlate = "ABC123",
+                State = "TX"
             };
 
             Lib.Models.Car car = mapper.MapCar(cars);
