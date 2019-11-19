@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Revature.Room.DataAccess.Tests
 {
-  public class RoomControllerTests
+  public class ComplexControllerTests
   {
     [Fact]
     public async Task GetFilteredRoomsShouldFilterByComplexId()
