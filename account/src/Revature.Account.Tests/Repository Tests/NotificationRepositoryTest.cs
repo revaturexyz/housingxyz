@@ -15,7 +15,6 @@ namespace Revature.Account.Tests.Repository_Tests
     public Guid coordinatorId = Guid.NewGuid();
     public Guid providerId = Guid.NewGuid();
     public Guid notificationId = Guid.NewGuid();
-
     [Fact]
     public async void GetNotificationByProviderIdTest()
     {
@@ -25,7 +24,6 @@ namespace Revature.Account.Tests.Repository_Tests
           .Options;
       using var arrangeContext = new AccountDbContext(options);
       var testId = providerId;
-
       var testProviderEntity = new DataAccess.Entities.ProviderAccount
       {
         CoordinatorId = coordinatorId,
@@ -35,10 +33,8 @@ namespace Revature.Account.Tests.Repository_Tests
         Status = "Pending",
         AccountCreated = DateTime.Now,
         Expire = DateTime.Now.AddDays(7),
-
       };
       arrangeContext.ProviderAccount.Add(testProviderEntity);
-
       var testNotificationEntity = new DataAccess.Entities.Notification
       {
         CoordinatorId = coordinatorId,
@@ -49,16 +45,12 @@ namespace Revature.Account.Tests.Repository_Tests
       };
       arrangeContext.Notification.Add(testNotificationEntity);
       arrangeContext.SaveChanges();
-
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
-
       // Act
-      var result = await repo.GetNotificationById(testId);
+      var result = await repo.GetNotificationByIdAsync(testId);
       // Assert
-
       Assert.Equal(testId, result.ProviderId);
-
     }
     [Fact]
     public void AddNewNotificationTest()
@@ -69,7 +61,6 @@ namespace Revature.Account.Tests.Repository_Tests
           .Options;
       using var actContext = new AccountDbContext(options);
       using var arrangeContext = new AccountDbContext(options);
-
       var newNotification = new Lib.Model.Notification
       {
         NotificationId = notificationId,
@@ -79,28 +70,23 @@ namespace Revature.Account.Tests.Repository_Tests
         AccountExpire = DateTime.Now.AddDays(7)
       };
       var actRepo = new GenericRepository(actContext);
-
       // Act
       actRepo.AddNewNotification(newNotification);
       actContext.SaveChanges();
-
-
       // Assert
       using var assertContext = new AccountDbContext(options);
       var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == newNotification.CoordinatorId);
       Assert.NotNull(assertNotification);
     }
     [Fact]
-    public async Task UpdateNotificationAccountTest()
+    public async Task UpdateNotificationAccountTestAsync()
     {
-
       // Arrange
       var updatedStatus = "Under Review";
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("UpdateNotificationAccountTest")
+          .UseInMemoryDatabase("UpdateNotificationAccountTestAsync")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-
       var arrangeNotification = new DataAccess.Entities.Notification
       {
         NotificationId = notificationId,
@@ -110,7 +96,6 @@ namespace Revature.Account.Tests.Repository_Tests
         AccountExpire = DateTime.Now.AddDays(7)
       };
       arrangeContext.Notification.Add(arrangeNotification);
-
       var updatedNotification = new Lib.Model.Notification
       {
         NotificationId = notificationId,
@@ -119,25 +104,21 @@ namespace Revature.Account.Tests.Repository_Tests
         Status = updatedStatus,
         AccountExpire = DateTime.Now.AddDays(30)
       };
-
       // Act
       var repo = new GenericRepository(arrangeContext);
-      await repo.UpdateNotification(updatedNotification);
+      await repo.UpdateNotificationAsync(updatedNotification);
       arrangeContext.SaveChanges();
-
       // Assert
       var assertContext = new AccountDbContext(options);
       var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == coordinatorId);
       Assert.Equal(updatedStatus, assertNotification.Status);
-
     }
-
     [Fact]
-    public async Task DeleteNotificationTest()
+    public async Task DeleteNotificationTestAsync()
     {
       //Assemble
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("DeleteNotificationTest")
+          .UseInMemoryDatabase("DeleteNotificationTestAsync")
           .Options;
       using var assembleContext = new AccountDbContext(options);
       var deleteNotification = new DataAccess.Entities.Notification
@@ -150,13 +131,10 @@ namespace Revature.Account.Tests.Repository_Tests
       };
       assembleContext.Add(deleteNotification);
       assembleContext.SaveChanges();
-
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
-
       // Act
-      await repo.DeleteNotificationById(notificationId);
-
+      await repo.DeleteNotificationByIdAsync(notificationId);
       // Assert
       var notification = actContext.Notification.ToList();
       Assert.DoesNotContain(deleteNotification, notification);

@@ -13,20 +13,16 @@ namespace Revature.Account.Api.Controllers
   [ApiController]
   public class ProviderAccountController : ControllerBase
   {
-
     private readonly IGenericRepository _repo;
-
     public ProviderAccountController(IGenericRepository urepo)
     {
       _repo = urepo ?? throw new ArgumentNullException("Cannot be null.", nameof(urepo));
     }
-
-
     // GET: api/ProviderAccount/5
-    [HttpGet("{id}", Name = "GetCoordinatorById")]
+    [HttpGet("{providerId}", Name = "GetProviderAccountById")]
     public async Task<ActionResult> Get(Guid providerId)
     {
-      var x = await _repo.GetProviderAccountById(providerId);
+      var x = await _repo.GetProviderAccountByIdAsync(providerId);
       if (x == null)
       {
         return NotFound();
@@ -42,7 +38,6 @@ namespace Revature.Account.Api.Controllers
         Expire = x.Expire
       });
     }
-
     // POST: api/ProviderAccount
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] ProviderViewModel newProvider)
@@ -58,12 +53,9 @@ namespace Revature.Account.Api.Controllers
           AccountCreated = DateTime.Now,
           Expire = DateTime.Now.AddDays(7)
         };
-
-        _repo.AddNewProviderAccount(mappedProvider);
-        await _repo.Save();
-
-        var newAddedProvider = await _repo.GetProviderAccountById(mappedProvider.ProviderId);
-
+        _repo.AddNewProviderAccountAsync(mappedProvider);
+        await _repo.SaveAsync();
+        var newAddedProvider = await _repo.GetProviderAccountByIdAsync(mappedProvider.ProviderId);
         return CreatedAtRoute("GetProviderById", new { id = newAddedProvider.ProviderId }, newAddedProvider);
       }
       catch
@@ -71,21 +63,18 @@ namespace Revature.Account.Api.Controllers
         return BadRequest();
       }
     }
-
     // PUT: api/ProviderAccount/5
-    [HttpPatch("{id}")]
+    [HttpPatch("{providerId}")]
     public async Task<IActionResult> Patch(Guid providerId, [FromBody] ProviderViewModel provider)
     {
-      var existingProvider = await _repo.GetProviderAccountById(providerId);
-
+      var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
         existingProvider.Name = provider.Name;
         existingProvider.Password = provider.Password;
         existingProvider.AccountCreated = DateTime.Now;
-
-        await _repo.UpdateProviderAccount(existingProvider);
-        await _repo.Save();
+        await _repo.UpdateProviderAccountAsync(existingProvider);
+        await _repo.SaveAsync();
         return NoContent();
       }
       return NotFound();
@@ -94,11 +83,11 @@ namespace Revature.Account.Api.Controllers
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid providerId)
     {
-      var existingProvider = await _repo.GetProviderAccountById(providerId);
+      var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
-        await _repo.DeleteProviderAccount(providerId);
-        await _repo.Save();
+        await _repo.DeleteProviderAccountAsync(providerId);
+        await _repo.SaveAsync();
         return NoContent();
       }
       return NotFound();

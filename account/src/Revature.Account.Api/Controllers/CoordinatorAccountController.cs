@@ -14,17 +14,15 @@ namespace Revature.Account.Api.Controllers
   public class CoordinatorAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-
-    public CoordinatorAccountController(IGenericRepository urepo)
+    public CoordinatorAccountController(IGenericRepository repo)
     {
-      _repo = urepo ?? throw new ArgumentNullException("Cannot be null.", nameof(urepo));
+      _repo = repo ?? throw new ArgumentNullException("Cannot be null.", nameof(repo));
     }
-
     // GET: api/CoordinatorAccount/5
-    [HttpGet]
+    [HttpGet("{coordinatorId}")]
     public async Task<ActionResult> Get(Guid coordinatorId)
     {
-      var x = await _repo.GetCoordinatorAccountById(coordinatorId);
+      var x = await _repo.GetCoordinatorAccountByIdAsync(coordinatorId);
       if (x == null)
       {
         return NotFound();

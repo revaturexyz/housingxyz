@@ -14,22 +14,20 @@ namespace Revature.Account.Api.Controllers
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-
     public NotificationController(IGenericRepository urepo)
     {
       _repo = urepo ?? throw new ArgumentNullException("Cannot be null.", nameof(urepo));
     }
-
     // GET: api/Notification/5
-    [HttpGet("{id}", Name = "GetNotificationByProviderId")]
+    [HttpGet(Name = "GetNotificationByProviderId")]
     public async Task<ActionResult> GetNotificationByProviderId(Guid providerId)
     {
-      var x = await _repo.GetProviderAccountById(providerId);
+      var x = await _repo.GetProviderAccountByIdAsync(providerId);
       if (x == null)
       {
         return NotFound();
       }
-      var nofi = await _repo.GetNotificationById(providerId);
+      var nofi = await _repo.GetNotificationByIdAsync(providerId);
       return Ok(new NotificationViewModel
       {
         ProviderId = nofi.ProviderId,
@@ -52,31 +50,26 @@ namespace Revature.Account.Api.Controllers
           Status = "Pending",
           AccountExpire = DateTime.Now.AddDays(7)
         };
-
         _repo.AddNewNotification(mappedNotification);
-        await _repo.Save();
-
-        var newAddedNotification = await _repo.GetNotificationById(mappedNotification.ProviderId);
-
+        await _repo.SaveAsync();
+        var newAddedNotification = await _repo.GetNotificationByIdAsync(mappedNotification.ProviderId);
         return CreatedAtRoute("Get", new { id = newAddedNotification.ProviderId }, newAddedNotification);
-
       }
       catch
       {
         return BadRequest();
       }
     }
-
     // PATCH: api/Notification/5
     [HttpPatch("{id}")]
     public async Task<ActionResult> Patch(Guid providerId, [FromBody] NotificationViewModel notification)
     {
-      var provider = await _repo.GetProviderAccountById(providerId);
+      var provider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (provider == null)
       {
         return NotFound();
       }
-      var existingNotification = await _repo.GetNotificationById(providerId);
+      var existingNotification = await _repo.GetNotificationByIdAsync(providerId);
       if (existingNotification != null)
       {
         existingNotification.Status = notification.Status;
@@ -89,23 +82,22 @@ namespace Revature.Account.Api.Controllers
           existingNotification = null;
           provider = null;
         }
-        await _repo.UpdateNotification(existingNotification);
-        await _repo.UpdateProviderAccount(provider);
-        await _repo.Save();
+        await _repo.UpdateNotificationAsync(existingNotification);
+        await _repo.UpdateProviderAccountAsync(provider);
+        await _repo.SaveAsync();
         return NoContent();
       }
       return NotFound();
     }
-
     // DELETE: api/ApiWithActions/5
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid providerId)
     {
-      var existingProvider = await _repo.GetProviderAccountById(providerId);
+      var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
-        await _repo.DeleteNotificationById(providerId);
-        await _repo.Save();
+        await _repo.DeleteNotificationByIdAsync(providerId);
+        await _repo.SaveAsync();
         return NoContent();
       }
       return NotFound();

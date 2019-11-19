@@ -13,7 +13,6 @@ namespace Revature.Account.Tests.Repository_Tests
     public Guid coordinatorId = Guid.NewGuid();
     public Guid providerId = Guid.NewGuid();
     public Guid notificationId = Guid.NewGuid();
-
     [Fact]
     public async void GetCoordinatorByIdTest()
     {
@@ -35,16 +34,12 @@ namespace Revature.Account.Tests.Repository_Tests
       };
       arrangeContext.CoordinatorAccount.Add(testCoordinatorEntity);
       arrangeContext.SaveChanges();
-
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
-
       // Act
-      var result = await repo.GetCoordinatorAccountById(testId);
+      var result = await repo.GetCoordinatorAccountByIdAsync(testId);
       // Assert
-
       Assert.Equal(testId, result.CoordinatorId);
-
     }
   }
 }

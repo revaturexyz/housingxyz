@@ -20,7 +20,6 @@ namespace Revature.Account.DataAccess
         Expire = provider.Expire,
       };
     }
-
     public Entities.ProviderAccount MapProvider(Lib.Model.ProviderAccount provider)
     {
       return new Entities.ProviderAccount
@@ -35,7 +34,6 @@ namespace Revature.Account.DataAccess
 
       };
     }
-
     public Lib.Model.CoordinatorAccount MapCoordinator(Entities.CoordinatorAccount coordinator)
     {
       return new Lib.Model.CoordinatorAccount
@@ -61,7 +59,6 @@ namespace Revature.Account.DataAccess
         Email = coordinator.Email
       };
     }
-
     public Lib.Model.Notification MapNotification(Entities.Notification nofi)
     {
       return new Lib.Model.Notification

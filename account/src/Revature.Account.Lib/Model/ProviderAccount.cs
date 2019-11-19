@@ -4,34 +4,34 @@ using System.Text;
 
 namespace Revature.Account.Lib.Model
 {
-	public class ProviderAccount
-	{
+  public class ProviderAccount
+  {
     private string _name;
     private string _password;
-
     public Guid ProviderId { get; set; }
-		public Guid CoordinatorId { get; set; }
-		public string Name
-    { get { return _name; }
+    public Guid CoordinatorId { get; set; }
+    public string Name
+    {
+      get { return _name; }
       set
       {
         ValidateInput(value);
         _name = value;
       }
     }
-		public string Password
-    { get { return _password; }
+    public string Password
+    {
+      get { return _password; }
       set
       {
         ValidateInput(value);
         _password = value;
       }
     }
-		public string Status { get; set; }
-		public DateTime AccountCreated { get; set; }
-		public DateTime Expire { get; set; }
-		public Notification Notification { get; set; }
-
+    public string Status { get; set; }
+    public DateTime AccountCreated { get; set; }
+    public DateTime Expire { get; set; }
+    public Notification Notification { get; set; }
     private void ValidateInput(string value)
     {
       if (value == null)

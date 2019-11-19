@@ -6,27 +6,25 @@ using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Lib.Interface
 {
-	public interface IGenericRepository : IAsyncDisposable
-	{
-		#region Provider Account Repositories
-		public Task<ProviderAccount> GetProviderAccountById(Guid providerId);
-		public void AddNewProviderAccount(ProviderAccount newAccount);
-		public Task UpdateProviderAccount(ProviderAccount providerAccount);
-		public Task DeleteProviderAccount(Guid providerId);
-		#endregion
-		#region
-		public Task<CoordinatorAccount> GetCoordinatorAccountById(Guid coordinatorId);
-		//public Task UpdateCoordinatorAccount(CoordinatorAccount coordinatorAccount);
-		//public Task DeleteCoordinatorAccount(Guid coordinatorId);
-		#endregion
-		#region
-		public Task<Notification> GetNotificationById(Guid providerId);
-		public void AddNewNotification(Notification newNofi);
-		public Task UpdateNotification(Notification notification);
-		public Task DeleteNotificationById(Guid providerId);
-		#endregion
-
-		public Task Save();
-
-	}
+  public interface IGenericRepository : IAsyncDisposable
+  {
+    #region Provider Account Repositories
+    public Task<ProviderAccount> GetProviderAccountByIdAsync(Guid providerId);
+    public void AddNewProviderAccountAsync(ProviderAccount newAccount);
+    public Task UpdateProviderAccountAsync(ProviderAccount providerAccount);
+    public Task DeleteProviderAccountAsync(Guid providerId);
+    #endregion
+    #region
+    public Task<CoordinatorAccount> GetCoordinatorAccountByIdAsync(Guid coordinatorId);
+    //public Task UpdateCoordinatorAccount(CoordinatorAccount coordinatorAccount);
+    //public Task DeleteCoordinatorAccount(Guid coordinatorId);
+    #endregion
+    #region
+    public Task<Notification> GetNotificationByIdAsync(Guid providerId);
+    public void AddNewNotification(Notification newNofi);
+    public Task UpdateNotificationAsync(Notification notification);
+    public Task DeleteNotificationByIdAsync(Guid providerId);
+    #endregion
+    public Task SaveAsync();
+  }
 }
