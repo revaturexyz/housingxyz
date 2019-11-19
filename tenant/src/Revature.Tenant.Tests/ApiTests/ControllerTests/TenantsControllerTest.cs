@@ -25,7 +25,7 @@ namespace Revature.Tenant.Tests.ApiTests
       using var database = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
       // act (pass repository with database into controller)
-      var test = new TenantsController(new Repository(database, mapper));
+      var test = new TenantsController(new TenantRepository(database, mapper));
 
       // assert (test passes if no exception thrown)
     }
