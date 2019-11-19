@@ -21,6 +21,7 @@ export class AddTenantComponent implements OnInit {
   
 
   async postTenantOnSubmit() {
+    console.log(this.show);
     try{
       await this.coordService.PostTenant(this.tenant);
       this.router.navigate(['show-tenant']);

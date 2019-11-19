@@ -9,4 +9,7 @@ export interface Tenant {
     addressId: string;
     roomId: number;
     carId: number;
+    startDate: Date;
+    endDate: Date;
+    langName: string;
 }
