@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Revature.Account.Lib;
 
 namespace Revature.Account.DataAccess
 {
@@ -17,7 +18,7 @@ namespace Revature.Account.DataAccess
         Password = provider.Password,
         Status = provider.Status,
         AccountCreated = provider.AccountCreated,
-        Expire = provider.Expire,
+        Expire = provider.Expire
       };
     }
     public Entities.ProviderAccount MapProvider(Lib.Model.ProviderAccount provider)
@@ -30,8 +31,7 @@ namespace Revature.Account.DataAccess
         Password = provider.Password,
         Status = provider.Status,
         AccountCreated = provider.AccountCreated,
-        Expire = provider.Expire,
-
+        Expire = provider.Expire
       };
     }
     public Lib.Model.CoordinatorAccount MapCoordinator(Entities.CoordinatorAccount coordinator)
@@ -44,7 +44,7 @@ namespace Revature.Account.DataAccess
         TrainingName = coordinator.TrainingName,
         TrainingAddress = coordinator.TrainingAddress,
         Email = coordinator.Email,
-        Notification = coordinator.Notification.Select(MapNotification).ToHashSet()
+        Notifications = coordinator.Notifications.Select(MapNotification).ToList()
       };
     }
     public static Entities.CoordinatorAccount MapCoordinator(Lib.Model.CoordinatorAccount coordinator)

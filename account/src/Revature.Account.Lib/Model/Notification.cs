@@ -6,7 +6,7 @@ namespace Revature.Account.Lib.Model
 {
 	public class Notification
 	{
-    public Guid NotificationId { get; set; }
+    public Guid NotificationId { get; set; } = new Guid();
 		public Guid ProviderId { get; set; }
 		public Guid CoordinatorId { get; set; }
 		public String Status { get; set; }

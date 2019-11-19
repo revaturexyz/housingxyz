@@ -8,8 +8,9 @@ namespace Revature.Account.Lib.Model
   {
     private string _name;
     private string _password;
-    public Guid ProviderId { get; set; }
+    public Guid ProviderId { get; set; } = new Guid();
     public Guid CoordinatorId { get; set; }
+    public CoordinatorAccount Coordinator { get; set; }
     public string Name
     {
       get { return _name; }
@@ -31,7 +32,6 @@ namespace Revature.Account.Lib.Model
     public string Status { get; set; }
     public DateTime AccountCreated { get; set; }
     public DateTime Expire { get; set; }
-    public Notification Notification { get; set; }
     private void ValidateInput(string value)
     {
       if (value == null)

@@ -4,42 +4,38 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Account.Api.Models;
 using Revature.Account.Lib.Interface;
+using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Api.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/notifications")]
   [ApiController]
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    public NotificationController(IGenericRepository urepo)
+    public NotificationController(IGenericRepository repo)
     {
-      _repo = urepo ?? throw new ArgumentNullException("Cannot be null.", nameof(urepo));
+      _repo = repo ?? throw new ArgumentNullException(nameof(repo));
     }
+
     // GET: api/Notification/5
-    [HttpGet(Name = "GetNotificationByProviderId")]
-    public async Task<ActionResult> GetNotificationByProviderId(Guid providerId)
+    [HttpGet("{coordinatorId}", Name = "GetNotificationByProviderId")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetNotificationByCoordinatorIdAsync(Guid coordinatorId)
     {
-      var x = await _repo.GetProviderAccountByIdAsync(providerId);
-      if (x == null)
-      {
+      var nofi = await _repo.GetNotificationsByCoordinatorIdAsync(coordinatorId);
+      if (nofi == null)
         return NotFound();
-      }
-      var nofi = await _repo.GetNotificationByIdAsync(providerId);
-      return Ok(new NotificationViewModel
-      {
-        ProviderId = nofi.ProviderId,
-        CoordinatorId = nofi.CoordinatorId,
-        Status = nofi.Status,
-        AccountExpire = nofi.AccountExpire
-      });
+
+      return Ok(nofi);
     }
 
     // POST: api/Notification
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId")] NotificationViewModel notification)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId")] Notification notification)
     {
       try
       {
@@ -52,24 +48,21 @@ namespace Revature.Account.Api.Controllers
         };
         _repo.AddNewNotification(mappedNotification);
         await _repo.SaveAsync();
-        var newAddedNotification = await _repo.GetNotificationByIdAsync(mappedNotification.ProviderId);
-        return CreatedAtRoute("Get", new { id = newAddedNotification.ProviderId }, newAddedNotification);
+        return CreatedAtRoute($"api/notification/{mappedNotification.NotificationId}", new { id = mappedNotification.NotificationId }, mappedNotification);
       }
       catch
       {
         return BadRequest();
       }
     }
+
     // PATCH: api/Notification/5
-    [HttpPatch("{id}")]
-    public async Task<ActionResult> Patch(Guid providerId, [FromBody] NotificationViewModel notification)
+    [HttpPatch("{coordinatorId}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
     {
-      var provider = await _repo.GetProviderAccountByIdAsync(providerId);
-      if (provider == null)
-      {
-        return NotFound();
-      }
-      var existingNotification = await _repo.GetNotificationByIdAsync(providerId);
+      var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
       if (existingNotification != null)
       {
         existingNotification.Status = notification.Status;
@@ -80,23 +73,24 @@ namespace Revature.Account.Api.Controllers
         if (existingNotification.Status == "Rejected")
         {
           existingNotification = null;
-          provider = null;
         }
         await _repo.UpdateNotificationAsync(existingNotification);
-        await _repo.UpdateProviderAccountAsync(provider);
         await _repo.SaveAsync();
         return NoContent();
       }
       return NotFound();
     }
-    // DELETE: api/ApiWithActions/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(Guid providerId)
+
+    // DELETE: api/notification/5
+    [HttpDelete("{notificationId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> Delete(Guid notificationId)
     {
-      var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
-      if (existingProvider != null)
+      var existingNotification = await _repo.GetProviderAccountByIdAsync(notificationId);
+      if (existingNotification != null)
       {
-        await _repo.DeleteNotificationByIdAsync(providerId);
+        await _repo.DeleteNotificationByIdAsync(notificationId);
         await _repo.SaveAsync();
         return NoContent();
       }

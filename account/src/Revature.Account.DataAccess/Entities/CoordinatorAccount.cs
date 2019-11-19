@@ -17,7 +17,7 @@ namespace Revature.Account.DataAccess.Entities
     public string Password { get; set; }
     public string Email { get; set; }
     public Guid ProviderId { get; set; }
-    public ProviderAccount Provider { get; set; }
-    public virtual ICollection<Notification> Notification { get; set; }
+    public virtual ICollection<Entities.ProviderAccount> Providers { get; set; }
+    public virtual ICollection<Entities.Notification> Notifications { get; set; }
   }
 }

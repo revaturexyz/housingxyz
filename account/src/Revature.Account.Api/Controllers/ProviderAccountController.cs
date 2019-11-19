@@ -4,43 +4,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Account.Api.Models;
 using Revature.Account.Lib.Interface;
+using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Api.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/provider-accounts")]
   [ApiController]
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    public ProviderAccountController(IGenericRepository urepo)
+    public ProviderAccountController(IGenericRepository repo)
     {
-      _repo = urepo ?? throw new ArgumentNullException("Cannot be null.", nameof(urepo));
+      _repo = repo ?? throw new ArgumentNullException(nameof(repo));
     }
+
     // GET: api/ProviderAccount/5
     [HttpGet("{providerId}", Name = "GetProviderAccountById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Get(Guid providerId)
     {
-      var x = await _repo.GetProviderAccountByIdAsync(providerId);
-      if (x == null)
+      var provider = await _repo.GetProviderAccountByIdAsync(providerId);
+      if (provider == null)
       {
         return NotFound();
       }
-      return Ok(new ProviderViewModel()
-      {
-        ProviderId = x.ProviderId,
-        CoordinatorId = x.CoordinatorId,
-        Name = x.Name,
-        Status = x.Status,
-        Password = x.Password,
-        AccountCreated = x.AccountCreated,
-        Expire = x.Expire
-      });
+      return Ok(provider);
     }
+
     // POST: api/ProviderAccount
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] ProviderViewModel newProvider)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
     {
       try
       {
@@ -55,17 +51,19 @@ namespace Revature.Account.Api.Controllers
         };
         _repo.AddNewProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
-        var newAddedProvider = await _repo.GetProviderAccountByIdAsync(mappedProvider.ProviderId);
-        return CreatedAtRoute("GetProviderById", new { id = newAddedProvider.ProviderId }, newAddedProvider);
+        return CreatedAtRoute($"api/provider-accounts/{mappedProvider.ProviderId}", new { id = mappedProvider.ProviderId }, mappedProvider);
       }
       catch
       {
         return BadRequest();
       }
     }
+
     // PUT: api/ProviderAccount/5
-    [HttpPatch("{providerId}")]
-    public async Task<IActionResult> Patch(Guid providerId, [FromBody] ProviderViewModel provider)
+    [HttpPut("{providerId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Put(Guid providerId, [FromBody] ProviderAccount provider)
     {
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
@@ -79,8 +77,11 @@ namespace Revature.Account.Api.Controllers
       }
       return NotFound();
     }
+
     // DELETE: api/ApiWithActions/5
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid providerId)
     {
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);

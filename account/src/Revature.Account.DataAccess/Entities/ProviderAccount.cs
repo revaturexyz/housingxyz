@@ -6,10 +6,6 @@ namespace Revature.Account.DataAccess.Entities
 {
   public class ProviderAccount
   {
-    public ProviderAccount()
-    {
-      Notification = new HashSet<Notification>();
-    }
     //set the primary key with guid
     public Guid ProviderId { get; set; }
     public string Name { get; set; }
@@ -19,6 +15,5 @@ namespace Revature.Account.DataAccess.Entities
     public DateTime Expire { get; set; }
     public Guid CoordinatorId { get; set; }
     public CoordinatorAccount Coordinator { get; set; }
-    public virtual ICollection<Notification> Notification { get; set; }
   }
 }

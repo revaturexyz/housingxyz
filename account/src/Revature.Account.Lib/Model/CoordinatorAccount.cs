@@ -9,7 +9,7 @@ namespace Revature.Account.Lib.Model
     private string _email;
     private string _name;
     private string _password;
-    public Guid CoordinatorId { get; set; }
+    public Guid CoordinatorId { get; set; } = new Guid();
     public string Name
     {
       get { return _name; }
@@ -46,7 +46,7 @@ namespace Revature.Account.Lib.Model
     }
     public string TrainingName { get; set; }
     public string TrainingAddress { get; set; }
-    public ICollection<Notification> Notification { get; set; }
+    public virtual List<Lib.Model.Notification> Notifications { get; set; }
     private void ValidateInput(string value)
     {
       if (value == null)
