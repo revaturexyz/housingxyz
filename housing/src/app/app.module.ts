@@ -9,7 +9,7 @@ import { ProviderSelectComponent } from './provider-select/provider-select.compo
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
-import { AddRoomComponent } from './add-room/add-room.component';
+import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
