@@ -15,13 +15,11 @@ namespace Revature.Room.Api.Controllers
   [ApiController]
   public class ComplexController : ControllerBase
   {
-    private readonly IServiceBusSender _busSender;
     private readonly IRepository _repository;
 
-    public ComplexController(IRepository repository, IServiceBusSender busSender)
+    public ComplexController(IRepository repository)
     {
       _repository = repository;
-      _busSender = busSender ?? throw new ArgumentNullException();
     }
 
     /// <summary>

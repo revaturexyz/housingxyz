@@ -53,7 +53,6 @@ namespace Revature.Room.Api
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<IMapper, DBMapper>();
 
-      services.AddScoped<IServiceBusSender, ServiceBusSender>();
       services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
 
       services.AddControllers();

@@ -11,17 +11,15 @@ namespace Revature.Room.Api.Controllers
   [ApiController]
   public class TenantController : ControllerBase
   {
-    private readonly IServiceBusSender _busSender;
     private readonly IRepository _repository;
 
     /// <summary>
     /// Controller in charge of communicating with the tenant service
     /// </summary>
 
-    public TenantController(IRepository repository, IServiceBusSender busSender)
+    public TenantController(IRepository repository)
     {
       _repository = repository;
-      _busSender = busSender ?? throw new ArgumentNullException();
     }
 
     // GET: api/rooms?gender=g&endDate=e
