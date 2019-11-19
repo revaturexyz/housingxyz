@@ -6,7 +6,7 @@ using Revature.Tenant.Lib.Models;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceBusMessaging
+namespace Revature.Tenant.Api.ServiceBus
 {
   public class ServiceBusSender : IServiceBusSender
   {
@@ -20,11 +20,11 @@ namespace ServiceBusMessaging
       _configuration = configuration;
       _logger = logger;
       _queueClient = new QueueClient(
-        _configuration.GetConnectionString("Endpoint=sb"),
+        _configuration.GetConnectionString("ServiceBus"),
         QUEUE_NAME);
     }
 
-    public async Task SendMessage(Tenant tenantToSend)
+    public async Task SendMessage(Lib.Models.Tenant tenantToSend)
     {
       string data = JsonConvert.SerializeObject(tenantToSend);
       Message message = new Message(Encoding.UTF8.GetBytes(data));

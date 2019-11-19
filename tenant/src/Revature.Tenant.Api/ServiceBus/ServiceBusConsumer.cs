@@ -16,27 +16,21 @@ using Revature.Tenant.DataAccess.Repository;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
 
-namespace ServiceBusMessaging
+namespace Revature.Tenant.Api.ServiceBus
 {
-  public interface IServiceBusConsumer
-  {
-    void RegisterOnMessageHandlerAndReceiveMessages();
-    Task CloseQueueAsync();
-  }
-
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
     private const string QUEUE_NAME = "testing";
     private readonly IServiceProvider Services;
-    private readonly ILogger<Repository> _logger;
+    private readonly ILogger<TenantRepository> _logger;
 
-    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<Repository> logger)
+    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<TenantRepository> logger)
     {
       _configuration = configuration;
       _queueClient = new QueueClient(
-      _configuration.GetConnectionString("Endpoint=sb"), QUEUE_NAME);
+      _configuration.GetConnectionString("ServiceBus"), QUEUE_NAME);
       Services = services;
       _logger = logger;
     }
@@ -62,7 +56,7 @@ namespace ServiceBusMessaging
         try
         {
           _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-          Tenant myTenant = JsonConvert.DeserializeObject<Tenant>(Encoding.UTF8.GetString(message.Body));
+          Lib.Models.Tenant myTenant = JsonConvert.DeserializeObject<Lib.Models.Tenant>(Encoding.UTF8.GetString(message.Body));
 
           // Persist our new data into the repository but not if Deserialization throws exception
           //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible

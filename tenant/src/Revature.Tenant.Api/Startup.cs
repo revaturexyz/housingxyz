@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.Lib.Interface;
 using Serilog;
-using ServiceBusMessaging;
 
 namespace Revature.Tenant.Api
 {

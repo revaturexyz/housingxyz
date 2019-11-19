@@ -29,6 +29,7 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Model",
                 Color = "Color",
                 Year = "Year",
+                State = "TX"
               },
             };
 
@@ -63,6 +64,7 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Model",
                 Color = "Color",
                 Year = "Year",
+                State = "TX"
               },
             };
 
@@ -86,7 +88,9 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Corrolla",
                 Year = "1992",
                 Color = "Green",
-                LicensePlate = "ABC123"
+                LicensePlate = "ABC123",
+                State = "TX"
+               
             };
 
             DataAccess.Entities.Cars cars = mapper.MapCar(car);
@@ -96,6 +100,7 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(car.Model, cars.Model);
             Assert.Equal(car.Year, cars.Year);
             Assert.Equal(car.Color, cars.Color);
+            Assert.Equal(car.State, cars.State);
         }
 
         [Fact]
@@ -108,7 +113,8 @@ namespace Revature.Tenant.Tests.DataTests
                 Model = "Corrolla",
                 Year = "1992",
                 Color = "Green",
-                LicensePlate = "ABC123"
+                LicensePlate = "ABC123",
+                State = "TX"
             };
 
             Lib.Models.Car car = mapper.MapCar(cars);
@@ -118,6 +124,7 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(cars.Model, car.Model);
             Assert.Equal(cars.Year, car.Year);
             Assert.Equal(cars.Color, car.Color);
-        }
+            Assert.Equal(cars.State, car.State);
+    }
     }
 }

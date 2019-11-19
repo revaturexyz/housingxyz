@@ -28,16 +28,19 @@ namespace Revature.Tenant.DataAccess.Entities
       builder.Entity<Cars>(entity =>
       {
         entity.HasKey(c => c.Id);
+        entity.Property(c => c.Id).UseIdentityColumn();
         entity.Property(c => c.LicensePlate).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Make).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Model).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Color).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Year).IsRequired();
+        entity.Property(c => c.State).IsRequired();
       });
 
       builder.Entity<Batches>(entity =>
      {
        entity.HasKey(b => b.Id);
+       entity.Property(b => b.Id).UseIdentityColumn();
        entity.Property(b => b.BatchLanguage).IsRequired().HasMaxLength(100);
        entity.Property(b => b.StartDate).IsRequired();
        entity.Property(b => b.EndDate).IsRequired();

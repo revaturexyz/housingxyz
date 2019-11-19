@@ -15,6 +15,7 @@ namespace Revature.Tenant.Lib.Models
     private string _model;
     private string _color;
     private string _year;
+    private string _state;
 
     public int Id
     {
@@ -23,7 +24,7 @@ namespace Revature.Tenant.Lib.Models
       {
         if (value < 0)
         {
-          throw new ArgumentException("Id must not be negative", nameof(value));
+          throw new ArgumentOutOfRangeException("ID must not be negative", nameof(value));
         }
 
         _id = value;
@@ -32,19 +33,12 @@ namespace Revature.Tenant.Lib.Models
 
     public string LicensePlate
     {
-      get
-      {
-        if (_licensePlate == null)
-        {
-          throw new ArgumentException("License plate is not set", nameof(_licensePlate));
-        }
-        return _licensePlate;
-      }
+      get => _licensePlate;
       set
       {
         if (value == "")
         {
-          throw new ArgumentException("License plate must not be empty", nameof(value));
+          throw new ArgumentException("License plate must not be empty");
         }
 
         _licensePlate = value;
@@ -53,19 +47,12 @@ namespace Revature.Tenant.Lib.Models
 
     public string Make
     {
-      get
-      {
-        if (_make == null)
-        {
-          throw new ArgumentException("Make is not set", nameof(_make));
-        }
-        return _make;
-      }
+      get => _make;
       set
       {
         if (value == "")
         {
-          throw new ArgumentException("Make must not be empty", nameof(value));
+          throw new ArgumentException("Make must not be empty");
         }
 
         _make = value;
@@ -74,20 +61,12 @@ namespace Revature.Tenant.Lib.Models
 
     public string Model
     {
-      get
-      {
-        if (_model == null)
-        {
-          throw new ArgumentException("Model is not set", nameof(_model));
-        }
-
-        return _model;
-      }
+      get => _model;
       set
       {
         if (value == "")
         {
-          throw new ArgumentException("Model must not be empty", nameof(value));
+          throw new ArgumentException("Model must not be empty");
         }
 
         _model = value;
@@ -95,20 +74,12 @@ namespace Revature.Tenant.Lib.Models
     }
     public string Color
     {
-      get
-      {
-        if (_color == null)
-        {
-          throw new ArgumentException("Color is not set", nameof(_color));
-        }
-
-        return _color;
-      }
+      get => _color;
       set
       {
         if (value == "")
         {
-          throw new ArgumentException("Color must not be empty", nameof(value));
+          throw new ArgumentException("Color must not be empty");
         }
 
         _color = value;
@@ -116,23 +87,28 @@ namespace Revature.Tenant.Lib.Models
     }
     public string Year
     {
-      get
-      {
-        if (_year == null)
-        {
-          throw new ArgumentException("Year is not set", nameof(_year));
-        }
-
-        return _year;
-      }
+      get => _year;
       set
       {
         if (value == "")
         {
-          throw new ArgumentException("Year must not be empty", nameof(value));
+          throw new ArgumentException("Year must not be empty");
         }
 
         _year = value;
+      }
+    }
+
+    public string State
+    {
+      get => _state;
+      set {
+        if (value == "")
+        {
+          throw new ArgumentException("State must not be empty");
+        }
+
+        _state = value;
       }
     }
   }

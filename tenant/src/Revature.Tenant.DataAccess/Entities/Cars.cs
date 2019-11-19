@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
@@ -20,6 +19,7 @@ namespace Revature.Tenant.DataAccess.Entities
     public string Model { get; set; }
     public string Color { get; set; }
     public string Year { get; set; }
+    public string State { get; set; }
 
     public virtual ICollection<Tenants> Tenants { get; set; }
   }
