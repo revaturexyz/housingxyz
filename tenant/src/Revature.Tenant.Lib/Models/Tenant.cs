@@ -22,15 +22,8 @@ namespace Revature.Tenant.Lib.Models
     public Guid Id
     {
       get => _id;
-      set
-      {
-        if (value == Guid.Empty)
-        {
-          throw new ArgumentException("Id must not be empty", nameof(value));
-        }
-
-        _id = value;
-      }
+      set => _id = value;
+      
     }
 
 
@@ -102,13 +95,7 @@ namespace Revature.Tenant.Lib.Models
     public Guid RoomId
     {
       get => _roomId;
-      set
-      {
-        if (value == Guid.Empty)
-        {
-          throw new ArgumentException("Room Id must not be empty", nameof(value));
-        }
-      }
+      set => _roomId = value;
     }
 
     public int CarId
