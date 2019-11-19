@@ -1,0 +1,19 @@
+<ng-container *ngIf="false">
+  <!--
+  This component takes care of displaying a form to the user whenever a room is occupied but he
+  still wishes to make changes to it. It allows the user to send this request in a simple form
+  -->
+</ng-container>
+<mat-dialog-content>
+  <h4>Make A Request</h4>
+  <input type="text" class="input-border" [(ngModel)]="req.title" placeholder="Request Title">
+  <div>
+    <textarea type="text" class="input-border" [(ngModel)]="req.reason" placeholder="Please input your request here.">
+    </textarea>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions style="float: right;">
+  <button class="btn btn-primary" style="margin: 4px" (click)="save()">Send</button>
+  <button class="btn btn-danger" style="margin: 4px" (click)="close()">Close</button>
+</mat-dialog-actions>
