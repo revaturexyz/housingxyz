@@ -142,7 +142,11 @@ namespace ServiceBusMessaging
     {
       await _queueClient.CloseAsync();
     }
-
+    /// <summary>
+    /// An async execute that throws an exception ifnot implemented
+    /// </summary>
+    /// <param name="stoppingToken"></param>
+    /// <returns></returns>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
       throw new NotImplementedException();
