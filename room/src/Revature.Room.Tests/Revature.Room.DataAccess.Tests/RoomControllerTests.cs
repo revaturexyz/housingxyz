@@ -32,7 +32,7 @@ namespace Revature.Room.DataAccess.Tests
           }
 
         ));
-      var controller = new RoomsController(mockRepo.Object, mockServiceBus.Object);
+      var controller = new ComplexController(mockRepo.Object, mockServiceBus.Object);
       //act
       var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now);
 

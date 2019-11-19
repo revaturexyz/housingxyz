@@ -11,7 +11,7 @@ namespace Revature.Room.Api.Controllers
 {
   [Route("api/complexes/{complexId}/rooms")]
   [ApiController]
-  public class RoomsController : ControllerBase
+  public class ComplexController : ControllerBase
   {
     private readonly IServiceBusSender _busSender;
     private readonly IRepository _repository;
@@ -20,7 +20,7 @@ namespace Revature.Room.Api.Controllers
     /// Controller for the Rooms
     /// </summary>
 
-    public RoomsController(IRepository repository, IServiceBusSender busSender)
+    public ComplexController(IRepository repository, IServiceBusSender busSender)
     {
       _repository = repository;
       _busSender = busSender ?? throw new ArgumentNullException();

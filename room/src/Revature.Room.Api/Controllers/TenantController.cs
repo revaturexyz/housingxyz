@@ -11,7 +11,7 @@ namespace Revature.Room.Api.Controllers
 {
     [Route("api/rooms")]
     [ApiController]
-    public class FilterController : ControllerBase
+    public class TenantController : ControllerBase
     {
     private readonly IServiceBusSender _busSender;
     private readonly IRepository _repository;
@@ -20,7 +20,7 @@ namespace Revature.Room.Api.Controllers
     /// Controller for the Rooms
     /// </summary>
 
-    public FilterController(IRepository repository, IServiceBusSender busSender)
+    public TenantController(IRepository repository, IServiceBusSender busSender)
     {
       _repository = repository;
       _busSender = busSender ?? throw new ArgumentNullException();
