@@ -60,7 +60,7 @@ namespace Revature.Room.DataAccess
       Data.Room roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
         .Include(r => r.Gender)
         .Include(r => r.RoomType)
-        .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is no such room!", "myRoom");
+        .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is no such room!");
 
       roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
