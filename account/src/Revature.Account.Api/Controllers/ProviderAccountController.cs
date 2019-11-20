@@ -4,6 +4,7 @@ using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -12,10 +13,12 @@ namespace Revature.Account.Api.Controllers
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
+    private readonly ILogger _logger;
 
-    public ProviderAccountController(IGenericRepository repo)
+    public ProviderAccountController(IGenericRepository repo, ILogger logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+      _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     // GET: api/provider-accounts/5
@@ -24,9 +27,11 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Get(Guid providerId)
     {
+      _logger.Information("GET - Getting provider account by ID: {providerId}", providerId);
       var provider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (provider == null)
       {
+        _logger.Warning("No provider account found");
         return NotFound();
       }
       return Ok(provider);
@@ -40,6 +45,7 @@ namespace Revature.Account.Api.Controllers
     {
       try
       {
+        _logger.Information("POST - Post request started for new provider account");
         Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
         {
           ProviderId = Guid.NewGuid(),
@@ -50,10 +56,12 @@ namespace Revature.Account.Api.Controllers
         };
         _repo.AddProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
+        _logger.Information("Post request persisted");
         return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
       }
       catch
       {
+        _logger.Error("Post request failed");
         return BadRequest();
       }
     }
@@ -64,6 +72,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(Guid providerId, [FromBody] ProviderAccount provider)
     {
+      _logger.Information("PUT - Put request for provider ID: {providerId}", providerId);
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
@@ -71,8 +80,10 @@ namespace Revature.Account.Api.Controllers
         existingProvider.AccountCreatedAt = DateTime.Now;
         await _repo.UpdateProviderAccountAsync(existingProvider);
         await _repo.SaveAsync();
+        _logger.Information("Put request persisted");
         return NoContent();
       }
+      _logger.Warning("Put request failed");
       return NotFound();
     }
 
@@ -82,13 +93,16 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid providerId)
     {
+      _logger.Information("DELETE - Delete request for provider ID: {providerId}", providerId);
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
         await _repo.DeleteProviderAccountAsync(providerId);
         await _repo.SaveAsync();
+        _logger.Information("Delete request persisted");
         return NoContent();
       }
+      _logger.Warning("Delete request failed");
       return NotFound();
     }
   }
