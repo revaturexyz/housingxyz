@@ -5,6 +5,8 @@ using Revature.Account.Api.Controllers;
 using Revature.Account.Lib.Model;
 using System;
 using System.Collections.Generic;
+using Serilog;
+using Serilog.Sinks;
 
 namespace Revature.Account.Tests
 {
@@ -23,9 +25,13 @@ namespace Revature.Account.Tests
     public static DateTime now = DateTime.Now;
     public static DateTime nowPSev = DateTime.Now.AddDays(7.0);
     public static DateTime nowPThirty = DateTime.Now.AddDays(30.0);
+    public static ILogger _logger;
 
     public TestHelper()
     {
+      _logger = new LoggerConfiguration()
+        .WriteTo.Console()
+        .CreateLogger();
       SetUpCoordinators();
       SetUpStatuses();
       SetUpProviderAccount();
@@ -153,7 +159,7 @@ namespace Revature.Account.Tests
     private void SetUpMocks()
     {
       Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
-      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object);
+      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _logger);
       CoordinatorAccountController.ControllerContext = new ControllerContext();
       CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       CoordinatorAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
