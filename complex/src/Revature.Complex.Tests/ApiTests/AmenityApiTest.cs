@@ -96,13 +96,57 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void PutAmenityAsyncTest()
     {
+      Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Amenity amenity = new Amenity
+      {
+        AmenityId = Guid.NewGuid(),
+        AmenityType = "test1",
+        Description = "describe"
+      };
+      ApiAmenity apiAmenity = new ApiAmenity
+      {
+        AmenityId = amenity.AmenityId,
+        AmenityType = "test1",
+        Description = "describe"
+      };
+      string res = "";
+      _complexRepo.Setup(r => r.UpdateAmenityAsync(amenity))
+          .Returns(Task.FromResult(res));
 
+      //act
+      var controller = new AmenityController(_complexRepo.Object);
+      var model = Assert.IsAssignableFrom<ActionResult>(await controller.PutAmenityAsync(apiAmenity));
+
+      //assert
+      Assert.IsAssignableFrom<ActionResult>(model);
     }
 
     [Fact]
     public async void DeleteAmenityAsyncTest()
     {
+      Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Amenity amenity = new Amenity
+      {
+        AmenityId = Guid.NewGuid(),
+        AmenityType = "test1",
+        Description = "describe"
+      };
+      ApiAmenity apiAmenity = new ApiAmenity
+      {
+        AmenityId = amenity.AmenityId,
+        AmenityType = "test1",
+        Description = "describe"
+      };
+      string res = "";
+      _complexRepo.Setup(r => r.DeleteAmenityAsync(amenity))
+          .Returns(Task.FromResult(res));
 
+      //act
+      var controller = new AmenityController(_complexRepo.Object);
+      var model = Assert.IsAssignableFrom<ActionResult>(await controller.DeleteAmenityAsync(apiAmenity));
+
+      //assert
+      Assert.IsAssignableFrom<ActionResult>(model);
     }
   }
 }

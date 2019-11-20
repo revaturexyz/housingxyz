@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Complex.Api", "Revature.Complex.Api\Revature.Complex.Api.csproj", "{31702692-BE95-4638-BBC1-9B034F9EFF5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.Api", "Revature.Complex.Api\Revature.Complex.Api.csproj", "{31702692-BE95-4638-BBC1-9B034F9EFF5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Complex.Lib", "Revature.Complex.Lib\Revature.Complex.Lib.csproj", "{F92E3341-568D-47D3-B3E8-3108BCF3AC44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.Lib", "Revature.Complex.Lib\Revature.Complex.Lib.csproj", "{F92E3341-568D-47D3-B3E8-3108BCF3AC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Complex.DataAccess", "Revature.Complex.DataAccess\Revature.Complex.DataAccess.csproj", "{F7716F2A-E7EA-4572-AB19-4C3B0A714D97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.DataAccess", "Revature.Complex.DataAccess\Revature.Complex.DataAccess.csproj", "{F7716F2A-E7EA-4572-AB19-4C3B0A714D97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Complex.Tests", "Revature.Complex.Tests\Revature.Complex.Tests.csproj", "{9DC03EB8-9511-4317-884D-25C668DB73C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Complex.Tests", "Revature.Complex.Tests\Revature.Complex.Tests.csproj", "{9DC03EB8-9511-4317-884D-25C668DB73C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Complex.CoreSenderApp", "Revature.Complex.CoreSenderApp\Revature.Complex.CoreSenderApp.csproj", "{71C62AD0-031C-499C-A31A-492463737747}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revature.Complex.CoreReceiver", "Revature.Complex.CoreReceiver\Revature.Complex.CoreReceiver.csproj", "{6339BE25-63EA-447B-933C-885E07F9A3BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{31702692-BE95-4638-BBC1-9B034F9EFF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +73,35 @@ Global
 		{9DC03EB8-9511-4317-884D-25C668DB73C5}.Release|x64.Build.0 = Release|Any CPU
 		{9DC03EB8-9511-4317-884D-25C668DB73C5}.Release|x86.ActiveCfg = Release|Any CPU
 		{9DC03EB8-9511-4317-884D-25C668DB73C5}.Release|x86.Build.0 = Release|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Debug|x64.Build.0 = Debug|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Debug|x86.Build.0 = Debug|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Release|x64.ActiveCfg = Release|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Release|x64.Build.0 = Release|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Release|x86.ActiveCfg = Release|Any CPU
+		{71C62AD0-031C-499C-A31A-492463737747}.Release|x86.Build.0 = Release|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Release|x64.Build.0 = Release|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{6339BE25-63EA-447B-933C-885E07F9A3BD}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {031F67AE-4F65-4525-B77A-5C7A91DA84A9}
 	EndGlobalSection
 EndGlobal
