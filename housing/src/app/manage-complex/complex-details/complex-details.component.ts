@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Complex } from 'src/interfaces/complex';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 export interface PeriodicElement {
   name: string;
@@ -11,7 +11,7 @@ export interface PeriodicElement {
 }
 
 @Component({
-  selector: 'dev-complex-details',
+  selector: 'complex-details',
   templateUrl: './complex-details.component.html',
   styleUrls: ['./complex-details.component.scss']
 })
@@ -35,11 +35,12 @@ export class ComplexDetailsComponent implements OnInit {
     {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
     {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
   ];
-  dataSource = this.ELEMENT_DATA;
+  dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
 
   constructor() { }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
 }

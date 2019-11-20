@@ -154,7 +154,6 @@ button {
   margin-left: 3em;
   display: flex;
   justify-content: space-between;
-
 }
 
 .complex-container button {
@@ -173,7 +172,25 @@ button {
 .divider {
   border-bottom-style: solid black 25px;
 }
-.middle-container
+.middle-container {
+  height: 400px;
+  overflow: auto;
+}
+
+.add-room-btn {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: black;
+  opacity: 0.7;
+  justify-self: center;
+}
+
+.middle-container button
 {
-  height: 50%
+  text-align: center;
+  display: block;
+  margin: 0 auto;
 }
