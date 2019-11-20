@@ -100,7 +100,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="tenantId">tenant Id</param>
     /// <returns>True if Tenant has Car, returns false if the Tenant has no car</returns>
-    public async Task<bool> HasCarAsync(int tenantId)
+    public async Task<bool> HasCarAsync(Guid tenantId)
     {
       Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenantId);
       if (currentTenant == null)

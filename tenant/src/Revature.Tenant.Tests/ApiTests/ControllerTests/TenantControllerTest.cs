@@ -15,7 +15,6 @@ namespace Revature.Tenant.Tests.ApiTests
 {
   public class TenantControllerTest
   {
-    //TODO will add tests for tenants controller
 
     [Fact]
     public void ConstructorShouldConstruct()
