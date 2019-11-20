@@ -6,7 +6,7 @@ using DatMod = Revature.Tenant.DataAccess.Entities;
 
 namespace Revature.Tenant.Tests.DataTests
 {
-  public class TenantsTest
+  public class TenantTest
   {
     [Fact]
     public void ConstructorShouldConstructWithSetters()
@@ -22,7 +22,7 @@ namespace Revature.Tenant.Tests.DataTests
       var carId = 3;
       var batchId = 3;
       // Act (set properties to variables through constructor)
-      var apiTenant = new DatMod.Tenants
+      var apiTenant = new DatMod.Tenant
       {
         Id = tenantId,
         Email = email,

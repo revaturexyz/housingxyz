@@ -4,7 +4,7 @@ namespace Revature.Tenant.DataAccess
 {
   public class Mapper : IMapper
   {
-    public Lib.Models.Tenant MapTenant(Entities.Tenants tenant)
+    public Lib.Models.Tenant MapTenant(Entities.Tenant tenant)
     {
       return new Lib.Models.Tenant
       {
@@ -20,20 +20,20 @@ namespace Revature.Tenant.DataAccess
 
         Car = new Lib.Models.Car
         {
-          Id = tenant.Cars.Id,
-          LicensePlate = tenant.Cars.LicensePlate,
-          Make = tenant.Cars.Make,
-          Model = tenant.Cars.Model,
-          Color = tenant.Cars.Color,
-          Year = tenant.Cars.Year,
-          State = tenant.Cars.State
+          Id = tenant.Car.Id,
+          LicensePlate = tenant.Car.LicensePlate,
+          Make = tenant.Car.Make,
+          Model = tenant.Car.Model,
+          Color = tenant.Car.Color,
+          Year = tenant.Car.Year,
+          State = tenant.Car.State
         },
       };
     }
 
-    public Entities.Tenants MapTenant(Lib.Models.Tenant tenant)
+    public Entities.Tenant MapTenant(Lib.Models.Tenant tenant)
     {
-      return new Entities.Tenants
+      return new Entities.Tenant
       {
         Id = tenant.Id,
         Email = tenant.Email,
@@ -45,7 +45,7 @@ namespace Revature.Tenant.DataAccess
         CarId = tenant.CarId,
         BatchId = tenant.BatchId,
 
-        Cars = new Entities.Cars
+        Car = new Entities.Car
         {
           Id = tenant.Car.Id,
           LicensePlate = tenant.Car.LicensePlate,
@@ -57,7 +57,7 @@ namespace Revature.Tenant.DataAccess
         },
       };
     }
-    public Lib.Models.Car MapCar(Entities.Cars car)
+    public Lib.Models.Car MapCar(Entities.Car car)
     {
       return new Lib.Models.Car
       {
@@ -70,9 +70,9 @@ namespace Revature.Tenant.DataAccess
         State = car.State
       };
     }
-    public Entities.Cars MapCar(Lib.Models.Car car)
+    public Entities.Car MapCar(Lib.Models.Car car)
     {
-      return new Entities.Cars
+      return new Entities.Car
       {
         Id = car.Id,
         LicensePlate = car.LicensePlate,
@@ -84,9 +84,9 @@ namespace Revature.Tenant.DataAccess
       };
     }
 
-    public Entities.Batches MapBatch(Lib.Models.Batch batch)
+    public Entities.Batch MapBatch(Lib.Models.Batch batch)
     {
-      return new Entities.Batches
+      return new Entities.Batch
       {
         Id = batch.Id,
         BatchLanguage = batch.BatchLanguage,
@@ -94,14 +94,14 @@ namespace Revature.Tenant.DataAccess
         EndDate = batch.EndDate
       };
     }
-    public Lib.Models.Batch MapBatch(Entities.Batches batches)
+    public Lib.Models.Batch MapBatch(Entities.Batch batch)
     {
       return new Lib.Models.Batch
       {
-        Id = batches.Id,
-        BatchLanguage = batches.BatchLanguage,
-        StartDate = batches.StartDate,
-        EndDate = batches.EndDate
+        Id = batch.Id,
+        BatchLanguage = batch.BatchLanguage,
+        StartDate = batch.StartDate,
+        EndDate = batch.EndDate
       };
     }
   }

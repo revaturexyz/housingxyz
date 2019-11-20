@@ -8,7 +8,7 @@ using DatMod = Revature.Tenant.DataAccess.Entities;
 
 namespace Revature.Tenant.Tests.DataTests
 {
-  public class BatchesTest
+  public class BatchTest
   {
     [Fact]
     public void ConstructorShouldConstructWithSetters()
@@ -20,7 +20,7 @@ namespace Revature.Tenant.Tests.DataTests
       DateTime endDate = new DateTime(2019, 1, 5);
 
       //Act
-      var apiBatch = new DatMod.Batches()
+      var apiBatch = new DatMod.Batch()
       {
         Id = batchId,
         BatchLanguage = batchLanguage,

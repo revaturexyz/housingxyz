@@ -13,12 +13,12 @@ namespace Revature.Tenant.Api.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class TenantsController : ControllerBase
+  public class TenantController : ControllerBase
   {
     private readonly IServiceBusSender _serviceBusSender;
     private readonly ITenantRepository _tenantRepository;
 
-    public TenantsController(ITenantRepository tenantRepository)
+    public TenantController(ITenantRepository tenantRepository)
     {
       _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant Cannot be null");
     }
@@ -27,7 +27,7 @@ namespace Revature.Tenant.Api.Controllers
     /// Get all tenants
     /// </summary>
     /// <returns></returns>
-        // GET: api/Tenants
+        // GET: api/Tenant
     [HttpGet(Name = "GetAllAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -55,7 +55,7 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    // GET: api/Tenants/5
+    // GET: api/Tenant/5
     //api/[controller]
     [HttpGet("{id}", Name = "GetByIdAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -92,10 +92,10 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     /// <summary>
-    /// Posts Tenants to Db
+    /// Posts Tenant to Db
     /// </summary>
     /// <param name="value"></param>
-    // POST: api/Tenants
+    // POST: api/Tenant
     [HttpPost("RegisterTenant", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

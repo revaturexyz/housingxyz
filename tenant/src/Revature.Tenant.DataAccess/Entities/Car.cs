@@ -7,11 +7,11 @@ namespace Revature.Tenant.DataAccess.Entities
   /// This is the car object we access through our database.
   /// Not all entity tenants will have cars.
   /// </summary>
-  public class Cars
+  public class Car
   {
-    public Cars()
+    public Car()
     {
-      Tenants = new HashSet<Tenants>();
+      Tenant = new HashSet<Tenant>();
     }
     public int Id { get; set; }
     public string LicensePlate { get; set; }
@@ -21,6 +21,6 @@ namespace Revature.Tenant.DataAccess.Entities
     public string Year { get; set; }
     public string State { get; set; }
 
-    public virtual ICollection<Tenants> Tenants { get; set; }
+    public virtual ICollection<Tenant> Tenant { get; set; }
   }
 }

@@ -10,7 +10,7 @@ namespace Revature.Tenant.Tests.ApiTests
   internal static class ApiTestData
   {
 
-    internal static List<LibMod.Tenant> Tenants = new List<LibMod.Tenant>
+    internal static List<LibMod.Tenant> Tenant = new List<LibMod.Tenant>
     {
 
       new LibMod.Tenant
@@ -40,13 +40,13 @@ namespace Revature.Tenant.Tests.ApiTests
       },
     };
       
-    internal static Mock<ITenantRepository> MockTenantRepo(List<LibMod.Tenant> testTenants)
+    internal static Mock<ITenantRepository> MockTenantRepo(List<LibMod.Tenant> testTenant)
     {
       var mockRepo = new Mock<ITenantRepository>();
       mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>()))
             .ReturnsAsync((Guid i) =>
             {
-              var tenant = testTenants.FirstOrDefault(t => t.Id == i);
+              var tenant = testTenant.FirstOrDefault(t => t.Id == i);
               if (tenant == null)
               {
                 throw new ArgumentException();
