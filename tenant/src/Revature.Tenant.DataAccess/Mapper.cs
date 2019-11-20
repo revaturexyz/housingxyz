@@ -2,6 +2,7 @@ using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.DataAccess
 {
+
   public class Mapper : IMapper
   {
     /// <summary>
@@ -22,6 +23,7 @@ namespace Revature.Tenant.DataAccess
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
         BatchId = tenant.BatchId,
+        TrainingCenter = tenant.TrainingCenter,
 
         Car = new Lib.Models.Car
         {
@@ -33,6 +35,15 @@ namespace Revature.Tenant.DataAccess
           Year = tenant.Car.Year,
           State = tenant.Car.State
         },
+
+        Batch = new Lib.Models.Batch
+        {
+          Id = tenant.Batch.Id,
+          BatchLanguage = tenant.Batch.BatchLanguage,
+          StartDate = tenant.Batch.StartDate,
+          EndDate = tenant.Batch.EndDate,
+          TrainingCenter = tenant.Batch.TrainingCenter
+        }
       };
     }
 
@@ -54,6 +65,7 @@ namespace Revature.Tenant.DataAccess
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
         BatchId = tenant.BatchId,
+        TrainingCenter = tenant.TrainingCenter,
 
         Car = new Entities.Car
         {
@@ -65,6 +77,15 @@ namespace Revature.Tenant.DataAccess
           Year = tenant.Car.Year,
           State = tenant.Car.State
         },
+
+        Batch = new Entities.Batch
+        {
+          Id = tenant.Batch.Id,
+          BatchLanguage = tenant.Batch.BatchLanguage,
+          StartDate = tenant.Batch.StartDate,
+          EndDate = tenant.Batch.EndDate,
+          TrainingCenter = tenant.Batch.TrainingCenter
+        }
       };
     }
 
@@ -111,14 +132,15 @@ namespace Revature.Tenant.DataAccess
     /// </summary>
     /// <param name="batch">A Batch Entity</param>
     /// <returns>A Batch Model</returns>
-    public Lib.Models.Batch MapBatch(Entities.Batch batch)
+    public Entities.Batch MapBatch(Lib.Models.Batch batch)
     {
-      return new Lib.Models.Batch
+      return new Entities.Batch
       {
         Id = batch.Id,
         BatchLanguage = batch.BatchLanguage,
         StartDate = batch.StartDate,
-        EndDate = batch.EndDate
+        EndDate = batch.EndDate,
+        TrainingCenter = batch.TrainingCenter
       };
     }
 
@@ -127,14 +149,15 @@ namespace Revature.Tenant.DataAccess
     /// </summary>
     /// <param name="batch">A Batch Model</param>
     /// <returns>A Batch Entity</returns>
-    public Entities.Batch MapBatch(Lib.Models.Batch batch)
+    public Lib.Models.Batch MapBatch(Entities.Batch batch)
     {
-      return new Entities.Batch
+      return new Lib.Models.Batch
       {
         Id = batch.Id,
         BatchLanguage = batch.BatchLanguage,
         StartDate = batch.StartDate,
-        EndDate = batch.EndDate
+        EndDate = batch.EndDate,
+        TrainingCenter = batch.TrainingCenter
       };
     }
   }

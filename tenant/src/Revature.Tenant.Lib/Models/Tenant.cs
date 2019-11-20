@@ -16,8 +16,10 @@ namespace Revature.Tenant.Lib.Models
     private Guid _roomId;
     private int _carId;
     private int _batchId;
+    private Guid _trainingCenter;
 
     public Car Car { get; set; }
+    public Batch Batch { get; set; }
 
     public Guid Id
     {
@@ -172,6 +174,20 @@ namespace Revature.Tenant.Lib.Models
         }
 
         _batchId = value;
+      }
+    }
+
+    public Guid TrainingCenter
+    {
+      get => _trainingCenter;
+      set
+      {
+        if (value == Guid.Empty)
+        {
+          throw new ArgumentException("Address Id must not be empty", nameof(value));
+        }
+
+        _trainingCenter = value;
       }
     }
   }
