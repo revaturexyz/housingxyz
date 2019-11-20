@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Revature.Room.Lib;
 using System;
 using System.Threading.Tasks;
-using Serilog;
+
 
 namespace Revature.Room.Api.Controllers
 {
@@ -32,9 +33,9 @@ namespace Revature.Room.Api.Controllers
           [FromQuery] DateTime endDate
           )
     {
-      _logger.Information("Getting vacant filtered rooms...");
+      _logger.LogInformation("Getting vacant filtered rooms...");
       var result = await _repository.GetVacantFilteredRoomsByGenderandEndDateAsync(gender, endDate);
-      _logger.Information("Filtered rooms fetched.");
+      _logger.LogInformation("Filtered rooms fetched.");
       return Ok(result);
     }
   }

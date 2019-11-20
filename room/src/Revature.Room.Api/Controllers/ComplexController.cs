@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Revature.Room.Lib;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Serilog;
+
 
 namespace Revature.Room.Api.Controllers
 {
@@ -49,7 +50,7 @@ namespace Revature.Room.Api.Controllers
     {
       try
       {
-        _logger.Information("Getting filtered rooms...");
+        _logger.LogInformation("Getting filtered rooms...");
         IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
         complexId,
         roomNumber,
@@ -58,12 +59,12 @@ namespace Revature.Room.Api.Controllers
         gender,
         endDate,
         roomId);
-        _logger.Information("Success.");
+        _logger.LogInformation("Success.");
         return Ok(rooms);
       }
       catch (KeyNotFoundException ex)
       {
-        _logger.Error(ex.Message);
+        _logger.LogError(ex.Message);
         return NotFound(ex);
       }
     }
