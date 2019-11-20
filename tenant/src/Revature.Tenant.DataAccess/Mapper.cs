@@ -9,7 +9,7 @@ namespace Revature.Tenant.DataAccess
     /// </summary>
     /// <param name="tenant">A Tenant Entity</param>
     /// <returns>A Tenant Model</returns>
-    public Lib.Models.Tenant MapTenant(Entities.Tenants tenant)
+    public Lib.Models.Tenant MapTenant(Entities.Tenant tenant)
     {
       return new Lib.Models.Tenant
       {
@@ -41,9 +41,9 @@ namespace Revature.Tenant.DataAccess
     /// </summary>
     /// <param name="tenant">A Tenant Model</param>
     /// <returns>A Tenant Entity</returns>
-    public Entities.Tenants MapTenant(Lib.Models.Tenant tenant)
+    public Entities.Tenant MapTenant(Lib.Models.Tenant tenant)
     {
-      return new Entities.Tenants
+      return new Entities.Tenant
       {
         Id = tenant.Id,
         Email = tenant.Email,

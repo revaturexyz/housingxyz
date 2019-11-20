@@ -10,14 +10,14 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="tenant">A Tenant Entity</param>
     /// <returns>A Tenant Model</returns>
-    public Models.Tenant MapTenant(DataAccess.Entities.Tenants tenant);
+    public Models.Tenant MapTenant(DataAccess.Entities.Tenant tenant);
 
     /// <summary>
     /// Map a Entity Tenant from a Model Tenant
     /// </summary>
     /// <param name="tenant">A Tenant Model</param>
     /// <returns>A Tenant Entity</returns>
-    public DataAccess.Entities.Tenants MapTenant(Models.Tenant tenant);
+    public DataAccess.Entities.Tenant MapTenant(Models.Tenant tenant);
 
     /// <summary>
     /// Map a Model Car from a Entity Car

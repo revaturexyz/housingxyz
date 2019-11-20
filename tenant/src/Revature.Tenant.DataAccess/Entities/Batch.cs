@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
@@ -8,9 +10,14 @@ namespace Revature.Tenant.DataAccess.Entities
   /// </summary>
   public class Batch
   {
+    public Batch()
+    {
+      Tenant = new HashSet<Tenant>();
+    }
     public int Id { get; set; }
     public string BatchLanguage { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+    public virtual ICollection<Tenant> Tenant { get; set; }
   }
 }

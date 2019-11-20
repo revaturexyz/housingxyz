@@ -10,9 +10,9 @@ namespace Revature.Tenant.Tests.DataTests
     /// </summary>
     /// <param name="name">In-Memory Database's name</param>
     /// <returns>DbContextOptions for testing</returns>
-    public static DbContextOptions<TenantsContext> InitializeDbOptions(string name)
+    public static DbContextOptions<TenantContext> InitializeDbOptions(string name)
     {
-      return new DbContextOptionsBuilder<TenantsContext>()
+      return new DbContextOptionsBuilder<TenantContext>()
         .UseInMemoryDatabase(databaseName: name)
         .Options;
     }
@@ -22,9 +22,9 @@ namespace Revature.Tenant.Tests.DataTests
     /// </summary>
     /// <param name="options">Information for constructing the database</param>
     /// <returns>RevatureHousingDbContext configured to use EF's in-memory DB</returns>
-    public static TenantsContext CreateTestDb(DbContextOptions<TenantsContext> options)
+    public static TenantContext CreateTestDb(DbContextOptions<TenantContext> options)
     {
-      var context = new TenantsContext(options);
+      var context = new TenantContext(options);
       context.Database.EnsureCreated();
       return context;
     }

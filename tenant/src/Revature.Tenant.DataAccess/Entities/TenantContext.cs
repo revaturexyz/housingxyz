@@ -2,19 +2,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
-  public class TenantsContext : DbContext
+  public class TenantContext : DbContext
   {
-    public TenantsContext() { }
+    public TenantContext() { }
 
-    public TenantsContext(DbContextOptions<TenantsContext> options) : base(options) { }
+    public TenantContext(DbContextOptions<TenantContext> options) : base(options) { }
 
-    public virtual DbSet<Tenants> Tenants { get; set; }
-    public virtual DbSet<Car> Cars { get; set; }
+    public virtual DbSet<Tenant> Tenant { get; set; }
+    public virtual DbSet<Car> Car { get; set; }
 
-    public virtual DbSet<Batch> Batches { get; set; }
+    public virtual DbSet<Batch> Batch { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
-      builder.Entity<Tenants>(entity =>
+      builder.Entity<Tenant>(entity =>
       {
         entity.HasKey(t => t.Id);
         entity.Property(t => t.Email).IsRequired();
@@ -22,11 +22,12 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.BatchId).IsRequired();
-        entity.HasOne(t => t.Car).WithMany(c => c.Tenants).HasForeignKey(t => t.CarId);
+        entity.HasOne(t => t.Car).WithMany(c => c.Tenant).HasForeignKey(t => t.CarId);
+        entity.HasOne(t => t.Batch).WithMany(b => b.Tenant).HasForeignKey(t => t.BatchId);
 
         entity.HasData
         (
-          new Tenants()
+          new Tenant()
           {
             Email = "nick@revature.com",
             Gender = "Male",
@@ -35,7 +36,7 @@ namespace Revature.Tenant.DataAccess.Entities
             BatchId = 1,
             CarId = 2
           },
-          new Tenants()
+          new Tenant()
           {
             Email = "sue@revature.com",
             Gender = "Female",
