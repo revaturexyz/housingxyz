@@ -110,7 +110,30 @@ namespace Revature.Room.Tests
       Assert.NotNull(assertContext.Room.Find(newRoomId));
     }
 
+    [Fact]
+    public async Task ReadRoomShouldReturnRoom()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+        .UseInMemoryDatabase("ReadRoomShouldReturnRoom")
+        .Options;
 
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      var mapper = new DBMapper(testContext);
+      testContext.Database.EnsureCreated();
+
+      var newRoomEntity = PresetEntityRoom(testContext);
+
+      testContext.Add(newRoomEntity);
+      await testContext.SaveChangesAsync();
+
+      using var assertContext = new RoomServiceContext(options);
+      Repository repo = new Repository(assertContext, mapper);
+
+      var resultRoomList = await repo.ReadRoomAsync(newRoomId);
+
+      Assert.NotNull(resultRoomList);
+      Assert.Equal(newRoomId, resultRoomList.FirstOrDefault().RoomId);
+    }
 
     [Fact]
     public async Task UpdateRoomUpdatesGenderAndRoomType()
@@ -173,9 +196,54 @@ namespace Revature.Room.Tests
       Assert.Equal(newNumOfOccupants, assertRoom.NumberOfOccupants);
     }
 
-  
+    [Fact]
+    public async Task RepoReadCheckGenderTest()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("RepoReadCheckGenderTest")
+      .Options;
 
-  
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      testContext.Database.EnsureCreated();
+      var mapper = new DBMapper(testContext);
+
+      var newRoom = PresetEntityRoom2(testContext);
+
+      testContext.Add(newRoom);
+      testContext.SaveChanges();
+
+      using var actContext = new RoomServiceContext(options);
+      Repository repo = new Repository(actContext, mapper);
+
+      var resultRoom = await repo.ReadRoomAsync(newRoom.RoomId);
+
+      Assert.Equal("Male", resultRoom.FirstOrDefault().Gender);
+    }
+
+    [Fact]
+    public async Task RepoReadCheckRoomId()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+        .UseInMemoryDatabase("RepoReadCheckRoomId")
+        .Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      testContext.Database.EnsureCreated();
+
+      var mapper = new DBMapper(testContext);
+
+      var newRoom = PresetEntityRoom2(testContext);
+
+      testContext.Add(newRoom);
+      testContext.SaveChanges();
+
+      using var actContext = new RoomServiceContext(options);
+      Repository repo = new Repository(actContext, mapper);
+
+      var resultRoom = await repo.ReadRoomAsync(newRoom.RoomId);
+
+      Assert.Equal(newRoomId2.ToString(), resultRoom.FirstOrDefault().RoomId.ToString());
+    }
 
     [Fact]
     public async Task RepoDeleteTest()

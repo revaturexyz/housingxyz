@@ -35,7 +35,28 @@ namespace Revature.Room.DataAccess
       await _context.AddAsync(roomEntity);
     }
 
-   
+    /// <summary>
+    /// Method that gets a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
+    {
+      //if Guid does not exist then it will return all rooms
+      if (roomId == null)
+      {
+        List<Data.Room> roomList = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
+
+        return _map.ParseRooms(roomList).ToList();
+      }
+
+      //Find room by Guid and return that particular room
+      var listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
+
+      var x = listRoom.Where(r => r.RoomId == roomId).ToList();
+
+      return _map.ParseRooms(x).ToList();
+    }
 
     /// <summary>
     /// Method that updates the gender, lease start, end, and number of occupants of a room
