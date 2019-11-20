@@ -57,7 +57,7 @@ namespace Revature.Tenant.Tests.DataTests
           Color = "Color",
           Year = "Year",
           State = "TX"
-        },
+        }
       };
 
       // Act
