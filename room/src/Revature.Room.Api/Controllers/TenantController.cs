@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Room.Lib;
-using ServiceBusMessaging;
 using System;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Revature.Room.Api.Controllers
 {
@@ -12,14 +12,16 @@ namespace Revature.Room.Api.Controllers
   public class TenantController : ControllerBase
   {
     private readonly IRepository _repository;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Controller in charge of communicating with the tenant service
     /// </summary>
 
-    public TenantController(IRepository repository)
+    public TenantController(IRepository repository, ILogger logger)
     {
-      _repository = repository;
+      _repository = repository ?? throw new NullReferenceException("Repository cannot be null." + nameof(repository));
+      _logger = logger ?? throw new NullReferenceException("Logger cannot be null." + nameof(logger));
     }
 
     // GET: api/rooms?gender=g&endDate=e
@@ -30,7 +32,10 @@ namespace Revature.Room.Api.Controllers
           [FromQuery] DateTime endDate
           )
     {
-      return Ok(await _repository.GetVacantFilteredRoomsByGenderandEndDateAsync(gender, endDate));
+      _logger.Information("Getting vacant filtered rooms...");
+      var result = await _repository.GetVacantFilteredRoomsByGenderandEndDateAsync(gender, endDate);
+      _logger.Information("Filtered rooms fetched.");
+      return Ok(result);
     }
   }
 }

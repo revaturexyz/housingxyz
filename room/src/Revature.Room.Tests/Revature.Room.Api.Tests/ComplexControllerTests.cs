@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
+using Serilog;
 
 namespace Revature.Room.DataAccess.Tests
 {
@@ -16,7 +17,8 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      mockRepo.Setup<Task<IEnumerable<Lib.Room>>>(r => r.GetFilteredRoomsAsync(
+      var mockLogger = new Mock<ILogger>();
+      mockRepo.Setup(r => r.GetFilteredRoomsAsync(
         It.IsAny<Guid>(),
         It.IsAny<string>(),
         It.IsAny<int>(),
@@ -31,7 +33,7 @@ namespace Revature.Room.DataAccess.Tests
           }
 
         ));
-      var controller = new ComplexController(mockRepo.Object);
+      var controller = new ComplexController(mockRepo.Object, mockLogger.Object);
       //act
       var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now, Guid.NewGuid());
 

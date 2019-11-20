@@ -68,8 +68,6 @@ namespace ServiceBusMessaging
       TimeSpan expirySinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1) + ttl;
       return Convert.ToString((int)expirySinceEpoch.TotalSeconds);
     }
-    string queueUrl = "https://gabservice.servicebus.windows.net/" + "queue" + "/messages";
-    //string token = GetSasToken(queueUrl, "Key", "value", TimeSpan.FromDays(1));
 
     /// <summary>
     /// ServiceBus message for creating a room

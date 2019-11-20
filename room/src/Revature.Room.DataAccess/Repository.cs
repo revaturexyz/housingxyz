@@ -59,7 +59,7 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
-    /// Method that updates a room
+    /// Method that updates the gender, lease start, end, and number of occupants of a room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
@@ -70,7 +70,6 @@ namespace Revature.Room.DataAccess
         .Include(r => r.RoomType)
         .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is no such room!", nameof(roomEntity));
 
-      //Figure out why _context.Gender does not work
       roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
@@ -97,7 +96,7 @@ namespace Revature.Room.DataAccess
       DateTime? endDate,
       Guid? roomId)
     {
-      IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId).Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
+      IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId).Include(r => r.Gender).Include(r => r.RoomType).ToListAsync() ?? throw new KeyNotFoundException("Complex Id not found");
       if (roomNumber != null)
       {
         rooms = rooms.Where(r => r.RoomNumber == roomNumber);
@@ -120,7 +119,7 @@ namespace Revature.Room.DataAccess
       }
       if (roomId != null)
       {
-        rooms = rooms.Where(r => r.RoomId == roomId);
+        rooms = rooms.Where(r => r.RoomId == roomId) ?? throw new KeyNotFoundException("Room Id not found");
       }
       return _map.ParseRooms(rooms);
     }
@@ -141,7 +140,9 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
     {
-      return await _context.Room.Where(r => r.Gender.Type.ToUpper() == gender.ToUpper() && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds).Select(r => r.RoomId).ToListAsync();
+      return await _context.Room
+        .Where(r => r.Gender.Type.ToUpper() == gender.ToUpper() && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
+        .Select(r => r.RoomId).ToListAsync();
     }
   }
 }
