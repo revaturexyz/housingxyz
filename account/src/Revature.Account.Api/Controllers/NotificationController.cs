@@ -45,7 +45,8 @@ namespace Revature.Account.Api.Controllers
     {
       try
       {
-        _logger.LogInformation("POST - Making notification");
+        _logger.LogInformation("POST - Making notification for notification ID {notificationId}." +
+          " Provider ID: {providerId}\n Coordinator ID: {coordinatorId}", notification.NotificationId, notification.ProviderId, notification.CoordinatorId);
         Lib.Model.Notification mappedNotification = new Lib.Model.Notification()
         {
           ProviderId = notification.ProviderId,
@@ -72,7 +73,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
     {
-      _logger.LogInformation("PATCH - Patching notification information");
+      _logger.LogInformation("PATCH - Patching notification information for notification {notificationId}", notification.NotificationId);
       var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
       if (existingNotification != null)
       {
@@ -102,7 +103,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid notificationId)
     {
-      _logger.LogInformation("DELETE - Deleting notification");
+      _logger.LogInformation("DELETE - Deleting notification with ID: {notificationId}", notificationId);
       var existingNotification = await _repo.GetProviderAccountByIdAsync(notificationId);
       if (existingNotification != null)
       {
