@@ -98,7 +98,9 @@ export class AddRoomComponent implements OnInit {
         contactNumber: '',
         apiProvider: null,
         apiAddress: null
-      }
+      },
+      gender: '',
+      leaseLength: 10
     };
   }
 

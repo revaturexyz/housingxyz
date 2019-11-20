@@ -110,7 +110,9 @@ export class UpdateRoomComponent implements OnInit {
       apiAmenity: r.apiAmenity,
       startDate: r.startDate,
       endDate: r.endDate,
-      apiComplex: r.apiComplex
+      apiComplex: r.apiComplex,
+      gender: r.gender,
+      leaseLength: r.leaseLength
     };
     this.selectedRoom = newRoom;
     this.highlightRoom = r;
