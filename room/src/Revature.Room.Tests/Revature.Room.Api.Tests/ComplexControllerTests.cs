@@ -11,6 +11,10 @@ namespace Revature.Room.DataAccess.Tests
 {
   public class ComplexControllerTests
   {
+    /// <summary>
+    /// Test for Complex Controller method GetFilteredRooms
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetFilteredRoomsShouldFilterByComplexId()
     {
