@@ -36,12 +36,7 @@ namespace Revature.Room.Lib
     /// <returns></returns>
     public Task CreateRoomAsync(Room myRoom);
 
-    /// <summary>
-    /// Method that gets a specific room from the database
-    /// </summary>
-    /// <param name="roomId"></param>
-    /// <returns></returns>
-    public Task<List<Room>> ReadRoomAsync(Guid roomId);
+    
 
     /// <summary>
     /// Method that updates a room
