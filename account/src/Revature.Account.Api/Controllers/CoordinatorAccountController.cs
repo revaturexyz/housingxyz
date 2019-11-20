@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Account.Lib.Interface;
 using System;
 using System.Threading.Tasks;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -27,11 +27,11 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Get(Guid coordinatorId)
     {
-      _logger.Information("GET - Getting coordinator with ID: {coordinatorId}", coordinatorId);
+      _logger.LogInformation("GET - Getting coordinator with ID: {coordinatorId}", coordinatorId);
       var coordinator = await _repo.GetCoordinatorAccountByIdAsync(coordinatorId);
       if (coordinator == null)
       {
-        _logger.Warning("No coordinator found for given ID on GET call.");
+        _logger.LogWarning("No coordinator found for given ID on GET call.");
         return NotFound();
       }
       return Ok(coordinator);
