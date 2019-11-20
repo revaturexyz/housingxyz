@@ -4,6 +4,7 @@ using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -12,10 +13,12 @@ namespace Revature.Account.Api.Controllers
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
+    private readonly ILogger _logger;
 
-    public NotificationController(IGenericRepository repo)
+    public NotificationController(IGenericRepository repo, ILogger logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+      _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     // GET: api/notifications/5
@@ -24,10 +27,13 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> GetNotificationByCoordinatorIdAsync(Guid coordinatorId)
     {
+      _logger.Information("GET - Getting notifications by coordinator ID: {coordinatorId}", coordinatorId);
       var nofi = await _repo.GetNotificationsByCoordinatorIdAsync(coordinatorId);
       if (nofi == null)
+      {
+        _logger.Warning("Coordinator was not found");
         return NotFound();
-
+      }
       return Ok(nofi);
     }
 
@@ -39,6 +45,7 @@ namespace Revature.Account.Api.Controllers
     {
       try
       {
+        _logger.Information("POST - Making notification");
         Lib.Model.Notification mappedNotification = new Lib.Model.Notification()
         {
           ProviderId = notification.ProviderId,
@@ -49,10 +56,12 @@ namespace Revature.Account.Api.Controllers
         };
         _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
+        _logger.Information("Persisted post request");
         return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
       }
       catch
       {
+        _logger.Error("Post request failed");
         return BadRequest();
       }
     }
@@ -63,6 +72,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
     {
+      _logger.Information("PATCH - Patching notification information");
       var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
       if (existingNotification != null)
       {
@@ -79,8 +89,10 @@ namespace Revature.Account.Api.Controllers
         }
         await _repo.UpdateNotificationAsync(existingNotification);
         await _repo.SaveAsync();
+        _logger.Information("Persisted patch request");
         return NoContent();
       }
+      _logger.Warning("Patch request failed");
       return NotFound();
     }
 
@@ -90,13 +102,16 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid notificationId)
     {
+      _logger.Information("DELETE - Deleting notification");
       var existingNotification = await _repo.GetProviderAccountByIdAsync(notificationId);
       if (existingNotification != null)
       {
         await _repo.DeleteNotificationByIdAsync(notificationId);
         await _repo.SaveAsync();
+        _logger.Information("Persisted delete request");
         return NoContent();
       }
+      _logger.Information("Delete request failed");
       return NotFound();
     }
   }

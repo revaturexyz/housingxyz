@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace Revature.Account.DataAccess.Repositories
@@ -14,9 +13,9 @@ namespace Revature.Account.DataAccess.Repositories
   {
     private readonly AccountDbContext _context;
     private readonly Mapper mapper;
-    private readonly ILogger<GenericRepository> _logger;
+    private readonly ILogger _logger;
 
-    public GenericRepository(AccountDbContext db, ILogger<GenericRepository> logger)
+    public GenericRepository(AccountDbContext db, ILogger logger)
     {
       _context = db ?? throw new ArgumentNullException("Context cannot be null.", nameof(db));
       this.mapper = new Mapper();
@@ -30,7 +29,7 @@ namespace Revature.Account.DataAccess.Repositories
     {
       try
       {
-        _logger.LogInformation("Getting Provider by ID: {providerId}", providerId);
+        _logger.Information("Getting Provider by ID: {providerId}", providerId);
         var provider = await _context.ProviderAccount
         .AsNoTracking()
         .Include(p => p.Coordinator)
@@ -40,12 +39,12 @@ namespace Revature.Account.DataAccess.Repositories
       }
       catch(InvalidOperationException e)
       {
-        _logger.LogError("Invalid Operation Exception Error. Error message: " +  e.Message);
+        _logger.Error("Invalid Operation Exception Error. Error message: " +  e.Message);
         return null;
       }
       catch(Exception e)
       {
-        _logger.LogError("Something went wrong when getting a provider account by ID. Error: " + e.Message);
+        _logger.Error("Something went wrong when getting a provider account by ID. Error: " + e.Message);
         return null;
       }
       
@@ -55,23 +54,24 @@ namespace Revature.Account.DataAccess.Repositories
     {
       try
       {
-        _logger.LogInformation("Adding provider account for {name}", newAccount.Name);
+        _logger.Information("Adding provider account for {name}", newAccount.Name);
         var newEntity = mapper.MapProvider(newAccount);
         _context.Add(newEntity);
       }
       catch(InvalidOperationException e)
       {
-        _logger.LogError("Invalid Operation Exception Error. Error message: " + e.Message);
+        _logger.Error("Invalid Operation Exception Error. Error message: " + e.Message);
       }
       catch(Exception e)
       {
-        _logger.LogError("Something went wrong adding a provider account. Error message: " + e.Message);
+        _logger.Error("Something went wrong adding a provider account. Error message: " + e.Message);
       }
     }
     public async Task<bool> UpdateProviderAccountAsync(ProviderAccount providerAccount)
     {
       try
       {
+        _logger.Information("Updating providerAccount for {Name}", providerAccount.Name);
         var existingEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
         if (existingEntity == null)
         {
@@ -83,12 +83,12 @@ namespace Revature.Account.DataAccess.Repositories
       }
       catch (InvalidOperationException e)
       {
-        _logger.LogError("Invalid Operation Exception Error. Error message: " + e.Message);
+        _logger.Error("Invalid Operation Exception Error. Error message: " + e.Message);
         throw new InvalidOperationException(e.Message);
       }
       catch (Exception e)
       {
-        _logger.LogError("Something went wrong updating provider account. Error message: " + e.Message);
+        _logger.Error("Something went wrong updating provider account. Error message: " + e.Message);
         throw new Exception(e.Message);
       }
     }
@@ -97,6 +97,7 @@ namespace Revature.Account.DataAccess.Repositories
     {
       try
       {
+        _logger.Information("Deleting provider account for given ID: {providerId}", providerId);
         var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
         if (entityToBeRemoved == null)
         {
@@ -107,12 +108,12 @@ namespace Revature.Account.DataAccess.Repositories
       }
       catch(InvalidOperationException e)
       {
-        _logger.LogError("Invalid Operation Exception Error. Error message: " + e.Message);
+        _logger.Error("Invalid Operation Exception Error. Error message: " + e.Message);
         throw new InvalidOperationException(e.Message);
       }
       catch(Exception e)
       {
-        _logger.LogError("Something went wrong deleting a provier account. Error message: " + e.Message);
+        _logger.Error("Something went wrong deleting a provier account. Error message: " + e.Message);
         throw new Exception(e.Message);
       }
       
@@ -124,11 +125,22 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<CoordinatorAccount> GetCoordinatorAccountByIdAsync(Guid coordinatorId)
     {
-      var coordinator = await _context.CoordinatorAccount
+      try
+      {
+        var coordinator = await _context.CoordinatorAccount
         .AsNoTracking()
         .Include(c => c.Notifications)
         .FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
-      return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
+        return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
+      }
+      catch(InvalidOperationException e)
+      {
+
+      }
+      catch(Exception e)
+      {
+
+      }
     }
 
     #endregion
