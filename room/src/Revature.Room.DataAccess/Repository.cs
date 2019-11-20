@@ -42,14 +42,6 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
     {
-      //if Guid does not exist then it will return all rooms
-      if (roomId == null)
-      {
-        List<Data.Room> roomList = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
-
-        return _map.ParseRooms(roomList).ToList();
-      }
-
       //Find room by Guid and return that particular room
       var listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
 
