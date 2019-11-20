@@ -19,6 +19,8 @@ namespace Revature.Room.Tests
 
     private Guid newRoomId2 = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456de");
 
+    private Guid newRoomId3 = Guid.Parse("449e5358-169a-4bc6-aa0f-c054952456df");
+
     private Guid newComplexId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
     private string newGender = "Female";
     private string newRoomNumber = "2002";
@@ -27,11 +29,11 @@ namespace Revature.Room.Tests
 
     private int newNumOfOccupants = 2;
     private int newNumOfOccupants2 = 3;
+    private int newNumOfOccupants3 = 4;
 
     private DateTime newLeaseStart = new DateTime(2000, 1, 1);
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
 
-    private DateTime endDate = new DateTime(2001, 3, 15);
 
     /* End of Room Properties */
 
@@ -51,7 +53,6 @@ namespace Revature.Room.Tests
         LeaseEnd = newLeaseEnd
       };
     }
-
     // Use to set up a valid entity room
     private DataAccess.Entities.Room PresetEntityRoom(RoomServiceContext context)
     {
@@ -76,10 +77,26 @@ namespace Revature.Room.Tests
         RoomId = newRoomId2,
         ComplexId = newComplexId,
         Gender = context.Gender.FirstOrDefault(g => g.Type == "Male"),
-        RoomNumber = newRoomNumber,
-        RoomType = context.RoomType.FirstOrDefault(g => g.Type == newRoomType),
+        RoomNumber = "2003",
+        RoomType = context.RoomType.FirstOrDefault(g => g.Type == "Apartment"),
         NumberOfBeds = newNumOfBeds,
         NumberOfOccupants = newNumOfOccupants2,
+        LeaseStart = newLeaseStart,
+        LeaseEnd = newLeaseEnd
+      };
+    }
+
+    private DataAccess.Entities.Room PresetEntityRoom3(RoomServiceContext context)
+    {
+      return new DataAccess.Entities.Room
+      {
+        RoomId = newRoomId3,
+        ComplexId = newComplexId,
+        Gender = context.Gender.FirstOrDefault(g => g.Type == "Male"),
+        RoomNumber = "2004",
+        RoomType = context.RoomType.FirstOrDefault(g => g.Type == "TownHouse"),
+        NumberOfBeds = newNumOfBeds,
+        NumberOfOccupants = newNumOfOccupants3,
         LeaseStart = newLeaseStart,
         LeaseEnd = newLeaseEnd
       };
@@ -316,6 +333,8 @@ namespace Revature.Room.Tests
       assembleContext.Add(newRoom2);
       assembleContext.SaveChanges();
 
+      DateTime endDate = new DateTime(2001, 3, 15);
+
       using var actContext = new RoomServiceContext(options);
       var repo = new Repository(actContext, mapper);
 
@@ -326,6 +345,62 @@ namespace Revature.Room.Tests
       Assert.NotNull(filterRoom);
 
       Assert.Equal(newRoomId.ToString(), filterRoom.FirstOrDefault(r => r == newRoomId).ToString());
+    }
+
+    [Fact]
+    public async Task RepoGetFilterRoomShouldFilterBasedOnWhatYouGiveIt()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("RepoGetFilterRoomShouldFilterBasedOnWhatYouGiveIt")
+      .Options;
+
+      using RoomServiceContext assembleContext = new RoomServiceContext(options);
+      assembleContext.Database.EnsureCreated();
+      var mapper = new DBMapper(assembleContext);
+
+      var newRoom = PresetEntityRoom(assembleContext);
+      var newRoom2 = PresetEntityRoom2(assembleContext);
+      var newRoom3 = PresetEntityRoom3(assembleContext);
+
+      assembleContext.Add(newRoom);
+      assembleContext.Add(newRoom2);
+      assembleContext.Add(newRoom3);
+      assembleContext.SaveChanges();
+
+      DateTime endDate = new DateTime(2001, 3, 15);
+
+      using var actContext = new RoomServiceContext(options);
+      var repo = new Repository(actContext, mapper);
+
+      //1
+      var filterRoom1 = await repo.GetFilteredRoomsAsync(newComplexId, newRoomNumber, null, null, null, null, null);
+
+      //2
+      var filterRoom2 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, null, "Male", null, null);
+
+      //1
+      var filterRoom3 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, "TownHouse", null, null, null);
+
+      //3
+      var filterRoom4 = await repo.GetFilteredRoomsAsync(newComplexId, null, null, null, null, null, null);
+
+      //3
+      var filterRoom5 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, null, null, null, null);
+
+      Assert.Equal(newRoomNumber, filterRoom1.FirstOrDefault(r => r.RoomNumber == newRoomNumber).RoomNumber);
+
+      Assert.Equal(2, filterRoom2.Count(r => r.Gender == "Male"));
+
+      //Assert.Equal("TownHouse", filterRoom3.FirstOrDefault(r => r.RoomType == "TownHouse").RoomType);
+
+      Assert.Equal(1, filterRoom3.Count(r => r.RoomType == "TownHouse"));
+
+      //Assert.Equal(newComplexId, filterRoom4.FirstOrDefault(r => r.ComplexId == newComplexId).ComplexId);
+
+      Assert.Equal(3, filterRoom4.Count(r => r.ComplexId == newComplexId));
+
+      Assert.Equal(3, filterRoom5.Count(r => r.NumberOfBeds == newNumOfBeds));
+
     }
   }
 }
