@@ -47,7 +47,7 @@ namespace Revature.Tenant.DataAccess.Repository
 
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
-      Tenants tenant = await _context.Tenants.Include(t => t.Cars).FirstAsync(t => t.Id == id);
+      Tenants tenant = await _context.Tenants.Include(t => t.Car).FirstAsync(t => t.Id == id);
 
       if (tenant == null)
       {
@@ -63,7 +63,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>The collection of all tenants</returns>
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
     {
-      List<Tenants> tenants = await _context.Tenants.Include(t => t.Cars).AsNoTracking().ToListAsync();
+      List<Tenants> tenants = await _context.Tenants.Include(t => t.Car).AsNoTracking().ToListAsync();
 
       return tenants.Select((_mapper.MapTenant)).ToList();
     }

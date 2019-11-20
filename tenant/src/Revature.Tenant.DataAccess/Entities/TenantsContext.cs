@@ -9,9 +9,9 @@ namespace Revature.Tenant.DataAccess.Entities
     public TenantsContext(DbContextOptions<TenantsContext> options) : base(options) { }
 
     public virtual DbSet<Tenants> Tenants { get; set; }
-    public virtual DbSet<Cars> Cars { get; set; }
+    public virtual DbSet<Car> Cars { get; set; }
 
-    public virtual DbSet<Batches> Batches { get; set; }
+    public virtual DbSet<Batch> Batches { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<Tenants>(entity =>
@@ -22,7 +22,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.BatchId).IsRequired();
-        entity.HasOne(t => t.Cars).WithMany(c => c.Tenants).HasForeignKey(t => t.CarId);
+        entity.HasOne(t => t.Car).WithMany(c => c.Tenants).HasForeignKey(t => t.CarId);
 
         entity.HasData
         (
@@ -48,7 +48,7 @@ namespace Revature.Tenant.DataAccess.Entities
 
       });
 
-      builder.Entity<Cars>(entity =>
+      builder.Entity<Car>(entity =>
       {
         entity.HasKey(c => c.Id);
         entity.Property(c => c.Id).UseIdentityColumn();
@@ -61,7 +61,7 @@ namespace Revature.Tenant.DataAccess.Entities
 
         entity.HasData
         (
-            new Cars()
+            new Car()
             {
               LicensePlate = "ABC123",
               Make = "Ford",
@@ -70,7 +70,7 @@ namespace Revature.Tenant.DataAccess.Entities
               Year = "1996",
               State = "Louisiana"
             },
-            new Cars()
+            new Car()
             {
               LicensePlate = "456DEF",
               Make = "Honda",
@@ -83,7 +83,7 @@ namespace Revature.Tenant.DataAccess.Entities
 
       });
 
-      builder.Entity<Batches>(entity =>
+      builder.Entity<Batch>(entity =>
      {
        entity.HasKey(b => b.Id);
        entity.Property(b => b.Id).UseIdentityColumn();
@@ -93,13 +93,13 @@ namespace Revature.Tenant.DataAccess.Entities
 
        entity.HasData
         (
-            new Batches()
+            new Batch()
             {
               BatchLanguage = "C#",
               StartDate = new System.DateTime(2018, 02, 11),
               EndDate = new System.DateTime(2019, 06, 07)
             },
-            new Batches()
+            new Batch()
             {
               BatchLanguage = "Java",
               StartDate = new System.DateTime(2019, 01, 31),

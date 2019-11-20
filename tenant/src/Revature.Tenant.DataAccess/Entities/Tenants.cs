@@ -16,7 +16,7 @@ namespace Revature.Tenant.DataAccess.Entities
     public Guid AddressId { get; set; }
     public Guid RoomId { get; set; }
     public int CarId { get; set; }
-    public virtual Cars Cars { get; set; }
+    public virtual Car Car { get; set; }
     public int BatchId { get; set; }
   }
 }

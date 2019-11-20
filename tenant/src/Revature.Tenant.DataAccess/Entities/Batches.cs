@@ -6,7 +6,7 @@ namespace Revature.Tenant.DataAccess.Entities
   /// This class defines a data access entity Batch.
   /// This is the batch object we access through our database.
   /// </summary>
-  public class Batches
+  public class Batch
   {
     public int Id { get; set; }
     public string BatchLanguage { get; set; }

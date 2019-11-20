@@ -7,9 +7,9 @@ namespace Revature.Tenant.DataAccess.Entities
   /// This is the car object we access through our database.
   /// Not all entity tenants will have cars.
   /// </summary>
-  public class Cars
+  public class Car
   {
-    public Cars()
+    public Car()
     {
       Tenants = new HashSet<Tenants>();
     }

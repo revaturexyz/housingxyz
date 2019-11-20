@@ -55,7 +55,7 @@ namespace Revature.Tenant.Tests.DataTests
                 AddressId = Guid.NewGuid(),
                 RoomId = Guid.NewGuid(),
                 CarId = 1,
-              Cars = new DataAccess.Entities.Cars
+              Car = new DataAccess.Entities.Car
               {
                 LicensePlate = "LicensePlate",
                 Make = "Make",
@@ -77,7 +77,7 @@ namespace Revature.Tenant.Tests.DataTests
         }
 
         [Fact]
-        public void CarsToCarTest()
+        public void CarToDataCarTest()
         {
             Lib.Models.Car car = new Lib.Models.Car
             {
@@ -89,20 +89,20 @@ namespace Revature.Tenant.Tests.DataTests
                 State = "TX"
             };
 
-            DataAccess.Entities.Cars cars = mapper.MapCar(car);
-            Assert.Equal(car.Id, cars.Id);
-            Assert.Equal(car.LicensePlate, cars.LicensePlate);
-            Assert.Equal(car.Make, cars.Make);
-            Assert.Equal(car.Model, cars.Model);
-            Assert.Equal(car.Year, cars.Year);
-            Assert.Equal(car.Color, cars.Color);
-            Assert.Equal(car.State, cars.State);
+            DataAccess.Entities.Car dataCar = mapper.MapCar(car);
+            Assert.Equal(car.Id, dataCar.Id);
+            Assert.Equal(car.LicensePlate, dataCar.LicensePlate);
+            Assert.Equal(car.Make, dataCar.Make);
+            Assert.Equal(car.Model, dataCar.Model);
+            Assert.Equal(car.Year, dataCar.Year);
+            Assert.Equal(car.Color, dataCar.Color);
+            Assert.Equal(car.State, dataCar.State);
         }
 
         [Fact]
-        public void CarToCarsTest()
+        public void dataCarToCarTest()
         {
-            DataAccess.Entities.Cars cars = new DataAccess.Entities.Cars
+            DataAccess.Entities.Car dataCar = new DataAccess.Entities.Car
             {
                 Id = 1,
                 Make = "Toyota",
@@ -113,14 +113,14 @@ namespace Revature.Tenant.Tests.DataTests
                 State = "TX"
             };
 
-            Lib.Models.Car car = mapper.MapCar(cars);
-            Assert.Equal(cars.Id, car.Id);
-            Assert.Equal(cars.LicensePlate, car.LicensePlate);
-            Assert.Equal(cars.Make, car.Make);
-            Assert.Equal(cars.Model, car.Model);
-            Assert.Equal(cars.Year, car.Year);
-            Assert.Equal(cars.Color, car.Color);
-            Assert.Equal(cars.State, car.State);
+            Lib.Models.Car car = mapper.MapCar(dataCar);
+            Assert.Equal(dataCar.Id, car.Id);
+            Assert.Equal(dataCar.LicensePlate, car.LicensePlate);
+            Assert.Equal(dataCar.Make, car.Make);
+            Assert.Equal(dataCar.Model, car.Model);
+            Assert.Equal(dataCar.Year, car.Year);
+            Assert.Equal(dataCar.Color, car.Color);
+            Assert.Equal(dataCar.State, car.State);
     }
     }
 }
