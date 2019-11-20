@@ -56,7 +56,5 @@ namespace Revature.Room.Api.Controllers
       return Ok(rooms);
     }
 
- 
-
   }
 }
