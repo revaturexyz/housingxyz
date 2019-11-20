@@ -45,7 +45,7 @@ namespace Revature.Account.Api.Controllers
     {
       try
       {
-        _logger.LogInformation("POST - Post request started for new provider account");
+        _logger.LogInformation("POST - Post request started for new provider account. ID: {providerId}\n Name: {providerName}", newProvider.ProviderId, newProvider.Name);
         Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
         {
           ProviderId = Guid.NewGuid(),
