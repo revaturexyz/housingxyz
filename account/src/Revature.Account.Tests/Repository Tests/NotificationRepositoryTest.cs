@@ -26,6 +26,7 @@ namespace Revature.Account.Tests.Repository_Tests
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(testProvider));
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
       arrangeContext.Notification.Add(mapper.MapNotification(testNotification));
+      arrangeContext.Status.Add(mapper.MapStatus(helper.Statuses[0]));
       arrangeContext.SaveChanges();
       var testId = testNotification.NotificationId;
       using var actContext = new AccountDbContext(options);

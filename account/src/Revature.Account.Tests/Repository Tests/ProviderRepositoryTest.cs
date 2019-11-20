@@ -69,20 +69,18 @@ namespace Revature.Account.Test.Repository_Tests
           .Options;
       using var arrangeContext = new AccountDbContext(options);
 
-      var testProvider = helper.Providers[0];
-      var testId = testProvider.ProviderId;
-
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
-      arrangeContext.ProviderAccount.Add(mapper.MapProvider(testProvider));
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
+      arrangeContext.Status.Add(mapper.MapStatus(helper.Statuses[0]));
       arrangeContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
 
       // Act
-      var result = await repo.GetProviderAccountByIdAsync(testId);
+      var result = await repo.GetProviderAccountByIdAsync(helper.Providers[0].ProviderId);
 
       // Assert
-      Assert.Equal(testId, result.ProviderId);
+      Assert.NotNull(result);
     }
 
     [Fact]

@@ -103,7 +103,7 @@ namespace Revature.Account.Tests
         {
           ProviderId = Providers[0].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
-          Status = Statuses[1],
+          Status = Statuses[0],
           AccountExpiresAt = nowPSev
         },
         new Notification
