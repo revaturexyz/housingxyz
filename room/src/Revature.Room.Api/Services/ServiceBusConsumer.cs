@@ -13,14 +13,22 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Revature.Room.Lib.Models;
 
+
 namespace ServiceBusMessaging
 {
+  /// <summary>
+  /// Interfance for ServiceBusConsumer
+  /// </summary>
   public interface IServiceBusConsumer
   {
     void RegisterOnMessageHandlerAndReceiveMessages();
     Task CloseQueueAsync();
   }
 
+  /// <summary>
+  /// This classes purpose is to connect to the queue and listen/receive a message sent from the complex and tenant service.
+  /// Based on their message we will call upon the repository accordingly
+  /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer 
   {
     private readonly IConfiguration _configuration;
@@ -29,6 +37,12 @@ namespace ServiceBusMessaging
     private readonly IServiceProvider Services;
     private readonly ILogger<Repository> _logger;
 
+    /// <summary>
+    /// Constructor injecting IConfiguration, IServiceProvider, and ILogger
+    /// </summary>
+    /// <param name="configuration"></param>
+    /// <param name="services"></param>
+    /// <param name="logger"></param>
     public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<Repository> logger)
     {
       _configuration = configuration;
@@ -128,7 +142,12 @@ namespace ServiceBusMessaging
     {
       await _queueClient.CloseAsync();
     }
-
+    /// <summary>
+    /// Inherited from the Background service, so far no use for it just yet
+    /// </summary>
+    /// <param name="stoppingToken"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
       throw new NotImplementedException();

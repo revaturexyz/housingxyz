@@ -14,6 +14,9 @@ using System.Globalization;
 
 namespace ServiceBusMessaging
 {
+  /// <summary>
+  /// This class' sole job is to serialize and send a mesesage to the queue to be verified
+  /// </summary>
   public class ServiceBusSender
   {
     //The connection string can be found from the Azure portal
@@ -23,6 +26,11 @@ namespace ServiceBusMessaging
     private readonly QueueClient _queueClient;
     private readonly ILogger<ServiceBusSender> _logger;
 
+    /// <summary>
+    /// ServiceBusSender constructor injected with IConfiguration and ILogger
+    /// </summary>
+    /// <param name="configuration"></param>
+    /// <param name="logger"></param>
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _configuration = configuration;
@@ -31,7 +39,14 @@ namespace ServiceBusMessaging
 
     }
 
-    //Method to generate and get SAS token for service bus
+    /// <summary>
+    /// Method to generate and get Shared Access Signature which helps verify that you are authorized to interact with the queue
+    /// </summary>
+    /// <param name="resourceUri"></param>
+    /// <param name="keyName"></param>
+    /// <param name="key"></param>
+    /// <param name="ttl"></param>
+    /// <returns></returns>
     public static string GetSasToken(string resourceUri, string keyName, string key, TimeSpan ttl)
     {
       var expiry = GetExpiry(ttl);
@@ -43,24 +58,22 @@ namespace ServiceBusMessaging
       return sasToken;
     }
 
-    //Get the time limit or expiration date of the SAS token
+    /// <summary>
+    /// Get the time limit or expiration of the SAS token
+    /// </summary>
+    /// <param name="ttl"></param>
+    /// <returns></returns>
     private static string GetExpiry(TimeSpan ttl)
     {
       TimeSpan expirySinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1) + ttl;
       return Convert.ToString((int)expirySinceEpoch.TotalSeconds);
     }
-    string queueUrl = "https://gabservice.servicebus.windows.net/" + "queue" + "/messages";
-    //string token = GetSasToken(queueUrl, "Key", "value", TimeSpan.FromDays(1));
 
-
-    //Have to figure out how to differentiate between the HTTP CRUD requests when sending a message
-    //Service bus doesn't have to be RESTFUL, we only need to care about sending message via Service bus
-    //to POST, PUT, and DELETE.
-
-    //LEARNED THE ROOM SERVICE IS NOT SENDING ANYTHING, JUST RECEIVING.
-    //WILL REMOVE UNNECESSARY SEND MESSAGES
-
-    //ServiceBus message for creating a room
+    /// <summary>
+    /// ServiceBus message for creating a room
+    /// </summary>
+    /// <param name="roomToSend"></param>
+    /// <returns></returns>
     public async Task SendCreateMessage(Room roomToSend)
     {
       string data = JsonConvert.SerializeObject(roomToSend);
@@ -71,7 +84,11 @@ namespace ServiceBusMessaging
       await _queueClient.SendAsync(message);
     }
 
-    //ServiceBus message for updating a room
+    /// <summary>
+    /// ServiceBus message for updating a room 
+    /// </summary>
+    /// <param name="roomToSend"></param>
+    /// <returns></returns>
     public async Task SendUpdateMessage(Room roomToSend)
     {
       string data = JsonConvert.SerializeObject(roomToSend);
@@ -82,7 +99,11 @@ namespace ServiceBusMessaging
       await _queueClient.SendAsync(message);
     }
 
-    //ServiceBus message for deleting a room
+    /// <summary>
+    /// ServiceBus message for deleting a message
+    /// </summary>
+    /// <param name="roomToSend"></param>
+    /// <returns></returns>
     public async Task SendDeleteMessage(Room roomToSend)
     {
       string data = JsonConvert.SerializeObject(roomToSend);
@@ -92,7 +113,6 @@ namespace ServiceBusMessaging
       _logger.LogInformation("ServiceBus sending delete message: ", data);
       await _queueClient.SendAsync(message);
     }
-
 
   }
 }
