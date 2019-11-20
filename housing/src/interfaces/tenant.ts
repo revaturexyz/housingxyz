@@ -3,7 +3,7 @@ import { Batch } from './batch';
 import { TenantAddress } from './tenantAddress';
 
 export interface Tenant {
-    tenantId: string;
+    id: string;
     email: string;
     gender: string;
     firstName: string;

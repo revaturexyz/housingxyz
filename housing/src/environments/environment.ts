@@ -10,8 +10,9 @@ export const environment = {
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
     // provider: 'http://192.168.99.100:10080/'
-    provider: 'http://localhost:10080/'
+    provider: 'http://localhost:10080/',
     // provider: 'http://localhost:5000/'
+    coordinator: 'http://localhost:4200'
   }
 };
 

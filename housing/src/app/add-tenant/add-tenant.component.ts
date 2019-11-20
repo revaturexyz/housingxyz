@@ -3,6 +3,7 @@ import { CoordinatorService } from '../services/coordinator.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { Tenant } from '../../interfaces/tenant';
+import { Batch } from '../../interfaces/batch';
 import { RedirectService } from '../services/redirect.service';
 import { FormControl } from '@angular/forms';
 
@@ -14,18 +15,20 @@ import { FormControl } from '@angular/forms';
 export class AddTenantComponent implements OnInit {
 
   tenant: Tenant;
+  batch: Batch;
 
   show: boolean = false;
 
   address = false;
 
-
-  
+  //batch info
+  batchList: Batch[] = [];
+  activeBatch: Batch;
+  batchShowString = 'Choose Batch';
 
   async postTenantOnSubmit() {
-    console.log(this.show);
     try{
-      await this.coordService.PostTenant(this.tenant);
+      await this.coordService.PostTenant(this.tenant).toPromise();
       this.router.navigate(['show-tenant']);
     } catch(err)
     {
@@ -53,19 +56,6 @@ export class AddTenantComponent implements OnInit {
     this.address = false;
   }
 
-  
-  // Posts a room to the date base.
-  // async postRoomOnSubmit() {
-
-  //   // Validate if an entered address can be considered real
-  //   const isValidAddress = await this.mapservice.verifyAddress(this.room.apiAddress);
-  //   console.log('Address is valid: ' + isValidAddress);
-  //   if (!isValidAddress) {
-  //     this.invalidAddress = true;
-  //     return;
-  //   }
-  
-
   // Moments objects used to create validation for the date picker.
   // An easier way to store and manipulate the dates for proper validation.
   startDate = moment();
@@ -84,7 +74,7 @@ export class AddTenantComponent implements OnInit {
     private router: Router
     ) { 
       this.tenant = {
-        tenantId: '',
+        id: '',
         email: '',
         gender: '',
         firstName: '',
@@ -116,8 +106,7 @@ export class AddTenantComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log("Show: "+ this.show);
-
+    this.getBatchesOnInit();
   }
 
 
@@ -139,21 +128,18 @@ export class AddTenantComponent implements OnInit {
     this.displayEnd = this.endDate.format('YYYY-MM-DD');
   }
 
-  // Updates selected complex property and display string
-  // based on what is selected
-  // coordChoose(complex: Complex) {
-  //   this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
-  //   this.activeComplex = complex;
-  //   this.room.apiComplex.complexId = complex.complexId;
-  // }
+  getBatchesOnInit() {
+    this.coordService.GetBatchById(this.batch.batchId)
+      .toPromise()
+      .then((data) => this.batchList = data)
+      .catch((err) => console.log(err));
+  }
 
-  // Updates selected address property and display string
-  // based on what is selected
-  // langChoose(address: Address) {
-  //   this.addressShowString = address.streetAddress;
-  //   this.activeAddress = address;
-  //   this.room.apiAddress = address;
-  // }
+  batchChoose(batch: Batch) {
+    this.batchShowString = batch.batchLanguage;
+    this.activeBatch = batch;
+    this.tenant.batch = batch;
+  }
 
   // Used for client-side validation for date input of the form.
   verifyDates(beg: Date, end: Date): boolean {
