@@ -23,11 +23,11 @@ namespace Revature.Room.Tests.Revature.Room.DataAccess.Tests
       var dateTime = new DateTime();
 
       // act
-      var result = controller.GetAsync(gender, dateTime);
+      var result = await controller.GetAsync(gender, dateTime);
 
       // assert
       Assert.NotNull(result);
-      await Assert.IsAssignableFrom<Task<IActionResult>>(result);
+      Assert.IsAssignableFrom<OkObjectResult>(result);
     }
   }
 }
