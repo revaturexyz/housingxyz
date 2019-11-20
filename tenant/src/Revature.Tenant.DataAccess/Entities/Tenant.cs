@@ -19,5 +19,7 @@ namespace Revature.Tenant.DataAccess.Entities
     public virtual Car Car { get; set; }
     public int BatchId { get; set; }
     public virtual Batch Batch { get; set; }
+    public Guid TrainingCenter { get; set; }
+    
   }
 }

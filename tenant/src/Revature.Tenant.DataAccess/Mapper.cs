@@ -17,6 +17,7 @@ namespace Revature.Tenant.DataAccess
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
         BatchId = tenant.BatchId,
+        TrainingCenter = tenant.TrainingCenter,
 
         Car = new Lib.Models.Car
         {
@@ -28,6 +29,15 @@ namespace Revature.Tenant.DataAccess
           Year = tenant.Car.Year,
           State = tenant.Car.State
         },
+
+        Batch = new Lib.Models.Batch
+        {
+          Id = tenant.Batch.Id,
+          BatchLanguage = tenant.Batch.BatchLanguage,
+          StartDate = tenant.Batch.StartDate,
+          EndDate = tenant.Batch.EndDate,
+          TrainingCenter = tenant.Batch.TrainingCenter
+        }
       };
     }
 
@@ -55,6 +65,15 @@ namespace Revature.Tenant.DataAccess
           Year = tenant.Car.Year,
           State = tenant.Car.State
         },
+
+        Batch = new Entities.Batch
+        {
+          Id = tenant.Batch.Id,
+          BatchLanguage = tenant.Batch.BatchLanguage,
+          StartDate = tenant.Batch.StartDate,
+          EndDate = tenant.Batch.EndDate,
+          TrainingCenter = tenant.Batch.TrainingCenter
+        }
       };
     }
     public Lib.Models.Car MapCar(Entities.Car car)
@@ -91,7 +110,8 @@ namespace Revature.Tenant.DataAccess
         Id = batch.Id,
         BatchLanguage = batch.BatchLanguage,
         StartDate = batch.StartDate,
-        EndDate = batch.EndDate
+        EndDate = batch.EndDate,
+        TrainingCenter = batch.TrainingCenter
       };
     }
     public Lib.Models.Batch MapBatch(Entities.Batch batch)
@@ -101,7 +121,8 @@ namespace Revature.Tenant.DataAccess
         Id = batch.Id,
         BatchLanguage = batch.BatchLanguage,
         StartDate = batch.StartDate,
-        EndDate = batch.EndDate
+        EndDate = batch.EndDate,
+        TrainingCenter = batch.TrainingCenter
       };
     }
   }

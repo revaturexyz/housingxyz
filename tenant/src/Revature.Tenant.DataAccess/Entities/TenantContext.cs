@@ -21,7 +21,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.Gender).IsRequired();
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
-        entity.Property(t => t.BatchId).IsRequired();
+        entity.Property(t => t.TrainingCenter).IsRequired();
         entity.HasOne(t => t.Car).WithMany(c => c.Tenant).HasForeignKey(t => t.CarId);
         entity.HasOne(t => t.Batch).WithMany(b => b.Tenant).HasForeignKey(t => t.BatchId);
       });
@@ -46,6 +46,7 @@ namespace Revature.Tenant.DataAccess.Entities
        entity.Property(b => b.BatchLanguage).IsRequired().HasMaxLength(100);
        entity.Property(b => b.StartDate).IsRequired();
        entity.Property(b => b.EndDate).IsRequired();
+       entity.Property(b => b.TrainingCenter).IsRequired();
 
      });
     }

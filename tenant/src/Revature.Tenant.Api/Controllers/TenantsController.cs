@@ -46,7 +46,8 @@ namespace Revature.Tenant.Api.Controllers
         AddressId = t.AddressId,
         RoomId = t.RoomId,
         CarId = t.CarId,
-        BatchId = t.BatchId
+        BatchId = t.BatchId,
+        TrainingCenter = t.TrainingCenter
       }).ToList();
     }
 
@@ -76,7 +77,8 @@ namespace Revature.Tenant.Api.Controllers
           AddressId = tenant.AddressId,
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
-          BatchId = tenant.BatchId
+          BatchId = tenant.BatchId,
+          TrainingCenter = tenant.TrainingCenter
         };
 
         return Ok(apiTenant);
@@ -113,7 +115,8 @@ namespace Revature.Tenant.Api.Controllers
           AddressId = tenant.AddressId,
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
-          BatchId = tenant.BatchId
+          BatchId = tenant.BatchId,
+          TrainingCenter = tenant.TrainingCenter
         };
 
         await _tenantRepository.AddAsync(newTenant);
@@ -131,10 +134,72 @@ namespace Revature.Tenant.Api.Controllers
           AddressId = tenant.AddressId,
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
-          BatchId = tenant.BatchId
+          BatchId = tenant.BatchId,
+          TrainingCenter = tenant.TrainingCenter
         };
 
         return Created($"api/Tenant/{apiTenant.Id}", apiTenant);
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
+    }
+
+    /// <summary>
+    /// Updates Tenant within Db
+    /// </summary>
+    /// <param name="value"></param>
+    // POST: api/Tenant
+    [HttpPut("UpdateTenant", Name = "UpdateTenant")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ApiTenant>> UpdateAsync([FromBody] ApiTenant tenant)
+    {
+      try
+      {
+        var newTenant = new Lib.Models.Tenant
+        {
+          Id = tenant.Id,
+          Email = tenant.Email,
+          Gender = tenant.Gender,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId,
+          BatchId = tenant.BatchId,
+          TrainingCenter = tenant.TrainingCenter 
+         
+        };
+
+        await _tenantRepository.AddAsync(newTenant);
+
+        ICollection<Lib.Models.Tenant> tenants = await _tenantRepository.GetAllAsync();
+        newTenant = tenants.First(t => t.Email == newTenant.Email);
+
+        ApiTenant apiTenant = new ApiTenant
+        {
+          Id = tenant.Id,
+          Email = tenant.Email,
+          Gender = tenant.Gender,
+          FirstName = tenant.FirstName,
+          LastName = tenant.LastName,
+          AddressId = tenant.AddressId,
+          RoomId = tenant.RoomId,
+          CarId = tenant.CarId,
+          BatchId = tenant.BatchId,
+          TrainingCenter = tenant.TrainingCenter
+        };
+
+        return StatusCode(204);
       }
       catch (ArgumentException)
       {
