@@ -20,7 +20,7 @@ const routes: Routes = [
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
   { path: 'addroom', component: AddRoomComponent }
-  ];
+];
 
 @NgModule({
   imports: [
