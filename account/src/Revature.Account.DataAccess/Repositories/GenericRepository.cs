@@ -135,6 +135,14 @@ namespace Revature.Account.DataAccess.Repositories
       return (status != null ? mapper.MapStatus(status) : null);
     }
 
+    public async Task<Status> GetStatusByStatusTextAsync(string statusText)
+    {
+      var status = await _context.Status
+        .AsNoTracking()
+        .FirstOrDefaultAsync(s => s.StatusText == statusText);
+      return (status != null ? mapper.MapStatus(status) : null);
+    }
+
     public void AddStatus(Status status)
     {
       var newEntity = mapper.MapStatus(status);
