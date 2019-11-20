@@ -46,10 +46,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>A tenant</returns>
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
-      Entities.Tenant tenant = await _context.Tenant
-        .Include(t => t.Car)
-        .Include(t => t.Batch)
-        .FirstAsync(t => t.Id == id);
+      Entities.Tenant tenant = await _context.Tenant.Include(t => t.Car).FirstAsync(t => t.Id == id);
 
       if (tenant == null)
       {
@@ -65,10 +62,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>The collection of all tenants</returns>
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
     {
-      List<Entities.Tenant> tenants = await _context.Tenant
-        .Include(t => t.Car)
-        .Include(t => t.Batch)
-        .AsNoTracking().ToListAsync();
+      List<Entities.Tenant> tenants = await _context.Tenant.Include(t => t.Car).AsNoTracking().ToListAsync();
 
       return tenants.Select((_mapper.MapTenant)).ToList();
     }
@@ -106,7 +100,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="tenantId">tenant Id</param>
     /// <returns>True if Tenant has Car, returns false if the Tenant has no car</returns>
-    public async Task<bool> HasCarAsync(int tenantId)
+    public async Task<bool> HasCarAsync(Guid tenantId)
     {
       Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenantId);
       if (currentTenant == null)
