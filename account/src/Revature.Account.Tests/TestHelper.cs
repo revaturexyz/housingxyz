@@ -29,7 +29,7 @@ namespace Revature.Account.Tests
 
     public TestHelper()
     {
-
+      
       _logger = new NullLogger<TestHelper>();
 
       SetUpCoordinators();
