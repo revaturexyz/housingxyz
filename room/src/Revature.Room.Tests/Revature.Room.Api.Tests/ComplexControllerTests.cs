@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Revature.Room.Api.Controllers;
 using Revature.Room.Lib;
@@ -6,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using Serilog;
+
 
 namespace Revature.Room.DataAccess.Tests
 {

@@ -1,13 +1,12 @@
-using Castle.Core.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Revature.Room.Api.Controllers;
 using Revature.Room.Lib;
 using System;
 using System.Threading.Tasks;
 using Xunit;
-using Serilog;
-using ILogger = Serilog.ILogger;
+
 
 namespace Revature.Room.Tests.Revature.Room.DataAccess.Tests
 {
