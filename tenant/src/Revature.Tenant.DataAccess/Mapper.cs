@@ -54,6 +54,7 @@ namespace Revature.Tenant.DataAccess
         RoomId = tenant.RoomId,
         CarId = tenant.CarId,
         BatchId = tenant.BatchId,
+        TrainingCenter = tenant.TrainingCenter,
 
         Car = new Entities.Car
         {

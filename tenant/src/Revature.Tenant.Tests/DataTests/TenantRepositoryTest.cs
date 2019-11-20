@@ -47,7 +47,8 @@ namespace Revature.Tenant.Tests.DataTests
         AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
         RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
         CarId = 1,
-        BatchId = 3,
+        BatchId = 1,
+        TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         Car = new Lib.Models.Car
         {
           Id = 1,
@@ -58,6 +59,14 @@ namespace Revature.Tenant.Tests.DataTests
           Year = "Year",
           State = "TX"
         },
+        Batch = new Lib.Models.Batch
+        {
+          Id = 0,
+          StartDate = DateTime.Now,
+          EndDate = DateTime.Now,
+          BatchLanguage = "C#",
+          TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        }
       };
 
       // Act
@@ -75,6 +84,8 @@ namespace Revature.Tenant.Tests.DataTests
       Assert.Equal(tenant.RoomId, check.RoomId);
       Assert.Equal(tenant.CarId, check.CarId);
       Assert.Equal(tenant.BatchId, check.BatchId);
+      Assert.Equal(tenant.TrainingCenter, check.TrainingCenter);
+
     }
 
     /// <summary>
@@ -84,7 +95,7 @@ namespace Revature.Tenant.Tests.DataTests
     public async Task HasCarShouldReturnTrueIfHasCar()
     {
       //Arrange
-      var options = TestDbInitializer.InitializeDbOptions("AddShouldAddTest");
+      var options = TestDbInitializer.InitializeDbOptions("HasCarShouldReturnTrueIfHasCar");
       using var db = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
       var repo = new TenantRepository(db, mapper);
@@ -99,6 +110,7 @@ namespace Revature.Tenant.Tests.DataTests
         RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
         CarId = 1,
         BatchId = 3,
+        TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-d087491cc491"),
         Car = new Lib.Models.Car
         {
           Id = 1,
@@ -109,6 +121,14 @@ namespace Revature.Tenant.Tests.DataTests
           Year = "Year",
           State = "TX"
         },
+        Batch = new Lib.Models.Batch
+        {
+          Id = 0,
+          StartDate = DateTime.Now,
+          EndDate = DateTime.Now,
+          BatchLanguage = "C#",
+          TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-d087491cc491"),
+        }
       };
 
 

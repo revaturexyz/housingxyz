@@ -23,6 +23,7 @@ namespace Revature.Tenant.Tests.ApiTests.ModelTests
       var roomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67b");
       var carId = 3;
       var batchId = 3;
+      var trainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67b");
       // Act (set properties to variables through constructor)
       var apiTenant = new ApiTenant
       {
@@ -34,7 +35,8 @@ namespace Revature.Tenant.Tests.ApiTests.ModelTests
         AddressId = addressId,
         RoomId = roomId,
         CarId = carId,
-        BatchId = batchId
+        BatchId = batchId,
+        TrainingCenter = trainingCenter,
       };
       // Assert (assure the values are set)
 
@@ -47,6 +49,7 @@ namespace Revature.Tenant.Tests.ApiTests.ModelTests
       Assert.Equal(roomId, apiTenant.RoomId);
       Assert.Equal(carId, apiTenant.CarId);
       Assert.Equal(batchId, apiTenant.BatchId);
+      Assert.Equal(trainingCenter, apiTenant.TrainingCenter);
     }
 
   }

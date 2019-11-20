@@ -42,9 +42,9 @@ namespace Revature.Tenant.Tests.LibTests
     }
 
     [Fact]
-    public void Tenant_Address_Id_Empty()
+    public void Tenant_Training_Center_Empty()
     {
-      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Tenant { AddressId = Guid.Empty });
+      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Tenant { TrainingCenter = Guid.Empty });
     }
   }
 }

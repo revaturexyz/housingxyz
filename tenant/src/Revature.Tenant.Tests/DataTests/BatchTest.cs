@@ -18,6 +18,7 @@ namespace Revature.Tenant.Tests.DataTests
       var batchLanguage = "C#";
       DateTime startDate = new DateTime(2019, 1, 5);
       DateTime endDate = new DateTime(2019, 1, 5);
+      Guid trainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
 
       //Act
       var apiBatch = new DatMod.Batch()
@@ -25,7 +26,8 @@ namespace Revature.Tenant.Tests.DataTests
         Id = batchId,
         BatchLanguage = batchLanguage,
         StartDate = startDate,
-        EndDate = endDate
+        EndDate = endDate,
+        TrainingCenter = trainingCenter
       };
 
       //Assert 
@@ -33,6 +35,7 @@ namespace Revature.Tenant.Tests.DataTests
       Assert.Equal(batchLanguage, apiBatch.BatchLanguage);
       Assert.Equal(startDate, apiBatch.StartDate);
       Assert.Equal(endDate, apiBatch.EndDate);
+      Assert.Equal(trainingCenter, apiBatch.TrainingCenter);
     }
   }
 }

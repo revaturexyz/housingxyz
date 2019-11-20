@@ -141,15 +141,7 @@ namespace Revature.Tenant.Lib.Models
     public Guid AddressId
     {
       get => _addressId;
-      set
-      {
-        if (value == Guid.Empty)
-        {
-          throw new ArgumentException("Address Id must not be empty", nameof(value));
-        }
-
-        _addressId = value;
-      }
+      set => _addressId = value;
     }
     public int BatchId
     {
