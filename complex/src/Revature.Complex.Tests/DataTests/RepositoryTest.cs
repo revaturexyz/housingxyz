@@ -179,7 +179,7 @@ namespace Revature.Complex.Tests.DataTests
 
       testContext.Add(complexE1);
 
-      Logic.Complex read = await repo.ReadComplexAsync(cId1);
+      Logic.Complex read = await repo.ReadComplexByIdAsync(cId1);
 
       Assert.Equal(cId1, read.ComplexId);
     }

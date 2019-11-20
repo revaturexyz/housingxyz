@@ -21,10 +21,16 @@ namespace Revature.Complex.Api.Controllers
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
     }
 
+    #region GET
+
+    /// <summary>
+    /// (GET) Call Repository to get all exixted amenities from the database
+    /// </summary>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenities")]
-    //GET: api/complex/amenities
+    //GET: api/amenity/amenities
     public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetAmenitiesAsync()
     {
 
@@ -47,17 +53,83 @@ namespace Revature.Complex.Api.Controllers
     }
 
     /// <summary>
-    /// This should create a new amenity type to add to database
+    /// (GET) Call Repository to get amenities from the database for specific room by room Id
+    /// </summary>
+    /// <param name="roomGuid"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpGet("amenitiesroom/{roomGuid}")]
+    //GET: api/amenity/amenitiesroom/{roomGuid}
+    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetRoomAmenitiesAsync([FromRoute]Guid roomGuid)
+    {
+      try
+      {
+        var x = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
+        return Ok(x);
+
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
+    }
+
+    /// <summary>
+    /// (GET) Call Repository to get amenities from the database for specific complex by complex Id
+    /// </summary>
+    /// <param name="complexGuid"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpGet("amenitiescomplex/{complexGuid}")]
+    //GET: api/amenity/amenitiescomplex/{complexGuid}
+    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetComplexAmenitiesAsync([FromRoute]Guid complexGuid)
+    {
+      try
+      {
+        var x = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
+        return Ok(x);
+      }
+      catch (ArgumentException)
+      {
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e.Message);
+      }
+    }
+
+    #endregion
+
+    #region POST
+
+    /// <summary>
+    /// (POST) Call Repository to insert a new Amenity into the database
     /// </summary>
     /// <param name="apiAmenity"></param>
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("PostAmenity")]
-    //POST: api/complex/addamenity
+    //POST: api/amenity/addamenity
     public async Task<ActionResult> PostAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
       Logic.Amenity amen = new Logic.Amenity()
       {
+        AmenityId = Guid.NewGuid(),
         AmenityType = apiAmenity.AmenityType,
         Description = apiAmenity.Description
       };
@@ -80,8 +152,18 @@ namespace Revature.Complex.Api.Controllers
       }
     }
 
+    #endregion
+
+    #region PUT
+
+    /// <summary>
+    /// (PUT) Call Repository to update existed single amenity in the database
+    /// </summary>
+    /// <param name="apiAmenity"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPut("PutAmenity")]
+    //PUT: api/amenity/PutAmenity
     public async Task<ActionResult> PutAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
       Logic.Amenity amenity = new Logic.Amenity()
@@ -109,8 +191,18 @@ namespace Revature.Complex.Api.Controllers
       }
     }
 
+    #endregion
+
+    #region DELETE
+
+    /// <summary>
+    /// (DELETE) Call Repository to delete existed single amenity in the database
+    /// </summary>
+    /// <param name="apiAmenity"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpDelete("deleteAmenity")]
+    //DELETE: api/amenity/deleteAmenity
     public async Task<ActionResult> DeleteAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
       Logic.Amenity amenity = new Logic.Amenity()
@@ -138,57 +230,7 @@ namespace Revature.Complex.Api.Controllers
       }
     }
 
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet("amenitiesroom/{roomGuid}")]
-    //GET: api/complex/amenitiesroom/{roomGuid}
-    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetRoomAmenitiesAsync([FromRoute]Guid roomGuid)
-    {
-      try
-      {
-        var x = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
-        return Ok(x);
-
-      }
-      catch (ArgumentException)
-      {
-        return NotFound();
-      }
-      catch (InvalidOperationException e)
-      {
-        return Conflict(e.Message);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
-    }
-
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet("amenitiescomplex/{complexGuid}")]
-    //GET: api/complex/amenitiescomplex/{complexGuid}
-    public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetComplexAmenitiesAsync([FromRoute]Guid complexGuid)
-    {
-      try
-      {
-        var x = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
-        return Ok(x);
-      }
-      catch (ArgumentException)
-      {
-        return NotFound();
-      }
-      catch (InvalidOperationException e)
-      {
-        return Conflict(e.Message);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e.Message);
-      }
-    }
-
+    #endregion
 
   }//end of class
 }
