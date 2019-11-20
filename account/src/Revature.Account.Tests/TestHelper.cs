@@ -163,6 +163,16 @@ namespace Revature.Account.Tests
       CoordinatorAccountController.ControllerContext = new ControllerContext();
       CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       CoordinatorAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
+
+      ProviderAccountController = new ProviderAccountController(Repository.Object, _logger);
+      ProviderAccountController.ControllerContext = new ControllerContext();
+      ProviderAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
+      ProviderAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
+
+      NotificationController = new NotificationController(Repository.Object, _logger);
+      NotificationController.ControllerContext = new ControllerContext();
+      NotificationController.ControllerContext.HttpContext = new DefaultHttpContext();
+      NotificationController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
     }
   }
 }
