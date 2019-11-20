@@ -23,7 +23,11 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<ProviderAccount> GetProviderAccountByIdAsync(Guid providerId)
     {
-      var provider = await _context.ProviderAccount.AsNoTracking().Include(p => p.Coordinator).Include(p => p.Status).FirstOrDefaultAsync(p => p.ProviderId == providerId);
+      var provider = await _context.ProviderAccount
+        .AsNoTracking()
+        .Include(p => p.Coordinator)
+        .Include(p => p.Status)
+        .FirstOrDefaultAsync(p => p.ProviderId == providerId);
       return (provider != null ? mapper.MapProvider(provider) : null);
     }
 
@@ -60,7 +64,10 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<CoordinatorAccount> GetCoordinatorAccountByIdAsync(Guid coordinatorId)
     {
-      var coordinator = await _context.CoordinatorAccount.AsNoTracking().Include(c => c.Notifications).FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
+      var coordinator = await _context.CoordinatorAccount
+        .AsNoTracking()
+        .Include(c => c.Notifications)
+        .FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
       return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
     }
 
@@ -70,13 +77,22 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<Notification> GetNotificationByIdAsync(Guid notificationId)
     {
-      var notification = await _context.Notification.AsNoTracking().Include(n => n.Coordinator).Include(n => n.Provider).Include(n => n.Status).FirstOrDefaultAsync(p => p.NotificationId == notificationId);
+      var notification = await _context.Notification
+        .AsNoTracking()
+        .Include(n => n.Coordinator)
+        .Include(n => n.Provider)
+        .Include(n => n.Status)
+        .FirstOrDefaultAsync(p => p.NotificationId == notificationId);
       return (notification != null ? mapper.MapNotification(notification) : null);
     }
 
     public async Task<List<Notification>> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
-      var notification = _context.Notification.Include(n => n.Coordinator).Include(n => n.Provider).Include(n => n.Status).Where(p => p.CoordinatorId == coordinatorId);
+      var notification = _context.Notification
+        .Include(n => n.Coordinator)
+        .Include(n => n.Provider)
+        .Include(n => n.Status)
+        .Where(p => p.CoordinatorId == coordinatorId);
       return (notification != null ? notification.Select(mapper.MapNotification).ToList() : null);
     }
 
@@ -113,7 +129,9 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<Status> GetStatusByIdAsync(int statusId)
     {
-      var status = await _context.Status.AsNoTracking().FirstOrDefaultAsync(s => s.StatusId == statusId);
+      var status = await _context.Status
+        .AsNoTracking()
+        .FirstOrDefaultAsync(s => s.StatusId == statusId);
       return (status != null ? mapper.MapStatus(status) : null);
     }
 

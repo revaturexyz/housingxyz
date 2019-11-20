@@ -4,6 +4,11 @@ namespace Revature.Account.DataAccess
 {
   public class Mapper
   {
+    /// <summary>
+    /// Maps db Provider to logic Provider. Maps related coordinator and Status as well.
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <returns></returns>
     public Lib.Model.ProviderAccount MapProvider(Entities.ProviderAccount provider)
     {
       return new Lib.Model.ProviderAccount
@@ -24,12 +29,18 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         CoordinatorId = provider.Coordinator.CoordinatorId,
         Name = provider.Name,
-        Status = MapStatus(provider.Status),
+        StatusId = provider.Status.StatusId,
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
     }
 
+    /// <summary>
+    /// Maps db Coordinator to logic Coordinator. Maps related list of outstanding
+    /// Notifications as well.
+    /// </summary>
+    /// <param name="coordinator"></param>
+    /// <returns></returns>
     public Lib.Model.CoordinatorAccount MapCoordinator(Entities.CoordinatorAccount coordinator)
     {
       return new Lib.Model.CoordinatorAccount
@@ -55,6 +66,11 @@ namespace Revature.Account.DataAccess
       };
     }
 
+    /// <summary>
+    /// Maps db Notification to logic Notification. Maps Status as well.
+    /// </summary>
+    /// <param name="nofi"></param>
+    /// <returns></returns>
     public Lib.Model.Notification MapNotification(Entities.Notification nofi)
     {
       return new Lib.Model.Notification
@@ -74,11 +90,16 @@ namespace Revature.Account.DataAccess
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
         CoordinatorId = nofi.CoordinatorId,
-        Status = MapStatus(nofi.Status),
+        StatusId = nofi.Status.StatusId,
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
 
+    /// <summary>
+    /// Maps db Status to logic Status. No nested objects.
+    /// </summary>
+    /// <param name="status"></param>
+    /// <returns></returns>
     public Lib.Model.Status MapStatus(Entities.Status status)
     {
       return new Lib.Model.Status
