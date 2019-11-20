@@ -1,3 +1,4 @@
+using Castle.Core.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Revature.Room.Api.Controllers;
@@ -5,6 +6,8 @@ using Revature.Room.Lib;
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace Revature.Room.Tests.Revature.Room.DataAccess.Tests
 {
@@ -18,7 +21,9 @@ namespace Revature.Room.Tests.Revature.Room.DataAccess.Tests
     {
       // arrange
       var mockRepo = new Mock<IRepository>();
-      var controller = new TenantController(mockRepo.Object);
+      var mockLogger = new Mock<ILogger>();
+      var controller = new TenantController(mockRepo.Object, mockLogger.Object);
+
       var gender = "nonbinary";
       var dateTime = new DateTime();
 
