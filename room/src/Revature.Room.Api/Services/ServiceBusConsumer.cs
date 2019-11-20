@@ -1,18 +1,16 @@
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Revature.Room.DataAccess;
 using Revature.Room.Lib;
+using Revature.Room.Lib.Models;
+using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System;
-using Revature.Room.DataAccess;
-using Serilog.Core;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Revature.Room.Lib.Models;
-
 
 namespace ServiceBusMessaging
 {
@@ -22,6 +20,7 @@ namespace ServiceBusMessaging
   public interface IServiceBusConsumer
   {
     void RegisterOnMessageHandlerAndReceiveMessages();
+
     Task CloseQueueAsync();
   }
 
@@ -29,7 +28,7 @@ namespace ServiceBusMessaging
   /// This classes purpose is to connect to the queue and listen/receive a message sent from the complex and tenant service.
   /// Based on their message we will call upon the repository accordingly
   /// </summary>
-  public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer 
+  public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
@@ -51,6 +50,7 @@ namespace ServiceBusMessaging
       Services = services;
       _logger = logger;
     }
+
     /// <summary>
     /// Registers the message and then calls the process message
     /// </summary>
@@ -66,9 +66,9 @@ namespace ServiceBusMessaging
     }
 
     /// <summary>
-    /// The actual method to process the received message. 
+    /// The actual method to process the received message.
     /// Receives and deserializes the message from complex and tenant service.  Based on what they send
-    /// us this method will determine what CRUD operations to do to the room service.  
+    /// us this method will determine what CRUD operations to do to the room service.
     /// </summary>
     /// <param name="message"></param>
     /// <param name="token"></param>
@@ -95,9 +95,11 @@ namespace ServiceBusMessaging
             case 0:
               await _repo.CreateRoomAsync(myRoom.room);
               break;
+
             case 1:
               await _repo.UpdateRoomAsync(myRoom.room);
               break;
+
             case 2:
               await _repo.DeleteRoomAsync(myRoom.room.RoomId);
               break;
@@ -106,7 +108,6 @@ namespace ServiceBusMessaging
 
               break;
           }
-
         }
         catch (Exception ex)
         {
@@ -117,13 +118,11 @@ namespace ServiceBusMessaging
           // Alert bus service that message was received
           await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
         }
-
       }
-
     }
 
     /// <summary>
-    /// THe exception handler for receiving a message.  
+    /// THe exception handler for receiving a message.
     /// </summary>
     /// <param name="exceptionReceivedEventArgs"></param>
     /// <returns></returns>
@@ -142,6 +141,7 @@ namespace ServiceBusMessaging
     {
       await _queueClient.CloseAsync();
     }
+
     /// <summary>
     /// Inherited from the Background service, so far no use for it just yet
     /// </summary>

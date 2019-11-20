@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Room.Lib;
-using ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Revature.Room.Api.Controllers
 {
@@ -16,10 +16,12 @@ namespace Revature.Room.Api.Controllers
   public class ComplexController : ControllerBase
   {
     private readonly IRepository _repository;
+    private readonly ILogger _logger;
 
-    public ComplexController(IRepository repository)
+    public ComplexController(IRepository repository, ILogger logger)
     {
       _repository = repository;
+      _logger = logger;
     }
 
     /// <summary>
@@ -32,6 +34,7 @@ namespace Revature.Room.Api.Controllers
     /// <param name="gender"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
+    /// <exception cref="KeyNotFoundException">ComplexId or RoomId was not found in the DB</exception>
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e&roomId=f
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,7 +47,10 @@ namespace Revature.Room.Api.Controllers
       [FromQuery] DateTime? endDate,
       [FromQuery] Guid? roomId)
     {
-      IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
+      try
+      {
+        _logger.Information("Getting filtered rooms...");
+        IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
         complexId,
         roomNumber,
         numberOfBeds,
@@ -52,9 +58,14 @@ namespace Revature.Room.Api.Controllers
         gender,
         endDate,
         roomId);
-
-      return Ok(rooms);
+        _logger.Information("Success.");
+        return Ok(rooms);
+      }
+      catch (KeyNotFoundException ex)
+      {
+        _logger.Error(ex.Message);
+        return NotFound(ex);
+      }
     }
-
   }
 }

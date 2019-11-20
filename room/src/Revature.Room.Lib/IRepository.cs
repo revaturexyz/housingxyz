@@ -18,7 +18,8 @@ namespace Revature.Room.Lib
     /// <param name="roomType"></param>
     /// <param name="gender"></param>
     /// <param name="endDate"></param>
-    /// <returns></returns>
+    /// <returns></returns
+    /// <exception cref="KeyNotFoundException">Either ComplexId or RoomId is not in the DB</exception>
     Task<IEnumerable<Room>> GetFilteredRoomsAsync(
       Guid complexId,
       string roomNumber,

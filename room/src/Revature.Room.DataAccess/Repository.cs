@@ -42,14 +42,6 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
     {
-      //if Guid does not exist then it will return all rooms
-      if (roomId == null)
-      {
-        List<Data.Room> roomList = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
-
-        return _map.ParseRooms(roomList).ToList();
-      }
-
       //Find room by Guid and return that particular room
       var listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
 
@@ -59,7 +51,7 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
-    /// Method that updates a room
+    /// Method that updates the gender, lease start, end, and number of occupants of a room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
@@ -68,9 +60,8 @@ namespace Revature.Room.DataAccess
       Data.Room roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
         .Include(r => r.Gender)
         .Include(r => r.RoomType)
-        .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is no such room!", nameof(roomEntity));
+        .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is no such room!");
 
-      //Figure out why _context.Gender does not work
       roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
@@ -87,7 +78,18 @@ namespace Revature.Room.DataAccess
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);
     }
-
+    /// <summary>
+    /// Method that filters room based on ComplexId and other additional filters
+    /// </summary>
+    /// <param name="complexId"></param>
+    /// <param name="roomNumber"></param>
+    /// <param name="numberOfBeds"></param>
+    /// <param name="roomType"></param>
+    /// <param name="gender"></param>
+    /// <param name="endDate"></param>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    /// <exception cref="KeyNotFoundException">Either ComplexId or RoomId is not in the DB</exception>
     public async Task<IEnumerable<Lib.Room>> GetFilteredRoomsAsync(
       Guid complexId,
       string roomNumber,
@@ -97,7 +99,9 @@ namespace Revature.Room.DataAccess
       DateTime? endDate,
       Guid? roomId)
     {
-      IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId).Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
+      IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId)
+                                                            .Include(r => r.Gender).Include(r => r.RoomType)
+                                                            .ToListAsync() ?? throw new KeyNotFoundException("Complex Id not found");
       if (roomNumber != null)
       {
         rooms = rooms.Where(r => r.RoomNumber == roomNumber);
@@ -120,7 +124,7 @@ namespace Revature.Room.DataAccess
       }
       if (roomId != null)
       {
-        rooms = rooms.Where(r => r.RoomId == roomId);
+        rooms = rooms.Where(r => r.RoomId == roomId) ?? throw new KeyNotFoundException("Room Id not found");
       }
       return _map.ParseRooms(rooms);
     }
@@ -141,7 +145,9 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
     {
-      return await _context.Room.Where(r => r.Gender.Type.ToUpper() == gender.ToUpper() && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds).Select(r => r.RoomId).ToListAsync();
+      return await _context.Room
+        .Where(r => r.Gender.Type.ToUpper() == gender.ToUpper() && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
+        .Select(r => r.RoomId).ToListAsync();
     }
   }
 }
