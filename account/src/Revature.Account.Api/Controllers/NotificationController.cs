@@ -111,7 +111,7 @@ namespace Revature.Account.Api.Controllers
         _logger.Information("Persisted delete request");
         return NoContent();
       }
-      _logger.Information("Delete request failed");
+      _logger.Warning("Delete request failed");
       return NotFound();
     }
   }
