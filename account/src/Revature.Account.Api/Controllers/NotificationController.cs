@@ -60,9 +60,9 @@ namespace Revature.Account.Api.Controllers
         _logger.LogInformation("Persisted post request");
         return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
       }
-      catch
+      catch(Exception e)
       {
-        _logger.LogError("Post request failed");
+        _logger.LogError("Post request failed. Error: " + e.Message);
         return BadRequest();
       }
     }
