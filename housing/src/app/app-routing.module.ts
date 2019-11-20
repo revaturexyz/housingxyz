@@ -13,12 +13,12 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'show-rooms', component: UpdateRoomComponent },
   { path: 'provider-select', component: ProviderSelectComponent, canActivate: [AuthGuard] },
-  // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
   { path: 'manage-complex', component:ManageComplexComponent},
-  { path: 'complex-details', component:ComplexDetailsComponent}
+  { path: 'complex-details', component:ComplexDetailsComponent},
   { path: 'manage-complex', component:ManageComplexComponent },
   { path: 'add-room', component:AddRoomComponent }
+  // { path: "location-rooms/:id", component: LocationRoomsComponent },
 
 ];
 

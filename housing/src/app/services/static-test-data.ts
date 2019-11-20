@@ -163,7 +163,9 @@ export class TestServiceData {
     apiAmenity: TestServiceData.dummmyList,
     startDate: new Date(),
     endDate: new Date(),
-    apiComplex: TestServiceData.dummyComplex
+    apiComplex: TestServiceData.dummyComplex,
+    gender: TestServiceData.dummyGender[0],
+    leaseLength: 6
   };
 
   static dummyComplex2: Complex = {
@@ -194,7 +196,9 @@ export class TestServiceData {
     }],
     startDate: new Date(),
     endDate: new Date(),
-    apiComplex: TestServiceData.dummyComplex2
+    apiComplex: TestServiceData.dummyComplex2,
+    gender: TestServiceData.dummyGender[1],
+    leaseLength: 8
   };
 
   static testTrainingCenter2Address: Address = {
