@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComplexDetailsComponent } from './complex-details/complex-details.component';
+import { TestServiceData } from 'src/app/services/static-test-data';
 
 
 @Component({
@@ -13,47 +14,21 @@ import { ComplexDetailsComponent } from './complex-details/complex-details.compo
 })
 export class ManageComplexComponent implements OnInit {
 
-  public seededComplexes: Array<Complex> = [
-    {
-      complexId: 1,
-      apiAddress: {
-        addressId: 1,
-        streetAddress: "843 test street",
-        city: "Arlington",
-        state: "Texas",
-        zipcode: "76010"
-      },
-      apiProvider: {
-        providerId: 1,
-        companyName: "Stark Agency",
-        address: {
-          addressId: 2,
-          streetAddress: "999 test drive",
-          city: "Arlington",
-          state: "Texas",
-          zipcode: "76020"
-        },
-        contactNumber: "(893) 783-4848",
-        apiTrainingCenter: {
-          centerId: 1,
-          apiAddress:
-          {
-            addressId: 1,
-            streetAddress: "843 test street",
-            city: "Arlington",
-            state: "Texas",
-            zipcode: "76010"
-          },
-          centerName: "Revature",
-          contactNumber: "(383) 384-4992"
-        }
-      },
-      complexName: "Liv +",
-      contactNumber: "(728) 738-4737"
+  public seededComplexes: Complex[] = [
+    TestServiceData.dummyComplex,
+    TestServiceData.dummyComplex2,
+    TestServiceData.dummyComplex,
+    TestServiceData.dummyComplex2
+  ];
 
-    },
-  ]
+  // mode selection =>
+  // 'init' for initial loading,
+  // 'details' for after provider is selected,
+  // 'add-room' for adding room,
+  // 'manage-room' for editing rooms
+  mode = 'init';
   complexControl = new FormControl('');
+
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'edit',

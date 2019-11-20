@@ -31,7 +31,7 @@ export class AddRoomComponent implements OnInit {
   public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
   public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
 
-  @Input() complex: Complex;
+  @Input() complexControl: Complex;
 
   constructor() {
     this.formRoom = {

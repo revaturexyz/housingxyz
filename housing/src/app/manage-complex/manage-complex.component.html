@@ -42,16 +42,13 @@
         <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
 
             <!--Base div -->
-            <div *ngIf="!complexControl.value"
-                class="div-drawer d-md-flex logoarea pt-5 pb-5 text-center align-items-center justify-content-center h-100">
-                <h2>Choose a Complex </h2>
-            </div>
+            <div class="div-drawer d-md-flex logoarea pt-5 pb-5 text-center align-items-center justify-content-center h-100">
 
-            <div *ngIf="complexControl.value" class="div-drawer logoarea pt-5 pb-5 h-100" >
+              <div *ngIf="!complexControl.value && mode=='init'"> <h2>Choose a Complex</h2> </div>
 
-              <dev-complex-details [complexControl]="complexControl.value"></dev-complex-details>
+              <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value"></dev-complex-details>
 
-            </div>
+              <dev-add-room *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value"></dev-add-room>
 
             <!--Lower of Container-->
         </div>
