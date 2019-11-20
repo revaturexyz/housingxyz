@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Complex.Lib.Interface;
 using Revature.Complex.Api.Models;
 using Logic = Revature.Complex.Lib.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Complex.Api.Controllers
 {
@@ -15,10 +16,11 @@ namespace Revature.Complex.Api.Controllers
   public class AmenityController : ControllerBase
   {
     private readonly IRepository _complexRepository;
-
-    public AmenityController(IRepository complexRepository)
+    private readonly ILogger<AmenityController> log;
+    public AmenityController(IRepository complexRepository, ILogger<AmenityController> logger)
     {
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
+      log = logger;
     }
 
     #region GET
@@ -36,19 +38,25 @@ namespace Revature.Complex.Api.Controllers
 
       try
       {
-        return Ok(await _complexRepository.ReadAmenityListAsync());
+        IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
+        log.LogInformation("(API)list of all amenity is found");
+
+        return Ok(amenities);
       }
-      catch (ArgumentException)
+      catch (ArgumentException ex)
       {
+        log.LogError($"(API){ex}");
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch (InvalidOperationException ex)
       {
-        return Conflict(e.Message);
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        return StatusCode(500, e.Message);
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
       }
     }
 
@@ -65,21 +73,26 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        var x = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
-        return Ok(x);
+        IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
+        log.LogInformation($"(API)list of amenity for room Id: {roomGuid} is found");
+
+        return Ok(amenities);
 
       }
-      catch (ArgumentException)
+      catch (ArgumentException ex)
       {
+        log.LogError($"(API){ex}");
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch (InvalidOperationException ex)
       {
-        return Conflict(e.Message);
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        return StatusCode(500, e.Message);
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
       }
     }
 
@@ -96,20 +109,25 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        var x = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
-        return Ok(x);
+        IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
+        log.LogInformation($"(API)list of amenity for room Id: {complexGuid} is found");
+
+        return Ok(amenities);
       }
-      catch (ArgumentException)
+      catch (ArgumentException ex)
       {
+        log.LogError($"(API){ex}");
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch (InvalidOperationException ex)
       {
-        return Conflict(e.Message);
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        return StatusCode(500, e.Message);
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
       }
     }
 
@@ -136,19 +154,24 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.CreateAmenityAsync(amen);
+        log.LogInformation($"(API)new amenity: {amen.AmenityType} is added");
+
         return StatusCode(201);
       }
-      catch (ArgumentException)
+      catch (ArgumentException ex)
       {
+        log.LogError($"(API){ex}");
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch (InvalidOperationException ex)
       {
-        return Conflict(e.Message);
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        return StatusCode(500, e.Message);
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
       }
     }
 
@@ -175,19 +198,24 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.UpdateAmenityAsync(amenity);
+        log.LogInformation($"(API)new amenity: {amenity.AmenityType} is updated.");
+
         return StatusCode(201);
       }
-      catch (ArgumentException)
+      catch (ArgumentException ex)
       {
+        log.LogError($"(API){ex}");
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch (InvalidOperationException ex)
       {
-        return Conflict(e.Message);
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        return StatusCode(500, e.Message);
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
       }
     }
 
@@ -214,19 +242,24 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.DeleteAmenityAsync(amenity);
+        log.LogInformation($"(API)amenity: {amenity.AmenityType} is deleted");
+
         return StatusCode(201);
       }
-      catch (ArgumentException)
+      catch (ArgumentException ex)
       {
+        log.LogError($"(API){ex}");
         return NotFound();
       }
-      catch (InvalidOperationException e)
+      catch (InvalidOperationException ex)
       {
-        return Conflict(e.Message);
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        return StatusCode(500, e.Message);
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
       }
     }
 

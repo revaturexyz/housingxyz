@@ -4,12 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using Revature.Complex.Lib.Interface;
 using Revature.Complex.DataAccess.Repository;
 using Revature.Complex.DataAccess;
 using Revature.Complex.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Revature.Complex.Api
 {
@@ -54,6 +55,7 @@ namespace Revature.Complex.Api
       services.AddScoped<Mapper>();
 
       services.AddControllers();
+
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
