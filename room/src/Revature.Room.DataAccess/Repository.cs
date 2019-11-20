@@ -86,7 +86,18 @@ namespace Revature.Room.DataAccess
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);
     }
-
+    /// <summary>
+    /// Method that filters room based on ComplexId and other additional filters
+    /// </summary>
+    /// <param name="complexId"></param>
+    /// <param name="roomNumber"></param>
+    /// <param name="numberOfBeds"></param>
+    /// <param name="roomType"></param>
+    /// <param name="gender"></param>
+    /// <param name="endDate"></param>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    /// <exception cref="KeyNotFoundException">Either ComplexId or RoomId is not in the DB</exception>
     public async Task<IEnumerable<Lib.Room>> GetFilteredRoomsAsync(
       Guid complexId,
       string roomNumber,
@@ -96,7 +107,9 @@ namespace Revature.Room.DataAccess
       DateTime? endDate,
       Guid? roomId)
     {
-      IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId).Include(r => r.Gender).Include(r => r.RoomType).ToListAsync() ?? throw new KeyNotFoundException("Complex Id not found");
+      IEnumerable<Entities.Room> rooms = await _context.Room.Where(r => r.ComplexId == complexId)
+                                                            .Include(r => r.Gender).Include(r => r.RoomType)
+                                                            .ToListAsync() ?? throw new KeyNotFoundException("Complex Id not found");
       if (roomNumber != null)
       {
         rooms = rooms.Where(r => r.RoomNumber == roomNumber);

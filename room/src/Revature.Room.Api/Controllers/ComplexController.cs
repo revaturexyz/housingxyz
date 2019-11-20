@@ -34,6 +34,7 @@ namespace Revature.Room.Api.Controllers
     /// <param name="gender"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
+    /// <exception cref="KeyNotFoundException">ComplexId or RoomId was not found in the DB</exception>
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e&roomId=f
     [ProducesResponseType(StatusCodes.Status200OK)]
