@@ -34,6 +34,7 @@ namespace Revature.Account.Api.Controllers
 
     // POST: api/provider-accounts
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
     {
