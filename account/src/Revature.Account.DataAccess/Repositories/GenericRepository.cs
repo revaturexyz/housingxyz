@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Revature.Account.DataAccess.Repositories
 {
@@ -12,50 +14,108 @@ namespace Revature.Account.DataAccess.Repositories
   {
     private readonly AccountDbContext _context;
     private readonly Mapper mapper;
+    private readonly ILogger<GenericRepository> _logger;
 
-    public GenericRepository(AccountDbContext db)
+    public GenericRepository(AccountDbContext db, ILogger<GenericRepository> logger)
     {
       _context = db ?? throw new ArgumentNullException("Context cannot be null.", nameof(db));
       this.mapper = new Mapper();
+      this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
     }
 
     #region Provider
 
     public async Task<ProviderAccount> GetProviderAccountByIdAsync(Guid providerId)
     {
-      var provider = await _context.ProviderAccount
+      try
+      {
+        _logger.LogInformation("Getting Provider by ID: {providerId}", providerId);
+        var provider = await _context.ProviderAccount
         .AsNoTracking()
         .Include(p => p.Coordinator)
         .Include(p => p.Status)
         .FirstOrDefaultAsync(p => p.ProviderId == providerId);
-      return (provider != null ? mapper.MapProvider(provider) : null);
+        return (provider != null ? mapper.MapProvider(provider) : null);
+      }
+      catch(InvalidOperationException e)
+      {
+        _logger.LogError("Invalid Operation Exception Error. Error message: " +  e.Message);
+        return null;
+      }
+      catch(Exception e)
+      {
+        _logger.LogError("Something went wrong when getting a provider account by ID. Error: " + e.Message);
+        return null;
+      }
+      
     }
 
     public void AddProviderAccountAsync(ProviderAccount newAccount)
     {
-      var newEntity = mapper.MapProvider(newAccount);
-      _context.Add(newEntity);
+      try
+      {
+        _logger.LogInformation("Adding provider account for {name}", newAccount.Name);
+        var newEntity = mapper.MapProvider(newAccount);
+        _context.Add(newEntity);
+      }
+      catch(InvalidOperationException e)
+      {
+        _logger.LogError("Invalid Operation Exception Error. Error message: " + e.Message);
+      }
+      catch(Exception e)
+      {
+        _logger.LogError("Something went wrong adding a provider account. Error message: " + e.Message);
+      }
     }
-
     public async Task<bool> UpdateProviderAccountAsync(ProviderAccount providerAccount)
     {
-      var existingEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
-      if (existingEntity == null)
-        return false;
-
-      var updatedEntity = mapper.MapProvider(providerAccount);
-      _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
-      return true;
+      try
+      {
+        var existingEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
+        if (existingEntity == null)
+        {
+          return false;
+        }
+        var updatedEntity = mapper.MapProvider(providerAccount);
+        _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
+        return true;
+      }
+      catch (InvalidOperationException e)
+      {
+        _logger.LogError("Invalid Operation Exception Error. Error message: " + e.Message);
+        throw new InvalidOperationException(e.Message);
+      }
+      catch (Exception e)
+      {
+        _logger.LogError("Something went wrong updating provider account. Error message: " + e.Message);
+        throw new Exception(e.Message);
+      }
     }
 
     public async Task<bool> DeleteProviderAccountAsync(Guid providerId)
     {
-      var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
-      if (entityToBeRemoved == null)
-        return false;
-
-      _context.Remove(entityToBeRemoved);
-      return true;
+      try
+      {
+        var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
+        if (entityToBeRemoved == null)
+        {
+          return false;
+        }
+        _context.Remove(entityToBeRemoved);
+        return true;
+      }
+      catch(InvalidOperationException e)
+      {
+        _logger.LogError("Invalid Operation Exception Error. Error message: " + e.Message);
+        throw new InvalidOperationException(e.Message);
+      }
+      catch(Exception e)
+      {
+        _logger.LogError("Something went wrong deleting a provier account. Error message: " + e.Message);
+        throw new Exception(e.Message);
+      }
+      
     }
 
     #endregion
