@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Revature.Complex.Lib.Models
 {
+  /// <summary>
+  /// This object model defines a room amenity. It has the amenity name and GUID (id)
+  /// </summary>
   public class AmenityRoom
   {
     public Guid AmenityRoomId { get; set; }
