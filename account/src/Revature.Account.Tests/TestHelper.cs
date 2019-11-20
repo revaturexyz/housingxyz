@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Revature.Account.Api.Controllers;
 using Revature.Account.Lib.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using Serilog;
-using Serilog.Sinks;
 
 namespace Revature.Account.Tests
 {
@@ -25,13 +25,13 @@ namespace Revature.Account.Tests
     public static DateTime now = DateTime.Now;
     public static DateTime nowPSev = DateTime.Now.AddDays(7.0);
     public static DateTime nowPThirty = DateTime.Now.AddDays(30.0);
-    public static ILogger _logger;
+    public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
 
     public TestHelper()
     {
-      _logger = new LoggerConfiguration()
-        .WriteTo.Console()
-        .CreateLogger();
+      
+      _logger = new NullLogger<TestHelper>();
+
       SetUpCoordinators();
       SetUpStatuses();
       SetUpProviderAccount();
