@@ -3,4 +3,5 @@ export interface Batch {
     batchLanguage: string;
     startDate: Date;
     endDate: Date;
+    trainingCenter: string;
 }

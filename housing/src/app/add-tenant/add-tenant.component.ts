@@ -21,6 +21,8 @@ export class AddTenantComponent implements OnInit {
 
   address = false;
 
+  genders: string[] = ['Male', 'Female', 'Non Binary'];
+
   //batch info
   batchList: Batch[] = [];
   activeBatch: Batch;
@@ -100,12 +102,15 @@ export class AddTenantComponent implements OnInit {
           batchId: 0,
           batchLanguage: '',
           startDate: new Date(),
-          endDate: new Date()
-        }
+          endDate: new Date(),
+          trainingCenter: ''
+        },
+        trainingCenter: ''
       };
     }
 
   ngOnInit() {
+    console.log(this.genders);
     this.getBatchesOnInit();
   }
 
@@ -139,6 +144,10 @@ export class AddTenantComponent implements OnInit {
     this.batchShowString = batch.batchLanguage;
     this.activeBatch = batch;
     this.tenant.batch = batch;
+  }
+
+  genderChoose(gender: string) {
+    this.tenant.gender = gender;
   }
 
   // Used for client-side validation for date input of the form.

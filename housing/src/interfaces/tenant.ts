@@ -11,4 +11,5 @@ export interface Tenant {
     tenantAddress: TenantAddress;
     car: Car;
     batch: Batch;
+    trainingCenter: string;
 }

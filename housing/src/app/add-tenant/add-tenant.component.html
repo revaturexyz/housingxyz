@@ -104,9 +104,9 @@
                 <!-- Enter Gender -->
                 <div class="tenFormItem">
                   <label class="tenFormLabel">Gender:</label>
-                  <select class="input-border col-md-6 input-border" name="tenant.gender" required
+                  <select class="input-border col-md-9 input-border" name="tenant.gender" required
                     [(ngModel)]="tenant.gender" #tenGender="ngModel">
-                    <option *ngFor="let gender of genders" [ngValue]="type">{{tenant.gender}}</option>
+                    <option *ngFor="let gender of genders" [ngValue]="type">{{gender}}</option>
                   </select>
                 </div>
               <br>
@@ -181,7 +181,7 @@
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty"
                                 class="alert alert-danger alert-dismissable" role="alert">
-                                Car State required.
+                                State of Car License Plate required.
                               </div>
                         <br>
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
