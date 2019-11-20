@@ -46,9 +46,9 @@
 
               <div *ngIf="!complexControl.value && mode=='init'"> <h2>Choose a Complex</h2> </div>
 
-              <dev-add-room *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-add-room>
+              <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value"></dev-complex-details>
 
-              <dev-complex-details *ngIf="complexControl.value && mode=='add-room'" [complexControl]="complexControl.value"></dev-complex-details>
+              <dev-add-room *ngIf="complexControl.value && mode=='add-room'" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-add-room>
 
               <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput="changeMode($event)")></dev-edit-room>
 

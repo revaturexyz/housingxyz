@@ -11,7 +11,7 @@ export interface PeriodicElement {
 }
 
 @Component({
-  selector: 'complex-details',
+  selector: 'dev-complex-details',
   templateUrl: './complex-details.component.html',
   styleUrls: ['./complex-details.component.scss']
 })

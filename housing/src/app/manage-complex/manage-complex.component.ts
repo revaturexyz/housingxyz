@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComplexDetailsComponent } from './complex-details/complex-details.component';
+import { EditRoomComponent } from './edit-room/edit-room.component';
+import { AddRoomComponent } from './add-room/add-room.component';
 import { TestServiceData } from 'src/app/services/static-test-data';
 
 
