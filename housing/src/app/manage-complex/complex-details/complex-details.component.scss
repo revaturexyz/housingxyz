@@ -1,0 +1,179 @@
+.drawer {
+  width: auto;
+  height: 100%;
+  margin: 10px;
+  border: 1px solid #555;
+}
+
+#header {
+  text-align: center;
+}
+
+.input-border {
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid gray;
+  border-radius: 5px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#submit,
+#cancel {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#topbutton {
+  padding-bottom: 10px;
+}
+
+#cancel2 {
+  text-decoration: none;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .h-md-100 {
+    height: 100vh;
+  }
+}
+
+.btn-round {
+  border-radius: 30px;
+}
+
+.bg-orange {
+  background: #fb752c;
+}
+
+.bg-body {
+  background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.text-cyan {
+  color: #35bdff;
+}
+
+label {
+  font: 1rem "Fira Sans", sans-serif;
+  font-weight: bold;
+}
+
+input,
+label {
+  margin: 0.4rem 0;
+}
+
+legend {
+  background-color: #000;
+  color: #fff;
+  padding: 3px 6px;
+}
+
+.slider {
+  appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  transition: 0.2s;
+  transition: opacity 0.2s;
+  margin-left: 4%;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+h1 {
+  margin-left: 35%;
+}
+
+button {
+  margin: 3%;
+}
+
+#roomForm {
+  color: black;
+  background-color: white;
+  opacity: 0.65;
+  width: 80%;
+}
+
+#alert {
+  font-size: 13px;
+}
+
+#amenityStyle {
+  margin-left: 18%;
+}
+
+.selector {
+  color: black;
+}
+
+.card-drawer {
+  height: auto;
+  width: 100em;
+}
+.div-drawer {
+  color: black;
+  background-color: white;
+  opacity: 0.65;
+  width: 80%;
+}
+.complex-container {
+  margin-left: 3em;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.complex-container button {
+  background-color: transparent;
+  text-align: right;
+}
+
+.buttons-right {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5em;
+}
+.buttons-right button {
+  margin-left: 0.8em;
+}
+.divider {
+  border-bottom-style: solid black 25px;
+}
+.middle-container
+{
+  height: 50%
+}

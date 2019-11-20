@@ -33,77 +33,6 @@
                     </div>
                 </mat-card>
 
-
-
-                <br>
-                <!-- Drop down to let you choose a predetermined address -->
-                <!-- If the add address button is clicked this is hidden -->
-                <div *ngIf="show === false" class="col">
-                    <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-dark" id="dropdownBasic1"
-                            ngbDropdownToggle>{{ addressShowString }}</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="addressChoose(address)"
-                                *ngFor="let address of addressList">
-                                {{ address.streetAddress }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-                <!-- form to give the user a chance to input an address if one of the predetermined ones doesnt work -->
-                <!-- Only shows when the add address button is clicked -->
-                <button class="btn btn-secondary" *ngIf="show === false" (click)="addForm()">Add
-                    Address</button>
-                <form *ngIf="show === true">
-                    <div>
-                        <!--
-              The divs with the alert id are only displayed when there is invalid information
-              so there is a generated error message to help guide the user to fix his mistakes.
-              -->
-                        <label class="col-md-9">
-                            Street Address:
-                            <input [(ngModel)]="room.apiAddress.streetAddress" name="room.apiAddress.streetAddress"
-                                class="input-border" type="text" required minlength="5" maxlength="200"
-                                #street="ngModel">
-                        </label>
-                        <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty"
-                            class="alert alert-danger alert-dismissable" role="alert">
-                            Street address must contain at least 5 characters.
-                        </div>
-
-                        <label class="col-md-9">
-                            City:
-                            <input [(ngModel)]="room.apiAddress.city" name="room.apiAddress.city" class="input-border"
-                                type="text" required minlength="1" maxlength="50" #city="ngModel">
-                        </label>
-                        <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">
-                            City name is either too short or too long.
-                        </div>
-
-                        <label class="col-md-9">
-                            State:
-                            <input [(ngModel)]="room.apiAddress.state" name="room.apiAddress.state" class="input-border"
-                                type="text" required minlength="2" maxlength="50" #state="ngModel">
-                        </label>
-                        <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty"
-                            class="alert alert-danger">
-                            Please enter a valid state name or state abbreviation.
-                        </div>
-
-                        <label class="col-md-9">
-                            Zip Code:
-                            <input [(ngModel)]="room.apiAddress.zipcode" name="room.apiAddress.zipCode"
-                                class="input-border" type="text" pattern="[0-9]{5}" #zip="ngModel">
-                        </label>
-                        <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">
-                            Zip code must be exactly least 5 numbers.
-                        </div>
-                        <br>
-                        <button class="btn btn-secondary" (click)="back()">Cancel</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -118,74 +47,12 @@
                 <h2>Choose a Complex </h2>
             </div>
 
-            <!--Once complex is selected, show information-->
-            <div *ngIf="complexControl.value" class="div-drawer  logoarea pt-5 pb-5 h-100">
+            <div *ngIf="complexControl.value" class="div-drawer logoarea pt-5 pb-5 h-100" >
 
-                <!--Header of container-->
-                <div class="complex-container">
-                    <!--Contains current complex and edit/delete buttons-->
-                    <div class="align-left">
-                        <h3>{{complexControl.value?.complexName}} </h3>
-                    </div>
-                    <div class="buttons-right">
-                        <button mat-flat-button>
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-flat-button>
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <hr style="height: 1px; background-color: black;">
-
-
-                <!--Middle of container-->
-                <div class = "complex-container">
-                    <div>
-                        hello
-                        <table mat-table [dataSource]="dataSource">
-                            hello2
-                            <!-- Position Column -->
-                            <ng-container matColumnDef="position">
-                                <th mat-header-cell *matHeaderCellDef> No. </th>
-                                <!-- <td mat-cell *matCellDef="let element"> {{element.position}} </td> -->
-                            </ng-container>
-
-                            <!-- Name Column -->
-                            <ng-container matColumnDef="name">
-                                <th mat-header-cell *matHeaderCellDef> Name </th>
-                                <!-- <td mat-cell *matCellDef="let element"> {{element.name}} </td> -->
-                            </ng-container>
-
-                            <!-- Weight Column -->
-                            <ng-container matColumnDef="weight">
-                                <th mat-header-cell *matHeaderCellDef> Weight </th>
-                                <!-- <td mat-cell *matCellDef="let element"> {{element.weight}} </td> -->
-                            </ng-container>
-
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="symbol">
-                                <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                                <!-- <td mat-cell *matCellDef="let element"> {{element.symbol}} </td> -->
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
-
-                        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
-
-                        <!-- <a routerLinkActive="router-link-active" *ngFor="let notification of notifications | paginate: { itemsPerPage: 5, currentPage: p }" [routerLink]="['/coordinator-notifications/' + notification.notificationId]" class="notifications-row">
-                  
-                              <div class="notification-expires"> {{ dateCalculator(notification.date, notification) }} </div>
-                              <div class="notification-name truncate">{{notification.providerDetails.companyName}}</div>
-                            </a> -->
-                    </div>
-                </div>
+              <dev-complex-details [complexControl]="complexControl.value"></dev-complex-details>
 
             </div>
 
             <!--Lower of Container-->
         </div>
     </div>
-</div>

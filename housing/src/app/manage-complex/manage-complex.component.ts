@@ -3,6 +3,8 @@ import { Complex } from 'src/interfaces/complex';
 import { FormControl } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ComplexDetailsComponent } from './complex-details/complex-details.component';
+
 
 @Component({
   selector: 'dev-manage-complex',
@@ -51,9 +53,8 @@ export class ManageComplexComponent implements OnInit {
 
     },
   ]
-
   complexControl = new FormControl('');
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) { 
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'edit',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/edit-24px.svg'));
