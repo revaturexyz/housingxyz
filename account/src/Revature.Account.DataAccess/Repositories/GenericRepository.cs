@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
 using System;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Revature.Account.DataAccess.Repositories
 {
@@ -18,17 +18,21 @@ namespace Revature.Account.DataAccess.Repositories
       _context = db ?? throw new ArgumentNullException("Context cannot be null.", nameof(db));
       this.mapper = new Mapper();
     }
+
     /* Provider Repos */
+
     public async Task<ProviderAccount> GetProviderAccountByIdAsync(Guid providerId)
     {
-      var provider = await _context.ProviderAccount.AsNoTracking().FirstOrDefaultAsync(p => p.ProviderId == providerId);
+      var provider = await _context.ProviderAccount.AsNoTracking().Include(p => p.Coordinator).FirstOrDefaultAsync(p => p.ProviderId == providerId);
       return (provider != null ? mapper.MapProvider(provider) : null);
     }
-    public void AddNewProviderAccountAsync(ProviderAccount newAccount)
+
+    public void AddProviderAccountAsync(ProviderAccount newAccount)
     {
       var newEntity = mapper.MapProvider(newAccount);
       _context.Add(newEntity);
     }
+
     public async Task<bool> UpdateProviderAccountAsync(ProviderAccount providerAccount)
     {
       var existingEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
@@ -39,6 +43,7 @@ namespace Revature.Account.DataAccess.Repositories
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
+
     public async Task<bool> DeleteProviderAccountAsync(Guid providerId)
     {
       var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
@@ -48,30 +53,37 @@ namespace Revature.Account.DataAccess.Repositories
       _context.Remove(entityToBeRemoved);
       return true;
     }
+
     /* End */
     /* Coordinator Repos */
+
     public async Task<CoordinatorAccount> GetCoordinatorAccountByIdAsync(Guid coordinatorId)
     {
-      var coordinator = await _context.CoordinatorAccount.AsNoTracking().FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
+      var coordinator = await _context.CoordinatorAccount.AsNoTracking().Include(c => c.Notifications).FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
       return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
     }
+
     /* End */
     /* Notification Repos */
+
     public async Task<Notification> GetNotificationByIdAsync(Guid notificationId)
     {
-      var notification = await _context.Notification.AsNoTracking().FirstOrDefaultAsync(p => p.NotificationId == notificationId);
+      var notification = await _context.Notification.AsNoTracking().Include(n => n.Coordinator).Include(n => n.Provider).FirstOrDefaultAsync(p => p.NotificationId == notificationId);
       return (notification != null ? mapper.MapNotification(notification) : null);
     }
+
     public async Task<List<Notification>> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
-      var notification = _context.Notification.Where(p => p.CoordinatorId == coordinatorId);
+      var notification = _context.Notification.Include(n => n.Coordinator).Include(n => n.Provider).Where(p => p.CoordinatorId == coordinatorId);
       return (notification != null ? notification.Select(mapper.MapNotification).ToList() : null);
     }
-    public void AddNewNotification(Notification newNofi)
+
+    public void AddNotification(Notification newNofi)
     {
       var newEntity = mapper.MapNotification(newNofi);
       _context.Add(newEntity);
     }
+
     public async Task<bool> DeleteNotificationByIdAsync(Guid notificationId)
     {
       var entityToBeRemoved = await _context.Notification.FindAsync(notificationId);
@@ -81,6 +93,7 @@ namespace Revature.Account.DataAccess.Repositories
       _context.Remove(entityToBeRemoved);
       return true;
     }
+
     public async Task<bool> UpdateNotificationAsync(Notification notification)
     {
       var existingEntity = await _context.Notification.FindAsync(notification.NotificationId);
@@ -91,7 +104,9 @@ namespace Revature.Account.DataAccess.Repositories
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
+
     /* End */
+
     public async Task SaveAsync()
     {
       // TODO: Ideally put a log message here to notify when saving

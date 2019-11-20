@@ -1,14 +1,12 @@
 using Revature.Account.Lib.Model;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Revature.Account.Tests.Logic_Tests.Model
 {
   public class ProviderTesting
   {
-    ProviderAccount provider = new ProviderAccount();
+    private ProviderAccount provider = new ProviderAccount();
 
     [Fact]
     public void ProviderNameNullException()
@@ -25,14 +23,5 @@ namespace Revature.Account.Tests.Logic_Tests.Model
 
       Assert.Throws<ArgumentException>(() => provider.Name = emptyString);
     }
-
-    [Fact]
-    public void ProviderPasswordEmptyException()
-    {
-      string emptyString = "";
-
-      Assert.Throws<ArgumentException>(() => provider.Password = emptyString);
-    }
-
   }
 }

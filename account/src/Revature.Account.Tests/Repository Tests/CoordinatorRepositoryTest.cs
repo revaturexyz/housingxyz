@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Revature.Account.DataAccess.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Revature.Account.Tests.Repository_Tests
@@ -13,6 +11,7 @@ namespace Revature.Account.Tests.Repository_Tests
     public Guid coordinatorId = Guid.NewGuid();
     public Guid providerId = Guid.NewGuid();
     public Guid notificationId = Guid.NewGuid();
+
     [Fact]
     public async void GetCoordinatorByIdTest()
     {
@@ -27,9 +26,8 @@ namespace Revature.Account.Tests.Repository_Tests
         CoordinatorId = coordinatorId,
         ProviderId = providerId,
         Name = "Fred",
-        Password = "Abcxzy123",
-        TrainingAddress = "123 Main st, Arlington, TX 12345",
-        TrainingName = "Liv+",
+        TrainingCenterAddress = "123 Main st, Arlington, TX 12345",
+        TrainingCenterName = "Liv+",
         Email = "abc@gmail.com"
       };
       arrangeContext.CoordinatorAccount.Add(testCoordinatorEntity);

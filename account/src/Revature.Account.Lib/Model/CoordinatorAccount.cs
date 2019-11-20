@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Account.Lib.Model
 {
@@ -8,17 +7,18 @@ namespace Revature.Account.Lib.Model
   {
     private string _email;
     private string _name;
-    private string _password;
-    public Guid CoordinatorId { get; set; } = new Guid();
+    public Guid CoordinatorId { get; set; } = Guid.NewGuid();
+
     public string Name
     {
       get { return _name; }
       set
       {
-        ValidateInput(value);
+        NotNullOrEmpty(value);
         _name = value;
       }
     }
+
     public string Email
     {
       get { return _email; }
@@ -35,19 +35,18 @@ namespace Revature.Account.Lib.Model
         _email = value;
       }
     }
-    public string Password
-    {
-      get { return _password; }
-      set
-      {
-        ValidateInput(value);
-        _password = value;
-      }
-    }
-    public string TrainingName { get; set; }
-    public string TrainingAddress { get; set; }
+
+    /// <summary>
+    /// Name of the training center associated with the coordinator.
+    /// </summary>
+    public string TrainingCenterName { get; set; }
+    /// <summary>
+    /// Address of the training center associated with the coordinator.
+    /// </summary>
+    public string TrainingCenterAddress { get; set; }
     public virtual List<Lib.Model.Notification> Notifications { get; set; }
-    private void ValidateInput(string value)
+
+    private void NotNullOrEmpty(string value)
     {
       if (value == null)
       {

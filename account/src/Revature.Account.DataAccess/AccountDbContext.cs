@@ -1,7 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Revature.Account.DataAccess.Entities;
 
 namespace Revature.Account.DataAccess
@@ -10,9 +7,11 @@ namespace Revature.Account.DataAccess
   {
     public AccountDbContext()
     { }
+
     public AccountDbContext(DbContextOptions<AccountDbContext> options) : base(options)
     {
     }
+
     public virtual DbSet<Notification> Notification { get; set; }
     public virtual DbSet<ProviderAccount> ProviderAccount { get; set; }
     public virtual DbSet<CoordinatorAccount> CoordinatorAccount { get; set; }
@@ -25,12 +24,9 @@ namespace Revature.Account.DataAccess
         entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(100);
-        entity.Property(e => e.Password)
-            .IsRequired()
-            .HasMaxLength(100);
         entity.Property(e => e.Status)
             .IsRequired();
-        entity.Property(e => e.AccountCreated)
+        entity.Property(e => e.AccountCreatedAt)
             .IsRequired();
       });
 
@@ -40,13 +36,10 @@ namespace Revature.Account.DataAccess
         entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(100);
-        entity.Property(e => e.Password)
+        entity.Property(e => e.TrainingCenterName)
             .IsRequired()
             .HasMaxLength(100);
-        entity.Property(e => e.TrainingName)
-            .IsRequired()
-            .HasMaxLength(100);
-        entity.Property(e => e.TrainingAddress)
+        entity.Property(e => e.TrainingCenterAddress)
             .IsRequired()
             .HasMaxLength(100);
         entity.HasMany(e => e.Notifications)
@@ -64,7 +57,7 @@ namespace Revature.Account.DataAccess
         entity.Property(e => e.Status)
             .IsRequired()
             .HasMaxLength(100);
-        entity.Property(e => e.AccountExpire)
+        entity.Property(e => e.AccountExpiresAt)
             .IsRequired();
         entity.HasOne(e => e.Coordinator)
             .WithMany(n => n.Notifications)

@@ -1,19 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Account.Api;
-using Revature.Account.Api.Controllers;
-using Revature.Account.Lib;
-using Revature.Account.Lib.Model;
-using Xunit;
 using Moq;
+using Revature.Account.Api.Controllers;
+using Revature.Account.Lib.Model;
+using System;
+using System.Collections.Generic;
 
-namespace Revature.Account.Tests.APITests
+namespace Revature.Account.Tests
 {
-  public class ControllerTestHelper
+  public class TestHelper
   {
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> IRepository { get; private set; }
     public CoordinatorAccountController ICoordinatorAccountController { get; private set; }
@@ -26,13 +21,15 @@ namespace Revature.Account.Tests.APITests
     public static DateTime now = DateTime.Now;
     public static DateTime nowPSev = DateTime.Now.AddDays(7.0);
     public static DateTime nowPThirty = DateTime.Now.AddDays(30.0);
-    public ControllerTestHelper()
+
+    public TestHelper()
     {
-      SetUpNotifications();
       SetUpCoordinators(INotificationList);
       SetUpProviderAccount(INotificationList);
+      SetUpNotifications();
       SetUpMocks();
     }
+
     private void SetUpCoordinators(List<Notification> nList)
     {
       ICoordinators = new List<CoordinatorAccount>
@@ -40,104 +37,95 @@ namespace Revature.Account.Tests.APITests
                 //1
                 new CoordinatorAccount
                 {
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
                     Name = "Jacob",
                     Email = "jacobs.email@gmail.com",
-                    Password = "54321",
-                    TrainingName = "Arlington",
-                    TrainingAddress = "604 S. West, Arlington, TX, 76010",
+                    TrainingCenterName = "Arlington",
+                    TrainingCenterAddress = "604 S. West, Arlington, TX, 76010",
                     //1
                     //Notification = nList[0]
                 },
                 //2
                 new CoordinatorAccount
                 {
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6aaa"),
                     Name = "Kimberly",
                     Email = "Kimberly.email@gmail.com",
-                    Password = "12345",
-                    TrainingName = "Honolulu",
-                    TrainingAddress = "555 Kaumakani St, Honolulu, HI 96825",
+                    TrainingCenterName = "Honolulu",
+                    TrainingCenterAddress = "555 Kaumakani St, Honolulu, HI 96825",
                     //2
                    // Notification = nList[1]
                 },
                 //3
                 new CoordinatorAccount
                 {
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-aaaaac5d6bbb"),
                     Name = "Jimmy",
                     Email = "Jimmy.email@gmail.com",
-                    Password = "87654",
-                    TrainingName = "NYC Midtown Center",
-                    TrainingAddress = "348 e 66th st new york ny 10065",
+                    TrainingCenterName = "NYC Midtown Center",
+                    TrainingCenterAddress = "348 e 66th st new york ny 10065",
                     //3
                     //Notification =nList[2]
                 },
             };
     }
+
     private void SetUpProviderAccount(List<Notification> nList)
     {
       IProviderAccountList = new List<ProviderAccount>
             {
                 new ProviderAccount
                 {
-                    ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    Coordinator = ICoordinators[0],
                     Name = "Billys Big Discount Dorms",
-                    Password = "54321",
                     Status = "Strawberry Jelly",
-                    AccountCreated = now,
-                    Expire = nowPSev
+                    AccountCreatedAt = now,
+                    AccountExpiresAt = nowPSev
                 },
                 new ProviderAccount
                 {
-                    ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    Coordinator = ICoordinators[0],
                     Name = "Billys Big Discount Dorms",
-                    Password = "54321",
                     Status = "Strawberry Jelly",
-                    AccountCreated = now,
-                    Expire = nowPSev
+                    AccountCreatedAt = now,
+                    AccountExpiresAt = nowPSev
                 },
                 new ProviderAccount
                 {
-                    ProviderId = new Guid("johny5xx-was5-h7re-4ndd-leftthisme4g"),
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    Coordinator = ICoordinators[0],
                     Name = "Billys Big Discount Dorms",
-                    Password = "54321",
                     Status = "Strawberry Jelly",
-                    AccountCreated = now,
-                    Expire = nowPSev
+                    AccountCreatedAt = now,
+                    AccountExpiresAt = nowPSev
                 }
         };
     }
+
     private void SetUpNotifications()
     {
       INotificationList = new List<Notification>
             {
                 new Notification
                 {
-                    ProviderId = new Guid("johny5xx-was5-here-4ndd-leftthisme4g"),
-                        CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    ProviderId = IProviderAccountList[0].ProviderId,
+                        CoordinatorId = ICoordinators[0].CoordinatorId,
                         Status = "Marmalaide",
-                        AccountExpire = nowPSev
+                        AccountExpiresAt = nowPSev
                 },
                 new Notification
                 {
-                    ProviderId = new Guid("j0hny5xx-was5-h7r3-4ndd-l3ftth1smssg"),
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6aaa"),
+                    ProviderId = IProviderAccountList[0].ProviderId,
+                    CoordinatorId = ICoordinators[0].CoordinatorId,
                     Status = "Marmalaide", // string required for this... ***
-                    AccountExpire = nowPSev
+                    AccountExpiresAt = nowPSev
                 },
                 new Notification()
                 {
-                    ProviderId = new Guid("j08ny5xx-w455-h7r3-4ndd-l3f77h15m55g"),
-                    CoordinatorId = new Guid("d9beb26e-11e5-490f-a27f-aaaaac5d6bbb"),
+                    ProviderId = IProviderAccountList[0].ProviderId,
+                    CoordinatorId = ICoordinators[0].CoordinatorId,
                     Status = "Marmalaide", // string required for this... ***
-                    AccountExpire = nowPSev
+                    AccountExpiresAt = nowPSev
                 }
             };
     }
+
     private void SetUpMocks()
     {
       IRepository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();

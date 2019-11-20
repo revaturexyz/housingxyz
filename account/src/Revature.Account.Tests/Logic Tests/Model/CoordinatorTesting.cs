@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
 using Revature.Account.Lib.Model;
+using System;
+using Xunit;
 
 namespace Revature.Account.Test.Logic_Tests.Model
 {
   public class CoordinatorTesting
   {
-    CoordinatorAccount coordinator = new CoordinatorAccount();
+    private CoordinatorAccount coordinator = new CoordinatorAccount();
 
     [Fact]
     public void CoordinatorNameNullException()
@@ -24,14 +22,6 @@ namespace Revature.Account.Test.Logic_Tests.Model
       string emptyString = "";
 
       Assert.Throws<ArgumentException>(() => coordinator.Name = emptyString);
-    }
-
-    [Fact]
-    public void CoordinatorPasswordEmptyException()
-    {
-      string emptyString = "";
-
-      Assert.Throws<ArgumentException>(() => coordinator.Password = emptyString);
     }
 
     [Fact]

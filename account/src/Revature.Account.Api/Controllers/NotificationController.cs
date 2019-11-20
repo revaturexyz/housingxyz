@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
+using System;
+using System.Threading.Tasks;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -14,13 +12,14 @@ namespace Revature.Account.Api.Controllers
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
+
     public NotificationController(IGenericRepository repo)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
     }
 
-    // GET: api/Notification/5
-    [HttpGet("{coordinatorId}", Name = "GetNotificationByProviderId")]
+    // GET: api/notifications/5
+    [HttpGet("{coordinatorId}", Name = "GetNotificationsByCoordinatorId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> GetNotificationByCoordinatorIdAsync(Guid coordinatorId)
@@ -32,7 +31,7 @@ namespace Revature.Account.Api.Controllers
       return Ok(nofi);
     }
 
-    // POST: api/Notification
+    // POST: api/notifications
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId")] Notification notification)
@@ -44,11 +43,11 @@ namespace Revature.Account.Api.Controllers
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
           Status = "Pending",
-          AccountExpire = DateTime.Now.AddDays(7)
+          AccountExpiresAt = DateTime.Now.AddDays(7)
         };
-        _repo.AddNewNotification(mappedNotification);
+        _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
-        return CreatedAtRoute($"api/notification/{mappedNotification.NotificationId}", new { id = mappedNotification.NotificationId }, mappedNotification);
+        return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
       }
       catch
       {
@@ -56,7 +55,7 @@ namespace Revature.Account.Api.Controllers
       }
     }
 
-    // PATCH: api/Notification/5
+    // PATCH: api/notifications/5
     [HttpPatch("{coordinatorId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -68,7 +67,7 @@ namespace Revature.Account.Api.Controllers
         existingNotification.Status = notification.Status;
         if (existingNotification.Status == "Under Review")
         {
-          existingNotification.AccountExpire = DateTime.Now.AddDays(30);
+          existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
         if (existingNotification.Status == "Rejected")
         {
@@ -81,7 +80,7 @@ namespace Revature.Account.Api.Controllers
       return NotFound();
     }
 
-    // DELETE: api/notification/5
+    // DELETE: api/notifications/5
     [HttpDelete("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

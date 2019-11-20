@@ -2,9 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Revature.Account.DataAccess.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,36 +13,25 @@ namespace Revature.Account.Tests.Repository_Tests
     public Guid coordinatorId = Guid.NewGuid();
     public Guid providerId = Guid.NewGuid();
     public Guid notificationId = Guid.NewGuid();
+
     [Fact]
     public async void GetNotificationByIdAsyncTest()
     {
       // Arrange
+      TestHelper helper = new TestHelper();
+      Mapper mapper = new Mapper();
+      var testProvider = helper.IProviderAccountList[0];
+      var testNotification = helper.INotificationList[0];
+
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("GetNotificationByProviderIdTest")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      var testProviderEntity = new DataAccess.Entities.ProviderAccount
-      {
-        CoordinatorId = coordinatorId,
-        ProviderId = providerId,
-        Name = "Joe Doe",
-        Password = "Abcxzy123",
-        Status = "Pending",
-        AccountCreated = DateTime.Now,
-        Expire = DateTime.Now.AddDays(7),
-      };
-      arrangeContext.ProviderAccount.Add(testProviderEntity);
-      var testNotificationEntity = new DataAccess.Entities.Notification
-      {
-        CoordinatorId = coordinatorId,
-        ProviderId = providerId,
-        Status = "Pending",
-        AccountExpire = DateTime.Now.AddDays(7),
-        NotificationId = notificationId
-      };
-      arrangeContext.Notification.Add(testNotificationEntity);
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(testProvider));
+      arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.ICoordinators[0]));
+      arrangeContext.Notification.Add(mapper.MapNotification(testNotification));
       arrangeContext.SaveChanges();
-      var testId = testNotificationEntity.NotificationId;
+      var testId = testNotification.NotificationId;
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
       // Act
@@ -52,6 +39,7 @@ namespace Revature.Account.Tests.Repository_Tests
       // Assert
       Assert.Equal(testId, result.NotificationId);
     }
+
     [Fact]
     public void AddNewNotificationTest()
     {
@@ -67,17 +55,18 @@ namespace Revature.Account.Tests.Repository_Tests
         ProviderId = providerId,
         CoordinatorId = coordinatorId,
         Status = "Pending",
-        AccountExpire = DateTime.Now.AddDays(7)
+        AccountExpiresAt = DateTime.Now.AddDays(7)
       };
       var actRepo = new GenericRepository(actContext);
       // Act
-      actRepo.AddNewNotification(newNotification);
+      actRepo.AddNotification(newNotification);
       actContext.SaveChanges();
       // Assert
       using var assertContext = new AccountDbContext(options);
       var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == newNotification.CoordinatorId);
       Assert.NotNull(assertNotification);
     }
+
     [Fact]
     public async Task UpdateNotificationAccountTestAsync()
     {
@@ -93,7 +82,7 @@ namespace Revature.Account.Tests.Repository_Tests
         ProviderId = providerId,
         CoordinatorId = coordinatorId,
         Status = "Pending",
-        AccountExpire = DateTime.Now.AddDays(7)
+        AccountExpiresAt = DateTime.Now.AddDays(7)
       };
       arrangeContext.Notification.Add(arrangeNotification);
       var updatedNotification = new Lib.Model.Notification
@@ -102,7 +91,7 @@ namespace Revature.Account.Tests.Repository_Tests
         ProviderId = providerId,
         CoordinatorId = coordinatorId,
         Status = updatedStatus,
-        AccountExpire = DateTime.Now.AddDays(30)
+        AccountExpiresAt = DateTime.Now.AddDays(30)
       };
       // Act
       var repo = new GenericRepository(arrangeContext);
@@ -113,6 +102,7 @@ namespace Revature.Account.Tests.Repository_Tests
       var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == coordinatorId);
       Assert.Equal(updatedStatus, assertNotification.Status);
     }
+
     [Fact]
     public async Task DeleteNotificationTestAsync()
     {
@@ -127,7 +117,7 @@ namespace Revature.Account.Tests.Repository_Tests
         CoordinatorId = coordinatorId,
         NotificationId = notificationId,
         Status = "Pending",
-        AccountExpire = DateTime.Now.AddDays(7)
+        AccountExpiresAt = DateTime.Now.AddDays(7)
       };
       assembleContext.Add(deleteNotification);
       assembleContext.SaveChanges();

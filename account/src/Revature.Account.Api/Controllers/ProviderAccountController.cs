@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
+using System;
+using System.Threading.Tasks;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -14,12 +12,13 @@ namespace Revature.Account.Api.Controllers
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
+
     public ProviderAccountController(IGenericRepository repo)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
     }
 
-    // GET: api/ProviderAccount/5
+    // GET: api/provider-accounts/5
     [HttpGet("{providerId}", Name = "GetProviderAccountById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -33,7 +32,7 @@ namespace Revature.Account.Api.Controllers
       return Ok(provider);
     }
 
-    // POST: api/ProviderAccount
+    // POST: api/provider-accounts
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
@@ -44,14 +43,13 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = Guid.NewGuid(),
           Name = newProvider.Name,
-          Password = newProvider.Password,
           Status = "Pending",
-          AccountCreated = DateTime.Now,
-          Expire = DateTime.Now.AddDays(7)
+          AccountCreatedAt = DateTime.Now,
+          AccountExpiresAt = DateTime.Now.AddDays(7)
         };
-        _repo.AddNewProviderAccountAsync(mappedProvider);
+        _repo.AddProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
-        return CreatedAtRoute($"api/provider-accounts/{mappedProvider.ProviderId}", new { id = mappedProvider.ProviderId }, mappedProvider);
+        return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
       }
       catch
       {
@@ -59,7 +57,7 @@ namespace Revature.Account.Api.Controllers
       }
     }
 
-    // PUT: api/ProviderAccount/5
+    // PUT: api/provider-accounts/5
     [HttpPut("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -69,8 +67,7 @@ namespace Revature.Account.Api.Controllers
       if (existingProvider != null)
       {
         existingProvider.Name = provider.Name;
-        existingProvider.Password = provider.Password;
-        existingProvider.AccountCreated = DateTime.Now;
+        existingProvider.AccountCreatedAt = DateTime.Now;
         await _repo.UpdateProviderAccountAsync(existingProvider);
         await _repo.SaveAsync();
         return NoContent();
@@ -78,7 +75,7 @@ namespace Revature.Account.Api.Controllers
       return NotFound();
     }
 
-    // DELETE: api/ApiWithActions/5
+    // DELETE: api/provider-accounts/5
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

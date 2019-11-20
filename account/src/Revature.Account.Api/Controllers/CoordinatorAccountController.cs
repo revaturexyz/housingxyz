@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Account.Lib.Interface;
+using System;
+using System.Threading.Tasks;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -19,7 +17,7 @@ namespace Revature.Account.Api.Controllers
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
     }
 
-    // GET: api/CoordinatorAccount/5
+    // GET: api/coordinator-accounts/5
     [HttpGet("{coordinatorId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

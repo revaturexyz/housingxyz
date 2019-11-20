@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Revature.Account.DataAccess.Entities;
-using Revature.Account.DataAccess;
-using Revature.Account.Lib.Model;
-using System.Linq;
-using Xunit;
 using Microsoft.EntityFrameworkCore;
+using Revature.Account.DataAccess;
 using Revature.Account.DataAccess.Repositories;
-using Entity = Revature.Account.DataAccess;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
+using Revature.Account.Tests;
 
 namespace Revature.Account.Test.Repository_Tests
 {
@@ -18,10 +14,12 @@ namespace Revature.Account.Test.Repository_Tests
     public Guid coordinatorId = Guid.NewGuid();
     public Guid providerId = Guid.NewGuid();
     public Guid notificationId = Guid.NewGuid();
+
     [Fact]
     public void AddNewProviderAccountTest()
     {
       // Arrange
+      TestHelper helper = new TestHelper();
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("AddNewProviderAccountTest")
           .Options;
@@ -29,52 +27,52 @@ namespace Revature.Account.Test.Repository_Tests
       var newProvider = new Lib.Model.ProviderAccount
       {
         ProviderId = providerId,
-        CoordinatorId = coordinatorId,
+        Coordinator = helper.ICoordinators[0],
         Name = "Testing",
-        Password = "aBCXYZ123",
         Status = "Pending",
-        AccountCreated = DateTime.Now,
-        Expire = DateTime.Now.AddDays(7)
+        AccountCreatedAt = DateTime.Now,
+        AccountExpiresAt = DateTime.Now.AddDays(7)
       };
       var actRepo = new GenericRepository(actContext);
       // Act
-      actRepo.AddNewProviderAccountAsync(newProvider);
+      actRepo.AddProviderAccountAsync(newProvider);
       actContext.SaveChanges();
       // Assert
       using var assertContext = new AccountDbContext(options);
       var assertProvider = assertContext.ProviderAccount.FirstOrDefault(p => p.ProviderId == newProvider.ProviderId);
       Assert.NotNull(assertProvider);
     }
+
     [Fact]
     public async Task UpdateProviderAccountTestAsync()
     {
       // Arrange
+      TestHelper helper = new TestHelper();
+      Mapper mapper = new Mapper();
       var updatedName = "Robby";
       var updatedStatus = "Under Review";
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("UpdateProviderAccountTestAsync")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      var arrangeProvider = new DataAccess.Entities.ProviderAccount
+      var arrangeProvider = new Lib.Model.ProviderAccount
       {
         ProviderId = providerId,
-        CoordinatorId = coordinatorId,
+        Coordinator = helper.ICoordinators[0],
         Name = "Testing",
-        Password = "ABCxyz123",
         Status = "Pending",
-        AccountCreated = DateTime.Now,
-        Expire = DateTime.Now.AddDays(7)
+        AccountCreatedAt = DateTime.Now,
+        AccountExpiresAt = DateTime.Now.AddDays(7)
       };
-      arrangeContext.ProviderAccount.Add(arrangeProvider);
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(arrangeProvider));
       var updatedProvider = new Lib.Model.ProviderAccount
       {
         ProviderId = providerId,
-        CoordinatorId = coordinatorId,
+        Coordinator = helper.ICoordinators[0],
         Name = updatedName,
-        Password = "ABCxyz123",
         Status = updatedStatus,
-        AccountCreated = DateTime.Now,
-        Expire = DateTime.Now.AddDays(30)
+        AccountCreatedAt = DateTime.Now,
+        AccountExpiresAt = DateTime.Now.AddDays(30)
       };
       // Act
       var repo = new GenericRepository(arrangeContext);
@@ -86,26 +84,23 @@ namespace Revature.Account.Test.Repository_Tests
       Assert.Equal(updatedName, assertProvider.Name);
       Assert.Equal(updatedStatus, assertProvider.Status);
     }
+
     [Fact]
     public async void GetProviderByIdTest()
     {
       // Arrange
+      TestHelper helper = new TestHelper();
+      Mapper mapper = new Mapper();
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("GetProviderByIdTest")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      var testId = providerId;
-      var testProviderEntity = new DataAccess.Entities.ProviderAccount
-      {
-        CoordinatorId = coordinatorId,
-        ProviderId = providerId,
-        Name = "Joe Doe",
-        Password = "Abcxzy123",
-        Status = "Pending",
-        AccountCreated = DateTime.Now,
-        Expire = DateTime.Now.AddDays(7),
-      };
-      arrangeContext.ProviderAccount.Add(testProviderEntity);
+
+      var testProvider = helper.IProviderAccountList[0];
+      var testId = testProvider.ProviderId;
+
+      arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.ICoordinators[0]));
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(testProvider));
       arrangeContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
@@ -114,6 +109,7 @@ namespace Revature.Account.Test.Repository_Tests
       // Assert
       Assert.Equal(testId, result.ProviderId);
     }
+
     [Fact]
     public async Task DeleteProviderTestAsync()
     {
@@ -127,10 +123,9 @@ namespace Revature.Account.Test.Repository_Tests
         ProviderId = providerId,
         CoordinatorId = coordinatorId,
         Name = "Testing",
-        Password = "aBCXYZ123",
         Status = "Pending",
-        AccountCreated = DateTime.Now,
-        Expire = DateTime.Now.AddDays(7)
+        AccountCreatedAt = DateTime.Now,
+        AccountExpiresAt = DateTime.Now.AddDays(7)
       };
       assembleContext.Add(deleteProvider);
       assembleContext.SaveChanges();
