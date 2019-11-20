@@ -30,11 +30,11 @@ namespace Revature.Account.Lib.Model
       {
         try
         {
-          System.Net.Mail.MailAddress m = new System.Net.Mail.MailAddress(value);
+          new System.Net.Mail.MailAddress(value);
         }
-        catch (FormatException ex)
+        catch
         {
-          throw ex;
+          throw;
         }
         _email = value;
       }
@@ -54,7 +54,7 @@ namespace Revature.Account.Lib.Model
     {
       if (value == null)
       {
-        throw new ArgumentNullException("Your Input cannot be null", nameof(value));
+        throw new ArgumentNullException(nameof(value), "Your Input cannot be null");
       }
       if (value.Length == 0)
       {

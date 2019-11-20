@@ -15,7 +15,7 @@ namespace Revature.Account.DataAccess.Repositories
 
     public GenericRepository(AccountDbContext db)
     {
-      _context = db ?? throw new ArgumentNullException("Context cannot be null.", nameof(db));
+      _context = db ?? throw new ArgumentNullException(nameof(db), "Context cannot be null.");
       this.mapper = new Mapper();
     }
 
@@ -86,14 +86,16 @@ namespace Revature.Account.DataAccess.Repositories
       return (notification != null ? mapper.MapNotification(notification) : null);
     }
 
-    public async Task<List<Notification>> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
+    public Task<List<Notification>> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
-      var notification = _context.Notification
-        .Include(n => n.Coordinator)
-        .Include(n => n.Provider)
-        .Include(n => n.Status)
-        .Where(p => p.CoordinatorId == coordinatorId);
-      return (notification != null ? notification.Select(mapper.MapNotification).ToList() : null);
+      return new Task<List<Notification>>( () => { 
+        var notification = _context.Notification
+          .Include(n => n.Coordinator)
+          .Include(n => n.Provider)
+          .Include(n => n.Status)
+          .Where(p => p.CoordinatorId == coordinatorId);
+        return (notification != null ? notification.Select(mapper.MapNotification).ToList() : null);
+      });
     }
 
     public void AddNotification(Notification newNofi)
@@ -173,7 +175,6 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task SaveAsync()
     {
-      // TODO: Ideally put a log message here to notify when saving
       await _context.SaveChangesAsync();
     }
   }

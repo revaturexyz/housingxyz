@@ -78,7 +78,7 @@ namespace Revature.Account.Api.Controllers
       if (existingNotification != null)
       {
         existingNotification.Status = notification.Status;
-        // Status is 'Under Review;
+        // Status is 'Under Review
         if (existingNotification.Status.StatusText == "Under Review")
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);

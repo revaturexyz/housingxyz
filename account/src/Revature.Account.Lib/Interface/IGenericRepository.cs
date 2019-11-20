@@ -38,7 +38,7 @@ namespace Revature.Account.Lib.Interface
 
     public Task<bool> UpdateNotificationAsync(Notification notification);
 
-    public Task<bool> DeleteNotificationByIdAsync(Guid providerId);
+    public Task<bool> DeleteNotificationByIdAsync(Guid notificationId);
 
     #endregion
 
