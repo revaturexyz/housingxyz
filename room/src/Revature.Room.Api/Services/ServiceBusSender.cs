@@ -1,16 +1,14 @@
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Revature.Room.Lib;
+using System;
+using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using Revature.Room.Lib;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
 using System.Web;
-using System.Globalization;
 
 namespace ServiceBusMessaging
 {
@@ -22,6 +20,7 @@ namespace ServiceBusMessaging
     //The connection string can be found from the Azure portal
     //in the shared access policies
     private const string QUEUE_NAME = "TestQ";
+
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
     private readonly ILogger<ServiceBusSender> _logger;
@@ -36,7 +35,6 @@ namespace ServiceBusMessaging
       _configuration = configuration;
       _logger = logger;
       _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), QUEUE_NAME);
-
     }
 
     /// <summary>
@@ -85,7 +83,7 @@ namespace ServiceBusMessaging
     }
 
     /// <summary>
-    /// ServiceBus message for updating a room 
+    /// ServiceBus message for updating a room
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
@@ -113,6 +111,5 @@ namespace ServiceBusMessaging
       _logger.LogInformation("ServiceBus sending delete message: ", data);
       await _queueClient.SendAsync(message);
     }
-
   }
 }
