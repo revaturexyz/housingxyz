@@ -71,7 +71,7 @@ namespace ServiceBusMessaging
         try
         {
           _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-          ComplexMessage myRoom = JsonSerializer.Deserialize<ComplexMessage>(message.Body, new JsonSerializerOptions());
+          ComplexMessage myRoom = JsonSerializer.Deserialize<ComplexMessage>(message.Body);
 
           // Persist our new data into the repository but not if Deserialization throws an exception
           //Operation type is the CUD that you want to implement like create, update, or delete
