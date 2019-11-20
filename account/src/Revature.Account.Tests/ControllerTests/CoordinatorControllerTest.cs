@@ -8,7 +8,7 @@ using Moq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
-namespace Revature.Account.Tests.Controller_Tests
+namespace Revature.Account.Tests.ControllerTests
 {
   public class CoordinatorControllerTest
   {
