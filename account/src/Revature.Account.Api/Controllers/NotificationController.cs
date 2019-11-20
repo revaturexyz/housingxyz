@@ -27,11 +27,11 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> GetNotificationByCoordinatorIdAsync(Guid coordinatorId)
     {
-      _logger.LogInformation("GET - Getting notifications by coordinator ID: {coordinatorId}", coordinatorId);
+      _logger.LogInformation($"GET - Getting notifications by coordinator ID: {coordinatorId}");
       var nofi = await _repo.GetNotificationsByCoordinatorIdAsync(coordinatorId);
       if (nofi == null)
       {
-        _logger.LogWarning("Coordinator was not found");
+        _logger.LogWarning($"Coordinator was not found: {coordinatorId}");
         return NotFound();
       }
       return Ok(nofi);
@@ -45,8 +45,8 @@ namespace Revature.Account.Api.Controllers
     {
       try
       {
-        _logger.LogInformation("POST - Making notification for notification ID {notificationId}." +
-          " Provider ID: {providerId}\n Coordinator ID: {coordinatorId}", notification.NotificationId, notification.ProviderId, notification.CoordinatorId);
+        _logger.LogInformation($"POST - Making notification for notification ID {notification.NotificationId}." +
+          $" Provider ID: {notification.ProviderId}\n Coordinator ID: {notification.CoordinatorId}");
         Lib.Model.Notification mappedNotification = new Lib.Model.Notification()
         {
           ProviderId = notification.ProviderId,
@@ -57,12 +57,12 @@ namespace Revature.Account.Api.Controllers
         };
         _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
-        _logger.LogInformation("Persisted post request");
+        _logger.LogInformation($"Persisted notification {notification.NotificationId}");
         return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
       }
       catch(Exception e)
       {
-        _logger.LogError("Post request failed. Error: " + e.Message);
+        _logger.LogError("Post request failed with exception: " + e.Message);
         return BadRequest();
       }
     }
@@ -73,7 +73,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
     {
-      _logger.LogInformation("PATCH - Patching notification information for notification {notificationId}", notification.NotificationId);
+      _logger.LogInformation($"PATCH - Patching notification information for notification {notification.NotificationId}");
       var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
       if (existingNotification != null)
       {
@@ -103,16 +103,16 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid notificationId)
     {
-      _logger.LogInformation("DELETE - Deleting notification with ID: {notificationId}", notificationId);
+      _logger.LogInformation($"DELETE - Deleting notification with ID: {notificationId}");
       var existingNotification = await _repo.GetProviderAccountByIdAsync(notificationId);
       if (existingNotification != null)
       {
         await _repo.DeleteNotificationByIdAsync(notificationId);
         await _repo.SaveAsync();
-        _logger.LogInformation("Persisted delete request");
+        _logger.LogInformation($"Persisted delete request for {notificationId}");
         return NoContent();
       }
-      _logger.LogWarning("Delete request failed");
+      _logger.LogWarning($"Delete request failed {notificationId}");
       return NotFound();
     }
   }
