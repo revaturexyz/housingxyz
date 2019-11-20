@@ -5,7 +5,6 @@ using Revature.Room.Lib;
 using System;
 using System.Threading.Tasks;
 
-
 namespace Revature.Room.Api.Controllers
 {
   [Route("api/rooms")]
@@ -18,7 +17,6 @@ namespace Revature.Room.Api.Controllers
     /// <summary>
     /// Controller in charge of communicating with the tenant service
     /// </summary>
-
     public TenantController(IRepository repository, ILogger logger)
     {
       _repository = repository ?? throw new NullReferenceException("Repository cannot be null." + nameof(repository));

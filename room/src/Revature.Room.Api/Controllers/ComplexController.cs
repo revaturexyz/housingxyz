@@ -39,6 +39,7 @@ namespace Revature.Room.Api.Controllers
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e&roomId=f
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFilteredRoomsAsync(
       Guid complexId,
       [FromQuery] string roomNumber,

@@ -3,27 +3,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Revature.Room.DataAccess;
+using Revature.Room.Api.Services;
 using Revature.Room.Lib;
 using Revature.Room.Lib.Models;
 using System;
-using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServiceBusMessaging
 {
-  /// <summary>
-  /// Interfance for ServiceBusConsumer
-  /// </summary>
-  public interface IServiceBusConsumer
-  {
-    void RegisterOnMessageHandlerAndReceiveMessages();
-
-    Task CloseQueueAsync();
-  }
-
   /// <summary>
   /// This classes purpose is to connect to the queue and listen/receive a message sent from the complex and tenant service.
   /// Based on their message we will call upon the repository accordingly
@@ -32,9 +21,8 @@ namespace ServiceBusMessaging
   {
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
-    private const string QUEUE_NAME = "TestQ";
     private readonly IServiceProvider Services;
-    private readonly ILogger<Repository> _logger;
+    private readonly ILogger<ServiceBusConsumer> _logger;
 
     /// <summary>
     /// Constructor injecting IConfiguration, IServiceProvider, and ILogger
@@ -42,11 +30,11 @@ namespace ServiceBusMessaging
     /// <param name="configuration"></param>
     /// <param name="services"></param>
     /// <param name="logger"></param>
-    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<Repository> logger)
+    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger)
     {
       _configuration = configuration;
       _queueClient = new QueueClient(
-      _configuration.GetConnectionString("ServiceBus"), QUEUE_NAME);
+      _configuration.GetConnectionString("ServiceBus"), _configuration.GetConnectionString("TestQ"));
       Services = services;
       _logger = logger;
     }
@@ -83,7 +71,7 @@ namespace ServiceBusMessaging
         try
         {
           _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-          ComplexMessage myRoom = JsonConvert.DeserializeObject<ComplexMessage>(Encoding.UTF8.GetString(message.Body));
+          ComplexMessage myRoom = JsonSerializer.Deserialize<ComplexMessage>(message.Body, new JsonSerializerOptions());
 
           // Persist our new data into the repository but not if Deserialization throws an exception
           //Operation type is the CUD that you want to implement like create, update, or delete
@@ -111,7 +99,7 @@ namespace ServiceBusMessaging
         }
         catch (Exception ex)
         {
-          _logger.LogError(string.Format("Message did not convert properly.", message.Body), ex);
+          _logger.LogError("Message did not convert properly", ex);
         }
         finally
         {
@@ -122,7 +110,7 @@ namespace ServiceBusMessaging
     }
 
     /// <summary>
-    /// THe exception handler for receiving a message.
+    /// The exception handler for receiving a message.
     /// </summary>
     /// <param name="exceptionReceivedEventArgs"></param>
     /// <returns></returns>
