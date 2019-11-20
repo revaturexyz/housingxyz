@@ -56,7 +56,8 @@ namespace Revature.Address.Api.Controllers
 
 
     [HttpPost]
-    public async Task<ActionResult> PostUser([FromBody] AddressModel address)
+    [Route("tenant")]
+    public async Task<ActionResult> PostTenantAddress([FromBody] AddressModel address, [FromServices] Lib.BusinessLogic.AddressLogic addressLogic)
     {
         Revature.Address.Lib.Address newAddress = new Revature.Address.Lib.Address
         {
@@ -67,13 +68,9 @@ namespace Revature.Address.Api.Controllers
           Country = address.Country,
           ZipCode = address.ZipCode
         };
-      AddressGeocodeRequest request = new AddressGeocodeRequest();
-      request.Address = $"{newAddress.Street} {newAddress.City}, {newAddress.State} {newAddress.ZipCode} {newAddress.Country}";
-      request.Key = SecretKey.GApiKey;
-      GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
-      var results = response.Results.ToArray();
 
-      if (results.Length != 0)
+
+      if (await addressLogic.IsValidAddress(newAddress))
       {
         try
         {
@@ -93,12 +90,21 @@ namespace Revature.Address.Api.Controllers
         }
         catch (InvalidOperationException ex)
         {
+          Log.Error("That address is invalid");
           return BadRequest($"{ex.Message}");
         }
       } else
       {
+        Log.Error("Address does not exist");
         return BadRequest("Invalid Address");
       }
+    }
+
+    [HttpPost]
+    [Route("complex")]
+    public async Task<ActionResult> PostComplexAddress([FromBody] List<AddressModel> addresses)
+    {
+      return Ok();
     }
 
     [HttpDelete("{id}")]
