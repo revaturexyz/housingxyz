@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -33,6 +33,8 @@ export class AddRoomComponent implements OnInit {
 
   @Input() complexControl: Complex;
 
+  @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {
     this.formRoom = {
       roomId: null,
@@ -55,6 +57,7 @@ export class AddRoomComponent implements OnInit {
 
   postAddRoom() {
     console.log('Add Button Pressed');
+    this.modeOutput.emit('details');
   }
 
   cancelAddRoom() {

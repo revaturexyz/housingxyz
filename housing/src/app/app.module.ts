@@ -28,6 +28,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
+import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ManageComplexComponent } from './manage-complex/manage-complex.componen
     AddComplexComponent,
     RequestDialogComponent,
     ComplexDetailsComponent,
-    ManageComplexComponent
+    ManageComplexComponent,
+    EditRoomComponent
   ],
   imports: [
     BrowserModule,

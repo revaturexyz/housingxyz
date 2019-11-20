@@ -55,7 +55,7 @@
   }
 
   .bg-body {
-    background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+    background-image: url('/assets/imgs/rec_hero_image.jpg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -153,6 +153,7 @@
     background-color: white;
     opacity: 0.65;
     width: 80%;
+    overflow-y: scroll;
   }
   .complex-container
   {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProviderSelectComponent } from './provider-select/provider-select.component';
 import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
+import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'manage-complex', component:ManageComplexComponent},
   { path: 'complex-details', component:ComplexDetailsComponent},
   { path: 'manage-complex', component:ManageComplexComponent },
-  { path: 'add-room', component:AddRoomComponent }
+  { path: 'add-room', component:AddRoomComponent },
+  { path: 'edit-room', component:EditRoomComponent }
   // { path: "location-rooms/:id", component: LocationRoomsComponent },
 
 ];

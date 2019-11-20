@@ -32,10 +32,14 @@ export class ManageComplexComponent implements OnInit {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'edit',
-      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/edit-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/edit-24px.svg'));
   }
 
   ngOnInit() {
+  }
+
+  changeMode(reqMode: string) {
+    this.mode = reqMode;
   }
 
 }
