@@ -29,8 +29,6 @@ export class CoordinatorNotificationsComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  p = 1; // Pagination control variable
-
   constructor( private router: Router ) { }
 
   ngOnInit() {
