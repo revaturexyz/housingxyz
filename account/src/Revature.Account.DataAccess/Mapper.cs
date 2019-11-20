@@ -11,7 +11,7 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         Coordinator = MapCoordinator(provider.Coordinator),
         Name = provider.Name,
-        Status = provider.Status,
+        Status = MapStatus(provider.Status),
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
@@ -24,7 +24,7 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         CoordinatorId = provider.Coordinator.CoordinatorId,
         Name = provider.Name,
-        Status = provider.Status,
+        Status = MapStatus(provider.Status),
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
@@ -62,7 +62,7 @@ namespace Revature.Account.DataAccess
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
         CoordinatorId = nofi.CoordinatorId,
-        Status = nofi.Status,
+        Status = MapStatus(nofi.Status),
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
@@ -74,8 +74,26 @@ namespace Revature.Account.DataAccess
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
         CoordinatorId = nofi.CoordinatorId,
-        Status = nofi.Status,
+        Status = MapStatus(nofi.Status),
         AccountExpiresAt = nofi.AccountExpiresAt
+      };
+    }
+
+    public Lib.Model.Status MapStatus(Entities.Status status)
+    {
+      return new Lib.Model.Status
+      {
+        StatusId = status.StatusId,
+        StatusText = status.StatusText
+      };
+    }
+
+    public Entities.Status MapStatus(Lib.Model.Status status)
+    {
+      return new Entities.Status
+      {
+        StatusId = status.StatusId,
+        StatusText = status.StatusText
       };
     }
   }

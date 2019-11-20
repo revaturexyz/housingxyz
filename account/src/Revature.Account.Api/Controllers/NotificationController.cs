@@ -42,7 +42,8 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
-          Status = "Pending",
+          // Set Status to 'Approved'
+          Status = await _repo.GetStatusByIdAsync(1),
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddNotification(mappedNotification);
@@ -65,11 +66,13 @@ namespace Revature.Account.Api.Controllers
       if (existingNotification != null)
       {
         existingNotification.Status = notification.Status;
-        if (existingNotification.Status == "Under Review")
+        // Status is 'Under Review;
+        if (existingNotification.Status.StatusId == 4)
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
-        if (existingNotification.Status == "Rejected")
+        // Status is 'Rejected'
+        if (existingNotification.Status.StatusId == 3)
         {
           existingNotification = null;
         }

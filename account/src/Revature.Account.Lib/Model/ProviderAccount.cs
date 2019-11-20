@@ -2,6 +2,11 @@ using System;
 
 namespace Revature.Account.Lib.Model
 {
+  /// <summary>
+  /// Contains information pertaining to a particular provider which
+  /// owns one or more complexes that are providing housing to
+  /// a single training center.
+  /// </summary>
   public class ProviderAccount
   {
     private string _name;
@@ -18,7 +23,7 @@ namespace Revature.Account.Lib.Model
       }
     }
 
-    public string Status { get; set; }
+    public Status Status { get; set; }
     /// <summary>
     /// Date and time the account was created at, expressed in the format 11:59:59.
     /// </summary>

@@ -43,7 +43,7 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = Guid.NewGuid(),
           Name = newProvider.Name,
-          Status = "Pending",
+          Status = await _repo.GetStatusByIdAsync(1),
           AccountCreatedAt = DateTime.Now,
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };

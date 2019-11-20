@@ -7,7 +7,7 @@ namespace Revature.Account.Lib.Interface
 {
   public interface IGenericRepository
   {
-    #region Provider Account Repositories
+    #region Provider
 
     public Task<ProviderAccount> GetProviderAccountByIdAsync(Guid providerId);
 
@@ -17,7 +17,7 @@ namespace Revature.Account.Lib.Interface
 
     public Task<bool> DeleteProviderAccountAsync(Guid providerId);
 
-    #endregion Provider Account Repositories
+    #endregion
 
     #region Coordinator
 
@@ -26,7 +26,7 @@ namespace Revature.Account.Lib.Interface
     // public Task UpdateCoordinatorAccount(CoordinatorAccount coordinatorAccount);
     // public Task DeleteCoordinatorAccount(Guid coordinatorId);
 
-    #endregion Coordinator
+    #endregion
 
     #region Notification
 
@@ -40,7 +40,18 @@ namespace Revature.Account.Lib.Interface
 
     public Task<bool> DeleteNotificationByIdAsync(Guid providerId);
 
-    #endregion Notification
+    #endregion
+
+    #region Status
+
+    public Task<Status> GetStatusByIdAsync(int statusId);
+
+    public void AddStatus(Status status);
+
+    public Task<bool> UpdateStatusAsync(Status status);
+
+    public Task<bool> DeleteStatusByIdAsync(int statusId);
+    #endregion
 
     public Task SaveAsync();
   }

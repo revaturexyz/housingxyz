@@ -13,6 +13,7 @@ namespace Revature.Account.DataAccess
     }
 
     public virtual DbSet<Notification> Notification { get; set; }
+    public virtual DbSet<Status> Status { get; set; }
     public virtual DbSet<ProviderAccount> ProviderAccount { get; set; }
     public virtual DbSet<CoordinatorAccount> CoordinatorAccount { get; set; }
 
@@ -22,47 +23,73 @@ namespace Revature.Account.DataAccess
       {
         entity.HasKey(e => e.ProviderId);
         entity.Property(e => e.Name)
-            .IsRequired()
-            .HasMaxLength(100);
-        entity.Property(e => e.Status)
-            .IsRequired();
+          .IsRequired()
+          .HasMaxLength(100);
+        entity.HasOne(e => e.Status);
         entity.Property(e => e.AccountCreatedAt)
-            .IsRequired();
+          .IsRequired();
       });
 
       modelBuilder.Entity<CoordinatorAccount>(entity =>
       {
         entity.HasKey(e => e.CoordinatorId);
         entity.Property(e => e.Name)
-            .IsRequired()
-            .HasMaxLength(100);
+          .IsRequired()
+          .HasMaxLength(100);
         entity.Property(e => e.TrainingCenterName)
-            .IsRequired()
-            .HasMaxLength(100);
+          .IsRequired()
+          .HasMaxLength(100);
         entity.Property(e => e.TrainingCenterAddress)
-            .IsRequired()
-            .HasMaxLength(100);
+          .IsRequired()
+          .HasMaxLength(100);
         entity.HasMany(e => e.Notifications)
-            .WithOne(n => n.Coordinator)
-            .HasForeignKey(p => p.NotificationId);
+          .WithOne(n => n.Coordinator)
+          .HasForeignKey(p => p.NotificationId);
       });
 
       modelBuilder.Entity<Notification>(entity =>
       {
         entity.HasKey(e => e.NotificationId);
         entity.Property(e => e.ProviderId)
-            .IsRequired();
+          .IsRequired();
         entity.Property(e => e.CoordinatorId)
-            .IsRequired();
-        entity.Property(e => e.Status)
-            .IsRequired()
-            .HasMaxLength(100);
+          .IsRequired();
+        entity.HasOne(e => e.Status);
         entity.Property(e => e.AccountExpiresAt)
-            .IsRequired();
+          .IsRequired();
         entity.HasOne(e => e.Coordinator)
-            .WithMany(n => n.Notifications)
-            .HasForeignKey(p => p.CoordinatorId)
-            .IsRequired();
+          .WithMany(n => n.Notifications)
+          .HasForeignKey(p => p.CoordinatorId)
+          .IsRequired();
+      });
+
+      modelBuilder.Entity<Status>(entity =>
+      {
+        entity.HasKey(e => e.StatusId);
+        entity.Property(e => e.StatusText)
+          .IsRequired();
+        entity.HasData(
+          new Status()
+          {
+            StatusId = 1,
+            StatusText = "Pending"
+          },
+          new Status()
+          {
+            StatusId = 2,
+            StatusText = "Approved"
+          },
+          new Status()
+          {
+            StatusId = 3,
+            StatusText = "Rejected"
+          },
+          new Status()
+          {
+            StatusId = 4,
+            StatusText = "Under Review"
+          }
+        );
       });
     }
   }

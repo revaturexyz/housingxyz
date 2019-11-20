@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Revature.Account.Lib.Model
 {
+  /// <summary>
+  /// Contains information on a single training coordinator who is
+  /// tied to a single training center.
+  /// </summary>
   public class CoordinatorAccount
   {
     private string _email;
