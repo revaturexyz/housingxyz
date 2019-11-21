@@ -3,10 +3,9 @@ using System;
 namespace Revature.Complex.Lib.Models
 {
   /// <summary>
-  /// This is the template object for the Amenity. Some amenities are scoped to complexes
-  /// and some are scoped to rooms.
+  /// Logic Amenity Model. Use it as parameter to pass into/received from Repository
   /// </summary>
-    public class Amenity
+  public class Amenity
     {
       public Guid AmenityId { get; set; }
       public string AmenityType { get; set; }

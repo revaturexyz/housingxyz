@@ -8,6 +8,9 @@ namespace Revature.Complex.Tests.DataTests
 {
   public class EntityModelTest
   {
+    /// <summary>
+    /// Verify Amenity constructor correctly stores the data inputted
+    /// </summary>
     [Fact]
     public void AmenityTest()
     {
@@ -24,6 +27,10 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("to freeze items", amenity.Description);
     }
 
+
+    /// <summary>
+    /// Verify AmenityComplex constructor correctly stores the data inputted
+    /// </summary>
     [Fact]
     public void AmenityComplexTest()
     {
@@ -43,6 +50,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(guid1, ac.ComplexId);
     }
 
+    /// <summary>
+    /// Verify AmenityRoom constructor correctly stores the data inputted
+    /// </summary>
     [Fact]
     public void AmenityRoomTest()
     {
@@ -62,6 +72,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(guid, ar.RoomId);
     }
 
+    /// <summary>
+    /// Verify Complex constructor correctly stores the data inputted
+    /// </summary>
     [Fact]
     public void ComplexTest()
     {

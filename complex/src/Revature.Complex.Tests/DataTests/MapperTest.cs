@@ -10,6 +10,9 @@ namespace Revature.Complex.Tests.DataTests
 {
   public class MapperTest
   {
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void ComplextoETest()
     {
@@ -36,6 +39,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("(123)456-7890", ce.ContactNumber);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void EtoComplexTest()
     {
@@ -62,6 +68,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("(123)456-7890", cl.ContactNumber);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void AmenityRoomtoETest()
     {
@@ -84,6 +93,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(rId, eAr.RoomId);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void EtoAmenityRoom()
     {
@@ -106,6 +118,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(rId, lAr.RoomId);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void AmenityComplextoETest()
     {
@@ -128,6 +143,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(cId, eAc.ComplexId);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void EtoAmenityComplexTest()
     {
@@ -150,6 +168,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(cId, lAc.ComplexId);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void AmenitytoETest()
     {
@@ -169,6 +190,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("To freeze items", ea.Description);
     }
 
+    /// <summary>
+    /// Verify complex model to Entity mapper correctly maps to the Entity
+    /// </summary>
     [Fact]
     public void EtoAmenityTest()
     {

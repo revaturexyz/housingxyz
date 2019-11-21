@@ -3,7 +3,7 @@ using System;
 namespace Revature.Complex.Lib.Models
 {
   /// <summary>
-  /// This is the room amenity. Each room has a separate set of amenities designated by the provider.
+  /// Logic Amenity Model. Use it as parameter to pass into/received from Repository
   /// </summary>
   public class AmenityRoom
   {

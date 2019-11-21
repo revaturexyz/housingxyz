@@ -128,6 +128,9 @@ namespace Revature.Complex.Tests.DataTests
     };
     #endregion 
 
+    /// <summary>
+    /// Verify that the Create complex asynchronously method correctly stores the complex in the DB
+    /// </summary>
     [Fact]
     public async void CreateComplexAsyncTest()
     {
@@ -145,6 +148,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(checker, cId1);
     }
 
+    /// <summary>
+    /// Verify that the create complex method correctly returns a List of the complexes from the DB
+    /// </summary>
     [Fact]
     public async void ReadComplexListTest()
     {
@@ -166,6 +172,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("9876543210", list[1].ContactNumber);
     }
 
+    /// <summary>
+    /// Verify that the read complex async method correctly returns a complex from the DB
+    /// </summary>
     [Fact]
     public async void ReadComplexAsyncTest()
     {
@@ -184,6 +193,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(cId1, read.ComplexId);
     }
 
+    /// <summary>
+    /// Verify that the Update complex async method correctly updates a complex in the DB
+    /// </summary>
     [Fact]
     public async void UpdateComplexAsync()
     {
@@ -213,6 +225,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("7894561231", phone);
     }
 
+    /// <summary>
+    /// Verify that the Delete complex method correctly deletes a complex from the DB
+    /// </summary>
     [Fact]
     public async void DeleteComplexTest()
     {
@@ -236,6 +251,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("9876543210", phone);
     }
 
+    /// <summary>
+    /// verify that the CreateAmenityRoom method creates the room with amenities in the DB
+    /// </summary>
     [Fact]
     public async void CreateAmenityRoomAsyncTest()
     {
@@ -253,6 +271,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(check, ar.AmenityRoomId);
     }
 
+    /// <summary>
+    /// verify that the CreateAmenityComplex method adds amenities to the room in the DB
+    /// </summary>
     [Fact]
     public async void CreateAmenityComplexAsyncTest()
     {
@@ -270,6 +291,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(check, ac.AmenityComplexId);
     }
 
+    /// <summary>
+    /// verify that the CreateAmenityAsync method adds amenities to the amenities table in the DB
+    /// </summary>
     [Fact]
     public async void CreateAmenityAsyncTest()
     {
@@ -288,6 +312,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(amenity.AmenityId, check);
     }
 
+    /// <summary>
+    /// verify that the ReadAmenityAsync method returns a List of amenities from the DB
+    /// </summary>
     [Fact]
     public async void ReadAmenityListTest()
     {
@@ -309,6 +336,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
+    /// <summary>
+    /// verify that the ReadAmenityListByComplexIdAsync method searches the amenity list for a complex's amenities
+    /// </summary>
     [Fact]
     public async void ReadAmenityListByComplexIdTest()
     {
@@ -333,6 +363,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
+    /// <summary>
+    /// verify that the ReadAmenityListByRoomIdAsync method searches the amenity list for a room's amenities
+    /// </summary>
     [Fact]
     public async void ReadAmenityListByRoomIdTest()
     {
@@ -356,6 +389,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
+    /// <summary>
+    /// verify that the ReadComplexByProviderIdAsync method searches the provider table for a provided GUID of provider
+    /// </summary>
     [Fact]
     public async void ReadComplexByProviderIDTest()
     {
@@ -387,6 +423,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("XXX", complices[1].ComplexName);
     }
 
+    /// <summary>
+    /// verify that the UpdateAmenityAsync method updates a single amenity from the amenity table
+    /// </summary>
     [Fact]
     public async void UpdateAmenityAsyncTest()
     {
@@ -414,6 +453,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Microwave", check1.AmenityType);
     }
 
+    /// <summary>
+    /// verify that the DeleteAmenityAsync method deletes a single amenity from the amenity table
+    /// </summary>
     [Fact]
     public async void DeleteAmenityAsyncTest()
     {
