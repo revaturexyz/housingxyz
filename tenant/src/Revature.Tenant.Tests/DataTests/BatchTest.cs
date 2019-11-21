@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using Revature.Tenant.Tests.ApiTests;
-using Revature.Tenant.Api.Models;
 using DatMod = Revature.Tenant.DataAccess.Entities;
 
 namespace Revature.Tenant.Tests.DataTests

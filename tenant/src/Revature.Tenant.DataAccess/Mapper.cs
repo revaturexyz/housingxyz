@@ -2,8 +2,14 @@ using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.DataAccess
 {
+
   public class Mapper : IMapper
   {
+    /// <summary>
+    /// Map a Model Tenant from a Entity Tenant
+    /// </summary>
+    /// <param name="tenant">A Tenant Entity</param>
+    /// <returns>A Tenant Model</returns>
     public Lib.Models.Tenant MapTenant(Entities.Tenant tenant)
     {
       return new Lib.Models.Tenant
@@ -41,6 +47,11 @@ namespace Revature.Tenant.DataAccess
       };
     }
 
+    /// <summary>
+    /// Map a Entity Tenant from a Model Tenant
+    /// </summary>
+    /// <param name="tenant">A Tenant Model</param>
+    /// <returns>A Tenant Entity</returns>
     public Entities.Tenant MapTenant(Lib.Models.Tenant tenant)
     {
       return new Entities.Tenant
@@ -77,6 +88,12 @@ namespace Revature.Tenant.DataAccess
         }
       };
     }
+
+    /// <summary>
+    /// Map a Model Car from a Entity Car
+    /// </summary>
+    /// <param name="car">A Car Entity</param>
+    /// <returns>A Car Model</returns>
     public Lib.Models.Car MapCar(Entities.Car car)
     {
       return new Lib.Models.Car
@@ -90,6 +107,12 @@ namespace Revature.Tenant.DataAccess
         State = car.State
       };
     }
+
+    /// <summary>
+    /// Map a Entity Car from a Model Car
+    /// </summary>
+    /// <param name="car">A Car Model</param>
+    /// <returns>A Car Entity</returns>
     public Entities.Car MapCar(Lib.Models.Car car)
     {
       return new Entities.Car
@@ -104,6 +127,11 @@ namespace Revature.Tenant.DataAccess
       };
     }
 
+    /// <summary>
+    /// Map a Model Batch from a Entity Batch
+    /// </summary>
+    /// <param name="batch">A Batch Entity</param>
+    /// <returns>A Batch Model</returns>
     public Entities.Batch MapBatch(Lib.Models.Batch batch)
     {
       return new Entities.Batch
@@ -115,6 +143,12 @@ namespace Revature.Tenant.DataAccess
         TrainingCenter = batch.TrainingCenter
       };
     }
+
+    /// <summary>
+    /// Map a Entity Batch from a Model Batch
+    /// </summary>
+    /// <param name="batch">A Batch Model</param>
+    /// <returns>A Batch Entity</returns>
     public Lib.Models.Batch MapBatch(Entities.Batch batch)
     {
       return new Lib.Models.Batch
