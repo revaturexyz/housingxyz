@@ -13,13 +13,16 @@ namespace Revature.Tenant.DataAccess
     /// <returns>A Tenant Model who may have a nested Car Model and/or a Batch Model</returns>
     public Lib.Models.Tenant MapTenant(Entities.Tenant tenant)
     {
-      var batch = new Lib.Models.Batch() { };
+      Lib.Models.Batch batch;
       int? batchId;
       if (tenant.Batch != null)
       {
-        batch.Id = tenant.Batch.Id;
-        batch.BatchCurriculum = tenant.Batch.BatchCurriculum;
-        batch.TrainingCenter = tenant.Batch.TrainingCenter;
+        batch = new Lib.Models.Batch
+        {
+          Id = tenant.Batch.Id,
+          BatchCurriculum = tenant.Batch.BatchCurriculum,
+          TrainingCenter = tenant.Batch.TrainingCenter
+        };
         batch.SetStartAndEndDate(tenant.Batch.StartDate, tenant.Batch.EndDate);
         batchId = tenant.BatchId;
       }
@@ -29,17 +32,20 @@ namespace Revature.Tenant.DataAccess
         batchId = null;
       }
 
-      var car = new Lib.Models.Car() { };
+      Lib.Models.Car car;
       int? carId;
       if (tenant.Car != null)
       {
-        car.Id = tenant.Car.Id;
-        car.LicensePlate = tenant.Car.LicensePlate;
-        car.Make = tenant.Car.Make;
-        car.Model = tenant.Car.Model;
-        car.Color = tenant.Car.Color;
-        car.Year = tenant.Car.Year;
-        car.State = tenant.Car.State;
+        car = new Lib.Models.Car()
+        {
+          Id = tenant.Car.Id,
+          LicensePlate = tenant.Car.LicensePlate,
+          Make = tenant.Car.Make,
+          Model = tenant.Car.Model,
+          Color = tenant.Car.Color,
+          Year = tenant.Car.Year,
+          State = tenant.Car.State
+        };
         carId = tenant.CarId;
       }
       else

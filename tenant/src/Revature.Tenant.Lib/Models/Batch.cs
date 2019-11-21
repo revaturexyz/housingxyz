@@ -78,7 +78,7 @@ namespace Revature.Tenant.Lib.Models
       {
         if (value == Guid.Empty)
         {
-          throw new ArgumentException("Batch Id must not be empty", nameof(value));
+          throw new ArgumentException("TrainingCenter Id must not be empty", nameof(value));
         }
 
         _trainingCenter = value;
