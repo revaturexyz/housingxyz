@@ -60,21 +60,21 @@ namespace Revature.Complex.Api.Controllers
             ContactNumber = com.ContactNumber,
             ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
           };
-          log.LogInformation($"Amenities for complex Id {com.ComplexId} was found!");
+          log.LogInformation($"(API)Amenities for complex Id {com.ComplexId} was found!");
           apiComplices.Add(complex);
         }
 
-        log.LogInformation("All Complices is returned.");
+        log.LogInformation("(API)All Complices is returned.");
         return Ok(apiComplices);
       }
       catch (ArgumentNullException ex)
       {
-        log.LogWarning($"{ex}: There's no complex in the database.");
+        log.LogWarning($"(API){ex}: There's no complex in the database.");
         return NotFound();
       }
       catch (Exception ex)
       {
-        log.LogError($"{ex}: Internal Server Error");
+        log.LogError($"(API){ex}: Internal Server Error");
         return StatusCode(500, ex.Message);
       }
 
@@ -312,7 +312,7 @@ namespace Revature.Complex.Api.Controllers
           }
 
           await _complexRepository.CreateAmenityComplexAsync(AmenityComplex);
-          log.LogInformation($"list of Amenity for complex id: {complex.ComplexId}");
+          log.LogInformation($"(API)list of Amenity for complex id: {complex.ComplexId} is created");
         }
 
         #region Code to sent address to other serivce Need to fill
@@ -382,7 +382,7 @@ namespace Revature.Complex.Api.Controllers
           {
             amenityRoom.AmenityId = amenity.AmenityId;
             await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
-            log.LogInformation($"(API)list of amenity with room id: {arts.RoomId}");
+            log.LogInformation($"(API)list of amenity with room id: {arts.RoomId} is created");
           }
 
         }      
@@ -442,7 +442,7 @@ namespace Revature.Complex.Api.Controllers
       };
 
       await _complexRepository.DeleteAmenityComplexAsync(complex.ComplexId);
-      log.LogInformation("(API)old amenities for complex is deleted");
+      log.LogInformation($"(API)old amenities for complex id: {apiComplex.ComplexId} is deleted");
 
       Logic.AmenityComplex AmenityComplex = new Logic.AmenityComplex();
 
@@ -452,7 +452,7 @@ namespace Revature.Complex.Api.Controllers
         log.LogInformation("(API) complex is updated");
 
         List<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
-        log.LogInformation("list of amenity is read");
+        log.LogInformation("(API) list of amenity is read");
 
         Guid amenityComplexId;
         AmenityComplex.ComplexId = complex.ComplexId;

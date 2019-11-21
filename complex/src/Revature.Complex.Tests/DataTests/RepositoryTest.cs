@@ -8,13 +8,13 @@ using System.Linq;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 using Revature.Complex.DataAccess.Repository;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Revature.Complex.Tests.DataTests
 {
   public class RepositoryTest
   {
-    private static readonly Logger<Repository> log;
+    //private readonly NullLogger<Repository> log;
 
     # region data to test 
     public static Guid cId1 = Guid.NewGuid();
@@ -135,7 +135,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void CreateComplexAsyncTest()
     {
       Mapper mapper = new Mapper();
-
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("CreateComplexAsyncTest")
@@ -153,6 +153,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void ReadComplexListTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("ReadComplexListTest")
@@ -174,6 +175,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void ReadComplexAsyncTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("ReadComplexAsyncTest")
@@ -192,6 +194,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void UpdateComplexAsync()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("UpdateComplexAsync")
@@ -221,6 +224,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void DeleteComplexTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("DeleteComplexTest")
@@ -244,6 +248,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void CreateAmenityRoomAsyncTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("CreateAmenityRoomAsyncTest")
@@ -261,6 +266,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void CreateAmenityComplexAsyncTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("CreateAmenityComplexAsyncTest")
@@ -278,6 +284,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void CreateAmenityAsyncTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("CreateAmenityAsyncTest")
@@ -296,6 +303,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void ReadAmenityListTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("ReadAmenityListTest")
@@ -317,6 +325,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void ReadAmenityListByComplexIdTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("ReadAmenityListByComplexIdTest")
@@ -341,6 +350,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void ReadAmenityListByRoomIdTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("ReadAmenityListByRoomIdTest")
@@ -364,6 +374,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void ReadComplexByProviderIDTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("ReadComplexByProviderIDTest")
@@ -395,6 +406,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void UpdateAmenityAsyncTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("UpdateAmenityAsyncTest")
@@ -422,6 +434,7 @@ namespace Revature.Complex.Tests.DataTests
     public async void DeleteAmenityAsyncTest()
     {
       Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("DeleteAmenityAsyncTest")
@@ -452,5 +465,23 @@ namespace Revature.Complex.Tests.DataTests
 
       Assert.Equal(amId2, check.AmenityId);
     }
+
+    [Fact]
+    public async void ReadComplexByNameAndNumberAsyncTest()
+    {
+
+    }
+
+    public async void DeleteAmenityRoomAsyncTest()
+    {
+
+    }
+
+    public async void DeleteAmenityComplexAsyncTest()
+    {
+
+    }
+
+
   } 
 }
