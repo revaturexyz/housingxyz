@@ -22,10 +22,11 @@ export class EditRoomComponent implements OnInit {
   formRoom: Room;
 
   constructor() {
-    this.formRoom = this.targetRoom;
    }
 
   ngOnInit() {
+    // Populate default form values
+    this.formRoom = this.targetRoom;
   }
 
   postEditRoom() {
@@ -42,6 +43,7 @@ export class EditRoomComponent implements OnInit {
 
   cancelEditRoom() {
     console.log('Cancel Button Pressed');
+    this.modeOutput.emit('details');
   }
 
 }
