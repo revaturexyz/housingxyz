@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
@@ -15,6 +16,7 @@ namespace Revature.Tenant.DataAccess.Repository
   public class TenantRepository : ITenantRepository 
   {
     private readonly TenantContext _context;
+    private readonly ILogger _logger;
     private readonly IMapper _mapper;
 
     /// <summary>
