@@ -2,7 +2,9 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Revature.Address.DataAccess.Entities;
 using Serilog;
 using Serilog.Events;
 using Revature.Address.DataAccess.Entities;
@@ -23,6 +25,7 @@ namespace Revature.Address.Api
 
         Log.Information("Starting web host");
         await host.RunAsync();
+        await EnsureDatabaseCreatedAsync(host);
       }
 #pragma warning disable CA1031 // Do not catch general exception types
       catch (Exception ex)

@@ -12,20 +12,34 @@ namespace Revature.Complex.Tests.ApiTests
 {
   public class ComplexApiTest
   {
-    public async void GetAllAmenitiesShouldReturnOk() //not aysnc T_T
+    [Fact]
+    public async void GetAllComplexAsyncTest()
     {
-      //setup
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      List<Amenity> res = new List<Amenity>();
-      _complexRepo.Setup(r => r.ReadAmenityListAsync())
-          .Returns(Task.FromResult(res));
 
-      //act
-      var controller = new ComplexController(_complexRepo.Object);
-      var model = Assert.IsType<List<Amenity>>(controller.GetAllAmenities());
+    }
 
-      //assert
-      Assert.IsType<List<Amenity>>(model);
+    [Fact]
+    public async void GetComplexByIdAsyncTest()
+    {
+
+    }
+
+    [Fact]
+    public async void GetComplexByNameAndNumberTest()
+    {
+
+    }
+
+    [Fact]
+    public async void GetComplexListByProviderIdTest()
+    {
+
+    }
+
+    [Fact]
+    public async void PostComplexAsyncTest()
+    {
+
     }
   }
 }

@@ -7,27 +7,27 @@ namespace Revature.Complex.DataAccess.Entities
   public partial class Complex
   {
     /// <summary>
-    /// Primary key of Complex row
+    /// Primary key of Complex table
     /// </summary>
     public Guid ComplexId { get; set; }
 
     /// <summary>
-    /// AddressId foreign key cell of Complex row
+    /// Address Id cell of Complex table
     /// </summary>
     public Guid AddressId { get; set; }
 
     /// <summary>
-    /// ProviderId foreign key cell of Complex row
+    /// Provider Id cell of Complex table
     /// </summary>
     public Guid ProviderId { get; set; }
 
     /// <summary>
-    /// ComplexName cell of Complex row
+    /// Complex name cell of Complex table
     /// </summary>
     public string ComplexName { get; set; }
 
     /// <summary>
-    /// ContactNumber cell of Complex row
+    /// Contact number cell of Complex table
     /// </summary>
     public string ContactNumber { get; set; }
 
