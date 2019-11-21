@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Complex } from 'src/interfaces/complex';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Room } from '../../../interfaces/room';
@@ -19,47 +18,57 @@ export interface PeriodicElement {
   templateUrl: './complex-details.component.html',
   styleUrls: ['./complex-details.component.scss']
 })
+
+// Component to show the selected complex's details
 export class ComplexDetailsComponent implements OnInit {
 
   @Input() complexControl: Complex;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  // Decorator to output the selected mode
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
+
+  // Decorator to output the targeted room
   @Output() targetRoomOutput: EventEmitter<Room> = new EventEmitter<Room>();
 
 
-
+  // seededRooms =>
+  // import dummy room data
   public seededRooms: Room[] = [
     TestServiceData.room,
     TestServiceData.room2
   ];
 
+  // id's for columns on material table
   displayedColumns = ['room#', 'start', 'end', 'edit'];
 
+  // data source for material table
   dataSource = new MatTableDataSource<Room>(this.seededRooms);
 
-  editRoom(room: Room)
-  {
+  // editRoom =>
+  // once called, output targeted room object and change mode to edit targeted room
+  editRoom(room: Room) {
     this.targetRoomOutput.emit(room);
     this.modeOutput.emit('edit-room');
-    console.log("room->", room);
   }
 
-  changeMode(reqMode: string)
-  {
-    console.log("reqMode =",reqMode);
+  // changeMode =>
+  // only change the current mode to whatever is specified in the html
+  changeMode(reqMode: string) {
     this.modeOutput.emit(reqMode);
   }
 
-  dateFormat(date: Date)
-  {
+  // dateFormat =>
+  // function to format a Date object to 'MM/YYYY'
+  dateFormat(date: Date) {
     return moment(date).format('MM/YYYY');
   }
 
   constructor() { }
 
   ngOnInit() {
+    // Links paginator for material table
     this.dataSource.paginator = this.paginator;
   }
 

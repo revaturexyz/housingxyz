@@ -2,40 +2,45 @@
 
 <!--Header of container-->
 <div class="complex-container">
+
   <!--Contains current complex and edit/delete buttons-->
   <div class="align-left">
     <h3>{{ complexControl?.complexName }}</h3>
   </div>
+
+  <!--Edit button for complex-->
   <div class="buttons-right">
     <button mat-flat-button (click)="changeMode('edit-complex')">
       <mat-icon>edit</mat-icon>
     </button>
   </div>
+
 </div>
 <hr style="height: 1px; background-color: black;" />
 
 <!--Middle of container-->
 <div class="middle-container ">
   <table mat-table [dataSource]="dataSource" class="w-100 h-50">
-    <!-- Position Column -->
+
+    <!-- Room # Column -->
     <ng-container matColumnDef="room#">
       <th mat-header-cell *matHeaderCellDef>Room No.</th>
       <td mat-cell *matCellDef="let room">{{ room.roomNumber }}</td>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Lease Start Column -->
     <ng-container matColumnDef="start">
       <th mat-header-cell *matHeaderCellDef>Start</th>
       <td mat-cell *matCellDef="let room">{{ dateFormat(room.startDate) }}</td>
     </ng-container>
 
-    <!-- Weight Column -->
+    <!-- Lease End Column -->
     <ng-container matColumnDef="end">
       <th mat-header-cell *matHeaderCellDef>End</th>
       <td mat-cell *matCellDef="let room">{{ dateFormat(room.endDate) }}</td>
     </ng-container>
 
-    <!-- Symbol Column -->
+    <!-- Room Edit Button Column -->
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let room">
@@ -49,11 +54,14 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
+  <!--Paginator for the table above-->
   <mat-paginator
     [length]="100"
     [pageSize]="5"
     [pageSizeOptions]="[5, 10, 25, 100]"
   >
   </mat-paginator>
+
+  <!--Button to add a new room to the complex-->
   <button class="add-room-btn" mat-raised-button (click)="changeMode('add-room')">Add Room</button>
 </div>

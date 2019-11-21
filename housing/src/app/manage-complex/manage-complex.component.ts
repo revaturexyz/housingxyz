@@ -39,21 +39,19 @@ export class ManageComplexComponent implements OnInit {
   // variable that holds room information for editing
   targetRoom: Room;
 
+  // complex Control =>
+  // form controller to hold the current selected complex
   complexControl = new FormControl('');
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'edit',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/edit-24px.svg'));
-  }
+  constructor() { }
 
   ngOnInit() {
   }
 
   changeMode(reqMode: any) {
 
-    console.log("mode =", reqMode);
-    if ( (typeof reqMode) === 'object' ){
+    console.log('mode =', reqMode);
+    if ( (typeof reqMode) === 'object' ) {
       this.mode = 'details';
     } else {
       this.mode = reqMode;
