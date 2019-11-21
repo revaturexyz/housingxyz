@@ -35,7 +35,7 @@ namespace Revature.Complex.DataAccess.Repository
       await _context.AddAsync(complex);
       await _context.SaveChangesAsync().ConfigureAwait(false);
 
-      return "Create!!";
+      return "Congratulations. Your new complex has been created.";
     }
 
     /// <summary>
@@ -241,6 +241,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (ArgumentNullException ex)
       {
+        log.LogWarning($"{ex}: Unable to get list of Amenities");
         throw ex;
       }
     }
@@ -324,6 +325,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(ArgumentNullException ex)
       {
+        log.LogWarning($"{ex}: Unable to update the amenity.");
         throw ex;
       }
     }
@@ -346,6 +348,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (InvalidOperationException ex)
       {
+        log.LogWarning($"{ex}: Unable to delete the amenity.");
         return "cannot find target amenity to delete";
       }
 

@@ -2,6 +2,9 @@ using System;
 
 namespace Revature.Complex.Lib.Models
 {
+  /// <summary>
+  /// This all the necessary data for the complex.
+  /// </summary>
   public partial class Complex
   {
     public Guid ComplexId { get; set; }
