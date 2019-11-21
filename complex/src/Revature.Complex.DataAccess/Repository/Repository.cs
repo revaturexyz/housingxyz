@@ -77,8 +77,10 @@ namespace Revature.Complex.DataAccess.Repository
     {
       try
       {
-        List<Entity.Complex> complex = await _context.Complex.Where(c => c.ComplexName == name
-                                                          && c.ContactNumber == phone).AsNoTracking().ToListAsync();
+        List<Entity.Complex> complex = await _context.Complex
+          .Where(c => c.ComplexName == name && c.ContactNumber == phone)
+          .AsNoTracking()
+          .ToListAsync();
         return _map.MapEtoComplex(complex[0]);
       }
       catch(Exception ex)
@@ -351,10 +353,6 @@ namespace Revature.Complex.DataAccess.Repository
         log.LogWarning($"{ex}: Unable to delete the amenity.");
         return "cannot find target amenity to delete";
       }
-
-
     }
-
-
   }//end of class
 }
