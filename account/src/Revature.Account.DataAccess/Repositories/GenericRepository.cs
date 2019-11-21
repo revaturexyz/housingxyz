@@ -86,16 +86,14 @@ namespace Revature.Account.DataAccess.Repositories
       return (notification != null ? mapper.MapNotification(notification) : null);
     }
 
-    public Task<List<Notification>> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
+    public async Task<List<Notification>> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
-      return new Task<List<Notification>>( () => { 
-        var notification = _context.Notification
-          .Include(n => n.Coordinator)
-          .Include(n => n.Provider)
-          .Include(n => n.Status)
-          .Where(p => p.CoordinatorId == coordinatorId);
-        return (notification != null ? notification.Select(mapper.MapNotification).ToList() : null);
-      });
+      var notification = _context.Notification
+        .Include(n => n.Coordinator)
+        .Include(n => n.Provider)
+        .Include(n => n.Status)
+        .Where(p => p.CoordinatorId == coordinatorId).ToListAsync();
+      return (notification != null ? (await notification).Select(mapper.MapNotification).ToList() : null);
     }
 
     public void AddNotification(Notification newNofi)
