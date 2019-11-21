@@ -28,14 +28,9 @@ namespace Revature.Account.Lib.Model
       get { return _email; }
       set
       {
-        try
-        {
-          new System.Net.Mail.MailAddress(value);
-        }
-        catch
-        {
-          throw;
-        }
+        // This line simply uses the instantiation of the MailAddress object
+        // to check if the email is valid. Object is thrown away.
+        _ = new System.Net.Mail.MailAddress(value);
         _email = value;
       }
     }
