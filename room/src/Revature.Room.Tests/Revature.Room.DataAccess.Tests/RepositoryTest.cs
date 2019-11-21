@@ -14,7 +14,7 @@ namespace Revature.Room.Tests
   /// </summary>
   public class RepositoryTest
   {
-    /* Preset valid room properties */
+    /* Preset valid Room properties */
     private Guid newRoomId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
 
     private Guid newRoomId2 = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456de");
@@ -37,7 +37,7 @@ namespace Revature.Room.Tests
 
     /* End of Room Properties */
 
-    // Use to set up a valid business logic room
+    // Use to set up a valid business logic Room
     private BusinessLogic.Room PresetBLRoom()
     {
       return new BusinessLogic.Room
@@ -53,7 +53,7 @@ namespace Revature.Room.Tests
         LeaseEnd = newLeaseEnd
       };
     }
-    // Use to set up a valid entity room
+    // Use to set up a valid entity Room
     private DataAccess.Entities.Room PresetEntityRoom(RoomServiceContext context)
     {
       return new DataAccess.Entities.Room
@@ -102,7 +102,7 @@ namespace Revature.Room.Tests
       };
     }
 
-    //This test creates a room, but gender and roomtype is null
+    //This test creates a Room, but gender and roomtype is null
     //Should be able be able to fix by setting roomType and Gender to
     //their respective Data entities class objects
     [Fact]

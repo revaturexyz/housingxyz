@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Revature.Room.DataAccess
 {
@@ -19,7 +20,7 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="Room"></param>
     /// <returns></returns>
-    public Entities.Room ParseRoom(Lib.Room Room);
+    public Task<Entities.Room> ParseRoomAsync(Lib.Room Room);
 
     /// <summary>
     /// Method that converts a list of Entities Room Objects to Business Logic Room Object

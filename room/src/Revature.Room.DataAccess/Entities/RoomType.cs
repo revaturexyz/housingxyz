@@ -1,7 +1,7 @@
 namespace Revature.Room.DataAccess.Entities
 {
   /// <summary>
-  /// Entity for available room types: Apartment, Dorm, House, etc
+  /// Entity for available Room types: Apartment, Dorm, House, etc
   /// </summary>
   public class RoomType
   {

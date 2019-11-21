@@ -25,24 +25,24 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
-    /// Method that creates a room
+    /// Method that creates a Room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
     public async Task CreateRoomAsync(Lib.Room myRoom)
     {
-      Data.Room roomEntity = _map.ParseRoom(myRoom);
+      Data.Room roomEntity = await _map.ParseRoomAsync(myRoom);
       await _context.AddAsync(roomEntity);
     }
 
     /// <summary>
-    /// Method that gets a room
+    /// Method that gets a Room
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
     public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
     {
-      //Find room by Guid and return that particular room
+      //Find Room by Guid and return that particular Room
       var listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
 
       var x = listRoom.Where(r => r.RoomId == roomId).ToList();
@@ -51,7 +51,7 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
-    /// Method that updates the gender, lease start, end, and number of occupants of a room
+    /// Method that updates the gender, lease start, end, and number of occupants of a Room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
@@ -60,7 +60,7 @@ namespace Revature.Room.DataAccess
       Data.Room roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
         .Include(r => r.Gender)
         .Include(r => r.RoomType)
-        .FirstOrDefaultAsync() ?? throw new ArgumentNullException("There is no such room!");
+        .FirstAsync();
 
       roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
@@ -69,7 +69,7 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
-    /// Method that deletes a room
+    /// Method that deletes a Room
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
@@ -78,8 +78,9 @@ namespace Revature.Room.DataAccess
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);
     }
+
     /// <summary>
-    /// Method that filters room based on ComplexId and other additional filters
+    /// Method that filters Room based on ComplexId and other additional filters
     /// </summary>
     /// <param name="complexId"></param>
     /// <param name="roomNumber"></param>
@@ -137,6 +138,7 @@ namespace Revature.Room.DataAccess
     {
       await _context.SaveChangesAsync();
     }
+
     /// <summary>
     /// Returns vacant rooms based on gender and end date
     /// </summary>

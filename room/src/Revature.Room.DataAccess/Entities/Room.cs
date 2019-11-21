@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Revature.Room.DataAccess.Entities
 {
   /// <summary>
-  /// Entity for room table, most attributes are assigned from the complex service except the number of occupants
+  /// Entity for Room table, most attributes are assigned from the complex service except the number of occupants
   /// </summary>
   public class Room
   {

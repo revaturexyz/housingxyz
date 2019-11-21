@@ -30,28 +30,28 @@ namespace Revature.Room.Lib
       Guid? roomId);
 
     /// <summary>
-    /// Method that adds a room to the database
+    /// Method that adds a Room to the database
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
     public Task CreateRoomAsync(Room myRoom);
 
     /// <summary>
-    /// Method that gets a specific room from the database
+    /// Method that gets a specific Room from the database
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
     public Task<List<Room>> ReadRoomAsync(Guid roomId);
 
     /// <summary>
-    /// Method that updates a room
+    /// Method that updates a Room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
     public Task UpdateRoomAsync(Room myRoom);
 
     /// <summary>
-    /// Method that deletes a room
+    /// Method that deletes a Room
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
@@ -64,7 +64,7 @@ namespace Revature.Room.Lib
     public Task SaveAsync();
 
     /// <summary>
-    /// Method returns a list of room ids of vacant rooms based on tenant gender and end date of their stay, for further filtering on the tenant service
+    /// Method returns a list of Room ids of vacant rooms based on tenant gender and end date of their stay, for further filtering on the tenant service
     /// </summary>
     /// <param name="gender"></param>
     /// <param name="endDate"></param>

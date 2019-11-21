@@ -33,8 +33,7 @@ namespace ServiceBusMessaging
     public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger)
     {
       _configuration = configuration;
-      _queueClient = new QueueClient(
-      _configuration.GetConnectionString("ServiceBus"), _configuration.GetConnectionString("TestQ"));
+      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
       Services = services;
       _logger = logger;
     }
@@ -56,7 +55,7 @@ namespace ServiceBusMessaging
     /// <summary>
     /// The actual method to process the received message.
     /// Receives and deserializes the message from complex and tenant service.  Based on what they send
-    /// us this method will determine what CRUD operations to do to the room service.
+    /// us this method will determine what CRUD operations to do to the Room service.
     /// </summary>
     /// <param name="message"></param>
     /// <param name="token"></param>
@@ -77,19 +76,19 @@ namespace ServiceBusMessaging
           //Operation type is the CUD that you want to implement like create, update, or delete
           //Case 0 = create, Case 1 = update, Case 2 = delete
           //We will listen for what the complex service will send us and determine
-          //what CRUD operation to do based on the operationType
-          switch (myRoom.operationType)
+          //what CRUD operation to do based on the OperationType
+          switch (myRoom.OperationType)
           {
             case 0:
-              await _repo.CreateRoomAsync(myRoom.room);
+              await _repo.CreateRoomAsync(myRoom.Room);
               break;
 
             case 1:
-              await _repo.UpdateRoomAsync(myRoom.room);
+              await _repo.UpdateRoomAsync(myRoom.Room);
               break;
 
             case 2:
-              await _repo.DeleteRoomAsync(myRoom.room.RoomId);
+              await _repo.DeleteRoomAsync(myRoom.Room.RoomId);
               break;
 
             default:

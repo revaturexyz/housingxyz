@@ -25,17 +25,16 @@ namespace Revature.Room.DataAccess.Entities
       {
         entity.HasKey(g => g.GenderId);
         entity.Property(g => g.GenderId)
-        .UseIdentityColumn()
-        .IsRequired();
+          .UseIdentityColumn()
+          .IsRequired();
 
         entity.Property(g => g.Type)
-        .IsRequired();
+          .IsRequired();
 
         entity.HasData(
           new Gender() { GenderId = 1, Type = "Male" },
-          new Gender() { GenderId = 2, Type = "Female" },
-          new Gender() { GenderId = 3, Type = "NonBinary" }
-          ) ;
+          new Gender() { GenderId = 2, Type = "Female" }
+          );
       });
 
       modelBuilder.Entity<RoomType>(
@@ -44,10 +43,10 @@ namespace Revature.Room.DataAccess.Entities
         {
           entity.HasKey(r => r.RoomTypeId);
           entity.Property(r => r.RoomTypeId)
-          .UseIdentityColumn()
-          .IsRequired();
+            .UseIdentityColumn()
+            .IsRequired();
           entity.Property(r => r.Type)
-          .IsRequired();
+            .IsRequired();
           entity.HasData(
             new RoomType() { RoomTypeId = 1, Type = "Apartment" },
             new RoomType() { RoomTypeId = 2, Type = "Dormitory" },
@@ -60,22 +59,22 @@ namespace Revature.Room.DataAccess.Entities
       {
         entity.HasKey(r => r.RoomId);
         entity.Property(r => r.RoomNumber)
-        .IsRequired();
+          .IsRequired();
 
         entity.Property(r => r.NumberOfBeds)
-        .IsRequired();
+          .IsRequired();
 
         entity.Property(r => r.LeaseEnd)
-        .IsRequired();
+          .IsRequired();
 
         entity.Property(r => r.LeaseStart)
-        .IsRequired();
+          .IsRequired();
 
         entity.Property(r => r.ComplexId)
-        .IsRequired();
+          .IsRequired();
 
         entity.Property(r => r.NumberOfOccupants)
-        .IsRequired();
+          .IsRequired();
 
         entity.HasData(
           new
