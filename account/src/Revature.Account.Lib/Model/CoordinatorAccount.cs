@@ -48,7 +48,7 @@ namespace Revature.Account.Lib.Model
     /// Address of the training center associated with the coordinator.
     /// </summary>
     public string TrainingCenterAddress { get; set; }
-    public virtual List<Lib.Model.Notification> Notifications { get; set; } = new List<Lib.Model.Notification>();
+    public virtual List<Lib.Model.Notification> Notifications { get; set; }
 
     private void NotNullOrEmpty(string value)
     {
