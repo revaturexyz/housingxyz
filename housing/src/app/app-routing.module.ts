@@ -5,7 +5,7 @@ import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
-import { AddComplexComponent } from './add-complex/add-complex.component';
+import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';

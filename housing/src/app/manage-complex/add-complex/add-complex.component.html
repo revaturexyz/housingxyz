@@ -1,4 +1,4 @@
-<div class="add-complex-outer">
+
   <div class="add-complex-inner">
     <div id="add-complex-title">
       <h3>Add a Living Complex</h3>
@@ -82,6 +82,19 @@
         Phone number must be in a 10-digit format.
       </div>
 
+      <!-- Start of amenity selection-->
+
+      <mat-form-field>
+        <mat-label>Amenities</mat-label>
+        <mat-select name="formLivingComplex.amenity"
+        [(ngModel)]="formLivingComplex.amenity" #amenity="ngModel" class="form-control" id="amenity"
+        aria-describedby="amenity" multiple>
+          <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--End of amenity selection-->
+
       <!-- Start of markup for submit and cancel buttons -->
       <div class="form-row">
         <div class="col-md-6 form-group">
@@ -133,4 +146,4 @@
       </div>
     </div>
   </div>
-</div>
+

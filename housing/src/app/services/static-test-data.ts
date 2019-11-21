@@ -92,13 +92,26 @@ export class TestServiceData {
     isSelected: true
   };
 
-  static dummmyList: Amenity[] = [
+  static dummyAmenityList1: Amenity[] = [
     TestServiceData.dummyAmenity1,
     TestServiceData.dummyAmenity2,
     TestServiceData.dummyAmenity3,
     TestServiceData.dummyAmenity4,
     TestServiceData.dummyAmenity5,
     TestServiceData.dummyAmenity6
+  ];
+
+  static dummyAmenityList2: Amenity[] = [
+    TestServiceData.dummyAmenity4,
+    TestServiceData.dummyAmenity5,
+    TestServiceData.dummyAmenity6
+  ];
+
+  static dummyAmenityList3: Amenity[] = [
+    TestServiceData.dummyAmenity1,
+    TestServiceData.dummyAmenity2,
+    TestServiceData.dummyAmenity3,
+    TestServiceData.dummyAmenity4
   ];
 
   static postToRoom: Room;
@@ -155,7 +168,8 @@ export class TestServiceData {
     apiProvider: TestServiceData.dummyProvider,
     apiAddress: TestServiceData.livPlusAddress,
     complexName: 'Liv+ Appartments',
-    contactNumber: '123-123-1234'
+    contactNumber: '123-123-1234',
+    amenity: TestServiceData.dummyAmenityList2
   };
 
   static room: Room = {
@@ -165,7 +179,7 @@ export class TestServiceData {
     numberOfBeds: 2,
     apiRoomType: null,
     isOccupied: false,
-    apiAmenity: TestServiceData.dummmyList,
+    apiAmenity: TestServiceData.dummyAmenityList1,
     startDate: new Date(),
     endDate: new Date(),
     apiComplex: TestServiceData.dummyComplex,
@@ -178,7 +192,8 @@ export class TestServiceData {
     apiProvider: TestServiceData.dummyProvider,
     apiAddress: TestServiceData.complexAddress2,
     complexName: 'Liv- Appartments',
-    contactNumber: '123-123-1234'
+    contactNumber: '123-123-1234',
+    amenity: TestServiceData.dummyAmenityList3
   };
 
   static room2: Room = {

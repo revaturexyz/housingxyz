@@ -11,6 +11,7 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { ComplexDetailsComponent } from './complex-details/complex-details.component';
 import { EditRoomComponent } from './edit-room/edit-room.component';
 import { EditComplexComponent } from './edit-complex/edit-complex.component';
+import { AddComplexComponent } from './add-complex/add-complex.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ManageComplexComponent', () => {
@@ -28,7 +29,7 @@ describe('ManageComplexComponent', () => {
       declarations: [
         ManageComplexComponent, AddRoomComponent,
         ComplexDetailsComponent, EditRoomComponent,
-        EditComplexComponent ]
+        EditComplexComponent, AddComplexComponent ]
     })
     .compileComponents();
   }));

@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatFormFieldModule, MatSelectModule, MatTableModule  } from '@angular/material';
+import { MatFormFieldModule  } from '@angular/material';
 
-import { EditComplexComponent } from './edit-complex.component';
+import { AddComplexComponent } from './add-complex.component';
 
 describe('EditComplexComponent', () => {
-  let component: EditComplexComponent;
-  let fixture: ComponentFixture<EditComplexComponent>;
+  let component: AddComplexComponent;
+  let fixture: ComponentFixture<AddComplexComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatTableModule ],
-      declarations: [ EditComplexComponent ]
+      imports: [ FormsModule, ReactiveFormsModule ],
+      declarations: [ AddComplexComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditComplexComponent);
+    fixture = TestBed.createComponent(AddComplexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

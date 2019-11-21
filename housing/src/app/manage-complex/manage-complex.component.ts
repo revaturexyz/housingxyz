@@ -7,15 +7,17 @@ import { ComplexDetailsComponent } from './complex-details/complex-details.compo
 import { EditRoomComponent } from './edit-room/edit-room.component';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { EditComplexComponent } from './edit-complex/edit-complex.component';
+import { AddComplexComponent } from './add-complex/add-complex.component';
 import { TestServiceData } from 'src/app/services/static-test-data';
 import { Room } from 'src/interfaces/room';
-
 
 @Component({
   selector: 'dev-manage-complex',
   templateUrl: './manage-complex.component.html',
   styleUrls: ['./manage-complex.component.scss']
 })
+
+// Component used to handle logic behind selecting and managing a complex
 export class ManageComplexComponent implements OnInit {
 
   public seededComplexes: Complex[] = [
@@ -48,8 +50,12 @@ export class ManageComplexComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeMode(reqMode: string) {
-    this.mode = reqMode;
+  changeMode(reqMode: any) {
+    if ( (typeof reqMode) === 'object' ){
+      this.mode = 'details';
+    } else {
+      this.mode = reqMode;
+    }
   }
 
   changeTargetRoom(reqRoom: Room) {

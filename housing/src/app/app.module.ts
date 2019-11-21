@@ -22,7 +22,7 @@ import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
-import { AddComplexComponent } from './add-complex/add-complex.component';
+import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';

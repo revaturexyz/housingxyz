@@ -12,6 +12,7 @@ import { Complex } from 'src/interfaces/complex';
   templateUrl: './edit-room.component.html',
   styleUrls: ['./edit-room.component.scss']
 })
+// Component to provide form in order to edit room
 export class EditRoomComponent implements OnInit {
 
   @Input() complexControl: Complex;

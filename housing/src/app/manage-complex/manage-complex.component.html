@@ -11,14 +11,17 @@
               <!-- Drop down to choose a complex -->
               <mat-card>
                 <mat-form-field>
-                    <mat-label>Select your Complex</mat-label>
-                    <mat-select (ngModelChange)="mode='details'" class="selector" placeholder="Complex" [formControl]="complexControl">
+                    <mat-label>Select a Complex</mat-label>
+                    <mat-select (ngModelChange)="changeMode($event)" class="selector" placeholder="Complex" [formControl]="complexControl">
                         <mat-option *ngFor="let complex of seededComplexes" [value]="complex">
                             {{complex.complexName}}
                         </mat-option>
+                        <mat-option [value]="'add-complex'">
+                          Add a Complex
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <div *ngIf="complexControl.value">
+                <div *ngIf="complexControl.value && mode == 'details'">
                   <mat-hint>
                       <strong>Phone: </strong> {{complexControl.value?.contactNumber}} <br>
                       <strong>Address: </strong> {{complexControl.value?.apiAddress.streetAddress}}
@@ -36,7 +39,7 @@
       <!--Base div -->
       <div class="div-drawer d-md-flex p-5 text-center justify-content-center h-100">
 
-        <div *ngIf="!complexControl.value && mode=='init'" class="align-self-center"><h2>Choose a Complex</h2></div>
+        <div *ngIf="mode=='init'" class="align-self-center"><h2>Select a complex from the menu or</h2><h2><a class="add-complex-highlight" (click)="changeMode('add-complex')">add another now</a></h2></div>
 
         <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (targetRoomOutput)="changeTargetRoom($event)"></dev-complex-details>
 
@@ -45,6 +48,9 @@
         <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput="changeMode($event)")></dev-edit-room>
 
         <dev-edit-complex *ngIf="complexControl.value && mode=='edit-complex'" [targetComplex]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-complex>
+
+        <dev-add-complex *ngIf="mode=='add-complex'" (modeOutput)="changeMode($event)"></dev-add-complex>
+
       </div>
     <!--Lower of Container-->
     </div>

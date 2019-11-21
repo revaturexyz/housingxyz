@@ -12,7 +12,7 @@ import { Complex } from 'src/interfaces/complex';
   templateUrl: './add-room.component.html',
   styleUrls: ['./add-room.component.scss']
 })
-// Component used to add room to a complex
+// Component that provides form to add room to a complex
 export class AddRoomComponent implements OnInit {
 
   seededRoomTypes: Array<RoomType> = [

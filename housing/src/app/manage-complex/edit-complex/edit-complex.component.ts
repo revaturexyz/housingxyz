@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TestServiceData } from 'src/app/services/static-test-data';
 
 import { Complex } from 'src/interfaces/complex';
 
@@ -7,11 +8,15 @@ import { Complex } from 'src/interfaces/complex';
   templateUrl: './edit-complex.component.html',
   styleUrls: ['./edit-complex.component.scss']
 })
+
+// Component used to provide form in order to edit complex
 export class EditComplexComponent implements OnInit {
 
   @Input() targetComplex: Complex;
 
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
+
+  seededAmenityList = TestServiceData.dummyAmenityList1; // seed for simulating all amenities
 
   formLivingComplex: Complex;
 
@@ -32,6 +37,11 @@ export class EditComplexComponent implements OnInit {
   cancelEditComplex() {
     console.log('Cancel Complex Changes');
     this.modeOutput.emit('details');
+  }
+
+  // This will be used to select defaults for amenity selection list
+  compareWithFunc(a, b) {
+    return a.name === b.name;
   }
 
 }

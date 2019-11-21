@@ -34,3 +34,10 @@
     width: 80%;
     overflow-y: scroll;
   }
+
+  .add-complex-highlight {
+    cursor: pointer;
+    text-decoration-line: underline !important;
+    color: #fb752c !important;
+    font-variant: small-caps;
+  }
