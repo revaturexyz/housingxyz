@@ -9,6 +9,11 @@ namespace Revature.Complex.DataAccess
 {
   public class Mapper
   {
+    /// <summary>
+    /// Logic.Amenity => Entity.Amenity
+    /// </summary>
+    /// <param name="amenity"></param>
+    /// <returns></returns>
     public Entity.Amenity MapAmenitytoE(Logic.Amenity amenity)
     {
       return new Entity.Amenity
@@ -19,6 +24,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Entity.Amenity => Logic.Amenity
+    /// </summary>
+    /// <param name="amenity"></param>
+    /// <returns></returns>
     public Logic.Amenity MapEtoAmenity(Entity.Amenity amenity)
     {
       return new Logic.Amenity
@@ -29,6 +39,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Logic.AmenityComplex => Entity.AmenityComplex
+    /// </summary>
+    /// <param name="ac"></param>
+    /// <returns></returns>
     public Entity.AmenityComplex MapAmenityComplextoE(Logic.AmenityComplex ac)
     {
       return new Entity.AmenityComplex
@@ -39,6 +54,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Entity.AmenityComplex => Logic.AmenityComplex
+    /// </summary>
+    /// <param name="ac"></param>
+    /// <returns></returns>
     public Logic.AmenityComplex MapEtoAmenityComplex(Entity.AmenityComplex ac)
     {
       return new Logic.AmenityComplex
@@ -49,6 +69,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Logic.AmenityRoom => Entity.AmenityRoom
+    /// </summary>
+    /// <param name="ar"></param>
+    /// <returns></returns>
     public Entity.AmenityRoom MapAmenityRoomtoE(Logic.AmenityRoom ar)
     {
       return new Entity.AmenityRoom
@@ -59,6 +84,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Entity.AmenityRoom => Logic.AmenityRoom
+    /// </summary>
+    /// <param name="ar"></param>
+    /// <returns></returns>
     public Logic.AmenityRoom MapEtoAmenityRoom(Entity.AmenityRoom ar)
     {
       return new Logic.AmenityRoom
@@ -69,6 +99,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Logic.Complex to Entity.Complex
+    /// </summary>
+    /// <param name="c"></param>
+    /// <returns></returns>
     public Entity.Complex MapComplextoE(Logic.Complex c)
     {
       return new Entity.Complex
@@ -81,6 +116,11 @@ namespace Revature.Complex.DataAccess
       };
     }
 
+    /// <summary>
+    /// Entity.Complex to Logic.Complex
+    /// </summary>
+    /// <param name="c"></param>
+    /// <returns></returns>
     public Logic.Complex MapEtoComplex(Entity.Complex c)
     {
       return new Logic.Complex

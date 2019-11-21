@@ -21,8 +21,14 @@ namespace Revature.Complex.DataAccess.Entities
     /// </summary>
     public string Description { get; set; }
 
+    /// <summary>
+    /// Amenity id should behave as FK in AmenityRoom table
+    /// </summary>
     public virtual ICollection<AmenityRoom> AmenityRoom { get; set; }
 
+    /// <summary>
+    /// Amenity id should behave as FK in AmenityComplex table
+    /// </summary>
     public virtual ICollection<AmenityComplex> AmenityComplex { get; set; }
   }
 }

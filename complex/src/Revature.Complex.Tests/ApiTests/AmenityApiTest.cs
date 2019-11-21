@@ -9,6 +9,8 @@ using Xunit;
 using Revature.Complex.Api.Controllers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Revature.Complex.Tests.ApiTests
 {
@@ -19,12 +21,13 @@ namespace Revature.Complex.Tests.ApiTests
     {
       //setup
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<AmenityController>> _logger = new Mock<ILogger<AmenityController>>();
       List<Amenity> res = new List<Amenity>();
       _complexRepo.Setup(r => r.ReadAmenityListAsync())
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new AmenityController(_complexRepo.Object);
+      var controller = new AmenityController(_complexRepo.Object, _logger.Object);
       var model = Assert.IsAssignableFrom<ActionResult<IEnumerable<Amenity>>>(await controller.GetAmenitiesAsync());
 
       //assert
@@ -36,12 +39,13 @@ namespace Revature.Complex.Tests.ApiTests
     {
       Guid rId = Guid.NewGuid();
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<AmenityController>> _logger = new Mock<ILogger<AmenityController>>();
       List<Amenity> res = new List<Amenity>();
       _complexRepo.Setup(r => r.ReadAmenityListByRoomIdAsync(rId))
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new AmenityController(_complexRepo.Object);
+      var controller = new AmenityController(_complexRepo.Object, _logger.Object);
       var model = Assert.IsAssignableFrom<ActionResult<IEnumerable<Amenity>>>(await controller.GetRoomAmenitiesAsync(rId));
 
       //assert
@@ -53,12 +57,13 @@ namespace Revature.Complex.Tests.ApiTests
     {
       Guid cId = Guid.NewGuid();
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<AmenityController>> _logger = new Mock<ILogger<AmenityController>>();
       List<Amenity> res = new List<Amenity>();
       _complexRepo.Setup(r => r.ReadAmenityListByComplexIdAsync(cId))
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new AmenityController(_complexRepo.Object);
+      var controller = new AmenityController(_complexRepo.Object, _logger.Object);
       var model = Assert.IsAssignableFrom<ActionResult<IEnumerable<Amenity>>>(await controller.GetComplexAmenitiesAsync(cId));
 
       //assert
@@ -69,6 +74,7 @@ namespace Revature.Complex.Tests.ApiTests
     public async void PostAmenityAsyncTest()
     {
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<AmenityController>> _logger = new Mock<ILogger<AmenityController>>();
       Amenity amenity = new Amenity
       {
         AmenityId = Guid.NewGuid(),
@@ -86,7 +92,7 @@ namespace Revature.Complex.Tests.ApiTests
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new AmenityController(_complexRepo.Object);
+      var controller = new AmenityController(_complexRepo.Object, _logger.Object);
       var model = Assert.IsAssignableFrom<ActionResult>(await controller.PostAmenityAsync(apiAmenity));
 
       //assert
@@ -97,6 +103,7 @@ namespace Revature.Complex.Tests.ApiTests
     public async void PutAmenityAsyncTest()
     {
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<AmenityController>> _logger = new Mock<ILogger<AmenityController>>();
       Amenity amenity = new Amenity
       {
         AmenityId = Guid.NewGuid(),
@@ -114,7 +121,7 @@ namespace Revature.Complex.Tests.ApiTests
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new AmenityController(_complexRepo.Object);
+      var controller = new AmenityController(_complexRepo.Object, _logger.Object);
       var model = Assert.IsAssignableFrom<ActionResult>(await controller.PutAmenityAsync(apiAmenity));
 
       //assert
@@ -125,6 +132,7 @@ namespace Revature.Complex.Tests.ApiTests
     public async void DeleteAmenityAsyncTest()
     {
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<AmenityController>> _logger = new Mock<ILogger<AmenityController>>();
       Amenity amenity = new Amenity
       {
         AmenityId = Guid.NewGuid(),
@@ -142,7 +150,7 @@ namespace Revature.Complex.Tests.ApiTests
           .Returns(Task.FromResult(res));
 
       //act
-      var controller = new AmenityController(_complexRepo.Object);
+      var controller = new AmenityController(_complexRepo.Object, _logger.Object);
       var model = Assert.IsAssignableFrom<ActionResult>(await controller.DeleteAmenityAsync(apiAmenity));
 
       //assert

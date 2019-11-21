@@ -8,11 +8,14 @@ using System.Linq;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 using Revature.Complex.DataAccess.Repository;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Complex.Tests.DataTests
 {
   public class RepositoryTest
   {
+    private static readonly Logger<Repository> log;
+
     # region data to test 
     public static Guid cId1 = Guid.NewGuid();
     public static Guid aId1 = Guid.NewGuid();
@@ -132,12 +135,13 @@ namespace Revature.Complex.Tests.DataTests
     public async void CreateComplexAsyncTest()
     {
       Mapper mapper = new Mapper();
+
       DbContextOptions<Entity.ComplexDbContext> options
           = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
               .UseInMemoryDatabase("CreateComplexAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       string result = await repo.CreateComplexAsync(complex1);
       Guid checker = testContext.Complex.First().ComplexId;
@@ -154,7 +158,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("ReadComplexListTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(complexE1);
       testContext.Add(complexE2);
@@ -175,7 +179,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("ReadComplexAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(complexE1);
 
@@ -193,7 +197,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("UpdateComplexAsync")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(complexE1);
       testContext.SaveChanges();
@@ -222,7 +226,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("DeleteComplexTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(complexE1);
       testContext.Add(complexE2);
@@ -245,7 +249,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("CreateAmenityRoomAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       string result = await repo.CreateAmenityRoomAsync(ar);
       Guid check = testContext.AmenityRoom.First().AmenityRoomId;
@@ -262,7 +266,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("CreateAmenityComplexAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       string result = await repo.CreateAmenityComplexAsync(ac);
       Guid check = testContext.AmenityComplex.First().AmenityComplexId;
@@ -279,7 +283,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("CreateAmenityAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       string result = await repo.CreateAmenityAsync(amenity);
 
@@ -297,7 +301,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("ReadAmenityListTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(am1);
       testContext.Add(am2);
@@ -318,7 +322,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("ReadAmenityListByComplexIdTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(complexE1);
       testContext.Add(am1);
@@ -342,7 +346,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("ReadAmenityListByRoomIdTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(am1);
       testContext.Add(am2);
@@ -365,7 +369,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("ReadComplexByProviderIDTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       Entity.Complex complexE3 = new Entity.Complex
       {
@@ -396,7 +400,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("UpdateAmenityAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       testContext.Add(am1);
       testContext.Add(am2);
@@ -423,7 +427,7 @@ namespace Revature.Complex.Tests.DataTests
               .UseInMemoryDatabase("DeleteAmenityAsyncTest")
               .Options;
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
-      Repository repo = new Repository(testContext, mapper);
+      Repository repo = new Repository(testContext, mapper, log);
 
       Guid amId3 = Guid.NewGuid();
       Entity.Amenity am3 = new Entity.Amenity

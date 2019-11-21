@@ -31,6 +31,10 @@ namespace Revature.Complex.DataAccess.Entities
     /// </summary>
     public string ContactNumber { get; set; }
 
+
+    /// <summary>
+    /// Complex id should behave as FK in AmenityRoom table
+    /// </summary>
     public virtual ICollection<AmenityComplex> AmentityComplex { get; set; }
   }
 }

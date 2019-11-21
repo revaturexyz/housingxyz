@@ -22,8 +22,14 @@ namespace Revature.Complex.DataAccess.Entities
     /// </summary>
     public Guid ComplexId { get; set; }
 
+    /// <summary>
+    /// for FK: complex Id
+    /// </summary>
     public Complex Complex { get; set; }
 
+    /// <summary>
+    /// for FK: amenity Id
+    /// </summary>
     public Amenity Amenity { get; set; }
   }
 }

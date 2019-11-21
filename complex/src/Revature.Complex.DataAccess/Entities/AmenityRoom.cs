@@ -17,10 +17,13 @@ namespace Revature.Complex.DataAccess.Entities
     public Guid AmenityId { get; set; }
 
     /// <summary>
-    /// Room Id cell of AmenityRoom table
+    /// Room Id cell of AmenityRoom table, come from room service
     /// </summary>
     public Guid RoomId { get; set; }
 
+    /// <summary>
+    /// for FK: Amenity Id
+    /// </summary>
     public Amenity Amenity { get; set; }
   }
 }
