@@ -25,19 +25,49 @@ namespace Revature.Complex.Tests.ApiTests
     }
 
     [Fact]
-    public async void GetComplexByNameAndNumberTest()
+    public async void GetComplexByNameAndNumberAsyncTest()
     {
 
     }
 
     [Fact]
-    public async void GetComplexListByProviderIdTest()
+    public async void GetComplexListByProviderIdASyncTest()
     {
 
     }
 
     [Fact]
     public async void PostComplexAsyncTest()
+    {
+
+    }
+
+    [Fact]
+    public async void PostRoomsAsyncTest()
+    {
+
+    }
+
+    [Fact]
+    public async void PutComplexAsyncTest()
+    {
+
+    }
+
+    [Fact]
+    public async void PutRoomAsyncTest()
+    {
+
+    }
+
+    [Fact]
+    public async void DeleteComplexAsyncTest()
+    {
+
+    }
+
+    [Fact]
+    public async void DeleteRoomAsyncTest()
     {
 
     }

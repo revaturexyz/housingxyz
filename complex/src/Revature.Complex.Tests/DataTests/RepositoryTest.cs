@@ -469,17 +469,67 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public async void ReadComplexByNameAndNumberAsyncTest()
     {
+      Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
+      DbContextOptions<Entity.ComplexDbContext> options
+          = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
+              .UseInMemoryDatabase("DeleteAmenityAsyncTest")
+              .Options;
+      using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
+      Repository repo = new Repository(testContext, mapper, log);
 
+      string name = "Liv+";
+      string phone = "1234567890";
+
+      testContext.Add(complexE1);
+      testContext.SaveChanges();
+
+      Logic.Complex check = await repo.ReadComplexByNameAndNumberAsync(name, phone);
+
+      Assert.Equal(name, check.ComplexName);
+      Assert.Equal(phone, check.ContactNumber);
     }
 
+    [Fact]
     public async void DeleteAmenityRoomAsyncTest()
     {
+      Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
+      DbContextOptions<Entity.ComplexDbContext> options
+          = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
+              .UseInMemoryDatabase("DeleteAmenityAsyncTest")
+              .Options;
+      using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
+      Repository repo = new Repository(testContext, mapper, log);
 
+      testContext.Add(arE1);
+      testContext.Add(arE2);
+      testContext.SaveChanges();
+
+      await repo.DeleteAmenityRoomAsync(rId);
+
+      Assert.Null(testContext.AmenityRoom.Find(rId));
     }
 
+    [Fact]
     public async void DeleteAmenityComplexAsyncTest()
     {
+      Mapper mapper = new Mapper();
+      NullLogger<Repository> log = new NullLogger<Repository>();
+      DbContextOptions<Entity.ComplexDbContext> options
+          = new DbContextOptionsBuilder<Entity.ComplexDbContext>()
+              .UseInMemoryDatabase("DeleteAmenityAsyncTest")
+              .Options;
+      using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
+      Repository repo = new Repository(testContext, mapper, log);
 
+      testContext.Add(acE1);
+      testContext.Add(acE2);
+      testContext.SaveChanges();
+
+      await repo.DeleteAmenityRoomAsync(cId1);
+
+      Assert.Null(testContext.AmenityComplex.Find(cId1));
     }
 
 

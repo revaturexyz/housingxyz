@@ -13,6 +13,7 @@ namespace Revature.Complex.Api.Models
   /// </summary>
   public class ApiRoom
   {
+    public Guid RoomId { get; set; }
     [Required]
     public string RoomNumber { get; set; }
     public Guid ComplexId { get; set; }

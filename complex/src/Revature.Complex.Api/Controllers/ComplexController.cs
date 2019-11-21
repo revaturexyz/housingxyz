@@ -142,7 +142,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{complexName}/{ComplexNumber}")]
     //GET: api/complex/{complexName/ComplexNumber}
-    public async Task<ActionResult<ApiComplex>> GetComplexByNameAndNumber([FromRoute]string complexName, string ComplexNumber)
+    public async Task<ActionResult<ApiComplex>> GetComplexByNameAndNumberAsync([FromRoute]string complexName, string ComplexNumber)
     {
       try
       {
@@ -352,7 +352,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("PostRooms")]
     //POST: api/complex/PostRooms
-    public async Task<ActionResult> PostRooms([FromBody]IEnumerable<ApiRoom> apiRooms)
+    public async Task<ActionResult> PostRoomsAsync([FromBody]IEnumerable<ApiRoom> apiRooms)
     {
       List<ApiRoomtoSend> apiRoomtoSends = new List<ApiRoomtoSend>();
       ApiRoomtoSend arts = new ApiRoomtoSend();
@@ -385,7 +385,7 @@ namespace Revature.Complex.Api.Controllers
             log.LogInformation($"(API)list of amenity with room id: {arts.RoomId} is created");
           }
 
-        }      
+        }
 
         return StatusCode(201);
       }
@@ -421,7 +421,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPut("editcomplex")]
     //PUT: api/complex/editcomplex
-    public async Task<ActionResult> PutComplex([FromBody]ApiComplex apiComplex)
+    public async Task<ActionResult> PutComplexAsync([FromBody]ApiComplex apiComplex)
     {
       ApiComplexAddress CompAddr = new ApiComplexAddress()
       {
@@ -496,11 +496,72 @@ namespace Revature.Complex.Api.Controllers
       }
     }
 
+    /// <summary>
+    /// (PUT)
+    /// Call Repo to delete and re-add new list of Amenity
+    /// re-pack the Api Room model to Api RoomtoSend model
+    /// send Api RoomtoSend object to Room service to delete single room
+    /// </summary>
+    /// <param name="apiRoom"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [HttpPut("editroom")]
+    //PUT: api/complex/editroom
+    public async Task<ActionResult> PutRoomAsync([FromBody]ApiRoom apiRoom)
+    {
+      ApiRoomtoSend arts = new ApiRoomtoSend();
+      Logic.AmenityRoom amenityRoom = new Logic.AmenityRoom();
+
+      try
+      {
+        arts.RoomId = apiRoom.RoomId;
+        arts.RoomNumber = apiRoom.RoomNumber;
+        arts.ComplexId = apiRoom.ComplexId;
+        arts.Gender = "default";
+        arts.NumberOfBeds = apiRoom.NumberOfBeds;
+        arts.RoomType = apiRoom.ApiRoomType;
+        arts.LeaseStart = apiRoom.LeaseStart;
+        arts.LeaseEnd = apiRoom.LeaseEnd;
+
+        amenityRoom.AmenityRoomId = Guid.NewGuid();
+        amenityRoom.RoomId = arts.RoomId;
+
+        await _complexRepository.DeleteAmenityRoomAsync(apiRoom.RoomId);
+        log.LogInformation($"(API)Amenity of Room Id {apiRoom.RoomId} is deleted");
+
+        //Send {arts} to room service through service bus
+
+        foreach (ApiAmenity amenity in apiRoom.Amenities)
+        {
+          amenityRoom.AmenityId = amenity.AmenityId;
+          await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
+          log.LogInformation($"(API)list of amenity with room id: {arts.RoomId} is created");
+        }
+
+        return StatusCode(200);
+      }
+      catch (ArgumentException)
+      {
+        log.LogError("(API) not found");
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        log.LogError($"(API){e}");
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        log.LogError($"(API){e}");
+        return StatusCode(500, e.Message);
+      }
+    }
+
     #endregion
 
     #region DELETE
     /// <summary>
-    /// (PUT)
+    /// (DELETE)
     /// Call Repo to delete complex and amenity complex in the database
     /// Send complex Id to Address service to delete the address
     /// Needs a complex Id as parameter
@@ -510,7 +571,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("deletecomplex")]
     //PUT: api/complex/deletecomplex
-    public async Task<ActionResult> DeleteComplex([FromBody]Guid complexId)
+    public async Task<ActionResult> DeleteComplexAsync([FromBody]Guid complexId)
     {
       try
       {
@@ -524,6 +585,51 @@ namespace Revature.Complex.Api.Controllers
 
         await _complexRepository.DeleteComplexAsync(complexId);
         log.LogInformation($"(API) deleted complex of complex Id: {complexId}");
+
+        return StatusCode(200);
+      }
+      catch (ArgumentException ex)
+      {
+        log.LogError($"(API){ex}");
+        return NotFound();
+      }
+      catch (InvalidOperationException ex)
+      {
+        log.LogError($"(API){ex}");
+        return Conflict(ex.Message);
+      }
+      catch (Exception ex)
+      {
+        log.LogError($"(API){ex}");
+        return StatusCode(500, ex.Message);
+      }
+    }
+
+    /// <summary>
+    /// (DELETE)
+    /// Call Repo to delete amenity of room in the database
+    /// re-pack Api Room as Api RoomtoSend
+    /// Send RoomtoSend to Room serivice to delete single room
+    /// Needs Api Room object as parameter
+    /// </summary>
+    /// <param name="apiComplex"></param>
+    /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [HttpDelete("deleteroom")]
+    //PUT: api/complex/deleteroom
+    public async Task<ActionResult> DeleteRoomAsync([FromBody]ApiRoom Room)
+    {
+      try
+      {
+        ApiRoomtoSend send = new ApiRoomtoSend
+        {
+          RoomId = Room.RoomId
+        };
+
+        //send {send} to room service to delete a room
+
+        await _complexRepository.DeleteAmenityRoomAsync(Room.RoomId);
+        log.LogInformation($"(API) deleted amenity of room Id: {Room.RoomId}");
 
         return StatusCode(200);
       }
