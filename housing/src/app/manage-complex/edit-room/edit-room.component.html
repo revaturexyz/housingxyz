@@ -56,7 +56,7 @@
         <select
           id="gender"
           name="gender"
-          [(ngModel)]="selectOptionGenderInvalid"
+          [(ngModel)]="targetRoom.gender"
           #gender="ngModel"
           class="form-control"
           aria-describedby="gender"
@@ -80,7 +80,7 @@
         <select
           id="apiRoomType"
           name="apiRoomType"
-          [(ngModel)]="selectOptionRoomTypeInvalid"
+          [(ngModel)]="targetRoom.apiRoomType"
           #apiRoomType="ngModel"
           class="form-control"
           aria-describedby="apiRoomType"
@@ -117,8 +117,7 @@
         <!-- Dirty is so the error message is not displayed when the page first loads  -->
         <div
           *ngIf="leaseLength.invalid && leaseLength.dirty"
-          class="alert alert-danger"
-        >
+          class="alert alert-danger">
           A room number is required.
         </div>
       </div>
@@ -127,8 +126,8 @@
       <hr />
 
       <!-- Start of markup for submit and cancel buttons | leaseLength, apiRoomType, gender, numberOfBeds, roomNumber -->
-      <div class="form-row">
-        <div class="col-md-4 form-group">
+      <div class="form-row d-flex justify-content-around">
+        <div>
           <!-- If any of the inputs are invalid, the submit button will be disabled -->
           <button
             class="add-room-btn"
@@ -137,19 +136,17 @@
               apiRoomType.invalid ||
               gender.invalid ||
               numberOfBeds.invalid ||
-              roomNumber.invalid
-            "
-            (click)="postEditRoom()"
-          >
-            Edit Room
+              roomNumber.invalid"
+            (click)="postEditRoom()">
+            Edit
           </button>
         </div>
-        <div class="col-md-4 form-group">
+        <div>
           <button class="add-room-btn" (click)="deleteRoom()">
-            Delete Room
+            Delete
           </button>
         </div>
-        <div class="col-md-4 form-group">
+        <div>
           <button class="add-room-btn" (click)="cancelEditRoom()">
             Cancel
           </button>

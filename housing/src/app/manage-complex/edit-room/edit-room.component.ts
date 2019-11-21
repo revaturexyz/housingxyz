@@ -2,10 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Room } from '../../../interfaces/room';
-import { RoomType } from '../../../interfaces/room-type';
-import { Gender } from '../../../interfaces/gender';
+import { Room } from 'src/interfaces/room';
 import { Complex } from 'src/interfaces/complex';
+
+import { TestServiceData } from 'src/app/services/static-test-data';
 
 @Component({
   selector: 'dev-edit-room',
@@ -14,6 +14,12 @@ import { Complex } from 'src/interfaces/complex';
 })
 // Component to provide form in order to edit room
 export class EditRoomComponent implements OnInit {
+
+  seededGenderTypes = TestServiceData.dummyGender;
+  seededRoomTypes = TestServiceData.dummyRoomTypeList;
+
+  public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
+  public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
 
   @Input() complexControl: Complex;
   @Input() targetRoom: Room;
