@@ -8,7 +8,10 @@ namespace Revature.Tenant.Tests.DataTests
     {
         private readonly Mapper mapper = new Mapper();
 
-        [Fact] 
+    /// <summary>
+    /// Tests that Lib Tenant To Db Tenant
+    /// </summary>
+    [Fact] 
         public void LibTenantToDbTenantTest()
         {
             Lib.Models.Tenant tenant = new Lib.Models.Tenant
@@ -55,7 +58,10 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(tenant.TrainingCenter, tenants.TrainingCenter);
         }
 
-        [Fact]
+    /// <summary>
+    /// Tests that Db Tenant To Lib Tenant Test
+    /// </summary>
+    [Fact]
         public void DbTenantToLibTenantTest()
         {
             DataAccess.Entities.Tenant tenants = new DataAccess.Entities.Tenant
@@ -102,7 +108,10 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(tenants.TrainingCenter, tenant.TrainingCenter);
     }
 
-        [Fact]
+    /// <summary>
+    /// Tests that Lib Car To Db Car
+    /// </summary>
+    [Fact]
         public void LibCarToDbCarTest()
         {
             Lib.Models.Car car = new Lib.Models.Car
@@ -127,8 +136,11 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(car.State, cars.State);
         }
 
-        [Fact]
-        public void DbCarToLibCarTest()
+    /// <summary>
+    /// Tests that Db Car To Lib Car 
+    /// </summary>
+    [Fact]
+    public void DbCarToLibCarTest()
         {
             DataAccess.Entities.Car cars = new DataAccess.Entities.Car
             {

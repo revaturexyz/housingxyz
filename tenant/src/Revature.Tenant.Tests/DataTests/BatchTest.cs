@@ -8,6 +8,9 @@ namespace Revature.Tenant.Tests.DataTests
 {
   public class BatchTest
   {
+    /// <summary>
+    /// Tests that Constructor Should Construct With Setters
+    /// </summary>
     [Fact]
     public void ConstructorShouldConstructWithSetters()
     {
