@@ -5,7 +5,7 @@ using System.Text;
 namespace Revature.Complex.Lib.Models
 {
   /// <summary>
-  /// HTis object model defines a complex amenity. It has the amenity name and GUID (id)
+  /// This object model defines a complex amenity. It has the amenity name and GUID (id)
   /// </summary>
   public class AmenityComplex
   {
