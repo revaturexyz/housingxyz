@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GoogleApi;
+using GoogleApi.Entities;
+using GoogleApi.Entities.Interfaces;
+using GoogleApi.Entities.Maps.Geocoding;
+using GoogleApi.Entities.Maps.Geocoding.Address.Request;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -25,9 +30,9 @@ namespace Revature.Address.Api.Controllers
     }
 
     // GET: api/Users/5
-    [Route("{id}")]
+    [Route("{id}", Name = "GetAddress")]
     [HttpGet]
-    public async Task<ActionResult<AddressModel>> Get(Guid id)
+    public async Task<ActionResult<AddressModel>> GetAddressById(Guid id)
     {
       Revature.Address.Lib.Address address = (await db.GetAddressesAsync(id: id)).FirstOrDefault();
 
@@ -49,13 +54,10 @@ namespace Revature.Address.Api.Controllers
       });
     }
 
-    [HttpPost]
-    [Filters.GoogleAddressValidator]
-    public async Task<ActionResult> PostUser([FromQuery] AddressModel address)
-    {
-      //if (ModelState.IsValid)
-      //{
 
+    [HttpPost]
+    public async Task<ActionResult> PostUser([FromBody] AddressModel address)
+    {
         Revature.Address.Lib.Address newAddress = new Revature.Address.Lib.Address
         {
           Id = address.Id,
@@ -65,21 +67,38 @@ namespace Revature.Address.Api.Controllers
           Country = address.Country,
           ZipCode = address.ZipCode
         };
+      AddressGeocodeRequest request = new AddressGeocodeRequest();
+      request.Address = $"{newAddress.Street} {newAddress.City}, {newAddress.State} {newAddress.ZipCode} {newAddress.Country}";
+      request.Key = SecretKey.GApiKey;
+      GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
+      var results = response.Results.ToArray();
 
+      if (results.Length != 0)
+      {
         try
         {
+          var newModel = new AddressModel
+          {
+            Id = newAddress.Id,
+            Street = newAddress.Street,
+            City = newAddress.City,
+            State = newAddress.State,
+            Country = newAddress.Country,
+            ZipCode = newAddress.ZipCode
+          };
+
           await db.AddAddressAsync(newAddress);
           await db.SaveAsync();
-          return Ok("Address uccessfuly created");
+          return CreatedAtRoute("GetAddress", new { newModel.Id}, newModel);
         }
         catch (InvalidOperationException ex)
         {
           return BadRequest($"{ex.Message}");
         }
-      //} else
-      //{
-      //  return BadRequest("Invalid Address");
-      //}
+      } else
+      {
+        return BadRequest("Invalid Address");
+      }
     }
 
     [HttpDelete("{id}")]
