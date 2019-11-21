@@ -13,7 +13,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     {
       string nullString = null;
 
-      Assert.Throws<ArgumentNullException>(() => coordinator.Name = nullString);
+      Assert.ThrowsAny<ArgumentNullException>(() => coordinator.Name = nullString);
     }
 
     [Fact]
@@ -21,7 +21,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     {
       string emptyString = "";
 
-      Assert.Throws<ArgumentException>(() => coordinator.Name = emptyString);
+      Assert.ThrowsAny<ArgumentException>(() => coordinator.Name = emptyString);
     }
 
     [Fact]
@@ -29,7 +29,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     {
       string invalidEmail = "abcgmail.com";
 
-      Assert.Throws<FormatException>(() => coordinator.Email = invalidEmail);
+      Assert.ThrowsAny<FormatException>(() => coordinator.Email = invalidEmail);
     }
   }
 }

@@ -27,11 +27,11 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> GetNotificationByCoordinatorIdAsync(Guid coordinatorId)
     {
-      _logger.LogInformation("GET - Getting notifications by coordinator ID: {coordinatorId}", coordinatorId);
+      _logger.LogInformation($"GET - Getting notifications by coordinator ID: {coordinatorId}");
       var nofi = await _repo.GetNotificationsByCoordinatorIdAsync(coordinatorId);
       if (nofi == null)
       {
-        _logger.LogWarning("Coordinator was not found");
+        _logger.LogWarning($"Coordinator was not found: {coordinatorId}");
         return NotFound();
       }
       return Ok(nofi);
@@ -39,30 +39,30 @@ namespace Revature.Account.Api.Controllers
 
     // POST: api/notifications
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Notification), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId")] Notification notification)
     {
       try
       {
-        _logger.LogInformation("POST - Making notification for notification ID {notificationId}." +
-          " Provider ID: {providerId}\n Coordinator ID: {coordinatorId}", notification.NotificationId, notification.ProviderId, notification.CoordinatorId);
+        _logger.LogInformation($"POST - Making notification for notification ID {notification.NotificationId}." +
+          $" Provider ID: {notification.ProviderId}\n Coordinator ID: {notification.CoordinatorId}");
         Lib.Model.Notification mappedNotification = new Lib.Model.Notification()
         {
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
           // Set Status to 'Approved'
-          Status = await _repo.GetStatusByIdAsync(1),
+          Status = await _repo.GetStatusByStatusTextAsync("Approved"),
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
-        _logger.LogInformation("Persisted post request");
+        _logger.LogInformation($"Persisted notification {notification.NotificationId}");
         return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
       }
       catch(Exception e)
       {
-        _logger.LogError("Post request failed. Error: " + e.Message);
+        _logger.LogError("Post request failed with exception: " + e.Message);
         return BadRequest();
       }
     }
@@ -73,18 +73,18 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
     {
-      _logger.LogInformation("PATCH - Patching notification information for notification {notificationId}", notification.NotificationId);
+      _logger.LogInformation($"PATCH - Patching notification information for notification {notification.NotificationId}");
       var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
       if (existingNotification != null)
       {
         existingNotification.Status = notification.Status;
-        // Status is 'Under Review;
-        if (existingNotification.Status.StatusId == 4)
+        // Status is 'Under Review
+        if (existingNotification.Status.StatusText == "Under Review")
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
         // Status is 'Rejected'
-        if (existingNotification.Status.StatusId == 3)
+        if (existingNotification.Status.StatusText == "Rejected")
         {
           existingNotification = null;
         }
@@ -103,16 +103,16 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid notificationId)
     {
-      _logger.LogInformation("DELETE - Deleting notification with ID: {notificationId}", notificationId);
+      _logger.LogInformation($"DELETE - Deleting notification with ID: {notificationId}");
       var existingNotification = await _repo.GetProviderAccountByIdAsync(notificationId);
       if (existingNotification != null)
       {
         await _repo.DeleteNotificationByIdAsync(notificationId);
         await _repo.SaveAsync();
-        _logger.LogInformation("Persisted delete request");
+        _logger.LogInformation($"Persisted delete request for {notificationId}");
         return NoContent();
       }
-      _logger.LogWarning("Delete request failed");
+      _logger.LogWarning($"Delete request failed {notificationId}");
       return NotFound();
     }
   }

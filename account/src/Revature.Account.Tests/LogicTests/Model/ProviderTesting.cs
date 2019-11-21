@@ -13,7 +13,7 @@ namespace Revature.Account.Tests.Logic_Tests.Model
     {
       string nullString = null;
 
-      Assert.Throws<ArgumentNullException>(() => provider.Name = nullString);
+      Assert.ThrowsAny<ArgumentNullException>(() => provider.Name = nullString);
     }
 
     [Fact]
@@ -21,7 +21,7 @@ namespace Revature.Account.Tests.Logic_Tests.Model
     {
       string emptyString = "";
 
-      Assert.Throws<ArgumentException>(() => provider.Name = emptyString);
+      Assert.ThrowsAny<ArgumentException>(() => provider.Name = emptyString);
     }
   }
 }

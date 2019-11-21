@@ -37,7 +37,7 @@ namespace Revature.Account.Lib.Model
     {
       if (value == null)
       {
-        throw new ArgumentNullException("Your Input cannot be null", nameof(value));
+        throw new ArgumentNullException(nameof(value), "Your Input cannot be null");
       }
       if (value.Length == 0)
       {

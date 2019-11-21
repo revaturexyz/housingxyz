@@ -27,11 +27,11 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Get(Guid providerId)
     {
-      _logger.LogInformation("GET - Getting provider account by ID: {providerId}", providerId);
+      _logger.LogInformation($"GET - Getting provider account by ID: {providerId}");
       var provider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (provider == null)
       {
-        _logger.LogWarning("No provider account found");
+        _logger.LogWarning($"No provider account found for {providerId}");
         return NotFound();
       }
       return Ok(provider);
@@ -39,29 +39,29 @@ namespace Revature.Account.Api.Controllers
 
     // POST: api/provider-accounts
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ProviderAccount), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
     {
       try
       {
-        _logger.LogInformation("POST - Post request started for new provider account. ID: {providerId}\n Name: {providerName}", newProvider.ProviderId, newProvider.Name);
+        _logger.LogInformation($"POST - Post request started for new provider account. ID: {newProvider.ProviderId}\n Name: {newProvider.Name}");
         Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
         {
           ProviderId = Guid.NewGuid(),
           Name = newProvider.Name,
-          Status = await _repo.GetStatusByIdAsync(1),
+          Status = await _repo.GetStatusByStatusTextAsync("Pending"),
           AccountCreatedAt = DateTime.Now,
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
-        _logger.LogInformation("Post request persisted");
+        _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
         return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
       }
-      catch
+      catch (Exception e)
       {
-        _logger.LogError("Post request failed");
+        _logger.LogError("Post request failed with exception: " + e.Message);
         return BadRequest();
       }
     }
@@ -72,7 +72,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(Guid providerId, [FromBody] ProviderAccount provider)
     {
-      _logger.LogInformation("PUT - Put request for provider ID: {providerId}", providerId);
+      _logger.LogInformation($"PUT - Put request for provider ID: {providerId}");
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
@@ -80,10 +80,10 @@ namespace Revature.Account.Api.Controllers
         existingProvider.AccountCreatedAt = DateTime.Now;
         await _repo.UpdateProviderAccountAsync(existingProvider);
         await _repo.SaveAsync();
-        _logger.LogInformation("Put request persisted");
+        _logger.LogInformation($"Put request persisted for {providerId}");
         return NoContent();
       }
-      _logger.LogWarning("Put request failed");
+      _logger.LogWarning($"Put request failed for {providerId}");
       return NotFound();
     }
 
@@ -93,16 +93,16 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid providerId)
     {
-      _logger.LogInformation("DELETE - Delete request for provider ID: {providerId}", providerId);
+      _logger.LogInformation($"DELETE - Delete request for provider ID: {providerId}");
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
         await _repo.DeleteProviderAccountAsync(providerId);
         await _repo.SaveAsync();
-        _logger.LogInformation("Delete request persisted");
+        _logger.LogInformation($"Delete request persisted for {providerId}");
         return NoContent();
       }
-      _logger.LogWarning("Delete request failed");
+      _logger.LogWarning($"Delete request failed for {providerId}");
       return NotFound();
     }
   }
