@@ -51,7 +51,7 @@ namespace Revature.Tenant.DataAccess.Entities
             Gender = "Female",
             Id = Guid.Parse("0a4d6c6e-9650-44c9-8c6b-5aebd3f9a67f"),
             LastName = "Lemons",
-            RoomId = Guid.Parse("0a4d6c6e-9650-44c9-8c6b-5aebd3f9a67g"),
+            RoomId = Guid.Parse("0a4d6c6e-9650-44c9-8c6b-5aebd3f9a676"),
             TrainingCenter = Guid.Parse("0a4d6c6e-9650-44c9-8c6b-5aebd3f9a670")
           }
         );
