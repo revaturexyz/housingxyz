@@ -8,6 +8,14 @@ import { RoomType } from 'src/interfaces/room-type';
 import { Gender } from 'src/interfaces/gender';
 
 export class TestServiceData {
+  static testRoomType: RoomType = { typeId: 0, roomType: 'Dormitory' };
+  static testRoomType1: RoomType = { typeId: 1, roomType: 'Deluxe' };
+  static testRoomType2: RoomType = { typeId: 2, roomType: 'Suite' };
+  static testRoomType3: RoomType = { typeId: 3, roomType: 'Basement' };
+
+  static dummyRoomTypeList: RoomType[] = [ TestServiceData.testRoomType, TestServiceData.testRoomType1,
+    TestServiceData.testRoomType2, TestServiceData.testRoomType3 ];
+
   static dummyAddress: Address = {
     addressId: 1,
     streetAddress: '123 Address St',
@@ -177,7 +185,7 @@ export class TestServiceData {
     apiAddress: TestServiceData.dummyAddress,
     roomNumber: '117',
     numberOfBeds: 2,
-    apiRoomType: null,
+    apiRoomType: TestServiceData.testRoomType,
     isOccupied: false,
     apiAmenity: TestServiceData.dummyAmenityList1,
     startDate: new Date(),
@@ -207,7 +215,7 @@ export class TestServiceData {
     },
     roomNumber: '323',
     numberOfBeds: 9001,
-    apiRoomType: null,
+    apiRoomType: TestServiceData.testRoomType1,
     isOccupied: true,
     apiAmenity: [{
       amenityId: 2,
@@ -256,9 +264,4 @@ export class TestServiceData {
     TestServiceData.dummyProvider,
     TestServiceData.testProvider2
   ];
-
-  static testRoomType: RoomType = {
-    typeId: 1,
-    roomType: 'Dormitory'
-  };
 }

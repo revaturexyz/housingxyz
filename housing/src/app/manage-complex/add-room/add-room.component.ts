@@ -7,6 +7,8 @@ import { RoomType } from 'src/interfaces/room-type';
 import { Gender } from 'src/interfaces/gender';
 import { Complex } from 'src/interfaces/complex';
 
+import { TestServiceData } from 'src/app/services/static-test-data';
+
 @Component({
   selector: 'dev-add-room',
   templateUrl: './add-room.component.html',
@@ -15,17 +17,8 @@ import { Complex } from 'src/interfaces/complex';
 // Component that provides form to add room to a complex
 export class AddRoomComponent implements OnInit {
 
-  seededRoomTypes: Array<RoomType> = [
-    { typeId: 0, roomType: 'Deluxe' },
-    { typeId: 1, roomType: 'Suite' },
-    { typeId: 2, roomType: 'Basement' }
-  ];
-
-  seededGenderTypes: Array<Gender> = [
-    { genderId: 0, genderType: 'Unspecified' },
-    { genderId: 1, genderType: 'Male' },
-    { genderId: 2, genderType: 'Female' }
-  ];
+  seededGenderTypes = TestServiceData.dummyGender;
+  seededRoomTypes = TestServiceData.dummyRoomTypeList;
 
   formRoom: Room;
 

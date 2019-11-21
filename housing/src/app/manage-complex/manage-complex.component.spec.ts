@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ManageComplexComponent } from './manage-complex.component';
 import {
   MatFormFieldModule, MatSelectModule,
-  MatCardModule, MatIconModule,
+  MatCardModule,
   MatPaginatorModule, MatTableModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ describe('ManageComplexComponent', () => {
       imports: [
         MatFormFieldModule, FormsModule,
         ReactiveFormsModule, MatSelectModule,
-        MatCardModule, MatIconModule,
+        MatCardModule,
         MatTableModule, MatPaginatorModule, NoopAnimationsModule
       ],
       declarations: [

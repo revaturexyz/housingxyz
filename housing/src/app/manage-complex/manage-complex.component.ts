@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Complex } from 'src/interfaces/complex';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatIconRegistry, MatFormFieldModule  } from '@angular/material';
+import { MatFormFieldModule  } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComplexDetailsComponent } from './complex-details/complex-details.component';
 import { EditRoomComponent } from './edit-room/edit-room.component';
@@ -41,10 +41,7 @@ export class ManageComplexComponent implements OnInit {
 
   complexControl = new FormControl('');
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'edit',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/edit-24px.svg'));
+  constructor() {
   }
 
   ngOnInit() {
