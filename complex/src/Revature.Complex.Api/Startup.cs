@@ -58,7 +58,7 @@ namespace Revature.Complex.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
       });
 
       app.UseRouting();
@@ -66,7 +66,6 @@ namespace Revature.Complex.Api
       app.UseCors(CorsPolicyName);
 
       app.UseAuthorization();
-
 
       app.UseEndpoints(endpoints =>
       {
