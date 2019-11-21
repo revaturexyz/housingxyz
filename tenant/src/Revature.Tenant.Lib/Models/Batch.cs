@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Revature.Tenant.Lib.Models
 {
+  /// <summary>
+  /// Tenants will arrive to training with batches.
+  /// This defines their batch details.
+  /// </summary>
   public class Batch
   {
     private string _batchLanguage;
