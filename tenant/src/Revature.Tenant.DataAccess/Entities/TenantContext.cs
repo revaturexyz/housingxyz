@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
@@ -24,6 +25,37 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.TrainingCenter).IsRequired();
         entity.HasOne(t => t.Car).WithMany(c => c.Tenant).HasForeignKey(t => t.CarId);
         entity.HasOne(t => t.Batch).WithMany(b => b.Tenant).HasForeignKey(t => t.BatchId);
+
+        entity.HasData
+        (
+          new Tenant()
+          {
+            AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67e"),
+            BatchId = 1,
+            CarId = 2,
+            Email = "nick@revature.com",
+            FirstName = "Nick",
+            Gender = "Male",
+            Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67f"),
+            LastName = "Escalnoa",
+            RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67g"),
+            TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67h")
+          },
+          new Tenant()
+          {
+            AddressId = Guid.Parse("ga4d6c6e-9650-44c9-8c6b-5aebd3f9a67e"),
+            BatchId = 2,
+            CarId = 1,
+            Email = "sue@revature.com",
+            FirstName = "Sue",
+            Gender = "Female",
+            Id = Guid.Parse("ga4d6c6e-9650-44c9-8c6b-5aebd3f9a67f"),
+            LastName = "Lemons",
+            RoomId = Guid.Parse("ga4d6c6e-9650-44c9-8c6b-5aebd3f9a67g"),
+            TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67h")
+          }
+        );
+
       });
 
       builder.Entity<Car>(entity =>
@@ -36,7 +68,31 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(c => c.Color).IsRequired().HasMaxLength(100);
         entity.Property(c => c.Year).IsRequired();
         entity.Property(c => c.State).IsRequired();
-        
+
+        entity.HasData
+        (
+          new Car()
+          {
+            Color = "White",
+            Id = 1,
+            LicensePlate = "ABC123",
+            Make = "Ford",
+            Model = "F150",
+            State = "LA",
+            Year = "1996"
+          },
+          new Car()
+          {
+            Color = "Orange",
+            Id = 2,
+            LicensePlate = "DEF456",
+            Make = "Honda",
+            Model = "VTX1300",
+            State = "TX",
+            Year = "2006"
+          }
+        );
+
       });
 
       builder.Entity<Batch>(entity =>
@@ -47,6 +103,26 @@ namespace Revature.Tenant.DataAccess.Entities
        entity.Property(b => b.StartDate).IsRequired();
        entity.Property(b => b.EndDate).IsRequired();
        entity.Property(b => b.TrainingCenter).IsRequired();
+
+       entity.HasData
+       (
+         new Batch()
+         {
+           BatchLanguage = "C#",
+           EndDate = new DateTime(2019,12,31),
+           Id = 1,
+           StartDate = new DateTime(2019, 09, 31),
+           TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67h")
+         },
+         new Batch()
+         {
+           BatchLanguage = "Java",
+           EndDate = new DateTime(2019, 11, 31),
+           Id = 2,
+           StartDate = new DateTime(2019, 08, 31),
+           TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67h")
+         }
+       );
 
      });
     }
