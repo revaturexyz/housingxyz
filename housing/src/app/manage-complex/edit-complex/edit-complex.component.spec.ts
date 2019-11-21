@@ -1,23 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TestServiceData } from 'src/app/services/static-test-data';
-import { AddRoomComponent } from './add-room.component';
 
-describe('AddRoomComponent', () => {
-  let component: AddRoomComponent;
-  let fixture: ComponentFixture<AddRoomComponent>;
+import { EditComplexComponent } from './edit-complex.component';
+
+describe('EditComplexComponent', () => {
+  let component: EditComplexComponent;
+  let fixture: ComponentFixture<EditComplexComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, ReactiveFormsModule ],
-      declarations: [ AddRoomComponent ]
+      declarations: [ EditComplexComponent ]
     })
     .compileComponents();
-
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddRoomComponent);
+    fixture = TestBed.createComponent(EditComplexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

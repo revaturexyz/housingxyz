@@ -5,6 +5,7 @@ import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
 import { RoomType } from 'src/interfaces/room-type';
+import { Gender } from 'src/interfaces/gender';
 
 export class TestServiceData {
   static dummyAddress: Address = {
@@ -54,7 +55,11 @@ export class TestServiceData {
     zipcode: '23456',
   };
 
-  static dummyGender: string[] = ['male', 'female', 'undefined'];
+  static dummyGender: Gender[] = [
+    { genderId: 0, genderType: 'male' },
+    { genderId: 1, genderType: 'female' },
+    { genderId: 2, genderType: 'undefined'}
+  ];
 
   static dummyAmenity1: Amenity = {
     amenityId: 1,

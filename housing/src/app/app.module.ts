@@ -29,6 +29,7 @@ import { CoordinatorModule } from './coordinator.module';
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
+import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EditRoomComponent } from './manage-complex/edit-room/edit-room.componen
     RequestDialogComponent,
     ComplexDetailsComponent,
     ManageComplexComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    EditComplexComponent
   ],
   imports: [
     BrowserModule,

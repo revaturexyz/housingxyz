@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Room } from '../../../interfaces/room';
-import { RoomType } from '../../../interfaces/room-type';
-import { Gender } from '../../../interfaces/gender';
+import { Room } from 'src/interfaces/room';
+import { RoomType } from 'src/interfaces/room-type';
+import { Gender } from 'src/interfaces/gender';
 import { Complex } from 'src/interfaces/complex';
 
 @Component({
@@ -12,6 +12,7 @@ import { Complex } from 'src/interfaces/complex';
   templateUrl: './add-room.component.html',
   styleUrls: ['./add-room.component.scss']
 })
+// Component used to add room to a complex
 export class AddRoomComponent implements OnInit {
 
   seededRoomTypes: Array<RoomType> = [
@@ -49,7 +50,7 @@ export class AddRoomComponent implements OnInit {
       apiComplex: null,
       gender: null,
       leaseLength: null
-    }
+    };
    }
 
   ngOnInit() {
@@ -57,11 +58,13 @@ export class AddRoomComponent implements OnInit {
 
   postAddRoom() {
     console.log('Add Button Pressed');
-    this.modeOutput.emit('details');
+    // Handle adding room to complex logic here
+    this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
 
   cancelAddRoom() {
     console.log('Cancel Button Pressed');
+    this.modeOutput.emit('details');
   }
 
 }

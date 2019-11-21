@@ -1,60 +1,54 @@
 <!-- Used for the split screen -->
-
 <div class="d-md-flex h-md-100 align-items-center">
-
-    <!-- Left side of the split screen -->
-    <div class="col-md-4 p-0 bg-orange h-md-100">
-        <div class="text-white d-md-flex align-items-start h-100 text-center justify-content-center">
-            <div class="logoarea pt-5 pb-5">
-                <!-- Used to display the Training Center information -->
-                <div>
-                    <h3>Stark Agency</h3>
-
+  <!-- Left side of the split screen -->
+  <div class="col-md-4 p-0 bg-orange h-md-100">
+      <div class="text-white d-md-flex align-items-start h-100 text-center justify-content-center">
+          <div class="pt-5 pb-5">
+              <!-- Used to display the Training Center information -->
+              <div>
+                  <h3>Stark Agency</h3>
+              </div>
+              <!-- Drop down to choose a complex -->
+              <mat-card>
+                <mat-form-field>
+                    <mat-label>Select your Complex</mat-label>
+                    <mat-select (ngModelChange)="mode='details'" class="selector" placeholder="Complex" [formControl]="complexControl">
+                        <mat-option *ngFor="let complex of seededComplexes" [value]="complex">
+                            {{complex.complexName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="complexControl.value">
+                  <mat-hint>
+                      <strong>Phone: </strong> {{complexControl.value?.contactNumber}} <br>
+                      <strong>Address: </strong> {{complexControl.value?.apiAddress.streetAddress}}
+                      {{complexControl.value?.apiAddress.city}}, {{complexControl.value?.apiAddress.state}}
+                      {{complexControl.value?.apiAddress.zipcode}}
+                  </mat-hint>
                 </div>
+              </mat-card>
+          </div>
+      </div>
+  </div>
+  <!-- The right side of the page -->
+  <div class="col-md-8 p-0 bg-body h-md-100">
+    <div class="d-md-flex align-items-center justify-content-center h-md-100 p-5">
+      <!--Base div -->
+      <div class="div-drawer d-md-flex p-5 text-center justify-content-center h-100">
 
-                <!-- Drop down to choose a complex -->
-                <mat-card class="card-drawer">
-                    <mat-form-field>
-                        <mat-label>Select your Complex</mat-label>
-                        <mat-select (ngModelChange)="mode='details'" class="selector" placeholder="Complex" [formControl]="complexControl">
-                            <mat-option *ngFor="let complex of seededComplexes" [value]="complex">
-                                {{complex.complexName}}
-                            </mat-option>
-                        </mat-select>
+        <div *ngIf="!complexControl.value && mode=='init'" class="align-self-center"><h2>Choose a Complex</h2></div>
 
-                    </mat-form-field>
-                    <div *ngIf="complexControl.value">
-                        <mat-hint>
-                            <strong>Phone: </strong> {{complexControl.value?.contactNumber}} <br>
-                            <strong>Address: </strong> {{complexControl.value?.apiAddress.streetAddress}}
-                            {{complexControl.value?.apiAddress.city}}, {{complexControl.value?.apiAddress.state}}
-                            {{complexControl.value?.apiAddress.zipcode}}
-                        </mat-hint>
-                    </div>
-                </mat-card>
+        <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (targetRoomOutput)="changeTargetRoom($event)"></dev-complex-details>
 
-            </div>
-        </div>
+        <dev-add-room *ngIf="complexControl.value && mode=='add-room'" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-add-room>
+
+        <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput="changeMode($event)")></dev-edit-room>
+
+        <dev-edit-complex *ngIf="complexControl.value && mode=='edit-complex'" [targetComplex]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-complex>
+      </div>
+    <!--Lower of Container-->
     </div>
-
-    <!-- The right side of the page -->
-    <div class="col-md-8 p-0 bg-body h-md-100 loginarea">
-        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
-
-            <!--Base div -->
-            <div class="div-drawer d-md-flex pt-5 pb-5 text-center align-items-center justify-content-center h-100">
-
-              <div *ngIf="!complexControl.value && mode=='init'"> <h2>Choose a Complex</h2> </div>
-
-              <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value"></dev-complex-details>
-
-              <dev-add-room *ngIf="complexControl.value && mode=='add-room'" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-add-room>
-
-              <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput="changeMode($event)")></dev-edit-room>
-
-            <!--Lower of Container-->
-        </div>
-    </div>
-
-
-    <div class="tempmodeshow"> {{ mode }} </div>
+    <button (click)="changeMode('edit-complex')"> Edit Complex </button>
+    <button (click)="changeMode('add-room')"> Add Room </button>
+  </div>
+</div>

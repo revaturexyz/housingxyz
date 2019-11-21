@@ -2,6 +2,7 @@ import { Address } from './address';
 import { Amenity } from './amenity';
 import { Complex } from './complex';
 import { RoomType } from './room-type';
+import { Gender } from './gender';
 
 export interface Room {
   roomId: number;
@@ -14,6 +15,6 @@ export interface Room {
   startDate: Date;
   endDate: Date;
   apiComplex: Complex;
-  gender: string;
+  gender: Gender;
   leaseLength: number;
 }

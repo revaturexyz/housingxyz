@@ -15,11 +15,11 @@ const routes: Routes = [
   { path: 'show-rooms', component: UpdateRoomComponent },
   { path: 'provider-select', component: ProviderSelectComponent, canActivate: [AuthGuard] },
   { path: 'add-complex', component: AddComplexComponent },
-  { path: 'manage-complex', component:ManageComplexComponent},
-  { path: 'complex-details', component:ComplexDetailsComponent},
-  { path: 'manage-complex', component:ManageComplexComponent },
-  { path: 'add-room', component:AddRoomComponent },
-  { path: 'edit-room', component:EditRoomComponent }
+  { path: 'manage-complex', component: ManageComplexComponent},
+  { path: 'complex-details', component: ComplexDetailsComponent},
+  { path: 'manage-complex', component: ManageComplexComponent },
+  { path: 'add-room', component: AddRoomComponent },
+  { path: 'edit-room', component: EditRoomComponent }
   // { path: "location-rooms/:id", component: LocationRoomsComponent },
 
 ];

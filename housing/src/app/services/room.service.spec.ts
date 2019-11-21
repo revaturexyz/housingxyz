@@ -41,7 +41,9 @@ const room1: Room = {
   apiAmenity: amenityList,
   startDate: new Date(),
   endDate: new Date(),
-  apiComplex: complex1
+  apiComplex: complex1,
+  gender: {genderId: 0, genderType: 'Male'},
+  leaseLength: 6
 };
 const room2: Room = {
   roomId: 0,
@@ -59,7 +61,9 @@ const room2: Room = {
   apiAmenity: [{ amenityId: 2, amenity: 'Washer/Dryer', isSelected: true }],
   startDate: new Date(),
   endDate: new Date(),
-  apiComplex: complex2
+  apiComplex: complex2,
+  gender: {genderId: 0, genderType: 'Male'},
+  leaseLength: 6
 };
 
 class MockMsalService {
