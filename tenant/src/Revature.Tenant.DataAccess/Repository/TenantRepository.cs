@@ -43,14 +43,17 @@ namespace Revature.Tenant.DataAccess.Repository
     /// Gets a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
-    /// <returns>A tenant</returns>
+    /// <returns>A tenant, including their Car and Batch, if applicable</returns>
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
-      Entities.Tenant tenant = await _context.Tenant.Include(t => t.Car).FirstAsync(t => t.Id == id);
+      Entities.Tenant tenant = await _context.Tenant
+        .Include(t => t.Car)
+        .Include(t => t.Batch)
+        .FirstOrDefaultAsync(t => t.Id == id);
 
       if (tenant == null)
       {
-        throw new ArgumentException();
+        throw new ArgumentNullException($"Could not find ID: {id}");
       }
 
       return _mapper.MapTenant((tenant));
@@ -105,15 +108,15 @@ namespace Revature.Tenant.DataAccess.Repository
       Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenantId);
       if (currentTenant == null)
       {
-        throw new InvalidOperationException("Invalid Tenant Id");
+        throw new InvalidOperationException($"Invalid Tenant Id {tenantId}");
       }
-      else if (currentTenant.CarId > 0)
+      else if (currentTenant.CarId == null)
       {
-        return true;
+        return false;
       }
       else
       {
-        return false;
+        return true;
       }
     }
     /// <summary>

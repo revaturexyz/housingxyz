@@ -17,12 +17,12 @@ namespace Revature.Tenant.Tests.LibTests
     }
 
     /// <summary>
-    /// Tests that Empty language throw exception
+    /// Tests that Empty Curriculum throw exception
     /// </summary>
     [Fact]
-    public void Batch_Language_Empty()
+    public void Batch_Curriculum_Empty()
     {
-      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Batch { BatchLanguage = "" });
+      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Batch { BatchCurriculum = "" });
     }
 
     /// <summary>

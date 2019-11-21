@@ -62,12 +62,11 @@ namespace Revature.Tenant.Tests.DataTests
         Batch = new Lib.Models.Batch
         {
           Id = 3,
-          StartDate = DateTime.Now,
-          EndDate = DateTime.Now,
-          BatchLanguage = "C#",
+          BatchCurriculum = "C#",
           TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         }
       };
+      tenant.Batch.SetStartAndEndDate(DateTime.MinValue, DateTime.Now);
 
       // Act
       await repo.AddAsync(tenant);
@@ -124,12 +123,11 @@ namespace Revature.Tenant.Tests.DataTests
         Batch = new Lib.Models.Batch
         {
           Id = 4,
-          StartDate = DateTime.Now,
-          EndDate = DateTime.Now,
-          BatchLanguage = "C#",
+          BatchCurriculum = "C#",
           TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb2-d087491cc491"),
         }
       };
+      tenant.Batch.SetStartAndEndDate(DateTime.MinValue, DateTime.Now);
 
 
       //Act

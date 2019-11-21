@@ -11,7 +11,6 @@ namespace Revature.Tenant.DataAccess.Entities
 
     public virtual DbSet<Tenant> Tenant { get; set; }
     public virtual DbSet<Car> Car { get; set; }
-
     public virtual DbSet<Batch> Batch { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -23,7 +22,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.TrainingCenter).IsRequired();
-        entity.HasOne(t => t.Car).WithMany(c => c.Tenant).HasForeignKey(t => t.CarId);
+        entity.HasOne(t => t.Car).WithOne(c => c.Tenant).HasForeignKey<Tenant>(t => t.CarId);
         entity.HasOne(t => t.Batch).WithMany(b => b.Tenant).HasForeignKey(t => t.BatchId);
 
         entity.HasData
@@ -99,7 +98,7 @@ namespace Revature.Tenant.DataAccess.Entities
      {
        entity.HasKey(b => b.Id);
        entity.Property(b => b.Id).UseIdentityColumn();
-       entity.Property(b => b.BatchLanguage).IsRequired().HasMaxLength(100);
+       entity.Property(b => b.BatchCurriculum).IsRequired().HasMaxLength(100);
        entity.Property(b => b.StartDate).IsRequired();
        entity.Property(b => b.EndDate).IsRequired();
        entity.Property(b => b.TrainingCenter).IsRequired();
@@ -108,7 +107,7 @@ namespace Revature.Tenant.DataAccess.Entities
        (
          new Batch()
          {
-           BatchLanguage = "C#",
+           BatchCurriculum = "C#",
            EndDate = new DateTime(2019,12,30),
            Id = 1,
            StartDate = new DateTime(2019, 09, 30),
@@ -116,14 +115,13 @@ namespace Revature.Tenant.DataAccess.Entities
          },
          new Batch()
          {
-           BatchLanguage = "Java",
+           BatchCurriculum = "Java",
            EndDate = new DateTime(2019, 11, 30),
            Id = 2,
            StartDate = new DateTime(2019, 08, 30),
            TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
          }
        );
-
      });
     }
   }

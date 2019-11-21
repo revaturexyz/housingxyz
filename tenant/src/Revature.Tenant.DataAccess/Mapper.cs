@@ -1,4 +1,5 @@
 using Revature.Tenant.Lib.Interface;
+using System;
 
 namespace Revature.Tenant.DataAccess
 {
@@ -8,10 +9,46 @@ namespace Revature.Tenant.DataAccess
     /// <summary>
     /// Map a Model Tenant from a Entity Tenant
     /// </summary>
-    /// <param name="tenant">A Tenant Entity</param>
-    /// <returns>A Tenant Model</returns>
+    /// <param name="tenant">A Tenant Entity who may have a nested Car Model and/or a Batch Model</param>
+    /// <returns>A Tenant Model who may have a nested Car Model and/or a Batch Model</returns>
     public Lib.Models.Tenant MapTenant(Entities.Tenant tenant)
     {
+      var batch = new Lib.Models.Batch() { };
+      int? batchId;
+      if (tenant.Batch != null)
+      {
+        batch.Id = tenant.Batch.Id;
+        batch.BatchCurriculum = tenant.Batch.BatchCurriculum;
+        batch.TrainingCenter = tenant.Batch.TrainingCenter;
+        batch.SetStartAndEndDate(tenant.Batch.StartDate, tenant.Batch.EndDate);
+        batchId = tenant.BatchId;
+      }
+      else
+      {
+        batch = null;
+        batchId = null;
+      }
+
+      var car = new Lib.Models.Car() { };
+      int? carId;
+      if (tenant.Car != null)
+      {
+        car.Id = tenant.Car.Id;
+        car.LicensePlate = tenant.Car.LicensePlate;
+        car.Make = tenant.Car.Make;
+        car.Model = tenant.Car.Model;
+        car.Color = tenant.Car.Color;
+        car.Year = tenant.Car.Year;
+        car.State = tenant.Car.State;
+        carId = tenant.CarId;
+      }
+      else
+      {
+        car = null;
+        carId = null;
+      }
+
+
       return new Lib.Models.Tenant
       {
         Id = tenant.Id,
@@ -21,37 +58,20 @@ namespace Revature.Tenant.DataAccess
         LastName = tenant.LastName,
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
-        CarId = tenant.CarId,
-        BatchId = tenant.BatchId,
+        CarId = carId,
+        BatchId = batchId,
         TrainingCenter = tenant.TrainingCenter,
 
-        Car = new Lib.Models.Car
-        {
-          Id = tenant.Car.Id,
-          LicensePlate = tenant.Car.LicensePlate,
-          Make = tenant.Car.Make,
-          Model = tenant.Car.Model,
-          Color = tenant.Car.Color,
-          Year = tenant.Car.Year,
-          State = tenant.Car.State
-        },
-
-        Batch = new Lib.Models.Batch
-        {
-          Id = tenant.Batch.Id,
-          BatchLanguage = tenant.Batch.BatchLanguage,
-          StartDate = tenant.Batch.StartDate,
-          EndDate = tenant.Batch.EndDate,
-          TrainingCenter = tenant.Batch.TrainingCenter
-        }
+        Car = car,
+        Batch = batch
       };
     }
 
     /// <summary>
     /// Map a Entity Tenant from a Model Tenant
     /// </summary>
-    /// <param name="tenant">A Tenant Model</param>
-    /// <returns>A Tenant Entity</returns>
+    /// <param name="tenant">A Tenant Model who may have a nested Car Model and/or a Batch Model</param>
+    /// <returns>A Tenant Entity who may have a nested Car Model and/or a Batch Model</returns>
     public Entities.Tenant MapTenant(Lib.Models.Tenant tenant)
     {
       return new Entities.Tenant
@@ -81,7 +101,7 @@ namespace Revature.Tenant.DataAccess
         Batch = new Entities.Batch
         {
           Id = tenant.Batch.Id,
-          BatchLanguage = tenant.Batch.BatchLanguage,
+          BatchCurriculum = tenant.Batch.BatchCurriculum,
           StartDate = tenant.Batch.StartDate,
           EndDate = tenant.Batch.EndDate,
           TrainingCenter = tenant.Batch.TrainingCenter
@@ -132,12 +152,19 @@ namespace Revature.Tenant.DataAccess
     /// </summary>
     /// <param name="batch">A Batch Entity</param>
     /// <returns>A Batch Model</returns>
+    /// <exception cref="System.ArgumentException">Thrown when start date is after end date</exception>
     public Entities.Batch MapBatch(Lib.Models.Batch batch)
     {
+      //checks that start date is before end date
+      if (batch.StartDate.CompareTo(batch.EndDate) >= 0)
+      {
+        throw new ArgumentException($"Start date must be before end date. Start Date: {batch.StartDate}, End Date: {batch.EndDate}");
+      }
+
       return new Entities.Batch
       {
         Id = batch.Id,
-        BatchLanguage = batch.BatchLanguage,
+        BatchCurriculum = batch.BatchCurriculum,
         StartDate = batch.StartDate,
         EndDate = batch.EndDate,
         TrainingCenter = batch.TrainingCenter
@@ -149,16 +176,18 @@ namespace Revature.Tenant.DataAccess
     /// </summary>
     /// <param name="batch">A Batch Model</param>
     /// <returns>A Batch Entity</returns>
+    /// <exception cref="System.ArgumentException">Thrown when start date is after end date</exception>
+
     public Lib.Models.Batch MapBatch(Entities.Batch batch)
     {
-      return new Lib.Models.Batch
+      var newBatch = new Lib.Models.Batch()
       {
         Id = batch.Id,
-        BatchLanguage = batch.BatchLanguage,
-        StartDate = batch.StartDate,
-        EndDate = batch.EndDate,
+        BatchCurriculum = batch.BatchCurriculum,
         TrainingCenter = batch.TrainingCenter
       };
+      newBatch.SetStartAndEndDate(batch.StartDate, batch.EndDate);
+      return newBatch;
     }
   }
 }

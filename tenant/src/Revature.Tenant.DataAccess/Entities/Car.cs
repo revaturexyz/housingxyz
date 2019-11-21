@@ -9,10 +9,7 @@ namespace Revature.Tenant.DataAccess.Entities
   /// </summary>
   public class Car
   {
-    public Car()
-    {
-      Tenant = new HashSet<Tenant>();
-    }
+    
     public int Id { get; set; }
     public string LicensePlate { get; set; }
     public string Make { get; set; }
@@ -21,6 +18,6 @@ namespace Revature.Tenant.DataAccess.Entities
     public string Year { get; set; }
     public string State { get; set; }
 
-    public virtual ICollection<Tenant> Tenant { get; set; }
+    public virtual Tenant Tenant { get; set; }
   }
 }
