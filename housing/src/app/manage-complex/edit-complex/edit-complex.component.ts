@@ -39,6 +39,12 @@ export class EditComplexComponent implements OnInit {
     this.modeOutput.emit('details');
   }
 
+  deleteComplex() {
+    console.log('Cancel Complex Changes');
+    // Handle Delete Here
+    this.modeOutput.emit('details');
+  }
+
   // This will be used to select defaults for amenity selection list
   compareWithFunc(a, b) {
     return a.name === b.name;

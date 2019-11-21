@@ -1,17 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatFormFieldModule  } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatTableModule  } from '@angular/material';
 
 import { AddComplexComponent } from './add-complex.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('EditComplexComponent', () => {
+describe('AddComplexComponent', () => {
   let component: AddComplexComponent;
   let fixture: ComponentFixture<AddComplexComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, ReactiveFormsModule ],
+      imports: [ FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatTableModule, NoopAnimationsModule ],
       declarations: [ AddComplexComponent ]
     })
     .compileComponents();

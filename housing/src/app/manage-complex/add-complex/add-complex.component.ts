@@ -31,7 +31,7 @@ export class AddComplexComponent implements OnInit {
   formLivingComplex: Complex;
 
   constructor(
-    private router: Router,
+    // private router: Router,
     // private mapsService: MapsService,
     // private providerService: ProviderService,
     // private redirect: RedirectService
