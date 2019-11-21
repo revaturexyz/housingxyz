@@ -109,17 +109,17 @@ namespace Revature.Tenant.DataAccess.Entities
          new Batch()
          {
            BatchLanguage = "C#",
-           EndDate = new DateTime(2019,12,31),
+           EndDate = new DateTime(2019,12,30),
            Id = 1,
-           StartDate = new DateTime(2019, 09, 31),
+           StartDate = new DateTime(2019, 09, 30),
            TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a670")
          },
          new Batch()
          {
            BatchLanguage = "Java",
-           EndDate = new DateTime(2019, 11, 31),
+           EndDate = new DateTime(2019, 11, 30),
            Id = 2,
-           StartDate = new DateTime(2019, 08, 31),
+           StartDate = new DateTime(2019, 08, 30),
            TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a670")
          }
        );
