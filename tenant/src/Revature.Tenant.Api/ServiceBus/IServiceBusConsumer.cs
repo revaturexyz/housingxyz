@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.ServiceBus
 {
+  /// <summary>
+  /// Interfance for ServiceBusConsumer
+  /// </summary>
   public interface IServiceBusConsumer
   {
     void RegisterOnMessageHandlerAndReceiveMessages();
