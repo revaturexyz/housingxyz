@@ -51,6 +51,8 @@ export class ManageComplexComponent implements OnInit {
   }
 
   changeMode(reqMode: any) {
+
+    console.log("mode =", reqMode);
     if ( (typeof reqMode) === 'object' ){
       this.mode = 'details';
     } else {

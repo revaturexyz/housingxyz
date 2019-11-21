@@ -167,7 +167,7 @@ export class TestServiceData {
     complexId: 1,
     apiProvider: TestServiceData.dummyProvider,
     apiAddress: TestServiceData.livPlusAddress,
-    complexName: 'Liv+ Appartments',
+    complexName: 'Liv+ Apartments',
     contactNumber: '123-123-1234',
     amenity: TestServiceData.dummyAmenityList2
   };
@@ -175,7 +175,7 @@ export class TestServiceData {
   static room: Room = {
     roomId: 0,
     apiAddress: TestServiceData.dummyAddress,
-    roomNumber: '',
+    roomNumber: '117',
     numberOfBeds: 2,
     apiRoomType: null,
     isOccupied: false,
@@ -191,7 +191,7 @@ export class TestServiceData {
     complexId: 2,
     apiProvider: TestServiceData.dummyProvider,
     apiAddress: TestServiceData.complexAddress2,
-    complexName: 'Liv- Appartments',
+    complexName: 'Liv- Apartments',
     contactNumber: '123-123-1234',
     amenity: TestServiceData.dummyAmenityList3
   };
