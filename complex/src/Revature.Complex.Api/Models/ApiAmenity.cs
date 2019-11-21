@@ -5,22 +5,15 @@ using System.Threading.Tasks;
 
 namespace Revature.Complex.Api.Models
 {
+
+  /// <summary>
+  /// Api Amenity model, use it as parameter from front-end
+  /// or as return type to send back to front-end
+  /// </summary>
   public class ApiAmenity
   {
-    /// <summary>
-    /// Amenity Id of Api Amenity model
-    /// </summary>
     public Guid AmenityId { get; set; }
-
-    /// <summary>
-    /// Name of Api Amenity model
-    /// </summary>
     public string AmenityType { get; set; }
-
-    /// <summary>
-    /// Description of Api Amenity model
-    /// </summary>
-    public string Description { get; set; }
-    
+    public string Description { get; set; }    
   }
 }

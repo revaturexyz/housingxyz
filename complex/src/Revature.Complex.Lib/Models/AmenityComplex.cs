@@ -4,21 +4,15 @@ using System.Text;
 
 namespace Revature.Complex.Lib.Models
 {
+  /// <summary>
+  /// Logic AmenityComplex Model. Use it as parameter to pass into/received from Repository
+  /// </summary>
   public class AmenityComplex
   {
-    /// <summary>
-    /// Amenity Complex id of entity AmenityComplex model
-    /// </summary>
     public Guid AmenityComplexId { get; set; }
 
-    /// <summary>
-    /// Amenity id of entity AmenityComplex model(FK)
-    /// </summary>
     public Guid AmenityId { get; set; }
 
-    /// <summary>
-    /// Complex Id of entity AmenityComplex model(FK)
-    /// </summary>
     public Guid ComplexId { get; set; }
   }
 }

@@ -4,30 +4,22 @@ using System.Text;
 
 namespace Revature.Complex.DataAccess.Entities
 {
+  /// <summary>
+  /// Entity amenity model. Repository use it to CRUD amenity data from database
+  /// </summary>
   public class Amenity
   {
-    /// <summary>
-    /// Primary key of Amenity table
-    /// </summary>
     public Guid AmenityId { get; set; }
-
-    /// <summary>
-    /// Amentity name cell of Amenity table
-    /// </summary>
     public string AmenityType { get; set; }
-
-    /// <summary>
-    /// Amenity Description cell of Amenity table
-    /// </summary>
     public string Description { get; set; }
 
     /// <summary>
-    /// Amenity id should behave as FK in AmenityRoom table
+    /// it is for amenity Id to behave as FK in AmenityRoom table
     /// </summary>
     public virtual ICollection<AmenityRoom> AmenityRoom { get; set; }
 
     /// <summary>
-    /// Amenity id should behave as FK in AmenityComplex table
+    /// It is for complex Id behave as FK in AmenityRoom table
     /// </summary>
     public virtual ICollection<AmenityComplex> AmenityComplex { get; set; }
   }

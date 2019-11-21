@@ -28,14 +28,17 @@ namespace Revature.Complex.Api.Controllers
     #region GET
 
     /// <summary>
-    /// (GET) Call Repository to read all existed complices from database 
+    /// (GET)
+    /// Call Repository to read all existed complices from database
+    /// without anything as parameters
+    /// then return it as enumarable collections of Api Complex model
     /// </summary>
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("Getallcomplex")]
     //GET: api/complex/Getallcomplex
-    public async Task<ActionResult<List<ApiComplex>>> GetAllComplexAsync()
+    public async Task<ActionResult<IEnumerable<ApiComplex>>> GetAllComplexAsync()
     {
       try
       {
@@ -78,7 +81,10 @@ namespace Revature.Complex.Api.Controllers
     }
 
     /// <summary>
-    /// (GET) Call Repository and Address service to get specific complex info by complex Id
+    /// (GET)
+    /// Call Repository and Address service to get specific complex info
+    /// by complex Id as parameter
+    /// will return single Api complex model
     /// </summary>
     /// <param name="complexGuid"></param>
     /// <returns></returns>
@@ -124,8 +130,10 @@ namespace Revature.Complex.Api.Controllers
     }
 
     /// <summary>
-    /// (GET) Call Repository and Address service to get specific complex info
-    /// by complex name and phone number
+    /// (GET)
+    /// Call Repository and Address service to get specific complex info
+    /// by complex name and phone number as parameters
+    /// then return single Api Complex model
     /// </summary>
     /// <param name="complexName"></param>
     /// <param name="ComplexNumber"></param>
@@ -176,7 +184,10 @@ namespace Revature.Complex.Api.Controllers
 
 
     /// <summary>
-    /// (GET) Call Repository and Address service to get complices' info for specific provider by provider Id
+    /// (GET)
+    /// Call Repository and Address service to get list of complex info
+    /// belongs specific provider by provider Id as parameter
+    /// then return it as enumarable collections of Api Complex model
     /// </summary>
     /// <param name="providerId"></param>
     /// <returns></returns>
@@ -244,8 +255,9 @@ namespace Revature.Complex.Api.Controllers
 
     /// <summary>
     /// (POST)
-    /// 1. Call Repository to insert new complex in the database
-    /// 2. Send complex address to Address Service
+    /// Call Repository to insert new complex in the database
+    /// Send complex address to Address Service
+    /// Need to take an Api complex model as parameter
     /// </summary>
     /// <param name="apiComplex"></param>
     /// <returns></returns>
@@ -330,8 +342,9 @@ namespace Revature.Complex.Api.Controllers
 
     /// <summary>
     /// (POST)
-    /// 1. Call Repository to insert Amenity of rooms into the database
-    /// 2. Repackage the Rooms' object and send them to Room service
+    /// Call Repository to insert Amenity of rooms into the database
+    /// Repackage the Rooms' object and send them to Room service
+    /// Needs to take enumarable collections of Api Room model as parameters
     /// </summary>
     /// <param name="apiRooms"></param>
     /// <returns></returns>
@@ -399,8 +412,9 @@ namespace Revature.Complex.Api.Controllers
 
     /// <summary>
     /// (PUT)
-    /// 1. Call Repo to update complex and amenity complex in the database
-    /// 2. Send updated address to Address service
+    /// Call Repo to update complex and amenity complex in the database
+    /// Send updated address to Address service
+    /// Needs to take Single Api Complex model as parameter
     /// </summary>
     /// <param name="apiComplex"></param>
     /// <returns></returns>
@@ -487,8 +501,9 @@ namespace Revature.Complex.Api.Controllers
     #region DELETE
     /// <summary>
     /// (PUT)
-    /// 1. Call Repo to delete complex and amenity complex in the database
-    /// 2. Send complex Id to Address service
+    /// Call Repo to delete complex and amenity complex in the database
+    /// Send complex Id to Address service to delete the address
+    /// Needs a complex Id as parameter
     /// </summary>
     /// <param name="apiComplex"></param>
     /// <returns></returns>

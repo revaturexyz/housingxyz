@@ -100,7 +100,7 @@ namespace Revature.Complex.DataAccess
     }
 
     /// <summary>
-    /// Logic.Complex to Entity.Complex
+    /// Logic.Complex => Entity.Complex
     /// </summary>
     /// <param name="c"></param>
     /// <returns></returns>
@@ -117,7 +117,7 @@ namespace Revature.Complex.DataAccess
     }
 
     /// <summary>
-    /// Entity.Complex to Logic.Complex
+    /// Entity.Complex => Logic.Complex
     /// </summary>
     /// <param name="c"></param>
     /// <returns></returns>

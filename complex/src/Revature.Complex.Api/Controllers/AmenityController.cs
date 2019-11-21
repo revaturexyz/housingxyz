@@ -27,7 +27,9 @@ namespace Revature.Complex.Api.Controllers
     #region GET
 
     /// <summary>
-    /// (GET) Call Repository to get all exixted amenities from the database
+    /// (GET)
+    /// Call Repository to get all existed amenities from the database
+    /// without any parameter. Then return it as enumerable collections of amenities
     /// </summary>
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -62,7 +64,10 @@ namespace Revature.Complex.Api.Controllers
     }
 
     /// <summary>
-    /// (GET) Call Repository to get amenities from the database for specific room by room Id
+    /// (GET)
+    /// Call Repository to get amenities from the database
+    /// for single specific room by room Id as parameter
+    /// Then return it as enumerable collections of amenities
     /// </summary>
     /// <param name="roomGuid"></param>
     /// <returns></returns>
@@ -98,7 +103,10 @@ namespace Revature.Complex.Api.Controllers
     }
 
     /// <summary>
-    /// (GET) Call Repository to get amenities from the database for specific complex by complex Id
+    /// (GET)
+    /// Call Repository to get amenities from the database
+    /// for specific complex by complex Id as parameter
+    /// then return it as enumerable collections of amenities
     /// </summary>
     /// <param name="complexGuid"></param>
     /// <returns></returns>
@@ -137,7 +145,9 @@ namespace Revature.Complex.Api.Controllers
     #region POST
 
     /// <summary>
-    /// (POST) Call Repository to insert a new Amenity into the database
+    /// (POST)
+    /// Call Repository to insert a new Amenity into the database
+    /// Need to take a Api amenity model as parameter
     /// </summary>
     /// <param name="apiAmenity"></param>
     /// <returns></returns>
@@ -181,7 +191,9 @@ namespace Revature.Complex.Api.Controllers
     #region PUT
 
     /// <summary>
-    /// (PUT) Call Repository to update existed single amenity in the database
+    /// (PUT)
+    /// Call Repository to update existed single amenity in the database
+    /// Need to take an Api Amenity model as parameter 
     /// </summary>
     /// <param name="apiAmenity"></param>
     /// <returns></returns>
@@ -225,7 +237,9 @@ namespace Revature.Complex.Api.Controllers
     #region DELETE
 
     /// <summary>
-    /// (DELETE) Call Repository to delete existed single amenity in the database
+    /// (DELETE)
+    /// Call Repository to delete existed single amenity in the database
+    /// Need to take an Api Amenity model as parameter
     /// </summary>
     /// <param name="apiAmenity"></param>
     /// <returns></returns>

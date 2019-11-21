@@ -4,21 +4,15 @@ using System.Text;
 
 namespace Revature.Complex.DataAccess.Entities
 {
+  /// <summary>
+  /// Entity AmenityRoom model. Repository use it to CRUD amenity of room data from database
+  /// </summary>
   public class AmenityRoom
   {
-    /// <summary>
-    /// Primary key of AmenityRoom table
-    /// </summary>
     public Guid AmenityRoomId { get; set; }
 
-    /// <summary>
-    /// Foreign key of Amenity table
-    /// </summary>
     public Guid AmenityId { get; set; }
 
-    /// <summary>
-    /// Room Id cell of AmenityRoom table, come from room service
-    /// </summary>
     public Guid RoomId { get; set; }
 
     /// <summary>
