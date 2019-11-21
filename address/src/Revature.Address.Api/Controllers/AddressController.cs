@@ -17,10 +17,10 @@ using Serilog;
 
 namespace Revature.Address.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AddressController : ControllerBase
-    {
+  [Route("api/[controller]")]
+  [ApiController]
+  public class AddressController : ControllerBase
+  {
 
     private readonly IDataAccess db;
 
@@ -45,11 +45,11 @@ namespace Revature.Address.Api.Controllers
       Log.Information("Got Address");
       return Ok(new AddressModel
       {
-          Id = address.Id,
-          Street = address.Street,
-          City = address.City,
-          State = address.State,
-          Country = address.Country,
+        Id = address.Id,
+        Street = address.Street,
+        City = address.City,
+        State = address.State,
+        Country = address.Country,
         ZipCode = address.ZipCode
       });
     }

@@ -6,8 +6,19 @@ namespace Revature.Complex.DataAccess.Entities
 {
   public class Amenity
   {
-    public int AmenityId { get; set; }
+    /// <summary>
+    /// Primary key of Amenity table
+    /// </summary>
+    public Guid AmenityId { get; set; }
+
+    /// <summary>
+    /// Amentity name cell of Amenity table
+    /// </summary>
     public string AmenityType { get; set; }
+
+    /// <summary>
+    /// Amenity Description cell of Amenity table
+    /// </summary>
     public string Description { get; set; }
 
     public virtual ICollection<AmenityRoom> AmenityRoom { get; set; }

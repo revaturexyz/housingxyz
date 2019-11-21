@@ -6,8 +6,19 @@ namespace Revature.Complex.DataAccess.Entities
 {
   public class AmenityRoom
   {
-    public int AmenityRoomId { get; set; }
-    public int AmenityId { get; set; }
+    /// <summary>
+    /// Primary key of AmenityRoom table
+    /// </summary>
+    public Guid AmenityRoomId { get; set; }
+
+    /// <summary>
+    /// Foreign key of Amenity table
+    /// </summary>
+    public Guid AmenityId { get; set; }
+
+    /// <summary>
+    /// Room Id cell of AmenityRoom table
+    /// </summary>
     public Guid RoomId { get; set; }
 
     public Amenity Amenity { get; set; }

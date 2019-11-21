@@ -11,14 +11,15 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityTest()
     {
+      Guid amId = Guid.NewGuid();
       Entity.Amenity amenity = new Entity.Amenity
       {
-        AmenityId = 1,
+        AmenityId = amId,
         AmenityType = "fridge",
         Description = "to freeze items"
       };
 
-      Assert.Equal(1, amenity.AmenityId);
+      Assert.Equal(amId, amenity.AmenityId);
       Assert.Equal("fridge", amenity.AmenityType);
       Assert.Equal("to freeze items", amenity.Description);
     }
@@ -26,34 +27,38 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityComplexTest()
     {
+      Guid acId = Guid.NewGuid();
+      Guid amId = Guid.NewGuid();
       Guid guid1 = Guid.NewGuid();
 
       Entity.AmenityComplex ac = new Entity.AmenityComplex
       {
-        AmenityComplexId = 1,
-        AmenityId = 1,
+        AmenityComplexId = acId,
+        AmenityId = amId,
         ComplexId = guid1
       };
 
-      Assert.Equal(1, ac.AmenityComplexId);
-      Assert.Equal(1, ac.AmenityId);
+      Assert.Equal(acId, ac.AmenityComplexId);
+      Assert.Equal(amId, ac.AmenityId);
       Assert.Equal(guid1, ac.ComplexId);
     }
 
     [Fact]
     public void AmenityRoomTest()
     {
+      Guid arId = Guid.NewGuid();
+      Guid amId = Guid.NewGuid();
       Guid guid = Guid.NewGuid();
 
       Entity.AmenityRoom ar = new Entity.AmenityRoom
       {
-        AmenityRoomId = 1,
-        AmenityId = 2,
+        AmenityRoomId = arId,
+        AmenityId = amId,
         RoomId = guid
       };
 
-      Assert.Equal(1, ar.AmenityRoomId);
-      Assert.Equal(2, ar.AmenityId);
+      Assert.Equal(arId, ar.AmenityRoomId);
+      Assert.Equal(amId, ar.AmenityId);
       Assert.Equal(guid, ar.RoomId);
     }
 
