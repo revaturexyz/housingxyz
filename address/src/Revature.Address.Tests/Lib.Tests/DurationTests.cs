@@ -9,7 +9,7 @@ namespace Revature.Address.Tests.Lib.Tests
   public class DurationTests
   {
     /// <summary>
-    /// tests Duration constructor will assign values to feilds.
+    /// tests Duration constructor will assign values to fields.
     /// </summary>
     [Fact]
     public void ConstructorShouldConstructWithSetters()

@@ -8,6 +8,9 @@ namespace Revature.Address.Tests.Lib.Tests
 {
   public class DistanceMatrixResponseTests
   {
+    /// <summary>
+    /// tests DistanceMatrix constructor will assign values to fields.
+    /// </summary>
     [Fact]
     public void ConstructorShouldConstructWithSetters()
     {

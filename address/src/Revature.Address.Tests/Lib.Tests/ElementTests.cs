@@ -9,7 +9,7 @@ namespace Revature.Address.Tests.Lib.Tests
   public class ElementTests
   {
     /// <summary>
-    /// tests Element constructor will assign values to feilds.
+    /// tests Element constructor will assign values to fields.
     /// Distance, and Duration model are apart of Element.
     /// </summary>
     [Fact]

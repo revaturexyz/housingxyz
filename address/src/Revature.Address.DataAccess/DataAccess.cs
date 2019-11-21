@@ -26,18 +26,30 @@ namespace Revature.Address.DataAccess
       _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task AddAddressAsync(Revature.Address.Lib.Address address)
+    /// <summary>
+    /// Checks if address already exists in database,
+    /// if it doesn't it converts it and adds it to the database
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns></returns>
+    public async Task AddAddressAsync(Lib.Address address)
     {
-      Revature.Address.Lib.Address newAddress = (await GetAddressesAsync(address: address)).FirstOrDefault();
+      Lib.Address newAddress = (await GetAddressAsync(address: address)).FirstOrDefault();
       if (newAddress == null)
       {
         await _context.AddAsync(_mapper.MapAddress(address));
       }
     }
 
-    public async Task<ICollection<Revature.Address.Lib.Address>> GetAddressesAsync(Guid? id = null, Revature.Address.Lib.Address address = null)
+    /// <summary>
+    /// Given either an id or an address it retrieves an address from the database 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="address"></param>
+    /// <returns>Returns an address</returns>
+    public async Task<ICollection<Lib.Address>> GetAddressAsync(Guid? id = null, Lib.Address address = null)
     {
-      List<Revature.Address.DataAccess.Entities.Address> addresses = await _context.Addresses.AsNoTracking().ToListAsync();
+      List<Entities.Address> addresses = await _context.Addresses.AsNoTracking().ToListAsync();
 
       if (id != null)
         addresses = addresses.Where(a => a.Id == id).ToList();
@@ -48,6 +60,11 @@ namespace Revature.Address.DataAccess
       return addresses.Select(_mapper.MapAddress).ToList();
     }
 
+    /// <summary>
+    /// Given an id, it deletes the corresponding address from the database
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Returns true or false</returns>
     public async Task<bool> DeleteAddressAsync(Guid id)
     {
       if (await _context.Addresses.FindAsync(id) is Entities.Address item)
@@ -59,6 +76,10 @@ namespace Revature.Address.DataAccess
       return false;
     }
 
+    /// <summary>
+    /// Saves changes made to the database
+    /// </summary>
+    /// <returns></returns>
     public async Task SaveAsync()
     {
       await _context.SaveChangesAsync();

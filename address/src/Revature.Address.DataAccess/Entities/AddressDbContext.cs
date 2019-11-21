@@ -7,13 +7,19 @@ namespace Revature.Address.DataAccess.Entities
 {
   public partial class AddressDbContext : DbContext
   {
-    public AddressDbContext()
-    {
+    public AddressDbContext() {}
 
-    }
+    /// <summary>
+    /// Sets the options for the database context
+    /// </summary>
+    /// <param name="options"></param>
     public AddressDbContext(DbContextOptions<AddressDbContext> options) : base(options) { }
     public virtual DbSet<Address> Addresses { get; set; }
 
+    /// <summary>
+    /// Creates the model for the Address table in the database
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<Address>(entity =>

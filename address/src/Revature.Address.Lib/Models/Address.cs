@@ -7,6 +7,12 @@ using System.Text.RegularExpressions;
 
 namespace Revature.Address.Lib
 {
+
+  /// <summary>
+  /// This is an address object for business logic purposes,
+  /// specifies a guid id as well as a street,
+  /// city, state, country, and zip code
+  /// </summary>
   public class Address
   {
 
@@ -17,6 +23,9 @@ namespace Revature.Address.Lib
     private string _country { get; set; }
     private string _zipCode { get; set; }
 
+    /// <summary>
+    /// Specifies that the guid id must be set
+    /// </summary>
     public Guid Id
     {
       get => _id;
@@ -28,6 +37,11 @@ namespace Revature.Address.Lib
         _id = value;
       }
     }
+
+    /// <summary>
+    /// Specifies that a street must not be null and
+    /// not whitespace or a series of special characters
+    /// </summary>
     public string Street
     {
       get => _street;
@@ -48,6 +62,10 @@ namespace Revature.Address.Lib
         }
       }
     }
+
+    /// <summary>
+    /// Specifies that a city must not be null or whitespace
+    /// </summary>
     public string City
     {
       get => _city;
@@ -67,6 +85,11 @@ namespace Revature.Address.Lib
         }
       }
     }
+
+    /// <summary>
+    /// Specifies that a state must not be null and
+    /// can only be a series of letters and spaces
+    /// </summary>
     public string State
     {
       get => _state;
@@ -88,6 +111,9 @@ namespace Revature.Address.Lib
       }
     }
 
+    /// <summary>
+    /// Specifies that a country must not be null or whitespace
+    /// </summary>
     public string Country
     {
       get => _country;
@@ -103,12 +129,14 @@ namespace Revature.Address.Lib
         }
         else
         {
-          throw new ArgumentException($"Invalid value \"{value}\" City name cannot be whitespace.", nameof(value));
+          throw new ArgumentException($"Invalid value \"{value}\" Country name cannot be whitespace.", nameof(value));
         }
       }
     }
 
-
+    /// <summary>
+    /// Specifies that a zip code must be a string of 5 integers
+    /// </summary>
     public string ZipCode
     {
       get => _zipCode;

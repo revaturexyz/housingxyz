@@ -9,7 +9,7 @@ namespace Revature.Address.Tests.Lib.Tests
   public class DistanceTests
   {
     /// <summary>
-    /// tests Distance constructor will assign values to feilds.
+    /// tests Distance constructor will assign values to fields.
     /// </summary>
     [Fact]
     public void ConstructorShouldConstructWithSetters()

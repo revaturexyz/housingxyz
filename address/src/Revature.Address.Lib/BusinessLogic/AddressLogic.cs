@@ -21,16 +21,29 @@ namespace Revature.Address.Lib.BusinessLogic
     // Google's API key
     private const string ApiKey = SecretKey.GApiKey;
 
+    // Configures JsonSerializer with a snake case naming policy
     private readonly JsonSerializerOptions _distanceMatrixSerializerOptions = new JsonSerializerOptions
     {
       PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy()
     };
 
+    /// <summary>
+    /// Constructor for AddressLogic object
+    /// </summary>
+    /// <param name="logger"></param>
     public AddressLogic(ILogger<AddressLogic> logger = null)
     {
       _logger = logger;
     }
 
+    /// <summary>
+    /// Makes a call to Google's Distance Matrix API to check if two given address
+    /// are within a specified distance of each other.
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="destination"></param>
+    /// <param name="distance"></param>
+    /// <returns>Return true or false</returns>
     public async Task<bool> IsInRangeAsync(Address origin, Address destination, int distance)
     {
       // formatted address to be used with Google API
@@ -81,11 +94,18 @@ namespace Revature.Address.Lib.BusinessLogic
       }
     }
 
+    /// <summary>
+    /// Makes a call to Google's Geocode API to check if a given address exists
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns>Returns true or false</returns>
     public async Task<bool> IsValidAddress(Address address)
     {
-      AddressGeocodeRequest request = new AddressGeocodeRequest();
-      request.Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}";
-      request.Key = SecretKey.GApiKey;
+      AddressGeocodeRequest request = new AddressGeocodeRequest
+      {
+        Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
+        Key = SecretKey.GApiKey
+      };
       GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToArray();
 
@@ -98,12 +118,24 @@ namespace Revature.Address.Lib.BusinessLogic
       }
     }
 
+    /// <summary>
+    /// Builds query portion of the url for Distance Matrix API call with a given origin and destination
+    /// and API key and sets the units for response data to imperial
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="destination"></param>
+    /// <returns>Returns the url query string </returns>
     public static string GetGoogleApiUrl(string origin, string destination)
     {
       // Google distance matrix parameters
       return $"?units=imperial&origins={origin}&destinations={destination}&key=" + ApiKey;
     }
 
+    /// <summary>
+    /// Replaces white space with '+'s in Address information for proper url integration
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns>Returns properly formatted address string</returns>
     public static string FormatAddress(Address address)
     {
       // formats address for Google API

@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace Revature.Address.Api.ServiceBus
 {
+  /// <summary>
+  /// Interface for ServiceBusSender
+  /// </summary>
   interface IServiceBusSender
   {
-    public Task SendMessage(Revature.Address.Lib.Address sentAddress);
+    public Task SendCreateMessage(Lib.Address sentAddress);
+    public Task SendDeleteMessage(Lib.Address sentAddress);
   }
 }

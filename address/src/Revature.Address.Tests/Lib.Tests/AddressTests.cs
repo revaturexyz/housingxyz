@@ -7,6 +7,9 @@ namespace Revature.Address.Tests.Lib.Tests
 {
     public class AddressTests
     {
+    /// <summary>
+    /// tests Address constructor will assign values to fields.
+    /// </summary>
     [Fact]
     public void ConstructorShouldConstruct()
     {

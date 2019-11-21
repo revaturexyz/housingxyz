@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Revature.Address.Api.ServiceBus;
 using Revature.Address.DataAccess.Entities;
 using Revature.Address.DataAccess.Interfaces;
+using Revature.Address.Lib.BusinessLogic;
 using Revature.Address.Lib.Interfaces;
 using Serilog;
 
@@ -49,8 +50,10 @@ namespace Revature.Address.Api
 
       services.AddScoped<IMapper, DataAccess.Mapper>();
       services.AddScoped<IDataAccess, DataAccess.DataAccess>();
-      services.AddScoped<IServiceBusSender, ServiceBusSender>();
-      services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+      //services.AddScoped<IServiceBusSender, ServiceBusSender>();
+      //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+      services.AddScoped<AddressLogic>();
+
 
       services.AddSwaggerGen(c =>
       {
@@ -75,8 +78,8 @@ namespace Revature.Address.Api
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Address V1");
       });
 
-      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
+      //var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+      //bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 
