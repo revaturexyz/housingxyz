@@ -38,13 +38,15 @@ namespace Revature.Account.Lib.Interface
 
     public Task<bool> UpdateNotificationAsync(Notification notification);
 
-    public Task<bool> DeleteNotificationByIdAsync(Guid providerId);
+    public Task<bool> DeleteNotificationByIdAsync(Guid notificationId);
 
     #endregion
 
     #region Status
 
     public Task<Status> GetStatusByIdAsync(int statusId);
+
+    public Task<Status> GetStatusByStatusTextAsync(string statusText);
 
     public void AddStatus(Status status);
 
