@@ -1,7 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Complex } from 'src/interfaces/complex';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Room } from '../../../interfaces/room';
+import { TestServiceData } from 'src/app/services/static-test-data';
+import * as moment from 'moment';
+
 
 export interface PeriodicElement {
   name: string;
@@ -21,21 +25,37 @@ export class ComplexDetailsComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
+  @Output() targetRoomOutput: EventEmitter<Room> = new EventEmitter<Room>();
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+
+
+  public seededRooms: Room[] = [
+    TestServiceData.room,
+    TestServiceData.room2
   ];
-  dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
+
+  displayedColumns = ['room#', 'start', 'end', 'edit'];
+
+  dataSource = new MatTableDataSource<Room>(this.seededRooms);
+
+  editRoom(room: Room)
+  {
+    this.targetRoomOutput.emit(room);
+    this.modeOutput.emit('edit-room');
+    console.log("room->", room);
+  }
+
+  changeMode(reqMode: string)
+  {
+    console.log("reqMode =",reqMode);
+    this.modeOutput.emit(reqMode);
+  }
+
+  dateFormat(date: Date)
+  {
+    return moment(date).format('MM/YYYY');
+  }
 
   constructor() { }
 

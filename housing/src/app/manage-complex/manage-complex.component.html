@@ -37,15 +37,15 @@
   <div class="col-md-8 p-0 bg-body h-md-100">
     <div class="d-md-flex align-items-center justify-content-center h-md-100 p-5">
       <!--Base div -->
-      <div class="div-drawer d-md-flex p-5 text-center justify-content-center h-100">
+      <div class="div-drawer d-md-flex p-5 text-center justify-content-center">
 
         <div *ngIf="mode=='init'" class="align-self-center"><h2>Select a complex from the menu or</h2><h2><a class="add-complex-highlight" (click)="changeMode('add-complex')">add another now</a></h2></div>
 
-        <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (targetRoomOutput)="changeTargetRoom($event)"></dev-complex-details>
+        <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (targetRoomOutput)="changeTargetRoom($event)" (modeOutput)="changeMode($event)"></dev-complex-details>
 
         <dev-add-room *ngIf="complexControl.value && mode=='add-room'" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-add-room>
 
-        <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput="changeMode($event)")></dev-edit-room>
+        <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-room>
 
         <dev-edit-complex *ngIf="complexControl.value && mode=='edit-complex'" [targetComplex]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-complex>
 
@@ -54,7 +54,5 @@
       </div>
     <!--Lower of Container-->
     </div>
-    <button (click)="changeMode('edit-complex')"> Edit Complex </button>
-    <button (click)="changeMode('add-room')"> Add Room </button>
   </div>
 </div>
