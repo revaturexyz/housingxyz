@@ -402,5 +402,26 @@ namespace Revature.Room.Tests
 
       Assert.Equal(3, filterRoom5.Count(r => r.NumberOfBeds == newNumOfBeds));
     }
+
+    [Fact]
+    public async Task AddRoomOccupantsShouldUpdateAsync()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("AddRoomOccupantsShouldUpdate")
+      .Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      testContext.Database.EnsureCreated();
+
+      testContext.Room.Add(PresetEntityRoom(testContext));
+      await testContext.SaveChangesAsync();
+      var mapper = new DBMapper();
+      var repo = new Repository(testContext, mapper);
+
+      await repo.AddRoomOccupantsAsync(newRoomId);
+
+      var result = await testContext.Room.FirstAsync(r => r.RoomId == newRoomId);
+      Assert.True(result.NumberOfOccupants == newNumOfOccupants + 1);
+    }
   }
 }

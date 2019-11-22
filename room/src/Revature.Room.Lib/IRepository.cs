@@ -70,5 +70,11 @@ namespace Revature.Room.Lib
     /// <param name="endDate"></param>
     /// <returns></returns>
     public Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate);
+    /// <summary>
+    /// Method that updates room occupants when an occupant is assigned a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    public Task AddRoomOccupantsAsync(Guid roomId);
+
   }
 }

@@ -148,5 +148,14 @@ namespace Revature.Room.DataAccess
         .Where(r => r.Gender.Type.ToUpper() == gender.ToUpper() && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
         .Select(r => r.RoomId).ToListAsync();
     }
+    /// <summary>
+    /// Method that updates the room occupants when a tenant is assigned a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    public async Task AddRoomOccupantsAsync(Guid roomId)
+    {
+      Entities.Room roomToUpdate = await _context.Room.FirstAsync(r => r.RoomId == roomId);
+      roomToUpdate.NumberOfOccupants++;
+    }
   }
 }
