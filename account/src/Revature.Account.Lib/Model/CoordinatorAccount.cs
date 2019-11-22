@@ -4,19 +4,29 @@ using System.Collections.Generic;
 namespace Revature.Account.Lib.Model
 {
   /// <summary>
-  /// Contains information on a single training coordinator who is
-  /// tied to a single training center.
+  /// Contains individual information for a coordinators whome are tied to a single training center.
   /// </summary>
   public class CoordinatorAccount
   {
+    
     private string _email;
     private string _name;
     private string _trainingCenterName;
     private string _trainingCenterAddress;
 
+    /// <summary>
+    /// Guid based Id for the managing-coordinator who manages this message.
+    /// </summary>
     public Guid CoordinatorId { get; set; } = Guid.NewGuid();
+
+    /// <summary>
+    /// References a list of notifications associated with a given coordinator.
+    /// </summary>
     public virtual List<Lib.Model.Notification> Notifications { get; set; }
 
+    /// <summary>
+    /// Coordinator's full name.
+    /// </summary>
     public string Name
     {
       get { return _name; }
@@ -27,6 +37,9 @@ namespace Revature.Account.Lib.Model
       }
     }
 
+    /// <summary>
+    /// Coordinator's valid email
+    /// </summary>
     public string Email
     {
       get { return _email; }
@@ -44,7 +57,6 @@ namespace Revature.Account.Lib.Model
     /// </summary>
     ///
     //public string TrainingCenterName { get; set; }
-    
     public string TrainingCenterName
     { 
       get
@@ -57,6 +69,7 @@ namespace Revature.Account.Lib.Model
         _trainingCenterName = value;
       }
     }
+
     /// <summary>
     /// Address of the training center associated with the coordinator.
     /// </summary>
@@ -72,7 +85,11 @@ namespace Revature.Account.Lib.Model
         _trainingCenterAddress = value;
       }
     }
-
+    
+    /// <summary>
+    /// Checks to see if a string is either null (does not exist) or empty ( "" )
+    /// </summary>
+    /// <param name="value"></param>
     private void NotNullOrEmpty(string value)
     {
 

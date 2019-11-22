@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Revature.Account.Lib.CustomExceptions
 {
+  /// <summary>
+  /// Custom exception-class to ensure chronologically correct dates.
+  /// </summary>
   public class NegDateException : Exception
   {
     public NegDateException()

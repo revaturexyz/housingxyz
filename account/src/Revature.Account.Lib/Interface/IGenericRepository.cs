@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Revature.Account.Lib.Interface
 {
+  /// <summary>
+  /// The interface-point for the data-access-layer's interaction with the business-logic-layer.
+  /// </summary>
   public interface IGenericRepository
   {
     #region Provider
