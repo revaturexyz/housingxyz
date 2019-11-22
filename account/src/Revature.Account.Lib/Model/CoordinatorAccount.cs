@@ -11,7 +11,11 @@ namespace Revature.Account.Lib.Model
   {
     private string _email;
     private string _name;
+    private string _trainingCenterName;
+    private string _trainingCenterAddress;
+
     public Guid CoordinatorId { get; set; } = Guid.NewGuid();
+    public virtual List<Lib.Model.Notification> Notifications { get; set; }
 
     public string Name
     {
@@ -41,7 +45,6 @@ namespace Revature.Account.Lib.Model
     ///
     //public string TrainingCenterName { get; set; }
     
-    private string _trainingCenterName;
     public string TrainingCenterName
     { 
       get
@@ -54,13 +57,21 @@ namespace Revature.Account.Lib.Model
         _trainingCenterName = value;
       }
     }
-    
-
     /// <summary>
     /// Address of the training center associated with the coordinator.
     /// </summary>
-    public string TrainingCenterAddress { get; set; }
-    public virtual List<Lib.Model.Notification> Notifications { get; set; }
+    public string TrainingCenterAddress
+    {
+      get
+      {
+        return this._trainingCenterAddress;
+      }
+      set
+      {
+        NotNullOrEmpty(value);
+        _trainingCenterAddress = value;
+      }
+    }
 
     private void NotNullOrEmpty(string value)
     {
