@@ -18,17 +18,17 @@ namespace Revature.Complex.DataAccess.Entities
     public virtual DbSet<AmenityRoom> AmenityRoom { get; set; }
     public virtual DbSet<Amenity> Amenity { get; set; }
 
-    public Guid cId1 = Guid.NewGuid();
-    public Guid cId2 = Guid.NewGuid();
-    public Guid cId3 = Guid.NewGuid();
-    public Guid cId4 = Guid.NewGuid();
-    public Guid rId1 = Guid.NewGuid();
-    public Guid rId2 = Guid.NewGuid();
-    public Guid amId1 = Guid.NewGuid();
-    public Guid amId2 = Guid.NewGuid();
-    public Guid amId3 = Guid.NewGuid();
-    public Guid amId4 = Guid.NewGuid();
-    public Guid amId5 = Guid.NewGuid();
+    private Guid cId1 = Guid.NewGuid();
+    private Guid cId2 = Guid.NewGuid();
+    private Guid cId3 = Guid.NewGuid();
+    private Guid cId4 = Guid.NewGuid();
+    private Guid rId1 = Guid.NewGuid();
+    private Guid rId2 = Guid.NewGuid();
+    private Guid amId1 = Guid.NewGuid();
+    private Guid amId2 = Guid.NewGuid();
+    private Guid amId3 = Guid.NewGuid();
+    private Guid amId4 = Guid.NewGuid();
+    private Guid amId5 = Guid.NewGuid();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
