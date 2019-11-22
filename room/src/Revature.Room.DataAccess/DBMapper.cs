@@ -1,9 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using Revature.Room.DataAccess.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Revature.Room.DataAccess
 {
@@ -12,7 +8,6 @@ namespace Revature.Room.DataAccess
   /// </summary>
   public class DBMapper : IMapper
   {
-    
     /// <summary>
     /// Method that converts a DB Entities Room Object to a Business Logic Library Room Object
     /// </summary>
@@ -52,7 +47,6 @@ namespace Revature.Room.DataAccess
         NumberOfOccupants = Room.NumberOfOccupants
       };
     }
-
 
     /// <summary>
     /// Method that parses a list of DB Entities Rooms to Business Logic Rooms

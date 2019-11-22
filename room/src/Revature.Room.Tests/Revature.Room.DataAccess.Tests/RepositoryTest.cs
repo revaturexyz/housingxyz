@@ -34,7 +34,6 @@ namespace Revature.Room.Tests
     private DateTime newLeaseStart = new DateTime(2000, 1, 1);
     private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
 
-
     /* End of Room Properties */
 
     // Use to set up a valid business logic Room
@@ -53,6 +52,7 @@ namespace Revature.Room.Tests
         LeaseEnd = newLeaseEnd
       };
     }
+
     // Use to set up a valid entity Room
     private DataAccess.Entities.Room PresetEntityRoom(RoomServiceContext context)
     {
@@ -400,7 +400,6 @@ namespace Revature.Room.Tests
       Assert.Equal(3, filterRoom4.Count(r => r.ComplexId == newComplexId));
 
       Assert.Equal(3, filterRoom5.Count(r => r.NumberOfBeds == newNumOfBeds));
-
     }
   }
 }

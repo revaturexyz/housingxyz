@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-
 namespace Revature.Room.DataAccess.Tests
 {
   public class ComplexControllerTests
@@ -46,6 +45,7 @@ namespace Revature.Room.DataAccess.Tests
       //assert
       Assert.IsAssignableFrom<OkObjectResult>(result);
     }
+
     /// <summary>
     /// Unit test for try/catch block for Complex Controller GetFilteredRoomsAsync.
     /// </summary>

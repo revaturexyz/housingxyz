@@ -7,7 +7,6 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-
 namespace Revature.Room.Tests.Revature.Room.DataAccess.Tests
 {
   public class TenantControllerTests

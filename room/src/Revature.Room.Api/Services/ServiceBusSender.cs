@@ -4,11 +4,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Revature.Room.Lib;
 using System;
-using System.Globalization;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace ServiceBusMessaging
 {
@@ -17,7 +14,6 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusSender
   {
-
     private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
     private readonly ILogger<ServiceBusSender> _logger;
@@ -34,7 +30,6 @@ namespace ServiceBusMessaging
       _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
     }
 
-
     /// <summary>
     /// Get the time limit or expiration of the SAS token
     /// </summary>
@@ -45,7 +40,6 @@ namespace ServiceBusMessaging
       TimeSpan expirySinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1) + ttl;
       return Convert.ToString((int)expirySinceEpoch.TotalSeconds);
     }
-
 
     /// <summary>
     /// ServiceBus message for deleting a message
