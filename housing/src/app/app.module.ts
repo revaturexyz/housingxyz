@@ -13,8 +13,7 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
-  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatFormFieldModule, MatSelectModule,
-  MatOptionModule
+  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
@@ -24,10 +23,9 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
-import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
-import { environment } from 'src/environments/environment';
+import { AuthGuard } from './guards/auth.guard';
+import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
-import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 
 @NgModule({
   declarations: [
@@ -41,43 +39,31 @@ import { ManageComplexComponent } from './manage-complex/manage-complex.componen
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent,
-    ManageComplexComponent
+    RequestDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatCardModule,
     NgbModule,
     MatTableModule,
     MatChipsModule,
+    MatPaginatorModule,
     CdkTableModule,
     MatCardModule,
     MatDialogModule,
     StickyNavModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
     MatRippleModule,
-    MsalModule.forRoot({
-      clientID: environment.clientID,
-      authority: environment.authority,
-      validateAuthority: environment.validateAuthority,
-      // redirectUri: 'https://housingpre.revature.xyz/',
-      // redirectUri: 'http://localhost:4200/',
-      cacheLocation: 'localStorage',
-      postLogoutRedirectUri: 'http://localhost:4200/login/',
-      navigateToLoginRequestUrl: false
-    }),
     CoordinatorModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
+      useClass: InterceptorService,
       multi: true
     }
   ],
