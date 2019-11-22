@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Revature.Tenant.Api.ServiceBus;
+using Revature.Tenant.DataAccess;
+using Revature.Tenant.DataAccess.Entities;
+using Revature.Tenant.DataAccess.Repository;
 using Revature.Tenant.Lib.Interface;
 using Serilog;
 
@@ -24,6 +28,9 @@ namespace Revature.Tenant.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddDbContext<TenantContext>(options =>
+          options.UseNpgsql(Configuration.GetConnectionString(ConnectionStringName)));
+
       services.AddCors(options =>
       {
         options.AddPolicy(CorsPolicyName, builder =>
@@ -45,6 +52,8 @@ namespace Revature.Tenant.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Tenant", Version = "v1" });
       });
 
+      services.AddScoped<ITenantRepository, TenantRepository>();
+      services.AddScoped<IMapper, Mapper>();
       //services.AddScoped<IServiceBusSender, ServiceBusSender>();
       //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
 
