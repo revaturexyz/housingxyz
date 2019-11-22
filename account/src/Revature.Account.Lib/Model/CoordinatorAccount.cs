@@ -43,23 +43,61 @@ namespace Revature.Account.Lib.Model
     /// <summary>
     /// Name of the training center associated with the coordinator.
     /// </summary>
-    public string TrainingCenterName { get; set; }
+    ///
+    //public string TrainingCenterName { get; set; }
+    
+    private string _trainingCenterName;
+    public string TrainingCenterName
+    { 
+      get
+      {
+        return this._trainingCenterName;
+      }
+      set
+      {
+        NotNullOrEmpty(value);
+        _trainingCenterName = value;
+      }
+    }
+    
+
     /// <summary>
     /// Address of the training center associated with the coordinator.
     /// </summary>
-    public string TrainingCenterAddress { get; set; }
+    ///
+
+    //public string TrainingCenterAddress { get; set; }
+    
+    private string _trainingCenterAddress;
+    public string TrainingCenterAddress
+    {
+      get
+      {
+        return this._trainingCenterAddress;
+      }
+      set
+      {
+        NotNullOrEmpty(value);
+        _trainingCenterAddress = value;
+      }
+    }
+    
     public virtual List<Lib.Model.Notification> Notifications { get; set; }
 
     private void NotNullOrEmpty(string value)
     {
+
       if (value == null)
       {
         throw new ArgumentNullException(nameof(value), "Your Input cannot be null");
       }
+
       if (value.Length == 0)
       {
         throw new ArgumentException("Your Input cannot be empty string.", nameof(value));
       }
+
     }
+
   }
 }

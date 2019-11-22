@@ -17,6 +17,7 @@ namespace Revature.Account.Tests.ControllerTests
     public async Task GetNotificationsByCoordinatorIdAsync()
     {
       TestHelper helper = new TestHelper();
+
       Guid notificationId = helper.Notifications[0].NotificationId;
       Guid coordinatorId = helper.Notifications[0].CoordinatorId;
 
@@ -31,12 +32,19 @@ namespace Revature.Account.Tests.ControllerTests
     public async Task CreateNewNotificationSuccessfullyVerifyTestAsync()
     {
       TestHelper helper = new TestHelper();
+
       Guid coordinatorId = helper.Coordinators[0].CoordinatorId;
       Guid providerId = helper.Providers[0].ProviderId;
+
       var newNotification = new Notification();
+
       newNotification.ProviderId = providerId;
-      newNotification.CoordinatorId = coordinatorId; 
+      newNotification.CoordinatorId = coordinatorId;
+      newNotification.AccountExpiresAt = TestHelper.nowPSev;
+
+
       Guid newNotificationId = newNotification.NotificationId;
+
 
       helper.Repository
         .Setup(x => x.AddNotification(It.IsAny<Notification>()))

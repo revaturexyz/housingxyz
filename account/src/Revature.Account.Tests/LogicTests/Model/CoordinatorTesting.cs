@@ -31,5 +31,40 @@ namespace Revature.Account.Test.Logic_Tests.Model
 
       Assert.ThrowsAny<FormatException>(() => coordinator.Email = invalidEmail);
     }
+
+    
+    [Fact]
+    public void CoordinatorTCNameNullException()
+    {
+      string invalidName = null;
+
+      Assert.ThrowsAny<ArgumentNullException>(() => coordinator.TrainingCenterName = invalidName);
+    }
+
+    [Fact]
+    public void CoordinatorTCNameBlankException()
+    {
+      string invalidName = "";
+
+      Assert.ThrowsAny<ArgumentException>(() => coordinator.TrainingCenterName = invalidName);
+    }
+
+    [Fact]
+    public void CoordinatorTCAddrNullException()
+    {
+      string invalidAddr = null;
+
+      Assert.ThrowsAny<ArgumentNullException>(() => coordinator.TrainingCenterAddress = invalidAddr);
+    }
+
+    [Fact]
+    public void CoordinatorTCAddrBlankException()
+    {
+      string invalidAddr = "";
+
+      Assert.ThrowsAny<ArgumentException>(() => coordinator.TrainingCenterName = invalidAddr);
+    }
+
+
   }
 }
