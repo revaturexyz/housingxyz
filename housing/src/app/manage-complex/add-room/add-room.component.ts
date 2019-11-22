@@ -41,8 +41,7 @@ export class AddRoomComponent implements OnInit {
       startDate: null,
       endDate: null,
       apiComplex: null,
-      gender: null,
-      leaseLength: null
+      gender: null
     };
    }
 

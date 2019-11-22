@@ -9,6 +9,7 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
 import { AuthGuard } from './guards/auth.guard';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
+import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'complex-details', component: ComplexDetailsComponent},
   { path: 'manage-complex', component: ManageComplexComponent },
   { path: 'add-room', component: AddRoomComponent },
-  { path: 'edit-room', component: EditRoomComponent }
+  { path: 'edit-room', component: EditRoomComponent },
+  { path: 'show-room', component: ShowRoomComponent }
   // { path: "location-rooms/:id", component: LocationRoomsComponent },
 
 ];

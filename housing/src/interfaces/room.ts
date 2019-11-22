@@ -16,5 +16,4 @@ export interface Room {
   endDate: Date;
   apiComplex: Complex;
   gender: Gender;
-  leaseLength: number;
 }
