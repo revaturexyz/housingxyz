@@ -16,7 +16,7 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public Lib.Room ParseRoom(Entities.Room Room)
     {
-      return new Lib.Room()
+      Lib.Room room = new Lib.Room()
       {
         RoomId = Room.RoomId,
         ComplexId = Room.ComplexId,
@@ -24,10 +24,10 @@ namespace Revature.Room.DataAccess
         RoomNumber = Room.RoomNumber,
         RoomType = Room.RoomType.Type,
         NumberOfBeds = Room.NumberOfBeds,
-        LeaseStart = Room.LeaseStart,
-        LeaseEnd = Room.LeaseEnd,
         NumberOfOccupants = Room.NumberOfOccupants
       };
+      room.SetLease(Room.LeaseStart, Room.LeaseEnd);
+      return room;
     }
 
     /// <summary>

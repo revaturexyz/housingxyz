@@ -44,7 +44,7 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task<Lib.Room> ReadRoomAsync(Guid roomId)
     {
-      return _map.ParseRoom(await _context.Room.FirstAsync(r => r.RoomId == roomId));
+      return _map.ParseRoom(await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).Include(r => r.RoomType).FirstAsync());
     }
 
     /// <summary>

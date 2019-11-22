@@ -39,7 +39,7 @@ namespace Revature.Room.Tests
     // Use to set up a valid business logic Room
     private BusinessLogic.Room PresetBLRoom()
     {
-      return new BusinessLogic.Room
+      var room =  new BusinessLogic.Room
       {
         RoomId = newRoomId,
         ComplexId = newComplexId,
@@ -48,9 +48,10 @@ namespace Revature.Room.Tests
         RoomType = newRoomType,
         NumberOfBeds = newNumOfBeds,
         NumberOfOccupants = newNumOfOccupants,
-        LeaseStart = newLeaseStart,
-        LeaseEnd = newLeaseEnd
+       
       };
+      room.SetLease(newLeaseStart, newLeaseEnd);
+      return room;
     }
 
     // Use to set up a valid entity Room
