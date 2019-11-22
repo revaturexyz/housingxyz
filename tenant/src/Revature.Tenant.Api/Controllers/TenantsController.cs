@@ -38,21 +38,74 @@ namespace Revature.Tenant.Api.Controllers
     public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync()
     {
       _logger.LogInformation("GET - Getting tenants");
-      var tenant = await _tenantRepository.GetAllAsync();
-
-      return tenant.Select(t => new ApiTenant
+      var tenants = await _tenantRepository.GetAllAsync();
+      List<Lib.Models.Tenant> newTenants = new List<Lib.Models.Tenant>();
+      foreach (Lib.Models.Tenant tenant in tenants)
       {
-        Id = t.Id,
-        Email = t.Email,
-        Gender = t.Gender,
-        FirstName = t.FirstName,
-        LastName = t.LastName,
-        AddressId = t.AddressId,
-        RoomId = t.RoomId,
-        CarId = t.CarId,
-        BatchId = t.BatchId,
-        TrainingCenter = t.TrainingCenter
-      }).ToList();
+        Lib.Models.Batch batch;
+        int? batchId;
+        if (tenant.Batch != null)
+        {
+          batch = new Lib.Models.Batch
+          {
+            Id = tenant.Batch.Id,
+            BatchCurriculum = tenant.Batch.BatchCurriculum,
+            TrainingCenter = tenant.Batch.TrainingCenter
+          };
+          batch.SetStartAndEndDate(tenant.Batch.StartDate, tenant.Batch.EndDate);
+          batchId = tenant.BatchId;
+        }
+        else
+        {
+          batch = null;
+          batchId = null;
+        }
+
+        Lib.Models.Car car;
+        int? carId;
+        if (tenant.Car != null)
+        {
+          car = new Lib.Models.Car()
+          {
+            Id = tenant.Car.Id,
+            LicensePlate = tenant.Car.LicensePlate,
+            Make = tenant.Car.Make,
+            Model = tenant.Car.Model,
+            Color = tenant.Car.Color,
+            Year = tenant.Car.Year,
+            State = tenant.Car.State
+          };
+          carId = tenant.CarId;
+        }
+        else
+        {
+          car = null;
+          carId = null;
+        }
+        newTenants.Add(tenant);
+      }
+
+      List<ApiTenant> apiTenants = new List<ApiTenant>();
+      foreach(Lib.Models.Tenant apiTenant in newTenants)
+      {
+        ApiTenant newApiTenant = new ApiTenant
+        {
+          Id = apiTenant.Id,
+          Email = apiTenant.Email,
+          Gender = apiTenant.Gender,
+          FirstName = apiTenant.FirstName,
+          LastName = apiTenant.LastName,
+          AddressId = apiTenant.AddressId,
+          RoomId = apiTenant.RoomId,
+          CarId = apiTenant.CarId,
+          BatchId = apiTenant.BatchId,
+          TrainingCenter = apiTenant.TrainingCenter
+        };
+        apiTenants.Add(newApiTenant);
+      }
+      return Ok(apiTenants);
+
+
     }
 
     /// <summary>

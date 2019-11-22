@@ -38,7 +38,7 @@ namespace Revature.Tenant.Tests.ApiTests
     {
       // Arrange (create a moq repo and use it for the controller)
       var mockLogger = new Mock<ILogger>();
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenant.ToList());
+      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       var controller = new TenantController(mockRepo.Object, mockLogger.Object);
       // Act (get a Tenant with an id)
      
