@@ -14,7 +14,7 @@ namespace Revature.Tenant.DataAccess.Repository
   /// </summary>
   public class TenantRepository : ITenantRepository 
   {
-    private readonly TenantsContext _context;
+    private readonly TenantContext _context;
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -22,7 +22,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="context">The data source</param>
     /// <param name="mapper">The mapper</param>
-    public TenantRepository(TenantsContext context, IMapper mapper)
+    public TenantRepository(TenantContext context, IMapper mapper)
     {
       _context = context;
       _mapper = mapper;
@@ -34,23 +34,26 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="tenant">The Tenant</param>
     public async Task AddAsync(Lib.Models.Tenant tenant)
     {
-      Tenants newTenant = _mapper.MapTenant(tenant);
+      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
 
-      await _context.Tenants.AddAsync(newTenant);
+      await _context.Tenant.AddAsync(newTenant);
     }
 
     /// <summary>
     /// Gets a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
-    /// <returns>A tenant</returns>
+    /// <returns>A tenant, including their Car and Batch, if applicable</returns>
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
-      Tenants tenant = await _context.Tenants.Include(t => t.Cars).FirstAsync(t => t.Id == id);
+      Entities.Tenant tenant = await _context.Tenant
+        .Include(t => t.Car)
+        .Include(t => t.Batch)
+        .FirstOrDefaultAsync(t => t.Id == id);
 
       if (tenant == null)
       {
-        throw new ArgumentException();
+        throw new ArgumentNullException($"Could not find ID: {id}");
       }
 
       return _mapper.MapTenant((tenant));
@@ -62,7 +65,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>The collection of all tenants</returns>
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
     {
-      List<Tenants> tenants = await _context.Tenants.Include(t => t.Cars).AsNoTracking().ToListAsync();
+      List<Entities.Tenant> tenants = await _context.Tenant.Include(t => t.Car).AsNoTracking().ToListAsync();
 
       return tenants.Select((_mapper.MapTenant)).ToList();
     }
@@ -73,7 +76,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="id">The ID of the tenant</param>
     public async Task DeleteByIdAsync(Guid id)
     {
-      Tenants tenant = await _context.Tenants.FindAsync(id);
+      Entities.Tenant tenant = await _context.Tenant.FindAsync(id);
 
       _context.Remove(tenant);
     }
@@ -84,14 +87,14 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="tenant">The tenant with changed values</param>
     public async Task UpdateAsync(Lib.Models.Tenant tenant)
     {
-      Tenants currentTenant = await _context.Tenants.FindAsync(tenant.Id);
+      Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenant.Id);
 
       if (currentTenant == null)
       {
         throw new InvalidOperationException("Invalid Tenant Id");
       }
 
-      Tenants newTenant = _mapper.MapTenant(tenant);
+      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
     }
 
@@ -100,20 +103,20 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="tenantId">tenant Id</param>
     /// <returns>True if Tenant has Car, returns false if the Tenant has no car</returns>
-    public async Task<bool> HasCarAsync(int tenantId)
+    public async Task<bool> HasCarAsync(Guid tenantId)
     {
-      Tenants currentTenant = await _context.Tenants.FindAsync(tenantId);
+      Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenantId);
       if (currentTenant == null)
       {
-        throw new InvalidOperationException("Invalid Tenant Id");
+        throw new InvalidOperationException($"Invalid Tenant Id {tenantId}");
       }
-      else if (currentTenant.CarId > 0)
+      else if (currentTenant.CarId == null)
       {
-        return true;
+        return false;
       }
       else
       {
-        return false;
+        return true;
       }
     }
     /// <summary>

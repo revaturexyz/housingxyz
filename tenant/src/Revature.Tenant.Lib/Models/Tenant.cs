@@ -14,11 +14,12 @@ namespace Revature.Tenant.Lib.Models
     private string _lastName;
     private Guid _addressId;
     private Guid _roomId;
-    private int _carId;
-    private int _batchId;
+    private int? _carId;
+    private int? _batchId;
+    private Guid _trainingCenter;
 
+    public Batch Batch { get; set; }
     public Car Car { get; set; }
-
     public Guid Id
     {
       get => _id;
@@ -32,8 +33,6 @@ namespace Revature.Tenant.Lib.Models
         _id = value;
       }
     }
-
-
     public string Email
     {
       get => _email;
@@ -58,8 +57,6 @@ namespace Revature.Tenant.Lib.Models
         _email = value;
       }
     }
-
-
     public string FirstName
     {
       get => _firstName;
@@ -94,8 +91,6 @@ namespace Revature.Tenant.Lib.Models
         _lastName = value;
       }
     }
-
-
     public Guid RoomId
     {
       get => _roomId;
@@ -109,21 +104,19 @@ namespace Revature.Tenant.Lib.Models
         _roomId = value;
       }
     }
-
-    public int CarId
+    public int? CarId
     {
       get => _carId;
       set
       {
         if (value < 0)
         {
-          throw new ArgumentOutOfRangeException("Car Id must not be negative", nameof(value));
+          throw new ArgumentOutOfRangeException(nameof(value), "Car Id must not be negative");
         }
 
         _carId = value;
       }
     }
-
     public string Gender
     {
       get => _gender;
@@ -141,15 +134,31 @@ namespace Revature.Tenant.Lib.Models
         _gender = value;
       }
     }
-
     public string FullName
     {
       get => FirstName + " " + LastName;
     }
-
     public Guid AddressId
     {
       get => _addressId;
+      set => _addressId = value;
+    }
+    public int? BatchId
+    {
+      get => _batchId;
+      set
+      {
+        if (value < 0)
+        {
+          throw new ArgumentOutOfRangeException(nameof(value), "Batch Id must not be negative");
+        }
+
+        _batchId = value;
+      }
+    }
+    public Guid TrainingCenter
+    {
+      get => _trainingCenter;
       set
       {
         if (value == Guid.Empty)
@@ -157,21 +166,7 @@ namespace Revature.Tenant.Lib.Models
           throw new ArgumentException("Address Id must not be empty", nameof(value));
         }
 
-        _addressId = value;
-      }
-    }
-
-    public int BatchId
-    {
-      get => _batchId;
-      set
-      {
-        if (value < 0)
-        {
-          throw new ArgumentOutOfRangeException("Batch Id must not be negative", nameof(value));
-        }
-
-        _batchId = value;
+        _trainingCenter = value;
       }
     }
   }
