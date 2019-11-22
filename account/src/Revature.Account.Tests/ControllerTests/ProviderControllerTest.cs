@@ -11,8 +11,15 @@ using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Tests.ControllerTests
 {
+  /// <summary>
+  /// Tests for the Provider Controller.
+  /// </summary>
   public class ProviderControllerTest
   {
+    /// <summary>
+    /// Test for Provider retrieval based on their Guid-Id. 
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetProviderByIdAsync()
     {
@@ -26,6 +33,10 @@ namespace Revature.Account.Tests.ControllerTests
       Assert.NotNull(await helper.ProviderAccountController.Get(providerId) as OkObjectResult);
     }
 
+    /// <summary>
+    /// Test for the successful creation of a Provider account.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task CreateNewProviderAccountSuccessfullyVerifyTestAsync()
     {
@@ -47,6 +58,10 @@ namespace Revature.Account.Tests.ControllerTests
          .Verify();
     }
 
+    /// <summary>
+    /// Test for a sucessful provider-account-update.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task UpdateProviderAccountAsyncSuccessfulVerificationAsync()
     {
@@ -70,6 +85,10 @@ namespace Revature.Account.Tests.ControllerTests
           .Verify();
     }
 
+    /// <summary>
+    /// Test for a successful provider-account deletion.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeletProviderAccountAsyncSuccessfulVerificationAsync()
     {

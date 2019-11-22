@@ -11,11 +11,13 @@ using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Tests.ControllerTests
 {
+  /// <summary>
+  /// Tests for the API's Notification Controller.
+  /// </summary>
   public class NotifitcationControllerTest
   {
     /// <summary>
-    /// Get Notification Based on Coordinator Account By its Id test
-    /// Excepted return not null if the Id is valid
+    /// Test for the retrieval of a Notification based on a coordinator-account's Guid-Id. (GET)
     /// </summary>
     [Fact]
     public async Task GetNotificationsByCoordinatorIdAsync()
@@ -32,6 +34,11 @@ namespace Revature.Account.Tests.ControllerTests
       Assert.NotNull(await helper.NotificationController.GetNotificationByCoordinatorIdAsync(coordinatorId) as OkObjectResult);
     }
 
+
+    /// <summary>
+    /// Test for the successful creation of a new Notification. (POST)
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task CreateNewNotificationSuccessfullyVerifyTestAsync()
     {
@@ -56,6 +63,10 @@ namespace Revature.Account.Tests.ControllerTests
           .Verify();
     }
 
+    /// <summary>
+    /// Test for a successful Notification update (PUT).
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task UpdateNotificationAsyncSuccessfulVerificationAsync()
     {
@@ -80,6 +91,11 @@ namespace Revature.Account.Tests.ControllerTests
       helper.Repository
           .Verify();
     }
+
+    /// <summary>
+    /// Test for the sucessful deletion of a specified Notification. (DELETE)
+    /// </summary>
+    /// <returns></returns>
 
     [Fact]
     public async Task DeleteNotificationAsyncSuccessfulVerificationAsync()

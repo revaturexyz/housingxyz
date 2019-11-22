@@ -1,3 +1,8 @@
+/* Helper methods for the Moq-Testing of methods.
+ * While not a test itself, the Test Helper assists in testing both API-Coordinator-methods and Data-Access-methods.
+ * Source: Adapted from "Database and Dragons" TestHelper class.
+ */
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -10,27 +15,36 @@ using System.Collections.Generic;
 
 namespace Revature.Account.Tests
 {
+  /// <summary>
+  /// Helper methods for the Moq-Testing of methods.
+  /// </summary>
   public class TestHelper
   {
-
+    //setup the moq
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> Repository { get; private set; }
+
+    //API Controller Instantiation
     public CoordinatorAccountController CoordinatorAccountController { get; private set; }
     public NotificationController NotificationController { get; private set; }
     public ProviderAccountController ProviderAccountController { get; private set; }
 
-
+    //Business Logic Layer Instantiation.
     public List<CoordinatorAccount> Coordinators { get; private set; }
     public List<Notification> Notifications { get; private set; }
     public List<ProviderAccount> Providers { get; private set; }
     public List<Status> Statuses { get; private set; }
 
-    //for testing expiration times
+    //For testing expiration times
     public static DateTime now;
     public static DateTime nowPSev;
     public static DateTime nowPThirty;
 
+    //Event logging
     public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
 
+    /// <summary>
+    /// Default Constructor
+    /// </summary>
 
     public TestHelper()
     {
@@ -48,6 +62,9 @@ namespace Revature.Account.Tests
       nowPThirty = now.AddDays(30);
     }
 
+    /// <summary>
+    /// Set up the example database-entries used by the "moqed" database.
+    /// </summary>
     private void SetUpCoordinators()
     {
       Coordinators = new List<CoordinatorAccount>
@@ -78,6 +95,7 @@ namespace Revature.Account.Tests
         },
       };
     }
+
 
     private void SetUpProviderAccount()
     {
@@ -165,6 +183,9 @@ namespace Revature.Account.Tests
       };
     }
 
+    /// <summary>
+    /// Instantiates the Moq instance (Mock) and seed-data, specifically the controllers in the API.
+    /// </summary>
     private void SetUpMocks()
     {
       Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
