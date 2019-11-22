@@ -1,5 +1,5 @@
-/* Helper methods for the Moq-Testing of methods.
- * While not a test itself, the Test Helper assists in testing both API-Coordinator-methods and Data-Access-methods.
+/* Helper methods for the Moq Testing of methods.
+ * While not a test itself, the Test Helper assists in testing both API Coordinator methods and Data Access methods.
  * Source: Adapted from "Database and Dragons" TestHelper class.
  */
 
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace Revature.Account.Tests
 {
   /// <summary>
-  /// Helper methods for the Moq-Testing of methods.
+  /// Helper methods for the Moq Testing of methods.
   /// </summary>
   public class TestHelper
   {
@@ -176,7 +176,7 @@ namespace Revature.Account.Tests
     }
 
     /// <summary>
-    /// Instantiates the Moq instance (Mock) and seed-data, specifically the controllers in the API.
+    /// Instantiates the Moq instance (Mock) and seed data, specifically the controllers in the API.
     /// </summary>
     private void SetUpMocks()
     {

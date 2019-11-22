@@ -5,11 +5,11 @@ using Xunit;
 namespace Revature.Account.Tests.Logic_Tests.Model
 {
   /// <summary>
-  /// Tests for the business-logic-layer representation for the Provider.
+  /// Tests for the business logic layer representation for the Provider.
   /// </summary>
   public class ProviderTesting
   {
-    //instantiate a test-object
+    //instantiate a test object
     private ProviderAccount provider = new ProviderAccount();
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace Revature.Account.Tests.Logic_Tests.Model
     }
 
     /// <summary>
-    /// Test if the Provider's name is a blank-string.
+    /// Test if the Provider's name is a blank string.
     /// </summary>
     [Fact]
     public void ProviderNameEmptyException()

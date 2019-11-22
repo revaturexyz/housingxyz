@@ -10,12 +10,12 @@ using Revature.Account.Tests;
 namespace Revature.Account.Test.Repository_Tests
 {
   /// <summary>
-  /// Tests for the Provider's data-access-layer and it's supporting database-negotiation methods.
+  /// Tests for the Provider's data access layer and it's supporting database negotiation methods.
   /// </summary>
   public class ProviderRepositoryTest
   {
     /// <summary>
-    /// Test for adding a new Provider-entry to the database.
+    /// Test for adding a new Provider entry to the database.
     /// </summary>
     [Fact]
     public void AddNewProviderAccountTest()
@@ -69,7 +69,7 @@ namespace Revature.Account.Test.Repository_Tests
     }
 
     /// <summary>
-    /// Retrieve a provider by way of a Guid-Id from the database.
+    /// Retrieve a provider by way of a Guid Id from the database.
     /// </summary>
     [Fact]
     public async void GetProviderByIdTest()

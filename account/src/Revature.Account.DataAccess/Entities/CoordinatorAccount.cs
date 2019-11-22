@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace Revature.Account.DataAccess.Entities
 {
-  /// <summary>
-  /// Data-Access layer representation of an individual Coordinator.
-  /// </summary>
   public class CoordinatorAccount
   {
     public CoordinatorAccount()

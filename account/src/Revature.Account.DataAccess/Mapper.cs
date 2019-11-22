@@ -3,7 +3,7 @@ using System.Linq;
 namespace Revature.Account.DataAccess
 {
   /// <summary>
-  /// The mapper-class that maps between classes between the business-logic and data-access layer.
+  /// Maps between the business logic and data access layers.
   /// </summary>
   public class Mapper
   {
