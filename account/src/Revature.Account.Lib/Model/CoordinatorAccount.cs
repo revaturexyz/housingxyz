@@ -14,6 +14,9 @@ namespace Revature.Account.Lib.Model
     private string _trainingCenterName;
     private string _trainingCenterAddress;
 
+    /// <summary>
+    /// Guid based Id for the managing-coordinator who manages this message.
+    /// </summary>
     public Guid CoordinatorId { get; set; } = Guid.NewGuid();
 
     /// <summary>
@@ -52,9 +55,6 @@ namespace Revature.Account.Lib.Model
     /// <summary>
     /// Name of the training center associated with the coordinator.
     /// </summary>
-    ///
-    //public string TrainingCenterName { get; set; }
-    
     public string TrainingCenterName
     {
       get

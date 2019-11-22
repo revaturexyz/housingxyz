@@ -20,7 +20,6 @@ namespace Revature.Account.Tests
   /// </summary>
   public class TestHelper
   {
-
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> Repository { get; private set; }
 
     //API Controller Instantiation
