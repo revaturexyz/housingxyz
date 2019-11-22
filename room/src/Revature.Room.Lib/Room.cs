@@ -57,7 +57,7 @@ namespace Revature.Room.Lib
       get => _roomNumber;
       set
       {
-        if(value == null || Regex.IsMatch(value, @"\s*"))
+        if(value == null || Regex.Match(value, @"\s*").Success)
         {
           throw new ArgumentException("Room Number should have a value");
         }
@@ -103,7 +103,7 @@ namespace Revature.Room.Lib
       get => _gender;
       set
       {
-        if(value == null || Regex.IsMatch(value, @"\s*"))
+        if(value == null || Regex.Match(value, @"\s*").Success)
         {
           throw new ArgumentException("Gender must not be empty");
         }
@@ -120,7 +120,7 @@ namespace Revature.Room.Lib
       get => _roomType;
       set
       {
-        if (value == null || Regex.IsMatch(value, @"\s*"))
+        if (value == null || Regex.Match(value, @"\s*").Success)
         {
           throw new ArgumentException("Room type must not be empty");
         }
