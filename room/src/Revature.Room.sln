@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29324.140
+
+VisualStudioVersion = 16.0.29424.173
+
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Room.Api", "Revature.Room.Api\Revature.Room.Api.csproj", "{31702692-BE95-4638-BBC1-9B034F9EFF5F}"
 EndProject
@@ -10,6 +12,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Room.DataAccess", "Revature.Room.DataAccess\Revature.Room.DataAccess.csproj", "{F7716F2A-E7EA-4572-AB19-4C3B0A714D97}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revature.Room.Tests", "Revature.Room.Tests\Revature.Room.Tests.csproj", "{9DC03EB8-9511-4317-884D-25C668DB73C5}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +77,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {73CC7B4F-7023-4762-B0E4-FDAC0001EBE8}
+
+		SolutionGuid = {41D1E9BD-EF74-4606-99EF-BDE804CA75E8}
+
 	EndGlobalSection
 EndGlobal
