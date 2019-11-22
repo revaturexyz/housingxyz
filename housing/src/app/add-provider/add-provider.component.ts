@@ -61,8 +61,6 @@ export class AddProviderComponent implements OnInit {
   }
 
   postAddProvider() {
-    console.log('Handle Submit');
-    console.log(this.formProvider);
     // This will need to post the provider into the system
     //        with an expiration of 7 days.
     // This will need to post a new notification into the system.

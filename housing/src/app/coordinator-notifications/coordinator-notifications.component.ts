@@ -35,6 +35,7 @@ export class CoordinatorNotificationsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  // Calculates display date based on account type
   dateCalculator(date: Date, currentNotification: CoordinatorNotification) {
     let expire = 7;
     if (currentNotification.trial) {
@@ -45,11 +46,10 @@ export class CoordinatorNotificationsComponent implements OnInit {
     return moment(date).add(expire, 'days').format('MM/DD/YYYY');
   }
 
+  // when a user clicks on a table row this will send them to
+  // the individual record by id
   getRecord(row: any) {
-    console.log(row);
     this.router.navigate(['/coordinator-notifications/' + row.notificationId]);
-
-
   }
 
 }
