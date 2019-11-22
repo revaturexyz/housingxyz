@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Revature.Complex.Lib.Models
+namespace Revature.Complex.DataAccess.Entities
 {
   /// <summary>
-  /// Logic Amenity Model. Use it as parameter to pass into/received from Repository
+  /// Entity AmenityRoom model. Repository use it to CRUD amenity of room data from database
   /// </summary>
   public class AmenityRoom
   {
@@ -14,5 +14,10 @@ namespace Revature.Complex.Lib.Models
     public Guid AmenityId { get; set; }
 
     public Guid RoomId { get; set; }
+
+    /// <summary>
+    /// for FK: Amenity Id
+    /// </summary>
+    public Amenity Amenity { get; set; }
   }
 }

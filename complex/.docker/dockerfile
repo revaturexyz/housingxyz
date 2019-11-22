@@ -6,6 +6,7 @@ ARG DOTNET_VERSION=3.0
 ## stage - restore
 FROM mcr.microsoft.com/dotnet/core/sdk:${DOTNET_VERSION} as restore
 WORKDIR /src
+#COPY src/Revature.Complex.Api/*.csproj Revature.Complex.Api/
 COPY src/Revature.Complex.Api/*.csproj Revature.Complex.Api/
 COPY src/Revature.Complex.DataAccess/*.csproj Revature.Complex.DataAccess/
 COPY src/Revature.Complex.Lib/*.csproj Revature.Complex.Lib/

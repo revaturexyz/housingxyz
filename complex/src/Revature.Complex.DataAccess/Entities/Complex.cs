@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Revature.Complex.Lib.Models
+namespace Revature.Complex.DataAccess.Entities
 {
   /// <summary>
-  /// Logic Amenity Model. Use it as parameter to pass into/received from Repository
+  /// Entity Complex model. Repository use it to CRUD complex data from database
   /// </summary>
   public partial class Complex
   {
@@ -18,5 +18,11 @@ namespace Revature.Complex.Lib.Models
     public string ComplexName { get; set; }
 
     public string ContactNumber { get; set; }
+
+
+    /// <summary>
+    /// Complex id should behave as FK in AmenityComplex table
+    /// </summary>
+    public virtual ICollection<AmenityComplex> AmentityComplex { get; set; }
   }
 }
