@@ -76,11 +76,11 @@
   </mat-paginator>
 
   <!--Button to add a new room to the complex-->
-  <button class="add-room-btn" mat-raised-button (click)="changeMode('add-room')">Add Room</button>
+  <button class="add-room-btn" mat-raised-button (click)="changeMode('add-room')"><strong>Add Room</strong></button>
   <hr style="height: 1px; background-color: black;" />
 </div>
 <div>
-  <h4>Amentities</h4>
+  <h4>Amenities</h4>
   <mat-chip-list>
       <mat-chip *ngFor="let amentity of complexControl?.amenity" color="primary" selected><strong>{{amentity.amenity}}</strong></mat-chip>
   </mat-chip-list>

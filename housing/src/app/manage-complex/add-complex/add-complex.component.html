@@ -88,8 +88,8 @@
         <mat-label>Amenities</mat-label>
         <mat-select name="formLivingComplex.amenity"
         [(ngModel)]="formLivingComplex.amenity" #amenity="ngModel" class="form-control" id="amenity"
-        aria-describedby="amenity" multiple>
-          <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
+        multiple>
+          <mat-option *ngFor="let amenity of seededAmenityList" [value]="Amenity"> {{amenity.amenity}} </mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -105,11 +105,11 @@
 									city.invalid ||
 									state.invalid ||
                   zipCode.invalid" (click)="postLivingComplex()">
-            Submit
+            <strong>Submit</strong>
           </button>
         </div>
         <div class="col-md-6 form-group">
-          <button class="showAddressForm" (click)="cancelAddLivingComplex()">Cancel</button>
+          <button class="showAddressForm" (click)="cancelAddLivingComplex()"><strong>Cancel</strong></button>
         </div>
       </div>
       <!-- End of markup for submit and cancel buttons -->

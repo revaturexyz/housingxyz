@@ -61,6 +61,7 @@
         <!--If provider chooses to edit a specific room, replace former div to show form to edit the room-->
         <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-room>
 
+        <!--If provider chooses to show details of a specific room, replace former div to show view to details of the room-->
         <dev-show-room *ngIf="complexControl.value && mode=='show-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-show-room>
 
         <!--If provider chooses to edit the complex, replace former div to show form to edit the complex-->
@@ -71,6 +72,5 @@
 
       </div>
     </div>
-    <button (click)="mode='show-room'">Test Room</button>
   </div>
 </div>
