@@ -44,9 +44,9 @@ namespace Revature.Account.Lib.Model
     /// </summary>
     ///
     //public string TrainingCenterName { get; set; }
-    
+
     public string TrainingCenterName
-    { 
+    {
       get
       {
         return this._trainingCenterName;

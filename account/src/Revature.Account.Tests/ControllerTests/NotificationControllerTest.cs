@@ -39,17 +39,10 @@ namespace Revature.Account.Tests.ControllerTests
 
       Guid coordinatorId = helper.Coordinators[0].CoordinatorId;
       Guid providerId = helper.Providers[0].ProviderId;
-
       var newNotification = new Notification();
-
       newNotification.ProviderId = providerId;
       newNotification.CoordinatorId = coordinatorId;
-      newNotification.AccountExpiresAt = TestHelper.nowPSev;
-
-
-      Guid newNotificationId = newNotification.NotificationId;
-
-
+   
       helper.Repository
         .Setup(x => x.AddNotification(It.IsAny<Notification>()))
         .Verifiable();
