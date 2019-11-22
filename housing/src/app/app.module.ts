@@ -31,6 +31,7 @@ import { ComplexDetailsComponent } from './manage-complex/complex-details/comple
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex.component';
+import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex
     ProviderSelectComponent,
     AddRoomComponent,
     UpdateRoomComponent,
+    ShowRoomComponent,
     RoomDetailsComponent,
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
