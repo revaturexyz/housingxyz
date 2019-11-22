@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Revature.Account.Api.Controllers
 {
+  /// <summary>
+  /// RESTful API Controllers for the Notifications
+  /// </summary>
   [Route("api/notifications")]
   [ApiController]
   public class NotificationController : ControllerBase
