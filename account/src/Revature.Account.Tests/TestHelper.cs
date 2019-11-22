@@ -12,20 +12,25 @@ namespace Revature.Account.Tests
 {
   public class TestHelper
   {
+
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> Repository { get; private set; }
     public CoordinatorAccountController CoordinatorAccountController { get; private set; }
     public NotificationController NotificationController { get; private set; }
     public ProviderAccountController ProviderAccountController { get; private set; }
+
 
     public List<CoordinatorAccount> Coordinators { get; private set; }
     public List<Notification> Notifications { get; private set; }
     public List<ProviderAccount> Providers { get; private set; }
     public List<Status> Statuses { get; private set; }
 
-    public static DateTime now = DateTime.Now;
-    public static DateTime nowPSev = DateTime.Now.AddDays(7.0);
-    public static DateTime nowPThirty = DateTime.Now.AddDays(30.0);
+    //for testing expiration times
+    public static DateTime now;
+    public static DateTime nowPSev;
+    public static DateTime nowPThirty;
+
     public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
+
 
     public TestHelper()
     {
@@ -37,6 +42,10 @@ namespace Revature.Account.Tests
       SetUpProviderAccount();
       SetUpNotifications();
       SetUpMocks();
+
+      now = DateTime.Now;
+      nowPSev = now.AddDays(7);
+      nowPThirty = now.AddDays(30);
     }
 
     private void SetUpCoordinators()
@@ -159,6 +168,7 @@ namespace Revature.Account.Tests
     private void SetUpMocks()
     {
       Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
+
       CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _logger);
       CoordinatorAccountController.ControllerContext = new ControllerContext();
       CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
