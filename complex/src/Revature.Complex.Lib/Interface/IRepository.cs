@@ -114,14 +114,6 @@ namespace Revature.Complex.Lib.Interface
     public Task<string> DeleteAmenityAsync(Logic.Amenity amenity);
 
     /// <summary>
-    /// Read single logic complex object from complex name and complex contact number
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="phone"></param>
-    /// <returns></returns>
-    public Task<Logic.Complex> ReadComplexByNameAndNumberAsync(string name, string phone);
-
-    /// <summary>
     /// Delete ALL amenity record from Amenity of room in database by room Id
     /// </summary>
     /// <param name="roomId"></param>
