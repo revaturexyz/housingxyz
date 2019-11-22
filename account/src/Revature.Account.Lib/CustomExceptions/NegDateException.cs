@@ -1,5 +1,4 @@
 using System;
-
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,7 +17,6 @@ namespace Revature.Account.Lib.CustomExceptions
 
     public NegDateException(string message, Exception inner) : base(message, inner)
     {
-
     }
   }
 }
