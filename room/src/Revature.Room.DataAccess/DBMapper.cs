@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Revature.Room.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,13 +12,7 @@ namespace Revature.Room.DataAccess
   /// </summary>
   public class DBMapper : IMapper
   {
-    private readonly RoomServiceContext _context;
-
-    public DBMapper(RoomServiceContext context)
-    {
-      _context = context;
-    }
-
+    
     /// <summary>
     /// Method that converts a DB Entities Room Object to a Business Logic Library Room Object
     /// </summary>
@@ -44,15 +39,13 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="Room"></param>
     /// <returns></returns>
-    public async Task<Entities.Room> ParseRoomAsync(Lib.Room Room)
+    public Entities.Room ParseRoom(Lib.Room Room)
     {
       return new Entities.Room
       {
         RoomId = Room.RoomId,
         ComplexId = Room.ComplexId,
-        Gender = await getGenderAsync(Room.Gender),
         RoomNumber = Room.RoomNumber,
-        RoomType = await getRoomTypeAsync(Room.RoomType),
         NumberOfBeds = Room.NumberOfBeds,
         LeaseStart = Room.LeaseStart,
         LeaseEnd = Room.LeaseEnd,
@@ -60,25 +53,6 @@ namespace Revature.Room.DataAccess
       };
     }
 
-    /// <summary>
-    /// Method that searches the DB for Room type
-    /// </summary>
-    /// <param name="roomType"></param>
-    /// <returns></returns>
-    private async Task<RoomType> getRoomTypeAsync(string roomType)
-    {
-      return await _context.RoomType.FirstOrDefaultAsync(r => r.Type == roomType);
-    }
-
-    /// <summary>
-    /// Method that searches the DB for gender
-    /// </summary>
-    /// <param name="gender"></param>
-    /// <returns></returns>
-    private async Task<Gender> getGenderAsync(string gender)
-    {
-      return await _context.Gender.FirstOrDefaultAsync(g => g.Type == gender);
-    }
 
     /// <summary>
     /// Method that parses a list of DB Entities Rooms to Business Logic Rooms

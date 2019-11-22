@@ -79,15 +79,15 @@ namespace ServiceBusMessaging
           //what CRUD operation to do based on the OperationType
           switch (myRoom.OperationType)
           {
-            case 0:
+            case OperationType.Create:
               await _repo.CreateRoomAsync(myRoom.Room);
               break;
 
-            case 1:
+            case OperationType.Update:
               await _repo.UpdateRoomAsync(myRoom.Room);
               break;
 
-            case 2:
+            case OperationType.Delete:
               await _repo.DeleteRoomAsync(myRoom.Room.RoomId);
               break;
 

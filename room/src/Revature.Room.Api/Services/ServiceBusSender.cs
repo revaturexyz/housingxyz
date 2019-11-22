@@ -34,25 +34,6 @@ namespace ServiceBusMessaging
       _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
     }
 
-    /// <summary>
-    /// Method to generate and get Shared Access Signature which helps verify that you are authorized to interact with the queue
-    /// </summary>
-    /// <param name="resourceUri"></param>
-    /// <param name="keyName"></param>
-    /// <param name="key"></param>
-    /// <param name="ttl"></param>
-    /// <returns></returns>
-    /// <remarks>Source url: https://stackoverflow.com/questions/50914924/send-msg-to-azure-service-bus-que-via-rest </remarks>
-    public static string GetSasToken(string resourceUri, string keyName, string key, TimeSpan ttl)
-    {
-      var expiry = GetExpiry(ttl);
-      string stringToSign = HttpUtility.UrlEncode(resourceUri) + "\n" + expiry;
-      HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key));
-      var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
-      var sasToken = String.Format(CultureInfo.InvariantCulture, "SharedAccessSignature sr={0}&sig={1}&se={2}&skn={3}",
-      HttpUtility.UrlEncode(resourceUri), HttpUtility.UrlEncode(signature), expiry, keyName);
-      return sasToken;
-    }
 
     /// <summary>
     /// Get the time limit or expiration of the SAS token

@@ -31,7 +31,9 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task CreateRoomAsync(Lib.Room myRoom)
     {
-      Data.Room roomEntity = await _map.ParseRoomAsync(myRoom);
+      Data.Room roomEntity = _map.ParseRoom(myRoom);
+      roomEntity.Gender = await _context.Gender.FirstAsync(g => g.Type == myRoom.Gender);
+      roomEntity.RoomType = await _context.RoomType.FirstAsync(r => r.Type == myRoom.RoomType);
       await _context.AddAsync(roomEntity);
     }
 

@@ -113,7 +113,7 @@ namespace Revature.Room.Tests
         .Options;
 
       using var assembleContext = new RoomServiceContext(options);
-      var mapper = new DBMapper(assembleContext);
+      var mapper = new DBMapper();
       assembleContext.Database.EnsureCreated();
 
       var assembleRoom = PresetBLRoom();
@@ -135,7 +135,7 @@ namespace Revature.Room.Tests
         .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper(testContext);
+      var mapper = new DBMapper();
       testContext.Database.EnsureCreated();
 
       var newRoomEntity = PresetEntityRoom(testContext);
@@ -160,7 +160,7 @@ namespace Revature.Room.Tests
         .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper(testContext);
+      var mapper = new DBMapper();
       testContext.Database.EnsureCreated();
 
       var oldRoom = PresetEntityRoom2(testContext);
@@ -191,7 +191,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper(testContext);
+      var mapper = new DBMapper();
       testContext.Database.EnsureCreated();
 
       var oldRoom = PresetEntityRoom2(testContext);
@@ -222,7 +222,7 @@ namespace Revature.Room.Tests
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
       testContext.Database.EnsureCreated();
-      var mapper = new DBMapper(testContext);
+      var mapper = new DBMapper();
 
       var newRoom = PresetEntityRoom2(testContext);
 
@@ -247,7 +247,7 @@ namespace Revature.Room.Tests
       using RoomServiceContext testContext = new RoomServiceContext(options);
       testContext.Database.EnsureCreated();
 
-      var mapper = new DBMapper(testContext);
+      var mapper = new DBMapper();
 
       var newRoom = PresetEntityRoom2(testContext);
 
@@ -270,7 +270,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using RoomServiceContext assembleContext = new RoomServiceContext(options);
-      var mapper = new DBMapper(assembleContext);
+      var mapper = new DBMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
 
@@ -296,7 +296,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper(testContext);
+      var mapper = new DBMapper();
 
       var newRoom1 = PresetEntityRoom(testContext);
 
@@ -324,7 +324,7 @@ namespace Revature.Room.Tests
 
       using RoomServiceContext assembleContext = new RoomServiceContext(options);
       assembleContext.Database.EnsureCreated();
-      var mapper = new DBMapper(assembleContext);
+      var mapper = new DBMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
       var newRoom2 = PresetEntityRoom2(assembleContext);
@@ -356,7 +356,7 @@ namespace Revature.Room.Tests
 
       using RoomServiceContext assembleContext = new RoomServiceContext(options);
       assembleContext.Database.EnsureCreated();
-      var mapper = new DBMapper(assembleContext);
+      var mapper = new DBMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
       var newRoom2 = PresetEntityRoom2(assembleContext);
