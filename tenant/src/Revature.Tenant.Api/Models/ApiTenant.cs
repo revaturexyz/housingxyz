@@ -15,10 +15,11 @@ namespace Revature.Tenant.Api.Models
     public string LastName { get; set; }
     public Guid AddressId { get; set; }
     public Guid RoomId { get; set; }
-    public int CarId { get; set; }
-    public int BatchId { get; set; }
+    public int? CarId { get; set; }
+    public int? BatchId { get; set; }
     public Guid TrainingCenter { get; set; }
-
+    public ApiBatch ApiBatch { get; set; }
+    public ApiCar ApiCar { get; set; }
     public ApiAddress ApiAddress { get; set; }
   }
 }
