@@ -8,6 +8,9 @@ namespace Revature.Complex.Tests.LibTests
 {
   public class LibModelTest
   {
+    /// <summary>
+    /// This test is to test Amenity in Library.Model
+    /// </summary>
     [Fact]
     public void AmenityTest()
     {
@@ -24,6 +27,9 @@ namespace Revature.Complex.Tests.LibTests
       Assert.Equal("to freeze items", amenity.Description);
     }
 
+    /// <summary>
+    /// This test is to test AmenityComplex in Library.Model
+    /// </summary>
     [Fact]
     public void AmenityComplexTest()
     {
@@ -43,6 +49,9 @@ namespace Revature.Complex.Tests.LibTests
       Assert.Equal(cId1, ac.ComplexId);
     }
 
+    /// <summary>
+    /// This test is to test AmenityRoom in Library.Model
+    /// </summary>
     [Fact]
     public void AmenityRoomTest()
     {
@@ -62,6 +71,9 @@ namespace Revature.Complex.Tests.LibTests
       Assert.Equal(rId, ar.RoomId);
     }
 
+    /// <summary>
+    /// This test is to test Complex in Library.Model
+    /// </summary>
     [Fact]
     public void ComplexTest()
     {

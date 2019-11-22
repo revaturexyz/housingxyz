@@ -131,6 +131,9 @@ namespace Revature.Complex.Tests.DataTests
     };
     #endregion 
 
+    /// <summary>
+    /// This test is to test CreateComplexAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void CreateComplexAsyncTest()
     {
@@ -149,8 +152,11 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(checker, cId1);
     }
 
+    /// <summary>
+    /// This test is to test ReadComplexListAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
-    public async void ReadComplexListTest()
+    public async void ReadComplexListAsyncTest()
     {
       Mapper mapper = new Mapper();
       NullLogger<Repository> log = new NullLogger<Repository>();
@@ -171,6 +177,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("9876543210", list[1].ContactNumber);
     }
 
+    /// <summary>
+    /// This test is to test ReadComplexAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void ReadComplexAsyncTest()
     {
@@ -190,6 +199,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(cId1, read.ComplexId);
     }
 
+    /// <summary>
+    /// This test is to test UpdateComplexAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void UpdateComplexAsync()
     {
@@ -220,8 +232,11 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("7894561231", phone);
     }
 
+    /// <summary>
+    /// This test is to test DeleteComplexAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
-    public async void DeleteComplexTest()
+    public async void DeleteComplexAsyncTest()
     {
       Mapper mapper = new Mapper();
       NullLogger<Repository> log = new NullLogger<Repository>();
@@ -244,6 +259,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("9876543210", phone);
     }
 
+    /// <summary>
+    /// This test is to test CreateAmenityRoomAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void CreateAmenityRoomAsyncTest()
     {
@@ -262,6 +280,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(check, ar.AmenityRoomId);
     }
 
+    /// <summary>
+    /// This test is to test CreateAmenityComplexAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void CreateAmenityComplexAsyncTest()
     {
@@ -280,6 +301,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(check, ac.AmenityComplexId);
     }
 
+    /// <summary>
+    /// This test is to test CreateAmenityAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void CreateAmenityAsyncTest()
     {
@@ -299,8 +323,11 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(amenity.AmenityId, check);
     }
 
+    /// <summary>
+    /// This test is to test ReadAmenityList in DataAccess.Repository
+    /// </summary>
     [Fact]
-    public async void ReadAmenityListTest()
+    public async void ReadAmenityListAsyncTest()
     {
       Mapper mapper = new Mapper();
       NullLogger<Repository> log = new NullLogger<Repository>();
@@ -321,8 +348,11 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
+    /// <summary>
+    /// This test is to test ReadAmenityListByComplexId in DataAccess.Repository
+    /// </summary>
     [Fact]
-    public async void ReadAmenityListByComplexIdTest()
+    public async void ReadAmenityListByComplexIdAsyncTest()
     {
       Mapper mapper = new Mapper();
       NullLogger<Repository> log = new NullLogger<Repository>();
@@ -346,8 +376,11 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
+    /// <summary>
+    /// This test is to test ReadAmenityListByRoomId in DataAccess.Repository
+    /// </summary>
     [Fact]
-    public async void ReadAmenityListByRoomIdTest()
+    public async void ReadAmenityListByRoomIdAsyncTest()
     {
       Mapper mapper = new Mapper();
       NullLogger<Repository> log = new NullLogger<Repository>();
@@ -370,8 +403,11 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Test2", am[1].AmenityType);
     }
 
+    /// <summary>
+    /// This test is to test ReadComplexByProviderAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
-    public async void ReadComplexByProviderIDTest()
+    public async void ReadComplexByProviderIDAsyncTest()
     {
       Mapper mapper = new Mapper();
       NullLogger<Repository> log = new NullLogger<Repository>();
@@ -402,6 +438,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("XXX", complices[1].ComplexName);
     }
 
+    /// <summary>
+    /// This test is to test UpdateAmenityAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void UpdateAmenityAsyncTest()
     {
@@ -430,6 +469,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("Microwave", check1.AmenityType);
     }
 
+    /// <summary>
+    /// This test is to test DeleteAmenityAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void DeleteAmenityAsyncTest()
     {
@@ -466,6 +508,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(amId2, check.AmenityId);
     }
 
+    /// <summary>
+    /// This test is to test ReadComplexByNameAndNumberAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void ReadComplexByNameAndNumberAsyncTest()
     {
@@ -490,6 +535,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(phone, check.ContactNumber);
     }
 
+    /// <summary>
+    /// This test is to test DeleteAmenityRoomAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void DeleteAmenityRoomAsyncTest()
     {
@@ -511,6 +559,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Null(testContext.AmenityRoom.Find(rId));
     }
 
+    /// <summary>
+    /// This test is to test DeleteAmenityComplexAsync in DataAccess.Repository
+    /// </summary>
     [Fact]
     public async void DeleteAmenityComplexAsyncTest()
     {

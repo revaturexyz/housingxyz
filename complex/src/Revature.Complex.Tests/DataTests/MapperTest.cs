@@ -10,6 +10,9 @@ namespace Revature.Complex.Tests.DataTests
 {
   public class MapperTest
   {
+    /// <summary>
+    /// This test is to test ComplextoE in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void ComplextoETest()
     {
@@ -36,6 +39,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("(123)456-7890", ce.ContactNumber);
     }
 
+    /// <summary>
+    /// This test is to test EtoComplex in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void EtoComplexTest()
     {
@@ -62,6 +68,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("(123)456-7890", cl.ContactNumber);
     }
 
+    /// <summary>
+    /// This test is to test AmenityRoomtoE in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void AmenityRoomtoETest()
     {
@@ -84,6 +93,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(rId, eAr.RoomId);
     }
 
+    /// <summary>
+    /// This test is to test EtoAmenityRoom in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void EtoAmenityRoom()
     {
@@ -106,6 +118,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(rId, lAr.RoomId);
     }
 
+    /// <summary>
+    /// This test is to test AmenityComplextoE in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void AmenityComplextoETest()
     {
@@ -128,6 +143,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(cId, eAc.ComplexId);
     }
 
+    /// <summary>
+    /// This test is to test EtoAmenityComplex in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void EtoAmenityComplexTest()
     {
@@ -150,6 +168,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal(cId, lAc.ComplexId);
     }
 
+    /// <summary>
+    /// This test is to test AmenitytoE in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void AmenitytoETest()
     {
@@ -169,6 +190,9 @@ namespace Revature.Complex.Tests.DataTests
       Assert.Equal("To freeze items", ea.Description);
     }
 
+    /// <summary>
+    /// This test is to test EtoAmenity in DataAccess.Mapper.cs
+    /// </summary>
     [Fact]
     public void EtoAmenityTest()
     {

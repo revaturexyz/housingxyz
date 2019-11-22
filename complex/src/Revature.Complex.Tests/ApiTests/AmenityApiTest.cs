@@ -16,6 +16,9 @@ namespace Revature.Complex.Tests.ApiTests
 {
   public class AmenityApiTest
   {
+    /// <summary>
+    /// this test is to test GetAmenitiesAsync in Amenity Api
+    /// </summary>
     [Fact]
     public async void GetAmenitiesAsyncTest()
     {
@@ -34,6 +37,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.IsAssignableFrom<ActionResult<IEnumerable<Amenity>>>(model);
     }
 
+    /// <summary>
+    /// This test is to test GetRoomAmenitiesAsync in Amenity Api
+    /// </summary>
     [Fact]
     public async void GetRoomAmenitiesAsyncTest()
     {
@@ -52,6 +58,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.IsAssignableFrom<ActionResult<IEnumerable<Amenity>>>(model);
     }
 
+    /// <summary>
+    /// This test is to test GetComplexAmenities in Amenity Api
+    /// </summary>
     [Fact]
     public async void GetComplexAmenitiesAsyncTest()
     {
@@ -70,6 +79,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.IsAssignableFrom<ActionResult<IEnumerable<Amenity>>>(model);
     }
 
+    /// <summary>
+    /// This test is to test PostAmeityAsyncTest in Amenity Api
+    /// </summary>
     [Fact]
     public async void PostAmenityAsyncTest()
     {
@@ -99,6 +111,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.IsAssignableFrom<ActionResult>(model);
     }
 
+    /// <summary>
+    /// This test is to test PutAmenityAsync in Amenity Api
+    /// </summary>
     [Fact]
     public async void PutAmenityAsyncTest()
     {
@@ -128,6 +143,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.IsAssignableFrom<ActionResult>(model);
     }
 
+    /// <summary>
+    /// This test is to test DeleteAmenityAsync in Amenity Api
+    /// </summary>
     [Fact]
     public async void DeleteAmenityAsyncTest()
     {
