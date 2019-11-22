@@ -146,10 +146,10 @@ namespace Revature.Room.Tests
       using var assertContext = new RoomServiceContext(options);
       Repository repo = new Repository(assertContext, mapper);
 
-      var resultRoomList = await repo.ReadRoomAsync(newRoomId);
+      var resultRoom= await repo.ReadRoomAsync(newRoomId);
 
-      Assert.NotNull(resultRoomList);
-      Assert.Equal(newRoomId, resultRoomList.FirstOrDefault().RoomId);
+      Assert.NotNull(resultRoom);
+      Assert.Equal(newRoomId, resultRoom.RoomId);
     }
 
     [Fact]
@@ -234,7 +234,7 @@ namespace Revature.Room.Tests
 
       var resultRoom = await repo.ReadRoomAsync(newRoom.RoomId);
 
-      Assert.Equal("Male", resultRoom.FirstOrDefault().Gender);
+      Assert.Equal("Male", resultRoom.Gender);
     }
 
     [Fact]
@@ -259,7 +259,7 @@ namespace Revature.Room.Tests
 
       var resultRoom = await repo.ReadRoomAsync(newRoom.RoomId);
 
-      Assert.Equal(newRoomId2.ToString(), resultRoom.FirstOrDefault().RoomId.ToString());
+      Assert.Equal(newRoomId2.ToString(), resultRoom.RoomId.ToString());
     }
 
     [Fact]

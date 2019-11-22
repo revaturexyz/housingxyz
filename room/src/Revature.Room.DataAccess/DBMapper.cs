@@ -10,6 +10,7 @@ namespace Revature.Room.DataAccess
   {
     /// <summary>
     /// Method that converts a DB Entities Room Object to a Business Logic Library Room Object
+    /// Maps RoomId, ComplexId, Gender, RoomNumber, RoomType, NumberOfBeds, LeaseStart, LeaseEnd, NumberOfOccupants 
     /// </summary>
     /// <param name="Room"></param>
     /// <returns></returns>
@@ -31,9 +32,11 @@ namespace Revature.Room.DataAccess
 
     /// <summary>
     /// Method that converts a Business Logic Room Object to a DB Entities Room Object
+    /// Maps RoomId, ComplexId,RoomNumber, NumberOfBeds, LeaseStart, LeaseEnd, NumberOfOccupants
     /// </summary>
     /// <param name="Room"></param>
     /// <returns></returns>
+    /// <remarks>Gender and RoomType are assigned at repo</remarks>
     public Entities.Room ParseRoom(Lib.Room Room)
     {
       return new Entities.Room

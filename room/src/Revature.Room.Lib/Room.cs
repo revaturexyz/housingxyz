@@ -11,6 +11,7 @@ namespace Revature.Room.Lib
     /// Number of beds in a Room, can also be interpreted as Room's full capacity
     /// </summary>
     private int _numberOfBeds;
+    private int _numberOfOccupants;
 
     /// <summary>
     /// Unique Identifier for each Room, assigned by complex service
@@ -40,7 +41,16 @@ namespace Revature.Room.Lib
     /// <summary>
     /// Number of occupants per Room, used to check for Room vacancy, updated whenever a tenant is assigned or leaves a Room
     /// </summary>
-    public int NumberOfOccupants { get; set; }
+    /// <exception cref="ArgumentException">Thrown when occupants are greater than number number of beds</exception>
+    public int NumberOfOccupants
+    {
+      get => _numberOfOccupants;
+      set
+      {
+        if (value > _numberOfBeds || value < 0) throw new ArgumentException("Number of Occupants must be less than number of beds");
+        else _numberOfOccupants = value;
+      }
+    }
 
     /// <summary>
     /// Gender of the Room, when assigning a tenant to a Room, their roommates should be of the same gender

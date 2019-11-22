@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Revature.Room.Lib;
-using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +13,7 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusSender
   {
-    private readonly IConfiguration _configuration;
+    
     private readonly QueueClient _queueClient;
     private readonly ILogger<ServiceBusSender> _logger;
 
@@ -25,11 +24,9 @@ namespace ServiceBusMessaging
     /// <param name="logger"></param>
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
-      _configuration = configuration;
       _logger = logger;
-      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
+      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TestQueue"]);
     }
-
 
     /// <summary>
     /// ServiceBus message for deleting a message

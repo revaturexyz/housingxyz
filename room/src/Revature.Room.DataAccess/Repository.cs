@@ -42,14 +42,9 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
-    public async Task<List<Lib.Room>> ReadRoomAsync(Guid roomId)
+    public async Task<Lib.Room> ReadRoomAsync(Guid roomId)
     {
-      //Find Room by Guid and return that particular Room
-      var listRoom = await _context.Room.Include(r => r.Gender).Include(r => r.RoomType).ToListAsync();
-
-      var x = listRoom.Where(r => r.RoomId == roomId).ToList();
-
-      return _map.ParseRooms(x).ToList();
+      return _map.ParseRoom(await _context.Room.FirstAsync(r => r.RoomId == roomId));
     }
 
     /// <summary>

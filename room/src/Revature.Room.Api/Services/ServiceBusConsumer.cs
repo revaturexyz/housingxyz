@@ -19,7 +19,6 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
-    private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
     private readonly IServiceProvider Services;
     private readonly ILogger<ServiceBusConsumer> _logger;
@@ -32,8 +31,7 @@ namespace ServiceBusMessaging
     /// <param name="logger"></param>
     public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger)
     {
-      _configuration = configuration;
-      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
+      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TestQueue"]);
       Services = services;
       _logger = logger;
     }
@@ -116,7 +114,7 @@ namespace ServiceBusMessaging
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
     {
       var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-
+      _logger.LogError(context.ToString());
       return Task.CompletedTask;
     }
 

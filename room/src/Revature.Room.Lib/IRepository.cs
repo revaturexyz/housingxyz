@@ -41,7 +41,7 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
-    public Task<List<Room>> ReadRoomAsync(Guid roomId);
+    public Task<Room> ReadRoomAsync(Guid roomId);
 
     /// <summary>
     /// Method that updates a Room
