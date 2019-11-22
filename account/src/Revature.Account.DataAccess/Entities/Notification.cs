@@ -2,6 +2,9 @@ using System;
 
 namespace Revature.Account.DataAccess.Entities
 {
+  /// <summary>
+  /// Data-Access layer representation of an individual Notification.
+  /// </summary>
   public class Notification
   {
     public Guid NotificationId { get; set; }

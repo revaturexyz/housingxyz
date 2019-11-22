@@ -5,20 +5,33 @@ namespace Revature.Account.DataAccess
 {
   public class AccountDbContext : DbContext
   {
+    /// <summary>
+    /// Context class that acts to define the structure of a code-first database.
+    /// </summary>
+    ///
+
+    //defualt constructor
     public AccountDbContext()
     { }
 
+    //constructor with options and iheritance from it's parent-class.
     public AccountDbContext(DbContextOptions<AccountDbContext> options) : base(options)
     {
     }
 
+    //All tables found in the database defined here
     public virtual DbSet<Notification> Notification { get; set; }
     public virtual DbSet<Status> Status { get; set; }
     public virtual DbSet<ProviderAccount> ProviderAccount { get; set; }
     public virtual DbSet<CoordinatorAccount> CoordinatorAccount { get; set; }
 
+    /// <summary>
+    /// Defines the features for each and every table.
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+      //Provider
       modelBuilder.Entity<ProviderAccount>(entity =>
       {
         entity.HasKey(e => e.ProviderId);
@@ -30,6 +43,7 @@ namespace Revature.Account.DataAccess
           .IsRequired();
       });
 
+      //Coordinator
       modelBuilder.Entity<CoordinatorAccount>(entity =>
       {
         entity.HasKey(e => e.CoordinatorId);
@@ -47,6 +61,7 @@ namespace Revature.Account.DataAccess
           .HasForeignKey(p => p.NotificationId);
       });
 
+      //Notification
       modelBuilder.Entity<Notification>(entity =>
       {
         entity.HasKey(e => e.NotificationId);
@@ -63,6 +78,7 @@ namespace Revature.Account.DataAccess
           .IsRequired();
       });
 
+      //Status
       modelBuilder.Entity<Status>(entity =>
       {
         entity.HasKey(e => e.StatusId);
