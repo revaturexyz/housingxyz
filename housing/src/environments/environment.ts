@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  authority: 'https://identityxyz.b2clogin.com/identity.revature.xyz/b2c_1_signup_signin',
-  clientID: 'fac95bb7-bd11-4ecf-b30b-fdd6ddd13bcd',
-  validateAuthority: false,
+  domain: 'dbnd.auth0.com',
+  clientID: 'kdZAr42aRguFCVbUJ5C7xozmM0n31KYn',
+  audience: '/housing',
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
     // provider: 'http://192.168.99.100:10080/'

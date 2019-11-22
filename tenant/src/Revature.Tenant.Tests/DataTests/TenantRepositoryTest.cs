@@ -39,19 +39,19 @@ namespace Revature.Tenant.Tests.DataTests
       var repo = new TenantRepository(db, mapper);
       var tenant = new Lib.Models.Tenant
       {
-        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9ac7d"),
         Email = "firstname@email.com",
         Gender = "Male",
         FirstName = "Clary",
         LastName = "Colton",
-        AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
-        RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
-        CarId = 1,
-        BatchId = 1,
+        AddressId = Guid.Parse("fa4d6c6e-9650-45c9-8c6b-5aebd3f9a67c"),
+        RoomId = Guid.Parse("fa4d6c6e-9650-44c9-5c6b-5aebd3f9a67c"),
+        CarId = 3,
+        BatchId = 3,
         TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         Car = new Lib.Models.Car
         {
-          Id = 1,
+          Id = 3,
           LicensePlate = "LicensePlate",
           Make = "Make",
           Model = "Model",
@@ -61,18 +61,17 @@ namespace Revature.Tenant.Tests.DataTests
         },
         Batch = new Lib.Models.Batch
         {
-          Id = 0,
-          StartDate = DateTime.Now,
-          EndDate = DateTime.Now,
-          BatchLanguage = "C#",
+          Id = 3,
+          BatchCurriculum = "C#",
           TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         }
       };
+      tenant.Batch.SetStartAndEndDate(DateTime.MinValue, DateTime.Now);
 
       // Act
       await repo.AddAsync(tenant);
       await repo.SaveAsync();
-      var check = await repo.GetByIdAsync(Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"));
+      var check = await repo.GetByIdAsync(Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9ac7d"));
       // Assert
 
       Assert.NotNull(check);
@@ -101,19 +100,19 @@ namespace Revature.Tenant.Tests.DataTests
       var repo = new TenantRepository(db, mapper);
       var tenant = new Lib.Models.Tenant
       {
-        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-4aebd3f9a67d"),
         Email = "firstname@email.com",
         Gender = "Male",
         FirstName = "Clary",
         LastName = "Colton",
-        AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
-        RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67c"),
-        CarId = 1,
-        BatchId = 3,
-        TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-d087491cc491"),
+        AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd2f9a67c"),
+        RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9267c"),
+        CarId = 4,
+        BatchId = 4,
+        TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-2087491cc491"),
         Car = new Lib.Models.Car
         {
-          Id = 1,
+          Id = 4,
           LicensePlate = "LicensePlate",
           Make = "Make",
           Model = "Model",
@@ -123,13 +122,12 @@ namespace Revature.Tenant.Tests.DataTests
         },
         Batch = new Lib.Models.Batch
         {
-          Id = 0,
-          StartDate = DateTime.Now,
-          EndDate = DateTime.Now,
-          BatchLanguage = "C#",
-          TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-d087491cc491"),
+          Id = 4,
+          BatchCurriculum = "C#",
+          TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb2-d087491cc491"),
         }
       };
+      tenant.Batch.SetStartAndEndDate(DateTime.MinValue, DateTime.Now);
 
 
       //Act
@@ -137,7 +135,7 @@ namespace Revature.Tenant.Tests.DataTests
       await repo.AddAsync(tenant);
       await repo.SaveAsync();
 
-      var check = await repo.HasCarAsync(Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"));
+      var check = await repo.HasCarAsync(Guid.Parse("fa4d6c6e-9650-44c9-8c6b-4aebd3f9a67d"));
 
       //Assert
 

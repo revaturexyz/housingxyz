@@ -1,6 +1,5 @@
 # tenant :: dockerignore
 
-
 ## project
 *
 !src/
