@@ -21,7 +21,7 @@ namespace Revature.Account.Tests.ControllerTests
 
       helper.Repository
        .Setup(x => x.GetProviderAccountByIdAsync(It.IsAny<Guid>()))
-       .Returns(Task.Run(() => helper.Providers.Where(c => c.ProviderId == providerId).FirstOrDefault()));
+       .Returns(Task.FromResult(helper.Providers[0]));
 
       Assert.NotNull(await helper.ProviderAccountController.Get(providerId) as OkObjectResult);
     }
@@ -37,7 +37,10 @@ namespace Revature.Account.Tests.ControllerTests
       helper.Repository
         .Setup(x => x.AddProviderAccountAsync(It.IsAny<ProviderAccount>()))
         .Verifiable();
-
+      helper.Repository
+        .Setup(x => x.GetStatusByStatusTextAsync(It.IsAny<string>()))
+        .Returns(Task.FromResult(helper.Statuses[0]));
+     
       var newProviderAccount = await helper.ProviderAccountController.Post(newProvider);
 
       helper.Repository
@@ -50,7 +53,7 @@ namespace Revature.Account.Tests.ControllerTests
       TestHelper helper = new TestHelper();
       Guid providerId = helper.Notifications[0].ProviderId;
       var updatedProvider = helper.Providers[0];
-      updatedProvider.Name = "Changed Name";
+      updatedProvider.Name = "New Name";
 
       helper.Repository
           .Setup(x => x.GetProviderAccountByIdAsync(It.IsAny<Guid>()))

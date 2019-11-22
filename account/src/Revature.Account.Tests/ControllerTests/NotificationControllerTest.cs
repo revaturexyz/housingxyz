@@ -13,6 +13,10 @@ namespace Revature.Account.Tests.ControllerTests
 {
   public class NotifitcationControllerTest
   {
+    /// <summary>
+    /// Get Notification Based on Coordinator Account By its Id test
+    /// Excepted return not null if the Id is valid
+    /// </summary>
     [Fact]
     public async Task GetNotificationsByCoordinatorIdAsync()
     {
@@ -41,6 +45,9 @@ namespace Revature.Account.Tests.ControllerTests
       helper.Repository
         .Setup(x => x.AddNotification(It.IsAny<Notification>()))
         .Verifiable();
+      helper.Repository
+        .Setup(x => x.GetStatusByStatusTextAsync(It.IsAny<string>()))
+        .Returns(Task.FromResult(helper.Statuses[0]));
 
       var newNofi = await helper.NotificationController.Post(newNotification);
 
