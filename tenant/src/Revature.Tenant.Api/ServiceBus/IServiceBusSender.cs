@@ -7,6 +7,6 @@ namespace Revature.Tenant.Api.ServiceBus
   public interface IServiceBusSender
   {
     Task SendRoomIdMessage(Guid roomId);
-    Task SendAddressIdMessage(Guid addressId);
+    Task SendAddressIdMessage(string address);
   }
 }
