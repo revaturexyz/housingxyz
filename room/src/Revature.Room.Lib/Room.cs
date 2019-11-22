@@ -30,11 +30,6 @@ namespace Revature.Room.Lib
     private DateTime _leaseStart;
 
     /// <summary>
-    /// Gender of a particular room
-    /// </summary>
-    private string _gender;
-
-    /// <summary>
     /// Room Number of the room
     /// </summary>
     private string _roomNumber;
@@ -98,19 +93,7 @@ namespace Revature.Room.Lib
     /// <summary>
     /// Gender of the Room, when assigning a tenant to a Room, their roommates should be of the same gender
     /// </summary>
-    /// <exception cref="ArgumentException">Thrown when the gender is null or has no value just whitespace</exception>
-    public string Gender
-    {
-      get => _gender;
-      set
-      {
-        if (value == null || value == "")
-        {
-          throw new ArgumentException("Gender must not be empty");
-        }
-        _gender = value;
-      }
-    }
+    public string Gender { get; set; }
 
     /// <summary>
     /// Type of Room, for example: apartment, dorm, house, etc.

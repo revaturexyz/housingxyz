@@ -42,6 +42,7 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room is not found in the database</exception>
     public async Task<Lib.Room> ReadRoomAsync(Guid roomId)
     {
       return _map.ParseRoom(await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).Include(r => r.RoomType).FirstAsync());
@@ -52,6 +53,7 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found in DB</exception>
     public async Task UpdateRoomAsync(Lib.Room myRoom)
     {
       Data.Room roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
@@ -70,6 +72,7 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room Id isn't found</exception>
     public async Task DeleteRoomAsync(Guid roomId)
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
@@ -152,6 +155,7 @@ namespace Revature.Room.DataAccess
     /// Method that updates the room occupants when a tenant is assigned a room
     /// </summary>
     /// <param name="roomId"></param>
+    /// <exception cref="InvalidOperationException">Thrown when a room mathcing the roomId is not found </exception>
     public async Task AddRoomOccupantsAsync(Guid roomId)
     {
       Entities.Room roomToUpdate = await _context.Room.FirstAsync(r => r.RoomId == roomId);

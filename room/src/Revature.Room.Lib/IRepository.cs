@@ -41,6 +41,7 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task<Room> ReadRoomAsync(Guid roomId);
 
     /// <summary>
@@ -48,6 +49,7 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task UpdateRoomAsync(Room myRoom);
 
     /// <summary>
@@ -55,6 +57,7 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task DeleteRoomAsync(Guid roomId);
 
     /// <summary>
@@ -74,6 +77,7 @@ namespace Revature.Room.Lib
     /// Method that updates room occupants when an occupant is assigned a room
     /// </summary>
     /// <param name="roomId"></param>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task AddRoomOccupantsAsync(Guid roomId);
 
   }
