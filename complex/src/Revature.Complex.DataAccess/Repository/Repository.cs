@@ -54,6 +54,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (ArgumentNullException ex)
       {
+        log.LogError($"(REPO){ex}: Cannot Find complex list");
         throw;
       }
     }
@@ -318,7 +319,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(Exception ex)
       {
-        log.LogError($"(REPO)amenities for room id: {roomId} are not found");
+        log.LogError($"(REPO){ex}: (REPO)amenities for room id: {roomId} are not found");
         throw;
       }
 

@@ -388,9 +388,10 @@ namespace Revature.Complex.Tests.ApiTests
     /// <summary>
     /// This test is to test DeleteRoomAsync in Complex Api
     /// </summary>
-    [Fact]
-    public async void DeleteRoomAsyncTest()
-    {
-    }
+    //[Fact]
+    //public async void DeleteRoomAsyncTest()
+    //{
+    //  //TODO
+    //}
   }
 }
