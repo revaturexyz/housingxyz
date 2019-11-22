@@ -5,7 +5,7 @@ using Xunit;
 namespace Revature.Account.Test.Logic_Tests.Model
 {
   /// <summary>
-  /// Tests for the business-logic-layer representation for the Coordinator.
+  /// Tests for the business logic layer representation for the Coordinator.
   /// </summary>
   public class CoordinatorTesting
   {
@@ -69,7 +69,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     }
 
     /// <summary>
-    /// Test if the coordinator's training-center's address is null.
+    /// Test if the coordinator's training center's address is null.
     /// </summary>
     [Fact]
     public void CoordinatorTCAddrNullException()
@@ -80,7 +80,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     }
 
     /// <summary>
-    /// Test if the coordinator's training-center's address is a blank-string.
+    /// Test if the coordinator's training center's address is a blank-string.
     /// </summary>
     [Fact]
     public void CoordinatorTCAddrBlankException()

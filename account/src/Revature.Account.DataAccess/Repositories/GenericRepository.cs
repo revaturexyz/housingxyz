@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Revature.Account.DataAccess.Repositories
 {
   /// <summary>
-  /// Describes the methods used to get data to-and-from a database to-and-from the business-logic layer respeitively.
+  /// Describes the methods used to get and manipulate data between the database and business layer.
   /// </summary>
   public class GenericRepository : IGenericRepository
   {
@@ -186,7 +186,7 @@ namespace Revature.Account.DataAccess.Repositories
     #region Status
 
     /// <summary>
-    /// Get a status-string from the database based on a corrisponding integer-value.
+    /// Get a status from the database based on a corresponding integer-value.
     /// </summary>
     /// <param name="statusId"></param>
     /// <returns></returns>
@@ -199,7 +199,7 @@ namespace Revature.Account.DataAccess.Repositories
     }
 
     /// <summary>
-    /// Retrieve a status-object based on the supplied string directly from the database.
+    /// Retrieve a Status object based on the supplied string directly from the database.
     /// </summary>
     /// <param name="statusText"></param>
     /// <returns></returns>
@@ -212,7 +212,7 @@ namespace Revature.Account.DataAccess.Repositories
     }
 
     /// <summary>
-    /// Add a new status-object to the database.
+    /// Add a new Status object to the database.
     /// </summary>
     /// <param name="status"></param>
     public void AddStatus(Status status)
@@ -222,7 +222,7 @@ namespace Revature.Account.DataAccess.Repositories
     }
 
     /// <summary>
-    /// Updates string-value of a status in the status-table.
+    /// Updates string value of a status in the Status table.
     /// </summary>
     /// <param name="status"></param>
     /// <returns></returns>
@@ -256,7 +256,6 @@ namespace Revature.Account.DataAccess.Repositories
     /// <summary>
     /// Save changes in context to the database.
     /// </summary>
-
     public async Task SaveAsync()
     {
       await _context.SaveChangesAsync();

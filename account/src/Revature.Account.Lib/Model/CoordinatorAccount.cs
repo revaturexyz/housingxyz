@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Revature.Account.Lib.Model
 {
   /// <summary>
-  /// Contains individual information for a coordinators whome are tied to a single training center.
+  /// Contains individual information for a coordinator tied to a single training center.
   /// </summary>
   public class CoordinatorAccount
   {

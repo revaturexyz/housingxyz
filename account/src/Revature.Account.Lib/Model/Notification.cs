@@ -14,12 +14,12 @@ namespace Revature.Account.Lib.Model
     public Guid NotificationId { get; set; } = Guid.NewGuid();
 
     /// <summary>
-    /// Guid based Id for a housing-complex Provider.
+    /// Guid based Id for a housing complex Provider.
     /// </summary>
     public Guid ProviderId { get; set; }
 
     /// <summary>
-    /// Guid based Id for a training-center's Coordinator.
+    /// Guid based Id for a training center's Coordinator.
     /// </summary>
     public Guid CoordinatorId { get; set; }
 

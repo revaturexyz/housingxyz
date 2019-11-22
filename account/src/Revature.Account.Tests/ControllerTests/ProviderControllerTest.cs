@@ -86,7 +86,7 @@ namespace Revature.Account.Tests.ControllerTests
     }
 
     /// <summary>
-    /// Test for a successful provider-account deletion.
+    /// Test for a successful provider account deletion.
     /// </summary>
     /// <returns></returns>
     [Fact]

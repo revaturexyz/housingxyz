@@ -7,7 +7,7 @@ using Xunit;
 namespace Revature.Account.Tests.Repository_Tests
 {
   /// <summary>
-  /// Tests for the Coordinator's data-access-layer and it's supporting database-negotiation methods.
+  /// Tests for the Coordinator's data access layer and it's supporting database negotiation methods.
   /// </summary>
   public class CoordinatorRepositoryTest
   {

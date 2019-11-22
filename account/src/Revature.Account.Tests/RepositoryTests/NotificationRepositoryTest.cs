@@ -9,7 +9,7 @@ using Xunit;
 namespace Revature.Account.Tests.Repository_Tests
 {
   /// <summary>
-  /// Tests for a Notification's data-access-layer and it's supporting database-negotiation methods.
+  /// Tests for a Notification's data access layer and it's supporting database negotiation methods.
   /// </summary>
   public class NotificationRepositoryTest
   {

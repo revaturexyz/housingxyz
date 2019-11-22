@@ -17,7 +17,7 @@ namespace Revature.Account.Tests.ControllerTests
   public class NotifitcationControllerTest
   {
     /// <summary>
-    /// Test for the retrieval of a Notification based on a coordinator-account's Guid-Id. (GET)
+    /// Test for the retrieval of a Notification based on a coordinator account's Guid-Id. (GET)
     /// </summary>
     [Fact]
     public async Task GetNotificationsByCoordinatorIdAsync()
