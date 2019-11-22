@@ -4,9 +4,13 @@ using System.Text;
 
 namespace Revature.Tenant.Lib.Models
 {
+  /// <summary>
+  /// Tenants will arrive to training with batches.
+  /// This defines their batch details.
+  /// </summary>
   public class Batch
   {
-    private string _batchLanguage;
+    private string _batchCurriculum;
     private int _id;
     private DateTime _startDate;
     private DateTime _endDate;
@@ -25,45 +29,48 @@ namespace Revature.Tenant.Lib.Models
         _id = value;
       }
     }
-    public string BatchLanguage
+    public string BatchCurriculum
     {
-      get => _batchLanguage;
+      get => _batchCurriculum;
       set
       {
         if (value == "")
         {
-          throw new ArgumentException("Batch Language Must not be empty", nameof(value));
+          throw new ArgumentException("Batch Curriculum must not be empty", nameof(value));
         }
 
-        _batchLanguage = value;
+        _batchCurriculum = value;
       }
     }
+
     public DateTime StartDate
     {
       get => _startDate;
-      set
-      {
-        if (value == null)
-        {
-          throw new ArgumentNullException("Start Date must not be empty", nameof(value));
-        }
-        _startDate = value;
-      }
     }
     public DateTime EndDate
 
     {
       get => _endDate;
-      set
+    }
+
+    /// <summary>
+    /// This is a Set method that checks that the start date is earlier than the end date before allow the backing field to be set.
+    /// </summary>
+    /// <param name="startDate">The value of the start date</param>
+    /// <param name="endDate">The value of the end date</param>
+    /// <returns>true if start date is before end date and _startdate and _enddate are set, else false</returns>
+    public void SetStartAndEndDate(DateTime startDate, DateTime endDate)
+    {
+      //Checks if start date is after end date
+      if(startDate.CompareTo(endDate) >= 0)
       {
-        if (value == null)
-        {
-          throw new ArgumentNullException("End Date must not be empty", nameof(value));
-        }
-        _endDate = value;
+        throw new ArgumentException($"Start date must be before End date. Start Date: {startDate}, End Date: {endDate}");
       }
+      _startDate = startDate;
+      _endDate = endDate;
 
     }
+
     public Guid TrainingCenter
     {
       get => _trainingCenter;
@@ -71,12 +78,11 @@ namespace Revature.Tenant.Lib.Models
       {
         if (value == Guid.Empty)
         {
-          throw new ArgumentException("Address Id must not be empty", nameof(value));
+          throw new ArgumentException("TrainingCenter Id must not be empty", nameof(value));
         }
 
         _trainingCenter = value;
       }
     }
-
   }
 }

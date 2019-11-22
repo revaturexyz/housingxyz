@@ -14,8 +14,8 @@ namespace Revature.Tenant.Lib.Models
     private string _lastName;
     private Guid _addressId;
     private Guid _roomId;
-    private int _carId;
-    private int _batchId;
+    private int? _carId;
+    private int? _batchId;
     private Guid _trainingCenter;
 
     public Batch Batch { get; set; }
@@ -104,14 +104,14 @@ namespace Revature.Tenant.Lib.Models
         _roomId = value;
       }
     }
-    public int CarId
+    public int? CarId
     {
       get => _carId;
       set
       {
         if (value < 0)
         {
-          throw new ArgumentOutOfRangeException("Car Id must not be negative", nameof(value));
+          throw new ArgumentOutOfRangeException(nameof(value), "Car Id must not be negative");
         }
 
         _carId = value;
@@ -143,14 +143,14 @@ namespace Revature.Tenant.Lib.Models
       get => _addressId;
       set => _addressId = value;
     }
-    public int BatchId
+    public int? BatchId
     {
       get => _batchId;
       set
       {
         if (value < 0)
         {
-          throw new ArgumentOutOfRangeException("Batch Id must not be negative", nameof(value));
+          throw new ArgumentOutOfRangeException(nameof(value), "Batch Id must not be negative");
         }
 
         _batchId = value;
