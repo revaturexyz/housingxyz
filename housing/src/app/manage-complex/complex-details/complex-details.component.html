@@ -45,11 +45,21 @@
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let room">
-        <button mat-flat-button (click)="editRoom(room)">
+        <button class = "ebutton" mat-flat-button (click)="editRoom(room)">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
     </ng-container>
+
+    <!-- Room Edit Button Column -->
+    <ng-container matColumnDef="show">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let room">
+          <button class = "sbutton" mat-flat-button (click)="showRoom(room)">
+            <mat-icon>pageview</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

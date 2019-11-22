@@ -189,12 +189,21 @@ button {
   height: min-content;
 }
 
-.middle-container button
+.sbutton
 {
   text-align: center;
   display: block;
   margin: 0 auto;
-  padding: 1%;
+  padding-left: 40%;
+
+}
+
+.tbutton
+{
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  padding-right: 20%;
 
 }
 

@@ -41,7 +41,7 @@ export class ComplexDetailsComponent implements OnInit {
   ];
 
   // id's for columns on material table
-  displayedColumns = ['room#', 'start', 'end', 'edit'];
+  displayedColumns = ['room#', 'start', 'end', 'edit', 'show'];
 
   // data source for material table
   dataSource = new MatTableDataSource<Room>(this.seededRooms);
@@ -51,6 +51,13 @@ export class ComplexDetailsComponent implements OnInit {
   editRoom(room: Room) {
     this.targetRoomOutput.emit(room);
     this.modeOutput.emit('edit-room');
+  }
+
+   // showRoom =>
+  // once called, output targeted room object and change mode to show targeted room's details
+  showRoom(room: Room) {
+    this.targetRoomOutput.emit(room);
+    this.modeOutput.emit('show-room');
   }
 
   // changeMode =>
