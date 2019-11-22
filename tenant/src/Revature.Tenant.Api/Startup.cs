@@ -45,7 +45,7 @@ namespace Revature.Tenant.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Tenant", Version = "v1" });
       });
 
-      services.AddScoped<IServiceBusSender, ServiceBusSender>();
+      //services.AddScoped<IServiceBusSender, ServiceBusSender>();
       //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
 
       services.AddControllers();
