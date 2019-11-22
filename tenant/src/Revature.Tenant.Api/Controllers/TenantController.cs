@@ -61,7 +61,7 @@ namespace Revature.Tenant.Api.Controllers
           batch = null;
           batchId = null;
         }
-
+        tenant.Batch = batch;
         Lib.Models.Car car;
         int? carId;
         if (tenant.Car != null)
@@ -83,6 +83,8 @@ namespace Revature.Tenant.Api.Controllers
           car = null;
           carId = null;
         }
+        tenant.Car = car;
+
         newTenants.Add(tenant);
       }
 
