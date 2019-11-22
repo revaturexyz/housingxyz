@@ -55,10 +55,9 @@ namespace Revature.Account.Lib.Model
     /// <summary>
     /// Name of the training center associated with the coordinator.
     /// </summary>
-    ///
-    //public string TrainingCenterName { get; set; }
+   
     public string TrainingCenterName
-    { 
+    {
       get
       {
         return this._trainingCenterName;
