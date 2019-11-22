@@ -131,27 +131,10 @@ namespace Revature.Tenant.Api.Controllers
 
         await _tenantRepository.AddAsync(newTenant);
 
-        ICollection<Lib.Models.Tenant> tenents = await _tenantRepository.GetAllAsync();
-        newTenant = tenents.First(t => t.Email == newTenant.Email);
-
-        ApiTenant apiTenant = new ApiTenant
-        {
-          Id = tenant.Id,
-          Email = tenant.Email,
-          Gender = tenant.Gender,
-          FirstName = tenant.FirstName,
-          LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
-          RoomId = tenant.RoomId,
-          CarId = tenant.CarId,
-          BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter
-        };
-
         await _tenantRepository.SaveAsync();
         _logger.LogInformation("POST Persisted to dB");
 
-        return Created($"api/Tenant/{apiTenant.Id}", apiTenant);
+        return Created($"api/Tenant/{newTenant.Id}", newTenant);
       }
       catch (ArgumentException)
       {
@@ -236,5 +219,7 @@ namespace Revature.Tenant.Api.Controllers
         return StatusCode(500, e.Message);
       }
     }
+
+
   }
 }

@@ -46,7 +46,7 @@ namespace Revature.Tenant.Api
       });
 
       services.AddScoped<IServiceBusSender, ServiceBusSender>();
-      services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+      //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
 
       services.AddControllers();
     }
