@@ -82,6 +82,23 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
+    /// Deletes all rooms based on given complex ID and returns all room IDs that have been deleted
+    /// </summary>
+    /// <param name="complexId"></param>
+    /// <returns></returns>
+    public async Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId)
+    {
+      var roomEntity = await _context.Room.Where(r => r.ComplexId == complexId).Select(r => r.RoomId).ToListAsync();
+
+      foreach (var r in roomEntity)
+      {
+        await DeleteRoomAsync(r);
+      }
+
+      return roomEntity;
+    }
+
+    /// <summary>
     /// Method that filters Room based on ComplexId and other additional filters
     /// </summary>
     /// <param name="complexId"></param>

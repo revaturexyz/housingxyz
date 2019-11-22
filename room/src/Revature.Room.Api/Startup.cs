@@ -55,6 +55,9 @@ namespace Revature.Room.Api
       services.AddScoped<IMapper, DBMapper>();
       services.AddHostedService<ServiceBusConsumer>();
 
+      //Added this for sender because now we are sending things 11-22-19
+      services.AddScoped<ServiceBusSender>();
+
       services.AddControllers();
     }
 

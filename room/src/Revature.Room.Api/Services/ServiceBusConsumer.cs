@@ -20,7 +20,13 @@ namespace ServiceBusMessaging
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
     private readonly IConfiguration _configuration;
+
+    //_queueClient will be used for receiving from the Complex
     private readonly QueueClient _queueClient;
+
+    //_queueClientTwo will be used for receiving from the Tenant
+    private readonly QueueClient _queueClientTwo;
+
     private readonly IServiceProvider Services;
     private readonly ILogger<ServiceBusConsumer> _logger;
 
@@ -33,7 +39,12 @@ namespace ServiceBusMessaging
     public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger)
     {
       _configuration = configuration;
-      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
+      //Changed this from testq to complexq
+      //Might have to make another queclient for tenant
+      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["CQueue:complexq"]);
+
+      _queueClientTwo = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["TQueue:tenantq"]);
+
       Services = services;
       _logger = logger;
     }

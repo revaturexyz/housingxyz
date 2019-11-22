@@ -372,19 +372,19 @@ namespace Revature.Room.Tests
       using var actContext = new RoomServiceContext(options);
       var repo = new Repository(actContext, mapper);
 
-      //1
+      //Returns 1 room because there is only 1 room that matches that room number
       var filterRoom1 = await repo.GetFilteredRoomsAsync(newComplexId, newRoomNumber, null, null, null, null, null);
 
-      //2
+      //Returns 2 rooms because there are 2 rooms that are labeld as "Male" gender
       var filterRoom2 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, null, "Male", null, null);
 
-      //1
+      //Returns 1 room because there is only one room labeled as room type TownHouse
       var filterRoom3 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, "TownHouse", null, null, null);
 
-      //3
+      //Returns 3 rooms because that is all the rooms witht that complex Id
       var filterRoom4 = await repo.GetFilteredRoomsAsync(newComplexId, null, null, null, null, null, null);
 
-      //3
+      //Returns 3 rooms because there are 3 rooms with that many number of beds
       var filterRoom5 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, null, null, null, null);
 
       Assert.Equal(newRoomNumber, filterRoom1.FirstOrDefault(r => r.RoomNumber == newRoomNumber).RoomNumber);
@@ -400,6 +400,43 @@ namespace Revature.Room.Tests
       Assert.Equal(3, filterRoom4.Count(r => r.ComplexId == newComplexId));
 
       Assert.Equal(3, filterRoom5.Count(r => r.NumberOfBeds == newNumOfBeds));
+    }
+
+    [Fact]
+    public async Task RepoDeleteComplexRoomShouldDeleteAllRoomsInComplex()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("RepoDeleteComplexRoomShouldDeleteAllRoomsInComplex")
+      .Options;
+
+      using RoomServiceContext assembleContext = new RoomServiceContext(options);
+      assembleContext.Database.EnsureCreated();
+      //var mapper = new DBMapper(assembleContext);
+
+      var mapper = new DBMapper();
+
+      var newRoom = PresetEntityRoom(assembleContext);
+      var newRoom2 = PresetEntityRoom2(assembleContext);
+      var newRoom3 = PresetEntityRoom3(assembleContext);
+
+      assembleContext.Add(newRoom);
+      assembleContext.Add(newRoom2);
+      assembleContext.Add(newRoom3);
+      assembleContext.SaveChanges();
+
+      using var actContext = new RoomServiceContext(options);
+      var repo = new Repository(actContext, mapper);
+
+      var deleteComplexRooms = await repo.DeleteComplexRoomAsync(newComplexId);
+      await actContext.SaveChangesAsync();
+
+      var assertContext = new RoomServiceContext(options);
+
+      //The DeleteComplexRoomAsync method deletes all rooms based on the complex, it works
+      //But we have 1 seeded room in our database so even after delete all the created rooms
+      //we still have our seeded data.  But it works, so test passes
+      Assert.Equal(1, assertContext.Room.Count());
+
     }
   }
 }

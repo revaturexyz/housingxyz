@@ -70,5 +70,7 @@ namespace Revature.Room.Lib
     /// <param name="endDate"></param>
     /// <returns></returns>
     public Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate);
+
+    public Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId);
   }
 }
