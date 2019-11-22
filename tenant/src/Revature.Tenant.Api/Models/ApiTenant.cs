@@ -17,5 +17,6 @@ namespace Revature.Tenant.Api.Models
     public Guid RoomId { get; set; }
     public int CarId { get; set; }
     public int BatchId { get; set; }
+    public Guid TrainingCenter { get; set; }
   }
 }

@@ -10,6 +10,7 @@ namespace Revature.Tenant.Lib.Models
     private int _id;
     private DateTime _startDate;
     private DateTime _endDate;
+    private Guid _trainingCenter;
 
     public int Id
     {
@@ -62,6 +63,19 @@ namespace Revature.Tenant.Lib.Models
         _endDate = value;
       }
 
+    }
+    public Guid TrainingCenter
+    {
+      get => _trainingCenter;
+      set
+      {
+        if (value == Guid.Empty)
+        {
+          throw new ArgumentException("Address Id must not be empty", nameof(value));
+        }
+
+        _trainingCenter = value;
+      }
     }
 
   }

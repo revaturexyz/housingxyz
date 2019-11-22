@@ -18,6 +18,11 @@ using Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.Api.ServiceBus
 {
+  /// <summary>
+  /// This classes purpose is to connect to the queue and listen/receive a message sent
+  /// from the Notification, Room, and Address service.
+  /// Based on their message we will call upon the repository accordingly
+  /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
     private readonly IConfiguration _configuration;
@@ -26,6 +31,12 @@ namespace Revature.Tenant.Api.ServiceBus
     private readonly IServiceProvider Services;
     private readonly ILogger<TenantRepository> _logger;
 
+    /// <summary>
+    /// Constructor injecting IConfiguration, IServiceProvider, and ILogger
+    /// </summary>
+    /// <param name="configuration"></param>
+    /// <param name="services"></param>
+    /// <param name="logger"></param>
     public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<TenantRepository> logger)
     {
       _configuration = configuration;
@@ -35,6 +46,9 @@ namespace Revature.Tenant.Api.ServiceBus
       _logger = logger;
     }
 
+    /// <summary>
+    /// Registers the message and then calls the process message
+    /// </summary>
     public void RegisterOnMessageHandlerAndReceiveMessages()
     {
       var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
@@ -46,6 +60,14 @@ namespace Revature.Tenant.Api.ServiceBus
       _queueClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
     }
 
+    /// <summary>
+    /// The actual method to process the received message.
+    /// Receives and deserializes the message from notification, room, and  service.
+    /// Based on what they send us this method will determine what CRUD operations to do to the room service.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     private async Task ProcessMessagesAsync(Message message, CancellationToken token)
     {
       // Dispose of this scope after done using repository service

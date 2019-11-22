@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using Revature.Tenant.Tests.ApiTests;
-using Revature.Tenant.Api.Models;
+using DatMod = Revature.Tenant.DataAccess.Entities;
 
-namespace Revature.Tenant.Tests.ApiTests.ModelTests
+namespace Revature.Tenant.Tests.DataTests
 {
-  public class ApiTenantTest
+  public class TenantTest
   {
-
     [Fact]
     public void ConstructorShouldConstructWithSetters()
     {
@@ -25,7 +23,7 @@ namespace Revature.Tenant.Tests.ApiTests.ModelTests
       var batchId = 3;
       var trainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67b");
       // Act (set properties to variables through constructor)
-      var apiTenant = new ApiTenant
+      var apiTenant = new DatMod.Tenant
       {
         Id = tenantId,
         Email = email,
@@ -36,7 +34,7 @@ namespace Revature.Tenant.Tests.ApiTests.ModelTests
         RoomId = roomId,
         CarId = carId,
         BatchId = batchId,
-        TrainingCenter = trainingCenter,
+        TrainingCenter = trainingCenter
       };
       // Assert (assure the values are set)
 
@@ -51,6 +49,5 @@ namespace Revature.Tenant.Tests.ApiTests.ModelTests
       Assert.Equal(batchId, apiTenant.BatchId);
       Assert.Equal(trainingCenter, apiTenant.TrainingCenter);
     }
-
   }
 }

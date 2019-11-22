@@ -16,9 +16,10 @@ namespace Revature.Tenant.Lib.Models
     private Guid _roomId;
     private int _carId;
     private int _batchId;
+    private Guid _trainingCenter;
 
+    public Batch Batch { get; set; }
     public Car Car { get; set; }
-
     public Guid Id
     {
       get => _id;
@@ -32,8 +33,6 @@ namespace Revature.Tenant.Lib.Models
         _id = value;
       }
     }
-
-
     public string Email
     {
       get => _email;
@@ -58,8 +57,6 @@ namespace Revature.Tenant.Lib.Models
         _email = value;
       }
     }
-
-
     public string FirstName
     {
       get => _firstName;
@@ -94,8 +91,6 @@ namespace Revature.Tenant.Lib.Models
         _lastName = value;
       }
     }
-
-
     public Guid RoomId
     {
       get => _roomId;
@@ -109,7 +104,6 @@ namespace Revature.Tenant.Lib.Models
         _roomId = value;
       }
     }
-
     public int CarId
     {
       get => _carId;
@@ -123,7 +117,6 @@ namespace Revature.Tenant.Lib.Models
         _carId = value;
       }
     }
-
     public string Gender
     {
       get => _gender;
@@ -141,26 +134,15 @@ namespace Revature.Tenant.Lib.Models
         _gender = value;
       }
     }
-
     public string FullName
     {
       get => FirstName + " " + LastName;
     }
-
     public Guid AddressId
     {
       get => _addressId;
-      set
-      {
-        if (value == Guid.Empty)
-        {
-          throw new ArgumentException("Address Id must not be empty", nameof(value));
-        }
-
-        _addressId = value;
-      }
+      set => _addressId = value;
     }
-
     public int BatchId
     {
       get => _batchId;
@@ -172,6 +154,19 @@ namespace Revature.Tenant.Lib.Models
         }
 
         _batchId = value;
+      }
+    }
+    public Guid TrainingCenter
+    {
+      get => _trainingCenter;
+      set
+      {
+        if (value == Guid.Empty)
+        {
+          throw new ArgumentException("Address Id must not be empty", nameof(value));
+        }
+
+        _trainingCenter = value;
       }
     }
   }

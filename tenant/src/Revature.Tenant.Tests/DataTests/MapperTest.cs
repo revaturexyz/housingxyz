@@ -9,18 +9,20 @@ namespace Revature.Tenant.Tests.DataTests
         private readonly Mapper mapper = new Mapper();
 
         [Fact] 
-        public void TenantsToTenantTest()
+        public void LibTenantToDbTenantTest()
         {
             Lib.Models.Tenant tenant = new Lib.Models.Tenant
             {
-                Id = new Guid(),
-                Email = "joemo@web.com",
-                Gender = "m",
-                FirstName = "Joe",
-                LastName = "Mohrbacher",
-                AddressId = new Guid(),
-                RoomId = new Guid(),
-                CarId = 1,
+              Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+              Email = "joemo@web.com",
+              Gender = "m",
+              FirstName = "Joe",
+              LastName = "Mohrbacher",
+              AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+              RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+              CarId = 1,
+              BatchId = 1,
+              TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
               Car = new Lib.Models.Car
               {
                 Id = 0,
@@ -31,9 +33,17 @@ namespace Revature.Tenant.Tests.DataTests
                 Year = "Year",
                 State = "TX"
               },
+              Batch = new Lib.Models.Batch
+              {
+                Id = 0,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                BatchLanguage = "C#",
+                TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+              }
             };
 
-            DataAccess.Entities.Tenants tenants = mapper.MapTenant(tenant);
+            DataAccess.Entities.Tenant tenants = mapper.MapTenant(tenant);
             Assert.Equal(tenant.Id, tenants.Id);
             Assert.Equal(tenant.Email, tenants.Email);
             Assert.Equal(tenant.FirstName, tenants.FirstName);
@@ -41,31 +51,43 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(tenant.AddressId, tenants.AddressId);
             Assert.Equal(tenant.RoomId, tenants.RoomId);
             Assert.Equal(tenant.CarId, tenants.CarId);
+            Assert.Equal(tenant.BatchId, tenants.BatchId);
+            Assert.Equal(tenant.TrainingCenter, tenants.TrainingCenter);
         }
 
         [Fact]
-        public void TenantToTenantsTest()
+        public void DbTenantToLibTenantTest()
         {
-            DataAccess.Entities.Tenants tenants = new DataAccess.Entities.Tenants
+            DataAccess.Entities.Tenant tenants = new DataAccess.Entities.Tenant
             {
-                Id = new Guid(),
+                Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
                 Email = "joemo@web.com",
                 Gender = "m",
                 FirstName = "Joe",
                 LastName = "Mohrbacher",
-                AddressId = new Guid(),
-                RoomId = new Guid(),
+                AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+                RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
                 CarId = 1,
-              Cars = new DataAccess.Entities.Cars
-              {
-                Id = 0,
-                LicensePlate = "LicensePlate",
-                Make = "Make",
-                Model = "Model",
-                Color = "Color",
-                Year = "Year",
-                State = "TX"
-              },
+                BatchId = 1,
+                TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+                Car = new DataAccess.Entities.Car
+                {
+                  Id = 0,
+                  LicensePlate = "LicensePlate",
+                  Make = "Make",
+                  Model = "Model",
+                  Color = "Color",
+                  Year = "Year",
+                  State = "TX"
+                },
+                Batch = new DataAccess.Entities.Batch
+                {
+                  Id = 0,
+                  StartDate = DateTime.Now,
+                  EndDate = DateTime.Now,
+                  BatchLanguage = "C#",
+                  TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+                }
             };
 
             Lib.Models.Tenant tenant = mapper.MapTenant(tenants);
@@ -76,10 +98,12 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(tenants.AddressId, tenant.AddressId);
             Assert.Equal(tenants.RoomId, tenant.RoomId);
             Assert.Equal(tenants.CarId, tenant.CarId);
-        }
+            Assert.Equal(tenants.BatchId, tenant.BatchId);
+            Assert.Equal(tenants.TrainingCenter, tenant.TrainingCenter);
+    }
 
         [Fact]
-        public void CarsToCarTest()
+        public void LibCarToDbCarTest()
         {
             Lib.Models.Car car = new Lib.Models.Car
             {
@@ -93,7 +117,7 @@ namespace Revature.Tenant.Tests.DataTests
                
             };
 
-            DataAccess.Entities.Cars cars = mapper.MapCar(car);
+            DataAccess.Entities.Car cars = mapper.MapCar(car);
             Assert.Equal(car.Id, cars.Id);
             Assert.Equal(car.LicensePlate, cars.LicensePlate);
             Assert.Equal(car.Make, cars.Make);
@@ -104,9 +128,9 @@ namespace Revature.Tenant.Tests.DataTests
         }
 
         [Fact]
-        public void CarToCarsTest()
+        public void DbCarToLibCarTest()
         {
-            DataAccess.Entities.Cars cars = new DataAccess.Entities.Cars
+            DataAccess.Entities.Car cars = new DataAccess.Entities.Car
             {
                 Id = 1,
                 Make = "Toyota",
@@ -125,6 +149,6 @@ namespace Revature.Tenant.Tests.DataTests
             Assert.Equal(cars.Year, car.Year);
             Assert.Equal(cars.Color, car.Color);
             Assert.Equal(cars.State, car.State);
-    }
+        }
     }
 }

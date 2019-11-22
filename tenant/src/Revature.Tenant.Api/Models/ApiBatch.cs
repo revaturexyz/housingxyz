@@ -11,5 +11,6 @@ namespace Revature.Tenant.Api.Models
     public string BatchLanguage { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+    public Guid TrainingCenter { get; set; }
   }
 }
