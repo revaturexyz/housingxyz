@@ -1,11 +1,10 @@
 using Revature.Address.DataAccess.Interfaces;
-using Revature.Address.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Address.DataAccess
 {
+  /// <summary>
+  /// Handles mapping between business library and data access address objects
+  /// </summary>
   public class Mapper : IMapper
   {
     public Mapper() { }

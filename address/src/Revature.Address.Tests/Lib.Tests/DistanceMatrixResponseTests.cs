@@ -6,6 +6,9 @@ using Xunit;
 
 namespace Revature.Address.Tests.Lib.Tests
 {
+  /// <summary>
+  /// Contains tests for Response class
+  /// </summary>
   public class DistanceMatrixResponseTests
   {
     /// <summary>

@@ -2,15 +2,17 @@ using Microsoft.EntityFrameworkCore;
 using Revature.Address.DataAccess.Entities;
 using Revature.Address.DataAccess.Interfaces;
 using Revature.Address.Lib.Interfaces;
-using Revature.Address.Lib;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
 namespace Revature.Address.DataAccess
 {
+    /// <summary>
+    /// Contain methods for inserting, retrieving, and deleting
+    /// information from the database
+    /// </summary>
     public class DataAccess : IDataAccess
     {
     private readonly IMapper _mapper;

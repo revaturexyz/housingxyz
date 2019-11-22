@@ -6,6 +6,9 @@ using Xunit;
 
 namespace Revature.Address.Tests.Lib.Tests
 {
+  /// <summary>
+  /// Contains tests for ResponseElement class
+  /// </summary>
   public class ElementTests
   {
     /// <summary>

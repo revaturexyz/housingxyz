@@ -2,15 +2,17 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Revature.Address.DataAccess.Entities;
 using Serilog;
 using Serilog.Events;
-using Revature.Address.DataAccess.Entities;
 
 namespace Revature.Address.Api
 {
+  /// <summary>
+  /// Specifies the steps completed when the
+  /// application is run
+  /// </summary>
   public static class Program
   {
     public static async Task Main(string[] args)

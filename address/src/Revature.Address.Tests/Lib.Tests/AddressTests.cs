@@ -5,7 +5,10 @@ using Xunit;
 
 namespace Revature.Address.Tests.Lib.Tests
 {
-    public class AddressTests
+  /// <summary>
+  /// Contains tests for business library address class
+  /// </summary>
+  public class AddressTests
     {
     /// <summary>
     /// tests Address constructor will assign values to fields.

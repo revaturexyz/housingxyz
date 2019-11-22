@@ -14,6 +14,10 @@ using Serilog;
 
 namespace Revature.Address.Api
 {
+  /// <summary>
+  /// Handles the startup configuration for the
+  /// address api
+  /// </summary>
   public class Startup
   {
     private const string ConnectionStringName = "AddressDb";
@@ -50,8 +54,7 @@ namespace Revature.Address.Api
 
       services.AddScoped<IMapper, DataAccess.Mapper>();
       services.AddScoped<IDataAccess, DataAccess.DataAccess>();
-      //services.AddScoped<IServiceBusSender, ServiceBusSender>();
-      //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+      services.AddHostedService<ServiceBusConsumer>();
       services.AddScoped<AddressLogic>();
 
 
@@ -78,8 +81,8 @@ namespace Revature.Address.Api
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Address V1");
       });
 
-      //var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      //bus.RegisterOnMessageHandlerAndReceiveMessages();
+      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 

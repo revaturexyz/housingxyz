@@ -3,6 +3,9 @@ using Humanizer;
 
 namespace Revature.Address.Lib.BusinessLogic
 {
+  /// <summary>
+  /// This class creates a new json naming policy based on snake case
+  /// </summary>
   public class JsonSnakeCaseNamingPolicy : JsonNamingPolicy
   {
     /// <summary>

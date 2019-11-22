@@ -1,10 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Address.DataAccess.Entities
 {
+  /// <summary>
+  /// This class specifies the structure of the
+  /// database during the EF build steps
+  /// </summary>
   public partial class AddressDbContext : DbContext
   {
     public AddressDbContext() {}

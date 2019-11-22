@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Revature.Address.Lib;
 
 namespace Revature.Address.DataAccess.Interfaces
 {

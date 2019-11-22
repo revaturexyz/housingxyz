@@ -4,10 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Revature.Address.Lib.Interfaces;
-using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
@@ -16,6 +13,11 @@ using System.Threading.Tasks;
 
 namespace Revature.Address.Api.ServiceBus
 {
+  /// <summary>
+  /// This class contains the logic for listening to
+  /// and receiving messages on the address queue on the
+  /// service bus
+  /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
     private readonly IConfiguration _configuration;

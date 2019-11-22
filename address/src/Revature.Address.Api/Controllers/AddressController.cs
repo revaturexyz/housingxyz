@@ -12,6 +12,10 @@ using Revature.Address.Lib.Interfaces;
 
 namespace Revature.Address.Api.Controllers
 {
+  /// <summary>
+  /// This controller handles http requests sent to the
+  /// address service
+  /// </summary>
   [Route("api/[controller]")]
   [ApiController]
   public class AddressController : ControllerBase
@@ -26,8 +30,7 @@ namespace Revature.Address.Api.Controllers
       _logger = logger;
     }
 
-    // GET: api/address/guid
-    [Route("{id}", Name = "GetAddress")]
+    // GET: api/address
     [HttpGet]
     public async Task<ActionResult<AddressModel>> GetAddressById(Guid id)
     {
@@ -35,7 +38,7 @@ namespace Revature.Address.Api.Controllers
 
       if (address == null)
       {
-        _logger.LogError("Address Id: {id} could not be found", id);
+        _logger.LogError("Address at {id} could not be found", id);
         return NotFound();
       }
 
