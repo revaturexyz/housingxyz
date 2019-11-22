@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace Revature.Complex.Lib.Interface
 {
+
+  //This Irepo declares all the methods found in the DataAccess layer for manipulating the DB
   public interface IRepository
   {
     /// <summary>
@@ -63,7 +65,6 @@ namespace Revature.Complex.Lib.Interface
     /// <returns></returns>
     public Task<string> CreateAmenityComplexAsync(Logic.AmenityComplex ac);
 
-
     /// <summary>
     /// Create new single Amenity in database by logic amenity object
     /// </summary>
@@ -111,6 +112,14 @@ namespace Revature.Complex.Lib.Interface
     /// <param name="amenity"></param>
     /// <returns></returns>
     public Task<string> DeleteAmenityAsync(Logic.Amenity amenity);
+
+    /// <summary>
+    /// Read single logic complex object from complex name and complex contact number
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="phone"></param>
+    /// <returns></returns>
+    public Task<Logic.Complex> ReadComplexByNameAndNumberAsync(string name, string phone);
 
     /// <summary>
     /// Delete ALL amenity record from Amenity of room in database by room Id
