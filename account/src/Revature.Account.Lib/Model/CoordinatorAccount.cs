@@ -13,7 +13,6 @@ namespace Revature.Account.Lib.Model
     private string _name;
     private string _trainingCenterName;
     private string _trainingCenterAddress;
-
     public Guid CoordinatorId { get; set; } = Guid.NewGuid();
     public virtual List<Lib.Model.Notification> Notifications { get; set; }
 
@@ -41,10 +40,7 @@ namespace Revature.Account.Lib.Model
 
     /// <summary>
     /// Name of the training center associated with the coordinator.
-    /// </summary>
-    ///
-    //public string TrainingCenterName { get; set; }
-    
+    /// </summary>    
     public string TrainingCenterName
     { 
       get
@@ -75,18 +71,14 @@ namespace Revature.Account.Lib.Model
 
     private void NotNullOrEmpty(string value)
     {
-
       if (value == null)
       {
         throw new ArgumentNullException(nameof(value), "Your Input cannot be null");
       }
-
       if (value.Length == 0)
       {
         throw new ArgumentException("Your Input cannot be empty string.", nameof(value));
       }
-
     }
-
   }
 }

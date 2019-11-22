@@ -12,29 +12,23 @@ namespace Revature.Account.Tests
 {
   public class TestHelper
   {
-
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> Repository { get; private set; }
     public CoordinatorAccountController CoordinatorAccountController { get; private set; }
     public NotificationController NotificationController { get; private set; }
     public ProviderAccountController ProviderAccountController { get; private set; }
-
-
     public List<CoordinatorAccount> Coordinators { get; private set; }
     public List<Notification> Notifications { get; private set; }
     public List<ProviderAccount> Providers { get; private set; }
     public List<Status> Statuses { get; private set; }
-
     //for testing expiration times
     public static DateTime now;
     public static DateTime nowPSev;
     public static DateTime nowPThirty;
-
     public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
-
 
     public TestHelper()
     {
-      
+
       _logger = new NullLogger<TestHelper>();
 
       SetUpCoordinators();
@@ -52,7 +46,6 @@ namespace Revature.Account.Tests
     {
       Coordinators = new List<CoordinatorAccount>
       {
-        //1
         new CoordinatorAccount
         {
           Name = "Jacob",
@@ -60,7 +53,6 @@ namespace Revature.Account.Tests
           TrainingCenterName = "Arlington",
           TrainingCenterAddress = "604 S. West, Arlington, TX, 76010"
         },
-        //2
         new CoordinatorAccount
         {
           Name = "Kimberly",
@@ -68,7 +60,6 @@ namespace Revature.Account.Tests
           TrainingCenterName = "Honolulu",
           TrainingCenterAddress = "555 Kaumakani St, Honolulu, HI 96825"
         },
-        //3
         new CoordinatorAccount
         {
           Name = "Jimmy",
