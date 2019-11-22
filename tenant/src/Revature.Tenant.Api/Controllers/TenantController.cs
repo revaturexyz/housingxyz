@@ -20,9 +20,9 @@ namespace Revature.Tenant.Api.Controllers
     private readonly ITenantRepository _tenantRepository;
     private readonly ILogger _logger;
 
-    public TenantController(ITenantRepository tenantRepository, ILogger logger)
+    public TenantController(ITenantRepository tenantRepository, ILogger<TenantController> logger = null)
     {
-      _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant Cannot be null");
+      _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant cannot be null");
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -30,7 +30,8 @@ namespace Revature.Tenant.Api.Controllers
     /// Get all tenants
     /// </summary>
     /// <returns></returns>
-        // GET: api/Tenant
+   
+    // GET: api/Tenant
     [HttpGet(Name = "GetAllAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
