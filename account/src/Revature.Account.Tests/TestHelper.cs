@@ -45,7 +45,6 @@ namespace Revature.Account.Tests
     /// <summary>
     /// Default Constructor
     /// </summary>
-
     public TestHelper()
     {
       
@@ -69,7 +68,6 @@ namespace Revature.Account.Tests
     {
       Coordinators = new List<CoordinatorAccount>
       {
-        //1
         new CoordinatorAccount
         {
           Name = "Jacob",
@@ -77,7 +75,6 @@ namespace Revature.Account.Tests
           TrainingCenterName = "Arlington",
           TrainingCenterAddress = "604 S. West, Arlington, TX, 76010"
         },
-        //2
         new CoordinatorAccount
         {
           Name = "Kimberly",

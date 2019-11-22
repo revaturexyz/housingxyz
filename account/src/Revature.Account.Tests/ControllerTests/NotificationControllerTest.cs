@@ -34,7 +34,6 @@ namespace Revature.Account.Tests.ControllerTests
       Assert.NotNull(await helper.NotificationController.GetNotificationByCoordinatorIdAsync(coordinatorId) as OkObjectResult);
     }
 
-
     /// <summary>
     /// Test for the successful creation of a new Notification. (POST)
     /// </summary>
@@ -49,7 +48,7 @@ namespace Revature.Account.Tests.ControllerTests
       var newNotification = new Notification();
       newNotification.ProviderId = providerId;
       newNotification.CoordinatorId = coordinatorId;
-   
+
       helper.Repository
         .Setup(x => x.AddNotification(It.IsAny<Notification>()))
         .Verifiable();
@@ -96,7 +95,6 @@ namespace Revature.Account.Tests.ControllerTests
     /// Test for the sucessful deletion of a specified Notification. (DELETE)
     /// </summary>
     /// <returns></returns>
-
     [Fact]
     public async Task DeleteNotificationAsyncSuccessfulVerificationAsync()
     {

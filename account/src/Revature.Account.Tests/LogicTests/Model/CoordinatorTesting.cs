@@ -27,7 +27,6 @@ namespace Revature.Account.Test.Logic_Tests.Model
     /// <summary>
     /// Test if a Coordinator's name is an empty-string.
     /// </summary>
-
     [Fact]
     public void CoordinatorNameEmptyException()
     {
@@ -90,7 +89,5 @@ namespace Revature.Account.Test.Logic_Tests.Model
 
       Assert.ThrowsAny<ArgumentException>(() => coordinator.TrainingCenterName = invalidAddr);
     }
-
-
   }
 }
