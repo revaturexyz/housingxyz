@@ -173,7 +173,7 @@ button {
   border-bottom-style: solid black 25px;
 }
 .middle-container {
-  height: 400px;
+  height: fit-content;
   overflow: auto;
 }
 
@@ -186,6 +186,7 @@ button {
   color: black;
   opacity: 0.7;
   justify-self: center;
+  height: min-content;
 }
 
 .middle-container button
@@ -193,4 +194,15 @@ button {
   text-align: center;
   display: block;
   margin: 0 auto;
+  padding: 1%;
+
+}
+
+table th
+{
+  text-align: center;
+}
+table td
+{
+  text-align: auto;
 }

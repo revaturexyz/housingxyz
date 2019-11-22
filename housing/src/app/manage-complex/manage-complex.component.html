@@ -9,7 +9,7 @@
                   <h3>Stark Agency</h3>
               </div>
               <!-- Drop down to choose a complex -->
-              <mat-card>
+              <mat-card class="card-drawer">
                 <mat-form-field>
                     <mat-label>Select a Complex</mat-label>
                     <mat-select (ngModelChange)="changeMode($event)" class="selector" placeholder="Complex" [formControl]="complexControl">
@@ -48,7 +48,7 @@
       -->
 
 
-      <div class="div-drawer d-md-flex p-5 text-center justify-content-center">
+      <div class="div-drawer d-md-flex text-center justify-content-center">
         <!--First div that shows on page-->
         <div *ngIf="mode=='init'" class="align-self-center"><h2>Select a complex from the menu or</h2><h2><a class="add-complex-highlight" (click)="changeMode('add-complex')">add another now</a></h2></div>
 

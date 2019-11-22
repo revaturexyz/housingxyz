@@ -30,15 +30,22 @@
   .div-drawer {
     color: black;
     background-color: white;
-    opacity: 0.75;
+    opacity: 0.85;
     width: 80%;
     overflow-y: auto;
     height: 100%;
+    padding: inherit;
   }
+
 
   .add-complex-highlight {
     cursor: pointer;
     text-decoration-line: underline !important;
     color: #fb752c !important;
     font-variant: small-caps;
+  }
+
+  .card-drawer
+  {
+    width: 100%;
   }

@@ -15,6 +15,7 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
   MatChipsModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatFormFieldModule,
   MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
+  MatExpansionModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
@@ -55,18 +56,17 @@ import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
     NgbModule,
-    MatTableModule,
-    MatChipsModule,
-    MatPaginatorModule,
     CdkTableModule,
-    MatCardModule,
     MatDialogModule,
     StickyNavModule,
     BrowserAnimationsModule,
     MatRippleModule,
     CoordinatorModule,
+    MatTableModule,
+    MatChipsModule,
+    MatPaginatorModule,
+    MatCardModule,
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
@@ -75,7 +75,8 @@ import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [
     {

@@ -18,6 +18,7 @@ describe('ComplexDetailsComponent', () => {
       imports: [
         NoopAnimationsModule,
         BrowserAnimationsModule,
+        MatChipsModule,
         MatTableModule,
         MatChipsModule,
         MatPaginatorModule,

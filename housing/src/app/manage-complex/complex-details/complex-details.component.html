@@ -20,6 +20,7 @@
 
 <!--Middle of container-->
 <div class="middle-container ">
+  <mat-accordion>
   <table mat-table [dataSource]="dataSource" class="w-100 h-50">
 
     <!-- Room # Column -->
@@ -54,6 +55,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
+</mat-accordion>
+
   <!--Paginator for the table above-->
   <mat-paginator
     [length]="100"
@@ -64,4 +67,12 @@
 
   <!--Button to add a new room to the complex-->
   <button class="add-room-btn" mat-raised-button (click)="changeMode('add-room')">Add Room</button>
+  <hr style="height: 1px; background-color: black;" />
 </div>
+<div>
+  <h4>Amentities</h4>
+  <mat-chip-list>
+      <mat-chip *ngFor="let amentity of complexControl?.amenity" color="primary" selected><strong>{{amentity.amenity}}</strong></mat-chip>
+  </mat-chip-list>
+</div>
+
