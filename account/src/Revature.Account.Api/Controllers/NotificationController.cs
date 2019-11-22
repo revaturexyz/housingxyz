@@ -41,18 +41,17 @@ namespace Revature.Account.Api.Controllers
     [HttpPost]
     [ProducesResponseType(typeof(Notification), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId")] Notification notification)
+    public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId, UpdateAction")] Notification notification)
     {
       try
       {
         _logger.LogInformation($"POST - Making notification for notification ID {notification.NotificationId}." +
-          $" Provider ID: {notification.ProviderId}\n Coordinator ID: {notification.CoordinatorId}");
+          $" Provider ID: {notification.Provider.ProviderId}\n Coordinator ID: {notification.Coordinator.CoordinatorId}");
         Lib.Model.Notification mappedNotification = new Lib.Model.Notification()
         {
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
-          // Set Status to 'Approved'
-          Status = await _repo.GetStatusByStatusTextAsync("Approved"),
+          UpdateAction = notification.UpdateAction,
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddNotification(mappedNotification);
@@ -71,23 +70,12 @@ namespace Revature.Account.Api.Controllers
     [HttpPatch("{coordinatorId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
+    public async Task<ActionResult> Patch([FromBody] Notification notification)
     {
       _logger.LogInformation($"PATCH - Patching notification information for notification {notification.NotificationId}");
-      var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
+      var existingNotification = await _repo.GetNotificationByIdAsync(notification.NotificationId);
       if (existingNotification != null)
       {
-        existingNotification.Status = notification.Status;
-        // Status is 'Under Review
-        if (existingNotification.Status.StatusText == "Under Review")
-        {
-          existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
-        }
-        // Status is 'Rejected'
-        if (existingNotification.Status.StatusText == "Rejected")
-        {
-          existingNotification = null;
-        }
         await _repo.UpdateNotificationAsync(existingNotification);
         await _repo.SaveAsync();
         _logger.LogInformation("Persisted patch request");

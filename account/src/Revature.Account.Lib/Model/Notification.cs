@@ -10,11 +10,11 @@ namespace Revature.Account.Lib.Model
   {
     public Guid NotificationId { get; set; } = Guid.NewGuid();
     public Guid ProviderId { get; set; }
+    public ProviderAccount Provider { get; set; }
     public Guid CoordinatorId { get; set; }
-    /// <summary>
-    /// The new status that the provider in question is now under.
-    /// </summary>
-    public Status Status { get; set; }
+    public CoordinatorAccount Coordinator { get; set; }
+    public UpdateAction UpdateAction { get; set; }
+
     /// <summary>
     /// Date and time the associated provider account expires at, if any, in the format 11:59:59.
     /// </summary>

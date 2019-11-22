@@ -55,6 +55,17 @@ namespace Revature.Account.Lib.Interface
     public Task<bool> DeleteStatusByIdAsync(int statusId);
     #endregion
 
+    #region UpdateAction
+
+    public Task<UpdateAction> GetUpdateActionByIdAsync(Guid actionId);
+
+    public void AddUpdateAction(UpdateAction action);
+
+    public Task<bool> UpdateUpdateActionAsync(UpdateAction action);
+
+    public Task<bool> DeleteUpdateActionByIdAsync(Guid actionId);
+    #endregion
+
     public Task SaveAsync();
   }
 }

@@ -13,6 +13,7 @@ namespace Revature.Account.DataAccess
     }
 
     public virtual DbSet<Notification> Notification { get; set; }
+    public virtual DbSet<UpdateAction> UpdateAction { get; set; }
     public virtual DbSet<Status> Status { get; set; }
     public virtual DbSet<ProviderAccount> ProviderAccount { get; set; }
     public virtual DbSet<CoordinatorAccount> CoordinatorAccount { get; set; }
@@ -54,13 +55,15 @@ namespace Revature.Account.DataAccess
           .IsRequired();
         entity.Property(e => e.CoordinatorId)
           .IsRequired();
-        entity.HasOne(e => e.Status);
+        entity.Property(e => e.UpdateActionId)
+          .IsRequired();
         entity.Property(e => e.AccountExpiresAt)
           .IsRequired();
         entity.HasOne(e => e.Coordinator)
           .WithMany(n => n.Notifications)
           .HasForeignKey(p => p.CoordinatorId)
           .IsRequired();
+        entity.HasOne(e => e.UpdateAction);
       });
 
       modelBuilder.Entity<Status>(entity =>

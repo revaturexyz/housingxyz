@@ -67,7 +67,8 @@ namespace Revature.Account.DataAccess
     }
 
     /// <summary>
-    /// Maps db Notification to logic Notification. Maps Status as well.
+    /// Maps db Notification to logic Notification. Maps Coordinator, Provider, and
+    /// UpdateAction as well.
     /// </summary>
     /// <param name="nofi"></param>
     /// <returns></returns>
@@ -77,8 +78,10 @@ namespace Revature.Account.DataAccess
       {
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
+        Provider = MapProvider(nofi.Provider),
         CoordinatorId = nofi.CoordinatorId,
-        Status = MapStatus(nofi.Status),
+        Coordinator = MapCoordinator(nofi.Coordinator),
+        UpdateAction = MapUpdateAction(nofi.UpdateAction),
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
@@ -88,9 +91,9 @@ namespace Revature.Account.DataAccess
       return new Entities.Notification
       {
         NotificationId = nofi.NotificationId,
-        ProviderId = nofi.ProviderId,
-        CoordinatorId = nofi.CoordinatorId,
-        StatusId = nofi.Status.StatusId,
+        ProviderId = nofi.Provider.ProviderId,
+        CoordinatorId = nofi.Coordinator.CoordinatorId,
+        UpdateActionId = nofi.UpdateAction.Id,
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
@@ -115,6 +118,28 @@ namespace Revature.Account.DataAccess
       {
         StatusId = status.StatusId,
         StatusText = status.StatusText
+      };
+    }
+
+    public Lib.Model.UpdateAction MapUpdateAction(Entities.UpdateAction action)
+    {
+      return new Lib.Model.UpdateAction
+      {
+        Id = action.Id,
+        NotificationId = action.NotificationId,
+        UpdateType = action.UpdateType,
+        SerializedTarget = action.SerializedTarget
+      };
+    }
+
+    public Entities.UpdateAction MapUpdateAction(Lib.Model.UpdateAction action)
+    {
+      return new Entities.UpdateAction
+      {
+        Id = action.Id,
+        NotificationId = action.NotificationId,
+        UpdateType = action.UpdateType,
+        SerializedTarget = action.SerializedTarget
       };
     }
   }
