@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Revature.Account.Api.Controllers
 {
+  /// <summary>
+  /// RESTful API Controllers for the Coordinator account.
+  /// </summary>
   [Route("api/coordinator-accounts")]
   [ApiController]
   public class CoordinatorAccountController : ControllerBase

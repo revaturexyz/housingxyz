@@ -4,7 +4,6 @@ namespace Revature.Account.DataAccess.Entities
 {
   public class ProviderAccount
   {
-    //set the primary key with guid
     public Guid ProviderId { get; set; }
     public string Name { get; set; }
     public int StatusId { get; set; }

@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Revature.Account.Api.Controllers
 {
+  /// <summary>
+  /// RESTful API Controllers for the Notifications
+  /// </summary>
   [Route("api/notifications")]
   [ApiController]
   public class NotificationController : ControllerBase
@@ -68,13 +71,13 @@ namespace Revature.Account.Api.Controllers
     }
 
     // PATCH: api/notifications/5
-    [HttpPatch("{coordinatorId}")]
+    [HttpPatch("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Patch(Guid coordinatorId, [FromBody] Notification notification)
+    public async Task<ActionResult> Patch(Guid notificationId, [FromBody] Notification notification)
     {
       _logger.LogInformation($"PATCH - Patching notification information for notification {notification.NotificationId}");
-      var existingNotification = await _repo.GetNotificationByIdAsync(coordinatorId);
+      var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
         existingNotification.Status = notification.Status;
@@ -104,7 +107,7 @@ namespace Revature.Account.Api.Controllers
     public async Task<ActionResult> Delete(Guid notificationId)
     {
       _logger.LogInformation($"DELETE - Deleting notification with ID: {notificationId}");
-      var existingNotification = await _repo.GetProviderAccountByIdAsync(notificationId);
+      var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
         await _repo.DeleteNotificationByIdAsync(notificationId);
