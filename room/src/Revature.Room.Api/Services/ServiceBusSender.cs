@@ -30,16 +30,6 @@ namespace ServiceBusMessaging
       _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TestQueue"]);
     }
 
-    /// <summary>
-    /// Get the time limit or expiration of the SAS token
-    /// </summary>
-    /// <param name="ttl"></param>
-    /// <returns></returns>
-    private static string GetExpiry(TimeSpan ttl)
-    {
-      TimeSpan expirySinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1) + ttl;
-      return Convert.ToString((int)expirySinceEpoch.TotalSeconds);
-    }
 
     /// <summary>
     /// ServiceBus message for deleting a message
