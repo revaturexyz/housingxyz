@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import TenantSearching from '../../interfaces/tenant-searching';
 import { TenantSearcherService } from '../services/tenant-searcher.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'dev-search-tenant',
@@ -12,19 +13,47 @@ export class SearchTenantComponent implements OnInit {
   tenants: TenantSearching[] = [];
   tenantsLoaded: boolean = false;
 
+  searchTenantForm = this.formBuilder.group({
+    firstName: [''],
+    lastName: [''],
+    gender: [''],
+    filterByTrainingCenter: ['']
+  });
 
+  searchTenantsByParameters() {
+    this.tenantsLoaded = false;
 
-  constructor(
-    private service: TenantSearcherService
-  ) { }
+    let firstName = this.searchTenantForm.get('firstName').value as string;
+    let lastName = this.searchTenantForm.get('lastName').value as string;
+    let gender = this.searchTenantForm.get('gender').value as string;
+    let filterByTrainingCenter = this.searchTenantForm.get('filterByTrainingCenter').value as boolean;
 
-  ngOnInit() {
+    this.service.getTenantsByParameters(firstName, lastName, gender, filterByTrainingCenter)
+    .then(result => {
+      this.tenants = result;
+      this.tenantsLoaded = true;
+    })
+  };
+
+  searchAllTenants() {
+    this.tenantsLoaded = false;
+
     this.service.getTenants()
     .then(result => {
       this.tenants = result;
       this.tenantsLoaded = true;
     })
+  }
 
+
+
+  constructor(
+    private service: TenantSearcherService,
+    private formBuilder: FormBuilder
+  ) { }
+
+  ngOnInit() {
+    this.searchAllTenants()
   }
 
 }

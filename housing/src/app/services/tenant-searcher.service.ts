@@ -14,5 +14,10 @@ export class TenantSearcherService {
     return this.httpClient.get<TenantSearching[]>(url).toPromise();
   }
 
+  getTenantsByParameters(firstName: string, lastName: string, gender: string, filterByTrainingCenter: boolean) : Promise<TenantSearching[]>{
+    let url = `${environment.endpoints.coordinator}api/Tenant`;
+    return this.httpClient.get<TenantSearching[]>(url).toPromise();
+  }
+
   constructor(private httpClient: HttpClient) { }
 }
