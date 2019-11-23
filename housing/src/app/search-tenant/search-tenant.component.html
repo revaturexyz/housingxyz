@@ -1,4 +1,4 @@
-<!--ed for the split screen -->
+<!--used for the split screen -->
 <div class="d-md-flex h-md-100 align-items-center">
 
 
@@ -8,13 +8,13 @@
             <div class="logoarea pt-5 pb-5">
 
 
-                <h2>Search All Tenants</h2>
+                <h1>Search All Tenants</h1>
 
                 <button (click)="searchAllTenants()">Show All Tenants</button>
 
                 <h3>Narrow your search here:</h3>
 
-                <form [formGroup]="searchForm" (ngSubmit)="searchTenantsByParameters()">
+                <form [formGroup]="searchTenantForm" (ngSubmit)="searchTenantsByParameters()">
                     <label>
                         First Name:
                         <input type="text" formControlName="firstName">

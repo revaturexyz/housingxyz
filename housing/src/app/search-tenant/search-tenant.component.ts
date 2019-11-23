@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import TenantSearching from '../../interfaces/tenant-searching';
 import { TenantSearcherService } from '../services/tenant-searcher.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'dev-search-tenant',

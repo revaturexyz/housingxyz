@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import TenantSearching from '../../../interfaces/search-tenant/tenant-searching';
+import TenantSearching from '../../interfaces/tenant-searching';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
