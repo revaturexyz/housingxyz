@@ -1,0 +1,50 @@
+ Us<!--ed for the split screen -->
+<div class="d-md-flex h-md-100 align-items-center">
+
+
+    <!-- Left side of the split screen -->
+    <div class="col-md-4 p-0 bg-orange h-md-100">
+        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+
+
+
+                <div>
+                    <ul *ngIf="tenantsLoaded">
+                        <h1>Tenants</h1>
+                        <li *ngFor="let tenant of tenants; let i = index">
+                            <label>
+                                {{i}}
+                                {{tenant.firstName}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The right side of the page -->
+    <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
+        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
+            <div class="logoarea pt-8 pb-8 col-md-12">
+
+
+
+                <div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
