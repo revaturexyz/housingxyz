@@ -1,6 +1,6 @@
 export default interface BatchSelected {
     id: number;
-    batchLanguage: string;
+    batchCurriculum: string;
     startDate: Date;
     endDate: Date;
     trainingCenter: string;

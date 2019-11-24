@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import TenantSearching from '../../interfaces/tenant-searching';
 import { TenantSearcherService } from '../services/tenant-searcher.service';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dev-search-tenant',
@@ -47,7 +48,9 @@ export class SearchTenantComponent implements OnInit {
     })
   }
 
-  //fields and methods for tenant view
+  routeToSelectTenant(tenantId: string) {
+    this.router.navigate(['select-tenant/' + tenantId]);
+  }
 
   
 
@@ -55,6 +58,7 @@ export class SearchTenantComponent implements OnInit {
 
   constructor(
     private service: TenantSearcherService,
+    private router: Router,
     private formBuilder: FormBuilder
   ) { }
 

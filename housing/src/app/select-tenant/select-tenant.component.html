@@ -1,1 +1,137 @@
-<p>select-tenant works!</p>
+<!--used for the split screen -->
+<div class="d-md-flex h-md-100 align-items-center">
+
+
+    <!-- Left side of the split screen -->
+    <div class="col-md-4 p-0 bg-orange h-md-100">
+        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+
+                
+
+
+                
+                <button (click)="deleteTrigger()">Delete Tenant</button>
+                <span *ngIf="deleteConfirmOn">
+                    Are you certain? This action cannot be undone.
+                    <div>
+                        <a (click)="deleteStop()">NO, I do not want to delete this tenant.</a>
+                    </div>
+                    <div>
+                        <a (click)="deleteGo()">YES, I want to delete this tenant.</a>
+                    </div>
+                </span>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The right side of the page -->
+    <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
+        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
+            <div class="logoarea pt-8 pb-8 col-md-12">
+
+
+
+                <div>
+                    <h3 *ngIf="!tenantLoaded">Loading Tenant...</h3>
+
+                    <div *ngIf="tenantLoaded">
+                        <h1>{{tenant.firstName}} {{tenant.lastName}}</h1>
+
+                        <h2>Personal Details:</h2>
+                        <ul>
+                            <li>
+                                ID: {{tenant.id}}
+                            </li>
+
+                            <li>
+                                Email: {{tenant.email}}
+                            </li>
+
+                            <li>
+                                Gender: {{tenant.gender}}
+                            </li>
+
+                            <li>
+                                Training Center ID: {{tenant.trainingCenter}}
+                            </li>
+
+                            <li>
+                                Address: 
+                                <div>
+                                    <div>{{address.streetAddress}}</div>
+                                    <div>{{address.city}}, {{address.state}} {{address.zipcode}}</div>
+                                </div>
+                            </li>
+                        </ul>
+
+
+                        <h2>Car Details:</h2>
+
+                        <h3 *ngIf="!tenant.carId">No car information.</h3>
+
+                        <ul *ngIf="tenant.carId">
+                            <li>
+                                Car ID: {{tenant.carId}}
+                            </li>
+
+                            <li>
+                                Make: {{tenant.car.make}}
+                            </li>
+
+                            <li>
+                                Model: {{tenant.car.model}}
+                            </li>
+
+                            <li>
+                                Color: {{tenant.car.color}}
+                            </li>
+
+                            <li>
+                                Year: {{tenant.car.year}}
+                            </li>
+
+                            <li>
+                                State: {{tenant.car.state}}
+                            </li>
+                        </ul>
+
+
+                        <h2>Batch Details:</h2>
+
+                        <h3 *ngIf="!tenant.batchId">No batch information.</h3>
+
+                        <ul *ngIf="tenant.batchId">
+                            <li>
+                                Batch ID: {{tenant.batchId}}
+                            </li>
+
+                            <li>
+                                Curriculum: {{tenant.batch.batchCurriculum}}
+                            </li>
+
+                            <li>
+                                Start Date: {{tenant.batch.startDate}}
+                            </li>
+
+                            <li>
+                                End Date: {{tenant.batch.endDate}}
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

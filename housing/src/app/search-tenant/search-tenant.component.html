@@ -70,7 +70,7 @@
                             </label>
 
                             <label>
-                                <a [routerLink]="['/select-tenant', tenant.id]">View Details</a>
+                                <a (click)="routeToSelectTenant(tenant.id)">View Details</a>
                             </label>
                         </li>
                     </ul>

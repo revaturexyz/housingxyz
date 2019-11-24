@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TenantSearcherService } from '../services/tenant-searcher.service';
 import TenantSelected from 'src/interfaces/tenant-selected-info/tenant-selected';
+import { Address } from 'src/interfaces/address';
 
 @Component({
   selector: 'dev-select-tenant',
@@ -12,6 +12,28 @@ import TenantSelected from 'src/interfaces/tenant-selected-info/tenant-selected'
 export class SelectTenantComponent implements OnInit {
   tenant: TenantSelected;
   tenantLoaded: boolean = false;
+  address: Address;
+
+
+
+  //Delete tenant
+  deleteConfirmOn: boolean = false;
+
+  deleteTrigger() {
+    this.deleteConfirmOn = true;
+  }
+
+  deleteStop() {
+    this.deleteConfirmOn = false;
+  }
+
+  deleteGo() {
+    this.service.deleteTenant(this.tenant.id)
+      .then(value => {
+        console.log(value);
+        this.router.navigate(['search-tenant']);
+      });
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +47,11 @@ export class SelectTenantComponent implements OnInit {
     this.service.selectTenant(id)
       .then(tenant => {
         this.tenant = tenant;
-        this.tenantLoaded = true;
+        this.service.selectTenantAddress(tenant.addressId)
+          .then(address => {
+            this.address = address;
+            this.tenantLoaded = true;
+          })
       })
   }
 
