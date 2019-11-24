@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import TenantSearching from '../../interfaces/tenant-searching';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import TenantSelected from 'src/interfaces/tenant-selected-info/tenant-selected';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TenantSearcherService {
+  selectTenant(id: string): Promise<TenantSelected> {
+    let url = `${environment.endpoints.coordinator}api/Tenant/${id}`;
+    return this.httpClient.get<TenantSelected>(url).toPromise();
+  }
 
   getTenants() : Promise<TenantSearching[]>{
     let url = `${environment.endpoints.coordinator}api/Tenant`;

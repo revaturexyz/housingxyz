@@ -8,6 +8,7 @@ import { AddComplexComponent } from './add-complex/add-complex.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AddTenantComponent } from './add-tenant/add-tenant.component';
 import { SearchTenantComponent } from './search-tenant/search-tenant.component';
+import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 
 const routes: Routes = [
   { path: 'show-rooms', component: UpdateRoomComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'addroom', component: AddRoomComponent },
   { path: 'add-tenant', component: AddTenantComponent },
   { path: 'search-tenant', component: SearchTenantComponent },
+  { path: 'select-tenant/:id', component: SelectTenantComponent },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] }
 ];
 

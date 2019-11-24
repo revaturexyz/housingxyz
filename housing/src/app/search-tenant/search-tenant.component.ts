@@ -10,6 +10,8 @@ import { FormBuilder } from '@angular/forms';
 })
 export class SearchTenantComponent implements OnInit {
 
+  //fields and methods for search functionality
+
   tenants: TenantSearching[] = [];
   tenantsLoaded: boolean = false;
 
@@ -44,6 +46,10 @@ export class SearchTenantComponent implements OnInit {
       this.tenantsLoaded = true;
     })
   }
+
+  //fields and methods for tenant view
+
+  
 
 
 

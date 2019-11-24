@@ -68,6 +68,10 @@
                                 {{i}}
                                 {{tenant.firstName}}
                             </label>
+
+                            <label>
+                                <a [routerLink]="['/select-tenant', tenant.id]">View Details</a>
+                            </label>
                         </li>
                     </ul>
                 </div>
