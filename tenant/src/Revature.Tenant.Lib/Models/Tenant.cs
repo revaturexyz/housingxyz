@@ -91,7 +91,7 @@ namespace Revature.Tenant.Lib.Models
         _lastName = value;
       }
     }
-    public Guid RoomId
+    public Guid? RoomId
     {
       get => _roomId;
       set
