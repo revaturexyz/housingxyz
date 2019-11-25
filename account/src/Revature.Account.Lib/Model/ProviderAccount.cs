@@ -23,6 +23,9 @@ namespace Revature.Account.Lib.Model
       }
     }
 
+    /// <summary>
+    /// The current status of a provider's account.
+    /// </summary>
     public Status Status { get; set; }
     /// <summary>
     /// Date and time the account was created at, expressed in the format 11:59:59.
@@ -33,6 +36,10 @@ namespace Revature.Account.Lib.Model
     /// </summary>
     public DateTime AccountExpiresAt { get; set; }
 
+    /// <summary>
+    /// Checks to see if a string is either null (does not exist) or empty ( "" )
+    /// </summary>
+    /// <param name="value"></param>
     private void NotNullOrEmpty(string value)
     {
       if (value == null)

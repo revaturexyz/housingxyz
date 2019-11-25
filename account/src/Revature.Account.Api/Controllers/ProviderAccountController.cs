@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Revature.Account.Api.Controllers
 {
+  /// <summary>
+  /// RESTful API Controllers for the Provider account.
+  /// </summary>
   [Route("api/provider-accounts")]
   [ApiController]
   public class ProviderAccountController : ControllerBase
