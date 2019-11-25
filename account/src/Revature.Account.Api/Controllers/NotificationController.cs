@@ -70,13 +70,13 @@ namespace Revature.Account.Api.Controllers
       }
     }
 
-    // PATCH: api/notifications/5
+    // PUT: api/notifications/5
     [HttpPatch("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Patch(Guid notificationId, [FromBody] Notification notification)
+    public async Task<ActionResult> PUT(Guid notificationId, [FromBody] Notification notification)
     {
-      _logger.LogInformation("PATCH - Patching notification information for notification {notificationId}", notification.NotificationId);
+      _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notification.NotificationId);
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
