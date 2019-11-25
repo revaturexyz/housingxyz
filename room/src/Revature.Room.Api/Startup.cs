@@ -53,7 +53,8 @@ namespace Revature.Room.Api
 
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<IMapper, DBMapper>();
-      services.AddHostedService<IServiceBusConsumer, ServiceBusConsumer>();
+      //Added IServiceBusConsumer here, but threw an error for addHoustedService
+      services.AddHostedService<ServiceBusConsumer>();
 
       //Added this for sender because now we are sending things 11-22-19
       services.AddScoped<ServiceBusSender>();
