@@ -8,9 +8,20 @@ namespace Revature.Account.Lib.Model
   /// </summary>
   public class Notification
   {
+    /// <summary>
+    /// Guid based Id for the Notification.
+    /// </summary>
     public Guid NotificationId { get; set; } = Guid.NewGuid();
+
+    /// <summary>
+    /// Guid based Id for a housing complex Provider.
+    /// </summary>
     public Guid ProviderId { get; set; }
     public ProviderAccount Provider { get; set; }
+
+    /// <summary>
+    /// Guid based Id for a training center's Coordinator.
+    /// </summary>
     public Guid CoordinatorId { get; set; }
     public CoordinatorAccount Coordinator { get; set; }
     public UpdateAction UpdateAction { get; set; }

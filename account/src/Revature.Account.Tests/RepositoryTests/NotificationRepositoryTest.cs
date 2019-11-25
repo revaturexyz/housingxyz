@@ -8,8 +8,14 @@ using Xunit;
 
 namespace Revature.Account.Tests.Repository_Tests
 {
+  /// <summary>
+  /// Tests for a Notification's data access layer and it's supporting database negotiation methods.
+  /// </summary>
   public class NotificationRepositoryTest
   {
+    /// <summary>
+    /// Retrieve a notification from the database by way of a given Guid-Id.
+    /// </summary>
     [Fact]
     public async void GetNotificationByIdAsyncTest()
     {
@@ -37,6 +43,9 @@ namespace Revature.Account.Tests.Repository_Tests
       Assert.Equal(testId, result.NotificationId);
     }
 
+    /// <summary>
+    /// Test for adding a new notification to the database.
+    /// </summary>
     [Fact]
     public void AddNewNotificationTest()
     {
@@ -61,6 +70,10 @@ namespace Revature.Account.Tests.Repository_Tests
       Assert.NotNull(assertNotification);
     }
 
+    /// <summary>
+    /// Update a given notification's entry in the database.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task UpdateNotificationAccountTestAsync()
     {
@@ -86,6 +99,10 @@ namespace Revature.Account.Tests.Repository_Tests
       Assert.Equal(arrangeNotification.CoordinatorId, assertNotification.CoordinatorId);
     }
 
+    /// <summary>
+    /// Delete a notification's entry from the database.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteNotificationTestAsync()
     {
