@@ -43,7 +43,8 @@ namespace Revature.Account.Lib.Model
         StatusId = 4;
         StatusText = UnderReview;
       }
-      throw new ArgumentException("Only values 1-4 accepted for changing status.");
+      else
+        throw new ArgumentException("Only values 1-4 accepted for changing status.");
     }
   }
 }
