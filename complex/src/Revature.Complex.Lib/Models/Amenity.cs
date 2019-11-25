@@ -1,9 +1,21 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Revature.Complex.Lib.Models
 {
+<<<<<<< Updated upstream
+    public class Amenity
+    {
+      public Guid AmenityId { get; set; }
+      public string AmenityType { get; set; }
+      public string Description { get; set; }
+    }
+=======
   /// <summary>
-  /// Logic Amenity Model. Use it as parameter to pass into/received from Repository
+  /// This model represents an amenity.
+  /// AmenityRoom and AmenityComplex show the sets of amenities that rooms and complexes have.
+  /// It only has a type and description.
   /// </summary>
   public class Amenity
   {
@@ -11,5 +23,6 @@ namespace Revature.Complex.Lib.Models
     public string AmenityType { get; set; }
     public string Description { get; set; }
   }
+>>>>>>> Stashed changes
 
 }
