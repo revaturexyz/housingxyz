@@ -29,7 +29,7 @@ namespace Revature.Tenant.Lib.Interface
     /// Gets a list of all tenants
     /// </summary>
     /// <returns>The collection of all tenants</returns>
-    public Task<ICollection<Models.Tenant>> GetAllAsync();
+    public Task<ICollection<Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null);
 
     /// <summary>
     /// Deletes a tenant using their id.

@@ -36,10 +36,18 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] ApiSearchParameters apiSearchParameters)
     {
+      
+        string firstName = apiSearchParameters.FirstName;
+        string lastName = apiSearchParameters.LastName;
+        string gender = apiSearchParameters.Gender;
+        Guid trainingCenter = Guid.Parse(apiSearchParameters.TrainingCenter);
+
+
       _logger.LogInformation("GET - Getting tenants");
-      var tenants = await _tenantRepository.GetAllAsync();
+      var tenants = await _tenantRepository.GetAllAsync(firstName, lastName, gender, trainingCenter);
+
       List<Lib.Models.Tenant> newTenants = new List<Lib.Models.Tenant>();
       foreach (Lib.Models.Tenant tenant in tenants)
       {

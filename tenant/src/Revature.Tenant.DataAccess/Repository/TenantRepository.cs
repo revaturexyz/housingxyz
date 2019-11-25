@@ -84,16 +84,34 @@ namespace Revature.Tenant.DataAccess.Repository
     /// Gets a list of all tenants
     /// </summary>
     /// <returns>The collection of all tenants</returns>
-    public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
+    public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null)
     {
-      List<Entities.Tenant> tenants = await _context.Tenant
+      var tenants = _context.Tenant
         .Include(t => t.Car)
         .Include(t => t.Batch)
-        .AsNoTracking()
-        .ToListAsync();
+        .AsNoTracking();
 
-      return tenants.Select((_mapper.MapTenant)).ToList();
+      if (firstName != null)
+      {
+        tenants = tenants.Where(t => t.FirstName == firstName);
+      }
+      if (lastName != null)
+      {
+        tenants = tenants.Where(t => t.LastName == lastName);
+      }
+      if (gender != null)
+      {
+        tenants = tenants.Where(t => t.Gender == gender);
+      }
+      if (trainingCenter != null)
+      {
+        tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
+      }
+
+      return (await tenants.ToListAsync()).Select((_mapper.MapTenant)).ToList();
     }
+
+
 
     /// <summary>
     /// Gets all batches in a training center
