@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TestServiceData } from 'src/app/services/static-test-data';
 import { AddRoomComponent } from './add-room.component';
+import { By } from '@angular/platform-browser';
 
 describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
@@ -36,5 +37,12 @@ describe('AddRoomComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have disabled submit button', () => {
+    const buttonSelector = fixture.debugElement.query(By.css('#postAddRoom')).nativeElement;
+    console.log(buttonSelector);
+    fixture.detectChanges();
+    expect(buttonSelector.valid).toBeFalsy();
   });
 });

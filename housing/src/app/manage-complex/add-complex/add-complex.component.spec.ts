@@ -6,6 +6,8 @@ import { MatFormFieldModule, MatSelectModule, MatTableModule  } from '@angular/m
 import { AddComplexComponent } from './add-complex.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { By } from '@angular/platform-browser';
+
 describe('AddComplexComponent', () => {
   let component: AddComplexComponent;
   let fixture: ComponentFixture<AddComplexComponent>;
@@ -26,5 +28,12 @@ describe('AddComplexComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have disabled submit button', () => {
+    const buttonSelector = fixture.debugElement.query(By.css('#postLivingComplex')).nativeElement;
+    console.log(buttonSelector);
+    fixture.detectChanges();
+    expect(buttonSelector.valid).toBeFalsy();
   });
 });
