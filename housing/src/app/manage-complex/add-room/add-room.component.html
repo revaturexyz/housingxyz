@@ -160,13 +160,11 @@
               startDate.invalid ||
               endDate.invalid"
             (click)="postAddRoom()">
-            Add
+            <strong>Add</strong
           </button>
         </div>
-        <div>
-          <button class="add-room-btn" (click)="cancelAddRoom()">
-            Cancel
-          </button>
+        <div class="col-md-6 form-group">
+          <button class="add-room-btn" (click)="cancelAddRoom()"><strong>Cancel</strong></button>
         </div>
       </div>
     </form>
