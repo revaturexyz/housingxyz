@@ -63,8 +63,16 @@ namespace Revature.Complex.DataAccess.Repository
     /// <returns></returns>
     public async Task<Logic.Complex> ReadComplexByIdAsync(Guid complexId)
     {
-      Entity.Complex complexFind = await _context.Complex.FindAsync(complexId).ConfigureAwait(false);
-      return _map.MapEtoComplex(complexFind);
+      try
+      {
+        Entity.Complex complexFind = await _context.Complex.FindAsync(complexId).ConfigureAwait(false);
+        return _map.MapEtoComplex(complexFind);
+      }
+      catch (Exception ex)
+      {
+        log.LogError($"(REPO){ex.Message}: Cannot Find specific complex with id: {complexId}");
+        throw;
+      }
     }
 
     /// <summary>
@@ -77,13 +85,22 @@ namespace Revature.Complex.DataAccess.Repository
     {
       try
       {
+<<<<<<< Updated upstream
         List<Entity.Complex> complex = await _context.Complex.Where(c => c.ComplexName == name
                                                           && c.ContactNumber == phone).AsNoTracking().ToListAsync();
         return _map.MapEtoComplex(complex[0]);
+=======
+        Entity.Complex complex = _context.Complex
+          .Where(c => c.ComplexName == name && c.ContactNumber == phone)
+          .AsNoTracking()
+          .First();
+
+        return _map.MapEtoComplex(complex);
+>>>>>>> Stashed changes
       }
       catch(Exception ex)
       {
-        log.LogError($"{ex}: Cannot Find specific complex");
+        log.LogError($"{ex.Message}: Cannot Find specific complex");
         throw;
       }
     }
@@ -135,7 +152,6 @@ namespace Revature.Complex.DataAccess.Repository
 
         return "delete completed";
       }
-
     }
 
     /// <summary>
@@ -170,7 +186,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch( ArgumentNullException ex)
       {
-        log.LogWarning($"{ex}: cannot find such room with room id");
+        log.LogWarning($"{ex.Message}: cannot find such room with room id");
         return "cannot find such room with room id";
       }
     }
@@ -192,7 +208,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (ArgumentNullException ex)
       {
-        log.LogWarning($"{ex}: cannot find such room with room id");
+        log.LogWarning($"{ex.Message}: cannot find such room with room id");
         return "cannot find such room with room id";
       }
     }
@@ -241,6 +257,10 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (ArgumentNullException ex)
       {
+<<<<<<< Updated upstream
+=======
+        log.LogWarning($"{ex.Message}: Unable to get list of Amenities");
+>>>>>>> Stashed changes
         throw ex;
       }
     }
@@ -324,6 +344,10 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(ArgumentNullException ex)
       {
+<<<<<<< Updated upstream
+=======
+        log.LogWarning($"{ex.Message}: Unable to update the amenity.");
+>>>>>>> Stashed changes
         throw ex;
       }
     }
@@ -346,6 +370,10 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (InvalidOperationException ex)
       {
+<<<<<<< Updated upstream
+=======
+        log.LogWarning($"{ex.Message}: Unable to delete the amenity.");
+>>>>>>> Stashed changes
         return "cannot find target amenity to delete";
       }
 

@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +12,7 @@ namespace Revature.Complex.DataAccess.Entities
     public Guid AmenityId { get; set; }
 
     /// <summary>
-    /// Amentity name cell of Amenity table
+    /// Amenity name cell of Amenity table
     /// </summary>
     public string AmenityType { get; set; }
 
