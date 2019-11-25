@@ -27,7 +27,7 @@ namespace ServiceBusMessaging
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _logger = logger;
-      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:CQueues"]);
+      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueues"]);
     }
 
 

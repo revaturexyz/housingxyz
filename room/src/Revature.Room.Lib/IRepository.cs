@@ -86,5 +86,12 @@ namespace Revature.Room.Lib
     /// <returns></returns>
     /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task SubtractRoomOccupantsAsync(Guid roomId);
+
+    /// <summary>
+    /// Deletes a complex and deletes all rooms that is connected to that complex
+    /// </summary>
+    /// <param name="complexId"></param>
+    /// <returns></returns>
+    public Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId);
   }
 }

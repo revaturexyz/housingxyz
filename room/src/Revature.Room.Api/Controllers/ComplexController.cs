@@ -78,17 +78,9 @@ namespace Revature.Room.Api.Controllers
     /// <param name="roomId"></param>
     /// <returns></returns>
     [HttpGet("{roomId}", Name = "GetRoom")]
-    public async Task<IEnumerable<Lib.Room>> GetRoomAsync(Guid roomId)
+    public async Task <Lib.Room> GetRoomAsync(Guid roomId)
     {
-      if (roomId == null)
-      {
-        IEnumerable<Lib.Room> roomListNull = await _repository.ReadRoomAsync(roomId);
-
-        return roomListNull;
-      }
-      IEnumerable<Lib.Room> roomListNotNull = await _repository.ReadRoomAsync(roomId);
-
-      return roomListNotNull;
+      return await _repository.ReadRoomAsync(roomId);
     }
 
     /// <summary>
@@ -108,10 +100,9 @@ namespace Revature.Room.Api.Controllers
         NumberOfBeds = room.NumberOfBeds,
         NumberOfOccupants = room.NumberOfOccupants,
         Gender = room.Gender,
-        RoomType = room.RoomType,
-        LeaseStart = room.LeaseStart,
-        LeaseEnd = room.LeaseEnd
+        RoomType = room.RoomType
       };
+      createdRoom.SetLease(room.LeaseStart, room.LeaseEnd);
       await _repository.CreateRoomAsync(createdRoom);
       await _repository.SaveAsync();
 
@@ -133,16 +124,14 @@ namespace Revature.Room.Api.Controllers
       Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
       ro.RoomId = id;
 
-      IEnumerable<Revature.Room.Lib.Room> IERooms = await _repository.ReadRoomAsync(ro.RoomId);
+      var IERooms = await _repository.ReadRoomAsync(ro.RoomId);
 
       Revature.Room.Lib.Room newRo = new Revature.Room.Lib.Room
       {
         Gender = Lroom.Gender,
         NumberOfOccupants = Lroom.NumberOfOccupants,
-        LeaseStart = Lroom.LeaseStart,
-        LeaseEnd = Lroom.LeaseEnd
       };
-
+      newRo.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
       await _repository.UpdateRoomAsync(newRo);
       await _repository.SaveAsync();
 
