@@ -27,22 +27,26 @@ namespace Revature.Account.Lib.Model
       {
         case 1:
           StatusText = pendingNotification;
+          StatusId = 1;
           return;
         case 2:
           StatusText = acceptedNotification;
+          StatusId = 2;
           return;
         case 3:
           StatusText = rejectedNotification;
+          StatusId = 3;
           return;
         case 4:
           StatusText = underReviewNotification;
+          StatusId = 4;
           return;
       }
       throw new ArgumentException("Only values 1-4 accepted for changing status.");
     }
-    public string getStatus()
+    public int getStatus()
     {
-      return StatusText;
+      return StatusId;
     }
   }
 }

@@ -82,7 +82,7 @@ namespace Revature.Account.Api.Controllers
       {
         existingNotification.Status = notificationStatus;
         // Status is 'Under Review' and the notification only has 7 days left
-        if (existingNotification.Status.StatusText == "Under Review" && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
+        if (existingNotification.Status.getStatus() == 4 && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
