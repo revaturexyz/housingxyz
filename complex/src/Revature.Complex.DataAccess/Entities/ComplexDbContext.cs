@@ -121,7 +121,7 @@ namespace Revature.Complex.DataAccess.Entities
           .OnDelete(DeleteBehavior.ClientSetNull);
 
         entity.HasOne(e => e.Complex)
-          .WithMany(d => d.AmentityComplex)
+          .WithMany(d => d.AmenityComplex)
           .HasForeignKey(p => p.ComplexId)
           .IsRequired()
           .OnDelete(DeleteBehavior.ClientSetNull);
