@@ -87,7 +87,7 @@ namespace Revature.Account.Tests.ControllerTests
               .Returns(Task.FromResult(true))
               .Verifiable();
 
-      var updatedResult = await helper.NotificationController.Put(coordinatorId, updatedNotification);
+      var updatedResult = await helper.NotificationController.Put(updatedNotification.CoordinatorId, updatedNotification.Status);
 
       helper.Repository
           .Verify();
