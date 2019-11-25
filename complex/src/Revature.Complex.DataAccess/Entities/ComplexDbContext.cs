@@ -130,12 +130,6 @@ namespace Revature.Complex.DataAccess.Entities
               .HasForeignKey(p => p.ComplexId)
               .IsRequired()
               .OnDelete(DeleteBehavior.ClientSetNull);
-=======
-          .WithMany(d => d.AmenityComplex)
-          .HasForeignKey(p => p.ComplexId)
-          .IsRequired()
-          .OnDelete(DeleteBehavior.ClientSetNull);
->>>>>>> Stashed changes
 
         entity.HasData
         (

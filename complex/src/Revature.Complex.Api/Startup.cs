@@ -88,12 +88,12 @@ namespace Revature.Complex.Api
         endpoints.MapControllers();
       });
 
-      //for the service-bus listener
-      //define the event-listener
-      var bus = app.ApplicationServices.GetService<IRoomServiceReceiver>();
+      ////for the service-bus listener
+      ////define the event-listener
+      //var bus = app.ApplicationServices.GetService<IRoomServiceReceiver>();
 
-      //start listening
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
+      ////start listening
+      //bus.RegisterOnMessageHandlerAndReceiveMessages();
     }
   }
 }

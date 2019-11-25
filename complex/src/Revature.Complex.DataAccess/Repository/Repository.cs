@@ -34,7 +34,7 @@ namespace Revature.Complex.DataAccess.Repository
       Entity.Complex complex = _map.MapComplextoE(lComplex);
 
       await _context.AddAsync(complex);
-      await _context.SaveChangesAsync().ConfigureAwait(false);
+      await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new complex: {lComplex.ComplexId} is inserted");
 
       return true;
@@ -119,7 +119,7 @@ namespace Revature.Complex.DataAccess.Repository
           origin.ContactNumber = update.ContactNumber;
         }
 
-        await _context.SaveChangesAsync().ConfigureAwait(false);
+        await _context.SaveChangesAsync();
         log.LogInformation($"(REPO){update.ComplexId} is updated");
 
         return true;
@@ -166,7 +166,7 @@ namespace Revature.Complex.DataAccess.Repository
       Entity.AmenityRoom amenityRoom = _map.MapAmenityRoomtoE(ar);
 
       _context.Add(amenityRoom);
-      await _context.SaveChangesAsync().ConfigureAwait(false);
+      await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new amenity of room id: {ar.RoomId}");
 
       return true;
@@ -227,7 +227,7 @@ namespace Revature.Complex.DataAccess.Repository
       Entity.AmenityComplex amenityComplex = _map.MapAmenityComplextoE(ac);
 
       _context.Add(amenityComplex);
-      await _context.SaveChangesAsync().ConfigureAwait(false);
+      await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new amenity for complex: {ac.AmenityComplexId} is added");
 
       return true;
@@ -243,7 +243,7 @@ namespace Revature.Complex.DataAccess.Repository
       Entity.Amenity newAmenity = _map.MapAmenitytoE(amenity);
 
       _context.Add(newAmenity);
-      await _context.SaveChangesAsync().ConfigureAwait(false);
+      await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new Amenity: {amenity.AmenityType} is added");
 
       return true;
@@ -373,10 +373,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(Exception ex)
       {
-<<<<<<< Updated upstream
-=======
         log.LogWarning($"{ex.Message}: Unable to update the amenity.");
->>>>>>> Stashed changes
         throw ex;
       }
     }
@@ -401,16 +398,9 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (InvalidOperationException ex)
       {
-<<<<<<< Updated upstream
-=======
         log.LogWarning($"{ex.Message}: Unable to delete the amenity.");
->>>>>>> Stashed changes
-        return "cannot find target amenity to delete";
+        throw;
       }
-
-
     }
-
-
   }//end of class
 }

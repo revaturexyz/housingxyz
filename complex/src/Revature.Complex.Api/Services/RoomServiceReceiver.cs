@@ -54,8 +54,8 @@ namespace Revature.Complex.Api.Services
 
       /// <summary>
       /// The actual method to process the received message.
-      /// Receives and deserializes the message from complex and tenant service.  Based on what they send
-      /// us this method will determine what CRUD operations to do to the Room service.
+      /// Receives and deserializes the message from room service.
+      /// It should be 
       /// </summary>
       /// <param name="message"></param>
       /// <param name="token"></param>

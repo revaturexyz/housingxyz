@@ -18,12 +18,6 @@ namespace Revature.Complex.DataAccess.Entities
 
     public string ContactNumber { get; set; }
 
-
-    /// <summary>
-    /// Complex id should behave as FK in AmenityComplex table
-    /// </summary>
-    public string ContactNumber { get; set; }
-
     /// <summary>
     /// The Complex model has a collection of Amenityomplex models that
     /// represent the amenities offered by the complex.

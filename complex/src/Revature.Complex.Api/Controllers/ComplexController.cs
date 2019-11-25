@@ -21,16 +21,14 @@ namespace Revature.Complex.Api.Controllers
     private readonly ILogger<ComplexController> log;
     private readonly IAddressService addressServiceSender;
     private readonly IRoomServiceSender roomServiceSender;
-    private readonly IRoomServiceReceiver roomServiceReceiver;
 
     public ComplexController(IRepository complexRepository, ILogger<ComplexController> logger,
-      IAddressService addressService, IRoomServiceSender rss, IRoomServiceReceiver rsr)
+      IAddressService addressService, IRoomServiceSender rss)
     {
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
       log = logger;
       addressServiceSender = addressService;
       roomServiceSender = rss;
-      roomServiceReceiver = rsr;
     }
 
     #region GET
@@ -77,12 +75,12 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentNullException ex)
       {
-        log.LogWarning($"(API){ex}: There's no complex in the database.");
+        log.LogWarning($"(API){ex.Message}: There's no complex in the database.");
         return NotFound();
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: Internal Server Error");
+        log.LogError($"(API){ex.Message}: Internal Server Error");
         return StatusCode(500, ex.Message);
       }
 
@@ -131,7 +129,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: Internal Server Error");
+        log.LogError($"(API){ex.Message}: Internal Server Error");
         return StatusCode(500, ex.Message);
       }
     }
@@ -173,7 +171,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogWarning($"(API){ex}: complex with name: {complexName} and phone: {ComplexNumber} is not found");
+        log.LogWarning($"(API){ex.Message}: complex with name: {complexName} and phone: {ComplexNumber} is not found");
         return NotFound();
       }
       catch (InvalidOperationException ex)
@@ -240,7 +238,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogWarning($"(API){ex}: complex with provider Id: {providerId} is not found");
+        log.LogWarning($"(API){ex.Message}: complex with provider Id: {providerId} is not found");
         return NotFound();
       }
       catch (InvalidOperationException ex)
@@ -324,7 +322,16 @@ namespace Revature.Complex.Api.Controllers
         }
 
         #region Code to sent address to other serivce Need to fill
-        // serviceBus.sentInfor(To, data)
+
+        try
+        {
+          await addressServiceSender.SendRoomsMessages(CompAddr);
+        }
+        catch(Exception ex)
+        {
+          log.LogError($"(API){ex.Message}: failed to send address to Address service");
+          return StatusCode(500, ex.Message);
+        }
 
         #endregion
 
@@ -495,17 +502,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex.Message}");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex.Message}");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex.Message}");
         return StatusCode(500, ex.Message);
       }
     }
@@ -656,17 +663,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex.Message}");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex.Message}");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex.Message}");
         return StatusCode(500, ex.Message);
       }
     }

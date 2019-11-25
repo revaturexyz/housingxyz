@@ -9,15 +9,12 @@ namespace Revature.Complex.DataAccess
 {
   public class Mapper
   {
-<<<<<<< Updated upstream
-=======
     /// <summary>
     /// Logic.Amenity => Entity.Amenity
     /// All properties are mapped. Logic.amenity has no Lists
     /// </summary>
     /// <param name="amenity"></param>
     /// <returns></returns>
->>>>>>> Stashed changes
     public Entity.Amenity MapAmenitytoE(Logic.Amenity amenity)
     {
       return new Entity.Amenity
