@@ -26,5 +26,7 @@ namespace Revature.Tenant.Api.Models
     [Required]
     public string Country { get; set; }
 
+
+
   }
 }
