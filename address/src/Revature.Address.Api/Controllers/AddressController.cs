@@ -17,6 +17,9 @@ using Serilog;
 
 namespace Revature.Address.Api.Controllers
 {
+  /// <summary>
+  /// 
+  /// </summary>
   [Route("api/[controller]")]
   [ApiController]
   public class AddressController : ControllerBase
@@ -29,6 +32,11 @@ namespace Revature.Address.Api.Controllers
       db = dataAccess;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     // GET: api/Users/5
     [Route("{id}", Name = "GetAddress")]
     [HttpGet]
@@ -54,7 +62,11 @@ namespace Revature.Address.Api.Controllers
       });
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<ActionResult> PostUser([FromBody] AddressModel address)
     {
@@ -101,6 +113,11 @@ namespace Revature.Address.Api.Controllers
       }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(
             [FromRoute] Guid id)
@@ -114,6 +131,5 @@ namespace Revature.Address.Api.Controllers
       await db.DeleteAddressAsync(id);
       return NoContent();
     }
-
   }
 }

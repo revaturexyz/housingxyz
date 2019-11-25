@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Complex.DataAccess.Entities
 {
@@ -31,6 +30,10 @@ namespace Revature.Complex.DataAccess.Entities
     /// </summary>
     public string ContactNumber { get; set; }
 
-    public virtual ICollection<AmenityComplex> AmentityComplex { get; set; }
+    /// <summary>
+    /// The Complex model has a collection of Amenityomplex models that
+    /// represent the amenities offered by the complex.
+    /// </summary>
+    public virtual ICollection<AmenityComplex> AmenityComplex { get; set; }
   }
 }

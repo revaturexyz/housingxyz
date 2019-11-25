@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Revature.Address.DataAccess.Entities
 {
+  /// <summary>
+  /// 
+  /// </summary>
   public partial class Address
   {
     [Key]
