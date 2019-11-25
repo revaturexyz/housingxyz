@@ -96,6 +96,19 @@ namespace Revature.Tenant.DataAccess.Repository
     }
 
     /// <summary>
+    /// Gets all batches in a training center
+    /// </summary>
+    /// <param name="trainingCenter">A Guid of a training center</param>
+    /// <returns>A list of batches</returns>
+    public ICollection<Lib.Models.Batch> GetBatches(Guid trainingCenter)
+    {
+      return _context.Batch
+        .Where(b => b.TrainingCenter == trainingCenter)
+        .Select(_mapper.MapBatch)
+        .ToList();
+    }
+
+    /// <summary>
     /// Deletes a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>

@@ -46,6 +46,13 @@ namespace Revature.Tenant.Lib.Interface
     public void Put(Models.Tenant tenant);
 
     /// <summary>
+    /// Gets all batches in a training center
+    /// </summary>
+    /// <param name="trainingCenter">A Guid of a training center</param>
+    /// <returns>A list of batches</returns>
+    public ICollection<Lib.Models.Batch> GetBatches(Guid trainingCenter);
+
+    /// <summary>
     /// This persists changes to data base. 
     /// </summary>
     public Task SaveAsync();

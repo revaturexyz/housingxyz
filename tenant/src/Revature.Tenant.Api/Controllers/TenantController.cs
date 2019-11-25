@@ -187,6 +187,39 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     /// <summary>
+    /// Get all batches by training center id
+    /// </summary>
+    /// <returns></returns>
+    // GET: api/Tenant
+    [HttpGet(Name = "GetAllBatchesAsync")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<ApiBatch>> GetAllBatches([FromBody, Bind("trainingCenter")] string trainingCenterString)
+    {
+      try
+      {
+        Guid trainingCenter = Guid.Parse(trainingCenterString);
+        var batches = _tenantRepository.GetBatches(trainingCenter);
+        return Ok(batches);
+      }
+      catch (ArgumentException)
+      {
+        _logger.LogWarning("Training Center was not found");
+
+        return NotFound();
+      }
+      catch (Exception e)
+      {
+        _logger.LogError("Get request failed. Error: " + e.Message);
+
+        return StatusCode(500, e.Message);
+      }
+    }
+
+
+
+    /// <summary>
     /// Posts Tenant to Db
     /// </summary>
     /// <param name="value"></param>
