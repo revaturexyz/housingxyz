@@ -74,10 +74,9 @@ namespace Revature.Account.Tests.ControllerTests
     {
       TestHelper helper = new TestHelper();
       Guid notificationId = helper.Notifications[0].NotificationId;
-      Guid coordinatorId = helper.Notifications[0].CoordinatorId;
-      Guid providerId = helper.Notifications[0].ProviderId;
-      var updatedNotification = helper.Notifications[0].Status;
-      updatedNotification.StatusText = "Under Review";
+      var updatedNotification = helper.Notifications[0];
+      updatedNotification.Status.StatusText = "Under Review";
+      updatedNotification.AccountExpiresAt = new DateTime(2019, 11, 24, 3, 15, 0);
 
       helper.Repository
           .Setup(x => x.GetNotificationByIdAsync(It.IsAny<Guid>()))
@@ -88,7 +87,7 @@ namespace Revature.Account.Tests.ControllerTests
               .Returns(Task.FromResult(true))
               .Verifiable();
 
-      var updatedResult = await helper.NotificationController.PUT(coordinatorId, updatedNotification);
+      var updatedResult = await helper.NotificationController.PUT(notificationId, updatedNotification.Status);
 
       helper.Repository
           .Verify();
