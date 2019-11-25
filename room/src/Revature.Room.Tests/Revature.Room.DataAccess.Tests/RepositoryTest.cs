@@ -39,7 +39,7 @@ namespace Revature.Room.Tests
     // Use to set up a valid business logic Room
     private BusinessLogic.Room PresetBLRoom()
     {
-      var room =  new BusinessLogic.Room
+      var room = new BusinessLogic.Room
       {
         RoomId = newRoomId,
         ComplexId = newComplexId,
@@ -48,7 +48,6 @@ namespace Revature.Room.Tests
         RoomType = newRoomType,
         NumberOfBeds = newNumOfBeds,
         NumberOfOccupants = newNumOfOccupants,
-       
       };
       room.SetLease(newLeaseStart, newLeaseEnd);
       return room;
@@ -147,71 +146,36 @@ namespace Revature.Room.Tests
       using var assertContext = new RoomServiceContext(options);
       Repository repo = new Repository(assertContext, mapper);
 
-      var resultRoom= await repo.ReadRoomAsync(newRoomId);
+      var resultRoom = await repo.ReadRoomAsync(newRoomId);
 
       Assert.NotNull(resultRoom);
       Assert.Equal(newRoomId, resultRoom.RoomId);
     }
 
     [Fact]
-    public async Task UpdateRoomUpdatesGenderAndRoomType()
+    public async Task UpdateRoomShouldUpdateLeaseAsync()
     {
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
-        .UseInMemoryDatabase("UpdateRoomUpdatesRoomType")
-        .Options;
+       .UseInMemoryDatabase("UpdateRoomShouldUpdateLease")
+       .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
       var mapper = new DBMapper();
+      var repo = new Repository(testContext, mapper);
       testContext.Database.EnsureCreated();
 
-      var oldRoom = PresetEntityRoom2(testContext);
+      testContext.Room.Add(PresetEntityRoom(testContext));
+      await testContext.SaveChangesAsync();
+      var room = PresetEntityRoom(testContext);
+      var updateRoom = PresetBLRoom();
+      updateRoom.SetLease(newLeaseStart.AddDays(3), newLeaseEnd.AddYears(2));
+      updateRoom.RoomId = room.RoomId;
 
-      var updatedRoom = PresetBLRoom();
-      updatedRoom.RoomId = newRoomId2;
-      testContext.Add(oldRoom);
+      await repo.UpdateRoomAsync(updateRoom);
       await testContext.SaveChangesAsync();
 
-      using var actContext = new RoomServiceContext(options);
-
-      Repository repo = new Repository(actContext, mapper);
-
-      // Act
-      await repo.UpdateRoomAsync(updatedRoom);
-      await actContext.SaveChangesAsync();
-
-      var assertRoom = actContext.Room.Find(oldRoom.RoomId);
-
-      Assert.Equal("Female", assertRoom.Gender.Type);
-    }
-
-    [Fact]
-    public async Task UpdateRoomUpdatesOccupants()
-    {
-      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
-      .UseInMemoryDatabase("UpdateRoomUpdatesOccupants")
-      .Options;
-
-      using RoomServiceContext testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
-      testContext.Database.EnsureCreated();
-
-      var oldRoom = PresetEntityRoom2(testContext);
-
-      var updatedRoom = PresetBLRoom();
-      updatedRoom.RoomId = newRoomId2;
-      testContext.Add(oldRoom);
-      await testContext.SaveChangesAsync();
-
-      using var actContext = new RoomServiceContext(options);
-
-      Repository repo = new Repository(actContext, mapper);
-
-      await repo.UpdateRoomAsync(updatedRoom);
-      await actContext.SaveChangesAsync();
-
-      var assertRoom = actContext.Room.Find(oldRoom.RoomId);
-
-      Assert.Equal(newNumOfOccupants, assertRoom.NumberOfOccupants);
+      var result = await testContext.Room.FirstAsync(r => r.RoomId == newRoomId);
+      Assert.True(result.LeaseStart == newLeaseStart.AddDays(3));
     }
 
     [Fact]
@@ -418,10 +382,78 @@ namespace Revature.Room.Tests
       var mapper = new DBMapper();
       var repo = new Repository(testContext, mapper);
 
-      await repo.AddRoomOccupantsAsync(newRoomId);
+      await repo.AddRoomOccupantsAsync(newRoomId, newGender);
 
       var result = await testContext.Room.FirstAsync(r => r.RoomId == newRoomId);
       Assert.True(result.NumberOfOccupants == newNumOfOccupants + 1);
+    }
+
+    [Fact]
+    public async Task AddRoomOccupantsShouldSetGenderAsync()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("AddRoomOccupantsShouldSetGender")
+      .Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      testContext.Database.EnsureCreated();
+
+      var room = PresetEntityRoom(testContext);
+      room.Gender = null;
+      room.NumberOfOccupants = 0;
+      testContext.Room.Add(room);
+      await testContext.SaveChangesAsync();
+      var mapper = new DBMapper();
+      var repo = new Repository(testContext, mapper);
+
+      await repo.AddRoomOccupantsAsync(newRoomId, newGender);
+
+      var result = await testContext.Room.Where(r => r.RoomId == newRoomId).Include(r => r.Gender).FirstAsync();
+      Assert.True(result.Gender.Type == newGender);
+    }
+
+    [Fact]
+    public async Task SubtractRoomOccupantsShouldUpdateAsync()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("SubtractRoomOccupantsShouldUpdate")
+      .Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      testContext.Database.EnsureCreated();
+
+      testContext.Room.Add(PresetEntityRoom(testContext));
+      await testContext.SaveChangesAsync();
+      var mapper = new DBMapper();
+      var repo = new Repository(testContext, mapper);
+
+      await repo.SubtractRoomOccupantsAsync(newRoomId);
+
+      var result = await testContext.Room.FirstAsync(r => r.RoomId == newRoomId);
+      Assert.True(result.NumberOfOccupants == newNumOfOccupants - 1);
+    }
+    [Fact]
+    public async Task SubtractRoomOccupantsShouldSetGenderAsync()
+    {
+      DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
+      .UseInMemoryDatabase("AddRoomOccupantsShouldSetGender")
+      .Options;
+
+      using RoomServiceContext testContext = new RoomServiceContext(options);
+      testContext.Database.EnsureCreated();
+
+      var room = PresetEntityRoom(testContext);
+      room.Gender = null;
+      room.NumberOfOccupants = 1;
+      testContext.Room.Add(room);
+      await testContext.SaveChangesAsync();
+      var mapper = new DBMapper();
+      var repo = new Repository(testContext, mapper);
+
+      await repo.SubtractRoomOccupantsAsync(newRoomId);
+
+      var result = await testContext.Room.Where(r => r.RoomId == newRoomId).Include(r => r.Gender).FirstAsync();
+      Assert.True(result.Gender == null);
     }
   }
 }

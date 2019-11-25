@@ -78,7 +78,13 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="roomId"></param>
     /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
-    public Task AddRoomOccupantsAsync(Guid roomId);
-
+    public Task AddRoomOccupantsAsync(Guid roomId, string tenantGender);
+    /// <summary>
+    /// Method that updates occupants when an occupant vacates a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
+    public Task SubtractRoomOccupantsAsync(Guid roomId);
   }
 }
