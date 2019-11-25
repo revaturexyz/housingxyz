@@ -145,23 +145,14 @@ namespace Revature.Room.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> PutRoomAsync(Guid id, [FromBody] Revature.Room.Lib.Room Lroom)
+    public async Task<IActionResult> PutRoomAsync(Guid id, [FromBody] Lib.Room Lroom)
     {
       try
       {
         _logger.LogInformation("Updating a room");
-        Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-        ro.RoomId = id;
-
-        var IERooms = await _repository.ReadRoomAsync(ro.RoomId);
-
-        Revature.Room.Lib.Room newRo = new Revature.Room.Lib.Room
-        {
-          Gender = Lroom.Gender,
-          NumberOfOccupants = Lroom.NumberOfOccupants,
-        };
-        newRo.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
-        await _repository.UpdateRoomAsync(newRo);
+        var IERooms = await _repository.ReadRoomAsync(id);
+        IERooms.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
+        await _repository.UpdateRoomAsync(IERooms);
         await _repository.SaveAsync();
 
         _logger.LogInformation("Success. Room has been updated");
@@ -221,16 +212,24 @@ namespace Revature.Room.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteComplexAsync(Guid id)
     {
-      _logger.LogInformation("Deleting rooms from complex");
-      Revature.Room.Lib.Room co = new Revature.Room.Lib.Room();
-      co.ComplexId = id;
+      try
+      {
+        _logger.LogInformation("Deleting rooms from complex");
+        Revature.Room.Lib.Room co = new Revature.Room.Lib.Room();
+        co.ComplexId = id;
 
-      var listOfGuid = await _repository.DeleteComplexRoomAsync(co.ComplexId);
-      await _repository.SaveAsync();
+        var listOfGuid = await _repository.DeleteComplexRoomAsync(co.ComplexId);
+        await _repository.SaveAsync();
 
-      await _busSender.SendDeleteComplexMessage(listOfGuid);
-      _logger.LogInformation("Success! Rooms have been deleted");
-      return NoContent();
+        await _busSender.SendDeleteComplexMessage(listOfGuid);
+        _logger.LogInformation("Success! Rooms have been deleted");
+        return NoContent();
+      }
+      catch(InvalidOperationException ex)
+      {
+        _logger.LogError(ex.Message);
+        return NotFound();
+      }
     }
   }
 }
