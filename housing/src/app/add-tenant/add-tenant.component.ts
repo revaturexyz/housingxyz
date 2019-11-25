@@ -110,7 +110,6 @@ export class AddTenantComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.genders);
     this.getBatchesOnInit();
   }
 
@@ -134,7 +133,7 @@ export class AddTenantComponent implements OnInit {
   }
 
   getBatchesOnInit() {
-    this.coordService.GetBatchById(this.batch.batchId)
+    this.coordService.GetBatchByTrainingCenterId('fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d')
       .toPromise()
       .then((data) => this.batchList = data)
       .catch((err) => console.log(err));

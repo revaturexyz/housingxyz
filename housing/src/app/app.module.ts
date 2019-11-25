@@ -66,8 +66,8 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
   bootstrap: [AppComponent]

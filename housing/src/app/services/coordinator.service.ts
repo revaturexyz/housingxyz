@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Tenant } from '../../interfaces/tenant';
-import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Batch } from '../../interfaces/batch';
 import { Car } from '../../interfaces/car';
 
@@ -27,23 +27,13 @@ export class CoordinatorService {
     };
   }
 
-  GetTenant(): Observable<any> {
-    const tenantUrl = this.apiUrl + 'Tenant';
-    return this.httpBus.get<Tenant[]>(tenantUrl, this.httpOptions);
-  }
-
   GetTenantById(tenantId: string): Observable<any> {
     const tenantUrl = this.apiUrl + 'Tenant/' + tenantId;
     return this.httpBus.get<Tenant>(tenantUrl, this.httpOptions);
   }
 
-  GetTenantByGender(gender: string): Observable<any> {
-    const tenantUrl = this.apiUrl + 'Tenant/' + gender;
-    return this.httpBus.get<Tenant>(tenantUrl, this.httpOptions);
-  }
-
-  GetBatchById(batchId: number): Observable<any> {
-    const batchUrl = this.apiUrl + 'Batch/' + batchId;
+  GetBatchByTrainingCenterId(trainingCenterId: string): Observable<any> {
+    const batchUrl = this.apiUrl + 'Batch/' + trainingCenterId;
     return this.httpBus.get<Batch>(batchUrl, this.httpOptions);
   }
 
@@ -56,11 +46,5 @@ export class CoordinatorService {
   PutTenant(tenantId: string) {
     const putTenantUrl = this.apiUrl + 'Tenant/' + tenantId;
     return this.httpBus.put<Tenant>(putTenantUrl, this.httpOptions);
-  }
-
-  //needs work
-  DeleteTenant(tenantId: string) {
-    const deleteTenantUrl = this.apiUrl + 'Tenant/' + tenantId;
-    return this.httpBus.delete<Tenant>(deleteTenantUrl, this.httpOptions);
   }
 }
