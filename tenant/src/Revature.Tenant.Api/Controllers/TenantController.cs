@@ -395,13 +395,14 @@ namespace Revature.Tenant.Api.Controllers
     /// Delete a tenant by id
     /// </summary>
     /// <param name="id">Guid Id, converted from string in Query String</param>
-    [HttpDelete("delete/{id}", Name = "DeleteTenant")]
+    [HttpDelete("Delete", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
+    public async Task<ActionResult> DeleteAsync([FromBody] string id)
     {
       try
       {
         await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        await _tenantRepository.SaveAsync();
         return StatusCode(StatusCodes.Status204NoContent);
       }
       catch (ArgumentException)
