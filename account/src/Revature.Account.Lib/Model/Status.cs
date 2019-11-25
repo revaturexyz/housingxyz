@@ -16,10 +16,10 @@ namespace Revature.Account.Lib.Model
     public int StatusId { get; set; }
     public string StatusText { get; set; }
 
-    private const string Pending = "Pending";
-    private const string Accepted = "Accepted";
-    private const string Rejected = "Rejected";
-    private const string UnderReview = "Under Review";
+    static readonly string Pending = "Pending";
+    static readonly string Accepted = "Accepted";
+    static readonly string Rejected = "Rejected";
+    static readonly string UnderReview = "Under Review";
 
     public void changeStatus(int statusId)
     {
