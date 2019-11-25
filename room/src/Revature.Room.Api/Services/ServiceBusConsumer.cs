@@ -143,5 +143,15 @@ namespace ServiceBusMessaging
     {
       return Task.CompletedTask;
     }
+    /// <summary>
+    /// Method that starts the service
+    /// </summary>
+    /// <param name="stoppingToken"></param>
+    /// <returns></returns>
+    public override Task StartAsync(CancellationToken stoppingToken)
+    {
+      RegisterOnMessageHandlerAndReceiveMessages();
+      return Task.CompletedTask;
+    }
   }
 }

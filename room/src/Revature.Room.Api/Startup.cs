@@ -73,8 +73,6 @@ namespace Revature.Room.Api
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
 
-      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 
@@ -86,8 +84,6 @@ namespace Revature.Room.Api
       {
         endpoints.MapControllers();
       });
-
-      
     }
   }
 }
