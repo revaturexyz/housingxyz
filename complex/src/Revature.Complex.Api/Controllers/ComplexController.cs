@@ -648,13 +648,19 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        ApiRoomtoSend send = new ApiRoomtoSend
+        ApiRoomtoSend roomtoDelete = new ApiRoomtoSend
         {
           RoomId = Room.RoomId,
           QueOperator = 2
         };
 
+        IEnumerable<ApiRoomtoSend> message = new List<ApiRoomtoSend>
+        {
+          roomtoDelete
+        };
+
         //send {send} to room service to delete a room
+        await roomServiceSender.SendRoomsMessages(message);
 
         await _complexRepository.DeleteAmenityRoomAsync(Room.RoomId);
         log.LogInformation($"(API) deleted amenity of room Id: {Room.RoomId}");

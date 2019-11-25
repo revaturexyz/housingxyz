@@ -411,6 +411,35 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void DeleteRoomAsyncTest()
     {
+      Guid rId = Guid.NewGuid();
+      ApiRoom room = new ApiRoom
+      {
+        RoomId = rId
+      };
+      ApiRoomtoSend roomtoSend = new ApiRoomtoSend
+      {
+        RoomId = rId
+      };
+      IEnumerable<ApiRoomtoSend> rts = new List<ApiRoomtoSend>
+      {
+        roomtoSend
+      };
+      Mock<IRepository> _complexRepo = new Mock<IRepository>();
+      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
+      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
+      Mock<IAddressService> ads = new Mock<IAddressService>();
+      bool res = true;
+      _complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
+          .Returns(Task.FromResult(res));
+      rss.Setup(r => r.SendRoomsMessages(rts));
+
+
+      //act
+      var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
+      var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.DeleteRoomAsync(room));
+
+      //assert
+      Assert.IsAssignableFrom<StatusCodeResult>(model);
     }
   }
 }
