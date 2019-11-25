@@ -74,7 +74,7 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> PUT(Guid notificationId, [FromBody] Status notificationStatus)
+    public async Task<ActionResult> Put(Guid notificationId, [FromBody] Status notificationStatus)
     {
       _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notificationId);
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
