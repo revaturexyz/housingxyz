@@ -15,7 +15,7 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusSender: IServiceBusSender
   {
-    private readonly IConfiguration _configuration;
+    
     private readonly QueueClient _queueClient;
     private readonly ILogger<ServiceBusSender> _logger;
 
@@ -26,7 +26,6 @@ namespace ServiceBusMessaging
     /// <param name="logger"></param>
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
-      _configuration = configuration;
       _logger = logger;
       _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:CQueues"]);
     }

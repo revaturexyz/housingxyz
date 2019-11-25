@@ -81,29 +81,35 @@ namespace ServiceBusMessaging
         try
         {
           _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-          ComplexMessage myRoom = JsonSerializer.Deserialize<ComplexMessage>(message.Body);
-
+          ComplexMessage receivedMessage = JsonSerializer.Deserialize<ComplexMessage>(message.Body);
+          Room myRoom = new Room()
+          {
+            Gender = receivedMessage.Room.Gender,
+            ComplexId = receivedMessage.Room.ComplexId,
+            RoomId = receivedMessage.Room.RoomId,
+            RoomNumber = receivedMessage.Room.RoomNumber,
+            RoomType = receivedMessage.Room.RoomType,
+            NumberOfBeds = receivedMessage.Room.NumberOfBeds,
+            NumberOfOccupants = 0
+          };
+          myRoom.SetLease(receivedMessage.Room.LeaseStart, receivedMessage.Room.LeaseEnd);
           // Persist our new data into the repository but not if Deserialization throws an exception
           //Operation type is the CUD that you want to implement like create, update, or delete
           //Case 0 = create, Case 1 = update, Case 2 = delete
           //We will listen for what the complex service will send us and determine
           //what CRUD operation to do based on the OperationType
-          switch (myRoom.OperationType)
+          switch (receivedMessage.OperationType)
           {
             case OperationType.Create:
-              await _repo.CreateRoomAsync(myRoom.Room);
+              await _repo.CreateRoomAsync(myRoom);
               break;
 
             case OperationType.Update:
-              await _repo.UpdateRoomAsync(myRoom.Room);
+              await _repo.UpdateRoomAsync(myRoom);
               break;
 
             case OperationType.Delete:
-              await _repo.DeleteRoomAsync(myRoom.Room.RoomId);
-              break;
-
-            default:
-
+              await _repo.DeleteRoomAsync(myRoom.RoomId);
               break;
           }
         }
@@ -127,7 +133,7 @@ namespace ServiceBusMessaging
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
     {
       var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-
+      _logger.LogError(context.ToString());
       return Task.CompletedTask;
     }
 

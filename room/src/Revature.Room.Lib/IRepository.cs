@@ -41,13 +41,15 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
-    public Task<List<Room>> ReadRoomAsync(Guid roomId);
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
+    public Task<Room> ReadRoomAsync(Guid roomId);
 
     /// <summary>
     /// Method that updates a Room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task UpdateRoomAsync(Room myRoom);
 
     /// <summary>
@@ -55,6 +57,7 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
     public Task DeleteRoomAsync(Guid roomId);
 
     /// <summary>
@@ -70,7 +73,18 @@ namespace Revature.Room.Lib
     /// <param name="endDate"></param>
     /// <returns></returns>
     public Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate);
-
-    public Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId);
+    /// <summary>
+    /// Method that updates room occupants when an occupant is assigned a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
+    public Task AddRoomOccupantsAsync(Guid roomId, string tenantGender);
+    /// <summary>
+    /// Method that updates occupants when an occupant vacates a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
+    public Task SubtractRoomOccupantsAsync(Guid roomId);
   }
 }
