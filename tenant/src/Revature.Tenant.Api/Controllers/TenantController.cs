@@ -42,7 +42,11 @@ namespace Revature.Tenant.Api.Controllers
       string firstName = apiSearchParameters.FirstName;
       string lastName = apiSearchParameters.LastName;
       string gender = apiSearchParameters.Gender;
-      Guid trainingCenter = Guid.Parse(apiSearchParameters.TrainingCenter);
+      Guid? trainingCenter;
+      if (apiSearchParameters.TrainingCenter != null)
+        trainingCenter= Guid.Parse(apiSearchParameters.TrainingCenter);
+      else
+        trainingCenter = null;
 
 
       _logger.LogInformation("GET - Getting tenants");
@@ -270,10 +274,11 @@ namespace Revature.Tenant.Api.Controllers
 
         await _tenantRepository.AddAsync(newTenant);
 
-        await _tenantRepository.SaveAsync();
-        _logger.LogInformation("POST Persisted to dB");
+        //await _tenantRepository.SaveAsync();
+        //_logger.LogInformation("POST Persisted to dB");
 
-        return Created($"api/Tenant/{newTenant.Id}", newTenant);
+        //return Created($"api/Tenant/{newTenant.Id}", newTenant);
+        return StatusCode(StatusCodes.Status418ImATeapot);
       }
       catch (ArgumentException)
       {
