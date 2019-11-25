@@ -18,11 +18,11 @@ import { TestServiceData } from 'src/app/services/static-test-data';
 })
 // Component that provides form to add room to a complex
 export class AddRoomComponent implements OnInit {
-
   seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
   seededAmenityList = TestServiceData.dummyAmenityList1;
 
+  // form binding
   formRoom: Room;
 
   public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
@@ -51,14 +51,14 @@ export class AddRoomComponent implements OnInit {
     };
   }
 
+  // Adds room to complex and switches mode back to details
   postAddRoom() {
-    console.log('Add Button Pressed');
     // Handle adding room to complex logic here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
 
+  // Changes mode back to details
   cancelAddRoom() {
-    console.log('Cancel Button Pressed');
     this.modeOutput.emit('details');
   }
 

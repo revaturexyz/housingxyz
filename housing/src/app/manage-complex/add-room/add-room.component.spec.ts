@@ -4,6 +4,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TestServiceData } from 'src/app/services/static-test-data';
 import { AddRoomComponent } from './add-room.component';
 
@@ -16,7 +18,8 @@ describe('AddRoomComponent', () => {
       imports: [
         FormsModule, ReactiveFormsModule,
         MatDatepickerModule, MatMomentDateModule,
-        MatFormFieldModule, MatSelectModule
+        MatFormFieldModule, MatSelectModule,
+        MatInputModule, NoopAnimationsModule
       ],
       declarations: [ AddRoomComponent ]
     })
@@ -27,6 +30,7 @@ describe('AddRoomComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddRoomComponent);
     component = fixture.componentInstance;
+    component.complexControl = TestServiceData.dummyComplex2;
     fixture.detectChanges();
   });
 

@@ -12,12 +12,13 @@ import { Complex } from 'src/interfaces/complex';
 // Component used to provide form in order to edit complex
 export class EditComplexComponent implements OnInit {
 
+  // This makes the details of the complex you want to edit avalible
   @Input() targetComplex: Complex;
-
+  // Decorator to output the selected mode
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
-
-  seededAmenityList = TestServiceData.dummyAmenityList1; // seed for simulating all amenities
-
+  // seed for simulating all amenities
+  seededAmenityList = TestServiceData.dummyAmenityList1;
+  // Init for form binding
   formLivingComplex: Complex;
 
   constructor() {
@@ -28,19 +29,19 @@ export class EditComplexComponent implements OnInit {
     this.formLivingComplex = this.targetComplex;
   }
 
+  // to save edits to db and change mode back to details
   putEditComplex() {
-    console.log('Edit Complex Submit');
     // Handle Submit Here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
 
+  // to cancel all changes and change mode back to deatils
   cancelEditComplex() {
-    console.log('Cancel Complex Changes');
     this.modeOutput.emit('details');
   }
 
+  // to delete complex from db and change mode back to details
   deleteComplex() {
-    console.log('Cancel Complex Changes');
     // Handle Delete Here
     this.modeOutput.emit('details');
   }

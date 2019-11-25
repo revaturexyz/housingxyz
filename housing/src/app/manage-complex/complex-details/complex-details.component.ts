@@ -22,8 +22,10 @@ export interface PeriodicElement {
 // Component to show the selected complex's details
 export class ComplexDetailsComponent implements OnInit {
 
+  // This makes the currently selected complex details avalible
   @Input() complexControl: Complex;
 
+  // Needed for angular-material pagination
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   // Decorator to output the selected mode

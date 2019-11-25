@@ -19,10 +19,10 @@ export class ShowRoomComponent implements OnInit {
 
   public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
   public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
-
+  // These make the selected complex and room information avalible
   @Input() complexControl: Complex;
   @Input() targetRoom: Room;
-
+  // Decorator to output the selected mode
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
