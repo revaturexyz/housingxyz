@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Revature.Complex.Tests.ApiTests
 {
-  class AddressServiceTest
+  /// <summary>
+  /// This class is for testing the Address service bus
+  /// will be filled later
+  /// </summary>
+  public class AddressServiceTest
   {
   }
 }

@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Revature.Complex.Tests.ApiTests
 {
-  class RoomServiceTest
+  /// <summary>
+  /// this class is for testing Room service bus
+  /// will be filled later
+  /// </summary>
+  public class RoomServiceTest
   {
   }
 }
