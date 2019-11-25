@@ -436,7 +436,7 @@ namespace Revature.Room.Tests
     public async Task SubtractRoomOccupantsShouldSetGenderAsync()
     {
       DbContextOptions<RoomServiceContext> options = new DbContextOptionsBuilder<RoomServiceContext>()
-      .UseInMemoryDatabase("SubtractRoomOccupantsShouldSetGenderAsync")
+      .UseInMemoryDatabase("AddRoomOccupantsShouldSetGender")
       .Options;
 
       using RoomServiceContext testContext = new RoomServiceContext(options);
