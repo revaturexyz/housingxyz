@@ -94,10 +94,10 @@ namespace Revature.Account.Api.Controllers
         }
         await _repo.UpdateNotificationAsync(existingNotification);
         await _repo.SaveAsync();
-        _logger.LogInformation("Persisted patch request");
+        _logger.LogInformation("Persisted put request");
         return NoContent();
       }
-      _logger.LogWarning("Patch request failed");
+      _logger.LogWarning("Put request failed");
       return NotFound();
     }
 
