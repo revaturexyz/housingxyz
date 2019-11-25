@@ -44,9 +44,13 @@ namespace Revature.Account.Lib.Model
       }
       throw new ArgumentException("Only values 1-4 accepted for changing status.");
     }
-    public int getStatus()
+    public int GetStatusId()
     {
       return StatusId;
+    }
+    public string GetStatusText()
+    {
+      return StatusText;
     }
   }
 }
