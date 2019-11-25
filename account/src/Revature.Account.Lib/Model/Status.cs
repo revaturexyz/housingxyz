@@ -16,29 +16,29 @@ namespace Revature.Account.Lib.Model
     public int StatusId { get; set; }
     public string StatusText { get; set; }
 
-    private const string pendingNotification = "Pending";
-    private const string acceptedNotification = "Accepted";
-    private const string rejectedNotification = "Rejected";
-    private const string underReviewNotification = "Under Review";
+    private const string Pending = "Pending";
+    private const string Accepted = "Accepted";
+    private const string Rejected = "Rejected";
+    private const string UnderReview = "Under Review";
 
     public void changeStatus(int statusId)
     {
       switch (statusId)
       {
         case 1:
-          StatusText = pendingNotification;
+          StatusText = Pending;
           StatusId = 1;
           return;
         case 2:
-          StatusText = acceptedNotification;
+          StatusText = Accepted;
           StatusId = 2;
           return;
         case 3:
-          StatusText = rejectedNotification;
+          StatusText = Rejected;
           StatusId = 3;
           return;
         case 4:
-          StatusText = underReviewNotification;
+          StatusText = UnderReview;
           StatusId = 4;
           return;
       }
