@@ -6,7 +6,6 @@ import { Complex } from 'src/interfaces/complex';
 import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
 import { RedirectService } from '../services/redirect.service';
-import { Amenity } from 'src/interfaces/amenity';
 
 @Component({
   selector: 'dev-add-complex',
@@ -14,61 +13,6 @@ import { Amenity } from 'src/interfaces/amenity';
   styleUrls: ['./add-complex.component.scss']
 })
 export class AddComplexComponent implements OnInit {
-
-  public seededAmentities : Array<Amenity> = [
-    {
-      amenityId: 1,
-      amenity: "Pool",
-      isSelected: false
-    },
-    {
-      amenityId: 2,
-      amenity: "Pool table",
-      isSelected: false
-    },
-    {
-      amenityId: 3,
-      amenity: "Extra",
-      isSelected: false
-    },
-    {
-      amenityId: 4,
-      amenity: "Shuttle bus",
-      isSelected: false
-    },
-    {
-      amenityId: 5,
-      amenity: "Garden",
-      isSelected: false
-    },
-    {
-      amenityId: 1,
-      amenity: "Pool",
-      isSelected: false
-    },
-    {
-      amenityId: 2,
-      amenity: "Pool table",
-      isSelected: false
-    },
-    {
-      amenityId: 3,
-      amenity: "Extra",
-      isSelected: false
-    },
-    {
-      amenityId: 4,
-      amenity: "Shuttle bus",
-      isSelected: false
-    },
-    {
-      amenityId: 5,
-      amenity: "Garden",
-      isSelected: false
-    },
-
-  ]
-  
   // the values to the provider object are set on initialization
   currentProvider: Provider;
 

@@ -28,7 +28,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/revature-theme.scss",
               "src/styles.scss"
             ],
             "scripts": []
