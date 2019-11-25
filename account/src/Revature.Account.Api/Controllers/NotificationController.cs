@@ -76,7 +76,7 @@ namespace Revature.Account.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> Patch(Guid notificationId, [FromBody] Notification notification)
     {
-      _logger.LogInformation($"PATCH - Patching notification information for notification {notification.NotificationId}");
+      _logger.LogInformation("PATCH - Patching notification information for notification {notificationId}", notification.NotificationId);
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
