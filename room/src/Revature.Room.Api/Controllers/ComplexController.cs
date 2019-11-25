@@ -156,7 +156,7 @@ namespace Revature.Room.Api.Controllers
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpDelete]
+    [HttpDelete("DeleteRoom")]
     public async Task<IActionResult> DeleteRoomAsync(Guid id)
     {
       Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
@@ -175,7 +175,7 @@ namespace Revature.Room.Api.Controllers
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpDelete]
+    [HttpDelete("DeleteComplex")]
     public async Task<IActionResult> DeleteComplexAsync(Guid id)
     {
       Revature.Room.Lib.Room co = new Revature.Room.Lib.Room();

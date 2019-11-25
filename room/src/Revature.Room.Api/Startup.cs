@@ -53,7 +53,7 @@ namespace Revature.Room.Api
 
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<IMapper, DBMapper>();
-      services.AddHostedService<ServiceBusConsumer>();
+      services.AddHostedService<IServiceBusConsumer, ServiceBusConsumer>();
 
       //Added this for sender because now we are sending things 11-22-19
       services.AddScoped<ServiceBusSender>();
@@ -76,8 +76,7 @@ namespace Revature.Room.Api
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
 
-      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
+      //had var bus here
 
       app.UseRouting();
 
@@ -89,6 +88,10 @@ namespace Revature.Room.Api
       {
         endpoints.MapControllers();
       });
+
+      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+      bus.RegisterOnMessageHandlerAndReceiveMessages();
+
     }
   }
 }

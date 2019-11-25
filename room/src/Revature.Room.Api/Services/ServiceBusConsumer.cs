@@ -41,9 +41,9 @@ namespace ServiceBusMessaging
       _configuration = configuration;
       //Changed this from testq to complexq
       //Might have to make another queclient for tenant
-      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["CQueue:complexq"]);
+      _queueClient = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:CQueue"]);
 
-      _queueClientTwo = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["TQueue:tenantq"]);
+      _queueClientTwo = new QueueClient(_configuration.GetConnectionString("ServiceBus"), _configuration["Queues:TQueue"]);
 
       Services = services;
       _logger = logger;
@@ -148,7 +148,7 @@ namespace ServiceBusMessaging
     /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      throw new NotImplementedException();
+      return Task.CompletedTask; 
     }
   }
 }

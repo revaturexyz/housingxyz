@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Revature.Room.Api.Controllers;
 using Revature.Room.Lib;
+using ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace Revature.Room.DataAccess.Tests
       //arrange
       var mockRepo = new Mock<IRepository>();
       var mockLogger = new Mock<ILogger>();
+      //added this 
+      var mockSender = new Mock<IServiceBusSender>();
 
       mockRepo.Setup(r => r.GetFilteredRoomsAsync(
         It.IsAny<Guid>(),
@@ -37,7 +40,7 @@ namespace Revature.Room.DataAccess.Tests
             new Lib.Room()
           }
         ));
-      var controller = new ComplexController(mockRepo.Object, mockLogger.Object);
+      var controller = new ComplexController(mockRepo.Object, mockLogger.Object, mockSender.Object);
 
       //act
       var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now, Guid.NewGuid());
@@ -55,6 +58,9 @@ namespace Revature.Room.DataAccess.Tests
       var mockRepo = new Mock<IRepository>();
       var mockLogger = new Mock<ILogger>();
 
+      //added this
+      var mockSender = new Mock<IServiceBusSender>();
+
       mockRepo.Setup(r => r.GetFilteredRoomsAsync(
         It.IsAny<Guid>(),
         It.IsAny<string>(),
@@ -65,7 +71,7 @@ namespace Revature.Room.DataAccess.Tests
         It.IsAny<Guid>()))
         .Throws(new KeyNotFoundException());
 
-      var controller = new ComplexController(mockRepo.Object, mockLogger.Object);
+      var controller = new ComplexController(mockRepo.Object, mockLogger.Object, mockSender.Object);
 
       var result = await controller.GetFilteredRoomsAsync(Guid.NewGuid(), "", 1, "", "", DateTime.Now, Guid.NewGuid());
 
