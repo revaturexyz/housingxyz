@@ -141,7 +141,7 @@ namespace ServiceBusMessaging
     /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      throw new NotImplementedException();
+      return Task.CompletedTask;
     }
   }
 }
