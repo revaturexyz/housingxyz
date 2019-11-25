@@ -1,4 +1,5 @@
 
+using System;
 namespace Revature.Account.Lib.Model
 {
   /// <summary>
@@ -26,17 +27,18 @@ namespace Revature.Account.Lib.Model
       {
         case 1:
           StatusText = pendingNotification;
-          break;
+          return;
         case 2:
           StatusText = acceptedNotification;
-          break;
+          return;
         case 3:
           StatusText = rejectedNotification;
-          break;
+          return;
         case 4:
           StatusText = underReviewNotification;
-          break;
+          return;
       }
+      throw new ArgumentException("Only values 1-4 accepted for changing status.");
     }
     public string getStatus()
     {
