@@ -88,6 +88,30 @@ namespace Revature.Room.DataAccess.Entities
             NumberOfBeds = 4,
             RoomNumber = "2428B",
             NumberOfOccupants = 2
+          },
+          new
+          {
+            RoomTypeId = 1,
+            GenderId = 1,
+            LeaseEnd = DateTime.Today.AddMonths(3),
+            LeaseStart = DateTime.Now,
+            RoomId = Guid.Parse("fa1d6c6e-9650-44c9-8c6b-5aebd3f9a671"),
+            ComplexId = Guid.Parse("b5e050aa-6bfc-46ad-9a69-90b1f99ed606"),
+            NumberOfBeds = 4,
+            RoomNumber = "2428B",
+            NumberOfOccupants = 1
+          },
+          new
+          {
+            RoomTypeId = 1,
+            GenderId = 2,
+            LeaseEnd = DateTime.Today.AddMonths(3),
+            LeaseStart = DateTime.Now,
+            RoomId = Guid.Parse("0a4d6c61-9650-44c9-8c6b-5aebd3f9a676"),
+            ComplexId = Guid.Parse("b5e050aa-6bfc-46ad-9a69-90b1f99ed606"),
+            NumberOfBeds = 4,
+            RoomNumber = "2428B",
+            NumberOfOccupants = 1
           }
           );
       });
