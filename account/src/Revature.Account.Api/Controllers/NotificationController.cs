@@ -87,7 +87,7 @@ namespace Revature.Account.Api.Controllers
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
         // Status is 'Rejected'
-        if (existingNotification.Status.StatusText == "Rejected")
+        if (existingNotification.Status.getStatus() == 3)
         {
           await _repo.DeleteNotificationByIdAsync(notificationId);
           return NoContent();
