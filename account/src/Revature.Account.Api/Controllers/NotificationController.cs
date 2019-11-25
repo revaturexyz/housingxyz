@@ -71,7 +71,7 @@ namespace Revature.Account.Api.Controllers
     }
 
     // PUT: api/notifications/5
-    [HttpPatch("{notificationId}")]
+    [HttpPut("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> PUT(Guid notificationId, [FromBody] Status notificationStatus)
