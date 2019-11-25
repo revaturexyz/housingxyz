@@ -386,6 +386,35 @@ namespace Revature.Tenant.Api.Controllers
       }
     }
 
+    /// <summary>
+    /// Delete a tenant by id
+    /// </summary>
+    /// <param name="id">Guid Id, converted from string in Query String</param>
+    [HttpDelete("delete/{id}", Name = "DeleteTenant")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
+    {
+      try
+      {
+        await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        return StatusCode(StatusCodes.Status204NoContent);
+      }
+      catch (ArgumentException)
+      {
+        _logger.LogWarning("DELETE request failed. Not Found Exception");
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        _logger.LogError("DELETE request failed. Error: " + e.Message);
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        _logger.LogError("DELETE request failed. Error: " + e.Message);
+        return StatusCode(500, e.Message);
+      }
+    }
 
   }
 }
