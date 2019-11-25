@@ -74,22 +74,23 @@ namespace Revature.Account.Api.Controllers
     [HttpPatch("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> PUT(Guid notificationId, [FromBody] Notification notification)
+    public async Task<ActionResult> PUT(Guid notificationId, [FromBody] Status notificationStatus)
     {
-      _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notification.NotificationId);
+      _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notificationId);
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
-        existingNotification.Status = notification.Status;
-        // Status is 'Under Review
-        if (existingNotification.Status.StatusText == "Under Review")
+        existingNotification.Status = notificationStatus;
+        // Status is 'Under Review' and the notification only has 7 days left
+        if (existingNotification.Status.StatusText == "Under Review" && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
         // Status is 'Rejected'
         if (existingNotification.Status.StatusText == "Rejected")
         {
-          existingNotification = null;
+          await _repo.DeleteNotificationByIdAsync(notificationId);
+          return NoContent();
         }
         await _repo.UpdateNotificationAsync(existingNotification);
         await _repo.SaveAsync();
