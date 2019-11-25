@@ -6,7 +6,7 @@ ARG DOTNET_VERSION=3.0
 ## stage - restore
 FROM mcr.microsoft.com/dotnet/core/sdk:${DOTNET_VERSION} as restore
 WORKDIR /src
-COPY src/Revature.Room.Api.csproj Revature.Room.Api/
+COPY src/Revature.Room.Api/*.csproj Revature.Room.Api/
 COPY src/Revature.Room.DataAccess/*.csproj Revature.Room.DataAccess/
 COPY src/Revature.Room.Lib/*.csproj Revature.Room.Lib/
 RUN dotnet restore *.Api
