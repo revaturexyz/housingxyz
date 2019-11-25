@@ -30,4 +30,9 @@ export class ShowRoomComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Button handler for when user uses back button
+  handleBackButton(){
+    this.modeOutput.emit('details');
+  }
+
 }

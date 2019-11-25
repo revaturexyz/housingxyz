@@ -1,7 +1,8 @@
 <div class="show-room-container" *ngIf="complexControl" else errorblock>
   <h3 class="show-room-header">{{complexControl.complexName}}</h3>
   <h5>Room {{targetRoom.roomNumber}}</h5>
-  <hr />
+
+  <hr class="main-hr" />
 
   <div>
     <strong>Number of beds : </strong>{{ targetRoom.numberOfBeds }}
@@ -20,6 +21,14 @@
           <mat-chip *ngFor="let amenity of complexControl?.amenity" color="primary" selected><strong>{{ amenity.amenity }}</strong></mat-chip>
       </mat-chip-list>
     </div>
+  </div>
+
+<hr />
+
+  <div>
+    <button class="show-room-btn" (click)="handleBackButton()">
+        <strong>< Go back</strong>
+    </button>
   </div>
 
 </div>
