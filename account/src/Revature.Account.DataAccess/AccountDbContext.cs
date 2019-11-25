@@ -38,7 +38,7 @@ namespace Revature.Account.DataAccess
         entity.Property(e => e.Name)
           .IsRequired()
           .HasMaxLength(100);
-        entity.HasOne(e => e.Status);
+        entity.Property(e => e.StatusText);
         entity.Property(e => e.AccountCreatedAt)
           .IsRequired();
       });
@@ -76,35 +76,7 @@ namespace Revature.Account.DataAccess
           .HasForeignKey(p => p.CoordinatorId)
           .IsRequired();
         entity.HasOne(e => e.UpdateAction);
-      });
-
-      modelBuilder.Entity<Status>(entity =>
-      {
-        entity.HasKey(e => e.StatusId);
-        entity.Property(e => e.StatusText)
-          .IsRequired();
-        entity.HasData(
-          new Status()
-          {
-            StatusId = 1,
-            StatusText = "Pending"
-          },
-          new Status()
-          {
-            StatusId = 2,
-            StatusText = "Approved"
-          },
-          new Status()
-          {
-            StatusId = 3,
-            StatusText = "Rejected"
-          },
-          new Status()
-          {
-            StatusId = 4,
-            StatusText = "Under Review"
-          }
-        );
+        entity.Property(e => e.StatusText);
       });
     }
   }

@@ -19,7 +19,7 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         Coordinator = MapCoordinator(provider.Coordinator),
         Name = provider.Name,
-        Status = MapStatus(provider.Status),
+        Status = new Lib.Model.Status { StatusText = provider.StatusText },
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
@@ -32,7 +32,7 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         CoordinatorId = provider.Coordinator.CoordinatorId,
         Name = provider.Name,
-        StatusId = provider.Status.StatusId,
+        StatusText = provider.Status.StatusText,
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
@@ -85,6 +85,7 @@ namespace Revature.Account.DataAccess
         CoordinatorId = nofi.CoordinatorId,
         Coordinator = MapCoordinator(nofi.Coordinator),
         UpdateAction = MapUpdateAction(nofi.UpdateAction),
+        Status = new Lib.Model.Status { StatusText = nofi.StatusText },
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
@@ -97,29 +98,8 @@ namespace Revature.Account.DataAccess
         ProviderId = nofi.Provider.ProviderId,
         CoordinatorId = nofi.Coordinator.CoordinatorId,
         UpdateActionId = nofi.UpdateAction.Id,
+        StatusText = nofi.Status.StatusText,
         AccountExpiresAt = nofi.AccountExpiresAt
-      };
-    }
-
-    /// <summary>
-    /// Maps db Status to logic Status. No nested objects.
-    /// </summary>
-    /// <param name="status"></param>
-    /// <returns></returns>
-    public Lib.Model.Status MapStatus(Entities.Status status)
-    {
-      return new Lib.Model.Status
-      {
-        StatusText = status.StatusText
-      };
-    }
-
-    public Entities.Status MapStatus(Lib.Model.Status status)
-    {
-      return new Entities.Status
-      {
-        StatusId = status.StatusId,
-        StatusText = status.StatusText
       };
     }
 

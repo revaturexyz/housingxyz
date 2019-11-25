@@ -11,6 +11,6 @@ namespace Revature.Account.DataAccess.Entities
     public DateTime AccountExpiresAt { get; set; }
     public Guid CoordinatorId { get; set; }
     public CoordinatorAccount Coordinator { get; set; }
-    public Status Status { get; set; }
+    public string StatusText { get; set; }
   }
 }
