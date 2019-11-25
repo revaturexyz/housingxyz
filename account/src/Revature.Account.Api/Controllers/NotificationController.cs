@@ -82,12 +82,12 @@ namespace Revature.Account.Api.Controllers
       {
         existingNotification.Status = notificationStatus;
         // Status is 'Under Review' and the notification only has 7 days left
-        if (existingNotification.Status.GetStatusId() == 4 && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
+        if (existingNotification.Status.StatusId == 4 && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
         // Status is 'Rejected'
-        if (existingNotification.Status.GetStatusId() == 3)
+        if (existingNotification.Status.StatusId == 3)
         {
           await _repo.DeleteNotificationByIdAsync(notificationId);
           return NoContent();
