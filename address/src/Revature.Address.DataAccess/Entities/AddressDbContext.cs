@@ -1,22 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Address.DataAccess.Entities
 {
   /// <summary>
-  /// 
+  /// This class specifies the structure of the
+  /// database during the EF build steps
   /// </summary>
   public partial class AddressDbContext : DbContext
   {
-    public AddressDbContext()
-    {
+    public AddressDbContext() {}
 
-    }
+    /// <summary>
+    /// Sets the options for the database context
+    /// </summary>
+    /// <param name="options"></param>
     public AddressDbContext(DbContextOptions<AddressDbContext> options) : base(options) { }
     public virtual DbSet<Address> Addresses { get; set; }
 
+    /// <summary>
+    /// Creates the model for the Address table in the database
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<Address>(entity =>

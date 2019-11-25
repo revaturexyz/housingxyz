@@ -4,10 +4,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Address.Api.ServiceBus;
+using Revature.Address.DataAccess.Entities;
+using Revature.Address.DataAccess.Interfaces;
+using Revature.Address.Lib.BusinessLogic;
+using Revature.Address.Lib.Interfaces;
 using Serilog;
 
 namespace Revature.Address.Api
 {
+  /// <summary>
+  /// Handles the startup configuration for the
+  /// address api
+  /// </summary>
   public class Startup
   {
     private const string ConnectionStringName = "AddressDb";
@@ -38,6 +47,11 @@ namespace Revature.Address.Api
         });
       });
 
+      services.AddScoped<IMapper, DataAccess.Mapper>();
+      services.AddScoped<IDataAccess, DataAccess.DataAccess>();
+      services.AddHostedService<ServiceBusConsumer>();
+      services.AddScoped<AddressLogic>();
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Address", Version = "v1" });
@@ -60,6 +74,9 @@ namespace Revature.Address.Api
       {
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Address V1");
       });
+
+      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 

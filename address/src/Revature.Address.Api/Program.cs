@@ -7,6 +7,10 @@ using Serilog.Events;
 
 namespace Revature.Address.Api
 {
+  /// <summary>
+  /// Specifies the steps completed when the
+  /// application is run
+  /// </summary>
   public static class Program
   {
     public static async Task Main(string[] args)

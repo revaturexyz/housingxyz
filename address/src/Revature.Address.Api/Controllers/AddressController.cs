@@ -3,22 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GoogleApi;
-using GoogleApi.Entities;
-using GoogleApi.Entities.Interfaces;
-using GoogleApi.Entities.Maps.Geocoding;
-using GoogleApi.Entities.Maps.Geocoding.Address.Request;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Revature.Address.Api.Models;
+using Revature.Address.Lib.BusinessLogic;
 using Revature.Address.Lib.Interfaces;
-using Serilog;
 
 namespace Revature.Address.Api.Controllers
 {
   /// <summary>
-  /// 
+  /// This controller handles http requests sent to the
+  /// address service
   /// </summary>
   [Route("api/[controller]")]
   [ApiController]
@@ -26,31 +22,28 @@ namespace Revature.Address.Api.Controllers
   {
 
     private readonly IDataAccess db;
+    private readonly ILogger _logger;
 
-    public AddressController(IDataAccess dataAccess)
+    public AddressController(IDataAccess dataAccess, ILogger<AddressController> logger = null)
     {
       db = dataAccess;
+      _logger = logger;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    // GET: api/Users/5
-    [Route("{id}", Name = "GetAddress")]
+    // GET: api/address
     [HttpGet]
     public async Task<ActionResult<AddressModel>> GetAddressById(Guid id)
     {
-      Revature.Address.Lib.Address address = (await db.GetAddressesAsync(id: id)).FirstOrDefault();
+
+      Lib.Address address = (await db.GetAddressAsync(id: id)).FirstOrDefault();
 
       if (address == null)
       {
-        Log.Error("Address Id: {id} could not be found", id);
+        _logger.LogError("Address at {id} could not be found", id);
         return NotFound();
       }
 
-      Log.Information("Got Address");
+      _logger.LogInformation("Got Address");
       return Ok(new AddressModel
       {
         Id = address.Id,
@@ -62,15 +55,12 @@ namespace Revature.Address.Api.Controllers
       });
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="address"></param>
-    /// <returns></returns>
+    // POST: api/address/tenant
     [HttpPost]
-    public async Task<ActionResult> PostUser([FromBody] AddressModel address)
+    [Route("tenant")]
+    public async Task<ActionResult> PostTenantAddress([FromBody] AddressModel address, [FromServices] AddressLogic addressLogic)
     {
-        Revature.Address.Lib.Address newAddress = new Revature.Address.Lib.Address
+        Lib.Address newAddress = new Lib.Address
         {
           Id = address.Id,
           Street = address.Street,
@@ -79,13 +69,9 @@ namespace Revature.Address.Api.Controllers
           Country = address.Country,
           ZipCode = address.ZipCode
         };
-      AddressGeocodeRequest request = new AddressGeocodeRequest();
-      request.Address = $"{newAddress.Street} {newAddress.City}, {newAddress.State} {newAddress.ZipCode} {newAddress.Country}";
-      request.Key = SecretKey.GApiKey;
-      GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
-      var results = response.Results.ToArray();
 
-      if (results.Length != 0)
+
+      if (await addressLogic.IsValidAddress(newAddress))
       {
         try
         {
@@ -101,35 +87,43 @@ namespace Revature.Address.Api.Controllers
 
           await db.AddAddressAsync(newAddress);
           await db.SaveAsync();
+          _logger.LogInformation("Address successfully created");
           return CreatedAtRoute("GetAddress", new { newModel.Id}, newModel);
         }
         catch (InvalidOperationException ex)
         {
+          _logger.LogError("That address is invalid");
           return BadRequest($"{ex.Message}");
         }
       } else
       {
+        _logger.LogError("Address does not exist");
         return BadRequest("Invalid Address");
       }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
+    [HttpPost]
+    [Route("complex")]
+    public async Task<ActionResult> PostComplexAddress([FromBody] List<AddressModel> addresses)
+    {
+      return Ok();
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(
             [FromRoute] Guid id)
     {
-      var item = await db.GetAddressesAsync(id);
+      var item = await db.GetAddressAsync(id);
       if (item is null)
       {
+        _logger.LogError("No address found matching given id");
         return NotFound();
       }
 
       await db.DeleteAddressAsync(id);
+      _logger.LogInformation("Address successfully deleted");
       return NoContent();
     }
+
   }
 }

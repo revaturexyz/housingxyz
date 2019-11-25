@@ -1,21 +1,22 @@
 using Revature.Address.DataAccess.Interfaces;
-using Revature.Address.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Address.DataAccess
 {
-
   /// <summary>
-  /// Each method needs a summary of what is NOT mapped and why.
+  /// Handles mapping between business library and data access address objects
   /// </summary>
   public class Mapper : IMapper
   {
     public Mapper() { }
-    public Revature.Address.Lib.Address MapAddress(Entities.Address address)
+
+    /// <summary>
+    /// Converts DataAccess address object into Business Library address object
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns>Returns Business Library address object</returns>
+    public Lib.Address MapAddress(Entities.Address address)
     {
-      return new Revature.Address.Lib.Address
+      return new Lib.Address
       {
         Id = address.Id,
         Street = address.Street,
@@ -25,12 +26,13 @@ namespace Revature.Address.DataAccess
         ZipCode = address.ZipCode,
       };
     }
+
     /// <summary>
-    /// 
+    /// Converts Business Library address object into DataAccess address object 
     /// </summary>
     /// <param name="address"></param>
-    /// <returns></returns>
-    public Entities.Address MapAddress(Revature.Address.Lib.Address address)
+    /// <returns>Returns DataAccess address object</returns>
+    public Entities.Address MapAddress(Lib.Address address)
     {
       return new Entities.Address
       {
