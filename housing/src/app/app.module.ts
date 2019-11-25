@@ -17,6 +17,7 @@ import {
   MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
   MatExpansionModule, MatInputModule
 } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -86,7 +87,8 @@ import { ShowRoomComponent } from './manage-complex/show-room/show-room.componen
     MatExpansionModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule
   ],
   providers: [
     {

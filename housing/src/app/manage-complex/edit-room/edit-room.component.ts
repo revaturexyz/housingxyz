@@ -20,6 +20,7 @@ export class EditRoomComponent implements OnInit {
 
   seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
+  seededAmenityList = TestServiceData.dummyAmenityList1;
 
   public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
   public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.

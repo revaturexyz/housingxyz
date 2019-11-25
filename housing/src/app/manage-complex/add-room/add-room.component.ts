@@ -21,6 +21,7 @@ export class AddRoomComponent implements OnInit {
 
   seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
+  seededAmenityList = TestServiceData.dummyAmenityList1;
 
   formRoom: Room;
 

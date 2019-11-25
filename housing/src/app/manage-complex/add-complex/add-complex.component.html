@@ -87,9 +87,9 @@
       <mat-form-field>
         <mat-label>Amenities</mat-label>
         <mat-select name="formLivingComplex.amenity"
-        [(ngModel)]="formLivingComplex.amenity" #amenity="ngModel" class="form-control" id="amenity"
+        [(ngModel)]="formLivingComplex.amenity" #amenity="ngModel" id="amenity"
         multiple>
-          <mat-option *ngFor="let amenity of seededAmenityList" [value]="Amenity"> {{amenity.amenity}} </mat-option>
+          <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
         </mat-select>
       </mat-form-field>
 
