@@ -30,7 +30,7 @@ namespace Revature.Tenant.Api.Controllers
     /// Get all tenants
     /// </summary>
     /// <returns></returns>
-   
+
     // GET: api/Tenant
     [HttpGet(Name = "GetAllAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,11 +38,11 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] ApiSearchParameters apiSearchParameters)
     {
-      
-        string firstName = apiSearchParameters.FirstName;
-        string lastName = apiSearchParameters.LastName;
-        string gender = apiSearchParameters.Gender;
-        Guid trainingCenter = Guid.Parse(apiSearchParameters.TrainingCenter);
+
+      string firstName = apiSearchParameters.FirstName;
+      string lastName = apiSearchParameters.LastName;
+      string gender = apiSearchParameters.Gender;
+      Guid trainingCenter = Guid.Parse(apiSearchParameters.TrainingCenter);
 
 
       _logger.LogInformation("GET - Getting tenants");
@@ -97,7 +97,7 @@ namespace Revature.Tenant.Api.Controllers
       }
 
       List<ApiTenant> apiTenants = new List<ApiTenant>();
-      foreach(Lib.Models.Tenant apiTenant in newTenants)
+      foreach (Lib.Models.Tenant apiTenant in newTenants)
       {
 
         ApiTenant newApiTenant = new ApiTenant
@@ -152,7 +152,7 @@ namespace Revature.Tenant.Api.Controllers
           TrainingCenter = tenant.TrainingCenter
         };
 
-        if(apiTenant.CarId != null)
+        if (apiTenant.CarId != null)
         {
           apiTenant.ApiCar = new ApiCar
           {
@@ -166,7 +166,7 @@ namespace Revature.Tenant.Api.Controllers
           };
         }
 
-        if(apiTenant.BatchId != null)
+        if (apiTenant.BatchId != null)
         {
           apiTenant.ApiBatch = new ApiBatch
           {
@@ -198,12 +198,12 @@ namespace Revature.Tenant.Api.Controllers
     /// Get all batches by training center id
     /// </summary>
     /// <returns></returns>
-    // GET: api/Tenant
-    [HttpGet(Name = "GetAllBatchesAsync")]
+    // GET: api/Tenant/Batch/[guid]
+    [HttpGet("Batch/{id}", Name = "GetAllBatchesAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<IEnumerable<ApiBatch>> GetAllBatches([FromBody, Bind("trainingCenter")] string trainingCenterString)
+    public ActionResult<IEnumerable<ApiBatch>> GetAllBatches([FromQuery] string trainingCenterString)
     {
       try
       {
