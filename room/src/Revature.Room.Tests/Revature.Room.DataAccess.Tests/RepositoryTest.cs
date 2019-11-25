@@ -309,7 +309,7 @@ namespace Revature.Room.Tests
 
       Assert.NotNull(filterRoom);
 
-      Assert.Equal(newRoomId.ToString(), filterRoom.FirstOrDefault(r => r == newRoomId).ToString());
+      Assert.Equal(newRoomId.ToString(), filterRoom.FirstOrDefault(r => r.Item1 == newRoomId).Item1.ToString());
     }
 
     [Fact]

@@ -161,11 +161,12 @@ namespace Revature.Room.DataAccess
     /// <param name="gender"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
-    public async Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
+    public async Task<IList<Tuple<Guid, int>>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
     {
       return await _context.Room
         .Where(r => (r.Gender == null || r.Gender.Type.ToUpper() == gender.ToUpper()) && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
-        .Select(r => r.RoomId).ToListAsync();
+        .Select(r => new Tuple<Guid, int>( r.RoomId, r.NumberOfBeds))
+        .ToListAsync();
     }
 
     /// <summary>
