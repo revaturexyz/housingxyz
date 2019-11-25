@@ -71,7 +71,6 @@ namespace Revature.Address.Api.ServiceBus
         Lib.Address myAddress = JsonConvert.DeserializeObject<Lib.Address>(Encoding.UTF8.GetString(message.Body));
 
         // Persist our new data into the repository but not if Deserialization throws exception
-        //Have to implement the CreateRoom in Repo, Nick told us not to use IEnumerables if possible
 
         await _repo.AddAddressAsync(myAddress);
 

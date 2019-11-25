@@ -57,7 +57,7 @@ namespace Revature.Address.DataAccess
         addresses = addresses.Where(a => a.Id == id).ToList();
       if (address != null)
       {
-        addresses = addresses.Where(a => a.Street == address.Street && a.City == address.City && a.State == address.State && a.ZipCode == address.ZipCode).ToList();
+        addresses = addresses.Where(a => a.Street == address.Street && a.City == address.City && a.State == address.State && a.ZipCode == address.ZipCode && a.Country == address.Country).ToList();
       }
       return addresses.Select(_mapper.MapAddress).ToList();
     }

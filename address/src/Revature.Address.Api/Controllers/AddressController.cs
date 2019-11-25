@@ -34,6 +34,7 @@ namespace Revature.Address.Api.Controllers
     [HttpGet]
     public async Task<ActionResult<AddressModel>> GetAddressById(Guid id)
     {
+
       Lib.Address address = (await db.GetAddressAsync(id: id)).FirstOrDefault();
 
       if (address == null)
