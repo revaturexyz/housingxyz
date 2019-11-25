@@ -16,31 +16,32 @@ namespace Revature.Account.Lib.Model
     public int StatusId { get; set; }
     public string StatusText { get; set; }
 
-    static readonly string Pending = "Pending";
-    static readonly string Accepted = "Accepted";
-    static readonly string Rejected = "Rejected";
-    static readonly string UnderReview = "Under Review";
+    public static readonly string Pending = "Pending";
+    public static readonly string Approved = "Approved";
+    public static readonly string Rejected = "Rejected";
+    public static readonly string UnderReview = "Under Review";
 
-    public void changeStatus(int statusId)
+    public void ChangeStatus(string newStatus)
     {
-      switch (statusId)
+      if (newStatus == Pending)
       {
-        case 1:
-          StatusText = Pending;
-          StatusId = 1;
-          return;
-        case 2:
-          StatusText = Accepted;
-          StatusId = 2;
-          return;
-        case 3:
-          StatusText = Rejected;
-          StatusId = 3;
-          return;
-        case 4:
-          StatusText = UnderReview;
-          StatusId = 4;
-          return;
+        StatusId = 1;
+        StatusText = Pending;
+      }
+      else if (newStatus == Approved)
+      {
+        StatusId = 2;
+        StatusText = Approved;
+      }
+      else if (newStatus == Rejected)
+      {
+        StatusId = 3;
+        StatusText = Rejected;
+      }
+      else if (newStatus == UnderReview)
+      {
+        StatusId = 4;
+        StatusText = UnderReview;
       }
       throw new ArgumentException("Only values 1-4 accepted for changing status.");
     }

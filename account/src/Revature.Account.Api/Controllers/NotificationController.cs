@@ -28,7 +28,7 @@ namespace Revature.Account.Api.Controllers
     [HttpGet("{coordinatorId}", Name = "GetNotificationsByCoordinatorId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> GetNotificationByCoordinatorIdAsync(Guid coordinatorId)
+    public async Task<ActionResult> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
       _logger.LogInformation($"GET - Getting notifications by coordinator ID: {coordinatorId}");
       var nofi = await _repo.GetNotificationsByCoordinatorIdAsync(coordinatorId);
@@ -55,7 +55,7 @@ namespace Revature.Account.Api.Controllers
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
           // Set Status to 'Approved'
-          Status = await _repo.GetStatusByStatusTextAsync("Approved"),
+          Status = await _repo.GetStatusByStatusTextAsync(Status.Approved),
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddNotification(mappedNotification);
@@ -74,20 +74,20 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Put(Guid notificationId, [FromBody] Status notificationStatus)
+    public async Task<ActionResult> Put(Guid notificationId, [FromBody] string notificationStatus)
     {
       _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notificationId);
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
-        existingNotification.Status = notificationStatus;
+        existingNotification.Status.ChangeStatus(notificationStatus);
         // Status is 'Under Review' and the notification only has 7 days left
-        if (existingNotification.Status.StatusId == 4 && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
+        if (existingNotification.Status.StatusText == Status.UnderReview && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
         {
           existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
         }
         // Status is 'Rejected'
-        if (existingNotification.Status.StatusId == 3)
+        else if (existingNotification.Status.StatusText == Status.Rejected)
         {
           await _repo.DeleteNotificationByIdAsync(notificationId);
           return NoContent();
