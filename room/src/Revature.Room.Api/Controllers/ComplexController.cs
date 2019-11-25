@@ -20,7 +20,7 @@ namespace Revature.Room.Api.Controllers
     private readonly ILogger _logger;
     private readonly IServiceBusSender _busSender;
 
-    public ComplexController(IRepository repository, ILogger logger, IServiceBusSender sender)
+    public ComplexController(IRepository repository, ILogger<ComplexController> logger, IServiceBusSender sender)
     {
       _repository = repository;
       _logger = logger;
