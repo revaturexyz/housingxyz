@@ -258,7 +258,7 @@ namespace Revature.Tenant.Api.Controllers
     // POST: api/Tenant
     [HttpPut("UpdateTenant", Name = "UpdateTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiTenant>> UpdateAsync([FromBody, Bind("tenantId")] ApiTenant tenant)
+    public async Task<ActionResult> UpdateAsync([FromBody, Bind("tenant")] ApiTenant tenant)
     {
       try
       {
@@ -275,29 +275,56 @@ namespace Revature.Tenant.Api.Controllers
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter 
-         
         };
 
-        await _tenantRepository.AddAsync(newTenant);
+        if (tenant.ApiCar != null)
+        {
+          newTenant.Car = new Lib.Models.Car
+          {
+            Id = tenant.ApiCar.Id,
+            Color = tenant.ApiCar.Color,
+            Make = tenant.ApiCar.Make,
+            Model = tenant.ApiCar.Model,
+            LicensePlate = tenant.ApiCar.LicensePlate,
+            State = tenant.ApiCar.State,
+            Year = tenant.ApiCar.Year
+          };
+        }
+
+        _tenantRepository.Put(newTenant);
         await _tenantRepository.SaveAsync();
 
         _logger.LogInformation("PUT persisted to dB");
-        ICollection<Lib.Models.Tenant> tenants = await _tenantRepository.GetAllAsync();
-        newTenant = tenants.First(t => t.Email == newTenant.Email);
+        //ICollection<Lib.Models.Tenant> tenants = await _tenantRepository.GetAllAsync();
+        //newTenant = tenants.First(t => t.Id == newTenant.Id);
 
-        ApiTenant apiTenant = new ApiTenant
-        {
-          Id = tenant.Id,
-          Email = tenant.Email,
-          Gender = tenant.Gender,
-          FirstName = tenant.FirstName,
-          LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
-          RoomId = tenant.RoomId,
-          CarId = tenant.CarId,
-          BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter
-        };
+        //ApiTenant apiTenant = new ApiTenant
+        //{
+        //  Id = tenant.Id,
+        //  Email = tenant.Email,
+        //  Gender = tenant.Gender,
+        //  FirstName = tenant.FirstName,
+        //  LastName = tenant.LastName,
+        //  AddressId = tenant.AddressId,
+        //  RoomId = tenant.RoomId,
+        //  CarId = tenant.CarId,
+        //  BatchId = tenant.BatchId,
+        //  TrainingCenter = tenant.TrainingCenter
+        //};
+
+        //if (newTenant.Car != null)
+        //{
+        //  apiTenant.ApiCar = new ApiCar
+        //  {
+        //    Id = tenant.ApiCar.Id,
+        //    Color = tenant.ApiCar.Color,
+        //    Make = tenant.ApiCar.Make,
+        //    Model = tenant.ApiCar.Model,
+        //    LicensePlate = tenant.ApiCar.LicensePlate,
+        //    State = tenant.ApiCar.State,
+        //    Year = tenant.ApiCar.Year
+        //  };
+        //}
 
         return StatusCode(204);
       }

@@ -43,7 +43,7 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="tenant">The tenant with changed values</param>
     /// <exception cref="System.ArgumentException">Thrown when tenant info is incorrect</exception>
-    public Task UpdateAsync(Models.Tenant tenant);
+    public void Put(Models.Tenant tenant);
 
     /// <summary>
     /// This persists changes to data base. 

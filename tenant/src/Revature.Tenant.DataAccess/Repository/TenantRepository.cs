@@ -46,6 +46,21 @@ namespace Revature.Tenant.DataAccess.Repository
     }
 
     /// <summary>
+    /// Updates a new tenant object as well as its associated properties.
+    /// </summary>
+    /// <param name="tenant">The Tenant</param>
+    public void Put(Lib.Models.Tenant tenant)
+    {
+      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
+      _context.Tenant.Update(newTenant);
+      if (tenant.Car != null)
+      {
+        Entities.Car newCar = _mapper.MapCar(tenant.Car);
+        _context.Car.Update(newCar);
+      }
+    }
+
+    /// <summary>
     /// Gets a tenant using their id.
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
