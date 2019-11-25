@@ -80,7 +80,7 @@ namespace Revature.Account.Api.Controllers
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
       if (existingNotification != null)
       {
-        existingNotification.Status.ChangeStatus(notificationStatus);
+        existingNotification.Status.StatusText = notificationStatus;
         // Status is 'Under Review' and the notification only has 7 days left
         if (existingNotification.Status.StatusText == Status.UnderReview && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
         {

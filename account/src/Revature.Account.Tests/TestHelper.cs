@@ -154,23 +154,19 @@ namespace Revature.Account.Tests
       {
         new Status()
         {
-          StatusId = 1,
-          StatusText = "Pending"
+          StatusText = Status.Pending
         },
         new Status()
         {
-          StatusId = 2,
-          StatusText = "Approved"
+          StatusText = Status.Approved
         },
         new Status()
         {
-          StatusId = 3,
-          StatusText = "Rejected"
+          StatusText = Status.Rejected
         },
         new Status()
         {
-          StatusId = 4,
-          StatusText = "Under Review"
+          StatusText = Status.UnderReview
         }
       };
     }

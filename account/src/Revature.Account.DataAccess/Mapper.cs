@@ -107,7 +107,6 @@ namespace Revature.Account.DataAccess
     {
       return new Lib.Model.Status
       {
-        StatusId = status.StatusId,
         StatusText = status.StatusText
       };
     }
