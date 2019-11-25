@@ -19,7 +19,13 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
+
+    //_queueClient will be used for receiving from the Complex
     private readonly QueueClient _queueClient;
+
+    //_queueClientTwo will be used for receiving from the Tenant
+    private readonly QueueClient _queueClientTwo;
+
     private readonly IServiceProvider Services;
     private readonly ILogger<ServiceBusConsumer> _logger;
 
@@ -31,7 +37,12 @@ namespace ServiceBusMessaging
     /// <param name="logger"></param>
     public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger)
     {
-      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TestQueue"]);
+      //Changed this from testq to complexq
+      //Might have to make another queclient for tenant
+      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
+
+      _queueClientTwo = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
+
       Services = services;
       _logger = logger;
     }
@@ -142,7 +153,7 @@ namespace ServiceBusMessaging
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
       RegisterOnMessageHandlerAndReceiveMessages();
-      return Task.CompletedTask;
+      return Task.CompletedTask; 
     }
   }
 }
