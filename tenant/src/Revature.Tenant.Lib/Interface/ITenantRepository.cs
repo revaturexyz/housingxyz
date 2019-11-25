@@ -50,7 +50,7 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="trainingCenter">A Guid of a training center</param>
     /// <returns>A list of batches</returns>
-    public ICollection<Lib.Models.Batch> GetBatches(Guid trainingCenter);
+    public Task<ICollection<Lib.Models.Batch>> GetBatchesAsync(Guid trainingCenter);
 
     /// <summary>
     /// This persists changes to data base. 

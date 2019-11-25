@@ -199,16 +199,16 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <returns></returns>
     // GET: api/Tenant/Batch/[guid]
-    [HttpGet("Batch/{id}", Name = "GetAllBatchesAsync")]
+    [HttpGet("Batch", Name = "GetAllBatches")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<IEnumerable<ApiBatch>> GetAllBatches([FromQuery] string trainingCenterString)
+    public async Task<ActionResult<IEnumerable<ApiBatch>>> GetAllBatches([FromQuery] string trainingCenterString)
     {
       try
       {
         Guid trainingCenter = Guid.Parse(trainingCenterString);
-        var batches = _tenantRepository.GetBatches(trainingCenter);
+        var batches = await _tenantRepository.GetBatchesAsync(trainingCenter);
         return Ok(batches);
       }
       catch (ArgumentException)
@@ -235,21 +235,21 @@ namespace Revature.Tenant.Api.Controllers
     [HttpPost("RegisterTenant", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiTenant>> PostAsync([FromBody, Bind("tenantId")] ApiTenant tenant)
+    public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
     {
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
         var newTenant = new Lib.Models.Tenant
         {
-          Id = tenant.Id,
+          Id = Guid.NewGuid(),
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
           AddressId = tenant.AddressId,
           RoomId = null, //Room Service will set this later
-          CarId = tenant.CarId,
+          CarId = null,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter
         };
@@ -258,7 +258,6 @@ namespace Revature.Tenant.Api.Controllers
         {
           newTenant.Car = new Lib.Models.Car
           {
-            Id = tenant.ApiCar.Id,
             Color = tenant.ApiCar.Color,
             Make = tenant.ApiCar.Make,
             Model = tenant.ApiCar.Model,
@@ -266,6 +265,7 @@ namespace Revature.Tenant.Api.Controllers
             State = tenant.ApiCar.State,
             Year = tenant.ApiCar.Year
           };
+          newTenant.CarId = newTenant.Car.Id;
         }
 
         await _tenantRepository.AddAsync(newTenant);
@@ -306,7 +306,7 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("PUT - Updating tenant with tenantid {tenantId}.", tenant.Id);
         var newTenant = new Lib.Models.Tenant
         {
-          Id = tenant.Id,
+          Id = (Guid) tenant.Id,
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,

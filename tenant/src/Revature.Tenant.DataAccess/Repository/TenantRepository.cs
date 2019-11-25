@@ -108,7 +108,7 @@ namespace Revature.Tenant.DataAccess.Repository
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
 
-      return (await tenants.ToListAsync()).Select((_mapper.MapTenant)).ToList();
+      return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }
 
 
@@ -118,10 +118,10 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="trainingCenter">A Guid of a training center</param>
     /// <returns>A list of batches</returns>
-    public ICollection<Lib.Models.Batch> GetBatches(Guid trainingCenter)
+    public async Task<ICollection<Lib.Models.Batch>> GetBatchesAsync(Guid trainingCenter)
     {
-      return _context.Batch
-        .Where(b => b.TrainingCenter == trainingCenter)
+      var batch = _context.Batch.Where(b => b.TrainingCenter == trainingCenter);
+      return (await batch.ToListAsync())
         .Select(_mapper.MapBatch)
         .ToList();
     }
