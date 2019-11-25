@@ -30,7 +30,7 @@ namespace Revature.Account.Tests.ControllerTests
         .Setup(x => x.GetNotificationsByCoordinatorIdAsync(It.IsAny<Guid>()))
         .Returns(Task.Run(() => helper.Notifications.Where(n => n.NotificationId == notificationId).ToList()));
 
-      Assert.NotNull(await helper.NotificationController.GetNotificationByCoordinatorIdAsync(coordinatorId) as OkObjectResult);
+      Assert.NotNull(await helper.NotificationController.GetNotificationsByCoordinatorIdAsync(coordinatorId) as OkObjectResult);
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ namespace Revature.Account.Tests.ControllerTests
               .Returns(Task.FromResult(true))
               .Verifiable();
 
-      var updatedResult = await helper.NotificationController.Put(updatedNotification.CoordinatorId, updatedNotification.Status);
+      var updatedResult = await helper.NotificationController.Put(updatedNotification.CoordinatorId, updatedNotification.Status.StatusText);
 
       helper.Repository
           .Verify();
