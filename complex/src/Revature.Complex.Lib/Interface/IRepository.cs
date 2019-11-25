@@ -12,7 +12,7 @@ namespace Revature.Complex.Lib.Interface
     /// </summary>
     /// <param name="lComplex"></param>
     /// <returns></returns>
-    public Task<string> CreateComplexAsync(Logic.Complex lComplex);
+    public Task<bool> CreateComplexAsync(Logic.Complex lComplex);
 
     /// <summary>
     /// Read all existed complices in the database
@@ -40,28 +40,28 @@ namespace Revature.Complex.Lib.Interface
     /// </summary>
     /// <param name="update"></param>
     /// <returns></returns>
-    public Task<string> UpdateComplexAsync(Logic.Complex update);
+    public Task<bool> UpdateComplexAsync(Logic.Complex update);
 
     /// <summary>
     /// Delete existed single complex from database by specific complex Id
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
-    public Task<string> DeleteComplexAsync(Guid complexId);
+    public Task<bool> DeleteComplexAsync(Guid complexId);
 
     /// <summary>
     /// Create new single Amenities of Room in database by amenityroom object
     /// </summary>
     /// <param name="ar"></param>
     /// <returns></returns>
-    public Task<string> CreateAmenityRoomAsync(Logic.AmenityRoom ar);
+    public Task<bool> CreateAmenityRoomAsync(Logic.AmenityRoom ar);
 
     /// <summary>
     /// Create new single Amenities of Room in database by logic amenitycomplex object
     /// </summary>
     /// <param name="ac"></param>
     /// <returns></returns>
-    public Task<string> CreateAmenityComplexAsync(Logic.AmenityComplex ac);
+    public Task<bool> CreateAmenityComplexAsync(Logic.AmenityComplex ac);
 
 
     /// <summary>
@@ -69,7 +69,7 @@ namespace Revature.Complex.Lib.Interface
     /// </summary>
     /// <param name="amenity"></param>
     /// <returns></returns>
-    public Task<string> CreateAmenityAsync(Logic.Amenity amenity);
+    public Task<bool> CreateAmenityAsync(Logic.Amenity amenity);
 
     /// <summary>
     /// Read all existed amenities from the database
@@ -103,27 +103,27 @@ namespace Revature.Complex.Lib.Interface
     /// </summary>
     /// <param name="amenity"></param>
     /// <returns></returns>
-    public Task<string> UpdateAmenityAsync(Logic.Amenity amenity);
+    public Task<bool> UpdateAmenityAsync(Logic.Amenity amenity);
 
     /// <summary>
     /// Delete existed single amenity info in the database by logic amenity object
     /// </summary>
     /// <param name="amenity"></param>
     /// <returns></returns>
-    public Task<string> DeleteAmenityAsync(Logic.Amenity amenity);
+    public Task<bool> DeleteAmenityAsync(Logic.Amenity amenity);
 
     /// <summary>
     /// Delete ALL amenity record from Amenity of room in database by room Id
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
-    public Task<string> DeleteAmenityRoomAsync(Guid roomId);
+    public Task<bool> DeleteAmenityRoomAsync(Guid roomId);
 
     /// <summary>
     /// Delete ALL amenity record from Amenity of complex in database by complex Id
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
-    public Task<string> DeleteAmenityComplexAsync(Guid complexId);
+    public Task<bool> DeleteAmenityComplexAsync(Guid complexId);
   }
 }

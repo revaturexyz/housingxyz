@@ -22,5 +22,6 @@ namespace Revature.Complex.Api.Models
     public string RoomType { get; set; }
     public DateTime LeaseStart { get; set; }
     public DateTime LeaseEnd { get; set; }
+    public int QueOperator { get; set; }
   }
 }

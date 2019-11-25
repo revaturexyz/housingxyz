@@ -23,6 +23,6 @@ namespace Revature.Complex.DataAccess.Entities
     /// <summary>
     /// Complex id should behave as FK in AmenityComplex table
     /// </summary>
-    public virtual ICollection<AmenityComplex> AmentityComplex { get; set; }
+    public virtual ICollection<AmenityComplex> AmenityComplex { get; set; }
   }
 }

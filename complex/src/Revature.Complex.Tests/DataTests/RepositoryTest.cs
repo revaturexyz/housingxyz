@@ -146,7 +146,7 @@ namespace Revature.Complex.Tests.DataTests
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
       Repository repo = new Repository(testContext, mapper, log);
 
-      string result = await repo.CreateComplexAsync(complex1);
+      bool result = await repo.CreateComplexAsync(complex1);
       Guid checker = testContext.Complex.First().ComplexId;
 
       Assert.Equal(checker, cId1);
@@ -224,8 +224,8 @@ namespace Revature.Complex.Tests.DataTests
         ContactNumber = "7894561231"
       };
 
-      string result = await repo.UpdateComplexAsync(update);
-      result = testContext.Complex.Find(cId1).ComplexName;
+      bool status = await repo.UpdateComplexAsync(update);
+      string result = testContext.Complex.Find(cId1).ComplexName;
       string phone = testContext.Complex.Find(cId1).ContactNumber;
 
       Assert.Equal("Liv++", result);
@@ -250,9 +250,9 @@ namespace Revature.Complex.Tests.DataTests
       testContext.Add(complexE1);
       testContext.Add(complexE2);
 
-      string result = await repo.DeleteComplexAsync(cId1);
+      bool status = await repo.DeleteComplexAsync(cId1);
 
-      result = testContext.Complex.First().ComplexName;
+      string result = testContext.Complex.First().ComplexName;
       string phone = testContext.Complex.First().ContactNumber;
 
       Assert.Equal("SampleComplex", result);
@@ -274,7 +274,7 @@ namespace Revature.Complex.Tests.DataTests
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
       Repository repo = new Repository(testContext, mapper, log);
 
-      string result = await repo.CreateAmenityRoomAsync(ar);
+      bool result = await repo.CreateAmenityRoomAsync(ar);
       Guid check = testContext.AmenityRoom.First().AmenityRoomId;
 
       Assert.Equal(check, ar.AmenityRoomId);
@@ -295,7 +295,7 @@ namespace Revature.Complex.Tests.DataTests
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
       Repository repo = new Repository(testContext, mapper, log);
 
-      string result = await repo.CreateAmenityComplexAsync(ac);
+      bool result = await repo.CreateAmenityComplexAsync(ac);
       Guid check = testContext.AmenityComplex.First().AmenityComplexId;
 
       Assert.Equal(check, ac.AmenityComplexId);
@@ -316,7 +316,7 @@ namespace Revature.Complex.Tests.DataTests
       using Entity.ComplexDbContext testContext = new Entity.ComplexDbContext(options);
       Repository repo = new Repository(testContext, mapper, log);
 
-      string result = await repo.CreateAmenityAsync(amenity);
+      bool result = await repo.CreateAmenityAsync(amenity);
 
       Guid check = testContext.Amenity.First().AmenityId;
 

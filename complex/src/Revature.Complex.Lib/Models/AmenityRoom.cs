@@ -5,7 +5,7 @@ using System.Text;
 namespace Revature.Complex.Lib.Models
 {
   /// <summary>
-  /// Logic Amenity Model. Use it as parameter to pass into/received from Repository
+  /// Logic AmenityRoom Model. Use it as parameter to pass into/received from Repository
   /// </summary>
   public class AmenityRoom
   {

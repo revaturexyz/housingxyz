@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Logging;
 using Revature.Complex.Lib.Interface;
+using Revature.Complex.Api.Services;
 using Revature.Complex.DataAccess.Repository;
 using Revature.Complex.DataAccess;
 using Revature.Complex.DataAccess.Entities;
@@ -53,6 +54,9 @@ namespace Revature.Complex.Api
 
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<Mapper>();
+      services.AddHostedService<RoomServiceReceiver>();
+      services.AddScoped<IAddressService, AddressServiceSender>();
+      services.AddScoped<IRoomServiceSender, RoomServiceSender>();
 
       services.AddControllers();
 
@@ -83,6 +87,13 @@ namespace Revature.Complex.Api
       {
         endpoints.MapControllers();
       });
+
+      //for the service-bus listener
+      //define the event-listener
+      var bus = app.ApplicationServices.GetService<IRoomServiceReceiver>();
+
+      //start listening
+      bus.RegisterOnMessageHandlerAndReceiveMessages();
     }
   }
 }

@@ -5,7 +5,7 @@ using System.Text;
 namespace Revature.Complex.DataAccess.Entities
 {
   /// <summary>
-  /// Entity amenity model. Repository use it to CRUD amenity data from database
+  /// Entity Amenity model. Repository use it to CRUD amenity data from database
   /// </summary>
   public class Amenity
   {

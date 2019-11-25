@@ -99,7 +99,7 @@ namespace Revature.Complex.Tests.ApiTests
         AmenityType = "test1",
         Description = "describe"
       };
-      string res = "";
+      bool res = true;
       _complexRepo.Setup(r => r.CreateAmenityAsync(amenity))
           .Returns(Task.FromResult(res));
 
@@ -131,7 +131,7 @@ namespace Revature.Complex.Tests.ApiTests
         AmenityType = "test1",
         Description = "describe"
       };
-      string res = "";
+      bool res = true;
       _complexRepo.Setup(r => r.UpdateAmenityAsync(amenity))
           .Returns(Task.FromResult(res));
 
@@ -163,7 +163,7 @@ namespace Revature.Complex.Tests.ApiTests
         AmenityType = "test1",
         Description = "describe"
       };
-      string res = "";
+      bool res = true;
       _complexRepo.Setup(r => r.DeleteAmenityAsync(amenity))
           .Returns(Task.FromResult(res));
 

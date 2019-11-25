@@ -18,7 +18,7 @@ namespace Revature.Complex.DataAccess.Entities
     public virtual DbSet<AmenityRoom> AmenityRoom { get; set; }
     public virtual DbSet<Amenity> Amenity { get; set; }
 
-    public Guid cId1 = Guid.NewGuid();
+    public Guid cId1 = Guid.Parse("b5e050aa-6bfc-46ad-9a69-90b1f99ed606");
     public Guid cId2 = Guid.NewGuid();
     public Guid cId3 = Guid.NewGuid();
     public Guid cId4 = Guid.NewGuid();
@@ -126,7 +126,7 @@ namespace Revature.Complex.DataAccess.Entities
 
 
         entity.HasOne(e => e.Complex)
-              .WithMany(d => d.AmentityComplex)
+              .WithMany(d => d.AmenityComplex)
               .HasForeignKey(p => p.ComplexId)
               .IsRequired()
               .OnDelete(DeleteBehavior.ClientSetNull);
