@@ -24,6 +24,9 @@ namespace Revature.Account.Lib.Model
     /// </summary>
     public Guid CoordinatorId { get; set; }
     public CoordinatorAccount Coordinator { get; set; }
+
+    public Status Status { get; set; }
+
     public UpdateAction UpdateAction { get; set; }
 
     /// <summary>
