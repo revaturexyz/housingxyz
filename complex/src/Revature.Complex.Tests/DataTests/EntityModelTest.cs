@@ -1,78 +1,78 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Logic = Revature.Complex.Lib.Models;
 using Xunit;
+using Entity = Revature.Complex.DataAccess.Entities;
 
-namespace Revature.Complex.Tests.LibTests
+namespace Revature.Complex.Tests.DataTests
 {
-  public class LibModelTest
+  public class EntityModelTest
   {
     /// <summary>
-    /// This test is to test Amenity in Library.Model
+    /// This test is to test Amenity in Entity Model
     /// </summary>
     [Fact]
     public void AmenityTest()
     {
-      Guid aId = Guid.NewGuid();
-      Logic.Amenity amenity = new Logic.Amenity
+      Guid amId = Guid.NewGuid();
+      Entity.Amenity amenity = new Entity.Amenity
       {
-        AmenityId = aId,
+        AmenityId = amId,
         AmenityType = "fridge",
         Description = "to freeze items"
       };
 
-      Assert.Equal(aId, amenity.AmenityId);
+      Assert.Equal(amId, amenity.AmenityId);
       Assert.Equal("fridge", amenity.AmenityType);
       Assert.Equal("to freeze items", amenity.Description);
     }
 
     /// <summary>
-    /// This test is to test AmenityComplex in Library.Model
+    /// This test is to test AmenityComplex in Entity Model
     /// </summary>
     [Fact]
     public void AmenityComplexTest()
     {
-      Guid acId1 = Guid.NewGuid();
+      Guid acId = Guid.NewGuid();
       Guid amId = Guid.NewGuid();
-      Guid cId1 = Guid.NewGuid();
+      Guid guid1 = Guid.NewGuid();
 
-      Logic.AmenityComplex ac = new Logic.AmenityComplex
+      Entity.AmenityComplex ac = new Entity.AmenityComplex
       {
-        AmenityComplexId = acId1,
+        AmenityComplexId = acId,
         AmenityId = amId,
-        ComplexId = cId1
+        ComplexId = guid1
       };
 
-      Assert.Equal(acId1, ac.AmenityComplexId);
+      Assert.Equal(acId, ac.AmenityComplexId);
       Assert.Equal(amId, ac.AmenityId);
-      Assert.Equal(cId1, ac.ComplexId);
+      Assert.Equal(guid1, ac.ComplexId);
     }
 
     /// <summary>
-    /// This test is to test AmenityRoom in Library.Model
+    /// This test is to test AmenityRoom in Entity Model
     /// </summary>
     [Fact]
     public void AmenityRoomTest()
     {
       Guid arId = Guid.NewGuid();
       Guid amId = Guid.NewGuid();
-      Guid rId = Guid.NewGuid();
+      Guid guid = Guid.NewGuid();
 
-      Logic.AmenityRoom ar = new Logic.AmenityRoom
+      Entity.AmenityRoom ar = new Entity.AmenityRoom
       {
         AmenityRoomId = arId,
         AmenityId = amId,
-        RoomId = rId
+        RoomId = guid
       };
 
       Assert.Equal(arId, ar.AmenityRoomId);
       Assert.Equal(amId, ar.AmenityId);
-      Assert.Equal(rId, ar.RoomId);
+      Assert.Equal(guid, ar.RoomId);
     }
 
     /// <summary>
-    /// This test is to test Complex in Library.Model
+    /// This test is to test Complex in Entity Model
     /// </summary>
     [Fact]
     public void ComplexTest()
@@ -81,7 +81,7 @@ namespace Revature.Complex.Tests.LibTests
       Guid aId = Guid.NewGuid();
       Guid pId = Guid.NewGuid();
 
-      Logic.Complex complex = new Logic.Complex
+      Entity.Complex complex = new Entity.Complex
       {
         ComplexId = cId,
         AddressId = aId,
