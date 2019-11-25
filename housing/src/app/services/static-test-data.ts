@@ -5,6 +5,7 @@ import { Provider } from 'src/interfaces/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
 import { RoomType } from 'src/interfaces/room-type';
+import { CoordinatorNotification } from 'src/interfaces/coordinatorNotification';
 
 export class TestServiceData {
   static dummyAddress: Address = {
@@ -205,6 +206,13 @@ export class TestServiceData {
     zipcode: '78249'
   };
 
+  static testTrainingCenter1: TrainingCenter = {
+    centerId: 5,
+    apiAddress: TestServiceData.testTrainingCenter2Address,
+    centerName: 'UTA Training Center',
+    contactNumber: '(482) 482-4824'
+  };
+
   static testTrainingCenter2: TrainingCenter = {
     centerId: 5,
     apiAddress: TestServiceData.testTrainingCenter2Address,
@@ -237,4 +245,37 @@ export class TestServiceData {
     typeId: 1,
     roomType: 'Dormitory'
   };
+
+  static testTrainingCenters: TrainingCenter[] = [
+    TestServiceData.testTrainingCenter1,
+    TestServiceData.testTrainingCenter2
+  ];
+
+  static testCoordinatorNotification: CoordinatorNotification = {
+  notificationId: 'fabfd4f2-9e08-4950-a13b-574b6b8beade',
+  providerId: 3,
+  centerId: 2,
+  centerDetails: TestServiceData.testTrainingCenter1,
+  createdDate: new Date('11/15/2019'),
+  active: false,
+  trial: true,
+  extendedTrial: false,
+  providerDetails: TestServiceData.testProvider2
+};
+
+static testCoordinatorNotifications: CoordinatorNotification[] = [
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification,
+  TestServiceData.testCoordinatorNotification
+
+
+];
+
 }
