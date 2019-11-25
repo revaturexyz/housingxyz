@@ -37,8 +37,12 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task AddAsync(Lib.Models.Tenant tenant)
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
-
       await _context.Tenant.AddAsync(newTenant);
+      if (tenant.Car != null)
+      {
+        Entities.Car newCar = _mapper.MapCar(tenant.Car);
+        await _context.Car.AddAsync(newCar);
+      }
     }
 
     /// <summary>
@@ -67,7 +71,11 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>The collection of all tenants</returns>
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
     {
-      List<Entities.Tenant> tenants = await _context.Tenant.Include(t => t.Car).AsNoTracking().ToListAsync();
+      List<Entities.Tenant> tenants = await _context.Tenant
+        .Include(t => t.Car)
+        .Include(t => t.Batch)
+        .AsNoTracking()
+        .ToListAsync();
 
       return tenants.Select((_mapper.MapTenant)).ToList();
     }

@@ -91,6 +91,7 @@ namespace Revature.Tenant.Api.Controllers
       List<ApiTenant> apiTenants = new List<ApiTenant>();
       foreach(Lib.Models.Tenant apiTenant in newTenants)
       {
+
         ApiTenant newApiTenant = new ApiTenant
         {
           Id = apiTenant.Id,
@@ -128,6 +129,7 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         var tenant = await _tenantRepository.GetByIdAsync(id);
+
         var apiTenant = new ApiTenant
         {
           Id = tenant.Id,
@@ -141,6 +143,32 @@ namespace Revature.Tenant.Api.Controllers
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter
         };
+
+        if(apiTenant.CarId != null)
+        {
+          apiTenant.ApiCar = new ApiCar
+          {
+            Id = tenant.Car.Id,
+            Color = tenant.Car.Color,
+            Make = tenant.Car.Make,
+            Model = tenant.Car.Model,
+            LicensePlate = tenant.Car.LicensePlate,
+            State = tenant.Car.State,
+            Year = tenant.Car.Year
+          };
+        }
+
+        if(apiTenant.BatchId != null)
+        {
+          apiTenant.ApiBatch = new ApiBatch
+          {
+            Id = tenant.Batch.Id,
+            BatchCurriculum = tenant.Batch.BatchCurriculum,
+            StartDate = tenant.Batch.StartDate,
+            EndDate = tenant.Batch.EndDate,
+            TrainingCenter = tenant.Batch.TrainingCenter
+          };
+        }
 
         return Ok(apiTenant);
       }
@@ -179,11 +207,25 @@ namespace Revature.Tenant.Api.Controllers
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
           AddressId = tenant.AddressId,
-          RoomId = tenant.RoomId,
+          RoomId = null, //Room Service will set this later
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter
         };
+
+        if(tenant.ApiCar != null)
+        {
+          newTenant.Car = new Lib.Models.Car
+          {
+            Id = tenant.ApiCar.Id,
+            Color = tenant.ApiCar.Color,
+            Make = tenant.ApiCar.Make,
+            Model = tenant.ApiCar.Model,
+            LicensePlate = tenant.ApiCar.LicensePlate,
+            State = tenant.ApiCar.State,
+            Year = tenant.ApiCar.Year
+          };
+        }
 
         await _tenantRepository.AddAsync(newTenant);
 
