@@ -23,7 +23,7 @@ namespace Revature.Tenant.Lib.Interface
     /// <param name="id">The ID of the tenant</param>
     /// <returns>A tenant</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown when id does not exist</exception>
-    public Task<Models.Tenant> GetByIdAsync(int id);
+    public Task<Models.Tenant> GetByIdAsync(Guid id);
 
     /// <summary>
     /// Gets a list of all tenants
@@ -36,7 +36,7 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="id">The ID of the tenant</param>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown when id does not exist</exception>
-    public Task DeleteByIdAsync(int id);
+    public Task DeleteByIdAsync(Guid id);
 
     /// <summary>
     /// Updates values associated to a tenant.
