@@ -1,7 +1,6 @@
 <div class="add-room-container" *ngIf="targetComplex" else errorblock>
   <h3 class="add-room-header">Edit {{ targetComplex.complexName }}</h3>
   <hr />
-
   <!-- Start of form -->
   <form id="EditComplexForm">
     <!-- Start of street address input -->
@@ -26,7 +25,6 @@
       </div>
     </div>
     <!-- End of street address input -->
-
     <!-- Start of city, state, and zip code inputs, because 6+2+4=12, all 3 inputs display on one row -->
     <div class="form-row">
       <div class="form-group col-md-6">
@@ -71,7 +69,6 @@
       </div>
     </div>
     <!-- End of city, state, and zip code inputs -->
-
     <!-- Alerts that are displayed if any of the city, state, and/or zip code inputs are invalid -->
     <div *ngIf="city.invalid && city.dirty" class="alert alert-danger">
       City is required.
@@ -82,9 +79,7 @@
     <div *ngIf="zipCode.invalid && zipCode.dirty" class="alert alert-danger">
       ZIP code is required and must have five digits.
     </div>
-
     <hr />
-
     <!-- Start of complex name input -->
     <div class="form-group">
       <label for="complexName">Complex Name</label>
@@ -100,7 +95,6 @@
       />
     </div>
     <!-- End complex name input -->
-
     <!-- Since the complex name can be anything the only validation is that the input not be empty -->
     <div
       *ngIf="complexName.invalid && complexName.dirty"
@@ -108,7 +102,6 @@
     >
       The living complex name is required.
     </div>
-
     <!-- Start of phone number input -->
     <div class="form-group">
       <label for="contactNumber">Contact Number</label>
@@ -125,7 +118,6 @@
       />
     </div>
     <!-- End of phone number input -->
-
     <!-- The regular expression checks if the phone number is 10 consecutive digits or contains parenthesis or hyphens -->
     <!-- 1234567890, (123) 456-7890, and 123-456-7890 are all valid phone number format patterns -->
     <div
@@ -134,9 +126,7 @@
     >
       Phone number must be in a 10-digit format.
     </div>
-
     <!-- Start of amenity selection-->
-
     <mat-form-field>
       <mat-label>Amenities</mat-label>
       <mat-select name="formLivingComplex.amenity"
@@ -145,9 +135,7 @@
         <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
       </mat-select>
     </mat-form-field>
-
     <!--End of amenity selection-->
-
     <!-- Start of markup for submit and cancel buttons -->
     <div class="form-row">
       <div class="col-md-4 form-group">
@@ -182,7 +170,7 @@
   </form>
   <!-- End of form -->
 </div>
-
+<!-- Alternate view if a complex is not selected and this page is shown -->
 <ng-template #errorblock>
   You've reached this by mistake, try again.
 </ng-template>

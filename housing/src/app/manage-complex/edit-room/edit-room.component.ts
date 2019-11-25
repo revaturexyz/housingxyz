@@ -1,8 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import * as _moment from 'moment';
 
 import { Room } from 'src/interfaces/room';
@@ -17,14 +13,14 @@ import { TestServiceData } from 'src/app/services/static-test-data';
 })
 // Component to provide form in order to edit room
 export class EditRoomComponent implements OnInit {
-
+  // Seeds for view testing
   seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
   seededAmenityList = TestServiceData.dummyAmenityList1;
-
-  public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
-  public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
-  // These make the selected complex and room information avalible
+  // For all select form inputs to show invalid on validation checks.
+  public selectOptionRoomTypeInvalid = '';
+  public selectOptionGenderInvalid = '';
+  // These make the selected complex and room information available
   @Input() complexControl: Complex;
   @Input() targetRoom: Room;
   // Decorator to output the selected mode

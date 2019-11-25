@@ -1,7 +1,6 @@
 <div class="add-room-container" *ngIf="complexControl" else errorblock>
   <h3 class="add-room-header">Edit Room</h3>
   <hr />
-
   <div class="add-room-options">
     <form id="AddRoomForm">
       <!-- Room number and number of beds holder begin-->
@@ -28,7 +27,6 @@
           </div>
         </div>
         <!--End of roomNumber-->
-
         <!--Start of numberOfBeds-->
         <div class="form-group mx-1">
           <label for="numberOfBeds">Number of Beds</label>
@@ -53,8 +51,7 @@
         <!--End of numberOfBeds-->
       </div>
       <!--End of room number and number of beds holder-->
-
-      <!-- Room number and number of beds holder begin-->
+      <!-- Gender and room type begin-->
       <div class="d-flex flex-row justify-content-center">
         <!-- Start of gender input select -->
         <div class="form-group mx-1">
@@ -79,7 +76,6 @@
           A gender for occupants is required.
         </div>
         <!-- End of gender input select -->
-
         <!-- Start of Room Type input select -->
         <div class="form-group mx-1">
           <label for="apiRoomType">Select Room Type</label>
@@ -93,7 +89,10 @@
             required
           >
             <option value="" disabled>Select Room Type</option>
-            <option *ngFor="let roomType of seededRoomTypes" [ngValue]="roomType">
+            <option
+              *ngFor="let roomType of seededRoomTypes"
+              [ngValue]="roomType"
+            >
               {{ roomType.roomType }}
             </option>
           </select>
@@ -108,7 +107,6 @@
         <!-- End of Room Type select -->
       </div>
       <!--End of Gender and Room Type holder-->
-
       <!-- Begin occupied checkbox -->
       <mat-checkbox
         id="isOccupied"
@@ -116,54 +114,66 @@
         [(ngModel)]="targetRoom.isOccupied"
         #isOccupied="ngModel"
         aria-describedby="isOccupied"
-        >
-          Occupied
+      >
+        Occupied
       </mat-checkbox>
-
-
       <!-- End occupied checkbox -->
-
       <!-- Lease start and end dates holder begin-->
       <div class="d-flex flex-row justify-content-center">
         <!-- Lease start dates begin -->
         <div class="form-group mx-3">
           <mat-form-field>
-            <input matInput
-            id="startDate"
-            name="startDate"
-            [matDatepicker]="startDatePicker"
-            [(ngModel)]="targetRoom.startDate"
-            #startDate="ngModel"
-            class="form-control"
-            placeholder="Lease Start Date"
-            aria-describedby="startDate"
-            required >
-            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #startDatePicker [startAt]="startDate"></mat-datepicker>
+            <input
+              matInput
+              id="startDate"
+              name="startDate"
+              [matDatepicker]="startDatePicker"
+              [(ngModel)]="targetRoom.startDate"
+              #startDate="ngModel"
+              class="form-control"
+              placeholder="Lease Start Date"
+              aria-describedby="startDate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #startDatePicker
+              [startAt]="startDate"
+            ></mat-datepicker>
           </mat-form-field>
         </div>
         <!-- Lease start date end -->
-
         <!-- Lease end date begin -->
         <div class="form-group mx-3">
           <mat-form-field>
-            <input matInput
-            id="endDate"
-            name="endDate"
-            [matDatepicker]="endDatePicker"
-            [(ngModel)]="targetRoom.endDate"
-            #endDate="ngModel"
-            class="form-control"
-            placeholder="Lease End Date"
-            aria-describedby="endDate"
-            required >
-            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <input
+              matInput
+              id="endDate"
+              name="endDate"
+              [matDatepicker]="endDatePicker"
+              [(ngModel)]="targetRoom.endDate"
+              #endDate="ngModel"
+              class="form-control"
+              placeholder="Lease End Date"
+              aria-describedby="endDate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #endDatePicker [startAt]="endDate"></mat-datepicker>
           </mat-form-field>
         </div>
-
+        <!-- Validation -->
         <div
-          *ngIf="endDate.invalid && endDate.dirty || startDate.invalid && startDate.dirty"
+          *ngIf="
+            (endDate.invalid && endDate.dirty) ||
+            (startDate.invalid && startDate.dirty)
+          "
           class="alert alert-danger"
         >
           A lease start and end date is required.
@@ -173,18 +183,26 @@
       <!--Lease start and end dates holder end-->
       <!-- Start of amenity selection-->
       <mat-form-field>
-          <mat-label>Amenities</mat-label>
-          <mat-select name="formRoom.apiAmenity"
-          [(ngModel)]="targetRoom.apiAmenity" #amenity="ngModel" id="amenity"
-          aria-describedby="amenity" multiple>
-            <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-label>Amenities</mat-label>
+        <mat-select
+          name="formRoom.apiAmenity"
+          [(ngModel)]="targetRoom.apiAmenity"
+          #amenity="ngModel"
+          id="amenity"
+          aria-describedby="amenity"
+          multiple
+        >
+          <mat-option
+            *ngFor="let amenity of seededAmenityList"
+            [value]="amenity"
+          >
+            {{ amenity.amenity }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <!--End of amenity selection-->
-
       <hr />
-
-      <!-- Start of markup for submit and cancel buttons | leaseLength, apiRoomType, gender, numberOfBeds, roomNumber -->
+      <!-- Start of markup for submit and cancel buttons -->
       <div class="form-row d-flex justify-content-around">
         <div>
           <!-- If any of the inputs are invalid, the submit button will be disabled -->
@@ -196,8 +214,10 @@
               numberOfBeds.invalid ||
               roomNumber.invalid ||
               startDate.invalid ||
-              endDate.invalid"
-            (click)="postEditRoom()">
+              endDate.invalid
+            "
+            (click)="postEditRoom()"
+          >
             <strong>Edit</strong>
           </button>
         </div>
@@ -215,7 +235,7 @@
     </form>
   </div>
 </div>
-
+<!-- Alternate view if a complex is not selected and this page is shown -->
 <ng-template #errorblock>
   You've reached this by mistake, try again.
 </ng-template>

@@ -1,7 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { Room } from 'src/interfaces/room';
 import { Complex } from 'src/interfaces/complex';
 
@@ -13,13 +10,13 @@ import { TestServiceData } from 'src/app/services/static-test-data';
   styleUrls: ['./show-room.component.scss']
 })
 export class ShowRoomComponent implements OnInit {
-
+  // Seeded data for view testing
   seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
-
-  public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
-  public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
-  // These make the selected complex and room information avalible
+  // For all select form inputs to show invalid on validation checks.
+  public selectOptionRoomTypeInvalid = '';
+  public selectOptionGenderInvalid = '';
+  // These make the selected complex and room information available
   @Input() complexControl: Complex;
   @Input() targetRoom: Room;
   // Decorator to output the selected mode
@@ -29,10 +26,8 @@ export class ShowRoomComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  // Button handler for when user uses back button
-  handleBackButton(){
+  // Button handler for when user clicks back button
+  handleBackButton() {
     this.modeOutput.emit('details');
   }
-
 }

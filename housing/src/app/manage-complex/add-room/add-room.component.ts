@@ -1,9 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatInputModule } from '@angular/material';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import * as _moment from 'moment';
 
 import { Room } from 'src/interfaces/room';
@@ -21,21 +16,21 @@ export class AddRoomComponent implements OnInit {
   seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
   seededAmenityList = TestServiceData.dummyAmenityList1;
-
-  // form binding
+  // Init Form
   formRoom: Room;
-
-  public selectOptionRoomTypeInvalid = ''; // For all select form inputs to show invalid on validation checks.
-  public selectOptionGenderInvalid = ''; // For all select form inputs to show invalid on validation checks.
-
+  // For all select form inputs to show invalid on validation checks.
+  public selectOptionRoomTypeInvalid = '';
+  public selectOptionGenderInvalid = '';
+  // Makes currently selected complex information available
   @Input() complexControl: Complex;
-
+  // Decorator to output the selected mode
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
    }
 
   ngOnInit() {
+    // Sets form defaults
     this.formRoom = {
       roomId: null,
       apiAddress: this.complexControl.apiAddress,
@@ -50,16 +45,13 @@ export class AddRoomComponent implements OnInit {
       gender: null
     };
   }
-
   // Adds room to complex and switches mode back to details
   postAddRoom() {
     // Handle adding room to complex logic here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
-
   // Changes mode back to details
   cancelAddRoom() {
     this.modeOutput.emit('details');
   }
-
 }

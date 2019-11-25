@@ -8,10 +8,8 @@ import { Complex } from 'src/interfaces/complex';
   templateUrl: './edit-complex.component.html',
   styleUrls: ['./edit-complex.component.scss']
 })
-
 // Component used to provide form in order to edit complex
 export class EditComplexComponent implements OnInit {
-
   // This makes the details of the complex you want to edit avalible
   @Input() targetComplex: Complex;
   // Decorator to output the selected mode
@@ -28,27 +26,22 @@ export class EditComplexComponent implements OnInit {
     // Populate default form values
     this.formLivingComplex = this.targetComplex;
   }
-
   // to save edits to db and change mode back to details
   putEditComplex() {
     // Handle Submit Here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
-
-  // to cancel all changes and change mode back to deatils
+  // to cancel all changes and change mode back to details
   cancelEditComplex() {
     this.modeOutput.emit('details');
   }
-
   // to delete complex from db and change mode back to details
   deleteComplex() {
     // Handle Delete Here
     this.modeOutput.emit('details');
   }
-
   // This will be used to select defaults for amenity selection list
   compareWithFunc(a, b) {
     return a.name === b.name;
   }
-
 }
