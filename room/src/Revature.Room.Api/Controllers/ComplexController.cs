@@ -37,7 +37,6 @@ namespace Revature.Room.Api.Controllers
     /// <param name="gender"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
-    /// <exception cref="KeyNotFoundException">ComplexId or RoomId was not found in the DB</exception>
 
     [HttpGet] // /complexes/{complexId}/rooms?roomNumber=a&numberOfBeds=b&roomType=c&gender=d&endDate=e&roomId=f
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -78,9 +77,23 @@ namespace Revature.Room.Api.Controllers
     /// <param name="roomId"></param>
     /// <returns></returns>
     [HttpGet("{roomId}", Name = "GetRoom")]
-    public async Task <Lib.Room> GetRoomAsync(Guid roomId)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetRoomAsync(Guid roomId)
     {
-      return await _repository.ReadRoomAsync(roomId);
+      try
+      {
+        _logger.LogInformation("Getting room ready...");
+        var result = await _repository.ReadRoomAsync(roomId);
+        _logger.LogInformation("Success");
+        return Ok(result);
+      }
+      catch (InvalidOperationException ex)
+      {
+        _logger.LogError(ex.Message);
+        return NotFound();
+      }
+      
     }
 
     /// <summary>
@@ -89,26 +102,36 @@ namespace Revature.Room.Api.Controllers
     /// <param name="room"></param>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PostRoomAsync
       ([FromBody, Bind("ComplexID, RoomID, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
     {
-      Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room
+      try
       {
-        ComplexId = room.ComplexId,
-        RoomId = room.RoomId,
-        RoomNumber = room.RoomNumber,
-        NumberOfBeds = room.NumberOfBeds,
-        NumberOfOccupants = room.NumberOfOccupants,
-        Gender = room.Gender,
-        RoomType = room.RoomType
-      };
-      createdRoom.SetLease(room.LeaseStart, room.LeaseEnd);
-      await _repository.CreateRoomAsync(createdRoom);
-      await _repository.SaveAsync();
+        _logger.LogInformation("Adding a room");
+        Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room
+        {
+          ComplexId = room.ComplexId,
+          RoomId = room.RoomId,
+          RoomNumber = room.RoomNumber,
+          NumberOfBeds = room.NumberOfBeds,
+          NumberOfOccupants = room.NumberOfOccupants,
+          Gender = room.Gender,
+          RoomType = room.RoomType
+        };
+        createdRoom.SetLease(room.LeaseStart, room.LeaseEnd);
+        await _repository.CreateRoomAsync(createdRoom);
+        await _repository.SaveAsync();
 
-      //await _busSender.SendCreateMessage(createdRoom);
+        _logger.LogInformation("Success. Room has been added");
 
-      return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomId }, createdRoom);
+        return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomId }, createdRoom);
+      } catch (ArgumentException ex)
+      {
+        _logger.LogInformation(ex.Message);
+        return BadRequest();
+      }
 
     }
 
@@ -119,25 +142,42 @@ namespace Revature.Room.Api.Controllers
     /// <param name="Lroom"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PutRoomAsync(Guid id, [FromBody] Revature.Room.Lib.Room Lroom)
     {
-      Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-      ro.RoomId = id;
-
-      var IERooms = await _repository.ReadRoomAsync(ro.RoomId);
-
-      Revature.Room.Lib.Room newRo = new Revature.Room.Lib.Room
+      try
       {
-        Gender = Lroom.Gender,
-        NumberOfOccupants = Lroom.NumberOfOccupants,
-      };
-      newRo.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
-      await _repository.UpdateRoomAsync(newRo);
-      await _repository.SaveAsync();
+        _logger.LogInformation("Updating a room");
+        Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
+        ro.RoomId = id;
 
-      //await _busSender.SendUpdateMessage(newRo);
+        var IERooms = await _repository.ReadRoomAsync(ro.RoomId);
 
-      return Ok(newRo);
+        Revature.Room.Lib.Room newRo = new Revature.Room.Lib.Room
+        {
+          Gender = Lroom.Gender,
+          NumberOfOccupants = Lroom.NumberOfOccupants,
+        };
+        newRo.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
+        await _repository.UpdateRoomAsync(newRo);
+        await _repository.SaveAsync();
+
+        _logger.LogInformation("Success. Room has been updated");
+
+        return NoContent();
+      }
+      catch (InvalidOperationException ex)
+      {
+        _logger.LogError(ex.Message);
+        return NotFound();
+      }
+      catch (ArgumentException ex)
+      {
+        _logger.LogError(ex.Message);
+        return BadRequest();
+      } 
     }
 
     /// <summary>
@@ -146,17 +186,30 @@ namespace Revature.Room.Api.Controllers
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("DeleteRoom")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteRoomAsync(Guid id)
     {
-      Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-      ro.RoomId = id;
+      try
+      {
+        _logger.LogInformation("Deleting room");
+        Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
+        ro.RoomId = id;
 
-      await _repository.DeleteRoomAsync(ro.RoomId);
-      await _repository.SaveAsync();
+        await _repository.DeleteRoomAsync(ro.RoomId);
+        await _repository.SaveAsync();
 
-     await _busSender.SendDeleteMessage(ro);
+        await _busSender.SendDeleteMessage(ro);
 
-      return NoContent();
+        _logger.LogInformation("Success. Room has been deleted");
+
+        return NoContent();
+      }
+      catch (InvalidOperationException ex)
+      {
+        _logger.LogError(ex.Message);
+        return NotFound();
+      }
     }
 
     /// <summary>
@@ -165,8 +218,10 @@ namespace Revature.Room.Api.Controllers
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("DeleteComplex")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteComplexAsync(Guid id)
     {
+      _logger.LogInformation("Deleting rooms from complex");
       Revature.Room.Lib.Room co = new Revature.Room.Lib.Room();
       co.ComplexId = id;
 
@@ -174,7 +229,7 @@ namespace Revature.Room.Api.Controllers
       await _repository.SaveAsync();
 
       await _busSender.SendDeleteComplexMessage(listOfGuid);
-
+      _logger.LogInformation("Success! Rooms have been deleted");
       return NoContent();
     }
   }
