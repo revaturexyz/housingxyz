@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Revature.Address.Api.Models
 {
+  /// <summary>
+  /// 
+  /// </summary>
   public class AddressModel
   {
     [Required]

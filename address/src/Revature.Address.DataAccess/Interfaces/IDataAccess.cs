@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Revature.Address.Lib.Interfaces
 {
+  /// <summary>
+  /// 
+  /// </summary>
   public interface IDataAccess : IDisposable
   {
     public Task AddAddressAsync(Address address);

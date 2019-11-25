@@ -69,14 +69,13 @@ namespace Revature.Complex.DataAccess.Repository
       try
       {
         Entity.Complex complexFind = await _context.Complex.FindAsync(complexId).ConfigureAwait(false);
-
         return _map.MapEtoComplex(complexFind);
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         log.LogError($"(REPO){ex.Message}: Cannot Find specific complex with id: {complexId}");
         throw;
-      }     
+      }
     }
 
     /// <summary>
@@ -374,8 +373,11 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(Exception ex)
       {
-        log.LogError($"(REPO){ex}: update failed");
-        throw;
+<<<<<<< Updated upstream
+=======
+        log.LogWarning($"{ex.Message}: Unable to update the amenity.");
+>>>>>>> Stashed changes
+        throw ex;
       }
     }
 
@@ -399,8 +401,11 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(REPO){ex}: detele failed amenity Id: {amenity.AmenityId}");
-        throw;
+<<<<<<< Updated upstream
+=======
+        log.LogWarning($"{ex.Message}: Unable to delete the amenity.");
+>>>>>>> Stashed changes
+        return "cannot find target amenity to delete";
       }
 
 

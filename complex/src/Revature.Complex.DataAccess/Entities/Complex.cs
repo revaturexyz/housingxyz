@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Complex.DataAccess.Entities
 {
@@ -22,6 +21,12 @@ namespace Revature.Complex.DataAccess.Entities
 
     /// <summary>
     /// Complex id should behave as FK in AmenityComplex table
+    /// </summary>
+    public string ContactNumber { get; set; }
+
+    /// <summary>
+    /// The Complex model has a collection of Amenityomplex models that
+    /// represent the amenities offered by the complex.
     /// </summary>
     public virtual ICollection<AmenityComplex> AmenityComplex { get; set; }
   }

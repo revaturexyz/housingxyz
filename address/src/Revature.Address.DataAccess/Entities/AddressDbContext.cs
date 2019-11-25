@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Address.DataAccess.Entities
 {
+  /// <summary>
+  /// 
+  /// </summary>
   public partial class AddressDbContext : DbContext
   {
     public AddressDbContext()

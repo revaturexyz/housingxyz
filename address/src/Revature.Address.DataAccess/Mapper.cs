@@ -6,6 +6,10 @@ using System.Text;
 
 namespace Revature.Address.DataAccess
 {
+
+  /// <summary>
+  /// Each method needs a summary of what is NOT mapped and why.
+  /// </summary>
   public class Mapper : IMapper
   {
     public Mapper() { }
@@ -21,6 +25,11 @@ namespace Revature.Address.DataAccess
         ZipCode = address.ZipCode,
       };
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns></returns>
     public Entities.Address MapAddress(Revature.Address.Lib.Address address)
     {
       return new Entities.Address

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Revature.Address.Lib
 {
+  /// <summary>
+  /// This class creates an address object to be held in the Db
+  /// </summary>
     public class Address
     {
 

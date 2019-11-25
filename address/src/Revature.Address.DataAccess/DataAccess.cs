@@ -26,6 +26,11 @@ namespace Revature.Address.DataAccess
       _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns></returns>
     public async Task AddAddressAsync(Revature.Address.Lib.Address address)
     {
       Revature.Address.Lib.Address newAddress = (await GetAddressesAsync(address: address)).FirstOrDefault();
@@ -35,6 +40,12 @@ namespace Revature.Address.DataAccess
       }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="address"></param>
+    /// <returns></returns>
     public async Task<ICollection<Revature.Address.Lib.Address>> GetAddressesAsync(Guid? id = null, Revature.Address.Lib.Address address = null)
     {
       List<Revature.Address.DataAccess.Entities.Address> addresses = await _context.Addresses.AsNoTracking().ToListAsync();
@@ -48,6 +59,11 @@ namespace Revature.Address.DataAccess
       return addresses.Select(_mapper.MapAddress).ToList();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async Task<bool> DeleteAddressAsync(Guid id)
     {
       if (await _context.Addresses.FindAsync(id) is Entities.Address item)
@@ -59,6 +75,10 @@ namespace Revature.Address.DataAccess
       return false;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public async Task SaveAsync()
     {
       await _context.SaveChangesAsync();
@@ -67,6 +87,10 @@ namespace Revature.Address.DataAccess
     #region IDisposable Support
     private bool _disposedValue = false; // To detect redundant calls
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
       if (!_disposedValue)
@@ -80,7 +104,9 @@ namespace Revature.Address.DataAccess
       }
     }
 
-    // This code added to correctly implement the disposable pattern.
+    /// <summary>
+    /// This code added to correctly implement the disposable pattern.
+    /// </summary>
     public void Dispose()
     {
       Dispose(true);

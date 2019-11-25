@@ -4,9 +4,14 @@ using System.Text;
 
 namespace Revature.Complex.Lib.Models
 {
+<<<<<<< Updated upstream
+=======
   /// <summary>
-  /// Logic Complex Model. Use it as parameter to pass into/received from Repository
+  /// This model repesents the complex. It holds the GUID of it's provider (FK-provider service) and
+  /// Address(FK- Address service).
+  /// It's ComplexId is held as ComplexId(FK) in AmenityComplex.
   /// </summary>
+>>>>>>> Stashed changes
   public partial class Complex
   {
     public Guid ComplexId { get; set; }
