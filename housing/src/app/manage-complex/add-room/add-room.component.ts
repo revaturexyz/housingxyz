@@ -36,7 +36,6 @@ export class AddRoomComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('From add-room.com ' + this.complexControl.complexId);
     this.formRoom = {
       roomId: null,
       apiAddress: this.complexControl.apiAddress,

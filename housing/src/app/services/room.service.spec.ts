@@ -42,8 +42,7 @@ const room1: Room = {
   startDate: new Date(),
   endDate: new Date(),
   apiComplex: complex1,
-  gender: {genderId: 0, genderType: 'Male'},
-  leaseLength: 6
+  gender: {genderId: 0, genderType: 'Male'}
 };
 const room2: Room = {
   roomId: 0,
@@ -62,8 +61,7 @@ const room2: Room = {
   startDate: new Date(),
   endDate: new Date(),
   apiComplex: complex2,
-  gender: {genderId: 0, genderType: 'Male'},
-  leaseLength: 6
+  gender: {genderId: 0, genderType: 'Male'}
 };
 
 class MockMsalService {

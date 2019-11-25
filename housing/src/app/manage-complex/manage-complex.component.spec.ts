@@ -7,7 +7,14 @@ import {
   MatPaginatorModule, MatTableModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddRoomComponent } from './add-room/add-room.component';
+import { ShowRoomComponent } from './show-room/show-room.component';
 import { ComplexDetailsComponent } from './complex-details/complex-details.component';
 import { EditRoomComponent } from './edit-room/edit-room.component';
 import { EditComplexComponent } from './edit-complex/edit-complex.component';
@@ -23,13 +30,18 @@ describe('ManageComplexComponent', () => {
       imports: [
         MatFormFieldModule, FormsModule,
         ReactiveFormsModule, MatSelectModule,
-        MatCardModule,
-        MatTableModule, MatPaginatorModule, NoopAnimationsModule
+        MatCardModule, MatDatepickerModule,
+        MatTableModule, MatPaginatorModule,
+        NoopAnimationsModule, MatMomentDateModule,
+        MatChipsModule, MatIconModule,
+        MatExpansionModule, MatCheckboxModule
       ],
       declarations: [
         ManageComplexComponent, AddRoomComponent,
         ComplexDetailsComponent, EditRoomComponent,
-        EditComplexComponent, AddComplexComponent ]
+        EditComplexComponent, AddComplexComponent,
+        ShowRoomComponent
+      ]
     })
     .compileComponents();
   }));
