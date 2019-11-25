@@ -15,9 +15,11 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
   MatChipsModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatFormFieldModule,
   MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
-  MatExpansionModule
+  MatExpansionModule, MatInputModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,7 +83,10 @@ import { ShowRoomComponent } from './manage-complex/show-room/show-room.componen
     MatButtonModule,
     MatDividerModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatInputModule
   ],
   providers: [
     {

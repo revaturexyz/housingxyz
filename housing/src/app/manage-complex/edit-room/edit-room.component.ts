@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import * as _moment from 'moment';
 
 import { Room } from 'src/interfaces/room';
 import { Complex } from 'src/interfaces/complex';
@@ -32,6 +35,8 @@ export class EditRoomComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log('from edit room ' + this.complexControl);
+    console.log('from edit room ' + this.targetRoom.isOccupied);
     // Populate default form values
     this.formRoom = this.targetRoom;
   }

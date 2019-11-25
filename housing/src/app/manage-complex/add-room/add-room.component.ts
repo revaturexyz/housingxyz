@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import { MatInputModule } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import * as _moment from 'moment';
+
 import { Room } from 'src/interfaces/room';
-import { RoomType } from 'src/interfaces/room-type';
-import { Gender } from 'src/interfaces/gender';
 import { Complex } from 'src/interfaces/complex';
 
 import { TestServiceData } from 'src/app/services/static-test-data';
@@ -30,22 +32,23 @@ export class AddRoomComponent implements OnInit {
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
+   }
+
+  ngOnInit() {
+    console.log('From add-room.com ' + this.complexControl.complexId);
     this.formRoom = {
       roomId: null,
-      apiAddress: null,
-      roomNumber: null,
+      apiAddress: this.complexControl.apiAddress,
+      roomNumber: '',
       numberOfBeds: null,
       apiRoomType: null,
       isOccupied: false,
       apiAmenity: null,
-      startDate: null,
-      endDate: null,
-      apiComplex: null,
+      startDate: new Date(),
+      endDate: new Date(),
+      apiComplex: this.complexControl,
       gender: null
     };
-   }
-
-  ngOnInit() {
   }
 
   postAddRoom() {
