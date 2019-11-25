@@ -76,8 +76,8 @@ namespace Revature.Account.Tests.ControllerTests
       Guid notificationId = helper.Notifications[0].NotificationId;
       Guid coordinatorId = helper.Notifications[0].CoordinatorId;
       Guid providerId = helper.Notifications[0].ProviderId;
-      var updatedNotification = helper.Notifications[0];
-      updatedNotification.Status.StatusText = "Under Review";
+      var updatedNotification = helper.Notifications[0].Status;
+      updatedNotification.StatusText = "Under Review";
 
       helper.Repository
           .Setup(x => x.GetNotificationByIdAsync(It.IsAny<Guid>()))
@@ -88,7 +88,7 @@ namespace Revature.Account.Tests.ControllerTests
               .Returns(Task.FromResult(true))
               .Verifiable();
 
-      var updatedResult = await helper.NotificationController.Patch(coordinatorId, updatedNotification);
+      var updatedResult = await helper.NotificationController.PUT(coordinatorId, updatedNotification);
 
       helper.Repository
           .Verify();
