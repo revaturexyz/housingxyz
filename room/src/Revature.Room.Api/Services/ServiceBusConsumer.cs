@@ -154,17 +154,8 @@ namespace ServiceBusMessaging
     /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      return Task.CompletedTask; 
-    }
-    /// <summary>
-    /// Method that starts the service
-    /// </summary>
-    /// <param name="stoppingToken"></param>
-    /// <returns></returns>
-    public override Task StartAsync(CancellationToken stoppingToken)
-    {
       RegisterOnMessageHandlerAndReceiveMessages();
-      return Task.CompletedTask;
+      return Task.CompletedTask; 
     }
   }
 }
