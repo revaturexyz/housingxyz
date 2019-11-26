@@ -92,6 +92,7 @@ namespace Revature.Room.Lib
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room to be deleted isn't found in DB</exception>
     public Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId);
   }
 }

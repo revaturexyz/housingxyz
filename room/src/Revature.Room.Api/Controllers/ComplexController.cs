@@ -210,12 +210,13 @@ namespace Revature.Room.Api.Controllers
     /// <returns></returns>
     [HttpDelete("DeleteComplex")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteComplexAsync(Guid id)
     {
       try
       {
         _logger.LogInformation("Deleting rooms from complex");
-        Revature.Room.Lib.Room co = new Revature.Room.Lib.Room();
+        Lib.Room co = new Lib.Room();
         co.ComplexId = id;
 
         var listOfGuid = await _repository.DeleteComplexRoomAsync(co.ComplexId);

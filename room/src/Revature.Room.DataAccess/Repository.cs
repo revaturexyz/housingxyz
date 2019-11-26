@@ -83,6 +83,7 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room to be deleted isn't found in DB</exception>
     public async Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId)
     {
       var roomEntity = await _context.Room.Where(r => r.ComplexId == complexId).Select(r => r.RoomId).ToListAsync();
