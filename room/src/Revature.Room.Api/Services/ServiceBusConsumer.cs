@@ -39,6 +39,8 @@ namespace ServiceBusMessaging
     {
       //Changed this from testq to complexq
       //Might have to make another queclient for tenant
+
+      //Only need one queue for complex receiving and one for tenant receiving
       _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
 
       _queueClientTwo = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
@@ -108,6 +110,9 @@ namespace ServiceBusMessaging
 
             case OperationType.Delete:
               await _repo.DeleteRoomAsync(myRoom.RoomId);
+              break;
+            case OperationType.DeleteCom:
+              await _repo.DeleteComplexRoomAsync(myRoom.ComplexId);
               break;
           }
         }
