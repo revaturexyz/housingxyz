@@ -5,7 +5,7 @@ namespace Revature.Tenant.Api.Models
 {
   /// <summary>
   /// All Tenants must have a permanent address.
-  /// This will be used more heavily when the service buss to Address Service exists.
+  /// This will be used more heavily when the service bus to Address Service exists.
   /// </summary>
   public class ApiAddress
   {
