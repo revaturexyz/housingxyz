@@ -165,7 +165,7 @@ namespace Revature.Complex.DataAccess.Repository
     {
       Entity.AmenityRoom amenityRoom = _map.MapAmenityRoomtoE(ar);
 
-      _context.Add(amenityRoom);
+      await _context.AddAsync(amenityRoom);
       await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new amenity of room id: {ar.RoomId} was added");
 
@@ -226,7 +226,7 @@ namespace Revature.Complex.DataAccess.Repository
     {
       Entity.AmenityComplex amenityComplex = _map.MapAmenityComplextoE(ac);
 
-      _context.Add(amenityComplex);
+      await _context.AddAsync(amenityComplex);
       await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new amenity for complex: {ac.AmenityComplexId} was added");
 
@@ -242,7 +242,7 @@ namespace Revature.Complex.DataAccess.Repository
     {
       Entity.Amenity newAmenity = _map.MapAmenitytoE(amenity);
 
-      _context.Add(newAmenity);
+      await _context.AddAsync(newAmenity);
       await _context.SaveChangesAsync();
       log.LogInformation($"(REPO)new amenity: {amenity.AmenityType} was added");
 
@@ -312,7 +312,7 @@ namespace Revature.Complex.DataAccess.Repository
         List<Logic.Amenity> amenities = new List<Logic.Amenity>();
         foreach (var ac in amenityRooms)
         {
-          amenities.Add(_map.MapEtoAmenity(_context.Amenity.Find(ac.AmenityId)));
+          amenities.Add(_map.MapEtoAmenity(await _context.Amenity.FindAsync(ac.AmenityId)));
         }
 
         return amenities;
