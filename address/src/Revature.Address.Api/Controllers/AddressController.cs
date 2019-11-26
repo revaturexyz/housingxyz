@@ -102,12 +102,7 @@ namespace Revature.Address.Api.Controllers
       }
     }
 
-    [HttpPost]
-    [Route("complex")]
-    public async Task<ActionResult> PostComplexAddress([FromBody] List<AddressModel> addresses)
-    {
-      return Ok();
-    }
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(
