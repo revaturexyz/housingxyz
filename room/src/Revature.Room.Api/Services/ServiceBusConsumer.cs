@@ -57,18 +57,29 @@ namespace ServiceBusMessaging
         AutoComplete = false
       };
 
-      _roomDUCQueue.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
+      _roomDUCQueue.RegisterMessageHandler(ProcessRoomDUCAsync, messageHandlerOptions);
+      _occupancyUpdateQueue.RegisterMessageHandler(ProcessOccupancyUpdateAsync, messageHandlerOptions);
     }
-
     /// <summary>
-    /// The actual method to process the received message.
-    /// Receives and deserializes the message from complex and tenant service.  Based on what they send
-    /// us this method will determine what CRUD operations to do to the Room service.
+    /// Method used to process messages from tenant service
     /// </summary>
     /// <param name="message"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    private async Task ProcessMessagesAsync(Message message, CancellationToken token)
+    private Task ProcessOccupancyUpdateAsync(Message message, CancellationToken token)
+    {
+      //hey tri will you add implementation to this thanks...
+    }
+
+    /// <summary>
+    /// The actual method to process the received message from complex service.
+    /// Receives and deserializes the message from complex service.  Based on what they send
+    /// us this method will determine what CRUD operations to do on the Room service.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    private async Task ProcessRoomDUCAsync(Message message, CancellationToken token)
     {
       // Dispose of this scope after done using repository service
       //   Necessary due to singleton service (bus service) consuming a scoped service (repo)
