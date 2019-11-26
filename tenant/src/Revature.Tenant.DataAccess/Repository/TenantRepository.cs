@@ -38,11 +38,12 @@ namespace Revature.Tenant.DataAccess.Repository
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
-      if (tenant.Car != null)
-      {
-        Entities.Car newCar = _mapper.MapCar(tenant.Car);
-        await _context.Car.AddAsync(newCar);
-      }
+      //if (tenant.Car != null)
+      //{
+      //  Entities.Car newCar = _mapper.MapCar(tenant.Car);
+      //  newCar.Tenant = _context.Tenant.Where(t => t.Id == newTenant.Id).FirstOrDefault();
+      //  await _context.Car.AddAsync(newCar);
+      //}
     }
 
     /// <summary>
@@ -87,8 +88,8 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null)
     {
       var tenants = _context.Tenant
-        //.Include(t => t.Car)
-        //.Include(t => t.Batch)
+        .Include(t => t.Car)
+        .Include(t => t.Batch)
         .AsNoTracking();
 
       if (firstName != null && firstName != "")

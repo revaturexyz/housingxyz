@@ -86,13 +86,14 @@ namespace Revature.Tenant.DataAccess
       {
         newCar = new Entities.Car
         {
-          Id = tenant.Car.Id,
+          Id = 0,
           LicensePlate = tenant.Car.LicensePlate,
           Make = tenant.Car.Make,
           Model = tenant.Car.Model,
           Color = tenant.Car.Color,
           Year = tenant.Car.Year,
           State = tenant.Car.State
+          //maybe add tenant
         };
       }
       else
@@ -107,7 +108,7 @@ namespace Revature.Tenant.DataAccess
         LastName = tenant.LastName,
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
-        CarId = tenant.CarId,
+        CarId = 0,
         BatchId = tenant.BatchId,
         TrainingCenter = tenant.TrainingCenter,
         Car = newCar

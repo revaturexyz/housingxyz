@@ -267,7 +267,7 @@ namespace Revature.Tenant.Api.Controllers
             State = tenant.ApiCar.State,
             Year = tenant.ApiCar.Year
           };
-          newTenant.CarId = newTenant.Car.Id;
+          newTenant.CarId = 0;
         }
 
         await _tenantRepository.AddAsync(newTenant);
