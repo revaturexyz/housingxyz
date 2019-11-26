@@ -15,9 +15,9 @@ namespace Revature.Account.Api.Controllers
   public class CoordinatorAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    private readonly ILogger _logger;
+    private readonly ILogger<CoordinatorAccountController> _logger;
 
-    public CoordinatorAccountController(IGenericRepository repo, ILogger logger)
+    public CoordinatorAccountController(IGenericRepository repo, ILogger<CoordinatorAccountController> logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -16,9 +16,9 @@ namespace Revature.Account.Api.Controllers
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    private readonly ILogger _logger;
+    private readonly ILogger<NotificationController> _logger;
 
-    public NotificationController(IGenericRepository repo, ILogger logger)
+    public NotificationController(IGenericRepository repo, ILogger<NotificationController> logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));

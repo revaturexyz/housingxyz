@@ -16,9 +16,9 @@ namespace Revature.Account.Api.Controllers
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    private readonly ILogger _logger;
+    private readonly ILogger<ProviderAccountController> _logger;
 
-    public ProviderAccountController(IGenericRepository repo, ILogger logger)
+    public ProviderAccountController(IGenericRepository repo, ILogger<ProviderAccountController> logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));

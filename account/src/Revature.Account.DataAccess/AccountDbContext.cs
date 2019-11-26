@@ -64,6 +64,18 @@ namespace Revature.Account.DataAccess
         entity.HasMany(e => e.Providers)
           .WithOne(p => p.Coordinator)
           .HasForeignKey(p => p.CoordinatorId);
+
+        entity.HasData(new Entities.CoordinatorAccount[]
+        {
+          new CoordinatorAccount()
+          {
+            CoordinatorId = new System.Guid("837c3248-1685-4d08-934a-0f17a6d1836a"),
+            Name = "Cameron the Coordinator",
+            Email = "cameron@coordinator.com",
+            TrainingCenterName = "UTA",
+            TrainingCenterAddress = "300 W Martin Luther King Jr Blvd, Austin, TX 78705"
+          }
+        });
       });
 
       modelBuilder.Entity<Notification>(entity =>
