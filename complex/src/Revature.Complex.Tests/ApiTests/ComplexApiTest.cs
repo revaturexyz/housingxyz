@@ -22,12 +22,23 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void GetAllComplexAsyncTest()
     {
+      Logic.Complex complex = new Logic.Complex
+      {
+        ComplexId = Guid.NewGuid(),
+        AddressId = Guid.NewGuid(),
+        ProviderId = Guid.NewGuid(),
+        ComplexName = "test",
+        ContactNumber = "1234567892"
+      };
       //setup
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
       Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
       Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
       Mock<IAddressService> ads = new Mock<IAddressService>();
-      List<Logic.Complex> res = new List<Logic.Complex>();
+      List<Logic.Complex> res = new List<Logic.Complex>
+      {
+        complex
+      };
       _complexRepo.Setup(r => r.ReadComplexListAsync())
           .Returns(Task.FromResult(res));
 
@@ -96,11 +107,22 @@ namespace Revature.Complex.Tests.ApiTests
     {
       //setup
       Guid pId = Guid.NewGuid();
+      Logic.Complex complex = new Logic.Complex
+      {
+        ComplexId = Guid.NewGuid(),
+        AddressId = Guid.NewGuid(),
+        ProviderId = pId,
+        ComplexName = "test",
+        ContactNumber = "1234567892"
+      };
       Mock<IRepository> _complexRepo = new Mock<IRepository>();
       Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
       Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
       Mock<IAddressService> ads = new Mock<IAddressService>();
-      List<Logic.Complex> res = new List<Logic.Complex>();
+      List<Logic.Complex> res = new List<Logic.Complex>
+      {
+        complex
+      };
       _complexRepo.Setup(r => r.ReadComplexByProviderIdAsync(pId))
           .Returns(Task.FromResult(res));
 
