@@ -17,7 +17,7 @@ namespace Revature.Room.Api.Controllers
     /// <summary>
     /// Controller in charge of communicating with the tenant service
     /// </summary>
-    public TenantController(IRepository repository, ILogger logger)
+    public TenantController(IRepository repository, ILogger<TenantController> logger)
     {
       _repository = repository ?? throw new NullReferenceException("Repository cannot be null." + nameof(repository));
       _logger = logger ?? throw new NullReferenceException("Logger cannot be null." + nameof(logger));
