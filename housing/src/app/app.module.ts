@@ -29,6 +29,7 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
+import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CoordinatorModule } from './coordinator.module';
     RequestDialogComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    NotificationDetailsComponent,
+    AssignTenantToRoomComponent
   ],
   imports: [
     BrowserModule,
