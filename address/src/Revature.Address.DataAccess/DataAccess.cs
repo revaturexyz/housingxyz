@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Address.DataAccess
 {
@@ -17,6 +18,7 @@ namespace Revature.Address.DataAccess
     {
     private readonly IMapper _mapper;
     private readonly AddressDbContext _context;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// constructor for the project0 database access
@@ -50,6 +52,7 @@ namespace Revature.Address.DataAccess
         }
       } catch
       {
+        _logger.LogError($"Address Id: {address.Id} failed to add to database");
         return false;
       }
       return true;
@@ -61,7 +64,7 @@ namespace Revature.Address.DataAccess
     /// <param name="id"></param>
     /// <param name="address"></param>
     /// <returns>Returns an address</returns>
-    public async Task<ICollection<Lib.Address>> GetAddressAsync(Guid? id = null, Lib.Address address = null)
+    public async Task<ICollection<Lib.Address>> GetAddressAsync(Guid? id = null, Lib.Address? address = null)
     {
       List<Entities.Address> addresses = await _context.Addresses.AsNoTracking().ToListAsync();
 
@@ -98,7 +101,6 @@ namespace Revature.Address.DataAccess
     {
       await _context.SaveChangesAsync();
     }
-
     #region IDisposable Support
     private bool _disposedValue = false; // To detect redundant calls
 

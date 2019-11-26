@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using Revature.Address.Api.Models;
 using Revature.Address.Lib.BusinessLogic;
 using Revature.Address.Lib.Interfaces;
@@ -32,6 +30,32 @@ namespace Revature.Address.Api.Controllers
 
     // GET: api/address
     [HttpGet]
+    public async Task<ActionResult<bool>> IsAddressDuplicated(AddressModel model)
+    {
+      Lib.Address bModel = new Lib.Address
+      {
+        Id = model.Id,
+        Street = model.Street,
+        City = model.City,
+        State = model.State,
+        Country = model.Country,
+        ZipCode = model.ZipCode
+      };
+
+      Lib.Address address = (await db.GetAddressAsync(address: bModel)).FirstOrDefault();
+
+      if (address == null)
+      {
+        _logger.LogInformation("Address does not exist in the database");
+        return false;
+      }
+
+      _logger.LogError("Address already exists in the database");
+      return true;
+    }
+
+    // GET: api/address/5
+    [HttpGet("{id}")]
     public async Task<ActionResult<AddressModel>> GetAddressById(Guid id)
     {
 
@@ -55,9 +79,37 @@ namespace Revature.Address.Api.Controllers
       });
     }
 
-    // POST: api/address/tenant
+    // GET: api/address/getdistance
+    [HttpGet("getdistance")]
+    public async Task<ActionResult<bool>> IsInRange([FromQuery] List<AddressModel> addresses, [FromServices] AddressLogic addressLogic)
+    {
+      List<Lib.Address> checkAddresses = new List<Lib.Address>();
+      foreach(AddressModel address in addresses)
+      {
+        Lib.Address newAddress = new Lib.Address
+        {
+          Id = address.Id,
+          Street = address.Street,
+          City = address.City,
+          State = address.State,
+          Country = address.Country,
+          ZipCode = address.ZipCode
+        };
+        checkAddresses.Add(newAddress);
+      }
+        if (await addressLogic.IsInRangeAsync(checkAddresses[0], checkAddresses[1], 20))
+        {
+          _logger.LogInformation("These addresses are within range of each other");
+          return true;
+        } else
+        {
+          _logger.LogError("These addresses are not in range of each other");
+          return false;
+        }
+    }
+
+    // POST: api/address
     [HttpPost]
-    [Route("tenant")]
     public async Task<ActionResult> PostTenantAddress([FromBody] AddressModel address, [FromServices] AddressLogic addressLogic)
     {
         Lib.Address newAddress = new Lib.Address
@@ -103,7 +155,6 @@ namespace Revature.Address.Api.Controllers
     }
 
 
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(
             [FromRoute] Guid id)
@@ -119,6 +170,5 @@ namespace Revature.Address.Api.Controllers
       _logger.LogInformation("Address successfully deleted");
       return NoContent();
     }
-
   }
 }

@@ -1,7 +1,5 @@
 using Revature.Address.Lib.Models.DistanceMatrix;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Revature.Address.Tests.Lib.Tests

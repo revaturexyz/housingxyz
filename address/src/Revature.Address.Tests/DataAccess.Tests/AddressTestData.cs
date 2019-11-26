@@ -36,6 +36,5 @@ namespace Revature.Address.Tests.DataAccess.Tests
       };
       return ValidAddress2;
     }
-
   }
 }

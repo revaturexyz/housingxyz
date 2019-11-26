@@ -105,7 +105,5 @@ namespace Revature.Address.Tests.DataAccess.Tests
         Assert.True(AddressResult);
       }
     }
-
- 
   }
 }

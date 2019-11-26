@@ -5,9 +5,9 @@ namespace Revature.Address.Api.ServiceBus
   /// <summary>
   /// Interface for ServiceBusConsumer
   /// </summary>
-  interface IServiceBusConsumer
+  interface IAddressServiceReceiver
   {
-    void RegisterOnMessageHandlerAndReceiveMessages();
-    Task CloseQueueAsync();
+    abstract public void RegisterOnMessageHandlerAndReceiveMessages();
+    abstract public Task CloseQueueAsync();
   }
 }

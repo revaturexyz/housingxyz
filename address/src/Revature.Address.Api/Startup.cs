@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +20,6 @@ namespace Revature.Address.Api
   /// </summary>
   public class Startup
   {
-    private const string ConnectionStringName = "AddressDb";
     private const string CorsPolicyName = "RevatureCorsPolicy";
 
     public Startup(IConfiguration configuration)
@@ -46,10 +46,11 @@ namespace Revature.Address.Api
             .AllowCredentials();
         });
       });
+      services.AddDbContext<AddressDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AddressDb")));
 
       services.AddScoped<IMapper, DataAccess.Mapper>();
       services.AddScoped<IDataAccess, DataAccess.DataAccess>();
-      services.AddHostedService<ServiceBusConsumer>();
+      //services.AddHostedService<AddressServiceReceiver>();
       services.AddScoped<AddressLogic>();
 
       services.AddSwaggerGen(c =>
@@ -75,8 +76,8 @@ namespace Revature.Address.Api
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Address V1");
       });
 
-      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
+      //var bus = app.ApplicationServices.GetService<IAddressServiceReceiver>();
+      //bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 

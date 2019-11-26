@@ -1,4 +1,3 @@
-
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -18,23 +17,21 @@ namespace Revature.Address.Api.ServiceBus
   /// and receiving messages on the address queue on the
   /// service bus
   /// </summary>
-  public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
+  public class AddressServiceReceiver : BackgroundService, IAddressServiceReceiver
   {
-    private readonly IConfiguration _configuration;
     private readonly QueueClient _queueClient;
     private readonly IServiceProvider Services;
-    private readonly ILogger<ServiceBusConsumer> _logger;
+    private readonly ILogger<AddressServiceReceiver> _logger;
 
-    public ServiceBusConsumer(
+    public AddressServiceReceiver(
         IConfiguration configuration,
         IServiceProvider services,
-        ILogger<ServiceBusConsumer> logger)
+        ILogger<AddressServiceReceiver> logger)
     {
-      _configuration = configuration;
       _logger = logger;
       Services = services;
       _queueClient = new QueueClient(
-        _configuration.GetConnectionString("ServiceBus"), _configuration.GetConnectionString("TestQ"));
+        configuration.GetConnectionString("ServiceBus"), configuration.GetConnectionString("TestQ"));
     }
 
     /// <summary>
@@ -94,7 +91,7 @@ namespace Revature.Address.Api.ServiceBus
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
     {
       var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-
+      _logger.LogError(context.ToString());
       return Task.CompletedTask;
     }
 
@@ -115,8 +112,7 @@ namespace Revature.Address.Api.ServiceBus
     /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      throw new NotImplementedException();
+      return Task.CompletedTask;
     }
   }
 }
-
