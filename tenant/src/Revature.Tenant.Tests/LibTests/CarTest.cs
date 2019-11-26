@@ -7,14 +7,6 @@ namespace Revature.Tenant.Tests.LibTests
 {
   public class CarTest
   {
-    /// <summary>
-    /// Tests that Empty ID throw exception
-    /// </summary>
-    [Fact]
-    public void Car_Id_Test()
-    {
-      Assert.ThrowsAny<ArgumentOutOfRangeException>(() => new Lib.Models.Car { Id = -1 });
-    }
 
     /// <summary>
     /// Tests that Empty LP throw exception

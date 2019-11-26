@@ -46,7 +46,7 @@ namespace Revature.Tenant.Tests.ApiTests
       Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       var controller = new TenantController(mockRepo.Object, mockLogger.Object);
       // Act (get a Tenant with an id)
-     
+
       var colton = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
       var result = await controller.GetByIdAsync(colton);
 
@@ -84,7 +84,7 @@ namespace Revature.Tenant.Tests.ApiTests
     }
 
     /// <summary>
-    /// Tests that Tenant Controller Method, PostAsync,
+    /// Tests that Tenant Controller Method, PostAsync, returns Object Result and ApiTenant
     /// </summary>
     /// <returns></returns>
     [Fact]
@@ -123,7 +123,7 @@ namespace Revature.Tenant.Tests.ApiTests
     /// <summary>
     /// Tests that UpdateAsync() Returns Status Code 204
     /// </summary>
-    
+
     [Fact]
 
     public async Task UpdateAsyncShouldReturnStatusCode204()
@@ -177,6 +177,62 @@ namespace Revature.Tenant.Tests.ApiTests
 
       //Assert
       var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);
+    }
+
+    [Fact]
+    public async Task DeleteShouldReturnStatusCode204()
+    {
+      //Arrange (create a moq repo and use it for the controller)
+      Mock<ITenantRepository> mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
+      var options = TestDbInitializer.InitializeDbOptions("DeleteShouldReturnStatusCode204");
+      using var db = TestDbInitializer.CreateTestDb(options);
+      var mapper = new Mapper();
+
+      var mockLogger = new Mock<ILogger<TenantController>>();
+      var controller = new TenantController(mockRepo.Object, mockLogger.Object);
+
+      //Act (Add a tenant to be deleted)
+      var apiTenant = new ApiTenant
+      {
+        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        Email = "colton@colton.com",
+        Gender = "male",
+        FirstName = "Colton",
+        LastName = "Clary",
+        AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        ApiBatch = new ApiBatch
+        {
+          TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+          Id = 1,
+          BatchCurriculum = "c#"
+        },
+        ApiCar = new ApiCar
+        {
+          Id = 1,
+          Color = "y",
+          LicensePlate = "123",
+          Make = "s",
+          Model = "2",
+          State = "w",
+          Year = "l"
+        },
+        ApiAddress = new ApiAddress
+        {
+          State = "sdl",
+          AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+          City = "l",
+          Country = "l",
+          Street = "s",
+          ZipCode = "l"
+        }
+      };
+
+      var result = await controller.DeleteAsync("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
+
+      //Arrange
+      var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);
+
     }
   }
 }
