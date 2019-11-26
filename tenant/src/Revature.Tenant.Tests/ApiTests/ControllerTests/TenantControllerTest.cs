@@ -16,7 +16,9 @@ namespace Revature.Tenant.Tests.ApiTests
 {
   public class TenantControllerTest
   {
-    
+    /// <summary>
+    /// Tests that Constructor for Tenant Controller successfully constructs
+    /// </summary>
 
     [Fact]
     public void ConstructorShouldConstruct()
@@ -32,7 +34,10 @@ namespace Revature.Tenant.Tests.ApiTests
 
       // assert (test passes if no exception thrown)
     }
-
+    /// <summary>
+    /// Tests that Controller Method, GetByIdAsync(), Returns Ok result with ApiTenant
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetByIdShouldGetByIdAsync()
     {
@@ -50,7 +55,10 @@ namespace Revature.Tenant.Tests.ApiTests
       var tenant = Assert.IsAssignableFrom<ApiTenant>(ok.Value);
       Assert.NotNull(tenant);
     }
-
+    /// <summary>
+    /// Tests that Tenant Controller Method, GetAllBatches(), returns OK Object Result and List of Library Batches
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetAllBatchesByTCShouldGetAllByTCAsync()
     {
@@ -75,6 +83,11 @@ namespace Revature.Tenant.Tests.ApiTests
       Assert.NotNull(batches);
     }
 
+    /// <summary>
+    /// Tests that Tenant Controller Method, PostAsync,
+    /// </summary>
+    /// <returns></returns>
+    [Fact]
     public async Task PostShouldPost()
     {
       // Arrange (create a moq repo and use it for the controller)
@@ -107,6 +120,10 @@ namespace Revature.Tenant.Tests.ApiTests
       Assert.NotNull(tenant);
     }
 
+    /// <summary>
+    /// Tests that UpdateAsync() Returns Status Code 204
+    /// </summary>
+    
     [Fact]
 
     public async Task UpdateAsyncShouldReturnStatusCode204()
