@@ -53,6 +53,7 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Getting filtered rooms...");
+
         IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
         complexId,
         roomNumber,
@@ -61,7 +62,9 @@ namespace Revature.Room.Api.Controllers
         gender,
         endDate,
         roomId);
+
         _logger.LogInformation("Success.");
+
         return Ok(rooms);
       }
       catch (KeyNotFoundException ex)
@@ -84,8 +87,11 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Getting room ready...");
+
         var result = await _repository.ReadRoomAsync(roomId);
+
         _logger.LogInformation("Success");
+
         return Ok(result);
       }
       catch (InvalidOperationException ex)
@@ -109,7 +115,8 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Adding a room");
-        Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room
+
+        Lib.Room createdRoom = new Lib.Room
         {
           ComplexId = room.ComplexId,
           RoomId = room.RoomId,
@@ -120,6 +127,7 @@ namespace Revature.Room.Api.Controllers
           RoomType = room.RoomType
         };
         createdRoom.SetLease(room.LeaseStart, room.LeaseEnd);
+
         await _repository.CreateRoomAsync(createdRoom);
         await _repository.SaveAsync();
 
@@ -150,8 +158,10 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Updating a room");
+
         var IERooms = await _repository.ReadRoomAsync(id);
         IERooms.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
+
         await _repository.UpdateRoomAsync(IERooms);
         await _repository.SaveAsync();
 
@@ -184,14 +194,17 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Deleting room");
-        Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-        ro.RoomId = id;
 
-        await _repository.DeleteRoomAsync(ro.RoomId);
+        await _repository.DeleteRoomAsync(id);
         await _repository.SaveAsync();
+
         _logger.LogInformation("Success. Room has been deleted");
 
-        await _busSender.SendDeleteMessage(ro);
+        _logger.LogInformation("Alerting complex service that room has been deleted...");
+
+        await _busSender.SendDeleteMessage(id);
+
+        _logger.LogInformation("Success! Message has been sent!");
 
         return NoContent();
       }
@@ -215,15 +228,16 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Deleting rooms from complex");
-        Lib.Room co = new Lib.Room();
-        co.ComplexId = id;
 
-        var listOfGuid = await _repository.DeleteComplexRoomAsync(co.ComplexId);
+        var listOfGuid = await _repository.DeleteComplexRoomAsync(id);
         await _repository.SaveAsync();
+
         _logger.LogInformation("Success! Rooms have been deleted");
 
         _logger.LogInformation("Sending deleted room id's to complex service");
+
         await _busSender.SendDeleteComplexMessage(listOfGuid);
+
         _logger.LogInformation("Deleted room id's have been sent to complex service");
 
         return NoContent();

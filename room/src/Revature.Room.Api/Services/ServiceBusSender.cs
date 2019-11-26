@@ -32,7 +32,7 @@ namespace ServiceBusMessaging
 
 
     /// <summary>
-    /// ServiceBus message for deleting a complex 
+    /// ServiceBus message for deleting all rooms in a complex 
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
@@ -47,13 +47,15 @@ namespace ServiceBusMessaging
     }
 
     /// <summary>
-    /// ServiceBus message for deleting a message
+    /// ServiceBus message for deleting a room
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public async Task SendDeleteMessage(Room roomToSend)
+    /// <remarks>Packaged room id into a list so that the complex service need not change their Queues</remarks>
+    public async Task SendDeleteMessage(Guid roomToSend)
     {
-      string data = JsonSerializer.Serialize(roomToSend);
+      var package = new List<Guid>() {roomToSend};
+      string data = JsonSerializer.Serialize(package);
 
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 

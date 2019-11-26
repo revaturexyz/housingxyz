@@ -166,7 +166,7 @@ namespace Revature.Room.DataAccess
     {
       return await _context.Room
         .Where(r => (r.Gender == null || r.Gender.Type.ToUpper() == gender.ToUpper()) && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
-        .Select(r => new Tuple<Guid, int>( r.RoomId, r.NumberOfBeds))
+        .Select(r => new Tuple<Guid, int>(r.RoomId, r.NumberOfBeds))
         .ToListAsync();
     }
 
@@ -180,11 +180,12 @@ namespace Revature.Room.DataAccess
     {
       Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
       roomToUpdate.NumberOfOccupants++;
-      if(roomToUpdate.Gender == null)
+      if (roomToUpdate.Gender == null)
       {
         roomToUpdate.Gender = await _context.Gender.FirstAsync(g => g.Type.ToUpper() == tenantGender.ToUpper());
       }
     }
+
     /// <summary>
     /// Method that updates occupants when an occupant vacates a room
     /// </summary>
@@ -196,7 +197,7 @@ namespace Revature.Room.DataAccess
     {
       Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
       roomToUpdate.NumberOfOccupants--;
-      if(roomToUpdate.NumberOfOccupants == 0)
+      if (roomToUpdate.NumberOfOccupants == 0)
       {
         roomToUpdate.Gender = null;
       }

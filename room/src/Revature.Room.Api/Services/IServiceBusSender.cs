@@ -9,6 +9,6 @@ namespace ServiceBusMessaging
   {
     Task SendDeleteComplexMessage(List<Guid> roomToSend);
 
-    Task SendDeleteMessage(Room roomToSend);
+    Task SendDeleteMessage(Guid roomToSend);
   }
 }
