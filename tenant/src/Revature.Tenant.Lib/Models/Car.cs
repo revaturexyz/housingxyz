@@ -22,11 +22,6 @@ namespace Revature.Tenant.Lib.Models
       get => _id;
       set
       {
-        if (value < 0)
-        {
-          throw new ArgumentOutOfRangeException(nameof(value), "ID must not be negative");
-        }
-
         _id = value;
       }
     }

@@ -36,21 +36,16 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] ApiSearchParameters apiSearchParameters)
+    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] string firstName = null, [FromQuery] string lastName = null, [FromQuery] string gender = null, [FromQuery] string trainingCenter = null)
     {
-
-      string firstName = apiSearchParameters.FirstName;
-      string lastName = apiSearchParameters.LastName;
-      string gender = apiSearchParameters.Gender;
-      Guid? trainingCenter;
-      if (apiSearchParameters.TrainingCenter != null)
-        trainingCenter= Guid.Parse(apiSearchParameters.TrainingCenter);
+      Guid? trainingCenterGuid;
+      if (trainingCenter != null)
+        trainingCenterGuid= Guid.Parse(trainingCenter);
       else
-        trainingCenter = null;
-
+        trainingCenterGuid = null;
 
       _logger.LogInformation("GET - Getting tenants");
-      var tenants = await _tenantRepository.GetAllAsync(firstName, lastName, gender, trainingCenter);
+      var tenants = await _tenantRepository.GetAllAsync(firstName, lastName, gender, trainingCenterGuid);
 
       List<Lib.Models.Tenant> newTenants = new List<Lib.Models.Tenant>();
       foreach (Lib.Models.Tenant tenant in tenants)
@@ -74,6 +69,7 @@ namespace Revature.Tenant.Api.Controllers
           batchId = null;
         }
         tenant.Batch = batch;
+        tenant.BatchId = batchId;
         Lib.Models.Car car;
         int? carId;
         if (tenant.Car != null)
@@ -89,6 +85,7 @@ namespace Revature.Tenant.Api.Controllers
             State = tenant.Car.State
           };
           carId = tenant.CarId;
+          tenant.CarId = carId;
         }
         else
         {
@@ -270,7 +267,7 @@ namespace Revature.Tenant.Api.Controllers
             State = tenant.ApiCar.State,
             Year = tenant.ApiCar.Year
           };
-          newTenant.CarId = newTenant.Car.Id;
+          newTenant.CarId = 0;
         }
 
         await _tenantRepository.AddAsync(newTenant);
@@ -279,7 +276,6 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("POST Persisted to dB");
 
         return Created($"api/Tenant/{newTenant.Id}", newTenant);
-        return StatusCode(StatusCodes.Status418ImATeapot);
       }
       catch (ArgumentException)
       {

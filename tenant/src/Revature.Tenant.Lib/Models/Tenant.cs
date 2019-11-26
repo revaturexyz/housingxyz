@@ -109,11 +109,6 @@ namespace Revature.Tenant.Lib.Models
       get => _carId;
       set
       {
-        if (value < 0)
-        {
-          throw new ArgumentOutOfRangeException(nameof(value), "Car Id must not be negative");
-        }
-
         _carId = value;
       }
     }
