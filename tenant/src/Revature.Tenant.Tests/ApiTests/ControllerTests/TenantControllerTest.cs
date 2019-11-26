@@ -116,7 +116,7 @@ namespace Revature.Tenant.Tests.ApiTests
 
       //Assert
       var ok = Assert.IsAssignableFrom<ObjectResult>(result.Result);
-      var tenant = Assert.IsAssignableFrom<ApiTenant>(ok.Value);
+      var tenant = Assert.IsAssignableFrom<string>(ok.Value);
       Assert.NotNull(tenant);
     }
 
