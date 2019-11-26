@@ -42,7 +42,11 @@ namespace Revature.Tenant.Api.Controllers
       string firstName = apiSearchParameters.FirstName;
       string lastName = apiSearchParameters.LastName;
       string gender = apiSearchParameters.Gender;
-      Guid trainingCenter = Guid.Parse(apiSearchParameters.TrainingCenter);
+      Guid? trainingCenter;
+      if (apiSearchParameters.TrainingCenter != null)
+        trainingCenter= Guid.Parse(apiSearchParameters.TrainingCenter);
+      else
+        trainingCenter = null;
 
 
       _logger.LogInformation("GET - Getting tenants");
@@ -240,6 +244,7 @@ namespace Revature.Tenant.Api.Controllers
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
+        
         var newTenant = new Lib.Models.Tenant
         {
           Id = Guid.NewGuid(),
@@ -251,10 +256,10 @@ namespace Revature.Tenant.Api.Controllers
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter
+          TrainingCenter = tenant.TrainingCenter,
+          
         };
-
-        if(tenant.ApiCar != null)
+        if (tenant.ApiCar != null)
         {
           newTenant.Car = new Lib.Models.Car
           {
@@ -274,6 +279,7 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("POST Persisted to dB");
 
         return Created($"api/Tenant/{newTenant.Id}", newTenant);
+        return StatusCode(StatusCodes.Status418ImATeapot);
       }
       catch (ArgumentException)
       {
@@ -390,13 +396,14 @@ namespace Revature.Tenant.Api.Controllers
     /// Delete a tenant by id
     /// </summary>
     /// <param name="id">Guid Id, converted from string in Query String</param>
-    [HttpDelete("delete/{id}", Name = "DeleteTenant")]
+    [HttpDelete("Delete", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
+    public async Task<ActionResult> DeleteAsync([FromBody] string id)
     {
       try
       {
         await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        await _tenantRepository.SaveAsync();
         return StatusCode(StatusCodes.Status204NoContent);
       }
       catch (ArgumentException)

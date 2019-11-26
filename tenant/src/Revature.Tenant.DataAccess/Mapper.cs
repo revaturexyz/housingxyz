@@ -80,6 +80,23 @@ namespace Revature.Tenant.DataAccess
     /// <returns>A Tenant Entity who may have a nested Car Model and/or a Batch Model</returns>
     public Entities.Tenant MapTenant(Lib.Models.Tenant tenant)
     {
+      Entities.Car newCar;
+      if (tenant.Car != null)
+      {
+        newCar = new Entities.Car
+        {
+          Id = tenant.Car.Id,
+          LicensePlate = tenant.Car.LicensePlate,
+          Make = tenant.Car.Make,
+          Model = tenant.Car.Model,
+          Color = tenant.Car.Color,
+          Year = tenant.Car.Year,
+          State = tenant.Car.State
+        };
+      }
+      else
+        newCar = null;
+
       return new Entities.Tenant
       {
         Id = tenant.Id,
@@ -92,26 +109,7 @@ namespace Revature.Tenant.DataAccess
         CarId = tenant.CarId,
         BatchId = tenant.BatchId,
         TrainingCenter = tenant.TrainingCenter,
-
-        Car = new Entities.Car
-        {
-          Id = tenant.Car.Id,
-          LicensePlate = tenant.Car.LicensePlate,
-          Make = tenant.Car.Make,
-          Model = tenant.Car.Model,
-          Color = tenant.Car.Color,
-          Year = tenant.Car.Year,
-          State = tenant.Car.State
-        },
-
-        Batch = new Entities.Batch
-        {
-          Id = tenant.Batch.Id,
-          BatchCurriculum = tenant.Batch.BatchCurriculum,
-          StartDate = tenant.Batch.StartDate,
-          EndDate = tenant.Batch.EndDate,
-          TrainingCenter = tenant.Batch.TrainingCenter
-        }
+        Car = newCar
       };
     }
 
