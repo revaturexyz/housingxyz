@@ -50,7 +50,7 @@
 
       <div class="div-drawer d-md-flex text-center justify-content-center">
         <!--First div that shows on page-->
-        <div *ngIf="mode=='init'" class="align-self-center"><h2>Select a complex from the menu or</h2><h2><a class="add-complex-highlight" (click)="changeMode('add-complex')">add another now</a></h2></div>
+        <div id="welcome-directions" *ngIf="mode=='init'" class="align-self-center"><h2>Select a complex from the menu or</h2><h2><a class="add-complex-highlight" (click)="changeMode('add-complex')">add another now</a></h2></div>
 
         <!--Once a complex is selected, replace former div to show complex details-->
         <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (targetRoomOutput)="changeTargetRoom($event)" (modeOutput)="changeMode($event)"></dev-complex-details>

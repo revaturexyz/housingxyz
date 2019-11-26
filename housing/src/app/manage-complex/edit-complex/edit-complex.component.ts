@@ -17,14 +17,14 @@ export class EditComplexComponent implements OnInit {
   // seed for simulating all amenities
   seededAmenityList = TestServiceData.dummyAmenityList1;
   // Init for form binding
-  formLivingComplex: Complex;
+  formComplex: Complex;
 
   constructor() {
    }
 
   ngOnInit() {
     // Populate default form values
-    this.formLivingComplex = this.targetComplex;
+    this.formComplex = this.targetComplex;
   }
   // to save edits to db and change mode back to details
   putEditComplex() {

@@ -1,7 +1,7 @@
 <div class="add-room-container" *ngIf="targetComplex" else errorblock>
   <h3 class="add-room-header">Edit {{ targetComplex.complexName }}</h3>
   <hr />
-  <!-- Start of form -->
+  <!-- Start of form for editing a complex -->
   <form id="EditComplexForm">
     <!-- Start of street address input -->
     <div class="form-group">
@@ -9,8 +9,8 @@
       <input
         type="text"
         required
-        name="formLivingComplex.apiAddress.streetAddress"
-        [(ngModel)]="formLivingComplex.apiAddress.streetAddress"
+        name="formComplex.apiAddress.streetAddress"
+        [(ngModel)]="formComplex.apiAddress.streetAddress"
         class="form-control"
         id="streetAddress"
         #streetAddress="ngModel"
@@ -32,8 +32,8 @@
         <input
           type="text"
           required
-          name="formLivingComplex.apiAddress.city"
-          [(ngModel)]="formLivingComplex.apiAddress.city"
+          name="formComplex.apiAddress.city"
+          [(ngModel)]="formComplex.apiAddress.city"
           class="form-control"
           id="city"
           #city="ngModel"
@@ -45,8 +45,8 @@
         <input
           type="text"
           required
-          name="formLivingComplex.apiAddress.state"
-          [(ngModel)]="formLivingComplex.apiAddress.state"
+          name="formComplex.apiAddress.state"
+          [(ngModel)]="formComplex.apiAddress.state"
           class="form-control"
           id="state"
           #state="ngModel"
@@ -59,9 +59,9 @@
           type="text"
           required
           pattern="[0-9]{5}"
-          [(ngModel)]="formLivingComplex.apiAddress.zipcode"
+          [(ngModel)]="formComplex.apiAddress.zipcode"
           class="form-control"
-          name="formLivingComplex.apiAddress.zipCode"
+          name="formComplex.apiAddress.zipCode"
           id="zipCode"
           #zipCode="ngModel"
           aria-describedby="zipCode"
@@ -86,8 +86,8 @@
       <input
         type="text"
         required
-        name="formLivingComplex.complexName"
-        [(ngModel)]="formLivingComplex.complexName"
+        name="formComplex.complexName"
+        [(ngModel)]="formComplex.complexName"
         #complexName="ngModel"
         class="form-control"
         id="complexName"
@@ -109,8 +109,8 @@
         type="text"
         required
         pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"
-        name="formLivingComplex.complexNumber"
-        [(ngModel)]="formLivingComplex.contactNumber"
+        name="formComplex.complexNumber"
+        [(ngModel)]="formComplex.contactNumber"
         #phoneNumber="ngModel"
         class="form-control"
         id="complexNumber"
@@ -129,8 +129,8 @@
     <!-- Start of amenity selection-->
     <mat-form-field>
       <mat-label>Amenities</mat-label>
-      <mat-select name="formLivingComplex.amenity"
-      [(ngModel)]="formLivingComplex.amenity" #amenity="ngModel" id="amenity"
+      <mat-select name="formComplex.amenity"
+      [(ngModel)]="formComplex.amenity" #amenity="ngModel" id="amenity"
       aria-describedby="amenity" multiple>
         <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
       </mat-select>
