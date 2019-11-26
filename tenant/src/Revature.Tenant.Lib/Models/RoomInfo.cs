@@ -6,7 +6,7 @@ namespace Revature.Tenant.Lib.Models
   /// <summary>
   /// Class that contains necessary information about the room and its residents
   /// </summary>
-  /// <exception cref="ArgumentException">Thrown when number of beds is not positive</exception>
+  /// <exception cref="ArgumentException">Thrown when number of beds is not positive or if room id is empty</exception>
   public class RoomInfo
   {
     /// <summary>
@@ -22,6 +22,7 @@ namespace Revature.Tenant.Lib.Models
     /// <summary>
     /// RoomId from Room Service
     /// </summary>
+    /// <exception cref="ArgumentException">Thrown when room id is empty</exception>
     public Guid RoomId
     {
       get => _roomId;
