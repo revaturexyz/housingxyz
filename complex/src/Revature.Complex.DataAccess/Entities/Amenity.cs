@@ -9,6 +9,7 @@ namespace Revature.Complex.DataAccess.Entities
   /// </summary>
   public class Amenity
   {
+
     public Guid AmenityId { get; set; }
     public string AmenityType { get; set; }
     public string Description { get; set; }
