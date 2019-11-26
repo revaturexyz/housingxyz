@@ -20,6 +20,7 @@ import { EditRoomComponent } from './edit-room/edit-room.component';
 import { EditComplexComponent } from './edit-complex/edit-complex.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 describe('ManageComplexComponent', () => {
   let component: ManageComplexComponent;
@@ -54,5 +55,10 @@ describe('ManageComplexComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have directions', () => {
+    const messageSelector = fixture.debugElement.query(By.css('#welcome-directions')).nativeElement;
+    expect(messageSelector).toBeTruthy();
   });
 });

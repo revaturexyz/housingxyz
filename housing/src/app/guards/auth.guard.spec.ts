@@ -5,7 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 class BlankComponent {
 
@@ -13,7 +13,7 @@ class BlankComponent {
 
 describe('AuthGuard', () => {
   let injector: TestBed;
-  const authService: any = { isAuthenticated$: Observable.of(true)};
+  const authService: any = { isAuthenticated$: of(true)};
   let guard: AuthGuard;
   const routeMock: any = { snapshot: {}};
   const routeStateMock: any = { snapshot: {}, url: '/provider-select'};
