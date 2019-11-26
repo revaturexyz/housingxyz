@@ -176,7 +176,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> UpdateNotificationAsync(Notification notification)
     {
-      var existingEntity = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notificationId);
+      var existingEntity = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notification.NotificationId);
       if (existingEntity == null)
         return false;
 
