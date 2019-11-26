@@ -103,7 +103,6 @@ namespace Revature.Tenant.DataAccess.Repository
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
       
-
       return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }
 
@@ -171,6 +170,7 @@ namespace Revature.Tenant.DataAccess.Repository
         return true;
       }
     }
+
     /// <summary>
     /// This persists changes to data base. 
     /// </summary>

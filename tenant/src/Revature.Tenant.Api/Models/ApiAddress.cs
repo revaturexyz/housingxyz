@@ -1,11 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Models
 {
+  /// <summary>
+  /// All Tenants must have a permanent address.
+  /// This will be used more heavily when the service buss to Address Service exists.
+  /// </summary>
   public class ApiAddress
   {
     [Required]
@@ -25,8 +26,5 @@ namespace Revature.Tenant.Api.Models
 
     [Required]
     public string Country { get; set; }
-
-
-
   }
 }
