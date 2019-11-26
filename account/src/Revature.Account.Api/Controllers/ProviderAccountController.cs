@@ -63,7 +63,7 @@ namespace Revature.Account.Api.Controllers
         await _repo.SaveAsync();
 
         _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
-        return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
+        return CreatedAtRoute("GetProviderAccountById", new { mappedProvider.ProviderId }, mappedProvider);
       }
       catch (Exception e)
       {
