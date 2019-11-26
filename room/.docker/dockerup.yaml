@@ -16,7 +16,6 @@ services:
       - room_localhost
     environment:
       ConnectionStrings__RoomDb: 'Host=data;Database=room;Username=postgres;Password=Pass@word'
-      ConnectionStrings__ServiceBus: 'Endpoint=sb://gabservice.servicebus.windows.net/;SharedAccessKeyName=project2policy;SharedAccessKey=9gdvy0ZlZ8kBRYqwe27uP4cmx+G20udOj+/wzAYvQvs='
   data:
     image: postgres:12.0
     networks:
