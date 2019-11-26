@@ -66,9 +66,48 @@ namespace ServiceBusMessaging
     /// <param name="message"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    private Task ProcessOccupancyUpdateAsync(Message message, CancellationToken token)
+    /// <exception cref="JsonException">Thrown when message isn't deserialized properly</exception>
+    private async Task ProcessOccupancyUpdateAsync(Message message, CancellationToken token)
     {
-      //hey tri will you add implementation to this thanks...
+      // Dispose of this scope after done using repository service
+      //   Necessary due to singleton service (bus service) consuming a scoped service (repo)
+      using (var scope = Services.CreateScope())
+      {
+        var _repo = scope.ServiceProvider.GetRequiredService<IRepository>();
+        try
+        {
+          _logger.LogInformation("Attempting to deserialize tenant message from service bus consumer", message.Body);
+          // Expect to receive a tuple of <Guid, string> from the tenant service
+          TenantMessage receivedMessage = JsonSerializer.Deserialize<TenantMessage>(message.Body);
+
+          //TenantMessage returns both a Tuple that has a type of <Guid, string> and an operation type that
+          //states which operation to do, either adding or subtracting an occupant
+          switch (receivedMessage.OperationType) {
+            case OperationType.Create:
+              _logger.LogInformation("Adding occupants to a room", message.Body);
+
+              await _repo.AddRoomOccupantsAsync(receivedMessage.Tenant.Item1, receivedMessage.Tenant.Item2);
+
+              break;
+            case OperationType.Delete:
+              _logger.LogInformation("Subtracting an occupant from a room", message.Body);
+
+              await _repo.SubtractRoomOccupantsAsync(receivedMessage.Tenant.Item1);
+
+              break;
+          }
+
+        }
+        catch (JsonException ex)
+        {
+          _logger.LogError("Message did not convert properly", ex);
+        }
+        finally
+        {
+          // Alert bus service that message was received
+          await _occupancyUpdateQueue.CompleteAsync(message.SystemProperties.LockToken);
+        }
+      }
     }
 
     /// <summary>
@@ -88,7 +127,7 @@ namespace ServiceBusMessaging
         var _repo = scope.ServiceProvider.GetRequiredService<IRepository>();
         try
         {
-          _logger.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
+          _logger.LogInformation("Attempting to deserialize complex message from service bus consumer", message.Body);
           ComplexMessage receivedMessage = JsonSerializer.Deserialize<ComplexMessage>(message.Body);
           Room myRoom = new Room()
           {
@@ -118,6 +157,9 @@ namespace ServiceBusMessaging
 
             case OperationType.Delete:
               await _repo.DeleteRoomAsync(myRoom.RoomId);
+              break;
+            case OperationType.DeleteCom:
+              await _repo.DeleteComplexRoomAsync(myRoom.ComplexId);
               break;
           }
         }
