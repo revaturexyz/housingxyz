@@ -41,7 +41,6 @@ namespace Revature.Account.Tests
 
     public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
 
-
     public TestHelper()
     {
 
