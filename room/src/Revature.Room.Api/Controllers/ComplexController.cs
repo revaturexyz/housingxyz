@@ -20,7 +20,7 @@ namespace Revature.Room.Api.Controllers
     private readonly ILogger _logger;
     private readonly IServiceBusSender _busSender;
 
-    public ComplexController(IRepository repository, ILogger logger, IServiceBusSender sender)
+    public ComplexController(IRepository repository, ILogger<ComplexController> logger, IServiceBusSender sender)
     {
       _repository = repository;
       _logger = logger;
@@ -53,6 +53,7 @@ namespace Revature.Room.Api.Controllers
       try
       {
         _logger.LogInformation("Getting filtered rooms...");
+
         IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
         complexId,
         roomNumber,
@@ -61,39 +62,43 @@ namespace Revature.Room.Api.Controllers
         gender,
         endDate,
         roomId);
+
         _logger.LogInformation("Success.");
+
         return Ok(rooms);
       }
       catch (KeyNotFoundException ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("Either complex Id or room Id was not in the DB", ex);
         return NotFound(ex);
       }
     }
 
     /// <summary>
-    /// Reads/gets a room based on the provided room id: Guid
+    /// Reads/gets a room based given a roomId
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
     [HttpGet("{roomId}", Name = "GetRoom")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Lib.Room), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetRoomAsync(Guid roomId)
     {
       try
       {
         _logger.LogInformation("Getting room ready...");
+
         var result = await _repository.ReadRoomAsync(roomId);
+
         _logger.LogInformation("Success");
+
         return Ok(result);
       }
       catch (InvalidOperationException ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("Room was not found in DB", ex);
         return NotFound();
       }
-      
     }
 
     /// <summary>
@@ -102,15 +107,16 @@ namespace Revature.Room.Api.Controllers
     /// <param name="room"></param>
     /// <returns></returns>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Lib.Room), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PostRoomAsync
-      ([FromBody, Bind("ComplexID, RoomID, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Revature.Room.Lib.Room room)
+      ([FromBody, Bind("ComplexID, RoomID, RoomNumber, NumberOfBeds, NumberOfOccupants, Gender, RoomType, LeaseStart, LeaseEnd")]Lib.Room room)
     {
       try
       {
         _logger.LogInformation("Adding a room");
-        Revature.Room.Lib.Room createdRoom = new Revature.Room.Lib.Room
+
+        Lib.Room createdRoom = new Lib.Room
         {
           ComplexId = room.ComplexId,
           RoomId = room.RoomId,
@@ -121,38 +127,42 @@ namespace Revature.Room.Api.Controllers
           RoomType = room.RoomType
         };
         createdRoom.SetLease(room.LeaseStart, room.LeaseEnd);
+
         await _repository.CreateRoomAsync(createdRoom);
         await _repository.SaveAsync();
 
         _logger.LogInformation("Success. Room has been added");
 
         return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomId }, createdRoom);
-      } catch (ArgumentException ex)
+      }
+      catch (ArgumentException ex)
       {
-        _logger.LogInformation(ex.Message);
+        _logger.LogInformation("Lease was invalid", ex);
         return BadRequest();
       }
-
     }
 
     /// <summary>
-    /// Update a room given the provided their id: Guid
+    /// Update room's lease
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="Lroom"></param>
+    /// <param name="roomId"></param>
+    /// <param name="room"></param>
     /// <returns></returns>
-    [HttpPut("{id}")]
+    /// <remarks>Update room functionality of complex service</remarks>
+    [HttpPut("{roomId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> PutRoomAsync(Guid id, [FromBody] Lib.Room Lroom)
+    public async Task<IActionResult> PutRoomAsync(Guid roomId, [FromBody] Lib.Room room)
     {
       try
       {
         _logger.LogInformation("Updating a room");
-        var IERooms = await _repository.ReadRoomAsync(id);
-        IERooms.SetLease(Lroom.LeaseStart, Lroom.LeaseEnd);
-        await _repository.UpdateRoomAsync(IERooms);
+
+        var roomFromDb = await _repository.ReadRoomAsync(roomId);
+        roomFromDb.SetLease(room.LeaseStart, room.LeaseEnd);
+
+        await _repository.UpdateRoomAsync(roomFromDb);
         await _repository.SaveAsync();
 
         _logger.LogInformation("Success. Room has been updated");
@@ -161,73 +171,80 @@ namespace Revature.Room.Api.Controllers
       }
       catch (InvalidOperationException ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("Room to update was not found in DB", ex);
         return NotFound();
       }
       catch (ArgumentException ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("Lease is invalid", ex);
         return BadRequest();
-      } 
+      }
     }
 
     /// <summary>
-    /// Delete room based on Id: Guid
+    /// Delete room based on room Id
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="roomId"></param>
     /// <returns></returns>
     [HttpDelete("DeleteRoom")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteRoomAsync(Guid id)
+    public async Task<IActionResult> DeleteRoomAsync(Guid roomId)
     {
       try
       {
         _logger.LogInformation("Deleting room");
-        Revature.Room.Lib.Room ro = new Revature.Room.Lib.Room();
-        ro.RoomId = id;
 
-        await _repository.DeleteRoomAsync(ro.RoomId);
+        await _repository.DeleteRoomAsync(roomId);
         await _repository.SaveAsync();
 
-        await _busSender.SendDeleteMessage(ro);
-
         _logger.LogInformation("Success. Room has been deleted");
+
+        _logger.LogInformation("Alerting complex service that room has been deleted...");
+
+        await _busSender.SendDeleteMessage(new List<Guid>() { roomId });
+
+        _logger.LogInformation("Success! Message has been sent!");
 
         return NoContent();
       }
       catch (InvalidOperationException ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("Room to delete was not found in DB", ex);
         return NotFound();
       }
     }
 
     /// <summary>
-    /// Deletes a complex and deletes all the rooms related to that specified complex id
+    /// Deletes a complex and deletes all the rooms related to that specified complex roomId
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="complexId"></param>
     /// <returns></returns>
     [HttpDelete("DeleteComplex")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> DeleteComplexAsync(Guid id)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteComplexAsync(Guid complexId)
     {
       try
       {
         _logger.LogInformation("Deleting rooms from complex");
-        Revature.Room.Lib.Room co = new Revature.Room.Lib.Room();
-        co.ComplexId = id;
 
-        var listOfGuid = await _repository.DeleteComplexRoomAsync(co.ComplexId);
+        var listOfDeletedRoomIds = await _repository.DeleteComplexRoomAsync(complexId);
         await _repository.SaveAsync();
 
-        await _busSender.SendDeleteComplexMessage(listOfGuid);
         _logger.LogInformation("Success! Rooms have been deleted");
+
+        _logger.LogInformation("Sending deleted room roomId's to complex service");
+
+        await _busSender.SendDeleteMessage(listOfDeletedRoomIds);
+
+        _logger.LogInformation("Deleted room roomId's have been sent to complex service");
+
         return NoContent();
       }
-      catch(InvalidOperationException ex)
+      catch (InvalidOperationException ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("Room to delete was not found in DB", ex);
         return NotFound();
       }
     }

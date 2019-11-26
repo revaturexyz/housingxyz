@@ -22,7 +22,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
       //added this 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -56,7 +56,7 @@ namespace Revature.Room.DataAccess.Tests
     public async Task GetFilteredRoomsAsyncShouldReturnKeyNotFoundException()
     {
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       //added this
       var mockSender = new Mock<IServiceBusSender>();
@@ -83,7 +83,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -118,7 +118,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -142,7 +142,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -178,7 +178,7 @@ namespace Revature.Room.DataAccess.Tests
       //arrange
       var mockRepo = new Mock<IRepository>();
 
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -207,7 +207,7 @@ namespace Revature.Room.DataAccess.Tests
       //arrange
       var mockRepo = new Mock<IRepository>();
 
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -235,7 +235,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -257,7 +257,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -275,7 +275,7 @@ namespace Revature.Room.DataAccess.Tests
     public async Task DeleteRoomShouldDelete()
     {
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -297,7 +297,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -318,7 +318,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 
@@ -339,7 +339,7 @@ namespace Revature.Room.DataAccess.Tests
     {
       //arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<ComplexController>>();
 
       var mockSender = new Mock<IServiceBusSender>();
 

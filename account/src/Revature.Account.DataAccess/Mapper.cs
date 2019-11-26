@@ -2,6 +2,9 @@ using System.Linq;
 
 namespace Revature.Account.DataAccess
 {
+  /// <summary>
+  /// Maps between the business logic and data access layers.
+  /// </summary>
   public class Mapper
   {
     /// <summary>
@@ -104,7 +107,6 @@ namespace Revature.Account.DataAccess
     {
       return new Lib.Model.Status
       {
-        StatusId = status.StatusId,
         StatusText = status.StatusText
       };
     }
