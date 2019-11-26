@@ -51,15 +51,6 @@ namespace Revature.Tenant.Tests.LibTests
     }
 
     /// <summary>
-    /// Tests that Empty car ID throw exception
-    /// </summary>
-    [Fact]
-    public void Tenant_Car_Id_Empty()
-    {
-      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Tenant { CarId = -1 });
-    }
-
-    /// <summary>
     /// Tests that Empty training center ID throw exception
     /// </summary>
     [Fact]
