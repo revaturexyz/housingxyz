@@ -73,7 +73,7 @@ namespace Revature.Tenant.DataAccess.Entities
           new Car()
           {
             Color = "White",
-            Id = 1,
+            Id = -1,
             LicensePlate = "ABC123",
             Make = "Ford",
             Model = "F150",
@@ -83,7 +83,7 @@ namespace Revature.Tenant.DataAccess.Entities
           new Car()
           {
             Color = "Orange",
-            Id = 2,
+            Id = -2,
             LicensePlate = "DEF456",
             Make = "Honda",
             Model = "VTX1300",

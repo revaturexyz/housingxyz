@@ -22,24 +22,24 @@ namespace Revature.Tenant.Tests.ApiTests
     public void ConstructorShouldConstruct()
     {
       // arrange (create database)
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<TenantController>>();
       var options = TestDbInitializer.InitializeDbOptions("TestTenantControllerConstructor");
       using var database = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
 
       // act (pass repository with database into controller)
-      var test = new TenantController(new TenantRepository(database, mapper));
+      var test = new TenantController(new TenantRepository(database, mapper), mockLogger.Object);
 
       // assert (test passes if no exception thrown)
     }
 
     [Fact]
-    public async Task GetByIdAsyncShouldGetById()
+    public async Task GetByIdShouldGetByIdAsync()
     {
       // Arrange (create a moq repo and use it for the controller)
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<TenantController>>();
       Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
-      var controller = new TenantController(mockRepo.Object);
+      var controller = new TenantController(mockRepo.Object, mockLogger.Object);
       // Act (get a Tenant with an id)
      
       var colton = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
@@ -49,6 +49,27 @@ namespace Revature.Tenant.Tests.ApiTests
       var ok = Assert.IsAssignableFrom<OkObjectResult>(result.Result);
       var tenant = Assert.IsAssignableFrom<ApiTenant>(ok.Value);
       Assert.NotNull(tenant);
+    }
+
+    [Fact]
+    public async Task GetAllBatchesByTCShouldGetAllByTCAsync()
+    {
+      //Arrange (create a moq repo and use it for the controller)
+
+      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
+      var mockLogger = new Mock<ILogger<TenantController>>();
+      var controller = new TenantController(mockRepo.Object, mockLogger.Object);
+
+
+      //Act (get all batches 
+
+      var result = await controller.GetAllBatches("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
+
+      //Assert
+
+      var ok = Assert.IsAssignableFrom<OkObjectResult>(result.Result);
+      var batches = Assert.IsAssignableFrom<ActionResult<ApiBatch>>(ok.Value);
+      Assert.NotNull(batches);
     }
   }
 }

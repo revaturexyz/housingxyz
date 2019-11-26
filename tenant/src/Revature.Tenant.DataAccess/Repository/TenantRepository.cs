@@ -166,7 +166,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         throw new InvalidOperationException($"Invalid Tenant Id {tenantId}");
       }
-      else if (currentTenant.CarId == null)
+      else if (currentTenant.CarId == null || currentTenant.CarId ==0)
       {
         return false;
       }
