@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>1ffd6462-78c7-4587-87e7-2ae39a7e8e04</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="3.0.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,7 +13,7 @@ import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
-  MatChipsModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatFormFieldModule,
+  MatChipsModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatPaginatorModule, MatFormFieldModule,
   MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
   MatExpansionModule, MatInputModule
 } from '@angular/material';
@@ -28,6 +28,10 @@ import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
+import { AddProviderComponent } from './add-provider/add-provider.component';
+import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
+import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
+import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
@@ -53,7 +57,10 @@ import { ShowRoomComponent } from './manage-complex/show-room/show-room.componen
     ComplexDetailsComponent,
     ManageComplexComponent,
     EditRoomComponent,
-    EditComplexComponent
+    EditComplexComponent,
+    AddProviderComponent,
+    CoordinatorNotificationsComponent,
+    NotificationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -75,9 +82,7 @@ import { ShowRoomComponent } from './manage-complex/show-room/show-room.componen
     MatChipsModule,
     MatPaginatorModule,
     MatCardModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
+    StickyNavModule,
     MatRippleModule,
     MatSidenavModule,
     MatIconModule,
