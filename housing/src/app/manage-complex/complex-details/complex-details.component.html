@@ -16,15 +16,17 @@
 <!--Middle of container-->
 <div class="middle-container ">
   <mat-accordion>
+
+    <!--Table to show all rooms for the specific complex-->
     <table mat-table [dataSource]="dataSource" class="w-100 h-50">
       <!-- Room # Column -->
       <ng-container matColumnDef="room#">
-        <th mat-header-cell *matHeaderCellDef>Room No.</th>
+        <th id="room-number" mat-header-cell *matHeaderCellDef>Room No.</th>
         <td mat-cell *matCellDef="let room">{{ room.roomNumber }}</td>
       </ng-container>
       <!-- Lease Start Column -->
       <ng-container matColumnDef="start">
-        <th mat-header-cell *matHeaderCellDef>Start</th>
+        <th id ="lease-start" mat-header-cell *matHeaderCellDef>Start</th>
         <td mat-cell *matCellDef="let room">
           {{ dateFormat(room.startDate) }}
         </td>
@@ -36,16 +38,16 @@
       </ng-container>
       <!-- Room Edit Button Column -->
       <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th id ="edit-button" mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let room">
           <button class="ebutton" mat-flat-button (click)="editRoom(room)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>
       </ng-container>
-      <!-- Room Edit Button Column -->
+      <!-- Room View Button Column -->
       <ng-container matColumnDef="show">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th id ="view-room" mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let room">
           <button class="sbutton" mat-flat-button (click)="showRoom(room)">
             <mat-icon>pageview</mat-icon>
@@ -79,7 +81,7 @@
     <mat-chip
       *ngFor="let amentity of complexControl?.amenity"
       color="primary"
-      disabled
+      selected selectable ="false"
       ><strong>{{ amentity.amenity }}</strong></mat-chip>
   </mat-chip-list>
 </div>
