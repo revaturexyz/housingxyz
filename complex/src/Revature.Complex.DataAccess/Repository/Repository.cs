@@ -54,7 +54,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (ArgumentNullException ex)
       {
-        log.LogError($"(REPO){ex.Message} Cannot find list of complex");
+        log.LogError($"(REPO){ex} Cannot find list of complex");
         throw;
       }
     }
@@ -73,7 +73,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (Exception ex)
       {
-        log.LogError($"(REPO){ex.Message}: Cannot Find specific complex with id: {complexId}");
+        log.LogError($"(REPO){ex}: Cannot Find specific complex with id: {complexId}");
         throw;
       }
     }
@@ -88,13 +88,13 @@ namespace Revature.Complex.DataAccess.Repository
     {
       try
       {
-        Entity.Complex complex = _context.Complex.Where(c => c.ComplexName == name
-                                                          && c.ContactNumber == phone).AsNoTracking().First();
+        Entity.Complex complex = await _context.Complex.Where(c => c.ComplexName == name
+                                                          && c.ContactNumber == phone).AsNoTracking().FirstOrDefaultAsync();
         return _map.MapEtoComplex(complex);
       }
       catch(Exception ex)
       {
-        log.LogError($"(REPO){ex.Message}: Cannot Find specific complex with name: {name} and phone: {phone}");
+        log.LogError($"(REPO){ex}: Cannot Find specific complex with name: {name} and phone: {phone}");
         throw;
       }
     }
@@ -126,7 +126,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(Exception ex)
       {
-        log.LogError($"(REPO){ex.Message}comlex id: {update.ComplexId} update failed");
+        log.LogError($"(REPO){ex}comlex id: {update.ComplexId} update failed");
         throw ex;
       }
     }
@@ -150,7 +150,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (Exception ex)
       {
-        log.LogError($"(REPO){ex.Message}: complex id: {complexId} failed to delete");
+        log.LogError($"(REPO){ex}: complex id: {complexId} failed to delete");
         throw;
       }
 
@@ -190,7 +190,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch( Exception ex)
       {
-        log.LogError($"(REPO){ex.Message}: cannot find such room with room id: {roomId}");
+        log.LogError($"(REPO){ex}: cannot find such room with room id: {roomId}");
         throw ex;
       }
     }
@@ -263,7 +263,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (ArgumentNullException ex)
       {
-        log.LogError($"(REPO){ex.Message}: cannot find Amenity list is the database");
+        log.LogError($"(REPO){ex}: cannot find Amenity list is the database");
         throw ex;
       }
     }
@@ -319,7 +319,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(Exception ex)
       {
-        log.LogError($"(REPO)amenities for room id: {roomId} are not found");
+        log.LogError($"(REPO){ex}amenities for room id: {roomId} are not found");
         throw;
       }
 
@@ -373,7 +373,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch(Exception ex)
       {
-        log.LogWarning($"{ex.Message}: Unable to update the amenity.");
+        log.LogWarning($"{ex}: Unable to update the amenity.");
         throw ex;
       }
     }
@@ -398,7 +398,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (InvalidOperationException ex)
       {
-        log.LogWarning($"{ex.Message}: Unable to delete the amenity.");
+        log.LogWarning($"{ex}: Unable to delete the amenity.");
         throw;
       }
     }
