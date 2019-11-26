@@ -48,17 +48,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, 404 is returned");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, 409 is returned");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, 500 is returned");
         return StatusCode(500, ex.Message);
       }
     }
@@ -87,17 +87,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, return 404");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, return 409");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, return 500");
         return StatusCode(500, ex.Message);
       }
     }
@@ -125,17 +125,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, 404");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, 409");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, 500");
         return StatusCode(500, ex.Message);
       }
     }
@@ -171,17 +171,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, not found 404");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, invalid operation, 409");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, internal service error 500");
         return StatusCode(500, ex.Message);
       }
     }
@@ -217,17 +217,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, uri not found");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, conflict 409");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex.Message}");
+        log.LogError($"(API){ex.Message}, status code 500");
         return StatusCode(500, ex.Message);
       }
     }
@@ -263,17 +263,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex}, url is not found, 404");
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex}, request conflict, 409");
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}");
+        log.LogError($"(API){ex}, internal erre 500");
         return StatusCode(500, ex.Message);
       }
     }
