@@ -26,11 +26,11 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns></returns>
     public async Task<IList<Lib.Models.Tenant>> GetTenantsByRoomId(Guid roomId)
     {
-      return await _context.Tenant.Where(t => t.RoomId == roomId)
+      var tenants = _context.Tenant
         .Include(t => t.Batch)
         .Include(t => t.Car)
-        .Select(t => _map.MapTenant(t))
-        .ToListAsync();
+        .Where(t => t.RoomId == roomId);
+      return await tenants.Select(t => _map.MapTenant(t)).ToListAsync();
     }
   }
 }
