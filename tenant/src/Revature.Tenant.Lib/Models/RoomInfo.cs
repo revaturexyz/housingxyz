@@ -10,6 +10,11 @@ namespace Revature.Tenant.Lib.Models
   public class RoomInfo
   {
     /// <summary>
+    /// RoomId of room from Room Service
+    /// </summary>
+    private Guid _roomId;
+
+    /// <summary>
     /// Full capacity of room
     /// </summary>
     private int _numberOfBeds;
@@ -17,7 +22,15 @@ namespace Revature.Tenant.Lib.Models
     /// <summary>
     /// RoomId from Room Service
     /// </summary>
-    public Guid RoomId { get; set; }
+    public Guid RoomId
+    {
+      get => _roomId;
+      set
+      {
+        if (value == Guid.Empty) throw new ArgumentException("Room Id can't empty");
+        _roomId = value;
+      }
+    }
 
     /// <summary>
     /// Full capacity of room, checks if the full capacity is positive
