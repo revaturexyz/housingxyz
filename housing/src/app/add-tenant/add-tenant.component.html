@@ -109,6 +109,14 @@
                     <option *ngFor="let gender of genders" [ngValue]="type">{{gender}}</option>
                   </select>
                 </div>
+                <!-- Enter TrainingCenter -->
+                <div class="tenFormItem">
+                  <label class="tenFormLabel">Training Center:</label>
+                  <select class="input-border col-md-9 input-border" name="tenant.trainingCenter" required
+                    [(ngModel)]="tenant.trainingCenter" #tenTrainCen="ngModel">
+                    <option *ngFor="let trainCenter of trainCen" [ngValue]="type">{{trainCenId}}</option>
+                  </select>
+                </div>
               <br>
               <button class="btn btn-secondary" *ngIf="!address" (click)="addAddress()">Add Address</button>
               <button class="btn btn-secondary" *ngIf="!show" (click)="addForm()">Add Car</button>

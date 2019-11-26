@@ -12,7 +12,7 @@ export const environment = {
     // provider: 'http://192.168.99.100:10080/'
     provider: 'http://localhost:10080/',
     // provider: 'http://localhost:5000/'
-    coordinator: '192.168.99.100:10080/'
+    coordinator: 'http://192.168.99.100:10080/'
   }
 };
 

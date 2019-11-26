@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CoordinatorService } from '../services/coordinator.service';
+import { CoordinatorService } from 'src/app/services/coordinator.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { Tenant } from '../../interfaces/tenant';
-import { Batch } from '../../interfaces/batch';
-import { RedirectService } from '../services/redirect.service';
+import { Tenant } from 'src/interfaces/tenant';
+import { Batch } from 'src/interfaces/batch';
+import { RedirectService } from 'src/app/services/redirect.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -16,6 +16,8 @@ export class AddTenantComponent implements OnInit {
 
   tenant: Tenant;
   batch: Batch;
+
+  trainCen: string[] = ['fa416c6e-9650-44c9-8c6b-5aebd3f9a670'];
   trainCenId: string;
 
   show: boolean = false;
@@ -30,17 +32,16 @@ export class AddTenantComponent implements OnInit {
   batchShowString = 'Choose Batch';
 
   async postTenantOnSubmit() {
-    try{
+    try {
       await this.coordService.PostTenant(this.tenant).toPromise();
-      this.router.navigate(['show-tenant']);
-    } catch(err)
-    {
+    } catch (err) {
       console.log(err);
     }
+    //this.router.navigate(['show-tenant']);
   }
 
   // called when te button to add an address is clicked to display the form.
-  
+
   addForm() {
     this.show = true;
   }
@@ -75,44 +76,44 @@ export class AddTenantComponent implements OnInit {
   constructor(
     private coordService: CoordinatorService,
     private router: Router
-    ) { 
-      this.tenant = {
-        id: '',
-        email: '',
-        gender: '',
-        firstName: '',
-        lastName: '',
+  ) {
+    this.tenant = {
+      id: '',
+      email: '',
+      gender: '',
+      firstName: '',
+      lastName: '',
+      addressId: '',
+      roomId: '',
+      carId: '',
+      batchId: 0,
+      tenantAddress: {
         addressId: '',
-        roomId: '',
-        carId: '',
+        street: '',
+        city: '',
+        state: '',
+        country: '',
+        zipCode: ''
+      },
+      car: {
+        carId: 0,
+        licensePlate: null,
+        make: null,
+        model: null,
+        color: null,
+        year: null,
+        state: null
+      },
+      batch: {
         batchId: 0,
-        tenantAddress: {
-          addressId: '',
-          street: '',
-          city: '',
-          state: '',
-          country: '',
-          zipCode: ''
-        },
-        car: {
-          carId: 0,
-          licensePlate: '',
-          make: '',
-          model: '',
-          color: '',
-          year: '',
-          state: ''
-        },
-        batch: {
-          batchId: 0,
-          batchLanguage: '',
-          startDate: new Date(),
-          endDate: new Date(),
-          trainingCenter: ''
-        },
+        batchLanguage: '',
+        startDate: new Date(),
+        endDate: new Date(),
         trainingCenter: ''
-      };
-    }
+      },
+      trainingCenter: ''
+    };
+  }
 
   ngOnInit() {
     this.trainCenId = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
@@ -153,6 +154,10 @@ export class AddTenantComponent implements OnInit {
 
   genderChoose(gender: string) {
     this.tenant.gender = gender;
+  }
+
+  trainCenChoose(trainCen: string) {
+    this.tenant.trainingCenter = trainCen;
   }
 
   // Used for client-side validation for date input of the form.

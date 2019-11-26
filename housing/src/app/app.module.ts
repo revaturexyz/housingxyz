@@ -63,11 +63,11 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     CoordinatorModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true,
+    // },
   ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
   bootstrap: [AppComponent]
