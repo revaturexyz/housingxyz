@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Revature.Room.Lib.Models
+{
+  public class TenantMessage
+  {
+    /// <summary>
+    /// The message we will receive from the tenant, which will be the room Id and the gender in the form
+    /// of a tuple
+    /// </summary>
+    public Tuple<Guid, string> Tenant { get; set; }
+
+    /// <summary>
+    /// Based on the operation, we will react accordinly in the ServiceBusConsumer
+    /// </summary>
+    public OperationType OperationType { get; set; }
+  }
+}
