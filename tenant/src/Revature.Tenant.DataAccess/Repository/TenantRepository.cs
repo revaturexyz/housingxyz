@@ -38,11 +38,12 @@ namespace Revature.Tenant.DataAccess.Repository
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
-      if (tenant.Car != null)
-      {
-        Entities.Car newCar = _mapper.MapCar(tenant.Car);
-        await _context.Car.AddAsync(newCar);
-      }
+      //if (tenant.Car != null)
+      //{
+      //  Entities.Car newCar = _mapper.MapCar(tenant.Car);
+      //  newCar.Tenant = _context.Tenant.Where(t => t.Id == newTenant.Id).FirstOrDefault();
+      //  await _context.Car.AddAsync(newCar);
+      //}
     }
 
     /// <summary>
@@ -91,15 +92,15 @@ namespace Revature.Tenant.DataAccess.Repository
         .Include(t => t.Batch)
         .AsNoTracking();
 
-      if (firstName != null)
+      if (firstName != null && firstName != "")
       {
         tenants = tenants.Where(t => t.FirstName == firstName);
       }
-      if (lastName != null)
+      if (lastName != null && lastName != "")
       {
         tenants = tenants.Where(t => t.LastName == lastName);
       }
-      if (gender != null)
+      if (gender != null && gender != "")
       {
         tenants = tenants.Where(t => t.Gender == gender);
       }
@@ -107,6 +108,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
+      
 
       return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }
@@ -166,7 +168,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         throw new InvalidOperationException($"Invalid Tenant Id {tenantId}");
       }
-      else if (currentTenant.CarId == null)
+      else if (currentTenant.CarId == null || currentTenant.CarId ==0)
       {
         return false;
       }
