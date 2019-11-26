@@ -1,6 +1,7 @@
 using GoogleApi;
 using GoogleApi.Entities.Maps.Geocoding;
 using GoogleApi.Entities.Maps.Geocoding.Address.Request;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Revature.Address.Lib.Models.DistanceMatrix;
 using System;
@@ -18,9 +19,7 @@ namespace Revature.Address.Lib.BusinessLogic
   public class AddressLogic
   {
     private readonly ILogger _logger;
-
-    // Google's API key
-    private const string ApiKey = SecretKey.GApiKey;
+    private readonly IConfiguration _configuration;
 
     // Configures JsonSerializer with a snake case naming policy
     private readonly JsonSerializerOptions _distanceMatrixSerializerOptions = new JsonSerializerOptions
@@ -32,9 +31,10 @@ namespace Revature.Address.Lib.BusinessLogic
     /// Constructor for AddressLogic object
     /// </summary>
     /// <param name="logger"></param>
-    public AddressLogic(ILogger<AddressLogic> logger = null)
+    public AddressLogic(IConfiguration configuration, ILogger<AddressLogic> logger = null)
     {
       _logger = logger;
+      _configuration = configuration;
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace Revature.Address.Lib.BusinessLogic
         new MediaTypeWithQualityHeaderValue("application/json"));
 
       // await for async call and get response.
-      using HttpResponseMessage response = await client.GetAsync(googleApiUrlParameter).ConfigureAwait(false);
+      using HttpResponseMessage response = await client.GetAsync(googleApiUrlParameter + _configuration["GoogleApiKey"]).ConfigureAwait(false);
       if (response.IsSuccessStatusCode)
       {
         deserialized = JsonSerializer.Deserialize<Response>(
@@ -105,7 +105,7 @@ namespace Revature.Address.Lib.BusinessLogic
       AddressGeocodeRequest request = new AddressGeocodeRequest
       {
         Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
-        Key = SecretKey.GApiKey
+        Key = _configuration["GoogleApiKey"]
       };
       GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToArray();
@@ -129,7 +129,7 @@ namespace Revature.Address.Lib.BusinessLogic
     public static string GetGoogleApiUrl(string origin, string destination)
     {
       // Google distance matrix parameters
-      return $"?units=imperial&origins={origin}&destinations={destination}&key=" + ApiKey;
+      return $"?units=imperial&origins={origin}&destinations={destination}&key=";
     }
 
     /// <summary>

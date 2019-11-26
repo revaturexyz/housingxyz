@@ -28,19 +28,31 @@ namespace Revature.Address.DataAccess
       _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
+    public DataAccess(AddressDbContext context)
+    {
+      _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
+
     /// <summary>
     /// Checks if address already exists in database,
     /// if it doesn't it converts it and adds it to the database
     /// </summary>
     /// <param name="address"></param>
     /// <returns></returns>
-    public async Task AddAddressAsync(Lib.Address address)
+    public async Task<bool> AddAddressAsync(Lib.Address address)
     {
-      Lib.Address newAddress = (await GetAddressAsync(address: address)).FirstOrDefault();
-      if (newAddress == null)
+      try
       {
-        await _context.AddAsync(_mapper.MapAddress(address));
+        Lib.Address newAddress = (await GetAddressAsync(address: address)).FirstOrDefault();
+        if (newAddress == null)
+        {
+          await _context.AddAsync(_mapper.MapAddress(address));
+        }
+      } catch
+      {
+        return false;
       }
+      return true;
     }
 
     /// <summary>

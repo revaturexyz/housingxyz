@@ -11,7 +11,7 @@ namespace Revature.Address.Lib.Interfaces
   /// </summary>
   public interface IDataAccess : IDisposable
   {
-    public Task AddAddressAsync(Address address);
+    public Task<bool> AddAddressAsync(Address address);
     public Task<ICollection<Address>> GetAddressAsync(Guid? id = null, Address address = null);
     public Task<bool> DeleteAddressAsync(Guid id);
     public Task SaveAsync();
