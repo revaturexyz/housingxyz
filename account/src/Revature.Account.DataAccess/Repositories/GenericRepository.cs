@@ -42,7 +42,6 @@ namespace Revature.Account.DataAccess.Repositories
       var provider = await _context.ProviderAccount
         .AsNoTracking()
         .Include(p => p.Coordinator)
-        .Include(p => p.Status)
         .FirstOrDefaultAsync(p => p.ProviderId == providerId);
       return (provider != null ? mapper.MapProvider(provider) : null);
     }
@@ -122,7 +121,7 @@ namespace Revature.Account.DataAccess.Repositories
         .Include(n => n.Coordinator)
         .Include(n => n.Provider)
         .Include(n => n.UpdateAction)
-        .FirstOrDefaultAsync(p => p.NotificationId == notificationId);
+        .FirstOrDefaultAsync(n => n.NotificationId == notificationId);
       return (notification != null ? mapper.MapNotification(notification) : null);
     }
 
@@ -197,7 +196,7 @@ namespace Revature.Account.DataAccess.Repositories
     {
       var action = await _context.UpdateAction
         .AsNoTracking()
-        .FirstOrDefaultAsync(u => u.Id == actionId);
+        .FirstOrDefaultAsync(u => u.UpdateActionId == actionId);
       return (action != null ? mapper.MapUpdateAction(action) : null);
     }
 
@@ -209,7 +208,7 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<bool> UpdateUpdateActionAsync(UpdateAction action)
     {
-      var existingEntity = await _context.Status.FindAsync(action.Id);
+      var existingEntity = await _context.UpdateAction.FindAsync(action.UpdateActionId);
       if (existingEntity == null)
         return false;
 
@@ -220,7 +219,7 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<bool> DeleteUpdateActionByIdAsync(Guid actionId)
     {
-      var entityToBeRemoved = await _context.Status.FindAsync(actionId);
+      var entityToBeRemoved = await _context.UpdateAction.FindAsync(actionId);
       if (entityToBeRemoved == null)
         return false;
 

@@ -81,9 +81,7 @@ namespace Revature.Account.DataAccess
       {
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
-        Provider = MapProvider(nofi.Provider),
         CoordinatorId = nofi.CoordinatorId,
-        Coordinator = MapCoordinator(nofi.Coordinator),
         UpdateAction = MapUpdateAction(nofi.UpdateAction),
         Status = new Lib.Model.Status { StatusText = nofi.StatusText },
         AccountExpiresAt = nofi.AccountExpiresAt
@@ -95,9 +93,9 @@ namespace Revature.Account.DataAccess
       return new Entities.Notification
       {
         NotificationId = nofi.NotificationId,
-        ProviderId = nofi.Provider.ProviderId,
-        CoordinatorId = nofi.Coordinator.CoordinatorId,
-        UpdateActionId = nofi.UpdateAction.Id,
+        ProviderId = nofi.ProviderId,
+        CoordinatorId = nofi.CoordinatorId,
+        UpdateActionId = nofi.UpdateAction.UpdateActionId,
         StatusText = nofi.Status.StatusText,
         AccountExpiresAt = nofi.AccountExpiresAt
       };
@@ -107,7 +105,7 @@ namespace Revature.Account.DataAccess
     {
       return new Lib.Model.UpdateAction
       {
-        Id = action.Id,
+        UpdateActionId = action.UpdateActionId,
         NotificationId = action.NotificationId,
         UpdateType = action.UpdateType,
         SerializedTarget = action.SerializedTarget
@@ -118,7 +116,7 @@ namespace Revature.Account.DataAccess
     {
       return new Entities.UpdateAction
       {
-        Id = action.Id,
+        UpdateActionId = action.UpdateActionId,
         NotificationId = action.NotificationId,
         UpdateType = action.UpdateType,
         SerializedTarget = action.SerializedTarget

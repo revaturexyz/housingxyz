@@ -32,6 +32,7 @@ namespace Revature.Account.Tests
     public List<Notification> Notifications { get; private set; }
     public List<ProviderAccount> Providers { get; private set; }
     public List<Status> Statuses { get; private set; }
+    public List<UpdateAction> UpdateActions { get; private set; }
 
     //for testing expiration times
     public static DateTime now;
@@ -49,6 +50,7 @@ namespace Revature.Account.Tests
       SetUpCoordinators();
       SetUpStatuses();
       SetUpProviderAccount();
+      SetUpUpdateActions();
       SetUpNotifications();
       SetUpMocks();
 
@@ -120,6 +122,18 @@ namespace Revature.Account.Tests
       };
     }
 
+    private void SetUpUpdateActions()
+    {
+      UpdateActions = new List<UpdateAction>
+      {
+        new UpdateAction
+        {
+          UpdateType = "NewProvider",
+          SerializedTarget = "bbbbbb"
+        }
+      };
+    }
+
     private void SetUpNotifications()
     {
       Notifications = new List<Notification>
@@ -129,6 +143,7 @@ namespace Revature.Account.Tests
           ProviderId = Providers[0].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[0],
+          UpdateAction = UpdateActions[0],
           AccountExpiresAt = nowPSev
         },
         new Notification
@@ -146,6 +161,8 @@ namespace Revature.Account.Tests
           AccountExpiresAt = nowPSev
         }
       };
+
+      UpdateActions[0].NotificationId = Notifications[0].NotificationId;
     }
 
     private void SetUpStatuses()

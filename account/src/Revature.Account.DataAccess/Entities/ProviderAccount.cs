@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Revature.Account.DataAccess.Entities
 {
@@ -6,11 +7,11 @@ namespace Revature.Account.DataAccess.Entities
   {
     public Guid ProviderId { get; set; }
     public string Name { get; set; }
-    public int StatusId { get; set; }
+    public Guid CoordinatorId { get; set; }
+    public string StatusText { get; set; }
     public DateTime AccountCreatedAt { get; set; }
     public DateTime AccountExpiresAt { get; set; }
-    public Guid CoordinatorId { get; set; }
     public CoordinatorAccount Coordinator { get; set; }
-    public string StatusText { get; set; }
+    public List<Notification> Notifications { get; set; }
   }
 }

@@ -48,9 +48,6 @@ namespace Revature.Account.Tests.ControllerTests
       helper.Repository
         .Setup(x => x.AddProviderAccountAsync(It.IsAny<ProviderAccount>()))
         .Verifiable();
-      helper.Repository
-        .Setup(x => x.GetStatusByStatusTextAsync(It.IsAny<string>()))
-        .Returns(Task.FromResult(helper.Statuses[0]));
      
       var newProviderAccount = await helper.ProviderAccountController.Post(newProvider);
 

@@ -41,25 +41,12 @@ namespace Revature.Account.Tests.ControllerTests
     public async Task CreateNewNotificationSuccessfullyVerifyTestAsync()
     {
       TestHelper helper = new TestHelper();
-      Guid coordinatorId = helper.Coordinators[0].CoordinatorId;
-      Guid providerId = helper.Providers[0].ProviderId;
-      var newNotification = new Notification();
-      newNotification.ProviderId = providerId;
-      newNotification.CoordinatorId = coordinatorId;
-      newNotification.AccountExpiresAt = TestHelper.nowPSev;
-
-
-      Guid newNotificationId = newNotification.NotificationId;
-
 
       helper.Repository
         .Setup(x => x.AddNotification(It.IsAny<Notification>()))
         .Verifiable();
-      helper.Repository
-        .Setup(x => x.GetStatusByStatusTextAsync(It.IsAny<string>()))
-        .Returns(Task.FromResult(helper.Statuses[0]));
 
-      var newNofi = await helper.NotificationController.Post(newNotification);
+      var newNofi = await helper.NotificationController.Post(helper.Notifications[0]);
 
       helper.Repository
           .Verify();

@@ -50,7 +50,7 @@ namespace Revature.Account.Api.Controllers
       try
       {
         _logger.LogInformation($"POST - Making notification for notification ID {notification.NotificationId}." +
-          $" Provider ID: {notification.Provider.ProviderId}\n Coordinator ID: {notification.Coordinator.CoordinatorId}");
+          $" Provider ID: {notification.ProviderId}\n Coordinator ID: {notification.CoordinatorId}");
 
         Lib.Model.Notification mappedNotification = new Lib.Model.Notification()
         {

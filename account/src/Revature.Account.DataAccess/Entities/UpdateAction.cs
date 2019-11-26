@@ -6,7 +6,7 @@ namespace Revature.Account.DataAccess.Entities
 {
   public class UpdateAction
   {
-    public Guid Id { get; set; }
+    public Guid UpdateActionId { get; set; }
     public Guid NotificationId { get; set; }
 
     public string UpdateType { get; set; }

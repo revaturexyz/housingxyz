@@ -22,7 +22,6 @@ namespace Revature.Account.DataAccess
     // All tables found in the database defined here
     public virtual DbSet<Notification> Notification { get; set; }
     public virtual DbSet<UpdateAction> UpdateAction { get; set; }
-    public virtual DbSet<Status> Status { get; set; }
     public virtual DbSet<ProviderAccount> ProviderAccount { get; set; }
     public virtual DbSet<CoordinatorAccount> CoordinatorAccount { get; set; }
 
@@ -35,6 +34,10 @@ namespace Revature.Account.DataAccess
       modelBuilder.Entity<ProviderAccount>(entity =>
       {
         entity.HasKey(e => e.ProviderId);
+        entity.HasOne(e => e.Coordinator)
+          .WithMany(e => e.Providers)
+          .HasForeignKey(p => p.ProviderId)
+          .IsRequired();
         entity.Property(e => e.Name)
           .IsRequired()
           .HasMaxLength(100);
@@ -57,7 +60,10 @@ namespace Revature.Account.DataAccess
           .HasMaxLength(100);
         entity.HasMany(e => e.Notifications)
           .WithOne(n => n.Coordinator)
-          .HasForeignKey(p => p.NotificationId);
+          .HasForeignKey(n => n.NotificationId);
+        entity.HasMany(e => e.Providers)
+          .WithOne(p => p.Coordinator)
+          .HasForeignKey(p => p.CoordinatorId);
       });
 
       modelBuilder.Entity<Notification>(entity =>
@@ -72,11 +78,30 @@ namespace Revature.Account.DataAccess
         entity.Property(e => e.AccountExpiresAt)
           .IsRequired();
         entity.HasOne(e => e.Coordinator)
-          .WithMany(n => n.Notifications)
-          .HasForeignKey(p => p.CoordinatorId)
+          .WithMany(c => c.Notifications)
+          .HasForeignKey(c => c.CoordinatorId)
           .IsRequired();
-        entity.HasOne(e => e.UpdateAction);
+        entity.HasOne(e => e.Provider)
+          .WithMany(p => p.Notifications)
+          .HasForeignKey(p => p.ProviderId)
+          .IsRequired();
+        entity.HasOne(e => e.UpdateAction)
+          .WithOne(u => u.Notification)
+          .HasForeignKey<UpdateAction>(u => u.UpdateActionId)
+          .IsRequired();
         entity.Property(e => e.StatusText);
+      });
+
+      modelBuilder.Entity<UpdateAction>(entity =>
+      {
+        entity.HasKey(e => e.UpdateActionId);
+        entity.Property(e => e.UpdateType)
+          .IsRequired();
+        entity.Property(e => e.SerializedTarget)
+          .IsRequired();
+        entity.HasOne(e => e.Notification)
+          .WithOne(n => n.UpdateAction)
+          .HasForeignKey<Notification>(n => n.UpdateActionId);
       });
     }
   }

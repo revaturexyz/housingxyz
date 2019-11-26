@@ -6,7 +6,7 @@ namespace Revature.Account.Lib.Model
 {
   public class UpdateAction
   {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid UpdateActionId { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// String title of intended action, i.e. "UpdateOccupiedRoom".

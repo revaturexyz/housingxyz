@@ -17,13 +17,11 @@ namespace Revature.Account.Lib.Model
     /// Guid based Id for a housing complex Provider.
     /// </summary>
     public Guid ProviderId { get; set; }
-    public ProviderAccount Provider { get; set; }
 
     /// <summary>
     /// Guid based Id for a training center's Coordinator.
     /// </summary>
     public Guid CoordinatorId { get; set; }
-    public CoordinatorAccount Coordinator { get; set; }
 
     public Status Status { get; set; }
 
