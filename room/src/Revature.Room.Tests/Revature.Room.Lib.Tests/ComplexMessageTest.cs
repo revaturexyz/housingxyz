@@ -48,7 +48,9 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
         OperationType = BL.Models.OperationType.Create
       };
 
-      Assert.True(true);
+      Assert.NotNull(newComplexMessage);
+      Assert.True(newComplexMessage.Room == roomToInsert);
+      Assert.True(newComplexMessage.OperationType == BL.Models.OperationType.Create);
     }
   }
 }

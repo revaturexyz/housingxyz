@@ -16,6 +16,7 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     /// A test to ensure that creating a tenant message which includes a tuple of < Guid, string >
     /// and an operation type is successful in creating
     /// </summary>
+    [Fact]
     public void TenantMessageShouldCreate()
     {
       Tuple<Guid, string> tenantToInsert = new Tuple<Guid, string>(newRoomId, "Male");
@@ -26,6 +27,9 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
 
         OperationType = BL.Models.OperationType.Create
       };
+      Assert.NotNull(newTenantMessage);
+      Assert.True(newTenantMessage.Tenant == tenantToInsert);
+      Assert.True(newTenantMessage.OperationType == BL.Models.OperationType.Create);
 
     }
   }
