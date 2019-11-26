@@ -32,7 +32,6 @@ describe('AddComplexComponent', () => {
 
   it('should have disabled submit button', () => {
     const buttonSelector = fixture.debugElement.query(By.css('#postLivingComplex')).nativeElement;
-    console.log(buttonSelector);
     fixture.detectChanges();
     expect(buttonSelector.valid).toBeFalsy();
   });

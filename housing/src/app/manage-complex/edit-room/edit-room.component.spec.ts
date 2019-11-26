@@ -5,6 +5,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material';
+import { By } from '@angular/platform-browser';
 
 import { EditRoomComponent } from './edit-room.component';
 import { Complex } from 'src/interfaces/complex';
@@ -20,7 +23,8 @@ describe('EditRoomComponent', () => {
       imports: [ FormsModule, ReactiveFormsModule,
         MatCheckboxModule, MatDatepickerModule,
         MatMomentDateModule, MatFormFieldModule,
-        MatSelectModule
+        MatSelectModule, NoopAnimationsModule,
+        MatInputModule
       ],
       declarations: [ EditRoomComponent ]
     })
@@ -30,13 +34,19 @@ describe('EditRoomComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditRoomComponent);
     component = fixture.componentInstance;
+    component.complexControl = TestServiceData.dummyComplex;
+    component.targetRoom = TestServiceData.room;
     fixture.detectChanges();
 
   });
 
   it('should create', () => {
-    component.complexControl = TestServiceData.dummyComplex;
-    component.targetRoom = TestServiceData.room;
     expect(component).toBeTruthy();
+  });
+
+  it('should have enabled submit button', () => {
+    const buttonSelector = fixture.debugElement.query(By.css('#postEditRoom')).nativeElement;
+    fixture.detectChanges();
+    expect(buttonSelector.disabled).toBeFalsy();
   });
 });

@@ -41,7 +41,6 @@ describe('AddRoomComponent', () => {
 
   it('should have disabled submit button', () => {
     const buttonSelector = fixture.debugElement.query(By.css('#postAddRoom')).nativeElement;
-    console.log(buttonSelector);
     fixture.detectChanges();
     expect(buttonSelector.valid).toBeFalsy();
   });
