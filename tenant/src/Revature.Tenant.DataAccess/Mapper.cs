@@ -13,6 +13,7 @@ namespace Revature.Tenant.DataAccess
     /// <returns>A Tenant Model who may have a nested Car Model and/or a Batch Model</returns>
     public Lib.Models.Tenant MapTenant(Entities.Tenant tenant)
     {
+
       Lib.Models.Batch batch;
       int? batchId;
       if (tenant.Batch != null)

@@ -87,19 +87,19 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null)
     {
       var tenants = _context.Tenant
-        .Include(t => t.Car)
-        .Include(t => t.Batch)
+        //.Include(t => t.Car)
+        //.Include(t => t.Batch)
         .AsNoTracking();
 
-      if (firstName != null)
+      if (firstName != null && firstName != "")
       {
         tenants = tenants.Where(t => t.FirstName == firstName);
       }
-      if (lastName != null)
+      if (lastName != null && lastName != "")
       {
         tenants = tenants.Where(t => t.LastName == lastName);
       }
-      if (gender != null)
+      if (gender != null && gender != "")
       {
         tenants = tenants.Where(t => t.Gender == gender);
       }
@@ -107,6 +107,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
+      
 
       return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }

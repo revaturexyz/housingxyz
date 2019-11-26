@@ -50,5 +50,13 @@ namespace Revature.Tenant.Tests.ApiTests
       var tenant = Assert.IsAssignableFrom<ApiTenant>(ok.Value);
       Assert.NotNull(tenant);
     }
+
+    [Fact]
+    public async Task PostShouldPost()
+    {
+      // Arrange (create a moq repo and use it for the controller)
+      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
+      mockRepo.Setup(r => r.AddAsync(It.IsAny<Lib.Models.Tenant>()));
+    }
   }
 }
