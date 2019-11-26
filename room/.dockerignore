@@ -7,7 +7,6 @@
 **/*.Tests/
 
 #### created by gitignore-to-dockerignore
-#### (except appsettings lines removed)
 
 ## angular
 **/coverage/
@@ -22,6 +21,9 @@
 **/.vs/
 **/bin/
 **/obj/
+
+**/appsettings.*
+!**/appsettings.json
 
 ## jekyll
 **/.jekyll-cache/

@@ -19,12 +19,11 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
+    //_roomDUCQueue will be used for receiving from the Complex service
+    private readonly QueueClient _roomDUCQueue;
 
-    //_queueClient will be used for receiving from the Complex
-    private readonly QueueClient _queueClient;
-
-    //_queueClientTwo will be used for receiving from the Tenant
-    private readonly QueueClient _queueClientTwo;
+    //_occupancyUpdateQueue will be used for receiving from the Tenant service
+    private readonly QueueClient _occupancyUpdateQueue;
 
     private readonly IServiceProvider Services;
     private readonly ILogger<ServiceBusConsumer> _logger;
@@ -39,9 +38,9 @@ namespace ServiceBusMessaging
     {
       //Changed this from testq to complexq
       //Might have to make another queclient for tenant
-      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
+      _roomDUCQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
 
-      _queueClientTwo = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
+      _occupancyUpdateQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
 
       Services = services;
       _logger = logger;
@@ -58,7 +57,7 @@ namespace ServiceBusMessaging
         AutoComplete = false
       };
 
-      _queueClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
+      _roomDUCQueue.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
     }
 
     /// <summary>
@@ -118,7 +117,7 @@ namespace ServiceBusMessaging
         finally
         {
           // Alert bus service that message was received
-          await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
+          await _roomDUCQueue.CompleteAsync(message.SystemProperties.LockToken);
         }
       }
     }
@@ -141,7 +140,7 @@ namespace ServiceBusMessaging
     /// <returns></returns>
     public async Task CloseQueueAsync()
     {
-      await _queueClient.CloseAsync();
+      await _roomDUCQueue.CloseAsync();
     }
 
     /// <summary>
@@ -153,7 +152,7 @@ namespace ServiceBusMessaging
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
       RegisterOnMessageHandlerAndReceiveMessages();
-      return Task.CompletedTask; 
+      return Task.CompletedTask;
     }
   }
 }
