@@ -19,6 +19,7 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         CoordinatorId = provider.CoordinatorId,
         Name = provider.Name,
+        Email = provider.Email,
         Status = new Lib.Model.Status { StatusText = provider.StatusText },
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
@@ -32,6 +33,7 @@ namespace Revature.Account.DataAccess
         ProviderId = provider.ProviderId,
         CoordinatorId = provider.CoordinatorId,
         Name = provider.Name,
+        Email = provider.Email,
         StatusText = provider.Status.StatusText,
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
