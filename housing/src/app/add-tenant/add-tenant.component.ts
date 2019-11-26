@@ -81,6 +81,10 @@ export class AddTenantComponent implements OnInit {
         gender: '',
         firstName: '',
         lastName: '',
+        addressId: '',
+        roomId: '',
+        carId: '',
+        batchId: 0,
         tenantAddress: {
           addressId: '',
           street: '',

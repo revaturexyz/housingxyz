@@ -8,6 +8,10 @@ export interface Tenant {
     gender: string;
     firstName: string;
     lastName: string;
+    addressId: string;
+    roomId: string;
+    carId: string;
+    batchId: number;
     tenantAddress: TenantAddress;
     car: Car;
     batch: Batch;
