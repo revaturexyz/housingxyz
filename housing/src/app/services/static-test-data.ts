@@ -271,10 +271,6 @@ export class TestServiceData {
     TestServiceData.testProvider2
   ];
 
-  static testRoomType: RoomType = {
-    typeId: 1,
-    roomType: 'Dormitory'
-  };
 
   static testTrainingCenters: TrainingCenter[] = [
     TestServiceData.testTrainingCenter1,

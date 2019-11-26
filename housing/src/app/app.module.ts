@@ -57,7 +57,7 @@ import { ShowRoomComponent } from './manage-complex/show-room/show-room.componen
     ComplexDetailsComponent,
     ManageComplexComponent,
     EditRoomComponent,
-    EditComplexComponent
+    EditComplexComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
     NotificationDetailsComponent
