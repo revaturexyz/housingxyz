@@ -20,8 +20,6 @@ const address: TenantAddress = {
   zipCode: '12345'
 }
 
-const coord = TestBed.get(AddTenantComponent);
-
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
@@ -51,11 +49,6 @@ describe('AddTenantComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // ngOnInit()
-  it('should initialize correctly', () => {
-    expect(component.batchList).toBeTruthy();
-  });
-
   // addForm()
   it('should add form on addForm()', () => {
     component.addForm();
@@ -78,6 +71,11 @@ describe('AddTenantComponent', () => {
   it('should remove form on return()', () => {
     component.return();
     expect(component.show).toBeFalsy();
+  });
+
+  // ngOnInit()
+  it('should initialize correctly', () => {
+    expect(component.batchList).toBeTruthy();
   });
 
   // batchChoose(batch: Batch)

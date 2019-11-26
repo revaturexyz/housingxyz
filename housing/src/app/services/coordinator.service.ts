@@ -33,7 +33,7 @@ export class CoordinatorService {
   }
 
   GetBatchByTrainingCenterId(trainingCenterId: string): Observable<any> {
-    const batchUrl = `${this.apiUrl} + 'Tenant/Batch/' + ${trainingCenterId}`;
+    const batchUrl = `${this.apiUrl} + 'Tenant/Batch?trainingCenterString=' + ${trainingCenterId}`;
     return this.httpBus.get<Batch[]>(batchUrl, this.httpOptions);
   }
 
