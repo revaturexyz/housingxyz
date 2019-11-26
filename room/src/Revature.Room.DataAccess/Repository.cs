@@ -32,7 +32,7 @@ namespace Revature.Room.DataAccess
     public async Task CreateRoomAsync(Lib.Room myRoom)
     {
       Data.Room roomEntity = _map.ParseRoom(myRoom);
-      roomEntity.Gender = await _context.Gender.FirstAsync(g => g.Type == myRoom.Gender);
+      roomEntity.Gender = null;
       roomEntity.RoomType = await _context.RoomType.FirstAsync(r => r.Type == myRoom.RoomType);
       await _context.AddAsync(roomEntity);
     }
@@ -49,11 +49,12 @@ namespace Revature.Room.DataAccess
     }
 
     /// <summary>
-    /// Method that updates the gender, lease start, end, and number of occupants of a Room
+    /// Method that updates the lease start and end of a Room
     /// </summary>
     /// <param name="myRoom"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException">Thrown when room isn't found in DB</exception>
+    /// <remarks>Update room method for the complex service</remarks>
     public async Task UpdateRoomAsync(Lib.Room myRoom)
     {
       Data.Room roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
@@ -61,10 +62,8 @@ namespace Revature.Room.DataAccess
         .Include(r => r.RoomType)
         .FirstAsync();
 
-      roomEntity.Gender = await _context.Gender.FirstOrDefaultAsync(g => g.Type == myRoom.Gender);
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
-      roomEntity.NumberOfOccupants = myRoom.NumberOfOccupants;
     }
 
     /// <summary>
@@ -77,6 +76,24 @@ namespace Revature.Room.DataAccess
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);
+    }
+
+    /// <summary>
+    /// Deletes all rooms based on given complex ID and returns all room IDs that have been deleted
+    /// </summary>
+    /// <param name="complexId"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room to be deleted isn't found in DB</exception>
+    public async Task<List<Guid>> DeleteComplexRoomAsync(Guid complexId)
+    {
+      var roomEntity = await _context.Room.Where(r => r.ComplexId == complexId).Select(r => r.RoomId).ToListAsync();
+
+      foreach (var r in roomEntity)
+      {
+        await DeleteRoomAsync(r);
+      }
+
+      return roomEntity;
     }
 
     /// <summary>
@@ -145,21 +162,45 @@ namespace Revature.Room.DataAccess
     /// <param name="gender"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
-    public async Task<IList<Guid>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
+    public async Task<IList<Tuple<Guid, int>>> GetVacantFilteredRoomsByGenderandEndDateAsync(string gender, DateTime endDate)
     {
       return await _context.Room
-        .Where(r => r.Gender.Type.ToUpper() == gender.ToUpper() && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
-        .Select(r => r.RoomId).ToListAsync();
+        .Where(r => (r.Gender == null || r.Gender.Type.ToUpper() == gender.ToUpper()) && endDate < r.LeaseEnd && r.NumberOfOccupants < r.NumberOfBeds)
+        .Select(r => new Tuple<Guid, int>(r.RoomId, r.NumberOfBeds))
+        .ToListAsync();
     }
+
     /// <summary>
     /// Method that updates the room occupants when a tenant is assigned a room
     /// </summary>
     /// <param name="roomId"></param>
-    /// <exception cref="InvalidOperationException">Thrown when a room mathcing the roomId is not found </exception>
-    public async Task AddRoomOccupantsAsync(Guid roomId)
+    /// <exception cref="InvalidOperationException">Thrown when a room matching the roomId is not found, or the gender type isn't found </exception>
+    /// <remarks>Sets a room's gender when Gender is null, i.e. when the room was previously unoccupied</remarks>
+    public async Task AddRoomOccupantsAsync(Guid roomId, string tenantGender)
     {
-      Entities.Room roomToUpdate = await _context.Room.FirstAsync(r => r.RoomId == roomId);
+      Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
       roomToUpdate.NumberOfOccupants++;
+      if (roomToUpdate.Gender == null)
+      {
+        roomToUpdate.Gender = await _context.Gender.FirstAsync(g => g.Type.ToUpper() == tenantGender.ToUpper());
+      }
+    }
+
+    /// <summary>
+    /// Method that updates occupants when an occupant vacates a room
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
+    /// <remarks>Reverts gender of room back to null if updated room is empty</remarks>
+    public async Task SubtractRoomOccupantsAsync(Guid roomId)
+    {
+      Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
+      roomToUpdate.NumberOfOccupants--;
+      if (roomToUpdate.NumberOfOccupants == 0)
+      {
+        roomToUpdate.Gender = null;
+      }
     }
   }
 }
