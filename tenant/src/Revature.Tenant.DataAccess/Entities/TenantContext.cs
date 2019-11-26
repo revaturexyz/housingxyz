@@ -29,7 +29,7 @@ namespace Revature.Tenant.DataAccess.Entities
         (
           new Tenant()
           {
-            AddressId = Guid.Parse("1a4d6c6e-9650-44c9-8c6b-5aebd3f9a67e"),
+            AddressId = Guid.Parse("1a4d6c6e-9640-44c9-8c6b-5aebd3f9a67e"), 
             BatchId = 1,
             CarId = -2,
             Email = "nick@revature.com",
