@@ -6,7 +6,6 @@ import { Complex } from 'src/interfaces/complex';
 import { Address } from 'src/interfaces/address';
 import { environment } from 'src/environments/environment';
 import { Notify } from 'src/interfaces/notification';
-import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +17,7 @@ export class ProviderService {
 
   httpOptions: any;
 
-  constructor(
-    private httpBus: HttpClient,
-    msalService: MsalService
-  ) {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: msalService.getUser().userIdentifier
-      })
-    };
-  }
+  constructor(private httpBus: HttpClient) { }
 
   getProviders(): Observable<any> {
     const providerUrl = this.apiUrl + 'Provider';
@@ -56,5 +46,10 @@ export class ProviderService {
 
   postRequestByProvider(req: Notify) {
     return this.httpBus.post(this.apiUrl + `Notification`, req, this.httpOptions);
+  }
+
+  // POST     Create a new provider -
+  postCreateProvider(provider: Provider) {
+    return this.httpBus.post(this.apiUrl + `Notification`, provider, this.httpOptions);
   }
 }

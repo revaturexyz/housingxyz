@@ -4,12 +4,9 @@ using System.Text;
 
 namespace Revature.Complex.Lib.Models
 {
-<<<<<<< Updated upstream
-=======
   /// <summary>
-  /// This model serves to connect the Amenity with the Complex that has that amenity. Both FK's
+  /// This object model defines a complex amenity. It has the amenity name and GUID (id)
   /// </summary>
->>>>>>> Stashed changes
   public class AmenityComplex
   {
     public Guid AmenityComplexId { get; set; }

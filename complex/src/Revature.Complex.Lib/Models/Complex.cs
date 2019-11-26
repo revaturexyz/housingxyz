@@ -4,14 +4,9 @@ using System.Text;
 
 namespace Revature.Complex.Lib.Models
 {
-<<<<<<< Updated upstream
-=======
   /// <summary>
-  /// This model repesents the complex. It holds the GUID of it's provider (FK-provider service) and
-  /// Address(FK- Address service).
-  /// It's ComplexId is held as ComplexId(FK) in AmenityComplex.
+  /// This object model defines a complex. It has the complex name, address, Provider GUID and GUID (id) along with other info.
   /// </summary>
->>>>>>> Stashed changes
   public partial class Complex
   {
     public Guid ComplexId { get; set; }
