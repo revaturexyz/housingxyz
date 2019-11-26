@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Revature.Room.Api.Services;
 using Revature.Room.DataAccess;
 using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
@@ -55,6 +54,8 @@ namespace Revature.Room.Api
       services.AddScoped<IMapper, DBMapper>();
       services.AddHostedService<ServiceBusConsumer>();
 
+      services.AddScoped<ServiceBusSender>();
+
       services.AddControllers();
     }
 
@@ -72,9 +73,6 @@ namespace Revature.Room.Api
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
-
-      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 
