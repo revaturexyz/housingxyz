@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Api.Models;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using Revature.Tenant.Api.ServiceBus;
 using Microsoft.Extensions.Logging;
 
 namespace Revature.Tenant.Api.Controllers
@@ -16,7 +13,6 @@ namespace Revature.Tenant.Api.Controllers
   [ApiController]
   public class TenantController : ControllerBase
   {
-    private readonly IServiceBusSender _serviceBusSender;
     private readonly ITenantRepository _tenantRepository;
     private readonly ILogger _logger;
 
