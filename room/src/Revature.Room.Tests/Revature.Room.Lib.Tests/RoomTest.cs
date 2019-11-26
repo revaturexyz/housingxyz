@@ -48,5 +48,33 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
       Assert.Throws<ArgumentException>(invalidCreate);
       
     }
+    [Fact]
+    public void RoomShouldRejectInvalidRoomNumber()
+    {
+      Assert.Throws<ArgumentException>(() => new BL.Room() { RoomNumber = ""});
+      Assert.Throws<ArgumentException>(() => new BL.Room() { RoomNumber = null });
+    }
+    [Fact]
+    public void RoomShouldRejectInvalidNumberOfBeds()
+    {
+      Assert.Throws<ArgumentException>(() => new BL.Room() { NumberOfBeds = 0});
+      Assert.Throws<ArgumentException>(() => new BL.Room() { NumberOfBeds = -1 });
+    }
+    [Fact]
+    public void RoomShouldRejectInvalidNumberOfOccupants()
+    {
+
+      Assert.Throws<ArgumentException>(() => new BL.Room() { NumberOfOccupants = -1 });
+
+      var room = new BL.Room() { NumberOfBeds = 2 };
+      Assert.Throws<ArgumentException>(() => room.NumberOfOccupants = 3);
+    }
+
+    [Fact]
+    public void RoomShouldRejectInvalidRoomType()
+    {
+      Assert.Throws<ArgumentException>(() => new BL.Room() { RoomType = "" });
+      Assert.Throws<ArgumentException>(() => new BL.Room() { RoomType = null });
+    }
   }
 }
