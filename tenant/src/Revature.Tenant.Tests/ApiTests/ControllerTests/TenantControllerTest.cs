@@ -156,10 +156,10 @@ namespace Revature.Tenant.Tests.ApiTests
           ZipCode = "l"
         }
       };
-      await var result = controller.UpdateAsync(apiTenant);
+      var result = await controller.UpdateAsync(apiTenant);
 
       //Assert
-      var ok = Assert.IsAssignableFrom<StatusCodeResult>(result.Result);
+      var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);
     }
   }
 }
