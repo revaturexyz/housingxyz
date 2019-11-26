@@ -53,12 +53,13 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = Guid.NewGuid(),
           Name = newProvider.Name,
-          Status = await _repo.GetStatusByStatusTextAsync("Pending"),
+          Status = new Status(Status.Pending),
           AccountCreatedAt = DateTime.Now,
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
+
         _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
         return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
       }
@@ -91,7 +92,7 @@ namespace Revature.Account.Api.Controllers
     }
 
     // DELETE: api/provider-accounts/5
-    [HttpDelete("{id}")]
+    [HttpDelete("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid providerId)

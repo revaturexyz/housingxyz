@@ -32,11 +32,13 @@ namespace Revature.Account.Api.Controllers
     {
       _logger.LogInformation($"GET - Getting coordinator with ID: {coordinatorId}");
       var coordinator = await _repo.GetCoordinatorAccountByIdAsync(coordinatorId);
+
       if (coordinator == null)
       {
         _logger.LogWarning($"No coordinator found for given ID: {coordinatorId} on GET call.");
         return NotFound();
       }
+
       return Ok(coordinator);
     }
   }

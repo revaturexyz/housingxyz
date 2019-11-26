@@ -18,6 +18,13 @@ namespace Revature.Account.Lib.Model
     public static readonly string Rejected = "Rejected";
     public static readonly string UnderReview = "Under Review";
 
+    public Status() { }
+
+    public Status(string newStatus)
+    {
+      StatusText = newStatus;
+    }
+
     private string _statusText;
     public string StatusText
     {

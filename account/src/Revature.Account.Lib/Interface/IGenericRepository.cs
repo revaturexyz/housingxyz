@@ -45,19 +45,6 @@ namespace Revature.Account.Lib.Interface
 
     #endregion
 
-    #region Status
-
-    public Task<Status> GetStatusByIdAsync(int statusId);
-
-    public Task<Status> GetStatusByStatusTextAsync(string statusText);
-
-    public void AddStatus(Status status);
-
-    public Task<bool> UpdateStatusAsync(Status status);
-
-    public Task<bool> DeleteStatusByIdAsync(int statusId);
-    #endregion
-
     #region UpdateAction
 
     public Task<UpdateAction> GetUpdateActionByIdAsync(Guid actionId);
