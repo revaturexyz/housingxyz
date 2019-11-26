@@ -398,9 +398,10 @@ namespace Revature.Room.Tests
       var assertContext = new RoomServiceContext(options);
 
       //The DeleteComplexRoomAsync method deletes all rooms based on the complex, it works
-      //But we have 1 seeded room in our database so even after delete all the created rooms
-      //we still have our seeded data.  But it works, so test passes
-      Assert.Equal(1, assertContext.Room.Count());
+      //But we have 3 seeded room in our database that aren't in the same complex
+      //so even after delete all the created rooms
+      //we still have our seeded data.
+      Assert.Equal(3, assertContext.Room.Count());
 
     }
 
