@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Revature.Tenant.Api.Models;
 
 namespace Revature.Tenant.Api
 {
@@ -13,7 +16,11 @@ namespace Revature.Tenant.Api
 
   public class AddressClient
   {
-    static readonly HttpClient client = new HttpClient();
+    //public async Task<ActionResult<bool>> CheckAddressAsync(ApiAddress apiAddress)
+    //{
+
+      
+    //}
 
 
   }
