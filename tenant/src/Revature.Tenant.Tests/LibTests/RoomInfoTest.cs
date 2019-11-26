@@ -27,13 +27,16 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void RoomInfoShouldCreate()
     {
+      var roomId = Guid.NewGuid();
       var createdRoom = new Lib.Models.RoomInfo()
       {
         NumberOfBeds = 4,
-        RoomId = Guid.NewGuid(),
+        RoomId = roomId,
         Tenants = new List<Lib.Models.Tenant>()
       };
       Assert.NotNull(createdRoom);
+      Assert.True(createdRoom.RoomId == roomId);
+      Assert.True(createdRoom.NumberOfBeds == 4);
     }
   }
 }
