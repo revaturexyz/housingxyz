@@ -92,13 +92,16 @@ namespace Revature.Account.Api.Controllers
       if (existingNotification.Status.StatusText == Status.UnderReview && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
       {
         existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
-        await _repo.UpdateNotificationAsync(existingNotification);
       }
-      // Status is 'Rejected'
-      else if (existingNotification.Status.StatusText == Status.Rejected)
-      {
-        await _repo.DeleteNotificationByIdAsync(notificationId);
-      }
+
+      /*
+       * The notification should stay in the database until it expires,
+       * at which point it will be removed. The functionality to check for
+       * expired notifications would ideally be run on the db level,
+       * but a workaround will be required to do it at the controller
+       * level.
+       */
+      await _repo.UpdateNotificationAsync(existingNotification);
       await _repo.SaveAsync();
 
       _logger.LogInformation("Persisted put request");

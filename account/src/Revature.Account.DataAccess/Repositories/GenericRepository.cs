@@ -63,7 +63,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> UpdateProviderAccountAsync(ProviderAccount providerAccount)
     {
-      var existingEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
+      var existingEntity = await _context.ProviderAccount.FirstOrDefaultAsync(p => p.ProviderId == providerAccount.ProviderId);
       if (existingEntity == null)
         return false;
 
@@ -79,7 +79,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> DeleteProviderAccountAsync(Guid providerId)
     {
-      var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
+      var entityToBeRemoved = await _context.ProviderAccount.FirstOrDefaultAsync(p => p.ProviderId == providerId);
       if (entityToBeRemoved == null)
         return false;
 
@@ -158,7 +158,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> DeleteNotificationByIdAsync(Guid notificationId)
     {
-      var entityToBeRemoved = await _context.Notification.FindAsync(notificationId);
+      var entityToBeRemoved = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notificationId);
       if (entityToBeRemoved == null)
         return false;
 
@@ -176,7 +176,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> UpdateNotificationAsync(Notification notification)
     {
-      var existingEntity = await _context.Notification.FindAsync(notification.NotificationId);
+      var existingEntity = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notificationId);
       if (existingEntity == null)
         return false;
 
@@ -208,7 +208,7 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<bool> UpdateUpdateActionAsync(UpdateAction action)
     {
-      var existingEntity = await _context.UpdateAction.FindAsync(action.UpdateActionId);
+      var existingEntity = await _context.UpdateAction.FirstOrDefaultAsync(u => u.UpdateActionId == action.UpdateActionId);
       if (existingEntity == null)
         return false;
 
@@ -219,7 +219,7 @@ namespace Revature.Account.DataAccess.Repositories
 
     public async Task<bool> DeleteUpdateActionByIdAsync(Guid actionId)
     {
-      var entityToBeRemoved = await _context.UpdateAction.FindAsync(actionId);
+      var entityToBeRemoved = await _context.UpdateAction.FirstOrDefaultAsync(u => u.UpdateActionId == actionId);
       if (entityToBeRemoved == null)
         return false;
 
