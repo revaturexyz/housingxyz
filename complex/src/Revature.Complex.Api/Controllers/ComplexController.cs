@@ -186,7 +186,6 @@ namespace Revature.Complex.Api.Controllers
       }
     }
 
-
     /// <summary>
     /// (GET)
     /// Call Repository and Address service to get list of complex info
@@ -403,9 +402,7 @@ namespace Revature.Complex.Api.Controllers
             await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
             log.LogInformation($"(API)list of amenity with room id: {arts.RoomId} is created");
           }
-
         }
-
         return StatusCode(201);
       }
       catch (ArgumentException)

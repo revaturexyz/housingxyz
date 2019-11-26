@@ -3,8 +3,6 @@
   "profiles": {
     "Revature.Complex.Api": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/complex/amenities",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

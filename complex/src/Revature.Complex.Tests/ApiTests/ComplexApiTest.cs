@@ -55,7 +55,6 @@ namespace Revature.Complex.Tests.ApiTests
       _complexRepo.Setup(r => r.ReadComplexByIdAsync(complexId))
           .Returns(Task.FromResult(res));
 
-
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
       var model = Assert.IsAssignableFrom<ActionResult<ApiComplex>>(await controller.GetComplexByIdAsync(complexId));
@@ -81,7 +80,6 @@ namespace Revature.Complex.Tests.ApiTests
       _complexRepo.Setup(r => r.ReadComplexByNameAndNumberAsync(name, number))
           .Returns(Task.FromResult(res));
 
-
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
       var model = Assert.IsAssignableFrom<ActionResult<ApiComplex>>(await controller.GetComplexByNameAndNumberAsync(name, number));
@@ -105,7 +103,6 @@ namespace Revature.Complex.Tests.ApiTests
       List<Logic.Complex> res = new List<Logic.Complex>();
       _complexRepo.Setup(r => r.ReadComplexByProviderIdAsync(pId))
           .Returns(Task.FromResult(res));
-
 
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
@@ -179,7 +176,6 @@ namespace Revature.Complex.Tests.ApiTests
       _complexRepo.Setup(c => c.ReadAmenityListAsync())
           .Returns(Task.FromResult(amenities));
 
-
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
       var model = Assert.IsAssignableFrom<ActionResult<ApiComplex>>(await controller.PostComplexAsync(apiComplex));
@@ -237,7 +233,6 @@ namespace Revature.Complex.Tests.ApiTests
       bool res = true;
       _complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
           .Returns(Task.FromResult(res));
-
 
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
@@ -312,8 +307,6 @@ namespace Revature.Complex.Tests.ApiTests
           .Returns(Task.FromResult(amenities));
       _complexRepo.Setup(p => p.CreateAmenityComplexAsync(ac))
           .Returns(Task.FromResult(res));
-
-
 
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
@@ -396,7 +389,6 @@ namespace Revature.Complex.Tests.ApiTests
       _complexRepo.Setup(r => r.DeleteComplexAsync(cId))
           .Returns(Task.FromResult(res));
 
-
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);
       var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.DeleteComplexAsync(cId, aId));
@@ -432,7 +424,6 @@ namespace Revature.Complex.Tests.ApiTests
       _complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
           .Returns(Task.FromResult(res));
       rss.Setup(r => r.SendRoomsMessages(rts));
-
 
       //act
       var controller = new ComplexController(_complexRepo.Object, _logger.Object, ads.Object, rss.Object);

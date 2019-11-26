@@ -27,6 +27,10 @@ namespace Revature.Complex.Api
 
     public IConfiguration Configuration { get; }
 
+    /// <summary>
+    /// to configure the services
+    /// </summary>
+    /// <param name="services"></param>
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddCors(options =>
@@ -62,6 +66,11 @@ namespace Revature.Complex.Api
 
     }
 
+    /// <summary>
+    /// it is to create the app's request processing pipeline
+    /// </summary>
+    /// <param name="app"></param>
+    /// <param name="env"></param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
