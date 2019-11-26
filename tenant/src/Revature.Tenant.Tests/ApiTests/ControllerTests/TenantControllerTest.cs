@@ -44,8 +44,8 @@ namespace Revature.Tenant.Tests.ApiTests
      
       var colton = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
       var result = await controller.GetByIdAsync(colton);
-      // Assert (ensure the provider is returned with the correct values)
 
+      // Assert (ensure the provider is returned with the correct values)
       var ok = Assert.IsAssignableFrom<OkObjectResult>(result.Result);
       var tenant = Assert.IsAssignableFrom<ApiTenant>(ok.Value);
       Assert.NotNull(tenant);
@@ -55,20 +55,25 @@ namespace Revature.Tenant.Tests.ApiTests
     public async Task GetAllBatchesByTCShouldGetAllByTCAsync()
     {
       //Arrange (create a moq repo and use it for the controller)
+      Mock<ITenantRepository> mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
+      var options = TestDbInitializer.InitializeDbOptions("GetAllBatchesByTCShouldGetAllByTCAsync");
+      using var db = TestDbInitializer.CreateTestDb(options);
+      var mapper = new Mapper();
 
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
+
+     // Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       var mockLogger = new Mock<ILogger<TenantController>>();
       var controller = new TenantController(mockRepo.Object, mockLogger.Object);
 
 
-      //Act (get all batches 
+      //Act (get all batches)
 
       var result = await controller.GetAllBatches("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
 
       //Assert
 
       var ok = Assert.IsAssignableFrom<OkObjectResult>(result.Result);
-      var batches = Assert.IsAssignableFrom<ActionResult<ApiBatch>>(ok.Value);
+      var batches = Assert.IsAssignableFrom<System.Collections.Generic.List<Lib.Models.Batch>>(ok.Value);
       Assert.NotNull(batches);
     }
   }
