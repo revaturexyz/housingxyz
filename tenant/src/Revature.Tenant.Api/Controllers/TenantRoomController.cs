@@ -27,11 +27,23 @@ namespace Revature.Tenant.Api.Controllers
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTenantsNotAssignedRoom()
+    {
+      _logger.LogInformation("Getting roomless tenants...");
+      var tenants = await _repository.GetRoomlessTenants();
+      _logger.LogInformation("Successfully gathered roomless tenants...");
+
+      return Ok(tenants);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTenantsByRoomId([FromQuery] string gender, [FromQuery] DateTime endDate)
     {
       try
       {
+        _logger.LogInformation("Requesting room id + total beds fmor Room Service...");
         using (var client = new HttpClient())
         {
           string baseUri = "baseUriForRoomService.com/";
@@ -64,6 +76,7 @@ namespace Revature.Tenant.Api.Controllers
             return Ok(roomsWithTenants);
           } else
           {
+            _logger.LogInformation("Could not retrieve info from Room Service.");
             return BadRequest();
           }
         }
