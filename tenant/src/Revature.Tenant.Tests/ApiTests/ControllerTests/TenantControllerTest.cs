@@ -78,8 +78,33 @@ namespace Revature.Tenant.Tests.ApiTests
     public async Task PostShouldPost()
     {
       // Arrange (create a moq repo and use it for the controller)
+      var mockLogger = new Mock<ILogger<TenantController>>();
       Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       mockRepo.Setup(r => r.AddAsync(It.IsAny<Lib.Models.Tenant>()));
+      var controller = new TenantController(mockRepo.Object, mockLogger.Object);
+
+      //Act
+      var result = await controller.PostAsync(new ApiTenant
+      {
+        AddressId = Guid.Parse("fa4d8c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        ApiAddress = null,
+        ApiBatch = null,
+        ApiCar = null,
+        BatchId = 1,
+        CarId = 1,
+        Email = "e@mail.com",
+        FirstName = "Victoria",
+        Gender = "Female",
+        Id = null,
+        LastName = "Something Spanish",
+        RoomId = null,
+        TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+      });
+
+      //Assert
+      var ok = Assert.IsAssignableFrom<ObjectResult>(result.Result);
+      var tenant = Assert.IsAssignableFrom<ApiTenant>(ok.Value);
+      Assert.NotNull(tenant);
     }
 
     [Fact]

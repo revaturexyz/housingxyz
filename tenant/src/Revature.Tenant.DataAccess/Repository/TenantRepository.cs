@@ -38,12 +38,6 @@ namespace Revature.Tenant.DataAccess.Repository
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
-      //if (tenant.Car != null)
-      //{
-      //  Entities.Car newCar = _mapper.MapCar(tenant.Car);
-      //  newCar.Tenant = _context.Tenant.Where(t => t.Id == newTenant.Id).FirstOrDefault();
-      //  await _context.Car.AddAsync(newCar);
-      //}
     }
 
     /// <summary>
