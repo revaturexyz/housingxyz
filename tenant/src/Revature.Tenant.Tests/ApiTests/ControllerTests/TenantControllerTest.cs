@@ -60,8 +60,6 @@ namespace Revature.Tenant.Tests.ApiTests
       using var db = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
 
-
-     // Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       var mockLogger = new Mock<ILogger<TenantController>>();
       var controller = new TenantController(mockRepo.Object, mockLogger.Object);
 
@@ -77,12 +75,66 @@ namespace Revature.Tenant.Tests.ApiTests
       Assert.NotNull(batches);
     }
 
-    [Fact]
     public async Task PostShouldPost()
     {
       // Arrange (create a moq repo and use it for the controller)
       Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       mockRepo.Setup(r => r.AddAsync(It.IsAny<Lib.Models.Tenant>()));
+    }
+
+    [Fact]
+
+    public async Task UpdateAsyncShouldReturnStatusCode204()
+    {
+      //Arrange (create a moq repo and use it for the controller)
+      Mock<ITenantRepository> mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
+      var options = TestDbInitializer.InitializeDbOptions("GetAllBatchesByTCShouldGetAllByTCAsync");
+      using var db = TestDbInitializer.CreateTestDb(options);
+      var mapper = new Mapper();
+
+      var mockLogger = new Mock<ILogger<TenantController>>();
+      var controller = new TenantController(mockRepo.Object, mockLogger.Object);
+
+      //Act
+      var apiTenant = new ApiTenant
+      {
+        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        Email = "colton@colton.com",
+        Gender = "male",
+        FirstName = "Colton",
+        LastName = "Clary",
+        AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+        ApiBatch = new ApiBatch
+        {
+          TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+          Id = 1,
+          BatchCurriculum = "c#"
+        },
+        ApiCar = new ApiCar
+        {
+          Id = 1,
+          Color = "y",
+          LicensePlate = "123",
+          Make = "s",
+          Model = "2",
+          State = "w",
+          Year = "l"
+        },
+        ApiAddress = new ApiAddress
+        {
+          State = "sdl",
+          AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
+          City = "l",
+          Country = "l",
+          Street = "s",
+          ZipCode = "l"
+        }
+      };
+      await var result = controller.UpdateAsync(apiTenant);
+
+      //Assert
+      var ok = Assert.IsAssignableFrom<StatusCodeResult>(result.Result);
     }
   }
 }

@@ -207,7 +207,7 @@ namespace Revature.Tenant.Api.Controllers
     public async Task<ActionResult<IEnumerable<ApiBatch>>> GetAllBatches([FromQuery] string trainingCenterString)
     {
       try
-      {
+      { 
         Guid trainingCenter = Guid.Parse(trainingCenterString);
         var batches = await _tenantRepository.GetBatchesAsync(trainingCenter);
         return Ok(batches);
