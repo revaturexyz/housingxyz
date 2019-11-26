@@ -30,16 +30,28 @@ namespace Revature.Tenant.Api.Controllers
     /// Get all tenants
     /// </summary>
     /// <returns></returns>
-   
+
     // GET: api/Tenant
     [HttpGet(Name = "GetAllAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] ApiSearchParameters apiSearchParameters)
     {
+
+      string firstName = apiSearchParameters.FirstName;
+      string lastName = apiSearchParameters.LastName;
+      string gender = apiSearchParameters.Gender;
+      Guid? trainingCenter;
+      if (apiSearchParameters.TrainingCenter != null)
+        trainingCenter= Guid.Parse(apiSearchParameters.TrainingCenter);
+      else
+        trainingCenter = null;
+
+
       _logger.LogInformation("GET - Getting tenants");
-      var tenants = await _tenantRepository.GetAllAsync();
+      var tenants = await _tenantRepository.GetAllAsync(firstName, lastName, gender, trainingCenter);
+
       List<Lib.Models.Tenant> newTenants = new List<Lib.Models.Tenant>();
       foreach (Lib.Models.Tenant tenant in tenants)
       {
@@ -61,7 +73,7 @@ namespace Revature.Tenant.Api.Controllers
           batch = null;
           batchId = null;
         }
-
+        tenant.Batch = batch;
         Lib.Models.Car car;
         int? carId;
         if (tenant.Car != null)
@@ -83,12 +95,15 @@ namespace Revature.Tenant.Api.Controllers
           car = null;
           carId = null;
         }
+        tenant.Car = car;
+
         newTenants.Add(tenant);
       }
 
       List<ApiTenant> apiTenants = new List<ApiTenant>();
-      foreach(Lib.Models.Tenant apiTenant in newTenants)
+      foreach (Lib.Models.Tenant apiTenant in newTenants)
       {
+
         ApiTenant newApiTenant = new ApiTenant
         {
           Id = apiTenant.Id,
@@ -126,6 +141,7 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         var tenant = await _tenantRepository.GetByIdAsync(id);
+
         var apiTenant = new ApiTenant
         {
           Id = tenant.Id,
@@ -139,6 +155,32 @@ namespace Revature.Tenant.Api.Controllers
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter
         };
+
+        if (apiTenant.CarId != null)
+        {
+          apiTenant.ApiCar = new ApiCar
+          {
+            Id = tenant.Car.Id,
+            Color = tenant.Car.Color,
+            Make = tenant.Car.Make,
+            Model = tenant.Car.Model,
+            LicensePlate = tenant.Car.LicensePlate,
+            State = tenant.Car.State,
+            Year = tenant.Car.Year
+          };
+        }
+
+        if (apiTenant.BatchId != null)
+        {
+          apiTenant.ApiBatch = new ApiBatch
+          {
+            Id = tenant.Batch.Id,
+            BatchCurriculum = tenant.Batch.BatchCurriculum,
+            StartDate = tenant.Batch.StartDate,
+            EndDate = tenant.Batch.EndDate,
+            TrainingCenter = tenant.Batch.TrainingCenter
+          };
+        }
 
         return Ok(apiTenant);
       }
@@ -157,6 +199,39 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     /// <summary>
+    /// Get all batches by training center id
+    /// </summary>
+    /// <returns></returns>
+    // GET: api/Tenant/Batch/[guid]
+    [HttpGet("Batch", Name = "GetAllBatches")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<ApiBatch>>> GetAllBatches([FromQuery] string trainingCenterString)
+    {
+      try
+      {
+        Guid trainingCenter = Guid.Parse(trainingCenterString);
+        var batches = await _tenantRepository.GetBatchesAsync(trainingCenter);
+        return Ok(batches);
+      }
+      catch (ArgumentException)
+      {
+        _logger.LogWarning("Training Center was not found");
+
+        return NotFound();
+      }
+      catch (Exception e)
+      {
+        _logger.LogError("Get request failed. Error: " + e.Message);
+
+        return StatusCode(500, e.Message);
+      }
+    }
+
+
+
+    /// <summary>
     /// Posts Tenant to Db
     /// </summary>
     /// <param name="value"></param>
@@ -164,24 +239,39 @@ namespace Revature.Tenant.Api.Controllers
     [HttpPost("RegisterTenant", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiTenant>> PostAsync([FromBody, Bind("tenantId")] ApiTenant tenant)
+    public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
     {
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
+        
         var newTenant = new Lib.Models.Tenant
         {
-          Id = tenant.Id,
+          Id = Guid.NewGuid(),
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
           AddressId = tenant.AddressId,
-          RoomId = tenant.RoomId,
-          CarId = tenant.CarId,
+          RoomId = null, //Room Service will set this later
+          CarId = null,
           BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter
+          TrainingCenter = tenant.TrainingCenter,
+          
         };
+        if (tenant.ApiCar != null)
+        {
+          newTenant.Car = new Lib.Models.Car
+          {
+            Color = tenant.ApiCar.Color,
+            Make = tenant.ApiCar.Make,
+            Model = tenant.ApiCar.Model,
+            LicensePlate = tenant.ApiCar.LicensePlate,
+            State = tenant.ApiCar.State,
+            Year = tenant.ApiCar.Year
+          };
+          newTenant.CarId = newTenant.Car.Id;
+        }
 
         await _tenantRepository.AddAsync(newTenant);
 
@@ -189,6 +279,7 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("POST Persisted to dB");
 
         return Created($"api/Tenant/{newTenant.Id}", newTenant);
+        return StatusCode(StatusCodes.Status418ImATeapot);
       }
       catch (ArgumentException)
       {
@@ -214,14 +305,14 @@ namespace Revature.Tenant.Api.Controllers
     // POST: api/Tenant
     [HttpPut("UpdateTenant", Name = "UpdateTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiTenant>> UpdateAsync([FromBody, Bind("tenantId")] ApiTenant tenant)
+    public async Task<ActionResult> UpdateAsync([FromBody, Bind("tenant")] ApiTenant tenant)
     {
       try
       {
         _logger.LogInformation("PUT - Updating tenant with tenantid {tenantId}.", tenant.Id);
         var newTenant = new Lib.Models.Tenant
         {
-          Id = tenant.Id,
+          Id = (Guid) tenant.Id,
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
@@ -231,29 +322,56 @@ namespace Revature.Tenant.Api.Controllers
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter 
-         
         };
 
-        await _tenantRepository.AddAsync(newTenant);
+        if (tenant.ApiCar != null)
+        {
+          newTenant.Car = new Lib.Models.Car
+          {
+            Id = tenant.ApiCar.Id,
+            Color = tenant.ApiCar.Color,
+            Make = tenant.ApiCar.Make,
+            Model = tenant.ApiCar.Model,
+            LicensePlate = tenant.ApiCar.LicensePlate,
+            State = tenant.ApiCar.State,
+            Year = tenant.ApiCar.Year
+          };
+        }
+
+        _tenantRepository.Put(newTenant);
         await _tenantRepository.SaveAsync();
 
         _logger.LogInformation("PUT persisted to dB");
-        ICollection<Lib.Models.Tenant> tenants = await _tenantRepository.GetAllAsync();
-        newTenant = tenants.First(t => t.Email == newTenant.Email);
+        //ICollection<Lib.Models.Tenant> tenants = await _tenantRepository.GetAllAsync();
+        //newTenant = tenants.First(t => t.Id == newTenant.Id);
 
-        ApiTenant apiTenant = new ApiTenant
-        {
-          Id = tenant.Id,
-          Email = tenant.Email,
-          Gender = tenant.Gender,
-          FirstName = tenant.FirstName,
-          LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
-          RoomId = tenant.RoomId,
-          CarId = tenant.CarId,
-          BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter
-        };
+        //ApiTenant apiTenant = new ApiTenant
+        //{
+        //  Id = tenant.Id,
+        //  Email = tenant.Email,
+        //  Gender = tenant.Gender,
+        //  FirstName = tenant.FirstName,
+        //  LastName = tenant.LastName,
+        //  AddressId = tenant.AddressId,
+        //  RoomId = tenant.RoomId,
+        //  CarId = tenant.CarId,
+        //  BatchId = tenant.BatchId,
+        //  TrainingCenter = tenant.TrainingCenter
+        //};
+
+        //if (newTenant.Car != null)
+        //{
+        //  apiTenant.ApiCar = new ApiCar
+        //  {
+        //    Id = tenant.ApiCar.Id,
+        //    Color = tenant.ApiCar.Color,
+        //    Make = tenant.ApiCar.Make,
+        //    Model = tenant.ApiCar.Model,
+        //    LicensePlate = tenant.ApiCar.LicensePlate,
+        //    State = tenant.ApiCar.State,
+        //    Year = tenant.ApiCar.Year
+        //  };
+        //}
 
         return StatusCode(204);
       }
@@ -274,6 +392,36 @@ namespace Revature.Tenant.Api.Controllers
       }
     }
 
+    /// <summary>
+    /// Delete a tenant by id
+    /// </summary>
+    /// <param name="id">Guid Id, converted from string in Query String</param>
+    [HttpDelete("Delete", Name = "DeleteTenant")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> DeleteAsync([FromBody] string id)
+    {
+      try
+      {
+        await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        await _tenantRepository.SaveAsync();
+        return StatusCode(StatusCodes.Status204NoContent);
+      }
+      catch (ArgumentException)
+      {
+        _logger.LogWarning("DELETE request failed. Not Found Exception");
+        return NotFound();
+      }
+      catch (InvalidOperationException e)
+      {
+        _logger.LogError("DELETE request failed. Error: " + e.Message);
+        return Conflict(e.Message);
+      }
+      catch (Exception e)
+      {
+        _logger.LogError("DELETE request failed. Error: " + e.Message);
+        return StatusCode(500, e.Message);
+      }
+    }
 
   }
 }

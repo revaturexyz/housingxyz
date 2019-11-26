@@ -37,8 +37,27 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task AddAsync(Lib.Models.Tenant tenant)
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
-
       await _context.Tenant.AddAsync(newTenant);
+      if (tenant.Car != null)
+      {
+        Entities.Car newCar = _mapper.MapCar(tenant.Car);
+        await _context.Car.AddAsync(newCar);
+      }
+    }
+
+    /// <summary>
+    /// Updates a new tenant object as well as its associated properties.
+    /// </summary>
+    /// <param name="tenant">The Tenant</param>
+    public void Put(Lib.Models.Tenant tenant)
+    {
+      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
+      _context.Tenant.Update(newTenant);
+      if (tenant.Car != null)
+      {
+        Entities.Car newCar = _mapper.MapCar(tenant.Car);
+        _context.Car.Update(newCar);
+      }
     }
 
     /// <summary>
@@ -65,11 +84,46 @@ namespace Revature.Tenant.DataAccess.Repository
     /// Gets a list of all tenants
     /// </summary>
     /// <returns>The collection of all tenants</returns>
-    public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync()
+    public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null)
     {
-      List<Entities.Tenant> tenants = await _context.Tenant.Include(t => t.Car).AsNoTracking().ToListAsync();
+      var tenants = _context.Tenant
+        .Include(t => t.Car)
+        .Include(t => t.Batch)
+        .AsNoTracking();
 
-      return tenants.Select((_mapper.MapTenant)).ToList();
+      if (firstName != null)
+      {
+        tenants = tenants.Where(t => t.FirstName == firstName);
+      }
+      if (lastName != null)
+      {
+        tenants = tenants.Where(t => t.LastName == lastName);
+      }
+      if (gender != null)
+      {
+        tenants = tenants.Where(t => t.Gender == gender);
+      }
+      if (trainingCenter != null)
+      {
+        tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
+      }
+
+      return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
+    }
+
+
+
+    /// <summary>
+    /// Gets all batches in a training center
+    /// </summary>
+    /// <param name="trainingCenter">A Guid of a training center</param>
+    /// <returns>A list of batches</returns>
+    public async Task<ICollection<Lib.Models.Batch>> GetBatchesAsync(Guid trainingCenter)
+    {
+      var batch = _context.Batch.Where(b => b.TrainingCenter == trainingCenter);
+      return (await batch.ToListAsync())
+        .Select(_mapper.MapBatch)
+        .ToList();
     }
 
     /// <summary>

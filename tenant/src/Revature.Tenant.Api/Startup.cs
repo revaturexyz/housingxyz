@@ -56,7 +56,7 @@ namespace Revature.Tenant.Api
       services.AddScoped<IMapper, Mapper>();
       //services.AddScoped<IServiceBusSender, ServiceBusSender>();
       //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
-
+      //services.AddHttpClient
       services.AddControllers();
     }
 

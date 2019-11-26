@@ -14,7 +14,7 @@ namespace Revature.Tenant.DataAccess.Entities
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public Guid AddressId { get; set; }
-    public Guid RoomId { get; set; }
+    public Guid? RoomId { get; set; }
     public int? CarId { get; set; }
     public virtual Car Car { get; set; }
     public int? BatchId { get; set; }
