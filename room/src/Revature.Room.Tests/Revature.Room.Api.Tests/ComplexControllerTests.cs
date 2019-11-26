@@ -77,7 +77,10 @@ namespace Revature.Room.DataAccess.Tests
 
       Assert.IsType<NotFoundObjectResult>(result);
     }
-
+    /// <summary>
+    /// Unit test for checking if room creation was successful method returns appropriate response 
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task PostRoomShouldCreateRoom()
     {
@@ -112,7 +115,10 @@ namespace Revature.Room.DataAccess.Tests
       Assert.IsAssignableFrom<CreatedAtRouteResult>(result);
 
     }
-
+    /// <summary>
+    /// Checks if the room creation was unsuccessful, returns bad request
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task PostRoomShouldReturnBadRequest()
     {
@@ -136,7 +142,10 @@ namespace Revature.Room.DataAccess.Tests
       //assert
       Assert.IsType<BadRequestResult>(result);
     }
-
+    /// <summary>
+    /// Checks if room update was successful, method returns appropriate response
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task PutRoomShouldUpdateRoom()
     {
@@ -171,7 +180,10 @@ namespace Revature.Room.DataAccess.Tests
       //assert
       Assert.IsAssignableFrom<NoContentResult>(result);
     }
-
+    /// <summary>
+    /// Checks if updating was not successful, when the room isn't found, returns notfound
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task PutRoomShouldReturnNotFound()
     {
@@ -201,6 +213,10 @@ namespace Revature.Room.DataAccess.Tests
       Assert.IsType<NotFoundResult>(result);
 
     }
+    /// <summary>
+    /// Checks if update was unsuccessful due to bad user input, returns bad request
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task PutRoomShouldReturnBadRequest()
     {
@@ -229,7 +245,10 @@ namespace Revature.Room.DataAccess.Tests
 
     }
 
-
+    /// <summary>
+    /// Checks if get room was successful, returns appropriate response
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetRoomShouldReturnRoom()
     {
@@ -251,7 +270,10 @@ namespace Revature.Room.DataAccess.Tests
       Assert.IsAssignableFrom<OkObjectResult>(result);
 
     }
-
+    /// <summary>
+    /// Checks if the room was not found, method returns not found
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetRoomShouldReturnNotFound()
     {
@@ -271,6 +293,10 @@ namespace Revature.Room.DataAccess.Tests
       Assert.IsType<NotFoundResult>(result);
     }
 
+    /// <summary>
+    /// Checks if room was actually deleted, returns appropriate response
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteRoomShouldDelete()
     {
@@ -291,7 +317,10 @@ namespace Revature.Room.DataAccess.Tests
       Assert.IsAssignableFrom<NoContentResult>(result);
 
     }
-
+    /// <summary>
+    /// Checks if deletion was unsuccessful due to room not in Db, returns not found
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteRoomShouldReturnGuidNotFound()
     {
@@ -312,7 +341,10 @@ namespace Revature.Room.DataAccess.Tests
       //assert
       Assert.IsType<NotFoundResult>(result);
     }
-
+    /// <summary>
+    /// Checks if when deleting rooms from a complex is successful, returns an appropriate response
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteComplexShouldDeleteComplexAndTheirAssociatingRooms()
     {
@@ -333,7 +365,10 @@ namespace Revature.Room.DataAccess.Tests
       //assert
       Assert.IsAssignableFrom<NoContentResult>(result);
     }
-
+    /// <summary>
+    /// Checks if deleting rooms of a complex was unsucessful becaue room to be deleted was not found, returns not found
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteComplexShouldReturnNotFound()
     {
