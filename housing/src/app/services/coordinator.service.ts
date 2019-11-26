@@ -28,23 +28,23 @@ export class CoordinatorService {
   }
 
   GetTenantById(tenantId: string): Observable<any> {
-    const tenantUrl = this.apiUrl + 'Tenant/' + tenantId;
+    const tenantUrl = `${this.apiUrl} + 'Tenant/' + ${tenantId}`;
     return this.httpBus.get<Tenant>(tenantUrl, this.httpOptions);
   }
 
   GetBatchByTrainingCenterId(trainingCenterId: string): Observable<any> {
-    const batchUrl = this.apiUrl + 'Batch/' + trainingCenterId;
-    return this.httpBus.get<Batch>(batchUrl, this.httpOptions);
+    const batchUrl = `${this.apiUrl} + 'Tenant/Batch/' + ${trainingCenterId}`;
+    return this.httpBus.get<Batch[]>(batchUrl, this.httpOptions);
   }
 
   PostTenant(tenant: Tenant): Observable<HttpEvent<Tenant>> {
-    const postTenantUrl = this.apiUrl + 'Tenant';
+    const postTenantUrl = this.apiUrl + 'RegisterTenant';
     return this.httpBus.post<Tenant>(postTenantUrl, JSON.parse(JSON.stringify(tenant)), this.httpOptions);
   }
 
   //needs work
   PutTenant(tenantId: string) {
-    const putTenantUrl = this.apiUrl + 'Tenant/' + tenantId;
+    const putTenantUrl = this.apiUrl + 'UpdateTenant/' + tenantId;
     return this.httpBus.put<Tenant>(putTenantUrl, this.httpOptions);
   }
 }

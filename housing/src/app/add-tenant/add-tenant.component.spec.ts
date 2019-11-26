@@ -9,6 +9,7 @@ import { Batch } from 'src/interfaces/batch';
 import { TenantAddress } from 'src/interfaces/tenantAddress';
 import { CoordinatorService } from '../services/coordinator.service';
 import { AuthService } from '../services/auth.service';
+import { EMPTY, of } from 'rxjs';
 
 const address: TenantAddress = {
   addressId: 'asdf',
@@ -19,19 +20,22 @@ const address: TenantAddress = {
   zipCode: '12345'
 }
 
+const coord = TestBed.get(AddTenantComponent);
+
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
   const authSpy = jasmine.createSpyObj('AuthService', ['login']);
-  const tenantSpy = jasmine.createSpyObj('CoordniatorService', ['PostTenant']);
+  const coordSpy = jasmine.createSpyObj('CoordniatorService', ['PostTenant', 'GetBatchByTrainingCenterId']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AddTenantComponent],
       imports: [FormsModule, HttpClientTestingModule, RouterTestingModule],
       providers: [
+        AddTenantComponent,
         { provide: AuthService, useValue: authSpy },
-        { provide: CoordinatorService, useValue: tenantSpy }
+        { provide: CoordinatorService, useValue: coordSpy }
       ]
     })
       .compileComponents();

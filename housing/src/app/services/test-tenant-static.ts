@@ -4,6 +4,8 @@ import { Batch } from '../../interfaces/batch';
 import { Car } from '../../interfaces/car';
 
 export class TestTenantData {
+    static trainingCenterId = 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d';
+
     static dummyAddress: TenantAddress = {
         addressId: 'qwer',
         street: '123 Sesame St',
@@ -37,6 +39,10 @@ export class TestTenantData {
         gender: 'male',
         firstName: 'Bob',
         lastName: 'Hope',
+        addressId: '',
+        roomId: '',
+        carId: '',
+        batchId: 1,
         tenantAddress: TestTenantData.dummyAddress,
         car: TestTenantData.dummyCar,
         batch: TestTenantData.dummyBatch,

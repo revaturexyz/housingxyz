@@ -16,6 +16,7 @@ export class AddTenantComponent implements OnInit {
 
   tenant: Tenant;
   batch: Batch;
+  trainCenId: string;
 
   show: boolean = false;
 
@@ -114,6 +115,7 @@ export class AddTenantComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.trainCenId = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
     this.getBatchesOnInit();
   }
 
@@ -137,7 +139,7 @@ export class AddTenantComponent implements OnInit {
   }
 
   getBatchesOnInit() {
-    this.coordService.GetBatchByTrainingCenterId('fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d')
+    this.coordService.GetBatchByTrainingCenterId(this.trainCenId)
       .toPromise()
       .then((data) => this.batchList = data)
       .catch((err) => console.log(err));
