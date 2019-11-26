@@ -244,6 +244,7 @@ namespace Revature.Tenant.Api.Controllers
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
+        
         var newTenant = new Lib.Models.Tenant
         {
           Id = Guid.NewGuid(),
@@ -255,10 +256,10 @@ namespace Revature.Tenant.Api.Controllers
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter
+          TrainingCenter = tenant.TrainingCenter,
+          
         };
-
-        if(tenant.ApiCar != null)
+        if (tenant.ApiCar != null)
         {
           newTenant.Car = new Lib.Models.Car
           {
@@ -274,10 +275,10 @@ namespace Revature.Tenant.Api.Controllers
 
         await _tenantRepository.AddAsync(newTenant);
 
-        //await _tenantRepository.SaveAsync();
-        //_logger.LogInformation("POST Persisted to dB");
+        await _tenantRepository.SaveAsync();
+        _logger.LogInformation("POST Persisted to dB");
 
-        //return Created($"api/Tenant/{newTenant.Id}", newTenant);
+        return Created($"api/Tenant/{newTenant.Id}", newTenant);
         return StatusCode(StatusCodes.Status418ImATeapot);
       }
       catch (ArgumentException)
