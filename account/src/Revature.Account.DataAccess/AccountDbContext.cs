@@ -5,18 +5,30 @@ namespace Revature.Account.DataAccess
 {
   public class AccountDbContext : DbContext
   {
+    /// <summary>
+    /// Context class that acts to define the structure of a code-first database.
+    /// </summary>
+    ///
+
+    // Defualt constructor
     public AccountDbContext()
     { }
 
+    // Constructor with options and iheritance from its parent class.
     public AccountDbContext(DbContextOptions<AccountDbContext> options) : base(options)
     {
     }
 
+    // All tables found in the database defined here
     public virtual DbSet<Notification> Notification { get; set; }
     public virtual DbSet<Status> Status { get; set; }
     public virtual DbSet<ProviderAccount> ProviderAccount { get; set; }
     public virtual DbSet<CoordinatorAccount> CoordinatorAccount { get; set; }
 
+    /// <summary>
+    /// Defines the features for each and every table.
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<ProviderAccount>(entity =>

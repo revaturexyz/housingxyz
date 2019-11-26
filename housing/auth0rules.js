@@ -34,9 +34,12 @@ function (user, context, callback) {
   
     let idTokenClaims = context.idToken || {};
     let accessTokenClaims = context.accessToken || {};
+    user.app_metadata = user.app_metadata || {};
   
     idTokenClaims[configuration.NAMESPACE + 'roles'] = assignedRoles;
+    idTokenClaims[configuration.NAMESPACE + 'app_metadata'] = user.app_metadata;
     accessTokenClaims[configuration.NAMESPACE + 'roles'] = assignedRoles;
+    accessTokenClaims[configuration.NAMESPACE + 'app_metadata'] = user.app_metadata;
   
     context.idToken = idTokenClaims;
     context.accessToken = accessTokenClaims;
