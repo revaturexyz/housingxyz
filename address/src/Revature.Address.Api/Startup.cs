@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,10 +31,6 @@ namespace Revature.Address.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
-
-      services.AddDbContext<AddressDbContext>(options =>
-               options.UseNpgsql(Configuration.GetConnectionString(ConnectionStringName)));
-
       services.AddCors(options =>
       {
         options.AddPolicy(CorsPolicyName, builder =>
@@ -56,7 +51,6 @@ namespace Revature.Address.Api
       services.AddScoped<IDataAccess, DataAccess.DataAccess>();
       services.AddHostedService<ServiceBusConsumer>();
       services.AddScoped<AddressLogic>();
-
 
       services.AddSwaggerGen(c =>
       {
