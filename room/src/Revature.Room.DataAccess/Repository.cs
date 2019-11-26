@@ -175,6 +175,7 @@ namespace Revature.Room.DataAccess
     /// </summary>
     /// <param name="roomId"></param>
     /// <exception cref="InvalidOperationException">Thrown when a room matching the roomId is not found, or the gender type isn't found </exception>
+    /// <remarks>Sets a room's gender when Gender is null, i.e. when the room was previously unoccupied</remarks>
     public async Task AddRoomOccupantsAsync(Guid roomId, string tenantGender)
     {
       Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
@@ -190,6 +191,7 @@ namespace Revature.Room.DataAccess
     /// <param name="roomId"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException">Thrown when room isn't found</exception>
+    /// <remarks>Reverts gender of room back to null if updated room is empty</remarks>
     public async Task SubtractRoomOccupantsAsync(Guid roomId)
     {
       Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();

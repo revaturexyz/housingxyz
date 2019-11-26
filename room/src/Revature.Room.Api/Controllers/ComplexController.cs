@@ -72,7 +72,7 @@ namespace Revature.Room.Api.Controllers
     }
 
     /// <summary>
-    /// Reads/gets a room based on the provided room id: Guid
+    /// Reads/gets a room based given a roomId
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
@@ -93,7 +93,6 @@ namespace Revature.Room.Api.Controllers
         _logger.LogError(ex.Message);
         return NotFound();
       }
-      
     }
 
     /// <summary>
@@ -127,20 +126,21 @@ namespace Revature.Room.Api.Controllers
         _logger.LogInformation("Success. Room has been added");
 
         return CreatedAtRoute("GetRoom", new { RoomID = createdRoom.RoomId }, createdRoom);
-      } catch (ArgumentException ex)
+      }
+      catch (ArgumentException ex)
       {
         _logger.LogInformation(ex.Message);
         return BadRequest();
       }
-
     }
 
     /// <summary>
-    /// Update a room given the provided their id: Guid
+    /// Update room's lease
     /// </summary>
     /// <param name="id"></param>
     /// <param name="Lroom"></param>
     /// <returns></returns>
+    /// <remarks>Update room functionality of complex service</remarks>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -168,11 +168,11 @@ namespace Revature.Room.Api.Controllers
       {
         _logger.LogError(ex.Message);
         return BadRequest();
-      } 
+      }
     }
 
     /// <summary>
-    /// Delete room based on Id: Guid
+    /// Delete room based on room Id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -189,10 +189,9 @@ namespace Revature.Room.Api.Controllers
 
         await _repository.DeleteRoomAsync(ro.RoomId);
         await _repository.SaveAsync();
+        _logger.LogInformation("Success. Room has been deleted");
 
         await _busSender.SendDeleteMessage(ro);
-
-        _logger.LogInformation("Success. Room has been deleted");
 
         return NoContent();
       }
@@ -221,12 +220,15 @@ namespace Revature.Room.Api.Controllers
 
         var listOfGuid = await _repository.DeleteComplexRoomAsync(co.ComplexId);
         await _repository.SaveAsync();
-
-        await _busSender.SendDeleteComplexMessage(listOfGuid);
         _logger.LogInformation("Success! Rooms have been deleted");
+
+        _logger.LogInformation("Sending deleted room id's to complex service");
+        await _busSender.SendDeleteComplexMessage(listOfGuid);
+        _logger.LogInformation("Deleted room id's have been sent to complex service");
+
         return NoContent();
       }
-      catch(InvalidOperationException ex)
+      catch (InvalidOperationException ex)
       {
         _logger.LogError(ex.Message);
         return NotFound();
