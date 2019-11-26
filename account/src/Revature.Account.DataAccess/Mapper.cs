@@ -17,7 +17,7 @@ namespace Revature.Account.DataAccess
       return new Lib.Model.ProviderAccount
       {
         ProviderId = provider.ProviderId,
-        Coordinator = MapCoordinator(provider.Coordinator),
+        CoordinatorId = provider.CoordinatorId,
         Name = provider.Name,
         Status = new Lib.Model.Status { StatusText = provider.StatusText },
         AccountCreatedAt = provider.AccountCreatedAt,
@@ -30,7 +30,7 @@ namespace Revature.Account.DataAccess
       return new Entities.ProviderAccount
       {
         ProviderId = provider.ProviderId,
-        CoordinatorId = provider.Coordinator.CoordinatorId,
+        CoordinatorId = provider.CoordinatorId,
         Name = provider.Name,
         StatusText = provider.Status.StatusText,
         AccountCreatedAt = provider.AccountCreatedAt,

@@ -44,7 +44,7 @@ namespace Revature.Account.Api.Controllers
     [HttpPost]
     [ProducesResponseType(typeof(ProviderAccount), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
+    public async Task<IActionResult> Post([FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount newProvider)
     {
       try
       {
@@ -52,7 +52,9 @@ namespace Revature.Account.Api.Controllers
         Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
         {
           ProviderId = Guid.NewGuid(),
+          CoordinatorId = newProvider.CoordinatorId,
           Name = newProvider.Name,
+          Email = newProvider.Email,
           Status = new Status(Status.Pending),
           AccountCreatedAt = DateTime.Now,
           AccountExpiresAt = DateTime.Now.AddDays(7)

@@ -41,6 +41,9 @@ namespace Revature.Account.DataAccess
         entity.Property(e => e.Name)
           .IsRequired()
           .HasMaxLength(100);
+        entity.Property(e => e.Email)
+          .IsRequired()
+          .HasMaxLength(100);
         entity.Property(e => e.StatusText);
         entity.Property(e => e.AccountCreatedAt)
           .IsRequired();
@@ -50,6 +53,9 @@ namespace Revature.Account.DataAccess
       {
         entity.HasKey(e => e.CoordinatorId);
         entity.Property(e => e.Name)
+          .IsRequired()
+          .HasMaxLength(100);
+        entity.Property(e => e.Email)
           .IsRequired()
           .HasMaxLength(100);
         entity.Property(e => e.TrainingCenterName)

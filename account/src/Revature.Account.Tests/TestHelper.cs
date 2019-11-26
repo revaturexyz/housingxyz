@@ -39,12 +39,15 @@ namespace Revature.Account.Tests
     public static DateTime nowPSev;
     public static DateTime nowPThirty;
 
-    public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
+    public static Microsoft.Extensions.Logging.ILogger<CoordinatorAccountController> _loggerCoord;
+    public static Microsoft.Extensions.Logging.ILogger<NotificationController> _loggerNoti;
+    public static Microsoft.Extensions.Logging.ILogger<ProviderAccountController> _loggerProv;
 
     public TestHelper()
     {
-
-      _logger = new NullLogger<TestHelper>();
+      _loggerCoord = new NullLogger<CoordinatorAccountController>();
+      _loggerNoti = new NullLogger<NotificationController>();
+      _loggerProv = new NullLogger<ProviderAccountController>();
 
       SetUpCoordinators();
       SetUpStatuses();
@@ -96,24 +99,27 @@ namespace Revature.Account.Tests
       {
         new ProviderAccount
         {
-          Coordinator = Coordinators[0],
+          CoordinatorId = Coordinators[0].CoordinatorId,
           Name = "Billys Big Discount Dorms",
+          Email = "billy@provider.org",
           Status = Statuses[0],
           AccountCreatedAt = now,
           AccountExpiresAt = nowPSev
         },
         new ProviderAccount
         {
-          Coordinator = Coordinators[0],
+          CoordinatorId = Coordinators[0].CoordinatorId,
           Name = "Bobs Townhomes",
+          Email = "bob@provider.org",
           Status = Statuses[1],
           AccountCreatedAt = now,
           AccountExpiresAt = nowPSev
         },
         new ProviderAccount
         {
-          Coordinator = Coordinators[0],
+          CoordinatorId = Coordinators[0].CoordinatorId,
           Name = "Burgundy Hills Barracks",
+          Email = "burgundy@provider.org",
           Status = Statuses[3],
           AccountCreatedAt = now,
           AccountExpiresAt = nowPSev
@@ -194,17 +200,17 @@ namespace Revature.Account.Tests
     {
       Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
 
-      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _logger);
+      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _loggerCoord);
       CoordinatorAccountController.ControllerContext = new ControllerContext();
       CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       CoordinatorAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      ProviderAccountController = new ProviderAccountController(Repository.Object, _logger);
+      ProviderAccountController = new ProviderAccountController(Repository.Object, _loggerProv);
       ProviderAccountController.ControllerContext = new ControllerContext();
       ProviderAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       ProviderAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      NotificationController = new NotificationController(Repository.Object, _logger);
+      NotificationController = new NotificationController(Repository.Object, _loggerNoti);
       NotificationController.ControllerContext = new ControllerContext();
       NotificationController.ControllerContext.HttpContext = new DefaultHttpContext();
       NotificationController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";

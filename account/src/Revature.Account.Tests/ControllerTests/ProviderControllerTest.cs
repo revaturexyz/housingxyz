@@ -41,15 +41,12 @@ namespace Revature.Account.Tests.ControllerTests
     public async Task CreateNewProviderAccountSuccessfullyVerifyTestAsync()
     {
       TestHelper helper = new TestHelper();
-      ProviderAccount newProvider = new ProviderAccount();
-      newProvider.AccountCreatedAt = DateTime.Now;
-      newProvider.Name = "Testing";
 
       helper.Repository
         .Setup(x => x.AddProviderAccountAsync(It.IsAny<ProviderAccount>()))
         .Verifiable();
      
-      var newProviderAccount = await helper.ProviderAccountController.Post(newProvider);
+      var newProviderAccount = await helper.ProviderAccountController.Post(helper.Providers[0]);
 
       helper.Repository
          .Verify();
