@@ -25,7 +25,7 @@ namespace ServiceBusMessaging
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _logger = logger;
-      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueues"]);
+      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DeletedRooms"]);
     }
 
     /// <summary>
