@@ -42,23 +42,23 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
-        log.LogInformation("(API)a list of all amenities was found");
+        log.LogInformation("a list of all amenities was found");
 
         return Ok(amenities);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity");
+        log.LogError("{ex}, unable to find amenity", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity");
+        log.LogError("{ex}, unable to find amenity", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity");
+        log.LogError("{ex}, unable to find amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -80,24 +80,24 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
-        log.LogInformation($"(API)a list of amenities for room Id: {roomGuid} was found");
+        log.LogInformation("a list of amenities for room Id: {roomGuid} was found", roomGuid);
 
         return Ok(amenities);
 
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity for room id: {roomGuid}");
+        log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity for room id: {roomGuid}");
+        log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity for room id: {roomGuid}");
+        log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
         return StatusCode(500, ex.Message);
       }
     }
@@ -119,23 +119,23 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
-        log.LogInformation($"(API)a list of amenities for complex Id: {complexGuid} was found");
+        log.LogInformation("a list of amenities for complex Id: {complexGuid} was found", complexGuid);
 
         return Ok(amenities);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity for complex id: {complexGuid}");
+        log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity for complex id: {complexGuid}");
+        log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}, unable to find amenity for complex id: {complexGuid}");
+        log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
         return StatusCode(500, ex.Message);
       }
     }
@@ -165,23 +165,23 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.CreateAmenityAsync(amen);
-        log.LogInformation($"(API)new amenity: {amen.AmenityType} is added");
+        log.LogInformation("new amenity: {amen.AmenityType} is added", amen.AmenityType);
 
         return StatusCode(201);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}, unable to create amenity");
+        log.LogError("{ex}, unable to create amenity", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}, unable to create amenity");
+        log.LogError("{ex}, unable to create amenity", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}, unable to create amenity");
+        log.LogError("{ex}, unable to create amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -211,23 +211,23 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.UpdateAmenityAsync(amenity);
-        log.LogInformation($"(API)new amenity: {amenity.AmenityType} is updated.");
+        log.LogInformation("new amenity: {amenity.AmenityType} is updated.", amenity.AmenityType);
 
         return StatusCode(201);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}, unable to update amenity");
+        log.LogError("{ex}, unable to update amenity", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}, unable to update amenity");
+        log.LogError("{ex}, unable to update amenity", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}, unable to update amenity");
+        log.LogError("{ex}, unable to update amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -257,23 +257,23 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.DeleteAmenityAsync(amenity);
-        log.LogInformation($"(API)amenity: {amenity.AmenityType} is deleted");
+        log.LogInformation("amenity: {amenity.AmenityType} is deleted", amenity.AmenityType);
 
         return StatusCode(201);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}, unable to delete amenity");
+        log.LogError("{ex}, unable to delete amenity", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}, unable to delete amenity");
+        log.LogError("{ex}, unable to delete amenity", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}, unable to delete amenity");
+        log.LogError("{ex}, unable to delete amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }

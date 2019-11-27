@@ -66,7 +66,7 @@ namespace Revature.Complex.Api.Controllers
             ContactNumber = com.ContactNumber,
             ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
           };
-          log.LogInformation($"(API) a list of amenities for complex Id {com.ComplexId} were found!");
+          log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
           apiComplices.Add(complex);
         }
 
@@ -74,12 +74,12 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentNullException ex)
       {
-        log.LogWarning($"(API){ex}: There's no complex in the database.");
+        log.LogWarning("{ex}: There's no complex in the database.", ex);
         return NotFound();
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: Internal Server Error");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
 
@@ -102,7 +102,7 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         Logic.Complex lcomplex = await _complexRepository.ReadComplexByIdAsync(complexId);
-        log.LogInformation($"(API)a complex with Id: {complexId} was found");
+        log.LogInformation("a complex with Id: {complexId} was found", complexId);
 
         //foreach complex, get address from address service
         //create Apicomplex object for each complex we have
@@ -117,18 +117,18 @@ namespace Revature.Complex.Api.Controllers
           ContactNumber = lcomplex.ContactNumber,
           ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
         };
-        log.LogInformation($"(API)a list of amenities for complex Id {lcomplex.ComplexId} was found!");
+        log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} was found!", lcomplex.ComplexId);
 
         return Ok(apiComplex);
       }
       catch (ArgumentNullException ex)
       {
-        log.LogWarning($"(API){ex}: There's no complex with id: {complexId} in the database.");
+        log.LogWarning("{ex}: There's no complex with id: {complexId} in the database.", ex, complexId);
         return NotFound();
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: Internal Server Error");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -146,12 +146,12 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{complexName}/{ComplexNumber}")]
     //GET: api/complex/{complexName/ComplexNumber}
-    public async Task<ActionResult<ApiComplex>> GetComplexByNameAndNumberAsync([FromRoute]string complexName, string ComplexNumber)
+    public async Task<ActionResult<ApiComplex>> GetComplexByNameAndNumberAsync([FromRoute]string complexName, string complexNumber)
     {
       try
       {
-        Logic.Complex lcomplex = await _complexRepository.ReadComplexByNameAndNumberAsync(complexName, ComplexNumber);
-        log.LogInformation($"(API) a complex with name: {complexName} and phone: {ComplexNumber} was found");
+        Logic.Complex lcomplex = await _complexRepository.ReadComplexByNameAndNumberAsync(complexName, complexNumber);
+        log.LogInformation("a complex with name: {complexName} and phone: {ComplexNumber} was found", complexName, complexNumber);
 
         //GET address from address service via complexid
 
@@ -164,23 +164,23 @@ namespace Revature.Complex.Api.Controllers
           ContactNumber = lcomplex.ContactNumber,
           ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
         };
-        log.LogInformation($"(API)a list of amenities for complex Id {lcomplex.ComplexId} were found!");
+        log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} were found!", lcomplex.ComplexId);
 
         return Ok(apiComplex);
       }
       catch (ArgumentException ex)
       {
-        log.LogWarning($"(API){ex}: complex with name: {complexName} and phone: {ComplexNumber} is not found");
+        log.LogWarning("{ex}: complex with name: {complexName} and phone: {complexNumber} is not found", ex, complexName, complexNumber);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogWarning($"(API){ex}: complex with name: {complexName} and phone: {ComplexNumber} is not found");
+        log.LogWarning("{ex}: complex with name: {complexName} and phone: {complexNumber} is not found", ex, complexName, complexNumber);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: complex with name: {complexName} and phone: {ComplexNumber} is not found");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -202,7 +202,7 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderIdAsync(providerId);
-        log.LogInformation($"(API)a list of complices for provider Id: {providerId} were found");
+        log.LogInformation("a list of complices for provider Id: {providerId} were found", providerId);
 
         List<ApiComplex> apiComplices = new List<ApiComplex>();
 
@@ -222,7 +222,7 @@ namespace Revature.Complex.Api.Controllers
             ContactNumber = complex.ContactNumber,
             ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId)
           };
-          log.LogInformation($"(API)a list of amenities for complex Id {complex.ComplexId} was found!");
+          log.LogInformation("a list of amenities for complex Id {complex.ComplexId} was found!", complex.ComplexId);
 
           apiComplices.Add(apiComplextoAdd);
         }
@@ -235,17 +235,17 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (ArgumentException ex)
       {
-        log.LogWarning($"(API){ex}: complex with provider Id: {providerId} is not found");
+        log.LogWarning("{ex}: complex with provider Id: {providerId} is not found", ex, providerId);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogWarning($"(API){ex}: complex with provider Id: {providerId} is not found");
+        log.LogWarning("{ex}: complex with provider Id: {providerId} is not found", ex, providerId);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: complex with provider Id: {providerId} is not found");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -398,24 +398,24 @@ namespace Revature.Complex.Api.Controllers
           {
             amenityRoom.AmenityId = amenity.AmenityId;
             await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
-            log.LogInformation($"(API)a list of amenities with room id: {arts.RoomId} was created");
+            log.LogInformation("a list of amenities with room id: {arts.RoomId} was created", arts.RoomId);
           }
         }
         return StatusCode(201);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}: unable to create rooms");
+        log.LogError("{ex}: unable to create rooms", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}: unable to create rooms");
+        log.LogError("{ex}: unable to create rooms", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: unable to create rooms");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -544,7 +544,7 @@ namespace Revature.Complex.Api.Controllers
         amenityRoom.RoomId = arts.RoomId;
 
         await _complexRepository.DeleteAmenityRoomAsync(apiRoom.RoomId);
-        log.LogInformation($"(API)Amenity of Room Id {apiRoom.RoomId} is deleted");
+        log.LogInformation(")Amenity of Room Id {apiRoom.RoomId} is deleted", apiRoom.RoomId);
 
         //Send {arts} to room service through service bus
 
@@ -552,24 +552,24 @@ namespace Revature.Complex.Api.Controllers
         {
           amenityRoom.AmenityId = amenity.AmenityId;
           await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
-          log.LogInformation($"(API)list of amenity with room id: {arts.RoomId} is created");
+          log.LogInformation("list of amenity with room id: {arts.RoomId} is created", arts.RoomId);
         }
 
         return StatusCode(200);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}: unable update room");
+        log.LogError("{ex}: unable update room", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}: unable update room");
+        log.LogError("{ex}: unable update room", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: unable update room");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -603,26 +603,26 @@ namespace Revature.Complex.Api.Controllers
         //send complex Id to Address service to delete address for the complex
 
         await _complexRepository.DeleteAmenityComplexAsync(complexId);
-        log.LogInformation($"(API) deleted amenity of complex Id: {complexId}");
+        log.LogInformation("deleted amenity of complex Id: {complexId}", complexId);
 
         await _complexRepository.DeleteComplexAsync(complexId);
-        log.LogInformation($"(API) deleted complex of complex Id: {complexId}");
+        log.LogInformation("deleted complex of complex Id: {complexId}", complexId);
 
         return StatusCode(200);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}: unable to delete complex");
+        log.LogError("{ex}: unable to delete complex", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}: unable to delete complex");
+        log.LogError("{ex}: unable to delete complex", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: unable to delete complex");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -658,23 +658,23 @@ namespace Revature.Complex.Api.Controllers
         await roomServiceSender.SendRoomsMessages(message);
 
         await _complexRepository.DeleteAmenityRoomAsync(Room.RoomId);
-        log.LogInformation($"(API) deleted amenity of room Id: {Room.RoomId}");
+        log.LogInformation("deleted amenity of room Id: {Room.RoomId}", Room.RoomId);
 
         return StatusCode(200);
       }
       catch (ArgumentException ex)
       {
-        log.LogError($"(API){ex}: unable to delete room");
+        log.LogError("{ex}: unable to delete room", ex);
         return NotFound();
       }
       catch (InvalidOperationException ex)
       {
-        log.LogError($"(API){ex}: unable to delete room");
+        log.LogError("{ex}: unable to delete room", ex);
         return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: unable to delete room");
+        log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
