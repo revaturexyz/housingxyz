@@ -11,7 +11,7 @@ namespace Revature.Account.Lib.Model
   {
     private string _name;
     public Guid ProviderId { get; set; } = Guid.NewGuid();
-    public CoordinatorAccount Coordinator { get; set; }
+    public Guid CoordinatorId { get; set; }
 
     public string Name
     {
@@ -23,6 +23,22 @@ namespace Revature.Account.Lib.Model
       }
     }
 
+    public string _email;
+    public string Email
+    {
+      get { return _email; }
+      set
+      {
+        // This line simply uses the instantiation of the MailAddress object
+        // to check if the email is valid. Object is thrown away.
+        _ = new System.Net.Mail.MailAddress(value);
+        _email = value;
+      }
+    }
+
+    /// <summary>
+    /// The current status of a provider's account.
+    /// </summary>
     public Status Status { get; set; }
     /// <summary>
     /// Date and time the account was created at, expressed in the format 11:59:59.
@@ -33,6 +49,10 @@ namespace Revature.Account.Lib.Model
     /// </summary>
     public DateTime AccountExpiresAt { get; set; }
 
+    /// <summary>
+    /// Checks to see if a string is either null (does not exist) or empty ( "" )
+    /// </summary>
+    /// <param name="value"></param>
     private void NotNullOrEmpty(string value)
     {
       if (value == null)

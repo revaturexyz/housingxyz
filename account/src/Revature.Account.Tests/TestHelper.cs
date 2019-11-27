@@ -1,3 +1,8 @@
+/* Helper methods for the Moq Testing of methods.
+ * While not a test itself, the Test Helper assists in testing both API Coordinator methods and Data Access methods.
+ * Source: Adapted from "Database and Dragons" TestHelper class.
+ */
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -10,40 +15,59 @@ using System.Collections.Generic;
 
 namespace Revature.Account.Tests
 {
+  /// <summary>
+  /// Helper methods for the Moq Testing of methods.
+  /// </summary>
   public class TestHelper
   {
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> Repository { get; private set; }
+
+    //API Controller Instantiation
     public CoordinatorAccountController CoordinatorAccountController { get; private set; }
     public NotificationController NotificationController { get; private set; }
     public ProviderAccountController ProviderAccountController { get; private set; }
+
 
     public List<CoordinatorAccount> Coordinators { get; private set; }
     public List<Notification> Notifications { get; private set; }
     public List<ProviderAccount> Providers { get; private set; }
     public List<Status> Statuses { get; private set; }
+    public List<UpdateAction> UpdateActions { get; private set; }
 
-    public static DateTime now = DateTime.Now;
-    public static DateTime nowPSev = DateTime.Now.AddDays(7.0);
-    public static DateTime nowPThirty = DateTime.Now.AddDays(30.0);
-    public static Microsoft.Extensions.Logging.ILogger<TestHelper> _logger;
+    //for testing expiration times
+    public static DateTime now;
+    public static DateTime nowPSev;
+    public static DateTime nowPThirty;
+
+    public static Microsoft.Extensions.Logging.ILogger<CoordinatorAccountController> _loggerCoord;
+    public static Microsoft.Extensions.Logging.ILogger<NotificationController> _loggerNoti;
+    public static Microsoft.Extensions.Logging.ILogger<ProviderAccountController> _loggerProv;
 
     public TestHelper()
     {
-      
-      _logger = new NullLogger<TestHelper>();
+      _loggerCoord = new NullLogger<CoordinatorAccountController>();
+      _loggerNoti = new NullLogger<NotificationController>();
+      _loggerProv = new NullLogger<ProviderAccountController>();
 
       SetUpCoordinators();
       SetUpStatuses();
       SetUpProviderAccount();
+      SetUpUpdateActions();
       SetUpNotifications();
       SetUpMocks();
+
+      now = DateTime.Now;
+      nowPSev = now.AddDays(7);
+      nowPThirty = now.AddDays(30);
     }
 
+    /// <summary>
+    /// Set up the example database-entries used by the "moqed" database.
+    /// </summary>
     private void SetUpCoordinators()
     {
       Coordinators = new List<CoordinatorAccount>
       {
-        //1
         new CoordinatorAccount
         {
           Name = "Jacob",
@@ -51,7 +75,6 @@ namespace Revature.Account.Tests
           TrainingCenterName = "Arlington",
           TrainingCenterAddress = "604 S. West, Arlington, TX, 76010"
         },
-        //2
         new CoordinatorAccount
         {
           Name = "Kimberly",
@@ -59,7 +82,6 @@ namespace Revature.Account.Tests
           TrainingCenterName = "Honolulu",
           TrainingCenterAddress = "555 Kaumakani St, Honolulu, HI 96825"
         },
-        //3
         new CoordinatorAccount
         {
           Name = "Jimmy",
@@ -70,33 +92,49 @@ namespace Revature.Account.Tests
       };
     }
 
+
     private void SetUpProviderAccount()
     {
       Providers = new List<ProviderAccount>
       {
         new ProviderAccount
         {
-          Coordinator = Coordinators[0],
+          CoordinatorId = Coordinators[0].CoordinatorId,
           Name = "Billys Big Discount Dorms",
+          Email = "billy@provider.org",
           Status = Statuses[0],
           AccountCreatedAt = now,
           AccountExpiresAt = nowPSev
         },
         new ProviderAccount
         {
-          Coordinator = Coordinators[0],
+          CoordinatorId = Coordinators[0].CoordinatorId,
           Name = "Bobs Townhomes",
+          Email = "bob@provider.org",
           Status = Statuses[1],
           AccountCreatedAt = now,
           AccountExpiresAt = nowPSev
         },
         new ProviderAccount
         {
-          Coordinator = Coordinators[0],
+          CoordinatorId = Coordinators[0].CoordinatorId,
           Name = "Burgundy Hills Barracks",
+          Email = "burgundy@provider.org",
           Status = Statuses[3],
           AccountCreatedAt = now,
           AccountExpiresAt = nowPSev
+        }
+      };
+    }
+
+    private void SetUpUpdateActions()
+    {
+      UpdateActions = new List<UpdateAction>
+      {
+        new UpdateAction
+        {
+          UpdateType = "NewProvider",
+          SerializedTarget = "bbbbbb"
         }
       };
     }
@@ -110,6 +148,7 @@ namespace Revature.Account.Tests
           ProviderId = Providers[0].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[0],
+          UpdateAction = UpdateActions[0],
           AccountExpiresAt = nowPSev
         },
         new Notification
@@ -127,6 +166,8 @@ namespace Revature.Account.Tests
           AccountExpiresAt = nowPSev
         }
       };
+
+      UpdateActions[0].NotificationId = Notifications[0].NotificationId;
     }
 
     private void SetUpStatuses()
@@ -135,41 +176,41 @@ namespace Revature.Account.Tests
       {
         new Status()
         {
-          StatusId = 1,
-          StatusText = "Pending"
+          StatusText = Status.Pending
         },
         new Status()
         {
-          StatusId = 2,
-          StatusText = "Approved"
+          StatusText = Status.Approved
         },
         new Status()
         {
-          StatusId = 3,
-          StatusText = "Rejected"
+          StatusText = Status.Rejected
         },
         new Status()
         {
-          StatusId = 4,
-          StatusText = "Under Review"
+          StatusText = Status.UnderReview
         }
       };
     }
 
+    /// <summary>
+    /// Instantiates the Moq instance (Mock) and seed data, specifically the controllers in the API.
+    /// </summary>
     private void SetUpMocks()
     {
       Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
-      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _logger);
+
+      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _loggerCoord);
       CoordinatorAccountController.ControllerContext = new ControllerContext();
       CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       CoordinatorAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      ProviderAccountController = new ProviderAccountController(Repository.Object, _logger);
+      ProviderAccountController = new ProviderAccountController(Repository.Object, _loggerProv);
       ProviderAccountController.ControllerContext = new ControllerContext();
       ProviderAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       ProviderAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      NotificationController = new NotificationController(Repository.Object, _logger);
+      NotificationController = new NotificationController(Repository.Object, _loggerNoti);
       NotificationController.ControllerContext = new ControllerContext();
       NotificationController.ControllerContext.HttpContext = new DefaultHttpContext();
       NotificationController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";

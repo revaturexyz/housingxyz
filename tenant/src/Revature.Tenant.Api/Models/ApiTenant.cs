@@ -8,13 +8,13 @@ namespace Revature.Tenant.Api.Models
   /// </summary>
   public class ApiTenant
   {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public string Email { get; set; }
     public string Gender { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public Guid AddressId { get; set; }
-    public Guid RoomId { get; set; }
+    public Guid? RoomId { get; set; }
     public int? CarId { get; set; }
     public int? BatchId { get; set; }
     public Guid TrainingCenter { get; set; }
