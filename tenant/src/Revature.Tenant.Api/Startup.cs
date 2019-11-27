@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.DataAccess;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.DataAccess.Repository;
@@ -54,9 +53,6 @@ namespace Revature.Tenant.Api
 
       services.AddScoped<ITenantRepository, TenantRepository>();
       services.AddScoped<IMapper, Mapper>();
-      //services.AddScoped<IServiceBusSender, ServiceBusSender>();
-      //services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
-
       services.AddControllers();
     }
 
