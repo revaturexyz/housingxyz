@@ -249,9 +249,7 @@ namespace Revature.Tenant.Api.Controllers
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
-
-
-        _logger.LogInformation("Postind Address to Address Service...");
+        _logger.LogInformation("Posting Address to Address Service...");
         using (var client = new HttpClient())
         {
           string baseUri = "https://addressdev.revature.xyz/";
@@ -271,11 +269,6 @@ namespace Revature.Tenant.Api.Controllers
             return BadRequest();
           }
         }
-
-
-
-
-
 
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
