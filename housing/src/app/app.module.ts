@@ -27,7 +27,7 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
-import { InterceptorService } from './services/interceptor.service';
+//import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
 
@@ -45,7 +45,7 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     AddComplexComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    NotificationDetailsComponent,
     RequestDialogComponent,
     AddTenantComponent
   ],
@@ -69,11 +69,11 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     CoordinatorModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // }
   ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
   bootstrap: [AppComponent]

@@ -11,7 +11,7 @@ export const environment = {
   endpoints: {
     // provider: 'http://192.168.99.100:10080/'
     provider: 'http://localhost:10080/',
-    coordinator: 'http://localhost:10080/'
+    coordinator: 'http://localhost:5000/'
     // provider: 'http://localhost:5000/'
   }
 };
