@@ -29,9 +29,9 @@ namespace Revature.Tenant.DataAccess.Entities
         (
           new Tenant()
           {
-            AddressId = Guid.Parse("1a4d6c6e-9650-44c9-8c6b-5aebd3f9a67e"),
+            AddressId = Guid.Parse("1a4d6c6e-9640-44c9-8c6b-5aebd3f9a67e"), 
             BatchId = 1,
-            CarId = 2,
+            CarId = -2,
             Email = "nick@revature.com",
             FirstName = "Nick",
             Gender = "Male",
@@ -44,7 +44,7 @@ namespace Revature.Tenant.DataAccess.Entities
           {
             AddressId = Guid.Parse("0a4d616e-9650-44c9-8c6b-5aebd3f9a67e"),
             BatchId = 2,
-            CarId = 1,
+            CarId = -1,
             Email = "sue@revature.com",
             FirstName = "Sue",
             Gender = "Female",
@@ -73,7 +73,7 @@ namespace Revature.Tenant.DataAccess.Entities
           new Car()
           {
             Color = "White",
-            Id = 1,
+            Id = -1,
             LicensePlate = "ABC123",
             Make = "Ford",
             Model = "F150",
@@ -83,7 +83,7 @@ namespace Revature.Tenant.DataAccess.Entities
           new Car()
           {
             Color = "Orange",
-            Id = 2,
+            Id = -2,
             LicensePlate = "DEF456",
             Make = "Honda",
             Model = "VTX1300",
