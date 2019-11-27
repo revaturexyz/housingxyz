@@ -35,7 +35,7 @@ namespace Revature.Complex.DataAccess.Repository
 
       await _context.AddAsync(complex);
       await _context.SaveChangesAsync();
-      log.LogInformation("new complex: {complexId} was inserted", lComplex.ComplexId);
+      log.LogInformation("new complex: {complexId} was inserted ", lComplex.ComplexId);
 
       return true;
     }
