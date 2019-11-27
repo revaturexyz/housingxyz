@@ -4,10 +4,10 @@ namespace Revature.Account.Lib.Model
 {
   /// <summary>
   /// Represents the current status of a notification. Currently the ids:
-  /// 1 = Pending
-  /// 2 = Accepted
-  /// 3 = Rejected
-  /// 4 = Under Review
+  /// 1. Pending
+  /// 2. Accepted
+  /// 3. Rejected
+  /// 4. Under Review
   ///
   /// These values are seeded in the context.
   /// </summary>
@@ -18,7 +18,13 @@ namespace Revature.Account.Lib.Model
     public static readonly string Rejected = "Rejected";
     public static readonly string UnderReview = "Under Review";
 
-    public int StatusId { get; private set; }
+    public Status() { }
+
+    public Status(string newStatus)
+    {
+      StatusText = newStatus;
+    }
+
     private string _statusText;
     public string StatusText
     {
@@ -31,22 +37,18 @@ namespace Revature.Account.Lib.Model
       {
         if (value == Pending)
         {
-          StatusId = 1;
           _statusText = value;
         }
         else if (value == Approved)
         {
-          StatusId = 2;
           _statusText = value;
         }
         else if (value == Rejected)
         {
-          StatusId = 3;
           _statusText = value;
         }
         else if (value == UnderReview)
         {
-          StatusId = 4;
           _statusText = value;
         }
         else

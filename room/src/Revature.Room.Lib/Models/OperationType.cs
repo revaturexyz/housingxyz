@@ -8,6 +8,6 @@ namespace Revature.Room.Lib.Models
   /// </summary>
   public enum OperationType
   {
-    Create, Delete, Update
+    Create, Delete, Update, DeleteCom
   }
 }

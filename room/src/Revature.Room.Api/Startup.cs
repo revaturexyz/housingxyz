@@ -15,7 +15,6 @@ namespace Revature.Room.Api
 {
   public class Startup
   {
-    private const string ConnectionStringName = "RoomDb";
     private const string CorsPolicyName = "RevatureCorsPolicy";
 
     public Startup(IConfiguration configuration)
@@ -54,7 +53,7 @@ namespace Revature.Room.Api
       services.AddScoped<IMapper, DBMapper>();
       services.AddHostedService<ServiceBusConsumer>();
 
-      services.AddScoped<ServiceBusSender>();
+      services.AddScoped<IServiceBusSender, ServiceBusSender>();
 
       services.AddControllers();
     }

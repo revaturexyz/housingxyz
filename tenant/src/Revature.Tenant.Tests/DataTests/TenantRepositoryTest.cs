@@ -36,6 +36,7 @@ namespace Revature.Tenant.Tests.DataTests
       var options = TestDbInitializer.InitializeDbOptions("AddShouldAddTest");
       using var db = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
+
       var repo = new TenantRepository(db, mapper);
       var tenant = new Lib.Models.Tenant
       {
@@ -46,12 +47,12 @@ namespace Revature.Tenant.Tests.DataTests
         LastName = "Colton",
         AddressId = Guid.Parse("fa4d6c6e-9650-45c9-8c6b-5aebd3f9a67c"),
         RoomId = Guid.Parse("fa4d6c6e-9650-44c9-5c6b-5aebd3f9a67c"),
-        CarId = 3,
-        BatchId = 3,
+        CarId = 0,
+        BatchId = 0,
         TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         Car = new Lib.Models.Car
         {
-          Id = 3,
+          Id = 0,
           LicensePlate = "LicensePlate",
           Make = "Make",
           Model = "Model",
@@ -61,7 +62,7 @@ namespace Revature.Tenant.Tests.DataTests
         },
         Batch = new Lib.Models.Batch
         {
-          Id = 3,
+          Id = 0,
           BatchCurriculum = "C#",
           TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         }
@@ -81,8 +82,6 @@ namespace Revature.Tenant.Tests.DataTests
       Assert.Equal(tenant.LastName, check.LastName);
       Assert.Equal(tenant.AddressId, check.AddressId);
       Assert.Equal(tenant.RoomId, check.RoomId);
-      Assert.Equal(tenant.CarId, check.CarId);
-      Assert.Equal(tenant.BatchId, check.BatchId);
       Assert.Equal(tenant.TrainingCenter, check.TrainingCenter);
 
     }
@@ -112,7 +111,7 @@ namespace Revature.Tenant.Tests.DataTests
         TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-2087491cc491"),
         Car = new Lib.Models.Car
         {
-          Id = 4,
+         // Id = 4,
           LicensePlate = "LicensePlate",
           Make = "Make",
           Model = "Model",

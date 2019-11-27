@@ -22,7 +22,7 @@ namespace Revature.Account.Lib.Model
     /// <summary>
     /// References a list of notifications associated with a given coordinator.
     /// </summary>
-    public virtual List<Lib.Model.Notification> Notifications { get; set; }
+    public virtual List<Lib.Model.Notification> Notifications { get; set; } = new List<Lib.Model.Notification>();
 
     /// <summary>
     /// Coordinator's full name.
