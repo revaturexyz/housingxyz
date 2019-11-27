@@ -29,7 +29,7 @@ namespace Revature.Tenant.Lib.Interface
     /// Gets a list of all tenants
     /// </summary>
     /// <returns>The collection of all tenants</returns>
-    public Task<ICollection<Models.Tenant>> GetAllAsync();
+    public Task<ICollection<Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null);
 
     /// <summary>
     /// Deletes a tenant using their id.
@@ -43,7 +43,14 @@ namespace Revature.Tenant.Lib.Interface
     /// </summary>
     /// <param name="tenant">The tenant with changed values</param>
     /// <exception cref="System.ArgumentException">Thrown when tenant info is incorrect</exception>
-    public Task UpdateAsync(Models.Tenant tenant);
+    public void Put(Models.Tenant tenant);
+
+    /// <summary>
+    /// Gets all batches in a training center
+    /// </summary>
+    /// <param name="trainingCenter">A Guid of a training center</param>
+    /// <returns>A list of batches</returns>
+    public Task<ICollection<Lib.Models.Batch>> GetBatchesAsync(Guid trainingCenter);
 
     /// <summary>
     /// This persists changes to data base. 

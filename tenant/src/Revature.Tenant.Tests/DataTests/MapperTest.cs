@@ -23,7 +23,7 @@ namespace Revature.Tenant.Tests.DataTests
         LastName = "Mohrbacher",
         AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         RoomId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
-        CarId = 1,
+        CarId = 0,
         BatchId = 1,
         TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         Car = new Lib.Models.Car
