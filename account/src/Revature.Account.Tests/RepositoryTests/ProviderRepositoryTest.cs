@@ -55,6 +55,8 @@ namespace Revature.Account.Test.Repository_Tests
       using var arrangeContext = new AccountDbContext(options);
       var arrangeProvider = helper.Providers[0];
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(arrangeProvider));
+      arrangeContext.SaveChanges();
+
       arrangeProvider.Name = "Robby";
 
       // Act
@@ -84,7 +86,6 @@ namespace Revature.Account.Test.Repository_Tests
 
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
-      arrangeContext.Status.Add(mapper.MapStatus(helper.Statuses[0]));
       arrangeContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
