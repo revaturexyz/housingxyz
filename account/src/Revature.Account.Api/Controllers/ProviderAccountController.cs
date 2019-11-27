@@ -16,9 +16,9 @@ namespace Revature.Account.Api.Controllers
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    private readonly ILogger _logger;
+    private readonly ILogger<ProviderAccountController> _logger;
 
-    public ProviderAccountController(IGenericRepository repo, ILogger logger)
+    public ProviderAccountController(IGenericRepository repo, ILogger<ProviderAccountController> logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -44,7 +44,7 @@ namespace Revature.Account.Api.Controllers
     [HttpPost]
     [ProducesResponseType(typeof(ProviderAccount), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
+    public async Task<IActionResult> Post([FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount newProvider)
     {
       try
       {
@@ -52,15 +52,18 @@ namespace Revature.Account.Api.Controllers
         Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
         {
           ProviderId = Guid.NewGuid(),
+          CoordinatorId = newProvider.CoordinatorId,
           Name = newProvider.Name,
-          Status = await _repo.GetStatusByStatusTextAsync("Pending"),
+          Email = newProvider.Email,
+          Status = new Status(Status.Pending),
           AccountCreatedAt = DateTime.Now,
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
+
         _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
-        return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
+        return CreatedAtRoute("GetProviderAccountById", new { mappedProvider.ProviderId }, mappedProvider);
       }
       catch (Exception e)
       {
@@ -91,7 +94,7 @@ namespace Revature.Account.Api.Controllers
     }
 
     // DELETE: api/provider-accounts/5
-    [HttpDelete("{id}")]
+    [HttpDelete("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid providerId)

@@ -41,7 +41,6 @@ namespace ServiceBusMessaging
       _roomDUCQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
 
       _occupancyUpdateQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
-
       Services = services;
       _logger = logger;
     }
@@ -53,10 +52,10 @@ namespace ServiceBusMessaging
     {
       var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
       {
-        MaxConcurrentCalls = 1,
+        MaxConcurrentCalls = 2,
         AutoComplete = false
       };
-
+      
       _roomDUCQueue.RegisterMessageHandler(ProcessRoomDUCAsync, messageHandlerOptions);
       _occupancyUpdateQueue.RegisterMessageHandler(ProcessOccupancyUpdateAsync, messageHandlerOptions);
     }
@@ -183,7 +182,7 @@ namespace ServiceBusMessaging
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
     {
       var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-      _logger.LogError(context.ToString());
+      _logger.LogInformation("No messages in queue", context.ToString());
       return Task.CompletedTask;
     }
 
