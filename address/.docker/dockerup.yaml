@@ -11,7 +11,7 @@ services:
     depends_on:
       - data
     ports:
-      - 10080:80
+      - 12080:80
     networks:
       - address_localhost
     environment:

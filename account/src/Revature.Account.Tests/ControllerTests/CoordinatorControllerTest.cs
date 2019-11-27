@@ -10,8 +10,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace Revature.Account.Tests.ControllerTests
 {
+  /// <summary>
+  /// Tests the API's Coordinator Controller.
+  /// </summary>
   public class CoordinatorControllerTest
   {
+    /// <summary>
+    /// Test for coordinator retrieval based on their Guid-Id.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetCoordinatorByIdAsync()
     {

@@ -5,18 +5,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Api.Models;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using Revature.Tenant.Api.ServiceBus;
 using Microsoft.Extensions.Logging;
 
 namespace Revature.Tenant.Api.Controllers
 {
+  /// <summary>
+  /// This Controller maintains all Tenant Actions that can be accessed through the Tenant Service Rest API
+  /// </summary>
+  // root uri: api/Tenant
   [Route("api/[controller]")]
   [ApiController]
   public class TenantController : ControllerBase
   {
-    private readonly IServiceBusSender _serviceBusSender;
     private readonly ITenantRepository _tenantRepository;
     private readonly ILogger _logger;
 
@@ -29,8 +29,7 @@ namespace Revature.Tenant.Api.Controllers
     /// <summary>
     /// Get all tenants
     /// </summary>
-    /// <returns></returns>
-
+    /// <returns>If no search parameters, all tenants. Else, All tenants who match parameters.</returns>
     // GET: api/Tenant
     [HttpGet(Name = "GetAllAsync")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,16 +37,19 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] string firstName = null, [FromQuery] string lastName = null, [FromQuery] string gender = null, [FromQuery] string trainingCenter = null)
     {
+      //Parse training center string to guid if it exists
       Guid? trainingCenterGuid;
       if (trainingCenter != null)
         trainingCenterGuid= Guid.Parse(trainingCenter);
       else
         trainingCenterGuid = null;
 
+      //Call repository GetAllAsync
       _logger.LogInformation("GET - Getting tenants");
       var tenants = await _tenantRepository.GetAllAsync(firstName, lastName, gender, trainingCenterGuid);
 
-      List<Lib.Models.Tenant> newTenants = new List<Lib.Models.Tenant>();
+      //Maps batches and cars correctly, based on null or not null
+      var newTenants = new List<Lib.Models.Tenant>();
       foreach (Lib.Models.Tenant tenant in tenants)
       {
         Lib.Models.Batch batch;
@@ -97,10 +99,10 @@ namespace Revature.Tenant.Api.Controllers
         newTenants.Add(tenant);
       }
 
+      //Cast all Logic Tenants into ApiTenants
       List<ApiTenant> apiTenants = new List<ApiTenant>();
       foreach (Lib.Models.Tenant apiTenant in newTenants)
       {
-
         ApiTenant newApiTenant = new ApiTenant
         {
           Id = apiTenant.Id,
@@ -116,16 +118,15 @@ namespace Revature.Tenant.Api.Controllers
         };
         apiTenants.Add(newApiTenant);
       }
+      //Return OK with a list of tenants
       return Ok(apiTenants);
-
-
     }
 
     /// <summary>
     /// Get Tenant by Id
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
+    /// <param name="id">The Guid Id of a tenant</param>
+    /// <returns>A Tenant with Batch and Car details, or NotFound if not found, or Internal Service Error for other exceptions</returns>
     // GET: api/Tenant/5
     //api/[controller]
     [HttpGet("{id}", Name = "GetByIdAsync")]
@@ -137,8 +138,10 @@ namespace Revature.Tenant.Api.Controllers
       _logger.LogInformation("GET - Getting notifications by Tenant ID: {TenantId}", id);
       try
       {
+        //Call repository method GetByIdAsync
         var tenant = await _tenantRepository.GetByIdAsync(id);
 
+        //cast tenant into Api Tenant
         var apiTenant = new ApiTenant
         {
           Id = tenant.Id,
@@ -178,7 +181,7 @@ namespace Revature.Tenant.Api.Controllers
             TrainingCenter = tenant.Batch.TrainingCenter
           };
         }
-
+        //return OK with the ApiTenant Model, including car and batch if applicable
         return Ok(apiTenant);
       }
       catch (ArgumentException)
@@ -191,14 +194,15 @@ namespace Revature.Tenant.Api.Controllers
       {
         _logger.LogError("Get request failed. Error: " + e.Message);
 
-        return StatusCode(500, e.Message);
+        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
       }
     }
 
     /// <summary>
     /// Get all batches by training center id
     /// </summary>
-    /// <returns></returns>
+    /// <param name="trainingCenterString">String of guid of Training Center</param>
+    /// <returns>A list of batches whose TrainingCenter is the same as the parameter, or NotFound if not found, or Internal Service Error for other exceptions</returns>
     // GET: api/Tenant/Batch/[guid]
     [HttpGet("Batch", Name = "GetAllBatches")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -208,8 +212,11 @@ namespace Revature.Tenant.Api.Controllers
     {
       try
       {
+        //Cast string into Guid
         Guid trainingCenter = Guid.Parse(trainingCenterString);
+        //Call Repo method GetBatchesAsync
         var batches = await _tenantRepository.GetBatchesAsync(trainingCenter);
+        //Return Ok with a list of batches
         return Ok(batches);
       }
       catch (ArgumentException)
@@ -222,18 +229,17 @@ namespace Revature.Tenant.Api.Controllers
       {
         _logger.LogError("Get request failed. Error: " + e.Message);
 
-        return StatusCode(500, e.Message);
+        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
       }
     }
-
-
 
     /// <summary>
     /// Posts Tenant to Db
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="tenant">A tenant api model of a new tenant</param>
+    /// <returns>An apiTenant model of the new tenant, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions/returns>
     // POST: api/Tenant
-    [HttpPost("RegisterTenant", Name = "RegisterTenant")]
+    [HttpPost("Register", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
@@ -241,7 +247,7 @@ namespace Revature.Tenant.Api.Controllers
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
-        
+        //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
           Id = Guid.NewGuid(),
@@ -270,11 +276,12 @@ namespace Revature.Tenant.Api.Controllers
           newTenant.CarId = 0;
         }
 
+        //Call Repository Methods AddAsync and SaveAsync
         await _tenantRepository.AddAsync(newTenant);
-
         await _tenantRepository.SaveAsync();
         _logger.LogInformation("POST Persisted to dB");
 
+        //Return Created and the model of the new tenant
         return Created($"api/Tenant/{newTenant.Id}", newTenant);
       }
       catch (ArgumentException)
@@ -290,22 +297,24 @@ namespace Revature.Tenant.Api.Controllers
       catch (Exception e)
       {
         _logger.LogError("POST request failed. Error: " + e.Message);
-        return StatusCode(500, e.Message);
+        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
       }
     }
 
     /// <summary>
-    /// Updates Tenant within Db
+    /// Posts Tenant to Db
     /// </summary>
-    /// <param name="value"></param>
-    // POST: api/Tenant
-    [HttpPut("UpdateTenant", Name = "UpdateTenant")]
+    /// <param name="tenant">A tenant api model of an existing tenant</param>
+    /// <returns>An apiTenant model of the existing tenant, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions</returns>
+    // PUT: api/Tenant/Update
+    [HttpPut("Update", Name = "UpdateTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateAsync([FromBody, Bind("tenant")] ApiTenant tenant)
+    public async Task<ActionResult> UpdateAsync([FromBody] ApiTenant tenant)
     {
       try
       {
         _logger.LogInformation("PUT - Updating tenant with tenantid {tenantId}.", tenant.Id);
+        //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
           Id = (Guid) tenant.Id,
@@ -334,42 +343,13 @@ namespace Revature.Tenant.Api.Controllers
           };
         }
 
+        //Call repository method Put and Save Async
         _tenantRepository.Put(newTenant);
         await _tenantRepository.SaveAsync();
-
         _logger.LogInformation("PUT persisted to dB");
-        //ICollection<Lib.Models.Tenant> tenants = await _tenantRepository.GetAllAsync();
-        //newTenant = tenants.First(t => t.Id == newTenant.Id);
 
-        //ApiTenant apiTenant = new ApiTenant
-        //{
-        //  Id = tenant.Id,
-        //  Email = tenant.Email,
-        //  Gender = tenant.Gender,
-        //  FirstName = tenant.FirstName,
-        //  LastName = tenant.LastName,
-        //  AddressId = tenant.AddressId,
-        //  RoomId = tenant.RoomId,
-        //  CarId = tenant.CarId,
-        //  BatchId = tenant.BatchId,
-        //  TrainingCenter = tenant.TrainingCenter
-        //};
-
-        //if (newTenant.Car != null)
-        //{
-        //  apiTenant.ApiCar = new ApiCar
-        //  {
-        //    Id = tenant.ApiCar.Id,
-        //    Color = tenant.ApiCar.Color,
-        //    Make = tenant.ApiCar.Make,
-        //    Model = tenant.ApiCar.Model,
-        //    LicensePlate = tenant.ApiCar.LicensePlate,
-        //    State = tenant.ApiCar.State,
-        //    Year = tenant.ApiCar.Year
-        //  };
-        //}
-
-        return StatusCode(204);
+        //Return NoContent
+        return StatusCode(StatusCodes.Status204NoContent);
       }
       catch (ArgumentException)
       {
@@ -384,17 +364,18 @@ namespace Revature.Tenant.Api.Controllers
       catch (Exception e)
       {
         _logger.LogError("PUT request failed. Error: " + e.Message);
-        return StatusCode(500, e.Message);
+        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
       }
     }
 
     /// <summary>
     /// Delete a tenant by id
     /// </summary>
-    /// <param name="id">Guid Id, converted from string in Query String</param>
-    [HttpDelete("Delete", Name = "DeleteTenant")]
+    /// <param name="id">Guid Id, converted from string in Body</param>
+    /// <returns>Status Code 204 if successful, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions</returns>
+    [HttpDelete("Delete/{id}", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromBody] string id)
+    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
     {
       try
       {
@@ -415,9 +396,8 @@ namespace Revature.Tenant.Api.Controllers
       catch (Exception e)
       {
         _logger.LogError("DELETE request failed. Error: " + e.Message);
-        return StatusCode(500, e.Message);
+        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
       }
     }
-
   }
 }

@@ -38,12 +38,6 @@ namespace Revature.Tenant.DataAccess.Repository
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
-      //if (tenant.Car != null)
-      //{
-      //  Entities.Car newCar = _mapper.MapCar(tenant.Car);
-      //  newCar.Tenant = _context.Tenant.Where(t => t.Id == newTenant.Id).FirstOrDefault();
-      //  await _context.Car.AddAsync(newCar);
-      //}
     }
 
     /// <summary>
@@ -84,7 +78,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <summary>
     /// Gets a list of all tenants
     /// </summary>
-    /// <returns>The collection of all tenants</returns>
+    /// <returns>The collection of all tenants, including their Car and Batch, if applicable</returns>
     public async Task<ICollection<Lib.Models.Tenant>> GetAllAsync(string firstName = null, string lastName = null, string gender = null, Guid? trainingCenter = null)
     {
       var tenants = _context.Tenant
@@ -109,7 +103,6 @@ namespace Revature.Tenant.DataAccess.Repository
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
       
-
       return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }
 
@@ -177,6 +170,7 @@ namespace Revature.Tenant.DataAccess.Repository
         return true;
       }
     }
+
     /// <summary>
     /// This persists changes to data base. 
     /// </summary>
