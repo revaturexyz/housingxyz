@@ -7,6 +7,7 @@ export const environment = {
   endpoints: {
     account: 'https://accountdev.revature.xyz/',
     complex: 'https://complexdev.revature.xyz/',
-    tenant: 'https://tenantdev.revature.xyz/'
+    tenant: 'https://tenantdev.revature.xyz/',
+    provider: 'http://localhost:10080/'
   }
 };
