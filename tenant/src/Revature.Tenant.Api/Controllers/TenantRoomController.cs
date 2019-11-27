@@ -11,19 +11,21 @@ using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Controllers
 {
-  [Route("api/Tenants/")]
+  [Route("api/Tenant/")]
   [ApiController]
   public class TenantRoomController : ControllerBase
   {
     private readonly ITenantRoomRepository _repository;
     private readonly ILogger _logger;
     private readonly ITenantRepository _repo2;
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger)
+    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IHttpClientFactory httpClientFactory)
     {
       _repository = repository;
       _repo2 = repo2;
       _logger = logger;
+      _httpClientFactory = httpClientFactory;
     }
 
     [HttpGet]
@@ -41,55 +43,46 @@ namespace Revature.Tenant.Api.Controllers
     [HttpGet]
     [Route("Assign/AvailableRooms")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetTenantsByRoomId([FromQuery] string gender, [FromQuery] DateTime endDate)
     {
-      try
-      {
         _logger.LogInformation("Requesting room id + total beds from Room Service...");
-        using (var client = new HttpClient())
+
+        HttpClient client = _httpClientFactory.CreateClient();
+        string baseUri = "https://roomdev.revature.xyz/";
+        string resourceUri = "api/rooms?gender=" + gender + "&endDate=" + endDate;
+        var response = await client.GetAsync(baseUri + resourceUri);
+        if (response.IsSuccessStatusCode)
         {
-          string baseUri = "https://roomdev.revature.xyz/";
-          string resourceUri = "api/rooms?gender=" + gender + "&endDate=" + endDate;
-          var response = await client.GetAsync(baseUri + resourceUri);
-          if (response.IsSuccessStatusCode)
+          var contentAsString = await response.Content.ReadAsStringAsync();
+          var availableRooms = JsonSerializer.Deserialize<List<AvailRoom>>(contentAsString);
+
+          var roomsWithTenants = new List<RoomInfo>();
+
+          _logger.LogInformation("Getting Tenants by Room Id...");
+
+          foreach (var room in availableRooms)
           {
-            var contentAsString = await response.Content.ReadAsStringAsync();
-            var availableRooms = JsonSerializer.Deserialize<List<AvailRoom>>(contentAsString);
-
-            var roomsWithTenants = new List<RoomInfo>();
-
-            _logger.LogInformation("Getting Tenants by Room Id...");
-
-            foreach (var room in availableRooms)
-            {
-              roomsWithTenants.Add(
-                new RoomInfo
-                {
-                  RoomId = room.item1,
-                  NumberOfBeds = room.item2,
-                  Tenants = await _repository.GetTenantsByRoomId(room.item1)
-                }
-              );
-            }
-
-            _logger.LogInformation("Success.");
-
-            return Ok(roomsWithTenants);
+            roomsWithTenants.Add(
+              new RoomInfo
+              {
+                RoomId = room.item1,
+                NumberOfBeds = room.item2,
+                Tenants = await _repository.GetTenantsByRoomId(room.item1)
+              }
+            );
           }
-          else
-          {
-            _logger.LogInformation("Could not retrieve info from Room Service.");
-            return BadRequest();
-          }
+
+          _logger.LogInformation("Success.");
+
+          return Ok(roomsWithTenants);
         }
-      }
-      catch (ArgumentNullException ex)
-      {
-        _logger.LogError(ex, "Tried to parse a null tenant(?)");
-
-        return NotFound(ex);
-      }
+        else
+        {
+          _logger.LogInformation("Could not retrieve info from Room Service.");
+          return BadRequest();
+        }
+      
     }
 
     [HttpPut]
