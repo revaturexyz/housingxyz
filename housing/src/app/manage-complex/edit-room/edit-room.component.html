@@ -52,6 +52,8 @@
         <!--End of numberOfBeds-->
       </div>
       <!--End of room number and number of beds holder-->
+      <!-- Gender and room type begin-->
+      <div class="d-flex flex-row justify-content-center">
         <!-- Start of Room Type input select -->
         <div class="form-group mx-1">
           <label for="apiRoomType">Select Room Type</label>
@@ -83,17 +85,7 @@
         <!-- End of Room Type select -->
       </div>
       <!--End of Gender and Room Type holder-->
-      <!-- Begin occupied checkbox -->
-      <mat-checkbox
-        id="isOccupied"
-        name="isOccupied"
-        [(ngModel)]="targetRoom.isOccupied"
-        #isOccupied="ngModel"
-        aria-describedby="isOccupied"
-      >
-        Occupied
-      </mat-checkbox>
-      <!-- End occupied checkbox -->
+
       <!-- Lease start and end dates holder begin-->
       <div class="d-flex flex-row justify-content-center">
         <!-- Lease start dates begin -->
@@ -187,7 +179,6 @@
             class="add-room-btn"
             [disabled]="
               apiRoomType.invalid ||
-              gender.invalid ||
               numberOfBeds.invalid ||
               roomNumber.invalid ||
               startDate.invalid ||

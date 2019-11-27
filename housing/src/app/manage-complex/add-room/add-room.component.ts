@@ -13,14 +13,12 @@ import { TestServiceData } from 'src/app/services/static-test-data';
 })
 // Component that provides form to add room to a complex
 export class AddRoomComponent implements OnInit {
-  seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
   seededAmenityList = TestServiceData.dummyAmenityList1;
   // Init Form
   formRoom: Room;
   // For all select form inputs to show invalid on validation checks.
   public selectOptionRoomTypeInvalid = '';
-  public selectOptionGenderInvalid = '';
   // Makes currently selected complex information available
   @Input() complexControl: Complex;
   // Decorator to output the selected mode

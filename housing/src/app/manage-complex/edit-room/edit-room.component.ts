@@ -14,7 +14,6 @@ import { TestServiceData } from 'src/app/services/static-test-data';
 // Component to provide form in order to edit room
 export class EditRoomComponent implements OnInit {
   // Seeds for view testing
-  seededGenderTypes = TestServiceData.dummyGender;
   seededRoomTypes = TestServiceData.dummyRoomTypeList;
   seededAmenityList = TestServiceData.dummyAmenityList1;
   // For all select form inputs to show invalid on validation checks.
