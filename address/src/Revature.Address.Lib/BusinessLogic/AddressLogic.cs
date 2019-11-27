@@ -111,7 +111,7 @@ namespace Revature.Address.Lib.BusinessLogic
       AddressGeocodeRequest request = new AddressGeocodeRequest
       {
         Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
-        Key = _configuration["GoogleApiKey"]
+        Key = _key
       };
       GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToArray();
