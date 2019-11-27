@@ -41,7 +41,7 @@ namespace Revature.Address.Lib.BusinessLogic
 
     /// <summary>
     /// Makes a call to Google's Distance Matrix API to check if two given address
-    /// are within a specified distance of each other.
+    /// are within a specified distance in miles of each other.
     /// </summary>
     /// <param name="origin"></param>
     /// <param name="destination"></param>
