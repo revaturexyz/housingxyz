@@ -19,7 +19,7 @@ namespace Revature.Room.Tests.Revature.Room.DataAccess.Tests
     {
       // arrange
       var mockRepo = new Mock<IRepository>();
-      var mockLogger = new Mock<ILogger>();
+      var mockLogger = new Mock<ILogger<TenantController>>();
       var controller = new TenantController(mockRepo.Object, mockLogger.Object);
 
       var gender = "nonbinary";
