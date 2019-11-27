@@ -11,14 +11,14 @@
 
 
                 
-                <button (click)="deleteTrigger()">Delete Tenant</button>
+                <button class="btn btn-dark" (click)="deleteTrigger()">Delete Tenant</button>
                 <span *ngIf="deleteConfirmOn">
                     Are you certain? This action cannot be undone.
                     <div>
-                        <a (click)="deleteStop()">NO, I do not want to delete this tenant.</a>
+                        <a class="btn btn-dark" (click)="deleteStop()">NO, I do not want to delete this tenant.</a>
                     </div>
                     <div>
-                        <a (click)="deleteGo()">YES, I want to delete this tenant.</a>
+                        <a class="btn btn-dark" (click)="deleteGo()">YES, I want to delete this tenant.</a>
                     </div>
                 </span>
 
@@ -36,7 +36,7 @@
 
 
 
-                <div>
+                <div id="tenantForm">
                     <h3 *ngIf="!tenantLoaded">Loading Tenant...</h3>
 
                     <div *ngIf="tenantLoaded">
