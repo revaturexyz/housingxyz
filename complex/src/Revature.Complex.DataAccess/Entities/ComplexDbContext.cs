@@ -16,12 +16,14 @@ namespace Revature.Complex.DataAccess.Entities
     public virtual DbSet<AmenityRoom> AmenityRoom { get; set; }
     public virtual DbSet<Amenity> Amenity { get; set; }
 
-    private Guid cId1 = Guid.Parse("58b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
+    private Guid cId1 = Guid.Parse("b5e050aa-6bfc-46ad-9a69-90b1f99ed606");
+    //cId1 equals to room service seed data: complex Id
     private Guid cId2 = Guid.Parse("68b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
     private Guid cId3 = Guid.Parse("78b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
     private Guid cId4 = Guid.Parse("88b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
-    private Guid rId1 = Guid.Parse("98b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
-    private Guid rId2 = Guid.Parse("a8b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
+    private Guid rId1 = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456fd");
+    private Guid rId2 = Guid.Parse("fa1d6c6e-9650-44c9-8c6b-5aebd3f9a671");
+    //rId1, rId2 equals to room service: room id#1 & room id#2
     private Guid amId1 = Guid.Parse("b8b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
     private Guid amId2 = Guid.Parse("c8b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
     private Guid amId3 = Guid.Parse("d8b7eadd-30ce-49a7-9b8c-bae1d47f46a6");
@@ -42,7 +44,7 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.Property(e => e.ComplexName)
           .IsRequired()
-          .HasMaxLength(100);
+          .HasMaxLength(50);
 
         entity.Property(e => e.ContactNumber)
           .HasMaxLength(20);
@@ -92,17 +94,19 @@ namespace Revature.Complex.DataAccess.Entities
           .IsUnique();
 
         entity.Property(e => e.AmenityType)
-          .IsRequired();
+          .IsRequired()
+          .HasMaxLength(50);
 
-        entity.Property(e => e.Description);
+        entity.Property(e => e.Description)
+          .HasMaxLength(100);
 
         entity.HasData
         (
-          new Amenity { AmenityId = amId1, AmenityType = "fridge", Description = "to keep foods fresh" },
+          new Amenity { AmenityId = amId1, AmenityType = "fridge", Description = "to keep food fresh" },
           new Amenity { AmenityId = amId2, AmenityType = "microwave", Description = "" },
-          new Amenity { AmenityId = amId3, AmenityType = "pool", Description = "swmming" },
+          new Amenity { AmenityId = amId3, AmenityType = "pool", Description = "swimming" },
           new Amenity { AmenityId = amId4, AmenityType = "kitchen", Description = "cook" },
-          new Amenity { AmenityId = amId5, AmenityType = "", Description = "work out" }
+          new Amenity { AmenityId = amId5, AmenityType = "gym", Description = "work out" }
         );
       });
 

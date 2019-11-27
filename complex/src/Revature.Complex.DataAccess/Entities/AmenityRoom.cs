@@ -4,17 +4,13 @@ using System.Text;
 
 namespace Revature.Complex.DataAccess.Entities
 {
+  /// <summary>
+  /// Entity AmenityRoom model. Repository use it to CRUD complex data from database
+  /// </summary>
   public class AmenityRoom
   {
-    /// <summary>
-    /// Primary key of AmenityRoom table.
-    /// This is a foereign key to the RoomId Guid of the room service.
-    /// </summary>
     public Guid AmenityRoomId { get; set; }
 
-    /// <summary>
-    /// Foreign key of Amenity table
-    /// </summary>
     public Guid AmenityId { get; set; }
 
     /// <summary>
@@ -22,6 +18,9 @@ namespace Revature.Complex.DataAccess.Entities
     /// </summary>
     public Guid RoomId { get; set; }
 
+    /// <summary>
+    /// for FK: amenity Id
+    /// </summary>
     public Amenity Amenity { get; set; }
   }
 }

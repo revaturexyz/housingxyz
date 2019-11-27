@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Revature.Complex.Lib.Models
 {
@@ -9,10 +10,13 @@ namespace Revature.Complex.Lib.Models
   /// </summary>
   public class AmenityRoom
   {
+    [Required]
     public Guid AmenityRoomId { get; set; }
 
+    [Required]
     public Guid AmenityId { get; set; }
 
+    [Required]
     public Guid RoomId { get; set; }
   }
 }

@@ -35,7 +35,7 @@ namespace Revature.Complex.DataAccess.Repository
 
       await _context.AddAsync(complex);
       await _context.SaveChangesAsync();
-      log.LogInformation($"(REPO) the new complex: {lComplex.ComplexId} was inserted");
+      log.LogInformation("new complex: {complexId} was inserted ", lComplex.ComplexId);
 
       return true;
     }
@@ -44,6 +44,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// Read all existed complices in the database
     /// </summary>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of complex not found</exception>
     public async Task<List<Logic.Complex>> ReadComplexListAsync()
     {
       try
@@ -52,9 +53,9 @@ namespace Revature.Complex.DataAccess.Repository
 
         return complices.Select(_map.MapEtoComplex).ToList();
       }
-      catch (ArgumentNullException ex)
+      catch (Exception ex)
       {
-        log.LogError($"(REPO){ex}: couldn't find list of complices");
+        log.LogError("{ex} couldn't find list of complices", ex);
         throw;
       }
     }
@@ -64,16 +65,17 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">complex not found by id</exception>
     public async Task<Logic.Complex> ReadComplexByIdAsync(Guid complexId)
     {
       try
       {
-        Entity.Complex complexFind = await _context.Complex.FindAsync(complexId).ConfigureAwait(false);
+        Entity.Complex complexFind = await _context.Complex.FindAsync(complexId);
         return _map.MapEtoComplex(complexFind);
       }
-      catch (Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: couldn't find specific complex with id: {complexId}");
+        log.LogError("{ex}: couldn't find specific complices with id: {complexId}", ex, complexId);
         throw;
       }
     }
@@ -84,6 +86,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// <param name="name"></param>
     /// <param name="phone"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of complex not found</exception>
     public async Task<Logic.Complex> ReadComplexByNameAndNumberAsync(string name, string phone)
     {
       try
@@ -92,9 +95,9 @@ namespace Revature.Complex.DataAccess.Repository
                                                           && c.ContactNumber == phone).AsNoTracking().FirstOrDefaultAsync();
         return _map.MapEtoComplex(complex);
       }
-      catch(Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: couldn't find specific complex with name: {name} and phone: {phone}");
+        log.LogError("{ex}: couldn't find specific complex with name: {name} and phone: {phone}", ex, name, phone);
         throw;
       }
     }
@@ -104,11 +107,12 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="update"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">complex not found</exception>
     public async Task<bool> UpdateComplexAsync(Logic.Complex update)
     {
       try
       {
-        Entity.Complex origin = _context.Complex.Find(update.ComplexId);
+        Entity.Complex origin = await _context.Complex.FindAsync(update.ComplexId);
 
         if (update.ComplexName != null)
         {
@@ -120,14 +124,14 @@ namespace Revature.Complex.DataAccess.Repository
         }
 
         await _context.SaveChangesAsync();
-        log.LogInformation($"(REPO) complex id: {update.ComplexId} was updated");
+        log.LogInformation("{complexId} was updated", update.ComplexId);
 
         return true;
       }
-      catch(Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: comlex id: {update.ComplexId} update failed");
-        throw ex;
+        log.LogError("{ex}comlex id: {ComplexId} update failed", ex, update.ComplexId);
+        throw;
       }
     }
 
@@ -136,21 +140,22 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">complex not found</exception>
     public async Task<bool> DeleteComplexAsync(Guid complexId)
     {
       try
       {
-        Entity.Complex target = _context.Complex.Find(complexId);
+        Entity.Complex target = await _context.Complex.FindAsync(complexId);
 
         _context.Remove(target);
         await _context.SaveChangesAsync();
-        log.LogInformation($"(REPO)target: {target.ComplexId} was deleted");
+        log.LogInformation("target: {complexId} was deleted", target.ComplexId);
 
         return true;
       }
-      catch (Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: complex id: {complexId} failed to delete");
+        log.LogError("{ex}: complex id: {complexId} failed to delete", ex, complexId);
         throw;
       }
 
@@ -167,7 +172,7 @@ namespace Revature.Complex.DataAccess.Repository
 
       await _context.AddAsync(amenityRoom);
       await _context.SaveChangesAsync();
-      log.LogInformation($"(REPO)new amenity of room id: {ar.RoomId} was added");
+      log.LogInformation("new amenity of room id: {ar.RoomId}", ar.RoomId);
 
       return true;
     }
@@ -177,6 +182,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of amenityroom not found</exception>
     public async Task<bool> DeleteAmenityRoomAsync(Guid roomId)
     {
       try
@@ -184,14 +190,14 @@ namespace Revature.Complex.DataAccess.Repository
         _context.AmenityRoom.RemoveRange(_context.AmenityRoom.Where(ar => ar.RoomId == roomId));
 
         await _context.SaveChangesAsync();
-        log.LogInformation($"AmenityRooms with room Id: {roomId} were deleted");
+        log.LogInformation("AmenityRooms with room Id: {roomId} were deleted", roomId);
 
         return true;
       }
-      catch( Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: couldn't find specific room with room id: {roomId}");
-        throw ex;
+        log.LogError("{ex}: couldn't find such room with room id: {roomId}", ex, roomId);
+        throw;
       }
     }
 
@@ -200,6 +206,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of amenitycomplex not found</exception>
     public async Task<bool> DeleteAmenityComplexAsync(Guid complexId)
     {
       try
@@ -210,10 +217,10 @@ namespace Revature.Complex.DataAccess.Repository
 
         return true;
       }
-      catch (ArgumentNullException ex)
+      catch (Exception ex)
       {
-        log.LogWarning($"{ex}: couldn't find specific room with complex id: {complexId}");
-        throw ex;
+        log.LogWarning("{ex}: couldn't find such room with complex id: {complexId}", ex, complexId);
+        throw;
       }
     }
 
@@ -228,7 +235,7 @@ namespace Revature.Complex.DataAccess.Repository
 
       await _context.AddAsync(amenityComplex);
       await _context.SaveChangesAsync();
-      log.LogInformation($"(REPO)new amenity for complex: {ac.AmenityComplexId} was added");
+      log.LogInformation("new amenity for complex: {AmenityComplexId} was added", ac.AmenityComplexId);
 
       return true;
     }
@@ -244,7 +251,7 @@ namespace Revature.Complex.DataAccess.Repository
 
       await _context.AddAsync(newAmenity);
       await _context.SaveChangesAsync();
-      log.LogInformation($"(REPO)new amenity: {amenity.AmenityType} was added");
+      log.LogInformation("new Amenity: {amenity.AmenityType} was added", amenity.AmenityType);
 
       return true;
     }
@@ -253,6 +260,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// Read all existed amenities from the database
     /// </summary>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of amenity not found</exception>
     public async Task<List<Logic.Amenity>> ReadAmenityListAsync()
     {
       try
@@ -261,10 +269,10 @@ namespace Revature.Complex.DataAccess.Repository
 
         return amenities.Select(_map.MapEtoAmenity).ToList();
       }
-      catch (ArgumentNullException ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: couldn't find any amnities in the database");
-        throw ex;
+        log.LogError("{ex}: couldn't find list of amenities in the database", ex);
+        throw;
       }
     }
 
@@ -273,6 +281,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="complexId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of amenity by complex id not found</exception>
     public async Task<List<Logic.Amenity>> ReadAmenityListByComplexIdAsync(Guid complexId)
     {
       try
@@ -284,14 +293,14 @@ namespace Revature.Complex.DataAccess.Repository
         foreach (var ac in amenityComplices)
         {
           amenities.Add(_map.MapEtoAmenity(await _context.Amenity.FindAsync(ac.AmenityId)));
-          log.LogInformation($"(REPO)amenity: {ac.AmenityId} was found");
+          log.LogInformation("amenity: {ac.AmenityId} was found and added", ac.AmenityId);
         }
 
         return amenities;
       }
-      catch(Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogError($"(REPO){ex}: amenities of complex id: {complexId} were not found");
+        log.LogError("{ex}: amenities of complex were not found", ex);
         throw;
       }
 
@@ -302,6 +311,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of amenity by room id not found</exception>
     public async Task<List<Logic.Amenity>> ReadAmenityListByRoomIdAsync(Guid roomId)
     {
       try
@@ -317,9 +327,9 @@ namespace Revature.Complex.DataAccess.Repository
 
         return amenities;
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
-        log.LogError($"(REPO){ex}: amenities for room id: {roomId} were not found");
+        log.LogError("{ex}amenities for room id: {roomId} were not found", ex, roomId);
         throw;
       }
 
@@ -330,6 +340,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="providerId"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of complex not found</exception>
     public async Task<List<Logic.Complex>> ReadComplexByProviderIdAsync(Guid pId)
     {
       try
@@ -338,9 +349,9 @@ namespace Revature.Complex.DataAccess.Repository
 
         return complices.Select(_map.MapEtoComplex).ToList();
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
-        log.LogError($"(REPO){ex}: comlices of provider Id: {pId} were not found");
+        log.LogError("{ex}: comlices of provider Id: {pId} were not found", ex, pId);
         throw;
       }
     }
@@ -350,6 +361,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="amenity"></param>
     /// <returns></returns>
+    /// <exception cref="ArgumentNullException">list of complex not found</exception>
     public async Task<bool> UpdateAmenityAsync(Logic.Amenity amenity)
     {
       try
@@ -365,16 +377,16 @@ namespace Revature.Complex.DataAccess.Repository
           eAmenity.Description = amenity.Description;
         }
 
-        _context.Amenity.OrderBy(a => a.AmenityId);
         await _context.SaveChangesAsync();
-        log.LogInformation($"(REPO)amenity: {amenity.AmenityId} {amenity.AmenityType} was updated");
+        log.LogInformation("amenity: {amenity.AmenityId} {amenity.AmenityType} was updated"
+                                      , amenity.AmenityId, amenity.AmenityType);
 
         return true;
       }
-      catch(Exception ex)
+      catch (ArgumentException ex)
       {
-        log.LogWarning($"{ex}: Unable to update the amenity.");
-        throw ex;
+        log.LogWarning("{ex}: Unable to update the amenity.", ex);
+        throw;
       }
     }
 
@@ -383,6 +395,7 @@ namespace Revature.Complex.DataAccess.Repository
     /// </summary>
     /// <param name="amenity"></param>
     /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Unable to delete the amenity</exception>
     public async Task<bool> DeleteAmenityAsync(Logic.Amenity amenity)
     {
       try
@@ -392,13 +405,13 @@ namespace Revature.Complex.DataAccess.Repository
         _context.Remove(dAmenity);
 
         await _context.SaveChangesAsync();
-        log.LogInformation($"(REPO)amenity: {dAmenity.AmenityId} {dAmenity.AmenityType} was deleted");
+        log.LogInformation("amenity: {dAmenity.AmenityId} {dAmenity.AmenityType} is deleted", dAmenity.AmenityId, dAmenity.AmenityType);
 
         return true;
       }
       catch (InvalidOperationException ex)
       {
-        log.LogWarning($"{ex}: Unable to delete the amenity.");
+        log.LogWarning("{ex}: Unable to delete the amenity.", ex);
         throw;
       }
     }
