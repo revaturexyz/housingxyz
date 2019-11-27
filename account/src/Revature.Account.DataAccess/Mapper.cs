@@ -2,6 +2,9 @@ using System.Linq;
 
 namespace Revature.Account.DataAccess
 {
+  /// <summary>
+  /// Maps between the business logic and data access layers.
+  /// </summary>
   public class Mapper
   {
     /// <summary>
@@ -14,9 +17,10 @@ namespace Revature.Account.DataAccess
       return new Lib.Model.ProviderAccount
       {
         ProviderId = provider.ProviderId,
-        Coordinator = MapCoordinator(provider.Coordinator),
+        CoordinatorId = provider.CoordinatorId,
         Name = provider.Name,
-        Status = MapStatus(provider.Status),
+        Email = provider.Email,
+        Status = new Lib.Model.Status { StatusText = provider.StatusText },
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
@@ -27,9 +31,10 @@ namespace Revature.Account.DataAccess
       return new Entities.ProviderAccount
       {
         ProviderId = provider.ProviderId,
-        CoordinatorId = provider.Coordinator.CoordinatorId,
+        CoordinatorId = provider.CoordinatorId,
         Name = provider.Name,
-        StatusId = provider.Status.StatusId,
+        Email = provider.Email,
+        StatusText = provider.Status.StatusText,
         AccountCreatedAt = provider.AccountCreatedAt,
         AccountExpiresAt = provider.AccountExpiresAt
       };
@@ -67,7 +72,8 @@ namespace Revature.Account.DataAccess
     }
 
     /// <summary>
-    /// Maps db Notification to logic Notification. Maps Status as well.
+    /// Maps db Notification to logic Notification. Maps Coordinator, Provider, and
+    /// UpdateAction as well.
     /// </summary>
     /// <param name="nofi"></param>
     /// <returns></returns>
@@ -78,7 +84,8 @@ namespace Revature.Account.DataAccess
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
         CoordinatorId = nofi.CoordinatorId,
-        Status = MapStatus(nofi.Status),
+        UpdateAction = MapUpdateAction(nofi.UpdateAction),
+        Status = new Lib.Model.Status { StatusText = nofi.StatusText },
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
@@ -90,31 +97,31 @@ namespace Revature.Account.DataAccess
         NotificationId = nofi.NotificationId,
         ProviderId = nofi.ProviderId,
         CoordinatorId = nofi.CoordinatorId,
-        StatusId = nofi.Status.StatusId,
+        UpdateActionId = nofi.UpdateAction.UpdateActionId,
+        StatusText = nofi.Status.StatusText,
         AccountExpiresAt = nofi.AccountExpiresAt
       };
     }
 
-    /// <summary>
-    /// Maps db Status to logic Status. No nested objects.
-    /// </summary>
-    /// <param name="status"></param>
-    /// <returns></returns>
-    public Lib.Model.Status MapStatus(Entities.Status status)
+    public Lib.Model.UpdateAction MapUpdateAction(Entities.UpdateAction action)
     {
-      return new Lib.Model.Status
+      return new Lib.Model.UpdateAction
       {
-        StatusId = status.StatusId,
-        StatusText = status.StatusText
+        UpdateActionId = action.UpdateActionId,
+        NotificationId = action.NotificationId,
+        UpdateType = action.UpdateType,
+        SerializedTarget = action.SerializedTarget
       };
     }
 
-    public Entities.Status MapStatus(Lib.Model.Status status)
+    public Entities.UpdateAction MapUpdateAction(Lib.Model.UpdateAction action)
     {
-      return new Entities.Status
+      return new Entities.UpdateAction
       {
-        StatusId = status.StatusId,
-        StatusText = status.StatusText
+        UpdateActionId = action.UpdateActionId,
+        NotificationId = action.NotificationId,
+        UpdateType = action.UpdateType,
+        SerializedTarget = action.SerializedTarget
       };
     }
   }

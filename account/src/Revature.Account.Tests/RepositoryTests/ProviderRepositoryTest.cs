@@ -9,8 +9,14 @@ using Revature.Account.Tests;
 
 namespace Revature.Account.Test.Repository_Tests
 {
+  /// <summary>
+  /// Tests for the Provider's data access layer and it's supporting database negotiation methods.
+  /// </summary>
   public class ProviderRepositoryTest
   {
+    /// <summary>
+    /// Test for adding a new Provider entry to the database.
+    /// </summary>
     [Fact]
     public void AddNewProviderAccountTest()
     {
@@ -33,6 +39,10 @@ namespace Revature.Account.Test.Repository_Tests
       Assert.NotNull(assertProvider);
     }
 
+    /// <summary>
+    /// Test for updateing a given Provider's information within the database.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task UpdateProviderAccountTestAsync()
     {
@@ -45,6 +55,8 @@ namespace Revature.Account.Test.Repository_Tests
       using var arrangeContext = new AccountDbContext(options);
       var arrangeProvider = helper.Providers[0];
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(arrangeProvider));
+      arrangeContext.SaveChanges();
+
       arrangeProvider.Name = "Robby";
 
       // Act
@@ -58,6 +70,9 @@ namespace Revature.Account.Test.Repository_Tests
       Assert.Equal(arrangeProvider.Name, assertProvider.Name);
     }
 
+    /// <summary>
+    /// Retrieve a provider by way of a Guid Id from the database.
+    /// </summary>
     [Fact]
     public async void GetProviderByIdTest()
     {
@@ -71,7 +86,6 @@ namespace Revature.Account.Test.Repository_Tests
 
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
-      arrangeContext.Status.Add(mapper.MapStatus(helper.Statuses[0]));
       arrangeContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
@@ -83,6 +97,10 @@ namespace Revature.Account.Test.Repository_Tests
       Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Test the deletion of a given provider from the database.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteProviderTestAsync()
     {
