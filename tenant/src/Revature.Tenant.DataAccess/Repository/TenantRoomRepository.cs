@@ -39,7 +39,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
-    public async Task<IList<Lib.Models.Tenant>> GetTenantsByRoomId(Guid roomId)
+    public async Task<List<Lib.Models.Tenant>> GetTenantsByRoomId(Guid roomId)
     {
       var tenants = await _context.Tenant
         .Include(t => t.Batch)

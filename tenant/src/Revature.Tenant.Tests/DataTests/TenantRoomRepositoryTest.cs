@@ -61,6 +61,9 @@ namespace Revature.Tenant.Tests.DataTests
 
       Assert.NotNull(result);
       Assert.Equal("Clary", result.First().FirstName);
+
+      result = await repo.GetTenantsByRoomId(Guid.NewGuid());
+      Assert.True(result.Count == 0);
     }
   }
 }

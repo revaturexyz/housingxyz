@@ -52,6 +52,7 @@ namespace Revature.Tenant.Api
       });
 
       services.AddScoped<ITenantRepository, TenantRepository>();
+      services.AddScoped<ITenantRoomRepository, TenantRoomRepository>();
       services.AddScoped<IMapper, Mapper>();
       services.AddControllers();
     }

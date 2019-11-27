@@ -1,18 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Tenants/")]
   [ApiController]
   public class TenantRoomController : ControllerBase
   {
@@ -26,6 +25,7 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     [HttpGet]
+    [Route("Unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTenantsNotAssignedRoom()
     {
@@ -37,22 +37,23 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     [HttpGet]
+    [Route("Assign/AvailableRooms")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTenantsByRoomId([FromQuery] string gender, [FromQuery] DateTime endDate)
     {
       try
       {
-        _logger.LogInformation("Requesting room id + total beds fmor Room Service...");
+        _logger.LogInformation("Requesting room id + total beds from Room Service...");
         using (var client = new HttpClient())
         {
-          string baseUri = "baseUriForRoomService.com/";
+          string baseUri = "https://roomdev.revature.xyz/";
           string resourceUri = "api/rooms?gender=" + gender + "&endDate=" + endDate;
-          var response = await client.GetAsync(baseUri+resourceUri);
+          var response = await client.GetAsync(baseUri + resourceUri);
           if (response.IsSuccessStatusCode)
           {
             var contentAsString = await response.Content.ReadAsStringAsync();
-            var availableRooms = JsonSerializer.Deserialize<List<Tuple<Guid,int>>>(contentAsString);
+            var availableRooms = JsonSerializer.Deserialize<List<AvailRoom>>(contentAsString);
 
             var roomsWithTenants = new List<RoomInfo>();
 
@@ -63,18 +64,18 @@ namespace Revature.Tenant.Api.Controllers
               roomsWithTenants.Add(
                 new RoomInfo
                 {
-                  RoomId = room.Item1,
-                  NumberOfBeds = room.Item2,
-                  Tenants = await _repository.GetTenantsByRoomId(room.Item1) as List<Lib.Models.Tenant>
+                  RoomId = room.item1,
+                  NumberOfBeds = room.item2,
+                  Tenants = await _repository.GetTenantsByRoomId(room.item1)
                 }
               );
             }
 
             _logger.LogInformation("Success.");
 
-
             return Ok(roomsWithTenants);
-          } else
+          }
+          else
           {
             _logger.LogInformation("Could not retrieve info from Room Service.");
             return BadRequest();
