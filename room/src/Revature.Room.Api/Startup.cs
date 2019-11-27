@@ -1,10 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Room.DataAccess;
+using Revature.Room.DataAccess.Entities;
+using Revature.Room.Lib;
 using Serilog;
+using ServiceBusMessaging;
 
 namespace Revature.Room.Api
 {
@@ -43,6 +48,14 @@ namespace Revature.Room.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Room", Version = "v1" });
       });
 
+      services.AddDbContext<RoomServiceContext>(options => options.UseNpgsql(Configuration.GetConnectionString("RoomDb")));
+
+      services.AddScoped<IRepository, Repository>();
+      services.AddScoped<IMapper, DBMapper>();
+      services.AddHostedService<ServiceBusConsumer>();
+
+      services.AddScoped<ServiceBusSender>();
+
       services.AddControllers();
     }
 
@@ -58,7 +71,7 @@ namespace Revature.Room.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
 
       app.UseRouting();

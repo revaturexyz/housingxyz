@@ -18,16 +18,7 @@ export class RoomService {
 
   httpOptions: any;
 
-  constructor(
-    private httpBus: HttpClient,
-    msalService: MsalService
-  ) {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: msalService.getUser().userIdentifier
-      })
-    };
-  }
+  constructor(private httpBus: HttpClient) { }
 
   getRoomById(id: number): Observable<Room> {
     return of(TestServiceData.room);

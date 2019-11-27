@@ -1,0 +1,88 @@
+.outer {
+  width: 100%;
+  text-align: center;
+  padding: 100px;
+  background-image: url("/assets/imgs/buildings-shape.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+hr {
+  margin: 3px;
+}
+
+.inner {
+  width: 50%;
+  background-color: white;
+  opacity: 0.9;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 50px;
+  border-radius: 5px;
+}
+
+.notifications-container{
+  overflow-y: scroll;
+  height: 300px;
+  max-height: 300px;
+  margin-bottom: 3%;
+  padding-bottom: 3%;
+}
+
+.notifications-directions{
+  padding: 5px;
+  font-size: 16px;
+  font-style: italic;
+  background-color: white;
+  color: black;
+  color: inherit;
+  width: 100%;
+  text-align: left;
+}
+
+.notifications-table{
+  min-width: 100%;
+  width:100%;
+}
+
+.notifications-header{
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  color: inherit;
+  padding: 0px 5px !important;
+}
+
+.notifications-row:hover {
+  background-color: lightgray;
+  text-decoration: none;
+  color:white;
+  cursor: pointer;
+}
+
+.notification-name{
+  padding: 5px 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.notification-expires{
+  white-space: nowrap;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+}
+
+.truncate {
+  padding-left: 16px;
+  max-width: 250px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
