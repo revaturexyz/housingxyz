@@ -1,14 +1,14 @@
 using System;
 
-namespace Revature.Tenant.DataAccess.Entities
+namespace Revature.Tenant.Api.Models
 {
   /// <summary>
-  /// This class defines a data access entity tenant.
-  /// This is the tenant object we access through our database.
+  /// This is a REST Api model for our tenant object.
+  /// This is the tenant that will interact with our front-end.
   /// </summary>
-  public class Tenant
+  public class ApiTenant
   {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public string Email { get; set; }
     public string Gender { get; set; }
     public string FirstName { get; set; }
@@ -16,9 +16,10 @@ namespace Revature.Tenant.DataAccess.Entities
     public Guid AddressId { get; set; }
     public Guid? RoomId { get; set; }
     public int? CarId { get; set; }
-    public virtual Car Car { get; set; }
     public int? BatchId { get; set; }
-    public virtual Batch Batch { get; set; }
     public Guid TrainingCenter { get; set; }
+    public ApiBatch ApiBatch { get; set; }
+    public ApiCar ApiCar { get; set; }
+    public ApiAddress ApiAddress { get; set; }
   }
 }
