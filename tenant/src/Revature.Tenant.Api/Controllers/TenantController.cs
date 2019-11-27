@@ -7,6 +7,8 @@ using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Api.Models;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
+using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 
 namespace Revature.Tenant.Api.Controllers
 {
@@ -20,11 +22,13 @@ namespace Revature.Tenant.Api.Controllers
   {
     private readonly ITenantRepository _tenantRepository;
     private readonly ILogger _logger;
+    private readonly IConfiguration _configuration;
 
-    public TenantController(ITenantRepository tenantRepository, ILogger<TenantController> logger = null)
+    public TenantController(ITenantRepository tenantRepository, IConfiguration configuration, ILogger<TenantController> logger = null)
     {
       _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant cannot be null");
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+      _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
     }
 
     /// <summary>
@@ -252,9 +256,11 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("Posting Address to Address Service...");
         using (var client = new HttpClient())
         {
-          string baseUri = "https://addressdev.revature.xyz/";
-          string resourceUri = "api/Address/Post";
-          var addressString = new StringContent(tenant.ApiAddress.ToString());
+          string baseUri = _configuration.GetSection("AppServices")["Address"];
+          string resourceUri = "api/Address";
+
+          var json = JsonSerializer.Serialize(tenant.ApiAddress);
+          var addressString = new StringContent(json, encoding:default, "application/json");
           var response = await client.PostAsync(baseUri + resourceUri, addressString);
           if (response.IsSuccessStatusCode)
           {
