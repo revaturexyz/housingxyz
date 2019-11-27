@@ -20,6 +20,7 @@ namespace Revature.Address.Lib.BusinessLogic
   {
     private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
+    private readonly string _key;
 
     // Configures JsonSerializer with a snake case naming policy
     private readonly JsonSerializerOptions _distanceMatrixSerializerOptions = new JsonSerializerOptions
@@ -35,11 +36,12 @@ namespace Revature.Address.Lib.BusinessLogic
     {
       _logger = logger;
       _configuration = configuration;
+      _key = configuration["GoogleApiKey"];
     }
 
     /// <summary>
     /// Makes a call to Google's Distance Matrix API to check if two given address
-    /// are within a specified distance of each other.
+    /// are within a specified distance in miles of each other.
     /// </summary>
     /// <param name="origin"></param>
     /// <param name="destination"></param>
@@ -47,6 +49,10 @@ namespace Revature.Address.Lib.BusinessLogic
     /// <returns>Return true or false</returns>
     public async Task<bool> IsInRangeAsync(Address origin, Address destination, int distance)
     {
+      if(_key == null)
+      {
+        _logger.LogError("Google Cloud Platform API key has not been set");
+      }
       // formatted address to be used with Google API
       string formattedOrigin = FormatAddress(origin);
       string formattedDestination = FormatAddress(destination);
@@ -62,7 +68,7 @@ namespace Revature.Address.Lib.BusinessLogic
         new MediaTypeWithQualityHeaderValue("application/json"));
 
       // await for async call and get response.
-      using HttpResponseMessage response = await client.GetAsync(googleApiUrlParameter + _configuration["GoogleApiKey"]).ConfigureAwait(false);
+      using HttpResponseMessage response = await client.GetAsync(googleApiUrlParameter + _key).ConfigureAwait(false);
       if (response.IsSuccessStatusCode)
       {
         deserialized = JsonSerializer.Deserialize<Response>(
@@ -105,7 +111,7 @@ namespace Revature.Address.Lib.BusinessLogic
       AddressGeocodeRequest request = new AddressGeocodeRequest
       {
         Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
-        Key = _configuration["GoogleApiKey"]
+        Key = _key
       };
       GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToArray();
