@@ -12,5 +12,7 @@ namespace Revature.Tenant.Lib.Interface
     /// <param name="roomId">Room Id of a room</param>
     /// <returns></returns>
     public Task<IList<Models.Tenant>> GetTenantsByRoomId(Guid roomId);
+
+    public Task<IList<Models.Tenant>> GetRoomlessTenants();
   }
 }
