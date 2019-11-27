@@ -102,11 +102,11 @@ namespace Revature.Complex.DataAccess.Entities
 
         entity.HasData
         (
-          new Amenity { AmenityId = amId1, AmenityType = "fridge", Description = "to keep foods fresh" },
+          new Amenity { AmenityId = amId1, AmenityType = "fridge", Description = "to keep food fresh" },
           new Amenity { AmenityId = amId2, AmenityType = "microwave", Description = "" },
-          new Amenity { AmenityId = amId3, AmenityType = "pool", Description = "swmming" },
+          new Amenity { AmenityId = amId3, AmenityType = "pool", Description = "swimming" },
           new Amenity { AmenityId = amId4, AmenityType = "kitchen", Description = "cook" },
-          new Amenity { AmenityId = amId5, AmenityType = "", Description = "work out" }
+          new Amenity { AmenityId = amId5, AmenityType = "gym", Description = "work out" }
         );
       });
 
