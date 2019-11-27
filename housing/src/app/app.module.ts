@@ -27,9 +27,10 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
-import { InterceptorService } from './services/interceptor.service';
+//import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
+import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
 
 @NgModule({
   declarations: [
@@ -43,11 +44,12 @@ import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tena
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
     NotificationDetailsComponent,
-    AssignTenantToRoomComponent
+    AssignTenantToRoomComponent,
+    RequestDialogComponent,
+    AddTenantComponent
   ],
   imports: [
     BrowserModule,
@@ -69,11 +71,11 @@ import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tena
     CoordinatorModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // }
   ],
   entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
   bootstrap: [AppComponent]

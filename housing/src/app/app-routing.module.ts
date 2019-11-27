@@ -11,8 +11,14 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { AuthGuard } from './guards/auth.guard';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 
+import { AddTenantComponent } from './add-tenant/add-tenant.component';
+import { SearchTenantComponent } from './search-tenant/search-tenant.component';
+import { SelectTenantComponent } from './select-tenant/select-tenant.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent},
+
+
   { path: 'show-rooms', component: UpdateRoomComponent },
   { path: 'provider-select', component: ProviderSelectComponent},
   { path: 'add-provider', component: AddProviderComponent },
@@ -23,7 +29,11 @@ const routes: Routes = [
 
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
   { path: 'add-complex', component: AddComplexComponent },
-  { path: 'addroom', component: AddRoomComponent }
+  { path: 'addroom', component: AddRoomComponent },
+  { path: 'add-tenant', component: AddTenantComponent },
+  { path: 'search-tenant', component: SearchTenantComponent },
+  { path: 'select-tenant/:id', component: SelectTenantComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
