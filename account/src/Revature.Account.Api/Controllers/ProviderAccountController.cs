@@ -76,14 +76,16 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(Guid providerId, [FromBody] ProviderAccount provider)
+    public async Task<IActionResult> Put(Guid providerId, [FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount provider)
     {
       _logger.LogInformation($"PUT - Put request for provider ID: {providerId}");
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
+        existingProvider.CoordinatorId = provider.CoordinatorId;
         existingProvider.Name = provider.Name;
-        existingProvider.AccountCreatedAt = DateTime.Now;
+        existingProvider.Email = provider.Email;
+
         await _repo.UpdateProviderAccountAsync(existingProvider);
         await _repo.SaveAsync();
         _logger.LogInformation($"Put request persisted for {providerId}");
