@@ -19,7 +19,7 @@ namespace Revature.Tenant.Api.ServiceBus
   {
     private readonly QueueClient _queueClient;
     private readonly IConfiguration _configuration;
-    private const string QUEUE_NAME = "testing";
+    private const string QUEUE_NAME = "AssignedRoom";
     private readonly ILogger<ServiceBusSender> _logger;
 
     /// <summary>
@@ -46,20 +46,6 @@ namespace Revature.Tenant.Api.ServiceBus
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("Service Bus is sending Room Id", data);
-      await _queueClient.SendAsync(message);
-    }
-
-    /// <summary>
-    /// ServiceBus message for sending a tenant's address and address id
-    /// </summary>
-    /// <param name="addressId"></param>
-    /// <param name="address"></param>
-    public async Task SendAddressIdMessage(Models.ApiAddress address)
-    {
-      string data = JsonSerializer.Serialize(address);
-      Message message = new Message(Encoding.UTF8.GetBytes(data));
-
-      _logger.LogInformation("Service Bus is sending Address and Address Id", data);
       await _queueClient.SendAsync(message);
     }
   }
