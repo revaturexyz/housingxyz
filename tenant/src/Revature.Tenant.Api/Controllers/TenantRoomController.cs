@@ -17,10 +17,12 @@ namespace Revature.Tenant.Api.Controllers
   {
     private readonly ITenantRoomRepository _repository;
     private readonly ILogger _logger;
+    private readonly ITenantRepository _repo2;
 
-    public TenantRoomController(ITenantRoomRepository repository, ILogger<TenantRoomController> logger)
+    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger)
     {
       _repository = repository;
+      _repo2 = repo2;
       _logger = logger;
     }
 
@@ -87,6 +89,26 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogError(ex, "Tried to parse a null tenant(?)");
 
         return NotFound(ex);
+      }
+    }
+
+    [HttpPut]
+    [Route("Assign/{tenantId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AssignTenantToRoom(Guid tenantId, [FromQuery] Guid roomId)
+    {
+      try
+      {
+        _logger.LogInformation("Assigning tenant to room");
+        var tenant = await _repo2.GetByIdAsync(tenantId);
+        tenant.RoomId = roomId;
+        return NoContent();
+      }
+      catch (ArgumentOutOfRangeException ex)
+      {
+        _logger.LogInformation("Tenant cannot be found", ex);
+        return NotFound();
       }
     }
   }
