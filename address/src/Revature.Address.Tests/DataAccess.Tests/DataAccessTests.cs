@@ -21,9 +21,10 @@ namespace Revature.Address.Tests.DataAccess.Tests
     public void CanCreateDB()
     {
       var options = TestDbContext.TestDbInitalizer("CanCreate");
+      var mapper = new Mapper();
       using (var dbcreate = TestDbContext.CreateTestDb(options))
       {
-        var addyrepo = new Address.DataAccess.DataAccess(dbcreate);
+        var addyrepo = new Address.DataAccess.DataAccess(dbcreate, mapper);
         Assert.NotNull(addyrepo);
       }
     }
@@ -89,6 +90,7 @@ namespace Revature.Address.Tests.DataAccess.Tests
     public void DeleteAddress()
     {
       var options = TestDbContext.TestDbInitalizer("Delete Address");
+      var mapper = new Mapper();
       using (var dbcreate = TestDbContext.CreateTestDb(options))
       {
         dbcreate.AddRange(
@@ -101,7 +103,7 @@ namespace Revature.Address.Tests.DataAccess.Tests
       using (var dbcreate = TestDbContext.CreateTestDb(options))
       {
         Guid? TestId = AddressTestData.ValidAddress2().Id;
-        var AddressResult = new Address.DataAccess.DataAccess(dbcreate).DeleteAddressAsync(TestId).Result;
+        var AddressResult = new Address.DataAccess.DataAccess(dbcreate, mapper).DeleteAddressAsync(TestId).Result;
         Assert.True(AddressResult);
       }
     }

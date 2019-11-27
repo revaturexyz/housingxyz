@@ -10,12 +10,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Revature.Address.DataAccess
 {
-    /// <summary>
-    /// Contain methods for inserting, retrieving, and deleting
-    /// information from the database
-    /// </summary>
-    public class DataAccess : IDataAccess
-    {
+  /// <summary>
+  /// Contain methods for inserting, retrieving, and deleting
+  /// information from the database
+  /// </summary>
+  public class DataAccess : IDataAccess
+  {
     private readonly IMapper _mapper;
     private readonly AddressDbContext _context;
     private readonly ILogger _logger;
@@ -30,10 +30,10 @@ namespace Revature.Address.DataAccess
       _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public DataAccess(AddressDbContext context)
-    {
-      _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    //public DataAccess(AddressDbContext context)
+    //{
+    //  _context = context ?? throw new ArgumentNullException(nameof(context));
+    //}
 
     /// <summary>
     /// Checks if address already exists in database,
@@ -50,7 +50,8 @@ namespace Revature.Address.DataAccess
         {
           await _context.AddAsync(_mapper.MapAddress(address));
         }
-      } catch
+      }
+      catch
       {
         _logger.LogError($"Address Id: {address.Id} failed to add to database");
         return false;
@@ -87,7 +88,6 @@ namespace Revature.Address.DataAccess
       if (await _context.Addresses.FindAsync(id) is Entities.Address item)
       {
         _context.Addresses.Remove(item);
-        await _context.SaveChangesAsync();
         return true;
       }
       return false;
