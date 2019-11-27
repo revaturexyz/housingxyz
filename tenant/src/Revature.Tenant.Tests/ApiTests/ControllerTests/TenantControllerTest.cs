@@ -19,7 +19,6 @@ namespace Revature.Tenant.Tests.ApiTests
     /// <summary>
     /// Tests that Constructor for Tenant Controller successfully constructs
     /// </summary>
-
     [Fact]
     public void ConstructorShouldConstruct()
     {
@@ -34,6 +33,7 @@ namespace Revature.Tenant.Tests.ApiTests
 
       // assert (test passes if no exception thrown)
     }
+
     /// <summary>
     /// Tests that Controller Method, GetByIdAsync(), Returns Ok result with ApiTenant
     /// </summary>
@@ -123,9 +123,7 @@ namespace Revature.Tenant.Tests.ApiTests
     /// <summary>
     /// Tests that UpdateAsync() Returns Status Code 204
     /// </summary>
-
     [Fact]
-
     public async Task UpdateAsyncShouldReturnStatusCode204()
     {
       //Arrange (create a moq repo and use it for the controller)
@@ -232,7 +230,6 @@ namespace Revature.Tenant.Tests.ApiTests
 
       //Arrange
       var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);
-
     }
   }
 }

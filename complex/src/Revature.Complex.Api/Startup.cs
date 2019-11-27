@@ -4,6 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging;
+using Revature.Complex.Lib.Interface;
+using Revature.Complex.Api.Services;
+using Revature.Complex.DataAccess.Repository;
+using Revature.Complex.DataAccess;
+using Revature.Complex.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Revature.Complex.Api
@@ -20,6 +27,10 @@ namespace Revature.Complex.Api
 
     public IConfiguration Configuration { get; }
 
+    /// <summary>
+    /// to configure the services
+    /// </summary>
+    /// <param name="services"></param>
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddCors(options =>
@@ -43,9 +54,23 @@ namespace Revature.Complex.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Complex", Version = "v1" });
       });
 
+      services.AddDbContext<ComplexDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ComplexDb")));
+
+      services.AddScoped<IRepository, Repository>();
+      services.AddScoped<Mapper>();
+      services.AddHostedService<RoomServiceReceiver>();
+      services.AddScoped<IAddressService, AddressServiceSender>();
+      services.AddScoped<IRoomServiceSender, RoomServiceSender>();
+
       services.AddControllers();
+
     }
 
+    /// <summary>
+    /// it is to create the app's request processing pipeline
+    /// </summary>
+    /// <param name="app"></param>
+    /// <param name="env"></param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
@@ -71,6 +96,13 @@ namespace Revature.Complex.Api
       {
         endpoints.MapControllers();
       });
+
+      ////for the service-bus listener
+      ////define the event-listener
+      //var bus = app.ApplicationServices.GetService<IRoomServiceReceiver>();
+
+      ////start listening
+      //bus.RegisterOnMessageHandlerAndReceiveMessages();
     }
   }
 }

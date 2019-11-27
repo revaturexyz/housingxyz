@@ -7,12 +7,11 @@ using LibMod = Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.Tests.ApiTests
 {
+  //Static class with data for ApiTests
   internal static class ApiTestData
   {
-
     internal static List<LibMod.Tenant> Tenants = new List<LibMod.Tenant>
     {
-
       new LibMod.Tenant
       {
         Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),

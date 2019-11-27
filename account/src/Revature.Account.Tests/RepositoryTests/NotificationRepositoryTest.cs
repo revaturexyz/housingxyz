@@ -8,35 +8,43 @@ using Xunit;
 
 namespace Revature.Account.Tests.Repository_Tests
 {
+  /// <summary>
+  /// Tests for a Notification's data access layer and it's supporting database negotiation methods.
+  /// </summary>
   public class NotificationRepositoryTest
   {
+    /// <summary>
+    /// Retrieve a notification from the database by way of a given Guid-Id.
+    /// </summary>
     [Fact]
     public async void GetNotificationByIdAsyncTest()
     {
       // Arrange
       TestHelper helper = new TestHelper();
       Mapper mapper = new Mapper();
-      var testProvider = helper.Providers[0];
-      var testNotification = helper.Notifications[0];
 
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("GetNotificationByProviderIdTest")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      arrangeContext.ProviderAccount.Add(mapper.MapProvider(testProvider));
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
-      arrangeContext.Notification.Add(mapper.MapNotification(testNotification));
-      arrangeContext.Status.Add(mapper.MapStatus(helper.Statuses[0]));
+      arrangeContext.UpdateAction.Add(mapper.MapUpdateAction(helper.UpdateActions[0]));
+      arrangeContext.Notification.Add(mapper.MapNotification(helper.Notifications[0]));
       arrangeContext.SaveChanges();
-      var testId = testNotification.NotificationId;
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
+
       // Act
-      var result = await repo.GetNotificationByIdAsync(testId);
+      var result = await repo.GetNotificationByIdAsync(helper.Notifications[0].NotificationId);
+
       // Assert
-      Assert.Equal(testId, result.NotificationId);
+      Assert.Equal(helper.Notifications[0].NotificationId, result.NotificationId);
     }
 
+    /// <summary>
+    /// Test for adding a new notification to the database.
+    /// </summary>
     [Fact]
     public void AddNewNotificationTest()
     {
@@ -61,6 +69,10 @@ namespace Revature.Account.Tests.Repository_Tests
       Assert.NotNull(assertNotification);
     }
 
+    /// <summary>
+    /// Update a given notification's entry in the database.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task UpdateNotificationAccountTestAsync()
     {
@@ -71,21 +83,26 @@ namespace Revature.Account.Tests.Repository_Tests
           .UseInMemoryDatabase("UpdateNotificationAccountTestAsync")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      var arrangeNotification = helper.Notifications[0];
-      arrangeContext.Notification.Add(mapper.MapNotification(arrangeNotification));
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
+      arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
+      arrangeContext.UpdateAction.Add(mapper.MapUpdateAction(helper.UpdateActions[0]));
+      arrangeContext.Notification.Add(mapper.MapNotification(helper.Notifications[0]));
       var repo = new GenericRepository(arrangeContext);
 
       // Act
-      arrangeNotification.CoordinatorId = helper.Coordinators[1].CoordinatorId;
-      await repo.UpdateNotificationAsync(arrangeNotification);
+      await repo.UpdateNotificationAsync(helper.Notifications[0]);
       arrangeContext.SaveChanges();
 
       // Assert
       var assertContext = new AccountDbContext(options);
-      var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == arrangeNotification.CoordinatorId);
-      Assert.Equal(arrangeNotification.CoordinatorId, assertNotification.CoordinatorId);
+      var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == helper.Notifications[0].CoordinatorId);
+      Assert.Equal(helper.Notifications[0].CoordinatorId, assertNotification.CoordinatorId);
     }
 
+    /// <summary>
+    /// Delete a notification's entry from the database.
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task DeleteNotificationTestAsync()
     {

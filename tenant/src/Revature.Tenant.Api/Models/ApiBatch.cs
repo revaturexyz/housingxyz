@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Models
 {
+  /// <summary>
+  /// This defines batch information for a tenant.
+  /// Not all tenants will have a batch.
+  /// </summary>
   public class ApiBatch
   {
     public int Id { get; set; }
