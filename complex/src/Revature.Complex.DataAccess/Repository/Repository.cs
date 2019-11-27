@@ -55,7 +55,7 @@ namespace Revature.Complex.DataAccess.Repository
       }
       catch (Exception ex)
       {
-        log.LogError($"{ex} couldn't find list of complices");
+        log.LogError("{ex} couldn't find list of complices", ex);
         throw;
       }
     }
