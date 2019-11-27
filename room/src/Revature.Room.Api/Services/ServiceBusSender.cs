@@ -1,9 +1,10 @@
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Revature.Room.Lib;
+using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ServiceBusMessaging
@@ -11,10 +12,9 @@ namespace ServiceBusMessaging
   /// <summary>
   /// This class' sole job is to serialize and send a mesesage to the queue to be verified
   /// </summary>
-  public class ServiceBusSender
+  public class ServiceBusSender : IServiceBusSender
   {
-    
-    private readonly QueueClient _queueClient;
+    private readonly QueueClient _deleteReceiptQueue;
     private readonly ILogger<ServiceBusSender> _logger;
 
     /// <summary>
@@ -25,22 +25,23 @@ namespace ServiceBusMessaging
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _logger = logger;
-      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TestQueue"]);
+      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DQueue"]);
     }
 
     /// <summary>
-    /// ServiceBus message for deleting a message
+    /// ServiceBus message for deleting all rooms in a complex
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public async Task SendDeleteMessage(Room roomToSend)
+    public async Task SendDeleteMessage(List<Guid> roomToSend)
     {
-      string data = JsonConvert.SerializeObject(roomToSend);
+      string data = JsonSerializer.Serialize(roomToSend);
 
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("ServiceBus sending delete message: ", data);
-      await _queueClient.SendAsync(message);
+      await _deleteReceiptQueue.SendAsync(message);
+      _logger.LogInformation("Success! ServiceBus sent delete message: ", data);
     }
   }
 }

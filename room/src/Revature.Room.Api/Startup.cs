@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Revature.Room.Api.Services;
 using Revature.Room.DataAccess;
 using Revature.Room.DataAccess.Entities;
 using Revature.Room.Lib;
@@ -16,7 +15,6 @@ namespace Revature.Room.Api
 {
   public class Startup
   {
-    private const string ConnectionStringName = "RoomDb";
     private const string CorsPolicyName = "RevatureCorsPolicy";
 
     public Startup(IConfiguration configuration)
@@ -55,6 +53,8 @@ namespace Revature.Room.Api
       services.AddScoped<IMapper, DBMapper>();
       services.AddHostedService<ServiceBusConsumer>();
 
+      services.AddScoped<IServiceBusSender, ServiceBusSender>();
+
       services.AddControllers();
     }
 
@@ -72,9 +72,6 @@ namespace Revature.Room.Api
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Room V1");
       });
-
-      var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-      bus.RegisterOnMessageHandlerAndReceiveMessages();
 
       app.UseRouting();
 

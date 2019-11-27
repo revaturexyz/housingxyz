@@ -8,7 +8,9 @@ namespace Revature.Complex.Tests.ApiTests
 {
   public class ApiModelTest
   {
-
+    /// <summary>
+    /// This test is to test Amenity model in Api Model 
+    /// </summary>
     [Fact]
     public void ApiAmenityTest()
     {
@@ -25,6 +27,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.Equal("describe", amenity.Description);
     }
 
+    /// <summary>
+    /// This test is to test Complex Address model in Api Model 
+    /// </summary>
     [Fact]
     public void ApiComplexAddressTest()
     {
@@ -45,6 +50,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.Equal("76010", address.ZipCode);
     }
 
+    /// <summary>
+    /// This test is to test Complex model in Api Model 
+    /// </summary>
     [Fact]
     public void ApiComplexTest()
     {
@@ -65,6 +73,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.Equal("1234567890", complex.ContactNumber);
     }
 
+    /// <summary>
+    /// This test is to test Room model in Api Model 
+    /// </summary>
     [Fact]
     public void ApiRoomTest()
     {
@@ -91,6 +102,9 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.Equal(DateTime.Parse("2020/1/1"), room.LeaseEnd);
     }
 
+    /// <summary>
+    /// This test is to test RoomtoSend model in Api Model 
+    /// </summary>
     [Fact]
     public void ApiRoomtoSendTest()
     {
