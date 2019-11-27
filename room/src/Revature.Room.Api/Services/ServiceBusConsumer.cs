@@ -7,6 +7,7 @@ using Revature.Room.Api.Services;
 using Revature.Room.Lib;
 using Revature.Room.Lib.Models;
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,9 @@ namespace ServiceBusMessaging
     {
       //Changed this from testq to complexq
       //Might have to make another queclient for tenant
-      _roomDUCQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
+
+      //Changed connection and queues to test
+      _roomDUCQueue = new QueueClient(configuration.GetConnectionString("MyServiceBus"), configuration["Queues:MyQueue"]);
 
       _occupancyUpdateQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
       Services = services;
@@ -126,49 +129,61 @@ namespace ServiceBusMessaging
         var _repo = scope.ServiceProvider.GetRequiredService<IRepository>();
         try
         {
-          _logger.LogInformation("Attempting to deserialize complex message from service bus consumer", message.Body);
+          _logger.LogInformation("Attempting to deserialize complex message from service bus consumer: {message}", message.Body);
+
           ComplexMessage receivedMessage = JsonSerializer.Deserialize<ComplexMessage>(message.Body);
-          Room myRoom = new Room()
-          {
-            Gender = receivedMessage.Room.Gender,
-            ComplexId = receivedMessage.Room.ComplexId,
-            RoomId = receivedMessage.Room.RoomId,
-            RoomNumber = receivedMessage.Room.RoomNumber,
-            RoomType = receivedMessage.Room.RoomType,
-            NumberOfBeds = receivedMessage.Room.NumberOfBeds,
-            NumberOfOccupants = 0
-          };
-          myRoom.SetLease(receivedMessage.Room.LeaseStart, receivedMessage.Room.LeaseEnd);
-          // Persist our new data into the repository but not if Deserialization throws an exception
-          //Operation type is the CUD that you want to implement like create, update, or delete
-          //Case 0 = create, Case 1 = update, Case 2 = delete
-          //We will listen for what the complex service will send us and determine
-          //what CRUD operation to do based on the OperationType
-          switch (receivedMessage.OperationType)
-          {
-            case OperationType.Create:
-              await _repo.CreateRoomAsync(myRoom);
-              break;
 
-            case OperationType.Update:
-              await _repo.UpdateRoomAsync(myRoom);
-              break;
+            _logger.LogInformation("Showing RoomNumber: {message}", receivedMessage.RoomNumber);
+            Room myRoom = new Room()
+            {
+              RoomId = receivedMessage.RoomId,
+              RoomNumber = receivedMessage.RoomNumber,
+              ComplexId = receivedMessage.ComplexId,
+              NumberOfBeds = receivedMessage.NumberOfBeds,
+              RoomType = receivedMessage.RoomType,
+              NumberOfOccupants = 0
+              
+            };
+             myRoom.SetLease(receivedMessage.LeaseStart, receivedMessage.LeaseEnd);
 
-            case OperationType.Delete:
-              await _repo.DeleteRoomAsync(myRoom.RoomId);
-              break;
-            case OperationType.DeleteCom:
-              await _repo.DeleteComplexRoomAsync(myRoom.ComplexId);
-              break;
-          }
+             _logger.LogInformation("Deserialized you hoe: {message}", myRoom.RoomNumber);
+
+             _logger.LogInformation("Deserialized with this operator: {message}", receivedMessage.QueOperator);
+            // Persist our new data into the repository but not if Deserialization throws an exception
+            //Operation type is the CUD that you want to implement like create, update, or delete
+            // Case 0 = create, Case 1 = update, Case 2 = delete
+            // We will listen for what the complex service will send us and determine
+            // what CRUD operation to do based on the OperationType
+            switch ((OperationType)receivedMessage.QueOperator)
+            {
+              case OperationType.Create:
+                await _repo.CreateRoomAsync(myRoom);
+                _logger.LogInformation("Created a room!!!: {message}", myRoom.RoomNumber);
+                break;
+
+              case OperationType.Update:
+                await _repo.UpdateRoomAsync(myRoom);
+                _logger.LogInformation("Updated a room!!!: {message}", myRoom);
+                break;
+
+              case OperationType.Delete:
+                await _repo.DeleteRoomAsync(myRoom.RoomId);
+                _logger.LogInformation("Deleted a room!!!: {message}", myRoom);
+                break;
+              case OperationType.DeleteCom:
+                await _repo.DeleteComplexRoomAsync(myRoom.ComplexId);
+                _logger.LogInformation("Oh my, you deleted a complex you naughty boy!: {message}", myRoom);
+                break;
+            }
         }
         catch (Exception ex)
         {
-          _logger.LogError("Message did not convert properly", ex);
+          _logger.LogError("Message did not convert properly: {message}", ex);
         }
         finally
         {
           // Alert bus service that message was received
+          //_logger.LogInformation("Message has been received and successful.  It's been processed you skank: {message}", message.Body);
           await _roomDUCQueue.CompleteAsync(message.SystemProperties.LockToken);
         }
       }
@@ -182,7 +197,7 @@ namespace ServiceBusMessaging
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
     {
       var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-      _logger.LogInformation("No messages in queue", context.ToString());
+      //_logger.LogInformation("No messages in queue", context.ToString());
       return Task.CompletedTask;
     }
 

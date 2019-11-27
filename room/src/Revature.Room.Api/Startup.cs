@@ -36,7 +36,9 @@ namespace Revature.Room.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://192.168.99.100:10080",
+                              "http://192.168.99.100:10080")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();

@@ -35,6 +35,7 @@ namespace Revature.Room.DataAccess
       roomEntity.Gender = null;
       roomEntity.RoomType = await _context.RoomType.FirstAsync(r => r.Type == myRoom.RoomType);
       await _context.AddAsync(roomEntity);
+      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -64,6 +65,8 @@ namespace Revature.Room.DataAccess
 
       roomEntity.LeaseStart = myRoom.LeaseStart;
       roomEntity.LeaseEnd = myRoom.LeaseEnd;
+
+      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -76,6 +79,7 @@ namespace Revature.Room.DataAccess
     {
       var roomEntity = await _context.Room.FindAsync(roomId);
       _context.Remove(roomEntity);
+      await _context.SaveChangesAsync();
     }
 
     /// <summary>
