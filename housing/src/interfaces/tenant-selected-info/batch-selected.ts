@@ -4,5 +4,4 @@ export default interface BatchSelected {
     startDate: Date;
     endDate: Date;
     trainingCenter: string;
-
 }

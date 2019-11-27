@@ -10,7 +10,7 @@ import { Address } from 'src/interfaces/address';
   styleUrls: ['./select-tenant.component.scss']
 })
 export class SelectTenantComponent implements OnInit {
-  tenant: TenantSelected;
+  tenant: TenantSelected | null = null;
   tenantLoaded: boolean = false;
   address: Address;
 
@@ -45,14 +45,16 @@ export class SelectTenantComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
 
     this.service.selectTenant(id)
-      .then(tenant => {
-        this.tenant = tenant;
-        this.service.selectTenantAddress(tenant.addressId)
-          .then(address => {
-            this.address = address;
+      .then(x => {
+        console.log(this.tenant);
+        this.tenant = x;
+        console.log(this.tenant);
+        // this.service.selectTenantAddress(tenant.addressId)
+        //   .then(address => {
+        //     this.address = address;
             this.tenantLoaded = true;
           })
-      })
+      //})
   }
 
 }
