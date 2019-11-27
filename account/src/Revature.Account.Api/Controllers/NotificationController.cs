@@ -56,15 +56,21 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
-          UpdateAction = notification.UpdateAction,
+          UpdateAction = new UpdateAction
+          {
+            UpdateType = notification.UpdateAction.UpdateType,
+            SerializedTarget = notification.UpdateAction.SerializedTarget
+          },
           Status = new Status { StatusText = Status.Pending },
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
+        mappedNotification.UpdateAction.NotificationId = mappedNotification.NotificationId;
+
         _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
 
         _logger.LogInformation($"Persisted notification {notification.NotificationId}");
-        return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
+        return Created("GetNotificationsByCoordinatorId", mappedNotification);
       }
       catch(Exception e)
       {
