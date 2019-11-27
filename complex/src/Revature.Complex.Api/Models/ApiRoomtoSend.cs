@@ -22,6 +22,10 @@ namespace Revature.Complex.Api.Models
     public string RoomType { get; set; }
     public DateTime LeaseStart { get; set; }
     public DateTime LeaseEnd { get; set; }
+
+    /// <summary>
+    /// it is an identifier for Room service to recongnize which method should they act(CRUD)
+    /// </summary>
     public int QueOperator { get; set; }
   }
 }

@@ -277,7 +277,6 @@ namespace Revature.Complex.Api.Controllers
         State = apiComplex.Address.State,
         ZipCode = apiComplex.Address.ZipCode,
         Country = apiComplex.Address.Country,
-        QueOperator = 0
       };
 
       Guid complexId = Guid.NewGuid();
@@ -445,7 +444,6 @@ namespace Revature.Complex.Api.Controllers
         State = apiComplex.Address.State,
         ZipCode = apiComplex.Address.ZipCode,
         Country = apiComplex.Address.Country,
-        QueOperator = 1
       };
 
       Logic.Complex complex = new Logic.Complex()
@@ -595,7 +593,6 @@ namespace Revature.Complex.Api.Controllers
         ApiComplexAddress address = new ApiComplexAddress
         {
           AddressId = AddressId,
-          QueOperator = 2
         };
         //send complexId to toom service to delete all rooms belongs to the complex
         //receive deleted room ids from room service to delete amenity of rooms
