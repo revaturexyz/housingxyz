@@ -5,6 +5,7 @@ using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -49,7 +50,9 @@ namespace Revature.Account.Api.Controllers
       try
       {
         _logger.LogInformation($"POST - Post request started for new provider account. ID: {newProvider.ProviderId}\n Name: {newProvider.Name}");
-        Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
+
+        // Create a provider
+        Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount
         {
           ProviderId = Guid.NewGuid(),
           CoordinatorId = newProvider.CoordinatorId,
@@ -60,6 +63,25 @@ namespace Revature.Account.Api.Controllers
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddProviderAccountAsync(mappedProvider);
+
+        // Create a notification for the provider's approval
+        Notification newNotification = new Lib.Model.Notification
+        {
+          CoordinatorId = newProvider.CoordinatorId,
+          ProviderId = newProvider.ProviderId,
+          Status = new Status(Status.Pending),
+          AccountExpiresAt = DateTime.Now
+        };
+        newNotification.UpdateAction = new UpdateAction
+        {
+          NotificationId = newNotification.NotificationId,
+          UpdateType = "ApproveProviderAccount",
+          SerializedTarget = JsonSerializer.Serialize(newNotification)
+        };
+        _repo.AddNotification(newNotification);
+        _repo.AddUpdateAction(newNotification.UpdateAction);
+        await _repo.UpdateNotificationAsync(newNotification);
+
         await _repo.SaveAsync();
 
         _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
