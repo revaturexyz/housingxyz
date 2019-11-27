@@ -72,11 +72,6 @@ namespace Revature.Complex.Api.Controllers
 
         return Ok(apiComplices);
       }
-      catch (ArgumentNullException ex)
-      {
-        log.LogWarning("{ex}: There's no complex in the database.", ex);
-        return NotFound();
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}: Internal Server Error", ex);
@@ -121,11 +116,6 @@ namespace Revature.Complex.Api.Controllers
 
         return Ok(apiComplex);
       }
-      catch (ArgumentNullException ex)
-      {
-        log.LogWarning("{ex}: There's no complex with id: {complexId} in the database.", ex, complexId);
-        return NotFound();
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}: Internal Server Error", ex);
@@ -167,16 +157,6 @@ namespace Revature.Complex.Api.Controllers
         log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} were found!", lcomplex.ComplexId);
 
         return Ok(apiComplex);
-      }
-      catch (ArgumentException ex)
-      {
-        log.LogWarning("{ex}: complex with name: {complexName} and phone: {complexNumber} is not found", ex, complexName, complexNumber);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogWarning("{ex}: complex with name: {complexName} and phone: {complexNumber} is not found", ex, complexName, complexNumber);
-        return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
@@ -232,16 +212,6 @@ namespace Revature.Complex.Api.Controllers
         //return them.
 
         return Ok(apiComplices);
-      }
-      catch (ArgumentException ex)
-      {
-        log.LogWarning("{ex}: complex with provider Id: {providerId} is not found", ex, providerId);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogWarning("{ex}: complex with provider Id: {providerId} is not found", ex, providerId);
-        return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
@@ -334,16 +304,6 @@ namespace Revature.Complex.Api.Controllers
         return Created($"api/Complex/{complex.ComplexId}", apiComplex);
 
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError($"(API){ex}: unable to create complex");
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError($"(API){ex}: unable to create complex");
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError($"(API){ex}: unable to create complex");
@@ -401,16 +361,6 @@ namespace Revature.Complex.Api.Controllers
           }
         }
         return StatusCode(201);
-      }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}: unable to create rooms", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}: unable to create rooms", ex);
-        return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
@@ -493,16 +443,6 @@ namespace Revature.Complex.Api.Controllers
         return StatusCode(200);
 
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError($"(API){ex}: unable to update complex");
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError($"(API){ex}: unable to update complex");
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError($"(API){ex}: unable to update complex");
@@ -555,16 +495,6 @@ namespace Revature.Complex.Api.Controllers
 
         return StatusCode(200);
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}: unable update room", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}: unable update room", ex);
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}: Internal Server Error", ex);
@@ -607,16 +537,6 @@ namespace Revature.Complex.Api.Controllers
 
         return StatusCode(200);
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}: unable to delete complex", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}: unable to delete complex", ex);
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}: Internal Server Error", ex);
@@ -658,16 +578,6 @@ namespace Revature.Complex.Api.Controllers
         log.LogInformation("deleted amenity of room Id: {Room.RoomId}", Room.RoomId);
 
         return StatusCode(200);
-      }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}: unable to delete room", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}: unable to delete room", ex);
-        return Conflict(ex.Message);
       }
       catch (Exception ex)
       {

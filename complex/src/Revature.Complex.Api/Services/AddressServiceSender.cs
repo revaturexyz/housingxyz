@@ -22,7 +22,7 @@ namespace Revature.Complex.Api.Services
     public AddressServiceSender(IConfiguration configuration, ILogger<AddressServiceSender> logger)
     {
       _logger = logger;
-      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:AQueue"]);
+      _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:AddAddress"]);
     }
 
     /// <summary>

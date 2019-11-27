@@ -33,7 +33,7 @@ namespace Revature.Complex.Api.Services
       /// <param name="logger"></param>
       public RoomServiceReceiver(IConfiguration configuration, IServiceProvider services, ILogger<RoomServiceReceiver> logger)
       {
-        _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CQueue"]);
+        _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DeletedRooms"]);
         Services = services;
         log = logger;
       }

@@ -46,16 +46,6 @@ namespace Revature.Complex.Api.Controllers
 
         return Ok(amenities);
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}, unable to find amenity", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}, unable to find amenity", ex);
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}, unable to find amenity", ex);
@@ -85,16 +75,6 @@ namespace Revature.Complex.Api.Controllers
         return Ok(amenities);
 
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
@@ -122,16 +102,6 @@ namespace Revature.Complex.Api.Controllers
         log.LogInformation("a list of amenities for complex Id: {complexGuid} was found", complexGuid);
 
         return Ok(amenities);
-      }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
-        return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
@@ -169,16 +139,6 @@ namespace Revature.Complex.Api.Controllers
 
         return StatusCode(201);
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}, unable to create amenity", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}, unable to create amenity", ex);
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}, unable to create amenity", ex);
@@ -215,16 +175,6 @@ namespace Revature.Complex.Api.Controllers
 
         return StatusCode(201);
       }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}, unable to update amenity", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}, unable to update amenity", ex);
-        return Conflict(ex.Message);
-      }
       catch (Exception ex)
       {
         log.LogError("{ex}, unable to update amenity", ex);
@@ -260,16 +210,6 @@ namespace Revature.Complex.Api.Controllers
         log.LogInformation("amenity: {amenity.AmenityType} is deleted", amenity.AmenityType);
 
         return StatusCode(201);
-      }
-      catch (ArgumentException ex)
-      {
-        log.LogError("{ex}, unable to delete amenity", ex);
-        return NotFound();
-      }
-      catch (InvalidOperationException ex)
-      {
-        log.LogError("{ex}, unable to delete amenity", ex);
-        return Conflict(ex.Message);
       }
       catch (Exception ex)
       {
