@@ -5,8 +5,8 @@ export const environment = {
   audience: '/housing',
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
-    // provider: 'http://192.168.99.100:10080/'
-    provider: 'http://localhost:10080/'
-    // provider: 'http://localhost:5000/'
+    account: 'https://accountdev.revature.xyz/',
+    complex: 'https://complexdev.revature.xyz/',
+    tenant: 'https://tenantdev.revature.xyz/'
   }
 };
