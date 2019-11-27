@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Api.Models;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
 
 namespace Revature.Tenant.Api.Controllers
 {
@@ -244,18 +245,47 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
     {
+      Guid addressId = Guid.Empty;
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
+
+
+        _logger.LogInformation("Postind Address to Address Service...");
+        using (var client = new HttpClient())
+        {
+          string baseUri = "https://addressdev.revature.xyz/";
+          string resourceUri = "api/Address/Post";
+          var addressString = new StringContent(tenant.ApiAddress.ToString());
+          var response = await client.PostAsync(baseUri + resourceUri, addressString);
+          if (response.IsSuccessStatusCode)
+          {
+            var addressIdString = await response.Content.ReadAsStringAsync();
+            addressId = Guid.Parse(addressIdString);
+
+            _logger.LogInformation("Success.");
+          }
+          else
+          {
+            _logger.LogInformation("Could not retrieve ID from tenant service.");
+            return BadRequest();
+          }
+        }
+
+
+
+
+
+
         //cast ApiTenant in Logic Tenant
-        var newTenant = new Lib.Models.Tenant
+      var newTenant = new Lib.Models.Tenant
         {
           Id = Guid.NewGuid(),
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
+          AddressId = addressId,
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
