@@ -41,7 +41,7 @@ namespace Revature.Tenant.Api.Controllers
       //Parse training center string to guid if it exists
       Guid? trainingCenterGuid;
       if (trainingCenter != null)
-        trainingCenterGuid= Guid.Parse(trainingCenter);
+        trainingCenterGuid = Guid.Parse(trainingCenter);
       else
         trainingCenterGuid = null;
 
@@ -278,7 +278,7 @@ namespace Revature.Tenant.Api.Controllers
 
 
         //cast ApiTenant in Logic Tenant
-      var newTenant = new Lib.Models.Tenant
+        var newTenant = new Lib.Models.Tenant
         {
           Id = Guid.NewGuid(),
           Email = tenant.Email,
@@ -290,7 +290,7 @@ namespace Revature.Tenant.Api.Controllers
           CarId = null,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter,
-          
+
         };
         if (tenant.ApiCar != null)
         {
@@ -347,7 +347,7 @@ namespace Revature.Tenant.Api.Controllers
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
-          Id = (Guid) tenant.Id,
+          Id = (Guid)tenant.Id,
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
@@ -356,7 +356,7 @@ namespace Revature.Tenant.Api.Controllers
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter 
+          TrainingCenter = tenant.TrainingCenter
         };
 
         if (tenant.ApiCar != null)
