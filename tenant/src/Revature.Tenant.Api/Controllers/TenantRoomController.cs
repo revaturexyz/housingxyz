@@ -105,7 +105,7 @@ namespace Revature.Tenant.Api.Controllers
         tenant.RoomId = roomId;
         return NoContent();
       }
-      catch (ArgumentOutOfRangeException ex)
+      catch (ArgumentNullException ex)
       {
         _logger.LogInformation("Tenant cannot be found", ex);
         return NotFound();
