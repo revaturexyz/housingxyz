@@ -57,6 +57,7 @@ namespace Revature.Account.Api.Controllers
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
           UpdateAction = notification.UpdateAction,
+          Status = new Status { StatusText = Status.Pending },
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddNotification(mappedNotification);
@@ -104,7 +105,7 @@ namespace Revature.Account.Api.Controllers
       await _repo.UpdateNotificationAsync(existingNotification);
       await _repo.SaveAsync();
 
-      _logger.LogInformation("Persisted put request");
+      _logger.LogInformation("Persisted put request with status {statusText} for notification {notificationId}", existingNotification.Status.StatusText, notificationId);
       return NoContent();
     }
 
