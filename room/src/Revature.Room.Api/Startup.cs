@@ -15,7 +15,6 @@ namespace Revature.Room.Api
 {
   public class Startup
   {
-    private const string ConnectionStringName = "RoomDb";
     private const string CorsPolicyName = "RevatureCorsPolicy";
 
     public Startup(IConfiguration configuration)
