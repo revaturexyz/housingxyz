@@ -1,3 +1,7 @@
+
+{{ tenant | json }}
+{{ {a:3g} | json }}
+
 <!--used for the split screen -->
 <div class="d-md-flex h-md-100 align-items-center">
 
@@ -40,6 +44,7 @@
                     <h3 *ngIf="!tenantLoaded">Loading Tenant...</h3>
 
                     <div *ngIf="tenantLoaded">
+
                         <h1>{{tenant.firstName}} {{tenant.lastName}}</h1>
 
                         <h2>Personal Details:</h2>
@@ -80,23 +85,23 @@
                             </li>
 
                             <li>
-                                Make: {{tenant.car.make}}
+                                Make: {{tenant.apiCar.make}}
                             </li>
 
                             <li>
-                                Model: {{tenant.car.model}}
+                                Model: {{tenant.apiCar.model}}
                             </li>
 
                             <li>
-                                Color: {{tenant.car.color}}
+                                Color: {{tenant.apiCar.color}}
                             </li>
 
                             <li>
-                                Year: {{tenant.car.year}}
+                                Year: {{tenant.apiCar.year}}
                             </li>
 
                             <li>
-                                State: {{tenant.car.state}}
+                                State: {{tenant.apiCar.state}}
                             </li>
                         </ul>
 
@@ -111,15 +116,15 @@
                             </li>
 
                             <li>
-                                Curriculum: {{tenant.batch.batchCurriculum}}
+                                Curriculum: {{tenant.apiBatch.batchCurriculum}}
                             </li>
 
                             <li>
-                                Start Date: {{tenant.batch.startDate}}
+                                Start Date: {{tenant.apiBatch.startDate}}
                             </li>
 
                             <li>
-                                End Date: {{tenant.batch.endDate}}
+                                End Date: {{tenant.apiBatch.endDate}}
                             </li>
                         </ul>
                         

@@ -12,18 +12,18 @@ import { Address } from 'src/interfaces/address';
 export class TenantSearcherService {
 
   getTenants() : Promise<TenantSearching[]>{
-    let url = `${environment.endpoints.coordinator}api/Tenant`;
+    let url = `${environment.endpoints.tenant}api/Tenant`;
     return this.httpClient.get<TenantSearching[]>(url).toPromise();
   }
 
   getTenantsByParameters(firstName: string, lastName: string, gender: string, filterByTrainingCenter: boolean) : Promise<TenantSearching[]>{
-    let url = `${environment.endpoints.coordinator}api/Tenant`;
+    let url = `${environment.endpoints.tenant}api/Tenant`;
     return this.httpClient.get<TenantSearching[]>(url).toPromise();
   }
 
 
   selectTenant(id: string): Promise<TenantSelected> {
-    let url = `${environment.endpoints.coordinator}api/Tenant/${id}`;
+    let url = `${environment.endpoints.tenant}api/Tenant/${id}`;
     return this.httpClient.get<TenantSelected>(url).toPromise();
   }
 
@@ -33,7 +33,7 @@ export class TenantSearcherService {
 
   deleteTenant(id: string):  Promise<HttpResponse<Object>> {
     
-    let url = `${environment.endpoints.coordinator}api/Tenant/Delete/${id}`;
+    let url = `${environment.endpoints.tenant}api/Tenant/Delete/${id}`;
   
     return this.httpClient.delete(url, { observe: 'response'}).toPromise();
   }
