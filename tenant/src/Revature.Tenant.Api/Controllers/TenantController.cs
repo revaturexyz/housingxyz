@@ -309,7 +309,7 @@ namespace Revature.Tenant.Api.Controllers
     // PUT: api/Tenant/Update
     [HttpPut("Update", Name = "UpdateTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateAsync([FromBody, Bind("tenant")] ApiTenant tenant)
+    public async Task<ActionResult> UpdateAsync([FromBody] ApiTenant tenant)
     {
       try
       {
@@ -373,9 +373,9 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <param name="id">Guid Id, converted from string in Body</param>
     /// <returns>Status Code 204 if successful, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions</returns>
-    [HttpDelete("Delete", Name = "DeleteTenant")]
+    [HttpDelete("Delete/{id}", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromBody] string id)
+    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
     {
       try
       {
