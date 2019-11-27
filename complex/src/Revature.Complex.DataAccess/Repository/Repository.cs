@@ -91,8 +91,9 @@ namespace Revature.Complex.DataAccess.Repository
     {
       try
       {
-        Entity.Complex complex = await _context.Complex.Where(c => c.ComplexName == name
-                                                          && c.ContactNumber == phone).AsNoTracking().FirstOrDefaultAsync();
+        Entity.Complex complex = await _context.Complex.Where(c => c.ComplexName == name && c.ContactNumber == phone)
+                                                       .AsNoTracking()
+                                                       .FirstOrDefaultAsync();
         return _map.MapEtoComplex(complex);
       }
       catch (ArgumentException ex)
