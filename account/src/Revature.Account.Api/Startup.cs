@@ -32,8 +32,7 @@ namespace Revature.Account.Api
       Auth0Helper.SetSecretValues(Configuration.GetSection("Auth0").GetValue<string>("Domain"),
         Configuration.GetSection("Auth0").GetValue<string>("Audience"),
         Configuration.GetSection("Auth0").GetValue<string>("ClientId"),
-        Configuration.GetSection("Auth0").GetValue<string>("Secret")
-      );
+        Configuration.GetSection("Auth0").GetValue<string>("Secret"));
 
       services.AddControllers();
       services.AddDbContext<AccountDbContext>(options =>
@@ -81,7 +80,7 @@ namespace Revature.Account.Api
           Name = "Authorization",
           In = ParameterLocation.Header
         });
-        // c.OperationFilter<SwaggerFilter>();
+        c.OperationFilter<SwaggerFilter>();
       });
     }
 
