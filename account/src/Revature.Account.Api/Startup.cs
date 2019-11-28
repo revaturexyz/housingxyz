@@ -1,14 +1,17 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Revature.Account.DataAccess.Repositories;
+using Revature.Account.Lib.Interface;
 using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Serilog;
-using Revature.Account.DataAccess.Repositories;
-using Revature.Account.Lib.Interface;
+using System.Security.Claims;
 
 namespace Revature.Account.Api
 {
@@ -26,6 +29,12 @@ namespace Revature.Account.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
+      Auth0Helper.SetSecretValues(Configuration.GetSection("Auth0").GetValue<string>("Domain"),
+        Configuration.GetSection("Auth0").GetValue<string>("Audience"),
+        Configuration.GetSection("Auth0").GetValue<string>("ClientId"),
+        Configuration.GetSection("Auth0").GetValue<string>("Secret")
+      );
+
       services.AddControllers();
       services.AddDbContext<AccountDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("AccountDb")));
@@ -48,9 +57,31 @@ namespace Revature.Account.Api
         });
       });
 
+      services.AddScoped<IGenericRepository, GenericRepository>();
+      services.AddTransient<IAuth0HelperFactory, Auth0HelperFactory>();
+
+      services.AddAuthentication(options =>
+      {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }).AddJwtBearer(options =>
+      {
+        options.Authority = $"http://{Auth0Helper.Domain}/";
+        options.Audience = Auth0Helper.Audience;
+      });
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Account", Version = "v1" });
+        c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
+        c.AddSecurityDefinition("BearerAuth", new OpenApiSecurityScheme
+        {
+          Type = SecuritySchemeType.ApiKey,
+          Description = "Bearer authentication scheme with JWT, e.g. \"Bearer eyJhbGciOiJIUzI1NiJ9.e30\"",
+          Name = "Authorization",
+          In = ParameterLocation.Header
+        });
+        // c.OperationFilter<SwaggerFilter>();
       });
     }
 

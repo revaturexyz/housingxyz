@@ -32,8 +32,16 @@ namespace Revature.Account.DataAccess.Repositories
 
     #region Provider
 
+    public async Task<Guid> GetProviderIdByEmailAsync(string providerEmail)
+    {
+      var provider = await _context.ProviderAccount
+        .AsNoTracking()
+        .FirstOrDefaultAsync(p => p.Email == providerEmail);
+      return (provider != null ? provider.ProviderId : Guid.Empty);
+    }
+
     /// <summary>
-    /// Get the Provider by Guid-Id 
+    /// Get the Provider by Guid
     /// </summary>
     /// <param name="providerId"></param>
     /// <returns></returns>
@@ -91,6 +99,14 @@ namespace Revature.Account.DataAccess.Repositories
 
     #region Coordinator
 
+    public async Task<Guid> GetCoordinatorIdByEmailAsync(string coordinatorEmail)
+    {
+      var coordinator = await _context.CoordinatorAccount
+        .AsNoTracking()
+        .FirstOrDefaultAsync(c => c.Email == coordinatorEmail);
+      return (coordinator != null ? coordinator.CoordinatorId : Guid.Empty);
+    }
+
     /// <summary>
     /// Get a Coordinator's account from the databse.
     /// </summary>
@@ -103,6 +119,33 @@ namespace Revature.Account.DataAccess.Repositories
         .Include(c => c.Notifications)
         .FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
       return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
+    }
+
+    public void AddCoordinatorAccount(CoordinatorAccount coordinator)
+    {
+      var newEntity = mapper.MapCoordinator(coordinator);
+      _context.Add(newEntity);
+    }
+
+    public async Task<bool> UpdateCoordinatorAccountAsync(CoordinatorAccount coordinator)
+    {
+      var existingEntity = await _context.CoordinatorAccount.FindAsync(coordinator.CoordinatorId);
+      if (existingEntity == null)
+        return false;
+
+      var updatedEntity = mapper.MapCoordinator(coordinator);
+      _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
+      return true;
+    }
+
+    public async Task<bool> DeleteCoordinatorAccountAsync(Guid coordinatorId)
+    {
+      var entityToBeRemoved = await _context.CoordinatorAccount.FindAsync(coordinatorId);
+      if (entityToBeRemoved == null)
+        return false;
+
+      _context.Remove(entityToBeRemoved);
+      return true;
     }
 
     #endregion
@@ -145,6 +188,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <param name="newNofi"></param>
     public void AddNotification(Notification newNofi)
     {
+      newNofi.UpdateAction.NotificationId = newNofi.NotificationId;
       AddUpdateAction(newNofi.UpdateAction);
 
       var addedNotifiaction = mapper.MapNotification(newNofi);

@@ -5,6 +5,7 @@ using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -13,6 +14,7 @@ namespace Revature.Account.Api.Controllers
   /// </summary>
   [Route("api/notifications")]
   [ApiController]
+  [Authorize]
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
@@ -56,14 +58,21 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
-          UpdateAction = notification.UpdateAction,
+          UpdateAction = new UpdateAction
+          {
+            UpdateType = notification.UpdateAction.UpdateType,
+            SerializedTarget = notification.UpdateAction.SerializedTarget
+          },
+          Status = new Status { StatusText = Status.Pending },
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
+        mappedNotification.UpdateAction.NotificationId = mappedNotification.NotificationId;
+
         _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
 
         _logger.LogInformation($"Persisted notification {notification.NotificationId}");
-        return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
+        return Created("GetNotificationsByCoordinatorId", mappedNotification);
       }
       catch(Exception e)
       {
@@ -104,7 +113,7 @@ namespace Revature.Account.Api.Controllers
       await _repo.UpdateNotificationAsync(existingNotification);
       await _repo.SaveAsync();
 
-      _logger.LogInformation("Persisted put request");
+      _logger.LogInformation("Persisted put request with status {statusText} for notification {notificationId}", existingNotification.Status.StatusText, notificationId);
       return NoContent();
     }
 
