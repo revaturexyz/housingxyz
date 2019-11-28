@@ -1,0 +1,88 @@
+<!--Once complex is selected, this will show all complex information-->
+<!--Header of container-->
+<div class="complex-container">
+  <!--Contains current complex and edit/delete buttons-->
+  <div class="align-left">
+    <h3>{{ complexControl?.complexName }}</h3>
+  </div>
+  <!--Edit button for complex-->
+  <div class="buttons-right">
+    <button mat-flat-button (click)="changeMode('edit-complex')">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>
+<hr style="height: 1px; background-color: black;" />
+<!--Middle of container-->
+<div class="middle-container ">
+  <mat-accordion>
+
+    <!--Table to show all rooms for the specific complex-->
+    <table mat-table [dataSource]="dataSource" class="w-100 h-50">
+      <caption id = "caption">Rooms</caption>
+      <!-- Room # Column -->
+      <ng-container matColumnDef="room#">
+        <th id="room-number" mat-header-cell *matHeaderCellDef>Room No.</th>
+        <td mat-cell *matCellDef="let room">{{ room.roomNumber }}</td>
+      </ng-container>
+      <!-- Lease Start Column -->
+      <ng-container matColumnDef="start">
+        <th id ="lease-start" mat-header-cell *matHeaderCellDef>Start</th>
+        <td mat-cell *matCellDef="let room">
+          {{ dateFormat(room.startDate) }}
+        </td>
+      </ng-container>
+      <!-- Lease End Column -->
+      <ng-container matColumnDef="end">
+        <th id="lease-end" mat-header-cell *matHeaderCellDef>End</th>
+        <td mat-cell *matCellDef="let room">{{ dateFormat(room.endDate) }}</td>
+      </ng-container>
+      <!-- Room Edit Button Column -->
+      <ng-container matColumnDef="edit">
+        <th id ="edit-button" mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let room">
+          <button class="ebutton" mat-flat-button (click)="editRoom(room)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <!-- Room View Button Column -->
+      <ng-container matColumnDef="show">
+        <th id ="view-room" mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let room">
+          <button class="sbutton" mat-flat-button (click)="showRoom(room)">
+            <mat-icon>pageview</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-accordion>
+  <!--Paginator for the table above-->
+  <mat-paginator
+    [length]="100"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
+  </mat-paginator>
+  <!--Button to add a new room to the complex-->
+  <button
+    class="add-room-btn"
+    mat-raised-button
+    (click)="changeMode('add-room')"
+  >
+    <strong>Add Room</strong>
+  </button>
+  <hr style="height: 1px; background-color: black;" />
+</div>
+<div>
+  <h4>Amenities</h4>
+  <mat-chip-list>
+    <mat-chip
+      *ngFor="let amentity of complexControl?.amenity"
+      color="primary"
+      selected selectable ="false"
+      ><strong>{{ amentity.amenity }}</strong></mat-chip>
+  </mat-chip-list>
+</div>

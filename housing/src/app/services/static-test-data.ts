@@ -6,8 +6,17 @@ import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
 import { RoomType } from 'src/interfaces/room-type';
 import { CoordinatorNotification } from 'src/interfaces/coordinatorNotification';
+import { Gender } from 'src/interfaces/gender';
 
 export class TestServiceData {
+  static testRoomType: RoomType = { typeId: 0, roomType: 'Dormitory' };
+  static testRoomType1: RoomType = { typeId: 1, roomType: 'Deluxe' };
+  static testRoomType2: RoomType = { typeId: 2, roomType: 'Suite' };
+  static testRoomType3: RoomType = { typeId: 3, roomType: 'Basement' };
+
+  static dummyRoomTypeList: RoomType[] = [ TestServiceData.testRoomType, TestServiceData.testRoomType1,
+    TestServiceData.testRoomType2, TestServiceData.testRoomType3 ];
+
   static dummyAddress: Address = {
     addressId: 1,
     streetAddress: '123 Address St',
@@ -55,7 +64,11 @@ export class TestServiceData {
     zipcode: '23456',
   };
 
-  static dummyGender: string[] = ['male', 'female', 'undefined'];
+  static dummyGender: Gender[] = [
+    { genderId: 0, genderType: 'male' },
+    { genderId: 1, genderType: 'female' },
+    { genderId: 2, genderType: 'undefined'}
+  ];
 
   static dummyAmenity1: Amenity = {
     amenityId: 1,
@@ -88,13 +101,26 @@ export class TestServiceData {
     isSelected: true
   };
 
-  static dummmyList: Amenity[] = [
+  static dummyAmenityList1: Amenity[] = [
     TestServiceData.dummyAmenity1,
     TestServiceData.dummyAmenity2,
     TestServiceData.dummyAmenity3,
     TestServiceData.dummyAmenity4,
     TestServiceData.dummyAmenity5,
     TestServiceData.dummyAmenity6
+  ];
+
+  static dummyAmenityList2: Amenity[] = [
+    TestServiceData.dummyAmenity4,
+    TestServiceData.dummyAmenity5,
+    TestServiceData.dummyAmenity6
+  ];
+
+  static dummyAmenityList3: Amenity[] = [
+    TestServiceData.dummyAmenity1,
+    TestServiceData.dummyAmenity2,
+    TestServiceData.dummyAmenity3,
+    TestServiceData.dummyAmenity4
   ];
 
   static postToRoom: Room;
@@ -150,29 +176,31 @@ export class TestServiceData {
     complexId: 1,
     apiProvider: TestServiceData.dummyProvider,
     apiAddress: TestServiceData.livPlusAddress,
-    complexName: 'Liv+ Appartments',
-    contactNumber: '123-123-1234'
+    complexName: 'Liv+ Apartments',
+    contactNumber: '123-123-1234',
+    amenity: TestServiceData.dummyAmenityList2
   };
 
   static room: Room = {
     roomId: 0,
     apiAddress: TestServiceData.dummyAddress,
-    roomNumber: '',
+    roomNumber: '117',
     numberOfBeds: 2,
-    apiRoomType: null,
+    apiRoomType: TestServiceData.testRoomType,
     isOccupied: false,
-    apiAmenity: TestServiceData.dummmyList,
+    apiAmenity: TestServiceData.dummyAmenityList1,
     startDate: new Date(),
     endDate: new Date(),
-    apiComplex: TestServiceData.dummyComplex
+    apiComplex: TestServiceData.dummyComplex,
   };
 
   static dummyComplex2: Complex = {
     complexId: 2,
     apiProvider: TestServiceData.dummyProvider,
     apiAddress: TestServiceData.complexAddress2,
-    complexName: 'Liv- Appartments',
-    contactNumber: '123-123-1234'
+    complexName: 'Liv- Apartments',
+    contactNumber: '123-123-1234',
+    amenity: TestServiceData.dummyAmenityList3
   };
 
   static room2: Room = {
@@ -186,7 +214,7 @@ export class TestServiceData {
     },
     roomNumber: '323',
     numberOfBeds: 9001,
-    apiRoomType: null,
+    apiRoomType: TestServiceData.testRoomType1,
     isOccupied: true,
     apiAmenity: [{
       amenityId: 2,
@@ -241,10 +269,6 @@ export class TestServiceData {
     TestServiceData.testProvider2
   ];
 
-  static testRoomType: RoomType = {
-    typeId: 1,
-    roomType: 'Dormitory'
-  };
 
   static testTrainingCenters: TrainingCenter[] = [
     TestServiceData.testTrainingCenter1,
