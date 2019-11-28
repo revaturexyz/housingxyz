@@ -1,5 +1,6 @@
 import { Address } from './address';
 import { Provider } from './provider';
+import { Amenity } from './amenity';
 
 export interface Complex {
   complexId: number;
@@ -7,4 +8,5 @@ export interface Complex {
   apiProvider: Provider;
   complexName: string;
   contactNumber: string;
+  amenity: Amenity[];
 }

@@ -1,3 +1,10 @@
+.drawer {
+  width: auto;
+  height: 100%;
+  margin: 10px;
+  border: 1px solid #555;
+}
+
 #header {
   text-align: center;
 }
@@ -47,7 +54,7 @@
 }
 
 .bg-body {
-  background-image: url("https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/rec_hero_image.jpg");
+  background-image: url("/assets/imgs/rec_hero_image.jpg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -127,4 +134,90 @@ button {
 
 #amenityStyle {
   margin-left: 18%;
+}
+
+.selector {
+  color: black;
+}
+
+.card-drawer {
+  height: auto;
+  width: 100em;
+}
+.div-drawer {
+  color: black;
+  background-color: white;
+  opacity: 0.65;
+  width: 80%;
+}
+.complex-container {
+  margin-left: 3em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.complex-container button {
+  background-color: transparent;
+  text-align: right;
+}
+
+.buttons-right {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5em;
+}
+.buttons-right button {
+  margin-left: 0.8em;
+}
+.divider {
+  border-bottom-style: solid black 25px;
+}
+.middle-container {
+  height: fit-content;
+  overflow: auto;
+}
+
+.add-room-btn {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: black;
+  opacity: 0.7;
+  justify-self: center;
+  height: min-content;
+}
+
+.sbutton
+{
+  text-align: center;
+  display: block;
+  margin-left: 30%;
+  padding-right: 0%;
+}
+
+.ebutton
+{
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-left: 80%;
+
+}
+
+table th
+{
+  text-align: center;
+}
+
+table td
+{
+  text-align: auto;
+}
+
+#caption
+{
+  visibility: hidden;
+  position: absolute;
 }
