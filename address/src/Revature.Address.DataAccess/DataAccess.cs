@@ -30,10 +30,6 @@ namespace Revature.Address.DataAccess
       _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    //public DataAccess(AddressDbContext context)
-    //{
-    //  _context = context ?? throw new ArgumentNullException(nameof(context));
-    //}
 
     /// <summary>
     /// Checks if address already exists in database,
@@ -51,8 +47,9 @@ namespace Revature.Address.DataAccess
           await _context.AddAsync(_mapper.MapAddress(address));
         }
       }
-      catch
+      catch (Exception ex)
       {
+        _logger.LogError(ex.Message);
         _logger.LogError($"Address Id: {address.Id} failed to add to database");
         return false;
       }
