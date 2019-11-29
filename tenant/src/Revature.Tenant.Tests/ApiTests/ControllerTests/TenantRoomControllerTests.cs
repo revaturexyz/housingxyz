@@ -6,6 +6,8 @@ using Moq;
 using Microsoft.AspNetCore.Mvc;
 using Revature.Tenant.Lib.Interface;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace Revature.Tenant.Tests.ApiTests.ControllerTests
 {
@@ -14,27 +16,7 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
   /// </summary>
   public class TenantRoomControllerTests
   {
-    /// <summary>
-    /// GetTenantsByRoomId Should Return a List of Rooms with Tenants.
-    /// </summary>
-    /// <returns></returns>
-    [Fact]
-    public async Task GetTenantsByRoomIdShouldReturnList()
-    {
-      //Arrange (Create mock DB and Test Data.)
-      var mockRepo = new Mock<ITenantRoomRepository>();
-      var mockLogger = new Mock<ILogger<TenantRoomController>>();
-
-      var _controller = new TenantRoomController(mockRepo.Object, mockLogger.Object);
-      var _gender = "Female";
-      var _endDate = new DateTime(2019, 12, 31);
-
-      //Act
-      var result = await _controller.GetTenantsByRoomId(_gender, _endDate);
-
-      //Assert
-      Assert.IsAssignableFrom<OkObjectResult>(result);
-    }
+    
     /// <summary>
     /// GetTenantsNotAssignedARoom Should Return a List of Tenants not yet assigned to a Room.
     /// </summary>
@@ -44,9 +26,11 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
     {
       //Arrange (Create mock DB and Test Data.)
       var mockRepo = new Mock<ITenantRoomRepository>();
+      var mockRepo2 = new Mock<ITenantRepository>();
       var mockLogger = new Mock<ILogger<TenantRoomController>>();
-
-      var _controller = new TenantRoomController(mockRepo.Object, mockLogger.Object);
+      var mockConfiguration = new Mock<IConfiguration>();
+      var mockClient = new Mock<IHttpClientFactory>();
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object, mockConfiguration.Object);
 
       //Act
       var result = await _controller.GetTenantsNotAssignedRoom();

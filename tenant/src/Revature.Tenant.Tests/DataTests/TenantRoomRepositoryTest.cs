@@ -73,7 +73,7 @@ namespace Revature.Tenant.Tests.DataTests
     [Fact]
     public async Task GetRoomlessTenantsShouldReturnList()
     {
-      var options = TestDbInitializer.InitializeDbOptions("GetTenantsByRoomIdShouldReturnList");
+      var options = TestDbInitializer.InitializeDbOptions("GetRoomlessTenantsShouldReturnList");
       using var _context = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
       var repo = new TenantRoomRepository(_context, mapper);
