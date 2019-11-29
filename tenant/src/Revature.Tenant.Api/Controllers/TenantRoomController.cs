@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,13 +21,15 @@ namespace Revature.Tenant.Api.Controllers
     private readonly ILogger _logger;
     private readonly ITenantRepository _repo2;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly string _baseURI;
 
-    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IHttpClientFactory httpClientFactory)
+    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
       _repository = repository;
       _repo2 = repo2;
       _logger = logger;
       _httpClientFactory = httpClientFactory;
+      _baseURI = configuration["Services:RoomService"];
     }
 
     [HttpGet]
@@ -49,15 +53,15 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("Requesting room id + total beds from Room Service...");
 
         HttpClient client = _httpClientFactory.CreateClient();
-        string baseUri = "https://roomdev.revature.xyz/";
         string resourceUri = "api/rooms?gender=" + gender + "&endDate=" + endDate;
-        var response = await client.GetAsync(baseUri + resourceUri);
+        var response = await client.GetAsync(_baseURI + resourceUri);
         if (response.IsSuccessStatusCode)
         {
           var contentAsString = await response.Content.ReadAsStringAsync();
           var availableRooms = JsonSerializer.Deserialize<List<AvailRoom>>(contentAsString);
 
           var roomsWithTenants = new List<RoomInfo>();
+          var getTenants = new List<Task<List<Lib.Models.Tenant>>>();
 
           _logger.LogInformation("Getting Tenants by Room Id...");
 
@@ -67,12 +71,24 @@ namespace Revature.Tenant.Api.Controllers
               new RoomInfo
               {
                 RoomId = room.item1,
-                NumberOfBeds = room.item2,
-                Tenants = await _repository.GetTenantsByRoomId(room.item1)
+                NumberOfBeds = room.item2
               }
+            );
+            getTenants.Add(
+             _repository.GetTenantsByRoomId(room.item1)
             );
           }
 
+        //getTenants.ForEach(task => task.Start());
+        var results = await Task.WhenAll(getTenants);
+        int i = 0;
+        foreach (var item in results)
+        {
+          roomsWithTenants[i].Tenants = item;
+          i++;
+        }
+        
+        
           _logger.LogInformation("Success.");
 
           return Ok(roomsWithTenants);
