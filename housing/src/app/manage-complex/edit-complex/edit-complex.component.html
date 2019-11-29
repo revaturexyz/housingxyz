@@ -1,0 +1,177 @@
+<div class="add-room-container" *ngIf="targetComplex" else errorblock>
+  <h3 class="add-room-header">Edit {{ targetComplex.complexName }}</h3>
+  <hr />
+  <!-- Start of form for editing a complex -->
+  <form id="EditComplexForm">
+    <!-- Start of street address input -->
+    <div class="form-group">
+      <label for="streetAddress">Street Address</label>
+      <input
+        type="text"
+        required
+        name="formComplex.apiAddress.streetAddress"
+        [(ngModel)]="formComplex.apiAddress.streetAddress"
+        class="form-control"
+        id="streetAddress"
+        #streetAddress="ngModel"
+        aria-describedby="streetAddress"
+      />
+      <!-- Dirty is so the error message is not displayed when the page first loads  -->
+      <div
+        *ngIf="streetAddress.invalid && streetAddress.dirty"
+        class="alert alert-danger"
+      >
+        Street address is required.
+      </div>
+    </div>
+    <!-- End of street address input -->
+    <!-- Start of city, state, and zip code inputs, because 6+2+4=12, all 3 inputs display on one row -->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="city">City</label>
+        <input
+          type="text"
+          required
+          name="formComplex.apiAddress.city"
+          [(ngModel)]="formComplex.apiAddress.city"
+          class="form-control"
+          id="city"
+          #city="ngModel"
+          aria-describedby="city"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="state">State</label>
+        <input
+          type="text"
+          required
+          name="formComplex.apiAddress.state"
+          [(ngModel)]="formComplex.apiAddress.state"
+          class="form-control"
+          id="state"
+          #state="ngModel"
+          aria-describedby="state"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="zipCode">ZIP Code</label>
+        <input
+          type="text"
+          required
+          pattern="[0-9]{5}"
+          [(ngModel)]="formComplex.apiAddress.zipcode"
+          class="form-control"
+          name="formComplex.apiAddress.zipCode"
+          id="zipCode"
+          #zipCode="ngModel"
+          aria-describedby="zipCode"
+        />
+      </div>
+    </div>
+    <!-- End of city, state, and zip code inputs -->
+    <!-- Alerts that are displayed if any of the city, state, and/or zip code inputs are invalid -->
+    <div *ngIf="city.invalid && city.dirty" class="alert alert-danger">
+      City is required.
+    </div>
+    <div *ngIf="state.invalid && state.dirty" class="alert alert-danger">
+      State is required.
+    </div>
+    <div *ngIf="zipCode.invalid && zipCode.dirty" class="alert alert-danger">
+      ZIP code is required and must have five digits.
+    </div>
+    <hr />
+    <!-- Start of complex name input -->
+    <div class="form-group">
+      <label for="complexName">Complex Name</label>
+      <input
+        type="text"
+        required
+        name="formComplex.complexName"
+        [(ngModel)]="formComplex.complexName"
+        #complexName="ngModel"
+        class="form-control"
+        id="complexName"
+        aria-describedby="complexName"
+      />
+    </div>
+    <!-- End complex name input -->
+    <!-- Since the complex name can be anything the only validation is that the input not be empty -->
+    <div
+      *ngIf="complexName.invalid && complexName.dirty"
+      class="alert alert-danger"
+    >
+      The living complex name is required.
+    </div>
+    <!-- Start of phone number input -->
+    <div class="form-group">
+      <label for="contactNumber">Contact Number</label>
+      <input
+        type="text"
+        required
+        pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"
+        name="formComplex.complexNumber"
+        [(ngModel)]="formComplex.contactNumber"
+        #phoneNumber="ngModel"
+        class="form-control"
+        id="complexNumber"
+        aria-describedby="complexNumber"
+      />
+    </div>
+    <!-- End of phone number input -->
+    <!-- The regular expression checks if the phone number is 10 consecutive digits or contains parenthesis or hyphens -->
+    <!-- 1234567890, (123) 456-7890, and 123-456-7890 are all valid phone number format patterns -->
+    <div
+      *ngIf="phoneNumber.invalid && phoneNumber.dirty"
+      class="alert alert-danger"
+    >
+      Phone number must be in a 10-digit format.
+    </div>
+    <!-- Start of amenity selection-->
+    <mat-form-field>
+      <mat-label>Amenities</mat-label>
+      <mat-select name="formComplex.amenity"
+      [(ngModel)]="formComplex.amenity" #amenity="ngModel" id="amenity"
+      aria-describedby="amenity" multiple>
+        <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!--End of amenity selection-->
+    <!-- Start of markup for submit and cancel buttons -->
+    <div class="form-row">
+      <div class="col-md-4 form-group">
+        <!-- If any of the inputs are invalid, the submit button will be disabled -->
+        <button
+          id="putEditComplex"
+          class="edit-complex-btn"
+          [disabled]="
+            phoneNumber.invalid ||
+            complexName.invalid ||
+            streetAddress.invalid ||
+            city.invalid ||
+            state.invalid ||
+            zipCode.invalid
+          "
+          (click)="putEditComplex()"
+        >
+          <strong>Submit</strong>
+        </button>
+      </div>
+      <div class="col-md-4 form-group">
+        <button class="edit-complex-btn" (click)="deleteComplex()">
+          <strong>Delete</strong>
+        </button>
+      </div>
+      <div class="col-md-4 form-group">
+        <button class="edit-complex-btn" (click)="cancelEditComplex()">
+          <strong>Cancel</strong>
+        </button>
+      </div>
+    </div>
+    <!-- End of markup for submit and cancel buttons -->
+  </form>
+  <!-- End of form -->
+</div>
+<!-- Alternate view if a complex is not selected and this page is shown -->
+<ng-template #errorblock>
+  You've reached this by mistake, try again.
+</ng-template>

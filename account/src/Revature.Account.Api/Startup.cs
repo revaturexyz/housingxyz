@@ -51,6 +51,15 @@ namespace Revature.Account.Api
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Account", Version = "v1" });
+        c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
+        c.AddSecurityDefinition("BearerAuth", new OpenApiSecurityScheme
+        {
+          Type = SecuritySchemeType.ApiKey,
+          Description = "Bearer authentication scheme with JWT, e.g. \"Bearer eyJhbGciOiJIUzI1NiJ9.e30\"",
+          Name = "Authorization",
+          In = ParameterLocation.Header
+        });
+        // c.OperationFilter<SwaggerFilter>();
       });
     }
 
