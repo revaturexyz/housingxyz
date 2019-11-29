@@ -130,28 +130,6 @@ namespace Revature.Account.Api.Controllers
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null && existingProvider.Status.StatusText != Status.Approved)
       {
-        existingProvider.Status.StatusText = Status.Approved;
-        await _repo.UpdateProviderAccountAsync(existingProvider);
-        await _repo.SaveAsync();
-
-        _logger.LogInformation($"Approval set to true for id: {providerId}");
-        return NoContent();
-      }
-
-      _logger.LogWarning($"Account already is approved, no change for id: {providerId}");
-      return NotFound();
-    }
-
-    // PUT: api/provider-accounts/approve
-    [HttpPut("{providerId}/approve")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(Guid providerId)
-    {
-      _logger.LogInformation($"PUT - Approval request for provider: {providerId}");
-      var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
-      if (existingProvider != null && existingProvider.Status.StatusText != Status.Approved)
-      {
         Auth0Helper auth0 = _authHelperFactory.Create(Request);
         var authUser = await auth0.Client.Users.GetUsersByEmailAsync(auth0.Email);
 
