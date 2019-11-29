@@ -16,6 +16,7 @@ namespace Revature.Account.Api
     private static string _audience;
     private static string _clientId;
     private static string _secret;
+    private static string _claimsDomain = "https://revature.com/";
 
     public static readonly string CoordinatorRole = "coordinator";
     public static readonly string UnapprovedProviderRole = "unapproved_provider";
@@ -68,14 +69,16 @@ namespace Revature.Account.Api
 
     public Auth0Helper(HttpRequest request)
     {
-      var jwt = request.Headers["Authorization"];
+      string jwt = request.Headers["Authorization"];
+      // Remove 'Bearer '
+      jwt = jwt.Substring(7, jwt.Length - 7);
       var handler = new JwtSecurityTokenHandler();
-      var token = handler.ReadToken(jwt) as JwtSecurityToken;
+      var token = handler.ReadJwtToken(jwt);
 
-      Email = token.Claims.First(c => c.Type == "https://dbnd:auth0:com/email").Value;
-      Roles = JsonSerializer.Deserialize<string[]>(token.Claims.First(c => c.Type == "https://dbnd:auth0:com/roles").Value);
+      Email = (string)token.Payload[_claimsDomain + "email"];
+      Roles = JsonSerializer.Deserialize<string[]>(token.Payload[_claimsDomain + "roles"].ToString());
       // Will only need the id field from the app metadata
-      AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Claims.First(c => c.Type == "https://dbnd:auth0:com/app_metadata").Value);
+      AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Payload[_claimsDomain + "app_metadata"].ToString());
 
       var managementToken = GetManagementToken();
       Client = new ManagementApiClient(managementToken, _domain);
@@ -86,14 +89,18 @@ namespace Revature.Account.Api
       var client = new RestClient($"https://{_domain}/oauth/token");
       var request = new RestRequest(Method.POST);
 
-      request.AddHeader("content-type", "application/x-www-form-urlencoded");
+      /*request.AddHeader("content-type", "application/x-www-form-urlencoded");
       request.AddParameter("application/x-www-form-urlencoded",
-        $"grant_type=client_credentials&client_id={_clientId}&client_secret={_secret}&audience=https%3A%2F%2F%24%7B{_domain}%7D%2Fapi%2Fv2%2F",
-        ParameterType.RequestBody);
+        $"client_id={_clientId}&client_secret={_secret}&audience=https%3A%2F%2F{_domain}%2Fapi%2Fv2%2F&grant_type=client_credentials",
+        ParameterType.RequestBody);*/
+
+      request.AddHeader("content-type", "application/json");
+      request.AddParameter("application/json", "{\"client_id\":\"dFCeoPDuHAfK9nLd8XRWxXDBa2CeOR7m\",\"client_secret\":\"5pTEy8rzj8G4XEV5wlhqItIxHjFy2FUbzTcnNdHEPbT_U4nD9rJTGcFomQjBx0qo\",\"audience\":\"https://dev-fyo32d99.auth0.com/api/v2/\",\"grant_type\":\"client_credentials\"}", ParameterType.RequestBody);
 
       IRestResponse response = client.Execute(request);
 
-      return JsonSerializer.Deserialize<dynamic>(response.Content).access_token;
+      var deserializedResponse = JsonSerializer.Deserialize<JsonElement>(response.Content);
+      return deserializedResponse.GetProperty("access_token").GetString();
     }
 
     public async Task AddRole(string authUserId, string role)

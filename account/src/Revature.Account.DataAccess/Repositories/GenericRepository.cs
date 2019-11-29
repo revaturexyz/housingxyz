@@ -121,6 +121,19 @@ namespace Revature.Account.DataAccess.Repositories
       return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
     }
 
+    /// <summary>
+    /// Gets all available coordinator accounts.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<CoordinatorAccount>> GetAllCoordinatorAccountsAsync()
+    {
+      var coordinators = await _context.CoordinatorAccount
+        .AsNoTracking()
+        .Include(c => c.Notifications)
+        .ToListAsync();
+      return coordinators.Select(mapper.MapCoordinator).ToList();
+    }
+
     public void AddCoordinatorAccount(CoordinatorAccount coordinator)
     {
       var newEntity = mapper.MapCoordinator(coordinator);

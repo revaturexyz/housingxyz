@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/provider';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'dev-provider-select',
@@ -14,8 +15,13 @@ export class ProviderSelectComponent implements OnInit {
 
   constructor(
     private providerService: ProviderService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private user: UserService
+  ) { 
+    user.userId$.subscribe(id => console.log(id));
+    user.roles$.subscribe(roles => console.log(roles));
+    user.email$.subscribe(email => console.log(email));
+  }
 
   ngOnInit() {
     this.providerService.getProviders()

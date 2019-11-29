@@ -30,6 +30,8 @@ namespace Revature.Account.Lib.Interface
 
     public Task<CoordinatorAccount> GetCoordinatorAccountByIdAsync(Guid coordinatorId);
 
+    public Task<List<CoordinatorAccount>> GetAllCoordinatorAccountsAsync();
+
     public void AddCoordinatorAccount(CoordinatorAccount coordinator);
 
     public Task<bool> UpdateCoordinatorAccountAsync(CoordinatorAccount coordinator);

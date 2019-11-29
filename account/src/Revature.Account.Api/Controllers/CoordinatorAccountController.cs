@@ -21,7 +21,7 @@ namespace Revature.Account.Api.Controllers
   /// </summary>
   [Route("api/coordinator-accounts")]
   [ApiController]
-  [Authorize]
+  //[Authorize]
   public class CoordinatorAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
@@ -35,6 +35,7 @@ namespace Revature.Account.Api.Controllers
       _authHelperFactory = authHelperFactory;
     }
 
+    // NOTE: You literally call ...accounts/id, not with any particular id
     // GET: api/coordinator-accounts/id
     [HttpGet("id")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -82,7 +83,9 @@ namespace Revature.Account.Api.Controllers
             // They have been set as a coordinator on the Auth0 site, so make a new account
             var coordinator = new CoordinatorAccount
             {
-              Name = authUser[0].FirstName + " " + authUser[0].LastName,
+              Name = (authUser[0].FirstName != null && authUser[0].LastName != null
+                ? authUser[0].FirstName + " " + authUser[0].LastName
+                : "No Name"),
               Email = auth0.Email
             };
             // Add them
@@ -93,7 +96,9 @@ namespace Revature.Account.Api.Controllers
             // Make a new provider
             ProviderAccount provider = new ProviderAccount
             {
-              Name = authUser[0].FirstName + " " + authUser[0].LastName,
+              Name = (authUser[0].FirstName != null && authUser[0].LastName != null
+                ? authUser[0].FirstName + " " + authUser[0].LastName
+                : "No Name"),
               Email = auth0.Email
             };
             // Add them
@@ -127,12 +132,12 @@ namespace Revature.Account.Api.Controllers
     {
       try
       {
-        _logger.LogInformation($"GET - Getting coordinator with ID: {coordinatorId}");
+        _logger.LogInformation("GET - Getting coordinator with ID: {coordinatorId}", coordinatorId);
         var coordinator = await _repo.GetCoordinatorAccountByIdAsync(coordinatorId);
 
         if (coordinator == null)
         {
-          _logger.LogWarning($"No coordinator found for given ID: {coordinatorId} on GET call.");
+          _logger.LogWarning("No coordinator found for given ID: {coordinatorId} on GET call.", coordinatorId);
           return NotFound();
         }
 
@@ -141,7 +146,27 @@ namespace Revature.Account.Api.Controllers
       catch (Exception e)
       {
         _logger.LogError("Exception getting coordinator: {exceptionMessage}, {exception}", e.Message, e);
-        return NotFound(e.Message);
+        return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+      }
+    }
+
+    // GET: api/coordinator-accounts/all
+    [HttpGet("all")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetAll()
+    {
+      try
+      {
+        _logger.LogInformation("GET - Retreiving all coordinators.");
+        var coordinators = await _repo.GetAllCoordinatorAccountsAsync();
+
+        return Ok(coordinators);
+      }
+      catch (Exception e)
+      {
+        _logger.LogError("Exception occurred in GetAll for coordinator controller: {exceptionMessage}, {exception}", e.Message, e);
+        return new StatusCodeResult(StatusCodes.Status500InternalServerError);
       }
     }
   }
