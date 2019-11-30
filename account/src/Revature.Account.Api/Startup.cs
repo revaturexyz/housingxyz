@@ -65,9 +65,6 @@ namespace Revature.Account.Api
       {
         options.Authority = $"http://{Auth0Helper.Domain}/";
         options.Audience = Auth0Helper.Audience;
-
-        // REMOVE FOR PROD
-        options.RequireHttpsMetadata = false;
       });
 
       services.AddAuthorization(options => {
