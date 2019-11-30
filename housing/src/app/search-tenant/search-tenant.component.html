@@ -65,12 +65,9 @@
                         <h1>Tenants</h1>
                         <li *ngFor="let tenant of tenants; let i = index">
                             <label>
-                                {{i}}
-                                {{tenant.firstName}}
-                            </label>
-
-                            <label>
-                                <a (click)="routeToSelectTenant(tenant.id)">View Details</a>
+                                <span>{{i + 1}}: </span>
+                                <span>{{tenant.firstName}} {{tenant.lastName}} - </span>
+                                <span><a (click)="routeToSelectTenant(tenant.id)">View Details</a></span>
                             </label>
                         </li>
                     </ul>
