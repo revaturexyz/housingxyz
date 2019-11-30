@@ -36,8 +36,6 @@ namespace Revature.Account.Api
       services.AddDbContext<AccountDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("AccountDb")));
 
-      services.AddScoped<IGenericRepository, GenericRepository>();
-
       services.AddCors(options =>
       {
         options.AddPolicy(CorsPolicyName, builder =>
