@@ -37,5 +37,42 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       //Assert
       Assert.IsAssignableFrom<OkObjectResult>(result);
     }
+    [Fact]
+    public async Task AssignTenantShouldUpdateRoomIdAsync()
+    {
+      //Arrange (Create mock DB and Test Data.)
+      var mockRepo = new Mock<ITenantRoomRepository>();
+      var mockRepo2 = new Mock<ITenantRepository>();
+      var mockLogger = new Mock<ILogger<TenantRoomController>>();
+      var mockClient = new Mock<IHttpClientFactory>();
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object);
+
+      var roomId = Guid.NewGuid();
+      var tenantId = Guid.NewGuid();
+
+      mockRepo2.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new Lib.Models.Tenant() { FirstName = "Marielle", Id = tenantId });
+      
+
+      var result = await _controller.AssignTenantToRoom(tenantId, roomId);
+
+      Assert.IsAssignableFrom<NoContentResult>(result);
+    }
+
+    [Fact]
+    public async Task AssignTenantShouldRejectUnknownTenantsAsync()
+    {
+      //Arrange (Create mock DB and Test Data.)
+      var mockRepo = new Mock<ITenantRoomRepository>();
+      var mockRepo2 = new Mock<ITenantRepository>();
+      var mockLogger = new Mock<ILogger<TenantRoomController>>();
+      var mockClient = new Mock<IHttpClientFactory>();
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object);
+
+      mockRepo2.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ThrowsAsync(new ArgumentNullException());
+
+      var result = await _controller.AssignTenantToRoom(Guid.NewGuid(), Guid.NewGuid());
+
+      Assert.IsAssignableFrom<NotFoundResult>(result);
+    }
   }
 }
