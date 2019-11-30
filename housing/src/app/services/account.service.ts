@@ -10,8 +10,8 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = `http://localhost:11080/`;
-  //baseUrl: string = environment.endpoints.account;
+  //baseUrl: string = `http://localhost:11080/`;
+  baseUrl: string = environment.endpoints.account;
 
 // All:
   // GET     Get user's id from token: api/coordinator-accounts/id
