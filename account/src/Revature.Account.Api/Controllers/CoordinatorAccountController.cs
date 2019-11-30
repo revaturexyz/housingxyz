@@ -50,7 +50,7 @@ namespace Revature.Account.Api.Controllers
           // If their roles arent set properly, set them
           if (!auth0.Roles.Contains(Auth0Helper.CoordinatorRole))
           {
-            await auth0.AddRole(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.CoordinatorRole).Id);
+            await auth0.AddRoleAsync(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.CoordinatorRole).Id);
           }
         }
         else
@@ -64,7 +64,7 @@ namespace Revature.Account.Api.Controllers
             if (!auth0.Roles.Contains(Auth0Helper.UnapprovedProviderRole) && !auth0.Roles.Contains(Auth0Helper.ApprovedProviderRole))
             {
               // They have no role, so set them as unapproved
-              await auth0.AddRole(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
+              await auth0.AddRoleAsync(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
             }
           }
         }
@@ -102,7 +102,7 @@ namespace Revature.Account.Api.Controllers
             _repo.AddProviderAccountAsync(provider);
 
             // They have no role, so set them as unapproved
-            await auth0.AddRole(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
+            await auth0.AddRoleAsync(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
           }
           // Db was modified either way, save changes
           await _repo.SaveAsync();
@@ -112,7 +112,7 @@ namespace Revature.Account.Api.Controllers
         }
 
         // Update the app_metadata if it doesnt contain the correct id
-        await auth0.UpdateMetadataWithId(authUser[0].UserId, id);
+        await auth0.UpdateMetadataWithIdAsync(authUser[0].UserId, id);
 
         return Ok(id);
       }

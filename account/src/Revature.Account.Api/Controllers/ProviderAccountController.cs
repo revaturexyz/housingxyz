@@ -136,11 +136,11 @@ namespace Revature.Account.Api.Controllers
         // Remove unapproved_provider role
         if (auth0.Roles.Contains(Auth0Helper.UnapprovedProviderRole))
         {
-          await auth0.RemoveRole(authUser[0].UserId, Auth0Helper.UnapprovedProviderRole);
+          await auth0.RemoveRoleAsync(authUser[0].UserId, Auth0Helper.UnapprovedProviderRole);
         }
 
         // Add approved_provider 
-        await auth0.AddRole(authUser[0].UserId, Auth0Helper.ApprovedProviderRole);
+        await auth0.AddRoleAsync(authUser[0].UserId, Auth0Helper.ApprovedProviderRole);
 
         existingProvider.Status.StatusText = Status.Approved;
         await _repo.UpdateProviderAccountAsync(existingProvider);

@@ -57,6 +57,14 @@ namespace Revature.Account.Api
       }
     }
 
+    public static string ClaimsDomain
+    {
+      get
+      {
+        return _claimsDomain;
+      }
+    }
+
     public static void SetSecretValues(string domain, string audience, string clientId, string secret)
     {
       _domain = domain;
@@ -73,10 +81,10 @@ namespace Revature.Account.Api
       var handler = new JwtSecurityTokenHandler();
       var token = handler.ReadJwtToken(jwt);
 
-      Email = (string)token.Payload[_claimsDomain + "email"];
-      Roles = JsonSerializer.Deserialize<string[]>(token.Payload[_claimsDomain + "roles"].ToString());
+      Email = (string)token.Payload[ClaimsDomain + "email"];
+      Roles = JsonSerializer.Deserialize<string[]>(token.Payload[ClaimsDomain + "roles"].ToString());
       // Will only need the id field from the app metadata
-      AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Payload[_claimsDomain + "app_metadata"].ToString());
+      AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Payload[ClaimsDomain + "app_metadata"].ToString());
 
       var managementToken = GetManagementToken();
       Client = new ManagementApiClient(managementToken, _domain);
@@ -93,7 +101,7 @@ namespace Revature.Account.Api
         ParameterType.RequestBody);*/
 
       request.AddHeader("content-type", "application/json");
-      request.AddParameter("application/json", $"{{\"client_id\":\"{_clientId}\",\"client_secret\":\"{_secret}\",\"audience\":\"https://{_domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
+      request.AddParameter("application/json", $"{{\"client_id\":\"{ClientId}\",\"client_secret\":\"{Secret}\",\"audience\":\"https://{Domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
 
       IRestResponse response = client.Execute(request);
 
@@ -101,7 +109,7 @@ namespace Revature.Account.Api
       return deserializedResponse.GetProperty("access_token").GetString();
     }
 
-    public async Task AddRole(string authUserId, string roleId)
+    public async Task AddRoleAsync(string authUserId, string roleId)
     {
       var rolesRequest = new Auth0.ManagementApi.Models.AssignRolesRequest
       {
@@ -111,7 +119,7 @@ namespace Revature.Account.Api
       await Client.Users.AssignRolesAsync(authUserId, rolesRequest);
     }
 
-    public async Task RemoveRole(string authUserId, string roleId)
+    public async Task RemoveRoleAsync(string authUserId, string roleId)
     {
       var rolesRequest = new Auth0.ManagementApi.Models.AssignRolesRequest
       {
@@ -121,7 +129,7 @@ namespace Revature.Account.Api
       await Client.Users.RemoveRolesAsync(authUserId, rolesRequest);
     }
 
-    public async Task UpdateMetadataWithId(string authUserId, Guid newId)
+    public async Task UpdateMetadataWithIdAsync(string authUserId, Guid newId)
     {
       JsonElement currentMetadataId;
       bool elementExists = AppMetadata.TryGetProperty("id", out currentMetadataId);
