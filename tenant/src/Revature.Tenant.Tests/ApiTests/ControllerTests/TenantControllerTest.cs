@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Tenant.Lib.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Revature.Tenant.Api;
 
 namespace Revature.Tenant.Tests.ApiTests
 {
@@ -25,13 +26,13 @@ namespace Revature.Tenant.Tests.ApiTests
     {
       // arrange (create database)
       var mockLogger = new Mock<ILogger<TenantController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
+      var mockAddressService = new Mock<IAddressService>();
       var options = TestDbInitializer.InitializeDbOptions("TestTenantControllerConstructor");
       using var database = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
 
       // act (pass repository with database into controller)
-      var test = new TenantController(new TenantRepository(database, mapper), mockConfiguration.Object, mockLogger.Object);
+      var test = new TenantController(new TenantRepository(database, mapper), mockAddressService.Object, mockLogger.Object);
 
       // assert (test passes if no exception thrown)
     }
@@ -45,9 +46,9 @@ namespace Revature.Tenant.Tests.ApiTests
     {
       // Arrange (create a moq repo and use it for the controller)
       var mockLogger = new Mock<ILogger<TenantController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
+      var mockAddressService = new Mock<IAddressService>();
       Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
-      var controller = new TenantController(mockRepo.Object, mockConfiguration.Object, mockLogger.Object);
+      var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
       // Act (get a Tenant with an id)
 
       var colton = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
@@ -72,8 +73,8 @@ namespace Revature.Tenant.Tests.ApiTests
       var mapper = new Mapper();
 
       var mockLogger = new Mock<ILogger<TenantController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
-      var controller = new TenantController(mockRepo.Object, mockConfiguration.Object, mockLogger.Object);
+      var mockAddressService = new Mock<IAddressService>();
+      var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
 
 
       //Act (get all batches)
@@ -96,10 +97,10 @@ namespace Revature.Tenant.Tests.ApiTests
     {
       // Arrange (create a moq repo and use it for the controller)
       var mockLogger = new Mock<ILogger<TenantController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
+      var mockAddressService = new Mock<IAddressService>();
       Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       mockRepo.Setup(r => r.AddAsync(It.IsAny<Lib.Models.Tenant>()));
-      var controller = new TenantController(mockRepo.Object, mockConfiguration.Object, mockLogger.Object);
+      var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
 
       //Act
       var result = await controller.PostAsync(new ApiTenant
@@ -138,8 +139,8 @@ namespace Revature.Tenant.Tests.ApiTests
       var mapper = new Mapper();
 
       var mockLogger = new Mock<ILogger<TenantController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
-      var controller = new TenantController(mockRepo.Object, mockConfiguration.Object, mockLogger.Object);
+      var mockAddressService = new Mock<IAddressService>();
+      var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
 
       //Act
       var apiTenant = new ApiTenant
@@ -193,8 +194,8 @@ namespace Revature.Tenant.Tests.ApiTests
       var mapper = new Mapper();
 
       var mockLogger = new Mock<ILogger<TenantController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
-      var controller = new TenantController(mockRepo.Object, mockConfiguration.Object, mockLogger.Object);
+      var mockAddressService = new Mock<IAddressService>();
+      var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
 
       //Act (Add a tenant to be deleted)
       var apiTenant = new ApiTenant

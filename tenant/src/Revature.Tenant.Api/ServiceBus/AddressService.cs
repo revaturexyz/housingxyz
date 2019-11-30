@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.ServiceBus
 {
-  public class AddressService
+  public class AddressService : IAddressService
   {
     private readonly HttpClient _client;
 
@@ -25,7 +25,7 @@ namespace Revature.Tenant.Api.ServiceBus
       _client = client;
     }
 
-    public async Task CreateFridgeItemAsync(ApiAddress item)
+    public async Task CreateAddressAsync(ApiAddress item)
     {
       using var response = await SendRequestAsync(HttpMethod.Post, "api/Address", item);
       response.EnsureSuccessStatusCode();

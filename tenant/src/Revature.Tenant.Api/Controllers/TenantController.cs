@@ -22,13 +22,13 @@ namespace Revature.Tenant.Api.Controllers
   {
     private readonly ITenantRepository _tenantRepository;
     private readonly ILogger _logger;
-    private readonly IConfiguration _configuration;
+    private readonly IAddressService _addressService;
 
-    public TenantController(ITenantRepository tenantRepository, IConfiguration configuration, ILogger<TenantController> logger = null)
+    public TenantController(ITenantRepository tenantRepository, IAddressService addressService, ILogger<TenantController> logger = null)
     {
       _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant cannot be null");
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-      _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+      _addressService = addressService ?? throw new ArgumentNullException(nameof(addressService));
     }
 
     /// <summary>
@@ -254,28 +254,8 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         _logger.LogInformation("Posting Address to Address Service...");
-        using (var client = new HttpClient())
-        {
-          //string baseUri = _configuration.GetSection("AppServices")["Address"];
-          //string resourceUri = "api/Address";
-
-          //var json = JsonSerializer.Serialize(tenant.ApiAddress);
-          //var addressString = new StringContent(json, encoding:default, "application/json");
-          //var response = await client.PostAsync(baseUri + resourceUri, addressString);
-          //if (response.IsSuccessStatusCode)
-          //{
-          //  var addressIdString = await response.Content.ReadAsStringAsync();
-          //  addressId = Guid.Parse(addressIdString);
-
-          //  _logger.LogInformation("Success.");
-          //}
-          //else
-          //{
-          //  _logger.LogInformation("Could not retrieve ID from tenant service.");
-          //  return BadRequest();
-          //}
-        }
-
+        await this._addressService.CreateAddressAsync(tenant.ApiAddress);
+        
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
