@@ -85,7 +85,7 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var mockRoomService = new Mock<IRoomService>();
       var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockRoomService.Object);
 
-      mockRoomService.Setup(r => r.GetVacantRoomsAsync(It.IsAny<string>(), It.IsAny<DateTime>())).ReturnsAsync(new List<Lib.Models.AvailRoom>());
+      mockRoomService.Setup(r => r.GetVacantRoomsAsync(It.IsAny<string>(), It.IsAny<DateTime>())).ReturnsAsync(new List<Lib.Models.AvailRoom>() { new Lib.Models.AvailRoom() { item1 = Guid.NewGuid(), item2 = 2}});
 
       var result = await _controller.GetTenantsByRoomId("", DateTime.Now);
 
