@@ -29,10 +29,7 @@ options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.Authent
 // 2. Add the following to Configure
 app.UseAuthorization();
 
-// 3. Copy the following files into your .Api project:
-//  a. RoleRequirement
-//  b. RoleRequirementHandler
-//
-// Verify the namespace and everything is all good for your project
+// 3. Copy everything from the Auth folder into your .Api project
+//   a. Verify the namespace and everything is all good for your project
 
 // 4. Get the Auth0 section from Slack and copy it into your appsettings.Development.json
