@@ -18,7 +18,6 @@ namespace Revature.Account.Api.Controllers
   /// </summary>
   [Route("api/provider-accounts")]
   [ApiController]
-  [Authorize]
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
@@ -36,6 +35,7 @@ namespace Revature.Account.Api.Controllers
     [HttpGet("{providerId}", Name = "GetProviderAccountById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<ActionResult> Get(Guid providerId)
     {
       _logger.LogInformation($"GET - Getting provider account by ID: {providerId}");
@@ -49,58 +49,17 @@ namespace Revature.Account.Api.Controllers
     }
 
     // POST: api/provider-accounts
-    [HttpPost]
-    [ProducesResponseType(typeof(ProviderAccount), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Post([FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount newProvider)
-    {
-      try
-      {
-        _logger.LogInformation($"POST - Post request started for new provider account. ID: {newProvider.ProviderId}\n Name: {newProvider.Name}");
-
-        // Create a provider
-        Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount
-        {
-          CoordinatorId = newProvider.CoordinatorId,
-          Name = newProvider.Name,
-          Email = newProvider.Email,
-          Status = new Status(Status.Pending),
-          AccountCreatedAt = DateTime.Now,
-          AccountExpiresAt = DateTime.Now.AddDays(7)
-        };
-        _repo.AddProviderAccountAsync(mappedProvider);
-        await _repo.SaveAsync();
-
-        // Create a notification for the provider's approval
-        Notification newNotification = new Lib.Model.Notification
-        {
-          CoordinatorId = newProvider.CoordinatorId ?? Guid.Empty,
-          ProviderId = mappedProvider.ProviderId,
-          Status = new Status(Status.Pending),
-          UpdateAction = new UpdateAction
-          {
-            UpdateType = "ApproveProviderAccount",
-            SerializedTarget = JsonSerializer.Serialize(mappedProvider)
-          },
-          AccountExpiresAt = DateTime.Now
-        };
-        _repo.AddNotification(newNotification);
-        await _repo.SaveAsync();
-
-        _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
-        return CreatedAtRoute("GetProviderAccountById", new { mappedProvider.ProviderId }, mappedProvider);
-      }
-      catch (Exception e)
-      {
-        _logger.LogError("Post request failed with exception: " + e.Message);
-        return BadRequest();
-      }
-    }
+    /* POST was removed because the flow is handled automatically by the
+     * coordinator controller upon calling coordinator-accounts/id and
+     * the connection between provider and coordinator and the sending
+     * of notifications is handled on the frontend.
+     */
 
     // PUT: api/provider-accounts/5
     [HttpPut("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<IActionResult> Put(Guid providerId, [FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount provider)
     {
       _logger.LogInformation($"PUT - Put request for provider ID: {providerId}");
@@ -124,6 +83,7 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{providerId}/approve")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<IActionResult> Put(Guid providerId)
     {
       _logger.LogInformation($"PUT - Approval request for provider: {providerId}");
@@ -131,6 +91,9 @@ namespace Revature.Account.Api.Controllers
       if (existingProvider != null && existingProvider.Status.StatusText != Status.Approved)
       {
         Auth0Helper auth0 = _authHelperFactory.Create(Request);
+        if (existingProvider.Email != auth0.Email)
+          return Forbid();
+
         var authUser = await auth0.Client.Users.GetUsersByEmailAsync(auth0.Email);
 
         // Remove unapproved_provider role
@@ -158,6 +121,7 @@ namespace Revature.Account.Api.Controllers
     [HttpDelete("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> Delete(Guid providerId)
     {
       _logger.LogInformation($"DELETE - Delete request for provider ID: {providerId}");

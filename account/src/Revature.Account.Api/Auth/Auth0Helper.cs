@@ -85,28 +85,34 @@ namespace Revature.Account.Api
       Roles = JsonSerializer.Deserialize<string[]>(token.Payload[ClaimsDomain + "roles"].ToString());
       // Will only need the id field from the app metadata
       AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Payload[ClaimsDomain + "app_metadata"].ToString());
-
-      var managementToken = GetManagementToken();
-      Client = new ManagementApiClient(managementToken, _domain);
     }
 
-    public string GetManagementToken()
+    public bool ConnectManagementClient()
     {
-      var client = new RestClient($"https://{_domain}/oauth/token");
-      var request = new RestRequest(Method.POST);
+      try
+      {
+        var client = new RestClient($"https://{_domain}/oauth/token");
+        var request = new RestRequest(Method.POST);
 
-      /*request.AddHeader("content-type", "application/x-www-form-urlencoded");
-      request.AddParameter("application/x-www-form-urlencoded",
-        $"client_id={_clientId}&client_secret={_secret}&audience=https%3A%2F%2F{_domain}%2Fapi%2Fv2%2F&grant_type=client_credentials",
-        ParameterType.RequestBody);*/
+        request.AddHeader("content-type", "application/json");
+        request.AddParameter("application/json", $"{{\"client_id\":\"{ClientId}\",\"client_secret\":\"{Secret}\",\"audience\":\"https://{Domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
 
-      request.AddHeader("content-type", "application/json");
-      request.AddParameter("application/json", $"{{\"client_id\":\"{ClientId}\",\"client_secret\":\"{Secret}\",\"audience\":\"https://{Domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
 
-      IRestResponse response = client.Execute(request);
+        var deserializedResponse = JsonSerializer.Deserialize<JsonElement>(response.Content);
+        var managementToken = deserializedResponse.GetProperty("access_token").GetString();
 
-      var deserializedResponse = JsonSerializer.Deserialize<JsonElement>(response.Content);
-      return deserializedResponse.GetProperty("access_token").GetString();
+        Client = new ManagementApiClient(managementToken, _domain);
+
+        if (Client != null)
+          return true;
+
+        return false;
+      }
+      catch (Exception e)
+      {
+        return false;
+      }
     }
 
     public async Task AddRoleAsync(string authUserId, string roleId)

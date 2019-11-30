@@ -10,7 +10,9 @@ namespace Revature.Account.Api
   {
     public Auth0Helper Create(HttpRequest request)
     {
-      return new Auth0Helper(request);
+      var auth = new Auth0Helper(request);
+      auth.ConnectManagementClient();
+      return auth;
     }
   }
 }

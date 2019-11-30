@@ -30,6 +30,7 @@ namespace Revature.Account.Api.Controllers
     [HttpGet("{coordinatorId}", Name = "GetNotificationsByCoordinatorId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
       _logger.LogInformation($"GET - Getting notifications by coordinator ID: {coordinatorId}");
@@ -47,6 +48,7 @@ namespace Revature.Account.Api.Controllers
     [HttpPost]
     [ProducesResponseType(typeof(Notification), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize]
     public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId, UpdateAction")] Notification notification)
     {
       try
@@ -85,11 +87,13 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> Put(Guid notificationId, [FromBody] string notificationStatus)
     {
       _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notificationId);
 
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
+
       if (existingNotification == null)
       {
         _logger.LogWarning("Put request failed");
@@ -121,6 +125,7 @@ namespace Revature.Account.Api.Controllers
     [HttpDelete("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> Delete(Guid notificationId)
     {
       _logger.LogInformation($"DELETE - Deleting notification with ID: {notificationId}");

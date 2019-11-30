@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using Revature.Account.Lib.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -14,7 +16,6 @@ namespace Revature.Account.Api.Controllers
   /// </summary>
   [Route("api/coordinator-accounts")]
   [ApiController]
-  //[Authorize]
   public class CoordinatorAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
@@ -28,10 +29,15 @@ namespace Revature.Account.Api.Controllers
       _authHelperFactory = authHelperFactory;
     }
 
+    /* This method is called every time the user first shows up to the site in order to
+     * check that the token has all of the information it needs and that the info
+     * it has is correct.
+     */
     // NOTE: You literally call ...accounts/id, not with any particular id
     // GET: api/coordinator-accounts/id
     [HttpGet("id")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [Authorize]
     public async Task<ActionResult> Get()
     {
       _logger.LogInformation($"GET - Retrieving user ID and verifying correct metadata is in token.");
@@ -101,6 +107,9 @@ namespace Revature.Account.Api.Controllers
             // Add them
             _repo.AddProviderAccountAsync(provider);
 
+            // No notification is made. This is handled in the frontend when
+            // they select a training center and click 'request approval'
+
             // They have no role, so set them as unapproved
             await auth0.AddRoleAsync(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
           }
@@ -127,6 +136,7 @@ namespace Revature.Account.Api.Controllers
     [HttpGet("{coordinatorId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<ActionResult> Get(Guid coordinatorId)
     {
       try
@@ -153,6 +163,7 @@ namespace Revature.Account.Api.Controllers
     [HttpGet("all")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<ActionResult> GetAll()
     {
       try

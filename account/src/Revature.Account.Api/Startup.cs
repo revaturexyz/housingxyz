@@ -10,6 +10,7 @@ using Revature.Account.Lib.Interface;
 using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Serilog;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api
 {
@@ -34,7 +35,7 @@ namespace Revature.Account.Api
 
       services.AddControllers();
       services.AddDbContext<AccountDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("AccountDb")));
+                options.UseNpgsql(Configuration.GetConnectionString(ConnectionStringName)));
 
       services.AddCors(options =>
       {
@@ -54,6 +55,7 @@ namespace Revature.Account.Api
 
       services.AddScoped<IGenericRepository, GenericRepository>();
       services.AddTransient<IAuth0HelperFactory, Auth0HelperFactory>();
+      services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
 
       services.AddAuthentication(options =>
       {
@@ -63,6 +65,22 @@ namespace Revature.Account.Api
       {
         options.Authority = $"http://{Auth0Helper.Domain}/";
         options.Audience = Auth0Helper.Audience;
+
+        // REMOVE FOR PROD
+        options.RequireHttpsMetadata = false;
+      });
+
+      services.AddAuthorization(options => {
+        options.AddPolicy("ApprovedProviderRole", policy =>
+          policy.Requirements.Add(new RoleRequirement(Auth0Helper.ApprovedProviderRole)));
+        options.AddPolicy("CoordinatorRole", policy =>
+          policy.Requirements.Add(new RoleRequirement(Auth0Helper.CoordinatorRole)));
+
+        // To fix needing to manually specify the schema every time I want to call [Authorize]
+        // Found it at https://github.com/aspnet/AspNetCore/issues/2193
+        options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+          .RequireAuthenticatedUser()
+          .Build();
       });
 
       services.AddSwaggerGen(c =>
