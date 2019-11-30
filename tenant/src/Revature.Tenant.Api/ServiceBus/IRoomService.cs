@@ -1,8 +1,9 @@
 using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Net.Http;
+using System.Threading.Tasks;
+
 namespace Revature.Tenant.Api.ServiceBus
 {
   /// <summary>
