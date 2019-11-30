@@ -19,7 +19,6 @@ namespace Revature.Address.Lib.BusinessLogic
   public class AddressLogic
   {
     private readonly ILogger _logger;
-    private readonly IConfiguration _configuration;
     private readonly string _key;
 
     // Configures JsonSerializer with a snake case naming policy
@@ -35,7 +34,6 @@ namespace Revature.Address.Lib.BusinessLogic
     public AddressLogic(IConfiguration configuration, ILogger<AddressLogic> logger = null)
     {
       _logger = logger;
-      _configuration = configuration;
       _key = configuration["GoogleApiKey"];
     }
 
@@ -132,7 +130,7 @@ namespace Revature.Address.Lib.BusinessLogic
     /// <param name="origin"></param>
     /// <param name="destination"></param>
     /// <returns>Returns the url query string </returns>
-    public static string GetGoogleApiUrl(string origin, string destination)
+    public string GetGoogleApiUrl(string origin, string destination)
     {
       // Google distance matrix parameters
       return $"?units=imperial&origins={origin}&destinations={destination}&key=";
@@ -143,7 +141,7 @@ namespace Revature.Address.Lib.BusinessLogic
     /// </summary>
     /// <param name="address"></param>
     /// <returns>Returns properly formatted address string</returns>
-    public static string FormatAddress(Address address)
+    public string FormatAddress(Address address)
     {
       // formats address for Google API
       return address.Street.Replace(" ", "+") + "+" + address.City.Replace(" ", "+") + "," + address.State.Replace(" ", "+") + "+" + address.ZipCode;
