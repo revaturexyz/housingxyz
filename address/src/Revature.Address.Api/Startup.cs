@@ -49,7 +49,7 @@ namespace Revature.Address.Api
 
       services.AddScoped<IMapper, DataAccess.Mapper>();
       services.AddScoped<IDataAccess, DataAccess.DataAccess>();
-      services.AddScoped<AddressLogic>();
+      services.AddScoped<IAddressLogic, AddressLogic>();
 
       services.AddSwaggerGen(c =>
       {

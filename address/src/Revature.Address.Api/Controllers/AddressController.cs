@@ -21,10 +21,12 @@ namespace Revature.Address.Api.Controllers
 
     private readonly IDataAccess db;
     private readonly ILogger _logger;
+    private readonly IAddressLogic _addressLogic;
 
-    public AddressController(IDataAccess dataAccess, ILogger<AddressController> logger = null)
+    public AddressController(IDataAccess dataAccess, IAddressLogic addressLogic, ILogger<AddressController> logger = null)
     {
       db = dataAccess;
+      _addressLogic = addressLogic;
       _logger = logger;
     }
 
@@ -69,7 +71,7 @@ namespace Revature.Address.Api.Controllers
     /// <returns></returns>
     // GET: api/address/getdistance
     [HttpGet("getdistance")]
-    public async Task<ActionResult<bool>> IsInRange([FromQuery] List<AddressModel> addresses, [FromServices] AddressLogic addressLogic)
+    public async Task<ActionResult<bool>> IsInRange([FromQuery] List<AddressModel> addresses)
     {
       List<Lib.Address> checkAddresses = new List<Lib.Address>();
       foreach (AddressModel address in addresses)
@@ -85,7 +87,7 @@ namespace Revature.Address.Api.Controllers
         };
         checkAddresses.Add(newAddress);
       }
-      if (await addressLogic.IsInRangeAsync(checkAddresses[0], checkAddresses[1], 20))
+      if (await _addressLogic.IsInRangeAsync(checkAddresses[0], checkAddresses[1], 20))
       {
         _logger.LogInformation("These addresses are within range of each other");
         return true;
@@ -108,7 +110,7 @@ namespace Revature.Address.Api.Controllers
     /// <returns></returns>
     // POST: api/address
     [HttpPost]
-    public async Task<ActionResult<Guid>> PostTenantAddress([FromBody] AddressModel address, [FromServices] AddressLogic addressLogic)
+    public async Task<ActionResult<Guid>> PostTenantAddress([FromBody] AddressModel address)
     {
       Lib.Address newAddress = new Lib.Address
       {
@@ -125,7 +127,7 @@ namespace Revature.Address.Api.Controllers
       {
         _logger.LogInformation("Address does not exist in the database");
         newAddress.Id = new Guid();
-        if (await addressLogic.IsValidAddress(newAddress))
+        if (await _addressLogic.IsValidAddress(newAddress))
         {
           try
           {
@@ -175,8 +177,7 @@ namespace Revature.Address.Api.Controllers
     /// <returns></returns>
     // DELETE: api/address
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(
-            [FromRoute] Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id)
     {
       var item = await db.GetAddressAsync(id);
       if (item is null)

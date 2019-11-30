@@ -16,7 +16,7 @@ namespace Revature.Address.Lib.BusinessLogic
   /// <summary>
   /// Contains the logic for making calls to Google Api's
   /// </summary>
-  public class AddressLogic
+  public class AddressLogic : IAddressLogic
   {
     private readonly ILogger _logger;
     private readonly string _key;
