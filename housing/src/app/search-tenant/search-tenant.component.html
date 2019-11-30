@@ -15,32 +15,32 @@
                 <h3>Narrow your search here:</h3>
 
                 <form [formGroup]="searchTenantForm" (ngSubmit)="searchTenantsByParameters()">
-                    <label>
+                    <div>
                         First Name:
                         <input type="text" formControlName="firstName">
-                    </label>
+                    </div>
 
-                    <label>
+                    <div>
                         Last Name:
                         <input type="text" formControlName="lastName">
-                    </label>
+                    </div>
 
-                    <label>
+                    <div>
                         Gender:
                         <select formControlName="gender" required>
                             <option selected>All</option>
                             <option>Male</option>
                             <option>Female</option>
-                            <option>Other</option>
+                            <option>Nonbinary</option>
                         </select>
-                    </label>
+                    </div>
 
-                    <label>
+                    <div>
                         Show only tenants in your training center?
                         <input type="checkbox" formControlName="filterByTrainingCenter">
-                    </label>
+                    </div>
 
-                    <button class="btn btn-dark" type='submit'>Search</button>
+                    <div><button class="btn btn-dark" type='submit'>Search</button></div>
                 </form>
 
 
@@ -67,7 +67,7 @@
                             <label>
                                 <span>{{i + 1}}: </span>
                                 <span>{{tenant.firstName}} {{tenant.lastName}} - </span>
-                                <span><a (click)="routeToSelectTenant(tenant.id)">View Details</a></span>
+                                <span><button (click)="routeToSelectTenant(tenant.id)">View Details</button></span>
                             </label>
                         </li>
                     </ul>

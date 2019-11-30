@@ -1,6 +1,6 @@
 export default interface AddressSelected {
     addressId: number;
-    streetAddress: string;
+    street: string;
     city: string;
     state: string;
     zipCode: string;

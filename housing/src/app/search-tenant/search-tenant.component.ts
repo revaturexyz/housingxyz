@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class SearchTenantComponent implements OnInit {
 
   //fields and methods for search functionality
-
+  trainCen: string = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
   tenants: TenantSearching[] = [];
   tenantsLoaded: boolean = false;
 
@@ -31,7 +31,13 @@ export class SearchTenantComponent implements OnInit {
     let gender = this.searchTenantForm.get('gender').value as string;
     let filterByTrainingCenter = this.searchTenantForm.get('filterByTrainingCenter').value as boolean;
 
-    this.service.getTenantsByParameters(firstName, lastName, gender, filterByTrainingCenter)
+    let trainingCenter : string | null;
+    if(filterByTrainingCenter)
+      trainingCenter = this.trainCen;
+    else
+      trainingCenter = null;
+
+    this.service.getTenantsByParameters(firstName, lastName, gender, trainingCenter)
     .then(result => {
       this.tenants = result;
       this.tenantsLoaded = true;

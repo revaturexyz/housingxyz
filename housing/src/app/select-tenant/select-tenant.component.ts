@@ -35,6 +35,10 @@ export class SelectTenantComponent implements OnInit {
       });
   }
 
+  routeToSearchTenant() {
+    this.router.navigate(['search-tenant']);
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

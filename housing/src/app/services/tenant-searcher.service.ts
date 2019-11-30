@@ -16,9 +16,20 @@ export class TenantSearcherService {
     return this.httpClient.get<TenantSearching[]>(url).toPromise();
   }
 
-  getTenantsByParameters(firstName: string, lastName: string, gender: string, filterByTrainingCenter: boolean) : Promise<TenantSearching[]>{
+  getTenantsByParameters(firstName: string, lastName: string, gender: string, filterByTrainingCenter: string | null) : Promise<TenantSearching[]>{
     let url = `${environment.endpoints.tenant}api/Tenant`;
-    return this.httpClient.get<TenantSearching[]>(url).toPromise();
+
+    let queryString = `?firstName=${firstName}&lastName=${lastName}`;
+    if(gender.toUpperCase() != "ALL")
+    {
+      queryString = queryString + `&gender=${gender}`;
+    }
+    if(filterByTrainingCenter) //is not null
+    {
+      queryString = queryString + `&trainingCenter=${filterByTrainingCenter}`;
+    }
+
+    return this.httpClient.get<TenantSearching[]>(url + queryString).toPromise();
   }
 
 
@@ -32,7 +43,6 @@ export class TenantSearcherService {
   }
 
   deleteTenant(id: string):  Promise<HttpResponse<Object>> {
-    
     let url = `${environment.endpoints.tenant}api/Tenant/Delete/${id}`;
   
     return this.httpClient.delete(url, { observe: 'response'}).toPromise();
