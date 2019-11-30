@@ -256,24 +256,24 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("Posting Address to Address Service...");
         using (var client = new HttpClient())
         {
-          string baseUri = _configuration.GetSection("AppServices")["Address"];
-          string resourceUri = "api/Address";
+          //string baseUri = _configuration.GetSection("AppServices")["Address"];
+          //string resourceUri = "api/Address";
 
-          var json = JsonSerializer.Serialize(tenant.ApiAddress);
-          var addressString = new StringContent(json, encoding:default, "application/json");
-          var response = await client.PostAsync(baseUri + resourceUri, addressString);
-          if (response.IsSuccessStatusCode)
-          {
-            var addressIdString = await response.Content.ReadAsStringAsync();
-            addressId = Guid.Parse(addressIdString);
+          //var json = JsonSerializer.Serialize(tenant.ApiAddress);
+          //var addressString = new StringContent(json, encoding:default, "application/json");
+          //var response = await client.PostAsync(baseUri + resourceUri, addressString);
+          //if (response.IsSuccessStatusCode)
+          //{
+          //  var addressIdString = await response.Content.ReadAsStringAsync();
+          //  addressId = Guid.Parse(addressIdString);
 
-            _logger.LogInformation("Success.");
-          }
-          else
-          {
-            _logger.LogInformation("Could not retrieve ID from tenant service.");
-            return BadRequest();
-          }
+          //  _logger.LogInformation("Success.");
+          //}
+          //else
+          //{
+          //  _logger.LogInformation("Could not retrieve ID from tenant service.");
+          //  return BadRequest();
+          //}
         }
 
         //cast ApiTenant in Logic Tenant
