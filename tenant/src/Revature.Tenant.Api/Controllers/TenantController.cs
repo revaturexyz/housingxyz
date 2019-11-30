@@ -249,12 +249,11 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ApiTenant>> PostAsync([FromBody] ApiTenant tenant)
     {
-      Guid addressId = Guid.Empty;
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
         _logger.LogInformation("Posting Address to Address Service...");
-        await this._addressService.CreateAddressAsync(tenant.ApiAddress);
+        var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
         
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
@@ -264,7 +263,7 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = addressId,
+          AddressId = postedAddress.AddressId,
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,

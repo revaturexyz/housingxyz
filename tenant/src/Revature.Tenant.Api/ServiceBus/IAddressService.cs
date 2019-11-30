@@ -9,6 +9,6 @@ namespace Revature.Tenant.Api
 {
   public interface IAddressService
   {
-    public Task CreateAddressAsync(ApiAddress item);
+    public Task<ApiAddress> GetAddressAsync(ApiAddress item);
   }
 }

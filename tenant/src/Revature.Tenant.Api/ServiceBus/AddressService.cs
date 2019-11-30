@@ -25,12 +25,19 @@ namespace Revature.Tenant.Api.ServiceBus
       _client = client;
     }
 
-    public async Task CreateAddressAsync(ApiAddress item)
+    public async Task<ApiAddress> GetAddressAsync(ApiAddress item)
     {
-      using var response = await SendRequestAsync(HttpMethod.Post, "api/Address", item);
+      string queryString = "?"
+        + "street=" + item.Street + "&"
+        + "city=" + item.City + "&"
+        + "state=" + item.State + "&"
+        + "zipCode=" + item.ZipCode + "&"
+        + "country=" + item.Country;
+
+      using var response = await SendRequestAsync<ApiAddress>(HttpMethod.Get, "api/Address" + queryString);
       response.EnsureSuccessStatusCode();
 
-      var newItem = await ReadResponseBodyAsync<ApiAddress>(response);
+      return (await ReadResponseBodyAsync<ApiAddress>(response));
     }
 
     private async Task<HttpResponseMessage> SendRequestAsync<T>(HttpMethod method, string uri, T body = null) where T : class
