@@ -32,7 +32,7 @@ namespace Revature.Account.Api
       Auth0Helper.SetSecretValues(Configuration.GetSection("Auth0").GetValue<string>("Domain"),
         Configuration.GetSection("Auth0").GetValue<string>("Audience"),
         Configuration.GetSection("Auth0").GetValue<string>("ClientId"),
-        Configuration.GetSection("Auth0").GetValue<string>("Secret"));
+        Configuration.GetSection("Auth0").GetValue<string>("ClientSecret"));
 
       services.AddControllers();
       services.AddDbContext<AccountDbContext>(options =>

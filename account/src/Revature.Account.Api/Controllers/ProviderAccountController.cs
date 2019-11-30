@@ -74,7 +74,7 @@ namespace Revature.Account.Api.Controllers
         // Create a notification for the provider's approval
         Notification newNotification = new Lib.Model.Notification
         {
-          CoordinatorId = newProvider.CoordinatorId,
+          CoordinatorId = newProvider.CoordinatorId ?? Guid.Empty,
           ProviderId = mappedProvider.ProviderId,
           Status = new Status(Status.Pending),
           UpdateAction = new UpdateAction

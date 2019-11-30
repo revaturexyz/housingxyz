@@ -25,7 +25,7 @@ namespace Revature.Account.Api
     public ManagementApiClient Client { get; private set; }
     public string Email { get; private set; }
     public string[] Roles { get; private set; }
-    public dynamic AppMetadata { get; private set; }
+    public JsonElement AppMetadata { get; private set; }
 
     public static string Domain
     {
@@ -95,7 +95,7 @@ namespace Revature.Account.Api
         ParameterType.RequestBody);*/
 
       request.AddHeader("content-type", "application/json");
-      request.AddParameter("application/json", "{\"client_id\":\"dFCeoPDuHAfK9nLd8XRWxXDBa2CeOR7m\",\"client_secret\":\"5pTEy8rzj8G4XEV5wlhqItIxHjFy2FUbzTcnNdHEPbT_U4nD9rJTGcFomQjBx0qo\",\"audience\":\"https://dev-fyo32d99.auth0.com/api/v2/\",\"grant_type\":\"client_credentials\"}", ParameterType.RequestBody);
+      request.AddParameter("application/json", $"{{\"client_id\":\"{_clientId}\",\"client_secret\":\"{_secret}\",\"audience\":\"https://{_domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
 
       IRestResponse response = client.Execute(request);
 
@@ -103,21 +103,21 @@ namespace Revature.Account.Api
       return deserializedResponse.GetProperty("access_token").GetString();
     }
 
-    public async Task AddRole(string authUserId, string role)
+    public async Task AddRole(string authUserId, string roleId)
     {
       var rolesRequest = new Auth0.ManagementApi.Models.AssignRolesRequest
       {
-        Roles = new string[] { role }
+        Roles = new string[] { roleId }
       };
 
       await Client.Users.AssignRolesAsync(authUserId, rolesRequest);
     }
 
-    public async Task RemoveRole(string authUserId, string role)
+    public async Task RemoveRole(string authUserId, string roleId)
     {
       var rolesRequest = new Auth0.ManagementApi.Models.AssignRolesRequest
       {
-        Roles = new string[] { role }
+        Roles = new string[] { roleId }
       };
 
       await Client.Users.RemoveRolesAsync(authUserId, rolesRequest);
@@ -125,13 +125,16 @@ namespace Revature.Account.Api
 
     public async Task UpdateMetadataWithId(string authUserId, Guid newId)
     {
-      if (AppMetadata.id != newId)
+      JsonElement currentMetadataId;
+      bool elementExists = AppMetadata.TryGetProperty("id", out currentMetadataId);
+      if ( ! elementExists||
+        (elementExists && currentMetadataId.GetString() != newId.ToString()))
       {
-        AppMetadata.id = newId;
+        dynamic newMetadata = new { id = newId };
 
         var userUpdateRequest = new Auth0.ManagementApi.Models.UserUpdateRequest
         {
-          AppMetadata = AppMetadata
+          AppMetadata = newMetadata
         };
 
         await Client.Users.UpdateAsync(authUserId, userUpdateRequest);

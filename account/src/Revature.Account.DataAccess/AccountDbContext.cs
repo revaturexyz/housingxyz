@@ -37,7 +37,7 @@ namespace Revature.Account.DataAccess
         entity.HasOne(e => e.Coordinator)
           .WithMany(e => e.Providers)
           .HasForeignKey(p => p.ProviderId)
-          .IsRequired();
+          .IsRequired(false);
         entity.Property(e => e.Name)
           .IsRequired()
           .HasMaxLength(100);

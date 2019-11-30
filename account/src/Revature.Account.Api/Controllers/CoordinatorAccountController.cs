@@ -47,6 +47,7 @@ namespace Revature.Account.Api.Controllers
       {
         Auth0Helper auth0 = _authHelperFactory.Create(Request);
         var authUser = await auth0.Client.Users.GetUsersByEmailAsync(auth0.Email);
+        var authRoles = await auth0.Client.Roles.GetAllAsync(new Auth0.ManagementApi.Models.GetRolesRequest());
 
         Guid id = Guid.Empty;
 
@@ -56,7 +57,7 @@ namespace Revature.Account.Api.Controllers
           // If their roles arent set properly, set them
           if (!auth0.Roles.Contains(Auth0Helper.CoordinatorRole))
           {
-            await auth0.AddRole(authUser[0].UserId, "coordinator");
+            await auth0.AddRole(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.CoordinatorRole).Id);
           }
         }
         else
@@ -70,7 +71,7 @@ namespace Revature.Account.Api.Controllers
             if (!auth0.Roles.Contains(Auth0Helper.UnapprovedProviderRole) && !auth0.Roles.Contains(Auth0Helper.ApprovedProviderRole))
             {
               // They have no role, so set them as unapproved
-              await auth0.AddRole(authUser[0].UserId, Auth0Helper.UnapprovedProviderRole);
+              await auth0.AddRole(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
             }
           }
         }
@@ -99,14 +100,19 @@ namespace Revature.Account.Api.Controllers
               Name = (authUser[0].FirstName != null && authUser[0].LastName != null
                 ? authUser[0].FirstName + " " + authUser[0].LastName
                 : "No Name"),
-              Email = auth0.Email
+              Email = auth0.Email,
+              Status = new Status(Status.Pending),
+              AccountCreatedAt = DateTime.Now,
+              AccountExpiresAt = DateTime.Now.AddDays(7)
             };
             // Add them
             _repo.AddProviderAccountAsync(provider);
 
             // They have no role, so set them as unapproved
-            await auth0.AddRole(authUser[0].UserId, Auth0Helper.UnapprovedProviderRole);
+            await auth0.AddRole(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
           }
+          // Db was modified either way, save changes
+          await _repo.SaveAsync();
 
           // Get their id
           id = await _repo.GetProviderIdByEmailAsync(auth0.Email);
