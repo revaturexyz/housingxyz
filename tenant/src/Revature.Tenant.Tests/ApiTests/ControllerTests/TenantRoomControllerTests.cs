@@ -28,9 +28,8 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var mockRepo = new Mock<ITenantRoomRepository>();
       var mockRepo2 = new Mock<ITenantRepository>();
       var mockLogger = new Mock<ILogger<TenantRoomController>>();
-      var mockConfiguration = new Mock<IConfiguration>();
       var mockClient = new Mock<IHttpClientFactory>();
-      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object, mockConfiguration.Object);
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object);
 
       //Act
       var result = await _controller.GetTenantsNotAssignedRoom();

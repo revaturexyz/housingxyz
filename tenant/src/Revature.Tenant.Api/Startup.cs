@@ -51,7 +51,10 @@ namespace Revature.Tenant.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Tenant", Version = "v1" });
       });
 
-      services.AddHttpClient();
+      services.AddHttpClient("room", r =>
+      {
+        r.BaseAddress = new System.Uri(Configuration["AppServices:Room"]);
+      });
 
       services.AddScoped<ITenantRepository, TenantRepository>();
       services.AddScoped<ITenantRoomRepository, TenantRoomRepository>();
