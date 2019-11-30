@@ -43,10 +43,10 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
-    RequestDialogComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent,
+    NotificationDetailsComponent
+    RequestDialogComponent,
     AddTenantComponent
   ],
   imports: [
