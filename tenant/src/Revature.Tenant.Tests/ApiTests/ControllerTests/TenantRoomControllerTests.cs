@@ -1,13 +1,12 @@
-using System;
-using Xunit;
-using System.Threading.Tasks;
-using Revature.Tenant.Api.Controllers;
-using Moq;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Tenant.Lib.Interface;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
+using Moq;
+using Revature.Tenant.Api.Controllers;
+using Revature.Tenant.Lib.Interface;
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Revature.Tenant.Tests.ApiTests.ControllerTests
 {
@@ -16,7 +15,6 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
   /// </summary>
   public class TenantRoomControllerTests
   {
-    
     /// <summary>
     /// GetTenantsNotAssignedARoom Should Return a List of Tenants not yet assigned to a Room.
     /// </summary>
@@ -37,6 +35,7 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       //Assert
       Assert.IsAssignableFrom<OkObjectResult>(result);
     }
+
     [Fact]
     public async Task AssignTenantShouldUpdateRoomIdAsync()
     {
@@ -51,7 +50,6 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var tenantId = Guid.NewGuid();
 
       mockRepo2.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new Lib.Models.Tenant() { FirstName = "Marielle", Id = tenantId });
-      
 
       var result = await _controller.AssignTenantToRoom(tenantId, roomId);
 
