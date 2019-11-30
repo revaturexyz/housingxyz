@@ -6,12 +6,13 @@ using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Controllers
 {
+  /// <summary>
+  /// Controller for the functionality of assigning tenants to rooms
+  /// </summary>
   [Route("api/Tenant/")]
   [ApiController]
   public class TenantRoomController : ControllerBase
@@ -28,7 +29,10 @@ namespace Revature.Tenant.Api.Controllers
       _logger = logger;
       _roomService = roomService;
     }
-
+    /// <summary>
+    /// Controller method that returns tenants that aren't assigned a room
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [Route("Unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -40,7 +44,12 @@ namespace Revature.Tenant.Api.Controllers
 
       return Ok(tenants);
     }
-
+    /// <summary>
+    /// Controller method for getting the tenant information of the occupants in vacant rooms
+    /// </summary>
+    /// <param name="gender"></param>
+    /// <param name="endDate"></param>
+    /// <returns></returns>
     [HttpGet]
     [Route("Assign/AvailableRooms")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -48,12 +57,9 @@ namespace Revature.Tenant.Api.Controllers
     public async Task<IActionResult> GetTenantsByRoomId([FromQuery] string gender, [FromQuery] DateTime endDate)
     {
       _logger.LogInformation("Requesting room id + total beds from Room Service...");
-
-      var response = await _roomService.GetVacantRoomsAsync(gender, endDate);
-      if (response.IsSuccessStatusCode)
+      try
       {
-        var contentAsString = await response.Content.ReadAsStringAsync();
-        var availableRooms = JsonSerializer.Deserialize<List<AvailRoom>>(contentAsString);
+        var availableRooms = await _roomService.GetVacantRoomsAsync(gender, endDate);
 
         var roomsWithTenants = new List<RoomInfo>();
         var getTenants = new List<Task<List<Lib.Models.Tenant>>>();
@@ -86,13 +92,18 @@ namespace Revature.Tenant.Api.Controllers
 
         return Ok(roomsWithTenants);
       }
-      else
+      catch
       {
         _logger.LogInformation("Could not retrieve info from Room Service.");
         return BadRequest();
       }
     }
-
+    /// <summary>
+    /// Controller method for assigning a tenant to a specific room
+    /// </summary>
+    /// <param name="tenantId"></param>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
     [HttpPut]
     [Route("Assign/{tenantId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
