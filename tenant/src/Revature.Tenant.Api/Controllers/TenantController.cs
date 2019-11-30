@@ -322,6 +322,8 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         _logger.LogInformation("PUT - Updating tenant with tenantid {tenantId}.", tenant.Id);
+        _logger.LogInformation("Posting Address to Address Service...");
+        var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
@@ -330,7 +332,7 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
+          AddressId = (Guid)tenant.AddressId,
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
