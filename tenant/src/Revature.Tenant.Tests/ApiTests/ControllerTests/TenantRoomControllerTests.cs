@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Revature.Tenant.Api.Controllers;
+using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.Lib.Interface;
 using System;
 using System.Net.Http;
@@ -26,8 +27,8 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var mockRepo = new Mock<ITenantRoomRepository>();
       var mockRepo2 = new Mock<ITenantRepository>();
       var mockLogger = new Mock<ILogger<TenantRoomController>>();
-      var mockClient = new Mock<IHttpClientFactory>();
-      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object);
+      var mockRoomService = new Mock<IRoomService>();
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockRoomService.Object);
 
       //Act
       var result = await _controller.GetTenantsNotAssignedRoom();
@@ -43,8 +44,8 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var mockRepo = new Mock<ITenantRoomRepository>();
       var mockRepo2 = new Mock<ITenantRepository>();
       var mockLogger = new Mock<ILogger<TenantRoomController>>();
-      var mockClient = new Mock<IHttpClientFactory>();
-      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object);
+      var mockRoomService = new Mock<IRoomService>();
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockRoomService.Object);
 
       var roomId = Guid.NewGuid();
       var tenantId = Guid.NewGuid();
@@ -63,8 +64,8 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var mockRepo = new Mock<ITenantRoomRepository>();
       var mockRepo2 = new Mock<ITenantRepository>();
       var mockLogger = new Mock<ILogger<TenantRoomController>>();
-      var mockClient = new Mock<IHttpClientFactory>();
-      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockClient.Object);
+      var mockRoomService = new Mock<IRoomService>();
+      var _controller = new TenantRoomController(mockRepo.Object, mockRepo2.Object, mockLogger.Object, mockRoomService.Object);
 
       mockRepo2.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ThrowsAsync(new ArgumentNullException());
 

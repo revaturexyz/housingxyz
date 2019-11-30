@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
 using System;
@@ -18,14 +19,14 @@ namespace Revature.Tenant.Api.Controllers
     private readonly ITenantRoomRepository _repository;
     private readonly ILogger _logger;
     private readonly ITenantRepository _repo2;
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IRoomService _roomService;
 
-    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IHttpClientFactory httpClientFactory)
+    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IRoomService roomService)
     {
       _repository = repository;
       _repo2 = repo2;
       _logger = logger;
-      _httpClientFactory = httpClientFactory;
+      _roomService = roomService;
     }
 
     [HttpGet]
@@ -48,9 +49,7 @@ namespace Revature.Tenant.Api.Controllers
     {
       _logger.LogInformation("Requesting room id + total beds from Room Service...");
 
-      HttpClient client = _httpClientFactory.CreateClient("room");
-      string resourceUri = "api/rooms?gender=" + gender + "&endDate=" + endDate;
-      var response = await client.GetAsync(resourceUri);
+      var response = await _roomService.GetVacantRoomsAsync(gender, endDate);
       if (response.IsSuccessStatusCode)
       {
         var contentAsString = await response.Content.ReadAsStringAsync();
