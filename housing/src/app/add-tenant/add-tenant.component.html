@@ -28,8 +28,8 @@
         <div class="col">
             <label for="StartDate" class="col-md-3">Start Date:</label>
             <input class="input-border col-md-9" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}"
-              required [(ngModel)]="tenant.startDate" #sd="ngModel">
-            <span *ngIf="verifyDates(tenant.startDate, tenant.endDate) && sd.dirty && ed.dirty"
+              required [(ngModel)]="tenant.batch.startDate" #sd="ngModel">
+            <span *ngIf="verifyDates(tenant.batch.startDate, tenant.batch.endDate) && sd.dirty && ed.dirty"
               class="alert alert-danger col-md-3">
               Start date must be before end date.
             </span>
@@ -38,17 +38,17 @@
           <div class="col">
             <label class="col-md-3">End Date:</label>
             <input class="input-border col-md-9" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}"
-              required [(ngModel)]="tenant.endDate" #ed="ngModel">
+              required [(ngModel)]="tenant.batch.endDate" #ed="ngModel">
           </div>
 
         <br>
-        <!-- Drop down to let you choose a predetermined address -->
+        <!-- Drop down to let you choose a predetermined batch -->
         <div class="col">
           <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>Show Language</button>
+            <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ batchShowString }}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem (click)="langChoose(lang)" *ngFor="let lang of langList">
-                {{ lang.langName }}
+              <button ngbDropdownItem (click)="batchChoose(batch)" *ngFor="let batch of batchList">
+                {{ batch.batchLanguage }}
               </button>
             </div>
           </div>
@@ -71,8 +71,12 @@
                 <div>
                   <label for="tenant.email" class="tenFormLabel">Email:</label>
                   <input type="text" name="tenant.email" class="input-border col-md-6" required
-                    pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*" [(ngModel)]="tenant.email"
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="tenant.email"
                     #tenEmail="ngModel">
+                </div>
+                <div id="alert" class="col-md-12" *ngIf="tenEmail.invalid && tenEmail.dirty"
+                  class="alert alert-danger alert-dismissable" role="alert">
+                  Email must be valid email format.
                 </div>
 
                 <!-- Enter First Name -->
@@ -81,23 +85,48 @@
                   <input type="text" name="tenant.firstName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
                     [(ngModel)]="tenant.firstName" #tenFName="ngModel">
                 </div>
+                <div id="alert" class="col-md-12" *ngIf="tenFName.invalid && tenFName.dirty"
+                  class="alert alert-danger alert-dismissable" role="alert">
+                  First Name required.
+                </div>
 
               <!-- Enter Last Name -->
                 <div class="tenFormItem">
                   <label class="tenFormLabel" for="tenant.lastName">Last Name:</label>
                   <input type="text" name="tenant.lastName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
-                    [(ngModel)]="tenant.lastName" #tenFName="ngModel">
+                    [(ngModel)]="tenant.lastName" #tenLName="ngModel">
+                </div>
+                <div id="alert" class="col-md-12" *ngIf="tenLName.invalid && tenLName.dirty"
+                  class="alert alert-danger alert-dismissable" role="alert">
+                  Last Name required.
                 </div>
 
                 <!-- Enter Gender -->
                 <div class="tenFormItem">
-                  <label class="tenFormLabel">Gender:</label>
-                  <select class="input-border col-md-6 input-border" name="tenant.gender" required
+                  <!-- <label class="tenFormLabel">Gender:</label>
+                  <select class="input-border col-md-9 input-border" name="tenant.gender" required
                     [(ngModel)]="tenant.gender" #tenGender="ngModel">
-                    <option *ngFor="let gender of genders" [ngValue]="type">{{tenant.gender}}</option>
+                    <option *ngFor="let gender of genders" [ngValue]="type">{{gender}}</option>
+                  </select> -->
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ genderShowString }}</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button ngbDropdownItem (click)="genderChoose(gender)" *ngFor="let gender of genders">
+                        {{ gender }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Enter TrainingCenter -->
+                <div class="tenFormItem">
+                  <label class="tenFormLabel">Training Center:</label>
+                  <select class="input-border col-md-9 input-border" name="tenant.trainingCenter" required
+                    [(ngModel)]="tenant.trainingCenter" #tenTrainCen="ngModel">
+                    <option *ngFor="let trainCenter of trainCen" [ngValue]="type">{{trainCenId}}</option>
                   </select>
                 </div>
               <br>
+              <button class="btn btn-secondary" *ngIf="!address" (click)="addAddress()">Add Address</button>
               <button class="btn btn-secondary" *ngIf="!show" (click)="addForm()">Add Car</button>
               </div>
             </div>
@@ -116,42 +145,124 @@
                                 <input [(ngModel)]="tenant.car.licensePlate" name="tenant.car.licensePlate"
                                   class="input-border" type="text" required minlength="5" maxlength="200" #licensePlate="ngModel">
                               </label>
+                              <div id="alert" class="col-md-12" *ngIf="licensePlate.invalid && licensePlate.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                License Plate required.
+                              </div>
                   
                               <label class="col-md-9">
                                 Make:
                                 <input [(ngModel)]="tenant.car.make" name="tenant.car.make" class="input-border" type="text"
                                   required minlength="1" maxlength="50" #make="ngModel">
                               </label>
+                              <div id="alert" class="col-md-12" *ngIf="make.invalid && make.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Make required.
+                              </div>
                   
                               <label class="col-md-9">
                                 Model:
                                 <input [(ngModel)]="tenant.car.model" name="tenant.car.model" class="input-border" type="text"
                                   required minlength="2" maxlength="50" #model="ngModel">
                               </label>
+                              <div id="alert" class="col-md-12" *ngIf="model.invalid && model.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Model required.
+                              </div>
                   
                               <label class="col-md-9">
                                 Color:
                                 <input [(ngModel)]="tenant.car.color" name="tenant.car.color" class="input-border"
-                                  type="text" pattern="[0-9]{5}" #color="ngModel">
+                                  type="text" required minlength="1" maxlength="10" #color="ngModel">
                               </label>
+                              <div id="alert" class="col-md-12" *ngIf="color.invalid && color.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Color required.
+                              </div>
 
                               <label class="col-md-9">
                                 Year:
                                 <input [(ngModel)]="tenant.car.year" name="tenant.car.year" class="input-border"
-                                  type="text" pattern="[0-9]{5}" #year="ngModel">
+                                  type="text" pattern="[0-9]{4}" #year="ngModel">
                               </label>
+                              <div id="alert" class="col-md-12" *ngIf="year.invalid && year.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Year required.
+                              </div>
 
                               <label class="col-md-9">
                                 State:
                                 <input [(ngModel)]="tenant.car.state" name="tenant.car.state" class="input-border"
-                                  type="text" pattern="[0-9]{5}" #state="ngModel">
+                                  type="text" required minlength="2" maxlength="50" #state="ngModel">
                               </label>
+                              <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                State of Car License Plate required.
+                              </div>
                         <br>
                         <button class="btn btn-secondary" (click)="back()">Cancel</button>
                       </div>
                     </form>
               </div>
             </div>
+
+            <div class="split right" *ngIf="address">
+              <div class="centered">
+                  <form>
+                      <div id="addressForm">
+                        <h2>Add Address</h2>
+                            <label class="col-md-9">
+                                Street:
+                                <input [(ngModel)]="tenant.tenAddress.street" name="tenant.tenAddress.street"
+                                  class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Street address must contain at least 5 characters.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                City:
+                                <input [(ngModel)]="tenant.tenAddress.city" name="tenant.tenAddress.city" class="input-border" type="text"
+                                  required minlength="1" maxlength="50" #city="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">
+                                City name is either too short or too long.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                State:
+                                <input [(ngModel)]="tenant.tenAddress.state" name="tenant.tenAddress.state" class="input-border" type="text"
+                                  required minlength="2" maxlength="50" #state="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">
+                                Please enter a valid state name or state abbreviation.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                Country:
+                                <input [(ngModel)]="tenant.tenAddress.country" name="tenant.tenAddress.country" class="input-border"
+                                  type="text" required minlength="1" maxlength="50" #country="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="country.invalid && country.dirty" class="alert alert-danger">
+                                Please enter a valid country name or country abbreviation.
+                              </div>
+
+                              <label class="col-md-9">
+                                Zip Code:
+                                <input [(ngModel)]="tenant.tenAddress.zipCode" name="tenant.tenAddress.zipCode" class="input-border"
+                                  type="text" pattern="[0-9]{5}" #zip="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">
+                                Zip code must be exactly least 5 numbers.
+                              </div>
+                        <br>
+                        <button class="btn btn-secondary" (click)="return()">Cancel</button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+
           </div>
           <br><br>
 
@@ -160,8 +271,8 @@
                   out if there are any errors in the form that need to be fixed.
                   -->
           <div id="topbutton">
-            <button class="btn btn-secondary" type="submit" (click)="postTenantOnSubmit()"
-              [disabled]="tenantNum.invalid || tenantT.invalid || verifyDates(tenant.startDate, tenant.endDate)">
+            <button class="btn btn-secondary" type="submit" (click)="postTenantOnSubmit()">
+              <!-- [disabled]="tenantNum.invalid || tenantT.invalid || verifyDates(tenant.startDate, tenant.endDate)"> -->
               Submit
             </button>
             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
