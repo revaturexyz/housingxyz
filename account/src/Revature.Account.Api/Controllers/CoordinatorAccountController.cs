@@ -3,16 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Account.Lib.Interface;
 using System;
 using System.Threading.Tasks;
-using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using Revature.Account.Api;
-using System.IdentityModel.Tokens.Jwt;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using Revature.Account.Lib.Model;
-using Auth0.ManagementApi;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api.Controllers
 {

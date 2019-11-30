@@ -4,14 +4,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Revature.Account.DataAccess.Repositories;
 using Revature.Account.Lib.Interface;
 using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Serilog;
-using System.Security.Claims;
 
 namespace Revature.Account.Api
 {
