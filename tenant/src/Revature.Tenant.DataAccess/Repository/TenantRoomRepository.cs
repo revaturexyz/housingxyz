@@ -24,7 +24,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// Returns a list of tenants that are not currently assigned to a room.
     /// </summary>
     /// <returns></returns>
-    public async Task<IList<Lib.Models.Tenant>> GetRoomlessTenants()
+    public async Task<IList<Lib.Models.Tenant>> GetRoomlessTenantsAsync()
     {
       var tenants = await _context.Tenant
         .Include(t => t.Batch)
@@ -39,7 +39,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// </summary>
     /// <param name="roomId"></param>
     /// <returns></returns>
-    public async Task<List<Lib.Models.Tenant>> GetTenantsByRoomId(Guid roomId)
+    public async Task<List<Lib.Models.Tenant>> GetTenantsByRoomIdAsync(Guid roomId)
     {
       var tenants = await _context.Tenant
         .Include(t => t.Batch)

@@ -28,7 +28,7 @@ namespace Revature.Tenant.Api.Controllers
       _repo2 = repo2;
       _logger = logger;
       _httpClientFactory = httpClientFactory;
-      _baseURI = configuration["Services:RoomService"];
+      _baseURI = configuration["AppServices:Room"];
     }
 
     [HttpGet]
@@ -37,7 +37,7 @@ namespace Revature.Tenant.Api.Controllers
     public async Task<IActionResult> GetTenantsNotAssignedRoom()
     {
       _logger.LogInformation("Getting roomless tenants...");
-      var tenants = await _repository.GetRoomlessTenants();
+      var tenants = await _repository.GetRoomlessTenantsAsync();
       _logger.LogInformation("Successfully gathered roomless tenants...");
 
       return Ok(tenants);
@@ -74,7 +74,7 @@ namespace Revature.Tenant.Api.Controllers
             }
           );
           getTenants.Add(
-           _repository.GetTenantsByRoomId(room.item1)
+           _repository.GetTenantsByRoomIdAsync(room.item1)
           );
         }
 

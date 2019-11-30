@@ -14,7 +14,7 @@ namespace Revature.Tenant.Tests.DataTests
   public class TenantRoomRepositoryTest
   {
     /// <summary>
-    /// GetTenantsByRoomId Should Return a List of Tenants
+    /// GetTenantsByRoomIdAsync Should Return a List of Tenants
     /// </summary>
     [Fact]
     public async Task GetTenantsByRoomIdShouldReturnList()
@@ -58,12 +58,12 @@ namespace Revature.Tenant.Tests.DataTests
       await _context.Tenant.AddAsync(tenant);
       await _context.SaveChangesAsync();
 
-      var result = await repo.GetTenantsByRoomId(Guid.Parse("fa4d6c6e-9650-44c9-5c6b-5aebd3f9a67c"));
+      var result = await repo.GetTenantsByRoomIdAsync(Guid.Parse("fa4d6c6e-9650-44c9-5c6b-5aebd3f9a67c"));
 
       Assert.NotNull(result);
       Assert.Equal("Clary", result.First().FirstName);
 
-      result = await repo.GetTenantsByRoomId(Guid.NewGuid());
+      result = await repo.GetTenantsByRoomIdAsync(Guid.NewGuid());
       Assert.True(result.Count == 0);
     }
     /// <summary>
@@ -113,7 +113,7 @@ namespace Revature.Tenant.Tests.DataTests
       await _context.Tenant.AddAsync(tenant);
       await _context.SaveChangesAsync();
 
-      var result = await repo.GetRoomlessTenants();
+      var result = await repo.GetRoomlessTenantsAsync();
 
       Assert.NotNull(result);
       Assert.Equal("Lana", result.First().FirstName);
