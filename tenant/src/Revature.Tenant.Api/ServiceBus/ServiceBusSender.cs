@@ -14,7 +14,7 @@ namespace Revature.Tenant.Api.ServiceBus
   public class ServiceBusSender : IServiceBusSender
   {
     private readonly QueueClient _queueClient;
-    private readonly IConfiguration _configuration;
+    private readonly IConfiguration _queueConfiguration;
     private const string QUEUE_NAME = "AssignedRoom";
     private readonly ILogger<ServiceBusSender> _logger;
 
@@ -23,19 +23,19 @@ namespace Revature.Tenant.Api.ServiceBus
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="logger"></param>
-    public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
+    public ServiceBusSender(IConfiguration queueConfiguration, ILogger<ServiceBusSender> logger)
     {
-      _configuration = configuration;
+      _queueConfiguration = queueConfiguration;
       _logger = logger;
       _queueClient = new QueueClient(
-        _configuration.GetConnectionString("ServiceBus"),
+        _queueConfiguration.GetConnectionString("ServiceBus"),
         QUEUE_NAME);
     }
 
     /// <summary>
     /// ServiceBus message for sending a tenant room id
     /// </summary>
-    /// <param name="roomId"></param>
+    /// <param name="roomId">The GUID of a room</param>
     public async Task SendRoomIdMessage(Guid roomId)
     {
       string data = JsonSerializer.Serialize(roomId);
