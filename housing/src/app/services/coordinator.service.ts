@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PostTenant } from 'src/interfaces/postTenant';
 import { Tenant } from 'src/interfaces/tenant';
 import { HttpClientModule, HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Batch } from 'src/interfaces/batch';
@@ -13,7 +14,7 @@ import { Car } from 'src/interfaces/car';
 // Service for AJAX Calls to various Rest APIs needed by Coordinators
 export class CoordinatorService {
 
-  apiUrl: string = `${environment.endpoints.coordinator}` + 'api/';
+  apiUrl: string = `${environment.endpoints.tenant}` + 'api/';
 
   httpOptions: any;
 
@@ -38,9 +39,9 @@ export class CoordinatorService {
     // return this.httpBus.get<Batch[]>(batchUrl);
   }
 
-  PostTenant(tenant: Tenant): Observable<HttpEvent<Tenant>> {
-    const postTenantUrl = `${this.apiUrl}` + 'Tenant/RegisterTenant';
-    return this.httpBus.post<Tenant>(postTenantUrl, JSON.parse(JSON.stringify(tenant)), this.httpOptions);
+  PostTenant(postTenant: PostTenant): Observable<HttpEvent<PostTenant>> {
+    const postTenantUrl = `${this.apiUrl}` + 'Tenant/Register';
+    return this.httpBus.post<PostTenant>(postTenantUrl, postTenant, this.httpOptions);
   }
 
   //needs work

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoordinatorService } from 'src/app/services/coordinator.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { Tenant } from 'src/interfaces/tenant';
+import { PostTenant } from 'src/interfaces/postTenant';
 import { Batch } from 'src/interfaces/batch';
 import { RedirectService } from 'src/app/services/redirect.service';
 import { FormControl } from '@angular/forms';
@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 })
 export class AddTenantComponent implements OnInit {
 
-  tenant: Tenant;
+  tenant: PostTenant;
   batch: Batch;
 
   trainCen: string[] = ['fa416c6e-9650-44c9-8c6b-5aebd3f9a670'];
@@ -24,6 +24,7 @@ export class AddTenantComponent implements OnInit {
 
   address = false;
 
+  genderShowString = 'Choose Gender';
   genders: string[] = ['Male', 'Female', 'Non Binary'];
 
   //batch info
@@ -78,17 +79,11 @@ export class AddTenantComponent implements OnInit {
     private router: Router
   ) {
     this.tenant = {
-      id: '',
       email: '',
       gender: '',
       firstName: '',
       lastName: '',
-      addressId: '',
-      roomId: '',
-      carId: '',
-      batchId: 0,
-      tenantAddress: {
-        addressId: '',
+      tenAddress: {
         street: '',
         city: '',
         state: '',
@@ -96,7 +91,6 @@ export class AddTenantComponent implements OnInit {
         zipCode: ''
       },
       car: {
-        carId: 0,
         licensePlate: null,
         make: null,
         model: null,
@@ -105,7 +99,6 @@ export class AddTenantComponent implements OnInit {
         state: null
       },
       batch: {
-        batchId: 0,
         batchLanguage: '',
         startDate: new Date(),
         endDate: new Date(),
@@ -153,6 +146,7 @@ export class AddTenantComponent implements OnInit {
   }
 
   genderChoose(gender: string) {
+    this.genderShowString = gender;
     this.tenant.gender = gender;
   }
 

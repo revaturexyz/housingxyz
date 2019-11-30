@@ -238,7 +238,7 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <param name="tenant">A tenant api model of a new tenant</param>
     /// <returns>An apiTenant model of the new tenant, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions/returns>
-    // POST: api/Tenant
+    // POST: api/Tenant/Register
     [HttpPost("Register", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
