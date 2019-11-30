@@ -19,10 +19,10 @@ namespace Revature.Tenant.Api
       {
         Log.Information("Building web host");
         using var host = CreateHostBuilder(args).Build();
+        await EnsureDatabaseCreatedAsync(host);
 
         Log.Information("Starting web host");
         await host.RunAsync();
-        await EnsureDatabaseCreatedAsync(host);
       }
 #pragma warning disable CA1031 // Do not catch general exception types
       catch (Exception ex)
