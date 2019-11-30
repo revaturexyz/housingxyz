@@ -10,7 +10,7 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  //baseUrl: string = `http://localhost:11080/`;
+  // baseUrl: string = `http://localhost:11080/`;
   baseUrl: string = environment.endpoints.account;
 
 // All:

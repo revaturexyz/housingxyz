@@ -9,34 +9,31 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  constructor (private account: AccountService, private auth: AuthService) {
+  constructor(private account: AccountService, private auth: AuthService) {
     let decodedToken: string;
 
-    this.userId$.subscribe(currentUserId => {
-      if (currentUserId == "")
-      {
+    this.UserId$.subscribe(currentUserId => {
+      if (currentUserId === '') {
         account.getId$().subscribe(res => {
-          this._userId.next(res) 
+          this.userId.next(res);
         });
       }
 
       auth.getTokenSilently$().subscribe(res => {
         // atob decodes a Base64-encoded string
         decodedToken = atob(res.split('.')[1]);
-        
-        this._roles.next(JSON.parse(decodedToken)[environment.claimsDomain + 'roles']);
-        this._email.next(JSON.parse(decodedToken)[environment.claimsDomain + 'email']);
+        this.roles.next(JSON.parse(decodedToken)[environment.claimsDomain + 'roles']);
+        this.email.next(JSON.parse(decodedToken)[environment.claimsDomain + 'email']);
       });
     });
    }
 
-  private _userId: BehaviorSubject<string> = new BehaviorSubject("");
-  public readonly userId$: Observable<string> = this._userId.asObservable();
+  private userId: BehaviorSubject<string> = new BehaviorSubject('');
+  public readonly UserId$: Observable<string> = this.userId.asObservable();
 
-  private _roles: BehaviorSubject<string[]> = new BehaviorSubject([]);
-  public readonly roles$: Observable<string[]> = this._roles.asObservable();
+  private roles: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  public readonly Roles$: Observable<string[]> = this.roles.asObservable();
 
-  private _email: BehaviorSubject<string> = new BehaviorSubject("");
-  public readonly email$: Observable<string> = this._email.asObservable();
-  
+  private email: BehaviorSubject<string> = new BehaviorSubject('');
+  public readonly Email$: Observable<string> = this.email.asObservable();
 }

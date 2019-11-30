@@ -16,12 +16,7 @@ export class ProviderSelectComponent implements OnInit {
   constructor(
     private providerService: ProviderService,
     private router: Router,
-    private user: UserService
-  ) { 
-    user.userId$.subscribe(id => console.log(id));
-    user.roles$.subscribe(roles => console.log(roles));
-    user.email$.subscribe(email => console.log(email));
-  }
+    private user: UserService) { }
 
   ngOnInit() {
     this.providerService.getProviders()
