@@ -12,14 +12,14 @@ namespace Revature.Complex.Api.Services
   public class RoomServiceSender : IRoomServiceSender
   {
     private readonly QueueClient _queueClient;
-    private readonly ILogger<AddressServiceSender> _logger;
+    private readonly ILogger<RoomServiceSender> _logger;
 
     /// <summary>
     /// ServiceBusSender constructor injected with IConfiguration and ILogger
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="logger"></param>
-    public RoomServiceSender(IConfiguration configuration, ILogger<AddressServiceSender> logger)
+    public RoomServiceSender(IConfiguration configuration, ILogger<RoomServiceSender> logger)
     {
       _logger = logger;
       _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CRUDRoom"]);
