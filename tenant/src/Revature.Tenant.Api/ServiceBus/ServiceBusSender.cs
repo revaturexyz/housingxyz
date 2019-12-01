@@ -34,7 +34,7 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <summary>
     /// ServiceBus message for sending a tenant room id
     /// </summary>
-    /// <param name="roomMessage">The GUID of a room</param>
+    /// <param name="roomMessage">The details room service needs to update their rooms</param>
     public async Task SendRoomIdMessage(RoomMessage roomMessage)
     {
       string data = JsonSerializer.Serialize(roomMessage);
