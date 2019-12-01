@@ -27,8 +27,6 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task<IList<Lib.Models.Tenant>> GetRoomlessTenantsAsync()
     {
       var tenants = await _context.Tenant
-        .Include(t => t.Batch)
-        .Include(t => t.Car)
         .Where(t => t.RoomId == null)
         .ToListAsync();
       return tenants.Select(t=>_map.MapTenant(t)).ToList();
@@ -42,8 +40,6 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task<List<Lib.Models.Tenant>> GetTenantsByRoomIdAsync(Guid roomId)
     {
       var tenants = await _context.Tenant
-        .Include(t => t.Batch)
-        .Include(t => t.Car)
         .Where(t => t.RoomId == roomId)
         .ToListAsync();
       return tenants.Select(t => _map.MapTenant(t)).ToList();
