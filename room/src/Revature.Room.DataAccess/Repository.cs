@@ -98,7 +98,6 @@ namespace Revature.Room.DataAccess
       }
 
       await _context.SaveChangesAsync();
-      Console.WriteLine(roomEntity.Count);
 
       return roomEntity;
     }

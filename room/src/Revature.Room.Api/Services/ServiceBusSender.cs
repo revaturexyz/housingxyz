@@ -25,8 +25,9 @@ namespace ServiceBusMessaging
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _logger = logger;
-      //_deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DQueue"]);
-      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:SendQueue"]);
+
+      //This is the queue I'm sending information to for the complex service
+      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DQueue"]);
     }
 
     /// <summary>
@@ -41,7 +42,9 @@ namespace ServiceBusMessaging
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("ServiceBus sending delete message: ", data);
+
       await _deleteReceiptQueue.SendAsync(message);
+
       _logger.LogInformation("Success! ServiceBus sent delete message: ", data);
     }
   }
