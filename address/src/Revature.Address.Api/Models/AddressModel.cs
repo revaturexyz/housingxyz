@@ -10,7 +10,6 @@ namespace Revature.Address.Api.Models
   /// </summary>
   public class AddressModel
   {
-    [Required]
     public Guid? Id { get; set; }
 
     [Required(ErrorMessage = "Street is required.")]

@@ -69,25 +69,29 @@ namespace Revature.Address.Api.Controllers
     /// <param name="addresses"></param>
     /// <param name="addressLogic"></param>
     /// <returns></returns>
-    // GET: api/address/getdistance
-    [HttpGet("getdistance")]
-    public async Task<ActionResult<bool>> IsInRange([FromQuery] List<AddressModel> addresses)
+    // GET: api/address/checkdistance
+    [HttpGet("checkdistance")]
+    public async Task<ActionResult<bool>> IsInRange([FromQuery] AddressModel origin, [FromQuery] AddressModel destination)
     {
-      List<Lib.Address> checkAddresses = new List<Lib.Address>();
-      foreach (AddressModel address in addresses)
+      Lib.Address start = new Lib.Address
       {
-        Lib.Address newAddress = new Lib.Address
-        {
-          Id = address.Id,
-          Street = address.Street,
-          City = address.City,
-          State = address.State,
-          Country = address.Country,
-          ZipCode = address.ZipCode
-        };
-        checkAddresses.Add(newAddress);
-      }
-      if (await _addressLogic.IsInRangeAsync(checkAddresses[0], checkAddresses[1], 20))
+        Id = origin.Id,
+        Street = origin.Street,
+        City = origin.City,
+        State = origin.State,
+        Country = origin.Country,
+        ZipCode = origin.ZipCode
+      };
+      Lib.Address end = new Lib.Address
+      {
+        Id = destination.Id,
+        Street = destination.Street,
+        City = destination.City,
+        State = destination.State,
+        Country = destination.Country,
+        ZipCode = destination.ZipCode
+      };
+      if (await _addressLogic.IsInRangeAsync(start, end, 20))
       {
         _logger.LogInformation("These addresses are within range of each other");
         return true;
@@ -108,9 +112,9 @@ namespace Revature.Address.Api.Controllers
     /// <param name="address"></param>
     /// <param name="addressLogic"></param>
     /// <returns></returns>
-    // POST: api/address
-    [HttpPost]
-    public async Task<ActionResult<Guid>> PostTenantAddress([FromBody] AddressModel address)
+    // GET: api/address
+    [HttpGet]
+    public async Task<ActionResult<Lib.Address>> GetAddress([FromQuery] AddressModel address)
     {
       Lib.Address newAddress = new Lib.Address
       {
@@ -127,24 +131,16 @@ namespace Revature.Address.Api.Controllers
       {
         _logger.LogInformation("Address does not exist in the database");
         newAddress.Id = new Guid();
-        if (await _addressLogic.IsValidAddress(newAddress))
+        if (await _addressLogic.IsValidAddressAsync(newAddress))
         {
           try
           {
-            var newModel = new AddressModel
-            {
-              Id = newAddress.Id,
-              Street = newAddress.Street,
-              City = newAddress.City,
-              State = newAddress.State,
-              Country = newAddress.Country,
-              ZipCode = newAddress.ZipCode
-            };
+            var normalAddress = await _addressLogic.NormalizeAddressAsync(newAddress);
 
-            await db.AddAddressAsync(newAddress);
+            await db.AddAddressAsync(normalAddress);
             await db.SaveAsync();
             _logger.LogInformation("Address successfully created");
-            return newAddress.Id;
+            return newAddress;
           }
           catch (Exception ex)
           {
@@ -162,33 +158,8 @@ namespace Revature.Address.Api.Controllers
       {
 
         _logger.LogError("Address already exists in the database");
-        return checkAddress.Id;
+        return checkAddress;
       }
-    }
-
-
-
-
-    /// <summary>
-    /// This method deletes the address matching the
-    /// given addressId
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    // DELETE: api/address
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-      var item = await db.GetAddressAsync(id);
-      if (item is null)
-      {
-        _logger.LogError("No address found matching given id");
-        return NotFound();
-      }
-
-      await db.DeleteAddressAsync(id);
-      _logger.LogInformation("Address successfully deleted");
-      return NoContent();
     }
   }
 }

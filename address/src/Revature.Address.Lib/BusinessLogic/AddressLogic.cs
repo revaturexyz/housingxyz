@@ -47,7 +47,7 @@ namespace Revature.Address.Lib.BusinessLogic
     /// <returns>Return true or false</returns>
     public async Task<bool> IsInRangeAsync(Address origin, Address destination, int distance)
     {
-      if(_key == null)
+      if (_key == null)
       {
         _logger.LogError("Google Cloud Platform API key has not been set");
       }
@@ -104,7 +104,7 @@ namespace Revature.Address.Lib.BusinessLogic
     /// </summary>
     /// <param name="address"></param>
     /// <returns>Returns true or false</returns>
-    public async Task<bool> IsValidAddress(Address address)
+    public async Task<bool> IsValidAddressAsync(Address address)
     {
       AddressGeocodeRequest request = new AddressGeocodeRequest
       {
@@ -114,13 +114,49 @@ namespace Revature.Address.Lib.BusinessLogic
       GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToArray();
 
-      if(results.Length != 0)
+      if (results.Length != 0)
       {
         return true;
-      } else
+      }
+      else
       {
         return false;
       }
+    }
+
+    public async Task<Address> NormalizeAddressAsync(Address address)
+    {
+      AddressGeocodeRequest request = new AddressGeocodeRequest
+      {
+        Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
+        Key = _key
+      };
+      GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
+      var results = response.Results.ToList();
+
+      var addressComponents = results[0].AddressComponents.ToList();
+      _logger.LogInformation("{0}",addressComponents[0].ToString());
+      var street = addressComponents.Select(a => a).
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Street_Address)).FirstOrDefault();
+      var city = addressComponents.Select(a => a).
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Locality)).FirstOrDefault();
+      var state = addressComponents.Select(a => a).
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Administrative_Area_Level_1)).FirstOrDefault();
+      var country = addressComponents.Select(a => a).
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Country)).FirstOrDefault();
+      var zipCode = addressComponents.Select(a => a).
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Postal_Code)).FirstOrDefault();
+
+      Address normalized = new Address
+      {
+        Id = address.Id,
+        Street = street.LongName,
+        City = city.LongName,
+        State = state.LongName,
+        Country = country.ShortName,
+        ZipCode = zipCode.LongName
+      };
+      return normalized;
     }
 
     /// <summary>
