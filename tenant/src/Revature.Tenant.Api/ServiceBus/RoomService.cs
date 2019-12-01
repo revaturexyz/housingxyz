@@ -43,7 +43,9 @@ namespace Revature.Tenant.Api.ServiceBus
         return availableRooms;
       } else
       {
-        _logger.LogError("Unable to receive rooms from room service", response);
+        _logger.LogError("Unable to receive rooms from room service");
+        _logger.LogError(response.StatusCode.ToString());
+        _logger.LogError(response.Content.ToString());
         throw new HttpRequestException("Unable to receive response from room service");
       }
       
