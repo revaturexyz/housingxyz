@@ -10,7 +10,7 @@ namespace Revature.Tenant.Lib.Models
   {
     private Guid _roomId;
     private string _gender;
-
+    private int _operationType;
     /// <summary>
     /// RoomId of tenant
     /// </summary>
@@ -33,7 +33,7 @@ namespace Revature.Tenant.Lib.Models
       get => _gender;
       set
       {
-        if (value == null || Regex.IsMatch(value, @"\s+")) throw new ArgumentException("Gender should not be null or empty");
+        if (value == null || Regex.IsMatch(value, @"\s+") || value == "") throw new ArgumentException("Gender should not be null or empty");
         _gender = value;
       }
     }
@@ -41,6 +41,13 @@ namespace Revature.Tenant.Lib.Models
     /// <summary>
     /// Two types: 0 for assigning a tenant to a room, 1 for unassigning a tenant to a room
     /// </summary>
-    public int OperationType { get; set; }
+    public int OperationType
+    {
+      get => _operationType;
+      set {
+        if (value < 0 || value > 1) throw new ArgumentException("Operation type unknown");
+        _operationType = value;
+      }
+    }
   }
 }

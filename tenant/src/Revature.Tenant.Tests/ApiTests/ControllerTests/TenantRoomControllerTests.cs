@@ -53,7 +53,7 @@ namespace Revature.Tenant.Tests.ApiTests.ControllerTests
       var roomId = Guid.NewGuid();
       var tenantId = Guid.NewGuid();
 
-      mockRepo2.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new Lib.Models.Tenant() { FirstName = "Marielle", Id = tenantId });
+      mockRepo2.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new Lib.Models.Tenant() { FirstName = "Marielle", Id = tenantId, Gender = "female" });
 
       var result = await _controller.AssignTenantToRoom(tenantId, roomId);
 
