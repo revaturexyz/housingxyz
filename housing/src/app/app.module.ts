@@ -39,6 +39,7 @@ import { ManageComplexComponent } from './manage-complex/manage-complex.componen
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
+import { TrainingLocationsComponent } from './training-locations/training-locations.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ShowRoomComponent } from './manage-complex/show-room/show-room.componen
     EditComplexComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    NotificationDetailsComponent,
+    TrainingLocationsComponent
   ],
   imports: [
     BrowserModule,

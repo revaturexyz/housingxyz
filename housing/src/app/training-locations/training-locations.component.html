@@ -1,0 +1,50 @@
+<div class="login-outer">
+  <div class="login-inner">
+    <h3>Revature Training Locations</h3>
+    <hr />
+    <!--Table to show all training locations -->
+    <table mat-table [dataSource]="dataSource" class="w-100 h-50">
+      <caption id="caption">
+        Training Centers
+      </caption>
+      <!-- Location Name -->
+      <ng-container matColumnDef="centerName">
+        <th id="centerName" mat-header-cell *matHeaderCellDef>Location Name</th>
+        <td mat-cell *matCellDef="let center">
+          {{ center.centerName }}
+        </td>
+      </ng-container>
+      <!-- Phone Number -->
+      <ng-container matColumnDef="contactNumber">
+        <th id="phone" mat-header-cell *matHeaderCellDef>Phone Number</th>
+        <td mat-cell *matCellDef="let center">
+          {{ center.contactNumber }}
+        </td>
+      </ng-container>
+      <!-- Address -->
+      <ng-container matColumnDef="address">
+        <th id="address" mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let center">
+          <div class="address-container">
+            <div>{{ center.apiAddress.streetAddress }}</div>
+            <div>
+              {{ center.apiAddress.city }}, {{ center.apiAddress.state }}
+              {{ center.apiAddress.zipcode }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!--Paginator for the table above-->
+    <mat-paginator
+      [length]="100"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    >
+    </mat-paginator>
+    <hr />
+  </div>
+</div>
