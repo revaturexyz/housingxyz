@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class SearchTenantComponent implements OnInit {
 
   // fields and methods for search functionality
-  trainCen = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
+  trainCen = '837c3248-1685-4d08-934a-0f17a6d1836a';
   tenants: TenantSearching[] = [];
   tenantsLoaded = false;
 

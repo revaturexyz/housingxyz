@@ -37,28 +37,31 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <summary>
     /// Gets the ID of an address in Address Service - if the address does not already exist, address service can use
     /// the address sent in the query string to Post a new address. The official Address entry will always accopany a success response.
+    /// NOTE: This Method uses a try catch that may result in the use of dummy data! Should be removed before public deployment.
     /// </summary>
     /// <param name="item">A model of an Address</param>
     /// <returns>A model of the formal Address entry in Address Services Database, including it GUID</returns>
     public async Task<ApiAddress> GetAddressAsync(ApiAddress item)
     {
+      try
+      {
+        string queryString = "?"
+          + "street=" + item.Street + "&"
+          + "city=" + item.City + "&"
+          + "state=" + item.State + "&"
+          + "zipCode=" + item.ZipCode + "&"
+          + "country=" + item.Country;
 
-      //Replace code below comment with this
-      /*
-      string queryString = "?"
-        + "street=" + item.Street + "&"
-        + "city=" + item.City + "&"
-        + "state=" + item.State + "&"
-        + "zipCode=" + item.ZipCode + "&"
-        + "country=" + item.Country;
+        using var response = await SendRequestAsync<ApiAddress>(HttpMethod.Get, "api/Address" + queryString);
+        response.EnsureSuccessStatusCode();
 
-      using var response = await SendRequestAsync<ApiAddress>(HttpMethod.Get, "api/Address" + queryString);
-      response.EnsureSuccessStatusCode();
-
-      return (await ReadResponseBodyAsync<ApiAddress>(response));
-      */
-      item.AddressId = Guid.NewGuid();
-      return item;
+        return (await ReadResponseBodyAsync<ApiAddress>(response));
+      }
+      catch
+      {
+        item.AddressId = Guid.NewGuid();
+        return item;
+      }
     }
 
     /// <summary>

@@ -39,7 +39,7 @@ namespace Revature.Tenant.DataAccess.Entities
             Id = Guid.Parse("f14d6c6e-9650-44c9-8c6b-5aebd3f9a67f"),
             LastName = "Escalnoa",
             RoomId = Guid.Parse("fa1d6c6e-9650-44c9-8c6b-5aebd3f9a671"),
-            TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+            TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
           },
           new Tenant()
           {
@@ -52,7 +52,7 @@ namespace Revature.Tenant.DataAccess.Entities
             Id = Guid.Parse("0a4d6c1e-9650-44c9-8c6b-5aebd3f9a67f"),
             LastName = "Lemons",
             RoomId = Guid.Parse("0a4d6c61-9650-44c9-8c6b-5aebd3f9a676"),
-            TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+            TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
           }
         );
 
@@ -112,7 +112,7 @@ namespace Revature.Tenant.DataAccess.Entities
            EndDate = new DateTime(2019,12,30),
            Id = 1,
            StartDate = new DateTime(2019, 09, 30),
-           TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+           TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
          },
          new Batch()
          {
@@ -120,7 +120,7 @@ namespace Revature.Tenant.DataAccess.Entities
            EndDate = new DateTime(2019, 11, 30),
            Id = 2,
            StartDate = new DateTime(2019, 08, 30),
-           TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+           TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
          }
        );
      });

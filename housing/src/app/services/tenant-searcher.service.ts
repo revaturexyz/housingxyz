@@ -10,12 +10,13 @@ import { Address } from 'src/interfaces/address';
   providedIn: 'root'
 })
 export class TenantSearcherService {
-
+  // Get all tenants from api
   getTenants(): Promise<TenantSearching[]> {
     const url = `${environment.endpoints.tenant}api/Tenant`;
     return this.httpClient.get<TenantSearching[]>(url).toPromise();
   }
 
+  // Get all tenants meeting parameters from api
   getTenantsByParameters(firstName: string, lastName: string, gender: string, filterByTrainingCenter: string | null)
     : Promise<TenantSearching[]> {
     const url = `${environment.endpoints.tenant}api/Tenant`;
@@ -32,16 +33,18 @@ export class TenantSearcherService {
     return this.httpClient.get<TenantSearching[]>(url + queryString).toPromise();
   }
 
-
+  // Get tenant by id from api
   selectTenant(id: string): Promise<TenantSelected> {
     const url = `${environment.endpoints.tenant}api/Tenant/${id}`;
     return this.httpClient.get<TenantSelected>(url).toPromise();
   }
 
+  // Get tenant address by address id from address api
   selectTenantAddress(addressId: string): Promise<Address> {
     throw new Error('Method not implemented.');
   }
 
+  // Delete tenant by id through api
   deleteTenant(id: string): Promise<HttpResponse<object>> {
     const url = `${environment.endpoints.tenant}api/Tenant/Delete/${id}`;
 

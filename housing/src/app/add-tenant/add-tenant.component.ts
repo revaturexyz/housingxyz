@@ -114,7 +114,7 @@ export class AddTenantComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.trainCenId = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
+    this.trainCenId = '837c3248-1685-4d08-934a-0f17a6d1836a';
     this.getBatchesOnInit();
   }
 
