@@ -48,10 +48,15 @@ namespace Revature.Tenant.Api.ServiceBus
         + "zipCode=" + item.ZipCode + "&"
         + "country=" + item.Country;
 
+      //Replace code below comment with this
+      /*
       using var response = await SendRequestAsync<ApiAddress>(HttpMethod.Get, "api/Address" + queryString);
       response.EnsureSuccessStatusCode();
 
       return (await ReadResponseBodyAsync<ApiAddress>(response));
+      */
+      item.AddressId = Guid.NewGuid();
+      return item;
     }
 
     /// <summary>
