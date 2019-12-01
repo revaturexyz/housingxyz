@@ -6,6 +6,7 @@ using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Controllers
@@ -92,9 +93,9 @@ namespace Revature.Tenant.Api.Controllers
 
         return Ok(roomsWithTenants);
       }
-      catch
+      catch (HttpRequestException ex)
       {
-        _logger.LogInformation("Could not retrieve info from Room Service.");
+        _logger.LogError("Could not retrieve info from Room Service.", ex);
         return BadRequest();
       }
     }
