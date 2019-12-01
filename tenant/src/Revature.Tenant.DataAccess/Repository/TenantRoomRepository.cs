@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.Lib.Interface;
-using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +30,7 @@ namespace Revature.Tenant.DataAccess.Repository
         .Include(t => t.Batch)
         .Where(t => t.RoomId == null)
         .ToListAsync();
-      return tenants.Select(t=>_map.MapTenant(t)).ToList();
+      return tenants.Select(t => _map.MapTenant(t)).ToList();
     }
 
     /// <summary>
@@ -48,7 +47,5 @@ namespace Revature.Tenant.DataAccess.Repository
         .ToListAsync();
       return tenants.Select(t => _map.MapTenant(t)).ToList();
     }
-
-
   }
 }
