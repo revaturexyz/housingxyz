@@ -39,9 +39,9 @@ export class CoordinatorService {
     // return this.httpBus.get<Batch[]>(batchUrl);
   }
 
-  PostTenant(postTenant: PostTenant): Observable<HttpEvent<PostTenant>> {
+  PostTenant(postTenant: PostTenant): Promise<PostTenant> {
     const postTenantUrl = `${this.apiUrl}` + 'Tenant/Register';
-    return this.httpBus.post<PostTenant>(postTenantUrl, postTenant, this.httpOptions);
+    return this.httpBus.post<PostTenant>(postTenantUrl, postTenant).toPromise();
   }
 
   //needs work
