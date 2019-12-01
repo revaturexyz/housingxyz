@@ -145,6 +145,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <param name="newNofi"></param>
     public void AddNotification(Notification newNofi)
     {
+      newNofi.UpdateAction.NotificationId = newNofi.NotificationId;
       AddUpdateAction(newNofi.UpdateAction);
 
       var addedNotifiaction = mapper.MapNotification(newNofi);

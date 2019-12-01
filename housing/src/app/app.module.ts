@@ -9,19 +9,24 @@ import { ProviderSelectComponent } from './provider-select/provider-select.compo
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
-import { AddRoomComponent } from './add-room/add-room.component';
+import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import {
-  MatChipsModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule
+  MatChipsModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatPaginatorModule, MatFormFieldModule,
+  MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
+  MatExpansionModule, MatInputModule
 } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
-import { AddComplexComponent } from './add-complex/add-complex.component';
+import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
 import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
@@ -29,7 +34,12 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { AuthGuard } from './guards/auth.guard';
 //import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
-import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
+import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
+import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
+import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex.component';
+import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
+import { AddTenantComponent } from '../app/add-tenant/add-tenant.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +49,16 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     ProviderSelectComponent,
     AddRoomComponent,
     UpdateRoomComponent,
+    ShowRoomComponent,
     RoomDetailsComponent,
     RoomUpdateFormComponent,
     AmenityDialogueComponent,
     AddComplexComponent,
+    RequestDialogComponent,
+    ComplexDetailsComponent,
+    ManageComplexComponent,
+    EditRoomComponent,
+    EditComplexComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
     NotificationDetailsComponent,
@@ -55,8 +71,16 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
     NgbModule,
+    CdkTableModule,
+    MatDialogModule,
+    StickyNavModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatRippleModule,
+    CoordinatorModule,
     MatTableModule,
     MatChipsModule,
     MatPaginatorModule,
@@ -66,7 +90,16 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     StickyNavModule,
     BrowserAnimationsModule,
     MatRippleModule,
-    CoordinatorModule
+    MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   providers: [
     // {

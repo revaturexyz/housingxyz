@@ -62,7 +62,7 @@ namespace Revature.Tenant.Api.ServiceBus
     }
 
     /// <summary>
-    /// Private helper methid for sending a HTTP Request between services
+    /// Private helper method for sending a HTTP Request between services
     /// </summary>
     /// <returns>A Request Response</returns>
     private async Task<HttpResponseMessage> SendRequestAsync<T>(HttpMethod method, string uri, T body = null) where T : class

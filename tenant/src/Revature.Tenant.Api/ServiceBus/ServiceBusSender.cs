@@ -15,7 +15,6 @@ namespace Revature.Tenant.Api.ServiceBus
   {
     private readonly QueueClient _queueClient;
     private readonly IConfiguration _queueConfiguration;
-    private const string QUEUE_NAME = "AssignedRoom";
     private readonly ILogger<ServiceBusSender> _logger;
 
     /// <summary>
@@ -29,7 +28,7 @@ namespace Revature.Tenant.Api.ServiceBus
       _logger = logger;
       _queueClient = new QueueClient(
         _queueConfiguration.GetConnectionString("ServiceBus"),
-        QUEUE_NAME);
+        _queueConfiguration.GetSection("Queues")["AssignedRoom"]);
     }
 
     /// <summary>
