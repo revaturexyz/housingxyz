@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 import { TenantSearcherService } from './services/tenant-searcher.service';
 import { RouterModule } from '@angular/router';
+import { CoordinatorService } from './services/coordinator.service';
 
 // Module for Coordinator UI, imported into root module: App.module.ts
 @NgModule({
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [
     HttpClientModule,
-    TenantSearcherService
+    TenantSearcherService,
+    CoordinatorService
   ],
 })
 export class CoordinatorModule { }

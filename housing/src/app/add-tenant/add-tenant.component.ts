@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CoordinatorService } from '../services/coordinator.service';
+import { CoordinatorService } from 'src/app/services/coordinator.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { Tenant } from '../../interfaces/tenant';
-import { RedirectService } from '../services/redirect.service';
+import { PostTenant } from 'src/interfaces/postTenant';
+import { Batch } from 'src/interfaces/batch';
+import { RedirectService } from 'src/app/services/redirect.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -13,28 +14,42 @@ import { FormControl } from '@angular/forms';
 })
 export class AddTenantComponent implements OnInit {
 
-  tenant: Tenant;
+  tenant: PostTenant;
+  batch: Batch;
+
+  trainCen: string[] = ['fa416c6e-9650-44c9-8c6b-5aebd3f9a670'];
+  trainCenId: string;
 
   show: boolean = false;
 
+  address = false;
 
-  
+  genderShowString = 'Choose Gender';
+  genders: string[] = ['Male', 'Female', 'Non Binary'];
+
+  //batch info
+  batchList: Batch[] = [];
+  activeBatch: Batch;
+  batchShowString = 'Choose Batch';
 
   async postTenantOnSubmit() {
-    console.log(this.show);
-    try{
-      await this.coordService.PostTenant(this.tenant);
-      this.router.navigate(['show-tenant']);
-    } catch(err)
-    {
+    try {
+      this.tenant.trainingCenter = this.trainCen[0];
+      await this.coordService.PostTenant(this.tenant).toPromise();
+    } catch (err) {
       console.log(err);
     }
+    //this.router.navigate(['show-tenant']);
   }
 
   // called when te button to add an address is clicked to display the form.
-  
+
   addForm() {
     this.show = true;
+  }
+
+  addAddress() {
+    this.address = true;
   }
 
 
@@ -43,18 +58,9 @@ export class AddTenantComponent implements OnInit {
     this.show = false;
   }
 
-  
-  // Posts a room to the date base.
-  // async postRoomOnSubmit() {
-
-  //   // Validate if an entered address can be considered real
-  //   const isValidAddress = await this.mapservice.verifyAddress(this.room.apiAddress);
-  //   console.log('Address is valid: ' + isValidAddress);
-  //   if (!isValidAddress) {
-  //     this.invalidAddress = true;
-  //     return;
-  //   }
-  
+  return() {
+    this.address = false;
+  }
 
   // Moments objects used to create validation for the date picker.
   // An easier way to store and manipulate the dates for proper validation.
@@ -72,33 +78,40 @@ export class AddTenantComponent implements OnInit {
   constructor(
     private coordService: CoordinatorService,
     private router: Router
-    ) { 
-      this.tenant = {
-        tenantId: '',
-        email: '',
-        gender: '',
-        firstName: '',
-        lastName: '',
-        addressId: '',
-        roomId: 0,
-        car: {
-          carId: 0,
-          licensePlate: '',
-          make: '',
-          model: '',
-          color: '',
-          year: '',
-          state: ''
-        },
+  ) {
+    this.tenant = {
+      email: '',
+      gender: '',
+      firstName: '',
+      lastName: '',
+      apiAddress: {
+        street: '',
+        city: '',
+        state: '',
+        country: '',
+        zipCode: ''
+      },
+      apiCar: {
+        licensePlate: null,
+        make: null,
+        model: null,
+        color: null,
+        year: null,
+        state: null
+      },
+      batch: {
+        batchLanguage: '',
         startDate: new Date(),
         endDate: new Date(),
-        langName: ''
-      };
-    }
+        trainingCenter: ''
+      },
+      trainingCenter: ''
+    };
+  }
 
   ngOnInit() {
-    console.log("Show: "+ this.show);
-
+    this.trainCenId = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
+    this.getBatchesOnInit();
   }
 
 
@@ -120,21 +133,27 @@ export class AddTenantComponent implements OnInit {
     this.displayEnd = this.endDate.format('YYYY-MM-DD');
   }
 
-  // Updates selected complex property and display string
-  // based on what is selected
-  // coordChoose(complex: Complex) {
-  //   this.complexShowString = complex.complexName + ' | ' + complex.contactNumber;
-  //   this.activeComplex = complex;
-  //   this.room.apiComplex.complexId = complex.complexId;
-  // }
+  getBatchesOnInit() {
+    this.coordService.GetBatchByTrainingCenterId(this.trainCenId)
+      .toPromise()
+      .then((data) => this.batchList = data)
+      .catch((err) => console.log(err));
+  }
 
-  // Updates selected address property and display string
-  // based on what is selected
-  // langChoose(address: Address) {
-  //   this.addressShowString = address.streetAddress;
-  //   this.activeAddress = address;
-  //   this.room.apiAddress = address;
-  // }
+  batchChoose(batch: Batch) {
+    this.batchShowString = batch.batchLanguage;
+    this.activeBatch = batch;
+    this.tenant.batch = batch;
+  }
+
+  genderChoose(gender: string) {
+    this.genderShowString = gender;
+    this.tenant.gender = gender;
+  }
+
+  trainCenChoose(trainCen: string) {
+    this.tenant.trainingCenter = trainCen;
+  }
 
   // Used for client-side validation for date input of the form.
   verifyDates(beg: Date, end: Date): boolean {

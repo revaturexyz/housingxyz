@@ -21,6 +21,7 @@ namespace Revature.Tenant.Api
         using var host = CreateHostBuilder(args).Build();
         await EnsureDatabaseCreatedAsync(host);
 
+        await EnsureDatabaseCreatedAsync(host);
         Log.Information("Starting web host");
         await host.RunAsync();
       }
