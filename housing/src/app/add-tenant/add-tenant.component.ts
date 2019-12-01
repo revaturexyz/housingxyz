@@ -34,6 +34,7 @@ export class AddTenantComponent implements OnInit {
 
   async postTenantOnSubmit() {
     try {
+      this.tenant.trainingCenter = this.trainCen[0];
       await this.coordService.PostTenant(this.tenant).toPromise();
     } catch (err) {
       console.log(err);
@@ -83,14 +84,14 @@ export class AddTenantComponent implements OnInit {
       gender: '',
       firstName: '',
       lastName: '',
-      tenAddress: {
+      apiAddress: {
         street: '',
         city: '',
         state: '',
         country: '',
         zipCode: ''
       },
-      car: {
+      apiCar: {
         licensePlate: null,
         make: null,
         model: null,

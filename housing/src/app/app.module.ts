@@ -45,7 +45,7 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component'
     AddComplexComponent,
     AddProviderComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    NotificationDetailsComponent,
     RequestDialogComponent,
     AddTenantComponent
   ],

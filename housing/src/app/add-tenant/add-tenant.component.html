@@ -213,7 +213,7 @@
                         <h2>Add Address</h2>
                             <label class="col-md-9">
                                 Street:
-                                <input [(ngModel)]="tenant.tenAddress.street" name="tenant.tenAddress.street"
+                                <input [(ngModel)]="tenant.apiAddress.street" name="tenant.apiAddress.street"
                                   class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty"
@@ -223,7 +223,7 @@
                   
                               <label class="col-md-9">
                                 City:
-                                <input [(ngModel)]="tenant.tenAddress.city" name="tenant.tenAddress.city" class="input-border" type="text"
+                                <input [(ngModel)]="tenant.apiAddress.city" name="tenant.apiAddress.city" class="input-border" type="text"
                                   required minlength="1" maxlength="50" #city="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">
@@ -232,7 +232,7 @@
                   
                               <label class="col-md-9">
                                 State:
-                                <input [(ngModel)]="tenant.tenAddress.state" name="tenant.tenAddress.state" class="input-border" type="text"
+                                <input [(ngModel)]="tenant.apiAddress.state" name="tenant.apiAddress.state" class="input-border" type="text"
                                   required minlength="2" maxlength="50" #state="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">
@@ -241,7 +241,7 @@
                   
                               <label class="col-md-9">
                                 Country:
-                                <input [(ngModel)]="tenant.tenAddress.country" name="tenant.tenAddress.country" class="input-border"
+                                <input [(ngModel)]="tenant.apiAddress.country" name="tenant.apiAddress.country" class="input-border"
                                   type="text" required minlength="1" maxlength="50" #country="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="country.invalid && country.dirty" class="alert alert-danger">
@@ -250,7 +250,7 @@
 
                               <label class="col-md-9">
                                 Zip Code:
-                                <input [(ngModel)]="tenant.tenAddress.zipCode" name="tenant.tenAddress.zipCode" class="input-border"
+                                <input [(ngModel)]="tenant.apiAddress.zipCode" name="tenant.apiAddress.zipCode" class="input-border"
                                   type="text" pattern="[0-9]{5}" #zip="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">

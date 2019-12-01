@@ -263,26 +263,33 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = postedAddress.AddressId,
+          AddressId = Guid.NewGuid(),//TODO postedAddress.AddressId,
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter,
 
         };
-        if (tenant.ApiCar != null)
-        {
-          newTenant.Car = new Lib.Models.Car
+        
+          if (tenant.ApiCar.LicensePlate != null)
           {
-            Color = tenant.ApiCar.Color,
-            Make = tenant.ApiCar.Make,
-            Model = tenant.ApiCar.Model,
-            LicensePlate = tenant.ApiCar.LicensePlate,
-            State = tenant.ApiCar.State,
-            Year = tenant.ApiCar.Year
-          };
-          newTenant.CarId = 0;
+            newTenant.Car = new Lib.Models.Car
+            {
+              Color = tenant.ApiCar.Color,
+              Make = tenant.ApiCar.Make,
+              Model = tenant.ApiCar.Model,
+              LicensePlate = tenant.ApiCar.LicensePlate,
+              State = tenant.ApiCar.State,
+              Year = tenant.ApiCar.Year
+            };
+            newTenant.CarId = 0;
+          }
+        else
+        {
+          newTenant.Car = null;
+          newTenant.CarId = null;
         }
+        
 
         //Call Repository Methods AddAsync and SaveAsync
         await _tenantRepository.AddAsync(newTenant);
