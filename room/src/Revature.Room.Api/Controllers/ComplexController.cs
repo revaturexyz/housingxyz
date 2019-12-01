@@ -202,7 +202,7 @@ namespace Revature.Room.Api.Controllers
 
         _logger.LogInformation("Alerting complex service that room has been deleted...");
 
-        await _busSender.SendDeleteMessage(new List<Guid>() { roomId });
+        //await _busSender.SendDeleteMessage(new List<Guid>() { roomId });
 
         _logger.LogInformation("Success! Message has been sent!");
 
@@ -236,7 +236,11 @@ namespace Revature.Room.Api.Controllers
 
         _logger.LogInformation("Sending deleted room roomId's to complex service");
 
-        await _busSender.SendDeleteMessage(listOfDeletedRoomIds);
+        //Made it to where whenever we receive a operation type for deleting complex
+        //We will also call service bus sender in the service bus consumer too for
+        //for deleting complex
+
+        //await _busSender.SendDeleteMessage(listOfDeletedRoomIds);
 
         _logger.LogInformation("Deleted room roomId's have been sent to complex service");
 

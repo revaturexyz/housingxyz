@@ -25,7 +25,8 @@ namespace ServiceBusMessaging
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _logger = logger;
-      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DQueue"]);
+      //_deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DQueue"]);
+      _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:SendQueue"]);
     }
 
     /// <summary>
@@ -33,7 +34,7 @@ namespace ServiceBusMessaging
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public async Task SendDeleteMessage(List<Guid> roomToSend)
+    public async Task SendDeleteMessage(Guid roomToSend)
     {
       string data = JsonSerializer.Serialize(roomToSend);
 

@@ -38,7 +38,8 @@ namespace ServiceBusMessaging
     /// <param name="configuration"></param>
     /// <param name="services"></param>
     /// <param name="logger"></param>
-    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger)
+    public ServiceBusConsumer(IConfiguration configuration, IServiceProvider services, ILogger<ServiceBusConsumer> logger,
+      IServiceBusSender sender)
     {
       //Changed this from testq to complexq
       //Might have to make another queclient for tenant
@@ -49,6 +50,7 @@ namespace ServiceBusMessaging
       _occupancyUpdateQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:TQueue"]);
       Services = services;
       _logger = logger;
+      serviceSender = sender;
     }
 
     /// <summary>
@@ -137,6 +139,28 @@ namespace ServiceBusMessaging
           ComplexMessage receivedMessage = JsonSerializer.Deserialize<ComplexMessage>(message.Body);
 
             _logger.LogInformation("Showing RoomNumber: {message}", receivedMessage.RoomNumber);
+
+          if (receivedMessage.QueOperator == 3)
+          {
+            _logger.LogInformation("Deserialized with this operator: {message}", receivedMessage.QueOperator);
+
+            _logger.LogInformation("Attempting to DELETE COMPLEX!!! {0}", receivedMessage.ComplexId);
+
+            IEnumerable<Guid> ListOfRooms = await _repo.DeleteComplexRoomAsync(receivedMessage.ComplexId);
+
+            _logger.LogInformation("Oh my, you DELETED a COMPLEX you naughty boy!: {message}", receivedMessage.ComplexId);
+
+            _logger.LogInformation("Sending LIST of deleted room Ids!!! {0}", ListOfRooms);
+
+            foreach (var r in ListOfRooms)
+            {
+              await serviceSender.SendDeleteMessage(r);
+            }
+
+            //await serviceSender.SendDeleteMessage(ListOfRooms);
+            _logger.LogInformation("Sent the list of rooms back to complex service!", ListOfRooms);
+          }
+          else { 
             Room myRoom = new Room()
             {
               RoomId = receivedMessage.RoomId,
@@ -144,12 +168,14 @@ namespace ServiceBusMessaging
               ComplexId = receivedMessage.ComplexId,
               NumberOfBeds = receivedMessage.NumberOfBeds,
               RoomType = receivedMessage.RoomType,
-              NumberOfOccupants = 0
-              
-            };
-             myRoom.SetLease(receivedMessage.LeaseStart, receivedMessage.LeaseEnd);
+              NumberOfOccupants = 0,
 
-             _logger.LogInformation("Deserialized you hoe: {message}", myRoom.RoomNumber);
+            };
+ 
+            myRoom.SetLease(receivedMessage.LeaseStart, receivedMessage.LeaseEnd);
+
+            _logger.LogInformation("Deserialized you hoe: {message}", myRoom.RoomNumber);
+
 
              _logger.LogInformation("Deserialized with this operator: {message}", receivedMessage.QueOperator);
             // Persist our new data into the repository but not if Deserialization throws an exception
@@ -160,30 +186,35 @@ namespace ServiceBusMessaging
             switch ((OperationType)receivedMessage.QueOperator)
             {
               case OperationType.Create:
-                _logger.LogInformation("Attempting to create a room!!!", myRoom.RoomNumber);
+                _logger.LogInformation("Attempting to CREATE a room!!!", myRoom.RoomNumber);
                 await _repo.CreateRoomAsync(myRoom);
                 _logger.LogInformation("Created a room!!!: {message}", myRoom.RoomNumber);
                 break;
 
               case OperationType.Update:
+                _logger.LogInformation("Attempting to UPDATE a room!!!", myRoom.RoomNumber);
                 await _repo.UpdateRoomAsync(myRoom);
                 _logger.LogInformation("Updated a room!!!: {message}", myRoom);
                 break;
 
               case OperationType.Delete:
+                _logger.LogInformation("Attempting to DELETE a room!!!", myRoom.RoomNumber);
                 await _repo.DeleteRoomAsync(myRoom.RoomId);
-                _logger.LogInformation("Deleted a room!!!: {message}", myRoom);
+                _logger.LogInformation("DELETED a room!!!: {message}", myRoom);
                 break;
-              case OperationType.DeleteCom:
+              //case OperationType.DeleteCom:
 
-                var ListOfRooms = await _repo.DeleteComplexRoomAsync(myRoom.ComplexId); ;
-                _logger.LogInformation("Oh my, you deleted a complex you naughty boy!: {message}", myRoom.ComplexId);
+                //_logger.LogInformation("Attempting to DELETE COMPLEX!!!", myRoom.ComplexId);
+                //var ListOfRooms = await _repo.DeleteComplexRoomAsync(myRoom.ComplexId); 
+                //_logger.LogInformation("Oh my, you DELETED a COMPLEX you naughty boy!: {message}", myRoom.ComplexId);
 
-                await serviceSender.SendDeleteMessage(ListOfRooms);
-                _logger.LogInformation("Sent the list of rooms back to complex service!", ListOfRooms.Count);
+                //_logger.LogInformation("Sending LIST of deleted room Ids!!!", ListOfRooms.Count);
+                //await serviceSender.SendDeleteMessage(ListOfRooms);
+                //_logger.LogInformation("Sent the list of rooms back to complex service!", ListOfRooms.Count);
 
-                break;
+                //break;
             }
+          }
         }
         catch (Exception ex)
         {
@@ -217,6 +248,9 @@ namespace ServiceBusMessaging
     public async Task CloseQueueAsync()
     {
       await _roomDUCQueue.CloseAsync();
+
+      //Added this since the room service is listening from 2 services, thus we need 2 queues
+      await _occupancyUpdateQueue.CloseAsync();
     }
 
     /// <summary>

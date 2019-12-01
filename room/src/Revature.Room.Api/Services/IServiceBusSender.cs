@@ -14,6 +14,6 @@ namespace ServiceBusMessaging
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    Task SendDeleteMessage(List<Guid> roomToSend);
+    Task SendDeleteMessage(Guid roomToSend);
   }
 }
