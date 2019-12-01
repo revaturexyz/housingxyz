@@ -19,15 +19,13 @@ namespace Revature.Complex.Api.Controllers
   {
     private readonly IRepository _complexRepository;
     private readonly ILogger<ComplexController> log;
-    private readonly IAddressService addressServiceSender;
     private readonly IRoomServiceSender roomServiceSender;
 
     public ComplexController(IRepository complexRepository, ILogger<ComplexController> logger,
-      IAddressService addressService, IRoomServiceSender rss)
+      IRoomServiceSender rss)
     {
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
       log = logger;
-      addressServiceSender = addressService;
       roomServiceSender = rss;
     }
 
@@ -289,16 +287,6 @@ namespace Revature.Complex.Api.Controllers
 
         #region Code to sent address to other serivce Need to fill
 
-        try
-        {
-          await addressServiceSender.SendRoomsMessages(CompAddr);
-        }
-        catch(Exception ex)
-        {
-          log.LogError($"(API){ex.Message}: failed to send address to Address service");
-          return StatusCode(500, ex.Message);
-        }
-
         #endregion
 
         return Created($"api/Complex/{complex.ComplexId}", apiComplex);
@@ -474,7 +462,7 @@ namespace Revature.Complex.Api.Controllers
         arts.RoomType = apiRoom.ApiRoomType;
         arts.LeaseStart = apiRoom.LeaseStart;
         arts.LeaseEnd = apiRoom.LeaseEnd;
-        arts.QueOperator = 1;
+        arts.QueOperator = 2;
 
         amenityRoom.AmenityRoomId = Guid.NewGuid();
         amenityRoom.RoomId = arts.RoomId;
@@ -515,14 +503,14 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("deletecomplex")]
     //PUT: api/complex/deletecomplex
-    public async Task<ActionResult> DeleteComplexAsync([FromBody]Guid complexId, Guid AddressId)
+    public async Task<ActionResult> DeleteComplexAsync([FromBody]Guid complexId)
     {
       try
       {
-        ApiComplexAddress address = new ApiComplexAddress
-        {
-          AddressId = AddressId,
-        };
+        //ApiComplexAddress address = new ApiComplexAddress
+        //{
+        //  AddressId = AddressId,
+        //};
 
         ApiRoomtoSend arts = new ApiRoomtoSend
         {
@@ -570,7 +558,13 @@ namespace Revature.Complex.Api.Controllers
         ApiRoomtoSend roomtoDelete = new ApiRoomtoSend
         {
           RoomId = Room.RoomId,
-          QueOperator = 2
+          RoomNumber = Room.RoomNumber,
+          ComplexId = Room.ComplexId,
+          NumberOfBeds = Room.NumberOfBeds,
+          RoomType = Room.ApiRoomType,
+          LeaseStart = Room.LeaseStart,
+          LeaseEnd = Room.LeaseEnd,
+          QueOperator = 1
         };
 
         //send {send} to room service to delete a room
