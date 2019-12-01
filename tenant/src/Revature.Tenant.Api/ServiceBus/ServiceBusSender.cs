@@ -40,7 +40,7 @@ namespace Revature.Tenant.Api.ServiceBus
       string data = JsonSerializer.Serialize(roomMessage);
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
-      _logger.LogInformation("Service Bus is sending Room Id", data);
+      _logger.LogInformation("Service Bus is sending message with room id, gender, and operation type", data);
       await _queueClient.SendAsync(message);
       _logger.LogInformation("Message sent!");
     }
