@@ -22,6 +22,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.TrainingCenter).IsRequired();
+        entity.Property(t => t.RoomId);
         entity.HasOne(t => t.Car).WithOne(c => c.Tenant).HasForeignKey<Tenant>(t => t.CarId);
         entity.HasOne(t => t.Batch).WithMany(b => b.Tenant).HasForeignKey(t => t.BatchId);
 
