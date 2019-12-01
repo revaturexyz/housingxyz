@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // import { ProviderService } from '../services/provider.service';
-import { Provider } from 'src/interfaces/account/provider';
-import { Address } from 'src/interfaces/address';
+import { Provider } from 'src/interfaces/provider';
 import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
-import { RedirectService } from '../services/redirect.service';
 
 import { TestServiceData } from '../services/static-test-data';
 
@@ -27,8 +25,6 @@ export class AddProviderComponent implements OnInit {
   constructor(
     private router: Router,
     private mapsService: MapsService,
-    // private providerService: ProviderService,
-    private redirect: RedirectService
     ) {
       this.formProvider = {
         providerId: 0,

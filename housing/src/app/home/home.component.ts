@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ProviderService } from '../services/provider.service';
 import { Provider } from 'src/interfaces/account/provider';
 import { Complex } from 'src/interfaces/complex';
-import { RedirectService } from '../services/redirect.service';
 
 @Component({
   selector: 'dev-home',
@@ -18,14 +17,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private providerService: ProviderService,
-    private router: Router,
-    private redirect: RedirectService
+    private router: Router
   ) { }
 
   ngOnInit() {
     // This is not how redirects should work if no provider is selected.
     // It is likely a guard will need to be implemented to accomplish this task.
-    this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
       this.getProviderOnInit(this.provider.providerId).then(p => {
         this.provider = p;

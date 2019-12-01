@@ -4,7 +4,6 @@ import { ProviderService } from '../services/provider.service';
 import { Observer } from 'rxjs';
 import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
-import { RedirectService } from '../services/redirect.service';
 import { Provider } from 'src/interfaces/account/provider';
 
 @Component({
@@ -49,13 +48,11 @@ export class UpdateRoomComponent implements OnInit {
   // injects dependency on Provider and Room services.
   constructor(
     private providerService: ProviderService,
-    private roomService: RoomService,
-    private redirect: RedirectService
+    private roomService: RoomService
   ) { }
 
   // initializes complexes and all rooms by providers at init time.
   ngOnInit() {
-    this.provider = this.redirect.checkProvider();
     if (this.provider !== null) {
       this.getProviderOnInit(this.provider.providerId).then(p => {
         this.provider = p;
