@@ -326,40 +326,39 @@ namespace Revature.Complex.Api.Controllers
     public async Task<ActionResult> PostRoomsAsync([FromBody]IEnumerable<ApiRoom> apiRooms)
     {
       List<ApiRoomtoSend> apiRoomtoSends = new List<ApiRoomtoSend>();
-      ApiRoomtoSend arts = new ApiRoomtoSend();
       Logic.AmenityRoom amenityRoom = new Logic.AmenityRoom();
 
       try
       {
         foreach (ApiRoom apiRoom in apiRooms)
         {
-          arts.RoomId = Guid.NewGuid();
-          arts.RoomNumber = apiRoom.RoomNumber;
-          arts.ComplexId = apiRoom.ComplexId;
-          arts.Gender = "default";
-          arts.NumberOfBeds = apiRoom.NumberOfBeds;
-          arts.RoomType = apiRoom.ApiRoomType;
-          arts.LeaseStart = apiRoom.LeaseStart;
-          arts.LeaseEnd = apiRoom.LeaseEnd;
-          arts.QueOperator = 0;
+          var arts = new ApiRoomtoSend
+          {
+            RoomId = Guid.NewGuid(),
+            RoomNumber = apiRoom.RoomNumber,
+            ComplexId = apiRoom.ComplexId,
+            NumberOfBeds = apiRoom.NumberOfBeds,
+            RoomType = apiRoom.ApiRoomType,
+            LeaseStart = apiRoom.LeaseStart,
+            LeaseEnd = apiRoom.LeaseEnd,
+            QueOperator = 0,
+          };
 
-          apiRoomtoSends.Add(arts);
+          await roomServiceSender.SendRoomsMessages(arts);
+          //apiRoomtoSends.Add(arts);
 
           amenityRoom.AmenityRoomId = Guid.NewGuid();
           amenityRoom.RoomId = arts.RoomId;
-
-          IEnumerable<ApiRoomtoSend> roomtoSends = apiRoomtoSends;
-
-          //Send {roomtoSends} to room service
-          await roomServiceSender.SendRoomsMessages(apiRoomtoSends);
-
+          
           foreach (ApiAmenity amenity in apiRoom.Amenities)
           {
             amenityRoom.AmenityId = amenity.AmenityId;
             await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
-            log.LogInformation("a list of amenities with room id: {arts.RoomId} was created", arts.RoomId);
+            log.LogInformation("a list of amenities with room id: {0} was created", arts.RoomId);
           }
         }
+        //await roomServiceSender.SendRoomsMessages(apiRoomtoSends);
+
         return StatusCode(201);
       }
       catch (Exception ex)
@@ -471,7 +470,6 @@ namespace Revature.Complex.Api.Controllers
         arts.RoomId = apiRoom.RoomId;
         arts.RoomNumber = apiRoom.RoomNumber;
         arts.ComplexId = apiRoom.ComplexId;
-        arts.Gender = "default";
         arts.NumberOfBeds = apiRoom.NumberOfBeds;
         arts.RoomType = apiRoom.ApiRoomType;
         arts.LeaseStart = apiRoom.LeaseStart;
@@ -485,6 +483,7 @@ namespace Revature.Complex.Api.Controllers
         log.LogInformation(")Amenity of Room Id {apiRoom.RoomId} is deleted", apiRoom.RoomId);
 
         //Send {arts} to room service through service bus
+        await roomServiceSender.SendRoomsMessages(arts);
 
         foreach (ApiAmenity amenity in apiRoom.Amenities)
         {
@@ -524,8 +523,16 @@ namespace Revature.Complex.Api.Controllers
         {
           AddressId = AddressId,
         };
+
+        ApiRoomtoSend arts = new ApiRoomtoSend
+        {
+          ComplexId = complexId,
+          QueOperator = 3
+        };
+
         //send complexId to toom service to delete all rooms belongs to the complex
         //receive deleted room ids from room service to delete amenity of rooms
+        await roomServiceSender.SendRoomsMessages(arts);
 
         //send complex Id to Address service to delete address for the complex
 
@@ -566,13 +573,8 @@ namespace Revature.Complex.Api.Controllers
           QueOperator = 2
         };
 
-        IEnumerable<ApiRoomtoSend> message = new List<ApiRoomtoSend>
-        {
-          roomtoDelete
-        };
-
         //send {send} to room service to delete a room
-        await roomServiceSender.SendRoomsMessages(message);
+        await roomServiceSender.SendRoomsMessages(roomtoDelete);
 
         await _complexRepository.DeleteAmenityRoomAsync(Room.RoomId);
         log.LogInformation("deleted amenity of room Id: {Room.RoomId}", Room.RoomId);

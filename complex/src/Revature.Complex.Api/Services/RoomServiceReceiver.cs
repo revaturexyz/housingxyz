@@ -77,10 +77,10 @@ namespace Revature.Complex.Api.Services
             //Case 0 = create, Case 1 = update, Case 2 = delete
             //We will listen for what the complex service will send us and determine
             //what CRUD operation to do based on the OperationType
-            foreach (Guid RoomId in listOfRoomId)
+            foreach (Guid roomId in listOfRoomId)
             {
-              await _repo.DeleteAmenityRoomAsync(RoomId);
-              log.LogInformation($"(SERVICE) Amenity of Room Id: {RoomId} is deleted");
+              await _repo.DeleteAmenityRoomAsync(roomId);
+              log.LogInformation("Amenity of Room Id: {RoomId} is deleted", roomId);
             }
           }
           catch (Exception ex)

@@ -30,13 +30,13 @@ namespace Revature.Complex.Api.Services
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public async Task SendRoomsMessages(IEnumerable<ApiRoomtoSend> rooms)
+    public async Task SendRoomsMessages(ApiRoomtoSend rooms)
     {
       string data = JsonConvert.SerializeObject(rooms);
 
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
-      _logger.LogInformation("ServiceBus sending creating message: ", data);
+      _logger.LogInformation("ServiceBus sending creating message: {data}", data);
       await _queueClient.SendAsync(message);
     }
   }
