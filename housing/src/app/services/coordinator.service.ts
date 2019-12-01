@@ -18,7 +18,7 @@ export class CoordinatorService {
 
   httpOptions: any;
 
-  constructor (
+  constructor(
     private httpBus: HttpClient
   ) {
     this.httpOptions = {
@@ -44,7 +44,6 @@ export class CoordinatorService {
     return this.httpBus.post<PostTenant>(postTenantUrl, postTenant).toPromise();
   }
 
-  //needs work
   PutTenant(tenantId: string) {
     const putTenantUrl = `${this.apiUrl}` + 'UpdateTenant/' + `${tenantId}`;
     return this.httpBus.put<Tenant>(putTenantUrl, this.httpOptions);

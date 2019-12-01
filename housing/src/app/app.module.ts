@@ -20,7 +20,6 @@ import {
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { RoomUpdateFormComponent } from './room-update-form/room-update-form.component';
 import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +31,7 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
-//import { InterceptorService } from './services/interceptor.service';
+// import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
@@ -97,7 +96,6 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component';
     MatListModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatMomentDateModule,
     MatInputModule,
     MatCheckboxModule
   ],

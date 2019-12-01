@@ -10,7 +10,7 @@ import { TenantSearcherService } from '../services/tenant-searcher.service';
 describe('SearchTenantComponent', () => {
   let component: SearchTenantComponent;
   let fixture: ComponentFixture<SearchTenantComponent>;
-  let searchTenSpy = jasmine.createSpyObj('TenantSearcherService', ['GetTenants'])
+  const searchTenSpy = jasmine.createSpyObj('TenantSearcherService', ['GetTenants']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

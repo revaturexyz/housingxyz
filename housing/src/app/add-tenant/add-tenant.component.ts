@@ -20,49 +20,16 @@ export class AddTenantComponent implements OnInit {
   trainCen: string[] = ['fa416c6e-9650-44c9-8c6b-5aebd3f9a670'];
   trainCenId: string;
 
-  show: boolean = false;
-
-  address = false;
+  showCarForm = false;
+  showAddressForm = false;
 
   genderShowString = 'Choose Gender';
   genders: string[] = ['Male', 'Female', 'Non Binary'];
 
-  //batch info
+  // batch info
   batchList: Batch[] = [];
   activeBatch: Batch;
   batchShowString = 'Choose Batch';
-
-  async postTenantOnSubmit() {
-    try {
-      this.tenant.id = null;
-      this.tenant.trainingCenter = this.trainCen[0];
-      await this.coordService.PostTenant(this.tenant)
-        .then(result => this.router.navigate(['select-tenant/' + result.id]));
-    } catch (err) {
-      console.log(err);
-    }
-    //this.router.navigate(['show-tenant']);
-  }
-
-  // called when te button to add an address is clicked to display the form.
-
-  addForm() {
-    this.show = true;
-  }
-
-  addAddress() {
-    this.address = true;
-  }
-
-
-  // called when the cancel button on the add address form is clicked to hide the form.
-  back() {
-    this.show = false;
-  }
-
-  return() {
-    this.address = false;
-  }
 
   // Moments objects used to create validation for the date picker.
   // An easier way to store and manipulate the dates for proper validation.
@@ -76,6 +43,40 @@ export class AddTenantComponent implements OnInit {
   displayStart;
   displayMid;
   displayEnd;
+
+  async postTenantOnSubmit() {
+    try {
+      this.tenant.id = null;
+      this.tenant.trainingCenter = this.trainCen[0];
+      await this.coordService.PostTenant(this.tenant)
+        .then(result => this.router.navigate(['select-tenant/' + result.id]));
+    } catch (err) {
+      console.log(err);
+    }
+    // this.router.navigate(['show-tenant']);
+  }
+
+  // called when te button to add an address is clicked to display the form.
+
+  addCarForm() {
+    this.showAddressForm = false;
+    this.showCarForm = true;
+  }
+
+  addAddressForm() {
+    this.showCarForm = false;
+    this.showAddressForm = true;
+  }
+
+
+  // called when the cancel button on the add address form is clicked to hide the form.
+  closeCarForm() {
+    this.showCarForm = false;
+  }
+
+  closeAddressForm() {
+    this.showAddressForm = false;
+  }
 
   constructor(
     private coordService: CoordinatorService,

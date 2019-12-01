@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 })
 export class SearchTenantComponent implements OnInit {
 
-  //fields and methods for search functionality
-  trainCen: string = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
+  // fields and methods for search functionality
+  trainCen = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
   tenants: TenantSearching[] = [];
-  tenantsLoaded: boolean = false;
+  tenantsLoaded = false;
 
   searchTenantForm = this.formBuilder.group({
     firstName: [''],
@@ -26,23 +26,24 @@ export class SearchTenantComponent implements OnInit {
   searchTenantsByParameters() {
     this.tenantsLoaded = false;
 
-    let firstName = this.searchTenantForm.get('firstName').value as string;
-    let lastName = this.searchTenantForm.get('lastName').value as string;
-    let gender = this.searchTenantForm.get('gender').value as string;
-    let filterByTrainingCenter = this.searchTenantForm.get('filterByTrainingCenter').value as boolean;
+    const firstName = this.searchTenantForm.get('firstName').value as string;
+    const lastName = this.searchTenantForm.get('lastName').value as string;
+    const gender = this.searchTenantForm.get('gender').value as string;
+    const filterByTrainingCenter = this.searchTenantForm.get('filterByTrainingCenter').value as boolean;
 
-    let trainingCenter : string | null;
-    if(filterByTrainingCenter)
+    let trainingCenter: string | null;
+    if (filterByTrainingCenter) {
       trainingCenter = this.trainCen;
-    else
+    } else {
       trainingCenter = null;
+    }
 
     this.service.getTenantsByParameters(firstName, lastName, gender, trainingCenter)
     .then(result => {
       this.tenants = result;
       this.tenantsLoaded = true;
-    })
-  };
+    });
+  }
 
   searchAllTenants() {
     this.tenantsLoaded = false;
@@ -51,16 +52,12 @@ export class SearchTenantComponent implements OnInit {
     .then(result => {
       this.tenants = result;
       this.tenantsLoaded = true;
-    })
+    });
   }
 
   routeToSelectTenant(tenantId: string) {
     this.router.navigate(['select-tenant/' + tenantId]);
   }
-
-  
-
-
 
   constructor(
     private service: TenantSearcherService,
@@ -69,7 +66,6 @@ export class SearchTenantComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchAllTenants()
+    this.searchAllTenants();
   }
-
 }

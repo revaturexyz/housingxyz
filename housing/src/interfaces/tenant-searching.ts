@@ -1,5 +1,5 @@
 export default interface TenantSearching {
-    id :string;
+    id: string;
     email: string;
     gender: string;
     firstName: string;

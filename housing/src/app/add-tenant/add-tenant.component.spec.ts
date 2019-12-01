@@ -18,7 +18,7 @@ const address: TenantAddress = {
   state: 'Victory',
   country: 'BrokenWill',
   zipCode: '12345'
-}
+};
 
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;

@@ -11,13 +11,13 @@ import { Address } from 'src/interfaces/address';
 })
 export class SelectTenantComponent implements OnInit {
   tenant: TenantSelected | null = null;
-  tenantLoaded: boolean = false;
+  tenantLoaded = false;
   address: Address;
 
 
 
-  //Delete tenant
-  deleteConfirmOn: boolean = false;
+  // Delete tenant
+  deleteConfirmOn = false;
 
   deleteTrigger() {
     this.deleteConfirmOn = true;
@@ -46,19 +46,19 @@ export class SelectTenantComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
 
     this.service.selectTenant(id)
       .then(x => {
         console.log(this.tenant);
         this.tenant = x;
         console.log(this.tenant);
-        // this.service.selectTenantAddress(tenant.addressId)
-        //   .then(address => {
-        //     this.address = address;
+        this.service.selectTenantAddress(tenant.addressId)
+          .then(address => {
+            this.address = address;
             this.tenantLoaded = true;
-          })
-      //})
+          });
+      });
   }
 
 }

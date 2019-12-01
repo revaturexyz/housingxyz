@@ -23,7 +23,7 @@ export class TestTenantData {
         color: 'Blue',
         year: '1990',
         state: 'TX'
-    }
+    };
 
     static dummyBatch: Batch = {
         batchId: 1,
@@ -31,7 +31,7 @@ export class TestTenantData {
         startDate: new Date(),
         endDate: new Date(),
         trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d',
-    }
+    };
 
     static dummyTenant: Tenant = {
         id: '1',
@@ -47,5 +47,5 @@ export class TestTenantData {
         car: TestTenantData.dummyCar,
         batch: TestTenantData.dummyBatch,
         trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d'
-    }
+    };
 }
