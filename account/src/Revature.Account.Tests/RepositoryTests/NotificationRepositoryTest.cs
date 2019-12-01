@@ -22,25 +22,24 @@ namespace Revature.Account.Tests.Repository_Tests
       // Arrange
       TestHelper helper = new TestHelper();
       Mapper mapper = new Mapper();
-      var testProvider = helper.Providers[0];
-      var testNotification = helper.Notifications[0];
 
       var options = new DbContextOptionsBuilder<AccountDbContext>()
           .UseInMemoryDatabase("GetNotificationByProviderIdTest")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      arrangeContext.ProviderAccount.Add(mapper.MapProvider(testProvider));
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
-      arrangeContext.Notification.Add(mapper.MapNotification(testNotification));
-      arrangeContext.Status.Add(mapper.MapStatus(helper.Statuses[0]));
+      arrangeContext.UpdateAction.Add(mapper.MapUpdateAction(helper.UpdateActions[0]));
+      arrangeContext.Notification.Add(mapper.MapNotification(helper.Notifications[0]));
       arrangeContext.SaveChanges();
-      var testId = testNotification.NotificationId;
       using var actContext = new AccountDbContext(options);
       var repo = new GenericRepository(actContext);
+
       // Act
-      var result = await repo.GetNotificationByIdAsync(testId);
+      var result = await repo.GetNotificationByIdAsync(helper.Notifications[0].NotificationId);
+
       // Assert
-      Assert.Equal(testId, result.NotificationId);
+      Assert.Equal(helper.Notifications[0].NotificationId, result.NotificationId);
     }
 
     /// <summary>
@@ -84,19 +83,20 @@ namespace Revature.Account.Tests.Repository_Tests
           .UseInMemoryDatabase("UpdateNotificationAccountTestAsync")
           .Options;
       using var arrangeContext = new AccountDbContext(options);
-      var arrangeNotification = helper.Notifications[0];
-      arrangeContext.Notification.Add(mapper.MapNotification(arrangeNotification));
+      arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
+      arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
+      arrangeContext.UpdateAction.Add(mapper.MapUpdateAction(helper.UpdateActions[0]));
+      arrangeContext.Notification.Add(mapper.MapNotification(helper.Notifications[0]));
       var repo = new GenericRepository(arrangeContext);
 
       // Act
-      arrangeNotification.CoordinatorId = helper.Coordinators[1].CoordinatorId;
-      await repo.UpdateNotificationAsync(arrangeNotification);
+      await repo.UpdateNotificationAsync(helper.Notifications[0]);
       arrangeContext.SaveChanges();
 
       // Assert
       var assertContext = new AccountDbContext(options);
-      var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == arrangeNotification.CoordinatorId);
-      Assert.Equal(arrangeNotification.CoordinatorId, assertNotification.CoordinatorId);
+      var assertNotification = assertContext.Notification.First(p => p.CoordinatorId == helper.Notifications[0].CoordinatorId);
+      Assert.Equal(helper.Notifications[0].CoordinatorId, assertNotification.CoordinatorId);
     }
 
     /// <summary>

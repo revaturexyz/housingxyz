@@ -11,7 +11,7 @@ namespace Revature.Account.Lib.Model
   {
     private string _name;
     public Guid ProviderId { get; set; } = Guid.NewGuid();
-    public CoordinatorAccount Coordinator { get; set; }
+    public Guid CoordinatorId { get; set; }
 
     public string Name
     {
@@ -20,6 +20,19 @@ namespace Revature.Account.Lib.Model
       {
         NotNullOrEmpty(value);
         _name = value;
+      }
+    }
+
+    public string _email;
+    public string Email
+    {
+      get { return _email; }
+      set
+      {
+        // This line simply uses the instantiation of the MailAddress object
+        // to check if the email is valid. Object is thrown away.
+        _ = new System.Net.Mail.MailAddress(value);
+        _email = value;
       }
     }
 

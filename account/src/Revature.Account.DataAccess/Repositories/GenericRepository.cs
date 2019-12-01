@@ -42,7 +42,6 @@ namespace Revature.Account.DataAccess.Repositories
       var provider = await _context.ProviderAccount
         .AsNoTracking()
         .Include(p => p.Coordinator)
-        .Include(p => p.Status)
         .FirstOrDefaultAsync(p => p.ProviderId == providerId);
       return (provider != null ? mapper.MapProvider(provider) : null);
     }
@@ -64,7 +63,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> UpdateProviderAccountAsync(ProviderAccount providerAccount)
     {
-      var existingEntity = await _context.ProviderAccount.FindAsync(providerAccount.ProviderId);
+      var existingEntity = await _context.ProviderAccount.FirstOrDefaultAsync(p => p.ProviderId == providerAccount.ProviderId);
       if (existingEntity == null)
         return false;
 
@@ -80,7 +79,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> DeleteProviderAccountAsync(Guid providerId)
     {
-      var entityToBeRemoved = await _context.ProviderAccount.FindAsync(providerId);
+      var entityToBeRemoved = await _context.ProviderAccount.FirstOrDefaultAsync(p => p.ProviderId == providerId);
       if (entityToBeRemoved == null)
         return false;
 
@@ -121,8 +120,8 @@ namespace Revature.Account.DataAccess.Repositories
         .AsNoTracking()
         .Include(n => n.Coordinator)
         .Include(n => n.Provider)
-        .Include(n => n.Status)
-        .FirstOrDefaultAsync(p => p.NotificationId == notificationId);
+        .Include(n => n.UpdateAction)
+        .FirstOrDefaultAsync(n => n.NotificationId == notificationId);
       return (notification != null ? mapper.MapNotification(notification) : null);
     }
 
@@ -136,9 +135,9 @@ namespace Revature.Account.DataAccess.Repositories
       var notification = await _context.Notification
         .Include(n => n.Coordinator)
         .Include(n => n.Provider)
-        .Include(n => n.Status)
+        .Include(n => n.UpdateAction)
         .Where(p => p.CoordinatorId == coordinatorId).ToListAsync();
-      return (notification != null ? notification.Select(mapper.MapNotification).ToList() : null);
+      return notification?.Select(mapper.MapNotification).ToList();
     }
 
     /// <summary>
@@ -146,8 +145,11 @@ namespace Revature.Account.DataAccess.Repositories
     /// <param name="newNofi"></param>
     public void AddNotification(Notification newNofi)
     {
-      var newEntity = mapper.MapNotification(newNofi);
-      _context.Add(newEntity);
+      newNofi.UpdateAction.NotificationId = newNofi.NotificationId;
+      AddUpdateAction(newNofi.UpdateAction);
+
+      var addedNotifiaction = mapper.MapNotification(newNofi);
+      _context.Add(addedNotifiaction);
     }
 
     /// <summary>
@@ -157,8 +159,11 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> DeleteNotificationByIdAsync(Guid notificationId)
     {
-      var entityToBeRemoved = await _context.Notification.FindAsync(notificationId);
+      var entityToBeRemoved = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notificationId);
       if (entityToBeRemoved == null)
+        return false;
+
+      if (await DeleteUpdateActionByIdAsync(entityToBeRemoved.UpdateActionId) == false)
         return false;
 
       _context.Remove(entityToBeRemoved);
@@ -172,8 +177,11 @@ namespace Revature.Account.DataAccess.Repositories
     /// <returns></returns>
     public async Task<bool> UpdateNotificationAsync(Notification notification)
     {
-      var existingEntity = await _context.Notification.FindAsync(notification.NotificationId);
+      var existingEntity = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notification.NotificationId);
       if (existingEntity == null)
+        return false;
+
+      if (await UpdateUpdateActionAsync(notification.UpdateAction) == false)
         return false;
 
       var updatedEntity = mapper.MapNotification(notification);
@@ -183,68 +191,36 @@ namespace Revature.Account.DataAccess.Repositories
 
     #endregion
 
-    #region Status
+    #region UpdateAction
 
-    /// <summary>
-    /// Get a status from the database based on a corresponding integer-value.
-    /// </summary>
-    /// <param name="statusId"></param>
-    /// <returns></returns>
-    public async Task<Status> GetStatusByIdAsync(int statusId)
+    public async Task<UpdateAction> GetUpdateActionByIdAsync(Guid actionId)
     {
-      var status = await _context.Status
+      var action = await _context.UpdateAction
         .AsNoTracking()
-        .FirstOrDefaultAsync(s => s.StatusId == statusId);
-      return (status != null ? mapper.MapStatus(status) : null);
+        .FirstOrDefaultAsync(u => u.UpdateActionId == actionId);
+      return (action != null ? mapper.MapUpdateAction(action) : null);
     }
 
-    /// <summary>
-    /// Retrieve a Status object based on the supplied string directly from the database.
-    /// </summary>
-    /// <param name="statusText"></param>
-    /// <returns></returns>
-    public async Task<Status> GetStatusByStatusTextAsync(string statusText)
+    public void AddUpdateAction(UpdateAction action)
     {
-      var status = await _context.Status
-        .AsNoTracking()
-        .FirstOrDefaultAsync(s => s.StatusText == statusText);
-      return (status != null ? mapper.MapStatus(status) : null);
-    }
-
-    /// <summary>
-    /// Add a new Status object to the database.
-    /// </summary>
-    /// <param name="status"></param>
-    public void AddStatus(Status status)
-    {
-      var newEntity = mapper.MapStatus(status);
+      var newEntity = mapper.MapUpdateAction(action);
       _context.Add(newEntity);
     }
 
-    /// <summary>
-    /// Updates string value of a status in the Status table.
-    /// </summary>
-    /// <param name="status"></param>
-    /// <returns></returns>
-    public async Task<bool> UpdateStatusAsync(Status status)
+    public async Task<bool> UpdateUpdateActionAsync(UpdateAction action)
     {
-      var existingEntity = await _context.Status.FindAsync(status.StatusId);
+      var existingEntity = await _context.UpdateAction.FirstOrDefaultAsync(u => u.UpdateActionId == action.UpdateActionId);
       if (existingEntity == null)
         return false;
 
-      var updatedEntity = mapper.MapStatus(status);
+      var updatedEntity = mapper.MapUpdateAction(action);
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
 
-    /// <summary>
-    /// Delete an individual entry from the Status table.
-    /// </summary>
-    /// <param name="statusId"></param>
-    /// <returns></returns>
-    public async Task<bool> DeleteStatusByIdAsync(int statusId)
+    public async Task<bool> DeleteUpdateActionByIdAsync(Guid actionId)
     {
-      var entityToBeRemoved = await _context.Status.FindAsync(statusId);
+      var entityToBeRemoved = await _context.UpdateAction.FirstOrDefaultAsync(u => u.UpdateActionId == actionId);
       if (entityToBeRemoved == null)
         return false;
 

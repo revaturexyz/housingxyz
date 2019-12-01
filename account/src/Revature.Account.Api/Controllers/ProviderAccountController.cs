@@ -5,6 +5,7 @@ using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -16,9 +17,9 @@ namespace Revature.Account.Api.Controllers
   public class ProviderAccountController : ControllerBase
   {
     private readonly IGenericRepository _repo;
-    private readonly ILogger _logger;
+    private readonly ILogger<ProviderAccountController> _logger;
 
-    public ProviderAccountController(IGenericRepository repo, ILogger logger)
+    public ProviderAccountController(IGenericRepository repo, ILogger<ProviderAccountController> logger)
     {
       _repo = repo ?? throw new ArgumentNullException(nameof(repo));
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -44,23 +45,43 @@ namespace Revature.Account.Api.Controllers
     [HttpPost]
     [ProducesResponseType(typeof(ProviderAccount), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Post([FromBody] ProviderAccount newProvider)
+    public async Task<IActionResult> Post([FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount newProvider)
     {
       try
       {
         _logger.LogInformation($"POST - Post request started for new provider account. ID: {newProvider.ProviderId}\n Name: {newProvider.Name}");
-        Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount()
+
+        // Create a provider
+        Lib.Model.ProviderAccount mappedProvider = new Lib.Model.ProviderAccount
         {
-          ProviderId = Guid.NewGuid(),
+          CoordinatorId = newProvider.CoordinatorId,
           Name = newProvider.Name,
-          Status = await _repo.GetStatusByStatusTextAsync("Pending"),
+          Email = newProvider.Email,
+          Status = new Status(Status.Pending),
           AccountCreatedAt = DateTime.Now,
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
         _repo.AddProviderAccountAsync(mappedProvider);
         await _repo.SaveAsync();
+
+        // Create a notification for the provider's approval
+        Notification newNotification = new Lib.Model.Notification
+        {
+          CoordinatorId = newProvider.CoordinatorId,
+          ProviderId = mappedProvider.ProviderId,
+          Status = new Status(Status.Pending),
+          UpdateAction = new UpdateAction
+          {
+            UpdateType = "ApproveProviderAccount",
+            SerializedTarget = JsonSerializer.Serialize(mappedProvider)
+          },
+          AccountExpiresAt = DateTime.Now
+        };
+        _repo.AddNotification(newNotification);
+        await _repo.SaveAsync();
+
         _logger.LogInformation($"Post request persisted for {newProvider.ProviderId}");
-        return CreatedAtRoute("GetProviderAccountById", new { id = mappedProvider.ProviderId }, mappedProvider);
+        return CreatedAtRoute("GetProviderAccountById", new { mappedProvider.ProviderId }, mappedProvider);
       }
       catch (Exception e)
       {
@@ -73,14 +94,16 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(Guid providerId, [FromBody] ProviderAccount provider)
+    public async Task<IActionResult> Put(Guid providerId, [FromBody, Bind("CoordinatorId, Name, Email")] ProviderAccount provider)
     {
       _logger.LogInformation($"PUT - Put request for provider ID: {providerId}");
       var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
       if (existingProvider != null)
       {
+        existingProvider.CoordinatorId = provider.CoordinatorId;
         existingProvider.Name = provider.Name;
-        existingProvider.AccountCreatedAt = DateTime.Now;
+        existingProvider.Email = provider.Email;
+
         await _repo.UpdateProviderAccountAsync(existingProvider);
         await _repo.SaveAsync();
         _logger.LogInformation($"Put request persisted for {providerId}");
@@ -90,8 +113,31 @@ namespace Revature.Account.Api.Controllers
       return NotFound();
     }
 
+    // PUT: api/provider-accounts/approve
+    [HttpPut("{providerId}/approve")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Put(Guid providerId)
+    {
+      _logger.LogInformation($"PUT - Approval request for provider: {providerId}");
+      var existingProvider = await _repo.GetProviderAccountByIdAsync(providerId);
+      if (existingProvider != null && existingProvider.Status.StatusText != Status.Approved)
+      {
+        existingProvider.Status.StatusText = Status.Approved;
+        await _repo.UpdateProviderAccountAsync(existingProvider);
+        await _repo.SaveAsync();
+
+        _logger.LogInformation($"Approval set to true for id: {providerId}");
+        return NoContent();
+      }
+
+      _logger.LogWarning($"Account already is approved, no change for id: {providerId}");
+      return NotFound();
+    }
+
+
     // DELETE: api/provider-accounts/5
-    [HttpDelete("{id}")]
+    [HttpDelete("{providerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Delete(Guid providerId)
