@@ -8,8 +8,8 @@ export interface PostTenant {
     gender: string;
     firstName: string;
     lastName: string;
-    car: PostCar;
-    tenAddress: PostTenantAddress;
+    apiCar: PostCar;
+    apiAddress: PostTenantAddress;
     trainingCenter: string;
-    batch: PostBatch;
+    apiBatch: PostBatch;
 }

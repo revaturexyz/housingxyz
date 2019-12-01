@@ -1,5 +1,5 @@
 export interface PostBatch {
-    batchLanguage: string;
+    batchCurriculum: string;
     startDate: Date;
     endDate: Date;
     trainingCenter: string;
