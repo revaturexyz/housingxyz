@@ -88,13 +88,13 @@ namespace ServiceBusMessaging
             case OperationType.Create:
               _logger.LogInformation("Adding occupants to a room", message.Body);
 
-              await _repo.AddRoomOccupantsAsync(receivedMessage.Tenant.Item1, receivedMessage.Tenant.Item2);
+              await _repo.AddRoomOccupantsAsync(receivedMessage.RoomId, receivedMessage.Gender);
 
               break;
             case OperationType.Delete:
               _logger.LogInformation("Subtracting an occupant from a room", message.Body);
 
-              await _repo.SubtractRoomOccupantsAsync(receivedMessage.Tenant.Item1);
+              await _repo.SubtractRoomOccupantsAsync(receivedMessage.RoomId);
 
               break;
           }
@@ -157,6 +157,7 @@ namespace ServiceBusMessaging
             switch ((OperationType)receivedMessage.QueOperator)
             {
               case OperationType.Create:
+                _logger.LogInformation("Attempting to create a room!!!", myRoom.RoomNumber);
                 await _repo.CreateRoomAsync(myRoom);
                 _logger.LogInformation("Created a room!!!: {message}", myRoom.RoomNumber);
                 break;
