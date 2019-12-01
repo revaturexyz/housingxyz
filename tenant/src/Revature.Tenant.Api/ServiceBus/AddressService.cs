@@ -27,10 +27,11 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <param name="addressConfiguration">Configuration file with base URI.</param>
     public AddressService(HttpClient client, IConfiguration addressConfiguration)
     {
-      client.BaseAddress = new Uri(addressConfiguration.GetSection("AppServices")["Address"]);
-      client.DefaultRequestHeaders.Add("Accept", "application/json");
+      //TODO uncomment everything in this constructor
+      //client.BaseAddress = new Uri(addressConfiguration.GetSection("AppServices")["Address"]);
+      //client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-      _client = client;
+      //_client = client;
     }
 
     /// <summary>
@@ -41,6 +42,9 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <returns>A model of the formal Address entry in Address Services Database, including it GUID</returns>
     public async Task<ApiAddress> GetAddressAsync(ApiAddress item)
     {
+
+      //Replace code below comment with this
+      /*
       string queryString = "?"
         + "street=" + item.Street + "&"
         + "city=" + item.City + "&"
@@ -48,8 +52,6 @@ namespace Revature.Tenant.Api.ServiceBus
         + "zipCode=" + item.ZipCode + "&"
         + "country=" + item.Country;
 
-      //Replace code below comment with this
-      /*
       using var response = await SendRequestAsync<ApiAddress>(HttpMethod.Get, "api/Address" + queryString);
       response.EnsureSuccessStatusCode();
 
