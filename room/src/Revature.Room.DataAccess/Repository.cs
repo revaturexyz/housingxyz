@@ -97,6 +97,8 @@ namespace Revature.Room.DataAccess
         await DeleteRoomAsync(r);
       }
 
+      await _context.SaveChangesAsync();
+
       return roomEntity;
     }
 

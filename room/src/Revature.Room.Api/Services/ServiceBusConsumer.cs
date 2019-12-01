@@ -20,6 +20,9 @@ namespace ServiceBusMessaging
   /// </summary>
   public class ServiceBusConsumer : BackgroundService, IServiceBusConsumer
   {
+    //ServiceBusSender is created here so we can use it to send something back to the complex
+    //the moment we receive it.  (Deleting a complex)
+    IServiceBusSender serviceSender;
     //_roomDUCQueue will be used for receiving from the Complex service
     private readonly QueueClient _roomDUCQueue;
 
@@ -172,8 +175,13 @@ namespace ServiceBusMessaging
                 _logger.LogInformation("Deleted a room!!!: {message}", myRoom);
                 break;
               case OperationType.DeleteCom:
-                await _repo.DeleteComplexRoomAsync(myRoom.ComplexId);
-                _logger.LogInformation("Oh my, you deleted a complex you naughty boy!: {message}", myRoom);
+
+                var ListOfRooms = await _repo.DeleteComplexRoomAsync(myRoom.ComplexId); ;
+                _logger.LogInformation("Oh my, you deleted a complex you naughty boy!: {message}", myRoom.ComplexId);
+
+                await serviceSender.SendDeleteMessage(ListOfRooms);
+                _logger.LogInformation("Sent the list of rooms back to complex service!", ListOfRooms.Count);
+
                 break;
             }
         }
