@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Provider } from 'src/interfaces/provider';
+import { Provider } from 'src/interfaces/account/provider';
 
 import { Complex } from 'src/interfaces/complex';
 // import { MapsService } from '../services/maps.service';

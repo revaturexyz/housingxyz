@@ -1,11 +1,11 @@
-import { TrainingCenter } from 'src/interfaces/trainingcenter';
+import { TrainingCenter } from 'src/interfaces/account/trainingcenter';
 import { Address } from 'src/interfaces/address';
 import { Complex } from 'src/interfaces/complex';
-import { Provider } from 'src/interfaces/provider';
+import { Provider } from 'src/interfaces/account/provider';
 import { Amenity } from 'src/interfaces/amenity';
 import { Room } from 'src/interfaces/room';
 import { RoomType } from 'src/interfaces/room-type';
-import { CoordinatorNotification } from 'src/interfaces/coordinatorNotification';
+import { CoordinatorNotification } from 'src/interfaces/account/coordinatorNotification';
 import { Gender } from 'src/interfaces/gender';
 
 export class TestServiceData {

@@ -5,7 +5,7 @@ import { Observer } from 'rxjs';
 import { Room } from 'src/interfaces/room';
 import { RoomService } from '../services/room.service';
 import { RedirectService } from '../services/redirect.service';
-import { Provider } from 'src/interfaces/provider';
+import { Provider } from 'src/interfaces/account/provider';
 
 @Component({
   selector: 'dev-update-room',

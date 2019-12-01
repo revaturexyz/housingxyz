@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoordinatorNotification } from '../../../interfaces/coordinatorNotification';
+import { CoordinatorNotification } from '../../../interfaces/account/coordinatorNotification';
 
 import { TestServiceData } from 'src/app/services/static-test-data';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, Routes } from '@angular/router';
-import { Provider } from 'src/interfaces/provider';
+import { Provider } from 'src/interfaces/account/provider';
 
 @Injectable({
   providedIn: 'root'

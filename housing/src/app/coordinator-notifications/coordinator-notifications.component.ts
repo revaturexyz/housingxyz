@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 
-import { CoordinatorNotification } from '../../interfaces/coordinatorNotification';
-import { Provider } from '../../interfaces/provider';
+import { CoordinatorNotification } from '../../interfaces/account/coordinatorNotification';
+import { Provider } from '../../interfaces/account/provider';
 
 import { Router } from '@angular/router';
 

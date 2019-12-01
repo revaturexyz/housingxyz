@@ -1,5 +1,5 @@
 import { TrainingCenter } from './trainingcenter';
-import { Address } from './address';
+import { Address } from '../address';
 
 export interface Provider {
   providerId: number;

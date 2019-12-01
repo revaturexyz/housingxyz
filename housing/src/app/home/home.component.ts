@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProviderService } from '../services/provider.service';
-import { Provider } from 'src/interfaces/provider';
+import { Provider } from 'src/interfaces/account/provider';
 import { Complex } from 'src/interfaces/complex';
 import { RedirectService } from '../services/redirect.service';
 
