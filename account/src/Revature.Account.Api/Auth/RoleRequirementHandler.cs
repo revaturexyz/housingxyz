@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Revature.Account.Api
 {
+  /// <summary>
+  /// Checks that the user has the given role.
+  /// </summary>
   public class RoleRequirementHandler : AuthorizationHandler<RoleRequirement>
   {
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,

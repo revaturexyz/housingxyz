@@ -57,6 +57,7 @@ namespace Revature.Account.Api
       services.AddTransient<IAuth0HelperFactory, Auth0HelperFactory>();
       services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
 
+      // This line configures how to view and validate the token
       services.AddAuthentication(options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -67,6 +68,7 @@ namespace Revature.Account.Api
         options.Audience = Auth0Helper.Audience;
       });
 
+      // This method is for adding policies and other settings to the Authorize attribute
       services.AddAuthorization(options => {
         options.AddPolicy("ApprovedProviderRole", policy =>
           policy.Requirements.Add(new RoleRequirement(Auth0Helper.ApprovedProviderRole)));

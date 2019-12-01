@@ -65,6 +65,13 @@ namespace Revature.Account.Api
       }
     }
 
+    /// <summary>
+    /// Function to set the secret values, intended for use in Startup.
+    /// </summary>
+    /// <param name="domain"></param>
+    /// <param name="audience"></param>
+    /// <param name="clientId"></param>
+    /// <param name="secret"></param>
     public static void SetSecretValues(string domain, string audience, string clientId, string secret)
     {
       _domain = domain;
@@ -87,6 +94,12 @@ namespace Revature.Account.Api
       AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Payload[ClaimsDomain + "app_metadata"].ToString());
     }
 
+    /// <summary>
+    /// Runs code to set up the management client, which involves sending a request to Auth0 in order to get
+    /// an authenticated token. Moved to a function so that it can be ignored if we just want
+    /// to read the token's values.
+    /// </summary>
+    /// <returns></returns>
     public bool ConnectManagementClient()
     {
       try
@@ -115,6 +128,12 @@ namespace Revature.Account.Api
       }
     }
 
+    /// <summary>
+    /// Adds a role to the remote Auth0 profile.
+    /// </summary>
+    /// <param name="authUserId">UserId according to Auth0. Has to be retrieved from the Management client.</param>
+    /// <param name="roleId">RoleId according to Auth0. Has to be retrieved from the Management client.</param>
+    /// <returns></returns>
     public async Task AddRoleAsync(string authUserId, string roleId)
     {
       var rolesRequest = new Auth0.ManagementApi.Models.AssignRolesRequest
@@ -125,6 +144,12 @@ namespace Revature.Account.Api
       await Client.Users.AssignRolesAsync(authUserId, rolesRequest);
     }
 
+    /// <summary>
+    /// Removes a role from the remote Auth0 profile.
+    /// </summary>
+    /// <param name="authUserId">UserId according to Auth0. Has to be retrieved from the Management client.</param>
+    /// <param name="roleId">RoleId according to Auth0. Has to be retrieved from the Management client.</param>
+    /// <returns></returns>
     public async Task RemoveRoleAsync(string authUserId, string roleId)
     {
       var rolesRequest = new Auth0.ManagementApi.Models.AssignRolesRequest
@@ -135,6 +160,12 @@ namespace Revature.Account.Api
       await Client.Users.RemoveRolesAsync(authUserId, rolesRequest);
     }
 
+    /// <summary>
+    /// Updates remote Auth0 profile's app metadata to include the given Revature account id. 
+    /// </summary>
+    /// <param name="authUserId"></param>
+    /// <param name="newId"></param>
+    /// <returns></returns>
     public async Task UpdateMetadataWithIdAsync(string authUserId, Guid newId)
     {
       JsonElement currentMetadataId;
