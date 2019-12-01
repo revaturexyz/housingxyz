@@ -11,5 +11,5 @@ export interface PostTenant {
     apiCar: PostCar;
     apiAddress: PostTenantAddress;
     trainingCenter: string;
-    batch: PostBatch;
+    apiBatch: PostBatch;
 }

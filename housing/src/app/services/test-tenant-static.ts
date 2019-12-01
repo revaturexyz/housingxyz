@@ -27,7 +27,7 @@ export class TestTenantData {
 
     static dummyBatch: Batch = {
         batchId: 1,
-        batchLanguage: 'C#',
+        batchCurriculum: 'C#',
         startDate: new Date(),
         endDate: new Date(),
         trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d',

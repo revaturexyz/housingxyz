@@ -28,8 +28,8 @@
         <div class="col">
             <label for="StartDate" class="col-md-3">Start Date:</label>
             <input class="input-border col-md-9" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}"
-              required [(ngModel)]="tenant.batch.startDate" #sd="ngModel">
-            <span *ngIf="verifyDates(tenant.batch.startDate, tenant.batch.endDate) && sd.dirty && ed.dirty"
+              required [(ngModel)]="tenant.apiBatch.startDate" #sd="ngModel">
+            <span *ngIf="verifyDates(tenant.apiBatch.startDate, tenant.apiBatch.endDate) && sd.dirty && ed.dirty"
               class="alert alert-danger col-md-3">
               Start date must be before end date.
             </span>
@@ -38,7 +38,7 @@
           <div class="col">
             <label class="col-md-3">End Date:</label>
             <input class="input-border col-md-9" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}"
-              required [(ngModel)]="tenant.batch.endDate" #ed="ngModel">
+              required [(ngModel)]="tenant.apiBatch.endDate" #ed="ngModel">
           </div>
 
         <br>
@@ -48,7 +48,7 @@
             <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ batchShowString }}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button ngbDropdownItem (click)="batchChoose(batch)" *ngFor="let batch of batchList">
-                {{ batch.batchLanguage }}
+                {{ batch.batchCurriculum }}
               </button>
             </div>
           </div>
@@ -142,7 +142,7 @@
                         <h2>Add Car</h2>
                             <label class="col-md-9">
                                 License Plate:
-                                <input [(ngModel)]="tenant.car.licensePlate" name="tenant.car.licensePlate"
+                                <input [(ngModel)]="tenant.apiCar.licensePlate" name="tenant.apiCar.licensePlate"
                                   class="input-border" type="text" required minlength="5" maxlength="200" #licensePlate="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="licensePlate.invalid && licensePlate.dirty"
@@ -152,7 +152,7 @@
                   
                               <label class="col-md-9">
                                 Make:
-                                <input [(ngModel)]="tenant.car.make" name="tenant.car.make" class="input-border" type="text"
+                                <input [(ngModel)]="tenant.apiCar.make" name="tenant.apiCar.make" class="input-border" type="text"
                                   required minlength="1" maxlength="50" #make="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="make.invalid && make.dirty"
@@ -162,7 +162,7 @@
                   
                               <label class="col-md-9">
                                 Model:
-                                <input [(ngModel)]="tenant.car.model" name="tenant.car.model" class="input-border" type="text"
+                                <input [(ngModel)]="tenant.apiCar.model" name="tenant.apiCar.model" class="input-border" type="text"
                                   required minlength="2" maxlength="50" #model="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="model.invalid && model.dirty"
@@ -172,7 +172,7 @@
                   
                               <label class="col-md-9">
                                 Color:
-                                <input [(ngModel)]="tenant.car.color" name="tenant.car.color" class="input-border"
+                                <input [(ngModel)]="tenant.apiCar.color" name="tenant.apiCar.color" class="input-border"
                                   type="text" required minlength="1" maxlength="10" #color="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="color.invalid && color.dirty"
@@ -182,7 +182,7 @@
 
                               <label class="col-md-9">
                                 Year:
-                                <input [(ngModel)]="tenant.car.year" name="tenant.car.year" class="input-border"
+                                <input [(ngModel)]="tenant.apiCar.year" name="tenant.apiCar.year" class="input-border"
                                   type="text" pattern="[0-9]{4}" #year="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="year.invalid && year.dirty"
@@ -192,7 +192,7 @@
 
                               <label class="col-md-9">
                                 State:
-                                <input [(ngModel)]="tenant.car.state" name="tenant.car.state" class="input-border"
+                                <input [(ngModel)]="tenant.apiCar.state" name="tenant.apiCar.state" class="input-border"
                                   type="text" required minlength="2" maxlength="50" #state="ngModel">
                               </label>
                               <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty"

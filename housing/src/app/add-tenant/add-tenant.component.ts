@@ -99,8 +99,8 @@ export class AddTenantComponent implements OnInit {
         year: null,
         state: null
       },
-      batch: {
-        batchLanguage: '',
+      apiBatch: {
+        batchCurriculum: '',
         startDate: new Date(),
         endDate: new Date(),
         trainingCenter: ''
@@ -141,9 +141,9 @@ export class AddTenantComponent implements OnInit {
   }
 
   batchChoose(batch: Batch) {
-    this.batchShowString = batch.batchLanguage;
+    this.batchShowString = batch.batchCurriculum;
     this.activeBatch = batch;
-    this.tenant.batch = batch;
+    this.tenant.apiBatch = batch;
   }
 
   genderChoose(gender: string) {
