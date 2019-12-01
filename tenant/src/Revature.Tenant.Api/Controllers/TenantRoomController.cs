@@ -131,7 +131,7 @@ namespace Revature.Tenant.Api.Controllers
 
         _logger.LogInformation("Alerting room service to assign tenant to room");
         await _serviceBusSender.SendRoomIdMessage(roomMessage);
-        _logger.LogInformation("Succes! Room service has been alerted");
+        _logger.LogInformation("Success! Room service has been alerted");
 
         return NoContent();
       }
