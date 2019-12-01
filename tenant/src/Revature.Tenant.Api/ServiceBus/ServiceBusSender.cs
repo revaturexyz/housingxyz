@@ -1,7 +1,7 @@
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
+using Revature.Tenant.Lib.Models;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -34,14 +34,15 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <summary>
     /// ServiceBus message for sending a tenant room id
     /// </summary>
-    /// <param name="roomId">The GUID of a room</param>
-    public async Task SendRoomIdMessage(Guid roomId)
+    /// <param name="roomMessage">The GUID of a room</param>
+    public async Task SendRoomIdMessage(RoomMessage roomMessage)
     {
-      string data = JsonSerializer.Serialize(roomId);
+      string data = JsonSerializer.Serialize(roomMessage);
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("Service Bus is sending Room Id", data);
       await _queueClient.SendAsync(message);
+      _logger.LogInformation("Message sent!");
     }
   }
 }
