@@ -122,7 +122,7 @@ namespace Revature.Account.Api
 
         return false;
       }
-      catch (Exception e)
+      catch
       {
         return false;
       }
@@ -170,8 +170,7 @@ namespace Revature.Account.Api
     {
       JsonElement currentMetadataId;
       bool elementExists = AppMetadata.TryGetProperty("id", out currentMetadataId);
-      if ( ! elementExists||
-        (elementExists && currentMetadataId.GetString() != newId.ToString()))
+      if ( !elementExists || currentMetadataId.GetString() != newId.ToString())
       {
         dynamic newMetadata = new { id = newId };
 

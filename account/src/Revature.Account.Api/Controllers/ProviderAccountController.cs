@@ -5,10 +5,7 @@ using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
 using System.Linq;
-using Auth0.ManagementApi;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api.Controllers

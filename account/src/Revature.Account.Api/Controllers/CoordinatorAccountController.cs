@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using Revature.Account.Lib.Model;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -48,9 +47,7 @@ namespace Revature.Account.Api.Controllers
         var authUser = await auth0.Client.Users.GetUsersByEmailAsync(auth0.Email);
         var authRoles = await auth0.Client.Roles.GetAllAsync(new Auth0.ManagementApi.Models.GetRolesRequest());
 
-        Guid id = Guid.Empty;
-
-        id = await _repo.GetCoordinatorIdByEmailAsync(auth0.Email);
+        Guid id = await _repo.GetCoordinatorIdByEmailAsync(auth0.Email);
         if (id != Guid.Empty)
         {
           // If their roles arent set properly, set them
@@ -64,14 +61,12 @@ namespace Revature.Account.Api.Controllers
           // Check the provider db
           id = await _repo.GetProviderIdByEmailAsync(auth0.Email);
 
-          if (id != Guid.Empty)
+          if (id != Guid.Empty
+            && !auth0.Roles.Contains(Auth0Helper.UnapprovedProviderRole)
+            && !auth0.Roles.Contains(Auth0Helper.ApprovedProviderRole))
           {
-            // Set roles if not set already
-            if (!auth0.Roles.Contains(Auth0Helper.UnapprovedProviderRole) && !auth0.Roles.Contains(Auth0Helper.ApprovedProviderRole))
-            {
-              // They have no role, so set them as unapproved
-              await auth0.AddRoleAsync(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
-            }
+            // They have no role, so set them as unapproved
+            await auth0.AddRoleAsync(authUser[0].UserId, authRoles.First(r => r.Name == Auth0Helper.UnapprovedProviderRole).Id);
           }
         }
 
