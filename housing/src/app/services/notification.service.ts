@@ -29,8 +29,8 @@ export class NotificationService {
   }
 
   // Get all Notifications by Coordinator Id - Coordinator only - GET - /api/notifications/{coordinatorId}
-  getAllNotificationsByCoordinatorId$(coordinatorId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}api/notifications/${coordinatorId}`);
+  getAllNotificationsByCoordinatorId$(coordinatorId: string): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${this.baseUrl}api/notifications/${coordinatorId}`);
   }
 
   // Create a new notification for editing a room

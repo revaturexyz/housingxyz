@@ -1,0 +1,44 @@
+.provider-outer {
+  width: 100%;
+  text-align: center;
+  padding: 100px;
+  background-image: url("/assets/imgs/buildings-shape.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.provider-inner {
+  width: 50%;
+  background-color: white;
+  opacity: 0.9;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 50px;
+  border-radius: 5px;
+}
+
+#provider-title {
+  margin-bottom: 3%;
+}
+
+#providerForm input {
+  border: 1px solid gray;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+#providerForm label {
+  margin-right: 15px;
+}
+
+.showAddressForm {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10px;
+  color: black;
+  opacity: 0.7;
+}

@@ -28,6 +28,8 @@ import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { EditProviderComponent } from './edit-provider/edit-provider.component';
+import { ProviderStatusComponent } from './provider-status/provider-status.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { UserService } from './services/user.service';
     HomeComponent,
     AmenityDialogueComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    NotificationDetailsComponent,
+    EditProviderComponent,
+    ProviderStatusComponent
   ],
   imports: [
     BrowserModule,

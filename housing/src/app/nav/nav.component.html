@@ -6,7 +6,8 @@
   <div class="menubar">
     <ul>
       <!-- ngIf -> a limited provider is logged on -->
-      <li *ngIf="auth.loggedIn && role === 'unapproved_provider'"><a routerLink="provider-status">Status</a></li>
+      <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="provider-status">Status</a></li>
+      <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="edit-provider">Profile</a></li>
 
       <!-- ngIf -> a full access provider is logged on -->
       <li *ngIf="auth.loggedIn && role === 'approved_provider'"><a routerLink="manage-complex">Manage Complexes</a></li>

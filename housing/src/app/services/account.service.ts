@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Provider } from 'src/interfaces/account/provider';
+import { Coordinator } from 'src/interfaces/account/coordinator';
 
 /* This class encapsulates calls to the coordinator and provider controllers of the account service. Any
  * getting or setting of accounts can be done through here.
@@ -19,19 +20,19 @@ export class AccountService {
 
 // All:
   // GET - Get user's id from token: api/coordinator-accounts/id
-  getId$(): Observable<any> {
-    return this.http.get(`${this.baseUrl}api/coordinator-accounts/id`);
+  getId$(): Observable<string> {
+    return this.http.get<string>(`${this.baseUrl}api/coordinator-accounts/id`);
   }
 
 // Coordinator Accounts:
   // Get by Id - GET - Unrestricted - /api/coordinator-accounts/{coordinatorId}
-  getCoordinatorById$(coordinatorId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}api/coordinator-accounts/${coordinatorId}`);
+  getCoordinatorById$(coordinatorId: string): Observable<Coordinator> {
+    return this.http.get<Coordinator>(`${this.baseUrl}api/coordinator-accounts/${coordinatorId}`);
   }
 
   // Get All - Unrestricted - GET - /api/coordinator-accounts/all
-  getAllCoordinators$(): Observable<any> {
-    return this.http.get(`${this.baseUrl}api/coordinator-accounts/all`);
+  getAllCoordinators$(): Observable<Coordinator[]> {
+    return this.http.get<Coordinator[]>(`${this.baseUrl}api/coordinator-accounts/all`);
   }
 
 
@@ -43,8 +44,8 @@ export class AccountService {
   }
 
   // Get by Id - Unrestricted - GET - /api/provider-accounts/{providerId}
-  getProviderById$(providerId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}api/provider-accounts/${providerId}`);
+  getProviderById$(providerId: string): Observable<Provider> {
+    return this.http.get<Provider>(`${this.baseUrl}api/provider-accounts/${providerId}`);
   }
 
   // Update at Id - Coordinator or matching email - PUT - /api/provider-accounts/{providerId}

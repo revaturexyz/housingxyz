@@ -14,9 +14,9 @@ export class HomeComponent implements OnInit {
   provider: Provider;
   complexes: Complex[];
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router) { 
+
+  }
 
   ngOnInit() {
   }
