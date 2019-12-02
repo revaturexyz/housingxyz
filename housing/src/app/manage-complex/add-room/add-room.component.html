@@ -67,7 +67,7 @@
             required
           >
             <option value="" disabled>Select Gender</option>
-            <option *ngFor="let gender of seededGenderTypes" [ngValue]="gender">
+            <option *ngFor="let gender of genderTypes" [ngValue]="gender">
               {{ gender.genderType }}
             </option>
           </select>
@@ -91,7 +91,7 @@
           >
             <option value="" disabled>Select Room Type</option>
             <option
-              *ngFor="let roomType of seededRoomTypes"
+              *ngFor="let roomType of roomTypes"
               [ngValue]="roomType"
             >
               {{ roomType.roomType }}
@@ -183,7 +183,7 @@
           multiple
         >
           <mat-option
-            *ngFor="let amenity of seededAmenityList"
+            *ngFor="let amenity of amenityList"
             [value]="amenity"
           >
             {{ amenity.amenity }}

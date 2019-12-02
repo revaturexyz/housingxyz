@@ -3,7 +3,6 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { ComplexService } from './complex.service';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Amenity } from 'src/interfaces/amenity';
-import { TestServiceData } from './static-test-data';
 import { RouterTestingModule } from '@angular/router/testing';
 
 /*

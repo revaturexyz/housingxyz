@@ -3,6 +3,9 @@ import * as _moment from 'moment';
 
 import { Room } from 'src/interfaces/room';
 import { Complex } from 'src/interfaces/complex';
+import { Gender } from 'src/interfaces/gender';
+import { RoomType } from 'src/interfaces/room-type';
+import { Amenity } from 'src/interfaces/amenity';
 
 // import { TestServiceData } from 'src/app/services/static-test-data';
 
@@ -13,10 +16,11 @@ import { Complex } from 'src/interfaces/complex';
 })
 // Component to provide form in order to edit room
 export class EditRoomComponent implements OnInit {
-  // Seeds for view testing
-  // seededGenderTypes = TestServiceData.dummyGender;
-  // seededRoomTypes = TestServiceData.dummyRoomTypeList;
-  // seededAmenityList = TestServiceData.dummyAmenityList1;
+  // TODO: POPULATE THESE
+  genderTypes: Gender[];
+  roomTypes: RoomType[];
+  amenityList: Amenity[];
+
   // For all select form inputs to show invalid on validation checks.
   public selectOptionRoomTypeInvalid = '';
   public selectOptionGenderInvalid = '';

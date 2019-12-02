@@ -4,6 +4,7 @@ import { Provider } from 'src/interfaces/account/provider';
 import { Complex } from 'src/interfaces/complex';
 // import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
+import { Amenity } from 'src/interfaces/amenity';
 // import { RedirectService } from '../services/redirect.service';
 // import { TestServiceData } from 'src/app/services/static-test-data';
 
@@ -15,6 +16,9 @@ import { Router } from '@angular/router';
 export class AddComplexComponent implements OnInit {
   // the values to the provider object are set on initialization
   currentProvider: Provider;
+
+  // TODO: POPULATE THIS
+  amenityList: Amenity[];
 
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
 

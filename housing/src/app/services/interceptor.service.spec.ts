@@ -7,7 +7,7 @@ import { InterceptorService } from './interceptor.service';
 import { HTTP_INTERCEPTORS, HttpRequest, HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 class BlankComponent {
 
@@ -15,7 +15,7 @@ class BlankComponent {
 
 describe('InterceptorService', () => {
   // let service: DataService;
-  const authService: any = { getTokenSilently$() { return Observable.of('token'); } };
+  const authService: any = { getTokenSilently$() { return of('token'); } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
