@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.DataAccess;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.DataAccess.Repository;
@@ -51,8 +52,15 @@ namespace Revature.Tenant.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Tenant", Version = "v1" });
       });
 
+      services.AddHttpClient<IRoomService, RoomService>();
+
       services.AddScoped<ITenantRepository, TenantRepository>();
+      services.AddScoped<ITenantRoomRepository, TenantRoomRepository>();
       services.AddScoped<IMapper, Mapper>();
+      services.AddScoped<IServiceBusSender, ServiceBusSender>();
+
+      services.AddHttpClient<IAddressService, AddressService>();
+
       services.AddControllers();
     }
 

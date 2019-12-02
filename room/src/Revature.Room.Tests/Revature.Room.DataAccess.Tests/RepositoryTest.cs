@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Revature.Room.DataAccess;
 using Revature.Room.DataAccess.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -339,7 +340,6 @@ namespace Revature.Room.Tests
 
       //Returns 1 room because there is only 1 room that matches that room number
       var filterRoom1 = await repo.GetFilteredRoomsAsync(newComplexId, newRoomNumber, null, null, null, null, null);
-
       //Returns 2 rooms because there are 2 rooms that are labeld as "Male" gender
       var filterRoom2 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, null, "Male", null, null);
 
@@ -351,6 +351,12 @@ namespace Revature.Room.Tests
 
       //Returns 3 rooms because there are 3 rooms with that many number of beds
       var filterRoom5 = await repo.GetFilteredRoomsAsync(newComplexId, null, newNumOfBeds, null, null, null, null);
+
+      //Returns 0 rooms because there are no rooms whose lease are greater than the end date
+      var filterRoom6 = await repo.GetFilteredRoomsAsync(newComplexId, null, null, null, null, DateTime.Now, null);
+
+      //Returns 1 room
+      var filterRoom7 = await repo.GetFilteredRoomsAsync(newComplexId, null, null, null, null, null, newRoomId);
 
       Assert.Equal(newRoomNumber, filterRoom1.FirstOrDefault(r => r.RoomNumber == newRoomNumber).RoomNumber);
 
@@ -365,8 +371,11 @@ namespace Revature.Room.Tests
       Assert.Equal(3, filterRoom4.Count(r => r.ComplexId == newComplexId));
 
       Assert.Equal(3, filterRoom5.Count(r => r.NumberOfBeds == newNumOfBeds));
-    }
 
+      Assert.True(filterRoom6.Count() == 0);
+
+      Assert.True(filterRoom7.Count() == 1);
+    }
     [Fact]
     public async Task RepoDeleteComplexRoomShouldDeleteAllRoomsInComplex()
     {
