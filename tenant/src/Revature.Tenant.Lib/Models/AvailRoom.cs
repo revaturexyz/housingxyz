@@ -12,6 +12,7 @@ namespace Revature.Tenant.Lib.Models
     /// Room Id
     /// </summary>
     public Guid item1 { get; set; }
+
     /// <summary>
     /// Number of beds
     /// </summary>

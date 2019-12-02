@@ -11,7 +11,7 @@ namespace Revature.Account.Lib.Model
   {
     private string _name;
     public Guid ProviderId { get; set; } = Guid.NewGuid();
-    public Guid CoordinatorId { get; set; }
+    public Guid? CoordinatorId { get; set; }
 
     public string Name
     {
@@ -48,6 +48,8 @@ namespace Revature.Account.Lib.Model
     /// Date and time the account expires at.
     /// </summary>
     public DateTime AccountExpiresAt { get; set; }
+
+    public bool Approved { get; set; } = false;
 
     /// <summary>
     /// Checks to see if a string is either null (does not exist) or empty ( "" )

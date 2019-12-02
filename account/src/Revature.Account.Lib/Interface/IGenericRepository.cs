@@ -12,6 +12,8 @@ namespace Revature.Account.Lib.Interface
   {
     #region Provider
 
+    public Task<Guid> GetProviderIdByEmailAsync(string providerEmail);
+
     public Task<ProviderAccount> GetProviderAccountByIdAsync(Guid providerId);
 
     public void AddProviderAccountAsync(ProviderAccount newAccount);
@@ -24,10 +26,17 @@ namespace Revature.Account.Lib.Interface
 
     #region Coordinator
 
+    public Task<Guid> GetCoordinatorIdByEmailAsync(string coordinatorEmail);
+
     public Task<CoordinatorAccount> GetCoordinatorAccountByIdAsync(Guid coordinatorId);
 
-    // public Task UpdateCoordinatorAccount(CoordinatorAccount coordinatorAccount);
-    // public Task DeleteCoordinatorAccount(Guid coordinatorId);
+    public Task<List<CoordinatorAccount>> GetAllCoordinatorAccountsAsync();
+
+    public void AddCoordinatorAccount(CoordinatorAccount coordinator);
+
+    public Task<bool> UpdateCoordinatorAccountAsync(CoordinatorAccount coordinator);
+
+    public Task<bool> DeleteCoordinatorAccountAsync(Guid coordinatorId);
 
     #endregion
 
