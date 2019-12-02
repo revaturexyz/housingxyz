@@ -14,15 +14,14 @@ import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
 const routes: Routes = [
-  
   { path: 'add-tenant', component: AddTenantComponent },
   { path: 'search-tenant', component: SearchTenantComponent },
   { path: 'select-tenant/:id', component: SelectTenantComponent },
-  { path: '', component: HomeComponent },
   { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent, canActivate: [AuthGuard] },
   { path: 'edit-provider', component: EditProviderComponent, canActivate: [AuthGuard] },
   { path: 'provider-status', component: ProviderStatusComponent, canActivate: [AuthGuard] },
-  { path: 'manage-complex', component: ManageComplexComponent, canActivate: [AuthGuard] }
+  { path: 'manage-complex', component: ManageComplexComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent }
 ];
 
 @NgModule({
