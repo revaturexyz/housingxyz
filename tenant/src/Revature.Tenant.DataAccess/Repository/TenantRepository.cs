@@ -13,7 +13,7 @@ namespace Revature.Tenant.DataAccess.Repository
   /// <summary>
   /// A repository for managing data access for tenant onjects and their cars.
   /// </summary>
-  public class TenantRepository : ITenantRepository 
+  public class TenantRepository : ITenantRepository
   {
     private readonly TenantContext _context;
     private readonly ILogger _logger;
@@ -38,6 +38,9 @@ namespace Revature.Tenant.DataAccess.Repository
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
+
+      //added this
+      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -52,6 +55,9 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         Entities.Car newCar = _mapper.MapCar(tenant.Car);
         _context.Car.Update(newCar);
+
+        //added this
+        _context.SaveChangesAsync();
       }
     }
 
@@ -102,7 +108,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
-      
+
       return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }
 
@@ -130,6 +136,9 @@ namespace Revature.Tenant.DataAccess.Repository
       Entities.Tenant tenant = await _context.Tenant.FindAsync(id);
 
       _context.Remove(tenant);
+
+      //added this
+      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -147,6 +156,9 @@ namespace Revature.Tenant.DataAccess.Repository
 
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
+
+      //added this
+      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -161,7 +173,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         throw new InvalidOperationException($"Invalid Tenant Id {tenantId}");
       }
-      else if (currentTenant.CarId == null || currentTenant.CarId ==0)
+      else if (currentTenant.CarId == null || currentTenant.CarId == 0)
       {
         return false;
       }

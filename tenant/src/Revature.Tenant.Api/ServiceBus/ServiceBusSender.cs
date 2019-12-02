@@ -28,7 +28,7 @@ namespace Revature.Tenant.Api.ServiceBus
       _logger = logger;
       _queueClient = new QueueClient(
         _queueConfiguration.GetConnectionString("ServiceBus"),
-        _queueConfiguration.GetSection("Queues")["AssignedRoom"]);
+        _queueConfiguration.GetSection("Queues")["TQueue"]); //replaced AssignedRoom with TQueue for testing
     }
 
     /// <summary>
@@ -41,7 +41,9 @@ namespace Revature.Tenant.Api.ServiceBus
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("Service Bus is sending message with room id, gender, and operation type", data);
+
       await _queueClient.SendAsync(message);
+
       _logger.LogInformation("Message sent!");
     }
   }

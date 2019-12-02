@@ -105,7 +105,8 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     /// <summary>
-    /// Controller method for assigning a tenant to a specific room
+    /// Controller method for assigning a tenant to a specific room, this is what we send to the
+    /// room service
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="roomId"></param>
