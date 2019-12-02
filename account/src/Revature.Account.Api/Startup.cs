@@ -66,6 +66,7 @@ namespace Revature.Account.Api
       {
         options.Authority = $"http://{Auth0Helper.Domain}/";
         options.Audience = Auth0Helper.Audience;
+        options.RequireHttpsMetadata = !Configuration.GetSection("Auth0").GetValue<bool>("IsDevelopment");
       });
 
       // This method is for adding policies and other settings to the Authorize attribute

@@ -39,6 +39,7 @@ namespace Revature.Tenant.Api
                               "https://localhost:4200",
                               "http://localhost:12080",
                               "http://localhost:14080",
+                              "http://192.168.99.100:15080",
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",

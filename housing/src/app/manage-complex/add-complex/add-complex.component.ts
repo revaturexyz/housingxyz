@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Provider } from 'src/interfaces/provider';
+import { Provider } from 'src/interfaces/account/provider';
 
 import { Complex } from 'src/interfaces/complex';
 // import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
+import { Amenity } from 'src/interfaces/amenity';
 // import { RedirectService } from '../services/redirect.service';
-import { TestServiceData } from 'src/app/services/static-test-data';
+// import { TestServiceData } from 'src/app/services/static-test-data';
 
 @Component({
   selector: 'dev-add-complex',
@@ -16,9 +17,12 @@ export class AddComplexComponent implements OnInit {
   // the values to the provider object are set on initialization
   currentProvider: Provider;
 
+  // TODO: POPULATE THIS
+  amenityList: Amenity[];
+
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
 
-  seededAmenityList = TestServiceData.dummyAmenityList1; // seed for simulating all amenities
+  // seededAmenityList = TestServiceData.dummyAmenityList1; // seed for simulating all amenities
 
   // these boolean flags are overwritten by promises returned from
   // the verifyAddress service method that is called by the postLivingComplex method
@@ -40,11 +44,13 @@ export class AddComplexComponent implements OnInit {
     this.formLivingComplex = {
       complexId: 0,
       apiProvider: {
-        providerId: 0,
-        address: null,
-        contactNumber: '',
-        companyName: '',
-        apiTrainingCenter: null
+        providerId: null,
+        coordinatorId: null,
+        name: '',
+        email: '',
+        status: null,
+        accountCreatedAt: new Date(),
+        accountExpiresAt: new Date()
       },
       apiAddress: {
         addressId: 0,

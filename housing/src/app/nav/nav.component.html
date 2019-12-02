@@ -1,15 +1,33 @@
 <div class="nav-bar">
   <div class="revlogo">
-    <img routerLink="/" alt="logo" src="https://revature.com/wp-content/uploads/2017/12/revature-logo-600x219.png"
+    <img routerLink="/" alt="logo" src="/assets/imgs/revature-logo-600x219.png"
       height="75px">
   </div>
   <div class="menubar">
     <ul>
-      <li><a routerLink="show-rooms">Show Rooms</a></li>
-      <li><a routerLink="addroom">Add Room</a></li>
-      <li><a routerLink="add-complex">Add Living Complex</a></li>
-      <li><a href="https://revature.com/our-story/">About Us</a></li>
-      <li><a routerLink="./provider-select">Select Provider</a></li>
+      <li><a routerLink="">Home</a></li>
+      
+      <!-- ngIf -> a limited provider is logged on -->
+      <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="provider-status">Status</a></li>
+      <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="edit-provider">Profile</a></li>
+
+      <!-- ngIf -> a full access provider is logged on -->
+      <li *ngIf="auth.loggedIn && role === 'approved_provider'"><a routerLink="manage-complex">Manage Complexes</a></li>
+
+      <!-- ngIf -> a coordinator is logged on -->
+      <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="coordinator-notifications">Notifications</a></li>
+      <li><a routerLink="add-tenant">Add Tenant</a></li>
+      <li><a routerLink="search-tenant">Search Tenants</a></li>
+
+      <!-- Login/Logout stuff -->
+      <li *ngIf="!auth.loggedIn"><a (click)="auth.login()">Login</a></li>
+
+      <li *ngIf="auth.loggedIn"><a (click)="auth.logout()">Logout</a></li>
+
+      <!-- every account sees past here -->
+      <li><a href="https://revature.com/our-story/" target="_blank" rel="noopener noreferrer">About Us</a></li>
+      
+      
     </ul>
   </div>
 </div>

@@ -150,21 +150,21 @@ namespace Revature.Account.Tests
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[0],
           UpdateAction = UpdateActions[0],
-          AccountExpiresAt = nowPSev
+          CreatedAt = nowPSev
         },
         new Notification
         {
           ProviderId = Providers[1].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[2],
-          AccountExpiresAt = nowPSev
+          CreatedAt = nowPSev
         },
         new Notification()
         {
           ProviderId = Providers[2].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[1],
-          AccountExpiresAt = nowPSev
+          CreatedAt = nowPSev
         }
       };
 

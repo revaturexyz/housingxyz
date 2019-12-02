@@ -1,67 +1,6 @@
 <div class="outer">
     <div class="inner">
-        <h3>{{ currentNotification.providerDetails.companyName }} Record Details</h3>
+        <h3>{{ currentNotification.providerId }} Record Details</h3>
         <hr />
-        <div class="account-type">
-          <div class="account-type-holder">
-            <div class="account-type-header">Account type : </div>
-            <div *ngIf="currentNotification.extendedTrial">
-              Extended Trial Account
-            </div>
-            <div *ngIf="currentNotification.trial">
-              Trial Account
-            </div>
-          </div>
-          <div  class="account-type-holder">
-            <div class="account-type-header">Expires on : </div>
-            <div>{{dateCalculator(currentNotification.createdDate, currentNotification)}}</div>
-          </div>
-        </div>
-        <hr />
-        <div class="records-container">
-          <div class="records-address">
-            <div class="records-header">Address</div>
-            <div class="street">
-              {{ currentNotification.providerDetails.address.streetAddress }}
-            </div>
-            <div class="citystatezip">
-              <div class="">
-                {{ currentNotification.providerDetails.address.city }},&nbsp;
-              </div>
-              <div class="">
-                {{ currentNotification.providerDetails.address.state }}&nbsp; &nbsp;
-              </div>
-              <div class="">
-                  {{ currentNotification.providerDetails.address.zipcode }}
-              </div>
-            </div>
-          </div>
-
-          <div class="records-address">
-            <div class="records-header">Phone</div>
-            <div class="records-row">
-              <div>{{ currentNotification.providerDetails.contactNumber }}</div>
-            </div>
-          </div>
-
-          <div class="records-address">
-            <div class="records-header">Selected Training Center</div>
-            <div class="records-row">
-              <div>{{ currentNotification.centerDetails.centerName }}</div>
-            </div>
-          </div>
-
-        </div>
-        <div class="records-actions">
-          <div class="extend">
-            <button class="records-btn">Extend</button>
-          </div>
-          <div class="activate">
-            <button class="records-btn">Activate</button>
-          </div>
-          <div class="delete">
-            <button class="records-btn">Delete</button>
-          </div>
-        </div>
     </div>
 </div>
