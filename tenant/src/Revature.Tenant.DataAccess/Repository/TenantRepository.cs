@@ -16,7 +16,6 @@ namespace Revature.Tenant.DataAccess.Repository
   public class TenantRepository : ITenantRepository 
   {
     private readonly TenantContext _context;
-    private readonly ILogger _logger;
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -65,6 +64,7 @@ namespace Revature.Tenant.DataAccess.Repository
       Entities.Tenant tenant = await _context.Tenant
         .Include(t => t.Car)
         .Include(t => t.Batch)
+        .AsNoTracking()
         .FirstOrDefaultAsync(t => t.Id == id);
 
       if (tenant == null)

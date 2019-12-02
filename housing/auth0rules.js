@@ -28,20 +28,22 @@ function (user, context, callback) {
     });
 }
 
-// Add roles to tokens
+// Add roles, email, and app metadata to tokens
 function (user, context, callback) {
-    const assignedRoles = (context.authorization || {}).roles;
-  
-    let idTokenClaims = context.idToken || {};
-    let accessTokenClaims = context.accessToken || {};
-    user.app_metadata = user.app_metadata || {};
-  
-    idTokenClaims[configuration.NAMESPACE + 'roles'] = assignedRoles;
-    idTokenClaims[configuration.NAMESPACE + 'app_metadata'] = user.app_metadata;
-    accessTokenClaims[configuration.NAMESPACE + 'roles'] = assignedRoles;
-    accessTokenClaims[configuration.NAMESPACE + 'app_metadata'] = user.app_metadata;
-  
-    context.idToken = idTokenClaims;
-    context.accessToken = accessTokenClaims;
-    callback(null, user, context);
-} 
+  const assignedRoles = (context.authorization || {}).roles;
+
+  let idTokenClaims = context.idToken || {};
+  let accessTokenClaims = context.accessToken || {};
+  user.app_metadata = user.app_metadata || {};
+
+  idTokenClaims[configuration.NAMESPACE + 'roles'] = assignedRoles;
+  idTokenClaims[configuration.NAMESPACE + 'email'] = user.email;
+  idTokenClaims[configuration.NAMESPACE + 'app_metadata'] = user.app_metadata;
+  accessTokenClaims[configuration.NAMESPACE + 'roles'] = assignedRoles;
+  accessTokenClaims[configuration.NAMESPACE + 'email'] = user.email;
+  accessTokenClaims[configuration.NAMESPACE + 'app_metadata'] = user.app_metadata;
+
+  context.idToken = idTokenClaims;
+  context.accessToken = accessTokenClaims;
+  return callback(null, user, context);
+}

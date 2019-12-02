@@ -22,14 +22,17 @@ namespace Revature.Tenant.Api.Controllers
     private readonly ILogger _logger;
     private readonly ITenantRepository _repo2;
     private readonly IRoomService _roomService;
+    private readonly IServiceBusSender _serviceBusSender;
 
-    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IRoomService roomService)
+    public TenantRoomController(ITenantRoomRepository repository, ITenantRepository repo2, ILogger<TenantRoomController> logger, IRoomService roomService, IServiceBusSender serviceBusSender)
     {
       _repository = repository;
       _repo2 = repo2;
       _logger = logger;
       _roomService = roomService;
+      _serviceBusSender = serviceBusSender;
     }
+
     /// <summary>
     /// Controller method that returns tenants that aren't assigned a room
     /// </summary>
@@ -45,6 +48,7 @@ namespace Revature.Tenant.Api.Controllers
 
       return Ok(tenants);
     }
+
     /// <summary>
     /// Controller method for getting the tenant information of the occupants in vacant rooms
     /// </summary>
@@ -63,7 +67,6 @@ namespace Revature.Tenant.Api.Controllers
         var availableRooms = await _roomService.GetVacantRoomsAsync(gender, endDate);
 
         var roomsWithTenants = new List<RoomInfo>();
-        var getTenants = new List<Task<List<Lib.Models.Tenant>>>();
 
         _logger.LogInformation("Getting Tenants by Room Id...");
 
@@ -73,20 +76,10 @@ namespace Revature.Tenant.Api.Controllers
             new RoomInfo
             {
               RoomId = room.item1,
-              NumberOfBeds = room.item2
+              NumberOfBeds = room.item2,
+              Tenants = await _repository.GetTenantsByRoomIdAsync(room.item1)
             }
           );
-          getTenants.Add(
-           _repository.GetTenantsByRoomIdAsync(room.item1)
-          );
-        }
-
-        var results = await Task.WhenAll(getTenants);
-        int i = 0;
-        foreach (var item in results)
-        {
-          roomsWithTenants[i].Tenants = item;
-          i++;
         }
 
         _logger.LogInformation("Success.");
@@ -99,6 +92,7 @@ namespace Revature.Tenant.Api.Controllers
         return BadRequest();
       }
     }
+
     /// <summary>
     /// Controller method for assigning a tenant to a specific room
     /// </summary>
@@ -114,8 +108,23 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         _logger.LogInformation("Assigning tenant to room");
+
         var tenant = await _repo2.GetByIdAsync(tenantId);
         tenant.RoomId = roomId;
+        _repo2.Put(tenant);
+        await _repo2.SaveAsync();
+
+        var roomMessage = new RoomMessage()
+        {
+          Gender = tenant.Gender,
+          RoomId = roomId,
+          OperationType = 0
+        };
+
+        _logger.LogInformation("Alerting room service to assign tenant to room");
+        await _serviceBusSender.SendRoomIdMessage(roomMessage);
+        _logger.LogInformation("Success! Room service has been alerted");
+
         return NoContent();
       }
       catch (ArgumentNullException ex)

@@ -139,7 +139,7 @@
         id="amenity"
         multiple
       >
-        <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity">
+        <mat-option *ngFor="let amenity of amenityList" [value]="amenity">
           {{ amenity.amenity }}
         </mat-option>
       </mat-select>
@@ -186,7 +186,7 @@
   <hr />
   <!-- The address of the complex is displayed via an Angular Material card -->
   <div
-    *ngIf="currentProvider && currentProvider.apiTrainingCenter"
+    *ngIf="currentProvider"
     class="card"
   >
     <div class="card-body">
@@ -194,16 +194,8 @@
         <h5>Your Training Center Information:</h5>
       </div>
       <div class="card-content">
-        <p>Name: {{ currentProvider.apiTrainingCenter.centerName }}</p>
-        <p>
-          Phone Number: {{ currentProvider.apiTrainingCenter.contactNumber }}
-        </p>
-        <p>{{ currentProvider.apiTrainingCenter.apiAddress.streetAddress }}</p>
-        <p>
-          {{ currentProvider.apiTrainingCenter.apiAddress.city }},
-          {{ currentProvider.apiTrainingCenter.apiAddress.state }}
-          {{ currentProvider.apiTrainingCenter.apiAddress.zipcode }}
-        </p>
+        <!-- Hardcode it -->
+        <p>University of Texas, Arlington</p>
       </div>
     </div>
   </div>

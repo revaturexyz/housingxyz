@@ -86,7 +86,7 @@ namespace Revature.Account.DataAccess
         CoordinatorId = nofi.CoordinatorId,
         UpdateAction = MapUpdateAction(nofi.UpdateAction),
         Status = new Lib.Model.Status { StatusText = nofi.StatusText },
-        AccountExpiresAt = nofi.AccountExpiresAt
+        CreatedAt = nofi.CreatedAt
       };
     }
 
@@ -99,7 +99,7 @@ namespace Revature.Account.DataAccess
         CoordinatorId = nofi.CoordinatorId,
         UpdateActionId = nofi.UpdateAction.UpdateActionId,
         StatusText = nofi.Status.StatusText,
-        AccountExpiresAt = nofi.AccountExpiresAt
+        CreatedAt = nofi.CreatedAt
       };
     }
 

@@ -9,7 +9,6 @@ namespace Revature.Tenant.Api.Models
   /// </summary>
   public class ApiAddress
   {
-    [Required]
     public Guid AddressId { get; set; }
 
     [Required]

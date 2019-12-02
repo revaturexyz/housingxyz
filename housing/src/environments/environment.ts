@@ -4,14 +4,15 @@
 
 export const environment = {
   production: false,
-  domain: 'dbnd.auth0.com',
-  clientID: 'kdZAr42aRguFCVbUJ5C7xozmM0n31KYn',
-  audience: '/housing',
+  domain: 'dev-fyo32d99.auth0.com', // Absent trailing slash matters here
+  clientID: '4z5nyCX4Jg9L7TDAUvMP0zApLQY3N4dx',
+  audience: '/account',
+  claimsDomain: 'https://revature.com/', // Trailing slash matters here
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
     account: 'http://localhost:11080/',
     complex: 'http://localhost:13080/',
-    tenant: 'http://localhost:15080/',
+    tenant:  'http://localhost:15080/',
     // account: 'http://192.168.99.100:11080/',
     // complex: 'http://192.168.99.100:13080/',
     // tenant: 'http://192.168.99.100:15080/',

@@ -49,7 +49,7 @@ namespace Revature.Address.DataAccess
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex.Message);
+        _logger.LogError("{0}",ex);
         _logger.LogError($"Address Id: {address.Id} failed to add to database");
         return false;
       }
