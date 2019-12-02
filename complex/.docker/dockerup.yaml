@@ -16,6 +16,7 @@ services:
       - complex_localhost
     environment:
       ConnectionStrings__ComplexDb: 'Host=data;Database=complex;Username=postgres;Password=Pass@word'
+      ConnectionStrings__ServiceBus: 'Endpoint=sb://revaturexyz-dev.servicebus.windows.net/;SharedAccessKeyName=SendListen;SharedAccessKey=yJey77ImCtHLx8c0YtvxWBXaA1Y6TMJAVTxgNsT3VWY='
   data:
     image: postgres:12.0
     networks:

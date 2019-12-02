@@ -60,7 +60,7 @@ namespace Revature.Complex.Api.Services
     /// <returns></returns>
     public async Task<ApiComplexAddress> GetAddressAsync(Guid addressId)
     {
-      string queryString = "?";
+      string queryString = addressId.ToString();
 
 
       using var response = await SendRequestAsync<ApiComplexAddress>(HttpMethod.Get, "api/Address" + queryString);

@@ -43,10 +43,16 @@ namespace Revature.Complex.Api
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
                               "https://housingdev.revature.xyz",
-                              "http://192.168.99.100:10080",
-                              "https://192.168.99.100:10080",
+                              "http://192.168.99.100:12080",
+                              "https://192.168.99.100:12080",
                               "http://192.168.99.100:13080",
-                              "https://192.168.99.100:13080")
+                              "https://192.168.99.100:13080",
+                              "http://192.168.99.100:14080",
+                              "https://192.168.99.100:14080",
+                              "http://localhost:14080",
+                              "https://localhost:14080",
+                              "http://localhost:13080",
+                              "https://localhost:13080")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
