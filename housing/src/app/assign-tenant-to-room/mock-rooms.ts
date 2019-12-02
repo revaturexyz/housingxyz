@@ -5,7 +5,7 @@ export const ROOMS: RoomWithTenants[] = [
     {
         id: "1",
         roomNumber: "2048",
-        totalBeds: 4,
+        numberOfBeds: 4,
         tenants: [
             TENANTS[0]
         ]
@@ -14,7 +14,7 @@ export const ROOMS: RoomWithTenants[] = [
     {
         id: "2",
         roomNumber: "20B",
-        totalBeds: 2,
+        numberOfBeds: 2,
         tenants: [
             TENANTS[1],
         ]
@@ -22,7 +22,7 @@ export const ROOMS: RoomWithTenants[] = [
     {
         id: "3",
         roomNumber: "1034",
-        totalBeds: 2,
+        numberOfBeds: 2,
         tenants: [
             TENANTS[2],
         ]
@@ -30,7 +30,7 @@ export const ROOMS: RoomWithTenants[] = [
     {
         id: "4",
         roomNumber: "2045",
-        totalBeds: 4,
+        numberOfBeds: 4,
         tenants: [
             TENANTS[3],
             TENANTS[4],
@@ -40,7 +40,7 @@ export const ROOMS: RoomWithTenants[] = [
     {
         id: "4",
         roomNumber: "3045",
-        totalBeds: 4,
+        numberOfBeds: 4,
         tenants: [
             TENANTS[6],
             TENANTS[7],

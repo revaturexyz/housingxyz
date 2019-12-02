@@ -24,7 +24,7 @@ export class TenantAssignService {
   }
 
   assignTenant(tenantId: string, roomId: string): Promise<Object> {
-      let url = `${environment.endpoints.tenant}api/Tenant/Assign/${tenantId}`;
+      let url = `${environment.endpoints.tenant}api/Tenant/Assign/${tenantId}?roomId=${roomId}`;
       return this.httpClient.put(url, roomId).toPromise();
   }
 

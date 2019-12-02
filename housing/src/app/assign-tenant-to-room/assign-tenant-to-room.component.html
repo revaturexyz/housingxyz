@@ -2,8 +2,9 @@
     <div class="add-tenantRoom-inner">
         <div *ngIf="currentTenant">
             <h1>Current Tenant: {{currentTenant.firstName}} {{currentTenant.lastName}}</h1>
-            <h3>Language: {{currentTenant.batch.language}} | BatchId: {{currentTenant.batch.batchId}}</h3>
+            <h3>Language: {{currentTenant.batch.batchCurriculum}} | BatchId: {{currentTenant.batch.id}}</h3>
         </div>
+        <br>
         <!-- Display assignable tenants -->
         <h4>Assignable Tenants</h4>
         <div class="center">
@@ -16,7 +17,7 @@
         <h4>Available Rooms</h4>
         <div class="center">
             <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
-                <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item" (click)="selectRoom(room[0].id)">{{room[0].roomNumber}}</div>
+                <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item" (click)="selectRoom(room[0].roomId)">{{room[0].roomId}} | {{room[1]}}</div>
             </cdk-virtual-scroll-viewport>
         </div>
 

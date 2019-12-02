@@ -3,7 +3,7 @@ import { TenantInRoom } from "../../interfaces/tenant-in-room";
 
 export const TENANTS: TenantInRoom[] = [
     {
-        tenantId: "f55db185-205e-4669-baf3-1872e87b9bcc",
+        id: "f55db185-205e-4669-baf3-1872e87b9bcc",
         firstName: "Shanaya",
         lastName: "Twayne",
         gender: "Female",
@@ -25,7 +25,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "s12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "s12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Cran",
         lastName: "Barnie",
         gender: "Male",
@@ -39,7 +39,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
         lastName: "Rurvy",
         gender: "Male",
@@ -53,7 +53,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
         lastName: "Hurvy",
         gender: "Male",
@@ -67,7 +67,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
         lastName: "Pcurvy",
         gender: "Male",
@@ -81,7 +81,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
         lastName: "Stcurvy",
         gender: "Male",
@@ -95,7 +95,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
         lastName: "Scurvy",
         gender: "Male",
@@ -109,7 +109,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "x55ds185-205e-4669-baf3-1872e87b9bcc",
+        id: "x55ds185-205e-4669-baf3-1872e87b9bcc",
         firstName: "Shuhnighya",
         lastName: "Twain",
         gender: "Female",
@@ -131,7 +131,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Ronald",
         lastName: "Heaswey",
         gender: "Male",
@@ -145,7 +145,7 @@ export const TENANTS: TenantInRoom[] = [
         }
     },
     {
-        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        id: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Ronald",
         lastName: "Heaswey",
         gender: "Male",

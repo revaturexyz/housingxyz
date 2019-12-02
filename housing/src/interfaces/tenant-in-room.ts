@@ -3,7 +3,7 @@ import { Car } from "./car";
 
 export interface TenantInRoom{
     batch:Batch;
-    tenantId: string;
+    id: string;
     gender: string;
     firstName: string;
     lastName: string;

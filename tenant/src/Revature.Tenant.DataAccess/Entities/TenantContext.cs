@@ -52,6 +52,19 @@ namespace Revature.Tenant.DataAccess.Entities
             LastName = "Lemons",
             RoomId = Guid.Parse("0a4d6c61-9650-44c9-8c6b-5aebd3f9a676"),
             TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+          },
+          new Tenant()
+          {
+            AddressId = Guid.Parse("0a5d616e-9650-44c9-8c6b-5aebd3f9a67e"),
+            BatchId = 2,
+            CarId = -1,
+            Email = "shinaya@revature.com",
+            FirstName = "Shinaya",
+            Gender = "Female",
+            Id = Guid.Parse("054d6c1e-9650-44c9-8c6b-5aebd3f9a67f"),
+            LastName = "Twaoin",
+            RoomId = null,
+            TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
           }
         );
 

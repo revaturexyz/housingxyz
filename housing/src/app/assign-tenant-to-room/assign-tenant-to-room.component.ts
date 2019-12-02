@@ -48,13 +48,25 @@ export class AssignTenantToRoomComponent implements OnInit {
   ngOnInit() {
     // TODO uncomment to use service and comment out usage of mock data
     // this.tenantAssignService.getTenantsNotAssignedRoom().then(
-    //   result => this.assignableTenants = result
-    // );
-    this.assignableTenants = TENANTS;
+    //   result => {
+    //     this.assignableTenants = result;
+    //   console.log("gottenants");
+    // });
+    this.getUnassignedTenants();
+    //this.assignableTenants = TENANTS;
+  }
+
+  getUnassignedTenants(){
+    this.tenantAssignService.getTenantsNotAssignedRoom().then(
+      result => {
+        this.assignableTenants = result;
+      console.log("gottenants");
+    });
   }
 
   selectTenant(tenant: TenantInRoom){
     this.currentTenant = tenant;
+    console.log(tenant);
     this.updateRooms();
   }
 
@@ -66,27 +78,35 @@ export class AssignTenantToRoomComponent implements OnInit {
   assignRoom(){
     console.log("assign clicked");
 
-    this.tenantAssignService.assignTenant(this.currentTenant.tenantId,this.currentRoomId).then( () => {
+    this.tenantAssignService.assignTenant(this.currentTenant.id,this.currentRoomId).then( () => {
       console.log("Tenant assigned");
     }).catch( () => {
       console.log("Tenant could not be assigned");
+    }).then( () => {
+      this.getUnassignedTenants();
+      console.log("refreshed tenants");
     });
   }
 
   updateRooms(){
     this.roomsLoaded = false;
     // TODO uncomment to use service and comment out usage of mock data
-    // this.tenantAssignService.getAvailableRoomsWithTenants(this.currentTenant.gender,this.currentTenant.batch.endDate.toString())
-    // .then( result => {
-    //   this.availableRooms = result;
-    //   this.roomsLoaded = true;
-    // });
-    this.availableRooms = ROOMS;
-    this.roomArray = [];
-    this.availableRooms.forEach(element => {
-      this.roomArray.push([element,0]);
+    this.tenantAssignService.getAvailableRoomsWithTenants(this.currentTenant.gender,this.currentTenant.batch.endDate.toString())
+    .then( result => {
+      this.availableRooms = result;
+      this.roomsLoaded = true;
+      console.log("avail rooms loaded");
+    }).then( () => {
+      this.roomArray = [];
+      this.availableRooms.forEach(element => {
+        this.roomArray.push([element,0]);
+      });
+      this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+      console.log(this.prioritizedRooms);
+
     });
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    //this.availableRooms = ROOMS;
+
   }
 
   // Filter Checkbox Methods; sorts list whenever a checkbox is clicked
@@ -105,7 +125,7 @@ export class AssignTenantToRoomComponent implements OnInit {
 
   prioritizeRoomsByCar(arr:[RoomWithTenants,number][]) {
     arr.forEach(roomTuple => {
-      let currentOccupancy = roomTuple[0].totalBeds - roomTuple[0].tenants.length;
+      let currentOccupancy = roomTuple[0].numberOfBeds - roomTuple[0].tenants.length;
       let totalCars = 0;
       roomTuple[0].tenants.forEach(t=>{
         if(t.car){
@@ -118,7 +138,8 @@ export class AssignTenantToRoomComponent implements OnInit {
       } else {
         priority = (totalCars - currentOccupancy) / currentOccupancy;
       }
-      roomTuple[1] = Math.round((roomTuple[1] + priority)*100)/100;
+      roomTuple[1] += priority;
+      //roomTuple[1] = Math.round((roomTuple[1] + priority)*100)/100;
     });
     
   }
