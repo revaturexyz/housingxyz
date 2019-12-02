@@ -65,6 +65,7 @@ namespace Revature.Tenant.DataAccess.Repository
       Entities.Tenant tenant = await _context.Tenant
         .Include(t => t.Car)
         .Include(t => t.Batch)
+        .AsNoTracking()
         .FirstOrDefaultAsync(t => t.Id == id);
 
       if (tenant == null)
