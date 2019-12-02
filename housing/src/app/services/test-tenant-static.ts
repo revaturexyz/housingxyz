@@ -31,14 +31,14 @@ export class TestTenantData {
         startDate: new Date(),
         endDate: new Date(),
         trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d'
-    }
+    };
 
     static dummyPostBatch: PostBatch = {
         batchCurriculum: 'C#',
         startDate: new Date(),
         endDate: new Date(),
         trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d'
-    }
+    };
 
     static dummyTenant: PostTenant = {
         id: null,
@@ -50,7 +50,7 @@ export class TestTenantData {
         apiCar: TestTenantData.dummyCar,
         apiBatch: TestTenantData.dummyPostBatch,
         trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d'
-    }
+    };
 }
 
 export class CoordinatorServiceStub {
@@ -64,7 +64,7 @@ export class CoordinatorServiceStub {
                     endDate: new Date(),
                     trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d'
                 }]
-        })
+        });
     }
 
     PostTenant() {
@@ -82,6 +82,6 @@ export class CoordinatorServiceStub {
                     trainingCenter: 'fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d'
                 }
             ]
-        })
+        });
     }
 }

@@ -4,7 +4,7 @@ import { PostBatch } from './postBatch';
 
 
 export interface PostTenant {
-    id: null,
+    id: null;
     email: string;
     gender: string;
     firstName: string;

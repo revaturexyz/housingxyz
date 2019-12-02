@@ -7,7 +7,7 @@ import { TestTenantData, CoordinatorServiceStub } from '../services/test-tenant-
 import { RouterTestingModule } from '@angular/router/testing';
 import { Batch } from 'src/interfaces/batch';
 import { PostTenantAddress } from 'src/interfaces/postTenAddress';
-import { PostCar } from 'src/interfaces/postCar'
+import { PostCar } from 'src/interfaces/postCar';
 import { CoordinatorService } from '../services/coordinator.service';
 import { AuthService } from '../services/auth.service';
 import { EMPTY, of, Observable } from 'rxjs';
@@ -26,7 +26,7 @@ describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
   let coordService: CoordinatorService;
-  let batchStub;
+  const batchStub = null;
   const authSpy = jasmine.createSpyObj('AuthService', ['login']);
   const coordSpy = jasmine.createSpyObj('CoordniatorService', ['PostTenant', 'GetBatchByTrainingCenterId']);
 
