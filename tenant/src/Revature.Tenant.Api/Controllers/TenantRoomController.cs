@@ -121,7 +121,8 @@ namespace Revature.Tenant.Api.Controllers
         _logger.LogInformation("Assigning tenant to room");
         var tenant = await _repo2.GetByIdAsync(tenantId);
         tenant.RoomId = roomId;
-
+        _repo2.Put(tenant);
+        await _repo2.SaveAsync();
         var roomMessage = new RoomMessage()
         {
           Gender = tenant.Gender,
