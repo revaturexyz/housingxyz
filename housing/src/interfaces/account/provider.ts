@@ -1,10 +1,11 @@
-import { TrainingCenter } from './trainingcenter';
-import { Address } from '../address';
+import { Status } from './status';
 
 export interface Provider {
-  providerId: number;
-  companyName: string;
-  address: Address;
-  contactNumber: string;
-  apiTrainingCenter: TrainingCenter;
+  providerId;
+  coordinatorId: string;
+  name: string;
+  email: string;
+  status: Status;
+  accountCreatedAt: Date;
+  accountExpiresAt: Date;
 }

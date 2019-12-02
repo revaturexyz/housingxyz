@@ -1,16 +1,13 @@
 import { Provider } from './provider';
-import { TrainingCenter } from './trainingcenter';
+import { NotificationKind } from 'rxjs/internal/Notification';
+import { Status } from './status';
 
-export interface CoordinatorNotification {
+export interface Notification {
   notificationId: string;
-  providerId: number;
-  centerId: number;
-  centerDetails: TrainingCenter;
-  createdDate: Date;
-  active: boolean;
-  trial: boolean;
-  extendedTrial: boolean;
-  providerDetails: Provider;
+  providerId: string;
+  coordinatorId: string;
+  updateActionId: string;
+  status: Status;
 }
 
 // This check can see if account is usable by provider:

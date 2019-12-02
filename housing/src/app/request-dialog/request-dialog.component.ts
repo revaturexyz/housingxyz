@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Room } from 'src/interfaces/room';
 import { Notify } from 'src/interfaces/notification';
-import { ProviderService } from '../services/provider.service';
 
 @Component({
   selector: 'dev-request-dialog',
@@ -17,8 +16,7 @@ export class RequestDialogComponent implements OnInit {
   // receives data from parent component about itself as well as injected data for initialization
   constructor(
     private dialogRef: MatDialogRef<RequestDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data,
-    private providerService: ProviderService) {
+    @Inject(MAT_DIALOG_DATA) data) {
     // upon construction, uses the injected data to initialize the room field
     this.requestRoom = data.reqRoom;
   }
@@ -42,7 +40,7 @@ export class RequestDialogComponent implements OnInit {
   // this function is called when the user saves the request. It sends the request then
   // returns control to the parent
   save() {
-    this.providerService.postRequestByProvider(this.req);
+    // TODO: SEND REQUEST? ARE WE EVEN USING THIS?
     this.dialogRef.close();
   }
 

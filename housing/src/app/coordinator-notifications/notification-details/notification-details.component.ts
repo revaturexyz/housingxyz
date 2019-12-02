@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoordinatorNotification } from '../../../interfaces/account/coordinatorNotification';
-
-import { TestServiceData } from 'src/app/services/static-test-data';
+import { Notification } from '../../../interfaces/account/notification';
 
 import * as moment from 'moment';
 
@@ -13,10 +11,6 @@ import * as moment from 'moment';
 
 // Component to allow coordinator to see complete details of notification as well as manipulate them.
 export class NotificationDetailsComponent implements OnInit {
-
-  // Seed :
-  currentNotification = TestServiceData.testCoordinatorNotification;
-
   constructor() {
     // currentNotification = GET IT HERE LATER
    }
@@ -24,7 +18,10 @@ export class NotificationDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  dateCalculator(date: Date, currentNotification: CoordinatorNotification) {
+  public currentNotification: Notification;
+
+  // Date stuff is done on backend. This function is on life support
+  /* dateCalculator(date: Date, currentNotification: Notification) {
     let expire = 7;
     if (currentNotification.trial) {
       expire = 7;
@@ -32,5 +29,5 @@ export class NotificationDetailsComponent implements OnInit {
       expire = 0;
     }
     return moment(date).add(expire, 'days').format('MM/DD/YYYY');
-  }
+  } */
 }
