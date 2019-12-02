@@ -62,7 +62,7 @@ namespace Revature.Complex.Api.Controllers
             ProviderId = com.ProviderId,
             ComplexName = com.ComplexName,
             ContactNumber = com.ContactNumber,
-            ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
+            ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
           };
           log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
           apiComplices.Add(complex);
@@ -108,7 +108,7 @@ namespace Revature.Complex.Api.Controllers
           ProviderId = lcomplex.ProviderId,
           ComplexName = lcomplex.ComplexName,
           ContactNumber = lcomplex.ContactNumber,
-          ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
+          ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
         };
         log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} was found!", lcomplex.ComplexId);
 
@@ -150,7 +150,7 @@ namespace Revature.Complex.Api.Controllers
           ProviderId = lcomplex.ProviderId,
           ComplexName = lcomplex.ComplexName,
           ContactNumber = lcomplex.ContactNumber,
-          ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
+          ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
         };
         log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} were found!", lcomplex.ComplexId);
 
@@ -198,7 +198,7 @@ namespace Revature.Complex.Api.Controllers
             ProviderId = complex.ProviderId,
             ComplexName = complex.ComplexName,
             ContactNumber = complex.ContactNumber,
-            ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId)
+            ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId)
           };
           log.LogInformation("a list of amenities for complex Id {complex.ComplexId} was found!", complex.ComplexId);
 
@@ -270,7 +270,7 @@ namespace Revature.Complex.Api.Controllers
 
         AmenityComplex.ComplexId = complex.ComplexId;
 
-        foreach (var amenity in apiComplex.ComplexAmentiy)
+        foreach (var amenity in apiComplex.ComplexAmenity)
         {
           foreach (var am in amenities)
           {
@@ -408,7 +408,7 @@ namespace Revature.Complex.Api.Controllers
         Guid amenityComplexId;
         AmenityComplex.ComplexId = complex.ComplexId;
 
-        foreach (var amenity in apiComplex.ComplexAmentiy)
+        foreach (var amenity in apiComplex.ComplexAmenity)
         {
           foreach (var am in amenities)
           {
