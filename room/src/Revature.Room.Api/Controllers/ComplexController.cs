@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Revature.Room.Lib;
-using ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,13 +17,11 @@ namespace Revature.Room.Api.Controllers
   {
     private readonly IRepository _repository;
     private readonly ILogger _logger;
-    private readonly IServiceBusSender _busSender;
 
-    public ComplexController(IRepository repository, ILogger<ComplexController> logger, IServiceBusSender sender)
+    public ComplexController(IRepository repository, ILogger<ComplexController> logger)
     {
       _repository = repository;
       _logger = logger;
-      _busSender = sender;
     }
 
     /// <summary>
@@ -200,10 +197,6 @@ namespace Revature.Room.Api.Controllers
 
         _logger.LogInformation("Success. Room has been deleted");
 
-        _logger.LogInformation("Alerting complex service that room has been deleted...");
-
-        _logger.LogInformation("Success! Message has been sent!");
-
         return NoContent();
       }
       catch (InvalidOperationException ex)
@@ -227,14 +220,10 @@ namespace Revature.Room.Api.Controllers
       {
         _logger.LogInformation("Deleting rooms from complex");
 
-        var listOfDeletedRoomIds = await _repository.DeleteComplexRoomAsync(complexId);
+        await _repository.DeleteComplexRoomAsync(complexId);
         await _repository.SaveAsync();
 
         _logger.LogInformation("Success! Rooms have been deleted");
-
-        _logger.LogInformation("Sending deleted room roomId's to complex service");
-
-        _logger.LogInformation("Deleted room roomId's have been sent to complex service");
 
         return NoContent();
       }

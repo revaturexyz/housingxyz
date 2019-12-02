@@ -22,7 +22,7 @@ namespace ServiceBusMessaging
   {
     //ServiceBusSender is created here so we can use it to send something back to the complex
     //the moment we receive it.  (Deleting a complex)
-    IServiceBusSender serviceSender;
+    private readonly IServiceBusSender serviceSender;
 
     //_roomDUCQueue will be used for receiving from the Complex service
     private readonly QueueClient _roomDUCQueue;
@@ -227,7 +227,6 @@ namespace ServiceBusMessaging
     private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
     {
       var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-      //_logger.LogInformation("No messages in queue", context.ToString());
       return Task.CompletedTask;
     }
 
