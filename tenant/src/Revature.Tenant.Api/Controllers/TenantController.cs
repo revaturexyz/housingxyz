@@ -243,7 +243,7 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <param name="tenant">A tenant api model of a new tenant</param>
     /// <returns>An apiTenant model of the new tenant, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions/returns>
-    // POST: api/Tenant
+    // POST: api/Tenant/Register
     [HttpPost("Register", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -263,26 +263,33 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = postedAddress.AddressId,
+          AddressId = Guid.NewGuid(),//TODO postedAddress.AddressId,
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter,
 
         };
-        if (tenant.ApiCar != null)
-        {
-          newTenant.Car = new Lib.Models.Car
+        
+          if (tenant.ApiCar.LicensePlate != null)
           {
-            Color = tenant.ApiCar.Color,
-            Make = tenant.ApiCar.Make,
-            Model = tenant.ApiCar.Model,
-            LicensePlate = tenant.ApiCar.LicensePlate,
-            State = tenant.ApiCar.State,
-            Year = tenant.ApiCar.Year
-          };
-          newTenant.CarId = 0;
+            newTenant.Car = new Lib.Models.Car
+            {
+              Color = tenant.ApiCar.Color,
+              Make = tenant.ApiCar.Make,
+              Model = tenant.ApiCar.Model,
+              LicensePlate = tenant.ApiCar.LicensePlate,
+              State = tenant.ApiCar.State,
+              Year = tenant.ApiCar.Year
+            };
+            newTenant.CarId = 0;
+          }
+        else
+        {
+          newTenant.Car = null;
+          newTenant.CarId = null;
         }
+        
 
         //Call Repository Methods AddAsync and SaveAsync
         await _tenantRepository.AddAsync(newTenant);
@@ -322,6 +329,8 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         _logger.LogInformation("PUT - Updating tenant with tenantid {tenantId}.", tenant.Id);
+        _logger.LogInformation("Posting Address to Address Service...");
+        var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
@@ -330,7 +339,7 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
+          AddressId = (Guid)tenant.AddressId,
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
@@ -383,11 +392,11 @@ namespace Revature.Tenant.Api.Controllers
     /// <returns>Status Code 204 if successful, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions</returns>
     [HttpDelete("Delete/{id}", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
+    public async Task<ActionResult> DeleteAsync([FromRoute] Guid id)
     {
       try
       {
-        await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        await _tenantRepository.DeleteByIdAsync(id);
         await _tenantRepository.SaveAsync();
         return StatusCode(StatusCodes.Status204NoContent);
       }

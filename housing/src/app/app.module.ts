@@ -36,6 +36,7 @@ import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
+import { AddTenantComponent } from '../app/add-tenant/add-tenant.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     EditRoomComponent,
     ShowRoomComponent,
     AddComplexComponent,
-    AddRoomComponent
+    AddRoomComponent,
+    AddTenantComponent
   ],
   imports: [
     BrowserModule,
@@ -75,8 +77,11 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     MatTableModule,
     MatChipsModule,
     MatPaginatorModule,
+    CdkTableModule,
     MatCardModule,
+    MatDialogModule,
     StickyNavModule,
+    BrowserAnimationsModule,
     MatRippleModule,
     MatSidenavModule,
     MatIconModule,
