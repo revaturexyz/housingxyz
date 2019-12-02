@@ -27,6 +27,13 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
+import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
+import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
+import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex.component';
+import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
+import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
+import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +43,15 @@ import { CoordinatorModule } from './coordinator.module';
     AmenityDialogueComponent,
     RequestDialogComponent,
     CoordinatorNotificationsComponent,
-    NotificationDetailsComponent
+    NotificationDetailsComponent,
+    ManageComplexComponent,
+    AddComplexComponent,
+    ComplexDetailsComponent,
+    EditComplexComponent,
+    AddRoomComponent,
+    EditRoomComponent,
+    ShowRoomComponent
+
   ],
   imports: [
     BrowserModule,
