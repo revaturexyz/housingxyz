@@ -9,7 +9,7 @@ using Revature.Complex.Api.Models;
 using Logic = Revature.Complex.Lib.Models;
 using Microsoft.Extensions.Logging;
 using Revature.Complex.Api.Services;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Complex.Api.Controllers
 {
@@ -43,6 +43,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("Getallcomplex")]
+    [Authorize]
     //GET: api/complex/Getallcomplex
     public async Task<ActionResult<IEnumerable<ApiComplex>>> GetAllComplexAsync()
     {
@@ -91,6 +92,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{complexId}")]
+    [Authorize]
     //GET: api/complex/{complexId}
     public async Task<ActionResult<ApiComplex>> GetComplexByIdAsync([FromRoute]Guid complexId)
     {
@@ -135,7 +137,8 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{complexName}/{ComplexNumber}")]
-    //GET: api/complex/{complexName/ComplexNumber}
+    [Authorize]
+    //GET: api/complex/{complexName}/{ComplexNumber}
     public async Task<ActionResult<ApiComplex>> GetComplexByNameAndNumberAsync([FromRoute]string complexName, string complexNumber)
     {
       try
@@ -176,6 +179,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("provierId/{providerId}")]
+    [Authorize]
     //GET: api/complex/provierId/{providerID}
     public async Task<ActionResult<IEnumerable<ApiComplex>>> GetComplexListByProviderId([FromRoute]Guid providerId)
     {
@@ -235,6 +239,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("PostComplex")]
+    [Authorize]
     //Post: api/complex/PostComplex
     public async Task<ActionResult<ApiComplex>> PostComplexAsync([FromBody]ApiComplex apiComplex)
     {
@@ -315,13 +320,14 @@ namespace Revature.Complex.Api.Controllers
     /// (POST)
     /// Call Repository to insert Amenity of rooms into the database
     /// Repackage the Rooms' object and send them to Room service
-    /// Needs to take enumarable collections of Api Room model as parameters
+    /// Needs to take enumerable collections of Api Room model as parameters
     /// </summary>
     /// <param name="apiRooms"></param>
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("PostRooms")]
+    [Authorize]
     //POST: api/complex/PostRooms
     public async Task<ActionResult> PostRoomsAsync([FromBody]IEnumerable<ApiRoom> apiRooms)
     {
@@ -383,6 +389,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPut("editcomplex")]
+    [Authorize]
     //PUT: api/complex/editcomplex
     public async Task<ActionResult> PutComplexAsync([FromBody]ApiComplex apiComplex)
     {
@@ -460,6 +467,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPut("editroom")]
+    [Authorize]
     //PUT: api/complex/editroom
     public async Task<ActionResult> PutRoomAsync([FromBody]ApiRoom apiRoom)
     {
@@ -515,6 +523,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("deletecomplex")]
+    [Authorize]
     //PUT: api/complex/deletecomplex
     public async Task<ActionResult> DeleteComplexAsync([FromBody]Guid complexId, Guid AddressId)
     {
@@ -555,6 +564,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("deleteroom")]
+    [Authorize]
     //PUT: api/complex/deleteroom
     public async Task<ActionResult> DeleteRoomAsync([FromBody]ApiRoom Room)
     {

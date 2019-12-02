@@ -12,6 +12,8 @@ using Revature.Complex.DataAccess;
 using Revature.Complex.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Revature.Complex.Api
 {
@@ -51,20 +53,52 @@ namespace Revature.Complex.Api
 
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Complex", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Account", Version = "v1" });
+        c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
+        c.AddSecurityDefinition("BearerAuth", new OpenApiSecurityScheme
+        {
+          Type = SecuritySchemeType.ApiKey,
+          Description = "Bearer authentication scheme with JWT, e.g. \"Bearer eyJhbGciOiJIUzI1NiJ9.e30\"",
+          Name = "Authorization",
+          In = ParameterLocation.Header
+        });
+        c.OperationFilter<SwaggerFilter>();
       });
 
       services.AddDbContext<ComplexDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ComplexDb")));
+      services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
+      services.AddAuthentication(options =>
+      {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }).AddJwtBearer(options =>
+      {
+        options.Authority = $"http://{Configuration.GetSection("Auth0").GetValue<string>("Domain")}/";
+        options.Audience = Configuration.GetSection("Auth0").GetValue<string>("Audience");
+      });
+
+      services.AddAuthorization(options => {
+        options.AddPolicy("ApprovedProviderRole", policy =>
+            policy.Requirements.Add(new RoleRequirement("approved_provider")));
+        options.AddPolicy("CoordinatorRole", policy =>
+            policy.Requirements.Add(new RoleRequirement("coordinator")));
+        // To fix needing to manually specify the schema every time I want to call [Authorize]
+        // Found it at https://github.com/aspnet/AspNetCore/issues/2193
+        options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+            .RequireAuthenticatedUser()
+            .Build();
+      });
+
 
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<Mapper>();
       services.AddHostedService<RoomServiceReceiver>();
       services.AddScoped<IAddressService, AddressServiceSender>();
       services.AddScoped<IRoomServiceSender, RoomServiceSender>();
-
       services.AddControllers();
 
     }
+
 
     /// <summary>
     /// it is to create the app's request processing pipeline
@@ -79,7 +113,7 @@ namespace Revature.Complex.Api
       }
 
       app.UseSerilogRequestLogging();
-
+      app.UseAuthorization();
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {

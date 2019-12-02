@@ -8,6 +8,7 @@ using Revature.Complex.Lib.Interface;
 using Revature.Complex.Api.Models;
 using Logic = Revature.Complex.Lib.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Complex.Api.Controllers
 {
@@ -35,6 +36,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenities")]
+    [Authorize]
     //GET: api/amenity/amenities
     public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetAmenitiesAsync()
     {
@@ -64,6 +66,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenitiesroom/{roomGuid}")]
+    [Authorize]
     //GET: api/amenity/amenitiesroom/{roomGuid}
     public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetRoomAmenitiesAsync([FromRoute]Guid roomGuid)
     {
@@ -93,6 +96,7 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("amenitiescomplex/{complexGuid}")]
+    [Authorize]
     //GET: api/amenity/amenitiescomplex/{complexGuid}
     public async Task<ActionResult<IEnumerable<Logic.Amenity>>> GetComplexAmenitiesAsync([FromRoute]Guid complexGuid)
     {
@@ -123,6 +127,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("PostAmenity")]
+    [Authorize]
     //POST: api/amenity/addamenity
     public async Task<ActionResult> PostAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
@@ -159,6 +164,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPut("PutAmenity")]
+    [Authorize]
     //PUT: api/amenity/PutAmenity
     public async Task<ActionResult> PutAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
@@ -195,6 +201,7 @@ namespace Revature.Complex.Api.Controllers
     /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpDelete("deleteAmenity")]
+    [Authorize]
     //DELETE: api/amenity/deleteAmenity
     public async Task<ActionResult> DeleteAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
