@@ -1,18 +1,23 @@
+using System;
+
 namespace Revature.Room.Lib.Models
 {
+  /// <summary>
+  /// Model for message to be received from complex service
+  /// </summary>
   public class ComplexMessage
   {
-    /// <summary>
-    /// The Room you are going to send
-    /// </summary>
-    public Room Room { get; set; }
+    public Guid RoomId { get; set; }
+    public string RoomNumber { get; set; }
+    public Guid ComplexId { get; set; }
+    public int NumberOfBeds { get; set; }
+    public string RoomType { get; set; }
+    public DateTime LeaseStart { get; set; }
+    public DateTime LeaseEnd { get; set; }
 
     /// <summary>
-    /// The operation type is what CRUD operation you are sending to the Room service
-    /// We are only receiving Create, Update, and Delete.
-    /// For the OperationType it goes as follows
-    /// Create: 0, Update: 1, Delete: 2
+    /// it is an identifier for Room service to recongnize which method should they act(CRUD)
     /// </summary>
-    public OperationType OperationType { get; set; }
+    public int QueOperator { get; set; }
   }
 }
