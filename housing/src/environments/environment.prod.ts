@@ -6,7 +6,7 @@ export const environment = {
   claimsDomain: 'https://revature.com/', // Trailing slash matters here
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
-    account: 'https://accountdev.revature.xyz/',
+    account: 'https://account-aspnet-dev.azurewebsites.net/',
     complex: 'https://complexdev.revature.xyz/',
     tenant: 'https://tenantdev.revature.xyz/',
     provider: 'http://localhost:10080/'
