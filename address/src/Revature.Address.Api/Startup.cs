@@ -1,16 +1,24 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Address.DataAccess.Entities;
+using Revature.Address.DataAccess.Interfaces;
+using Revature.Address.Lib.BusinessLogic;
+using Revature.Address.Lib.Interfaces;
 using Serilog;
 
 namespace Revature.Address.Api
 {
+  /// <summary>
+  /// Handles the startup configuration for the
+  /// address api
+  /// </summary>
   public class Startup
   {
-    private const string ConnectionStringName = "AddressDb";
     private const string CorsPolicyName = "RevatureCorsPolicy";
 
     public Startup(IConfiguration configuration)
@@ -37,6 +45,11 @@ namespace Revature.Address.Api
             .AllowCredentials();
         });
       });
+      services.AddDbContext<AddressDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AddressDb")));
+
+      services.AddScoped<IMapper, DataAccess.Mapper>();
+      services.AddScoped<IDataAccess, DataAccess.DataAccess>();
+      services.AddScoped<IAddressLogic, AddressLogic>();
 
       services.AddSwaggerGen(c =>
       {

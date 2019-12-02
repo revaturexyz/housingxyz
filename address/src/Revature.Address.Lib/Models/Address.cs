@@ -12,7 +12,6 @@ namespace Revature.Address.Lib
   public class Address
   {
 
-    private Guid? _id { get; set; }
     private string _street { get; set; }
     private string _city { get; set; }
     private string _state { get; set; }
@@ -20,19 +19,9 @@ namespace Revature.Address.Lib
     private string _zipCode { get; set; }
 
     /// <summary>
-    /// Specifies that the guid id must be set
+    /// Guid for identifying addresses
     /// </summary>
-    public Guid? Id
-    {
-      get => _id;
-      set
-      {
-        if (value is null)
-          throw new ArgumentException("Id must be set", nameof(value));
-
-        _id = value;
-      }
-    }
+    public Guid? Id { get; set; }
 
     /// <summary>
     /// Specifies that a street must not be null and

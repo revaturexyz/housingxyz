@@ -76,8 +76,8 @@ namespace Revature.Account.DataAccess
           new CoordinatorAccount()
           {
             CoordinatorId = new System.Guid("837c3248-1685-4d08-934a-0f17a6d1836a"),
-            Name = "Cameron the Coordinator",
-            Email = "cameron@coordinator.com",
+            Name = "Cameron Coley",
+            Email = "cameron.coley@revature.com",
             TrainingCenterName = "UTA",
             TrainingCenterAddress = "300 W Martin Luther King Jr Blvd, Austin, TX 78705"
           }

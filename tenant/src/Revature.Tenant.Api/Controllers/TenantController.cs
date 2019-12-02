@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Api.Models;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 
 namespace Revature.Tenant.Api.Controllers
 {
@@ -19,11 +22,13 @@ namespace Revature.Tenant.Api.Controllers
   {
     private readonly ITenantRepository _tenantRepository;
     private readonly ILogger _logger;
+    private readonly IAddressService _addressService;
 
-    public TenantController(ITenantRepository tenantRepository, ILogger<TenantController> logger = null)
+    public TenantController(ITenantRepository tenantRepository, IAddressService addressService, ILogger<TenantController> logger = null)
     {
       _tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository), "Tenant cannot be null");
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+      _addressService = addressService ?? throw new ArgumentNullException(nameof(addressService));
     }
 
     /// <summary>
@@ -40,7 +45,7 @@ namespace Revature.Tenant.Api.Controllers
       //Parse training center string to guid if it exists
       Guid? trainingCenterGuid;
       if (trainingCenter != null)
-        trainingCenterGuid= Guid.Parse(trainingCenter);
+        trainingCenterGuid = Guid.Parse(trainingCenter);
       else
         trainingCenterGuid = null;
 
@@ -247,6 +252,9 @@ namespace Revature.Tenant.Api.Controllers
       _logger.LogInformation("POST - Making tenant for tenant ID {tenantId}.", tenant.Id);
       try
       {
+        _logger.LogInformation("Posting Address to Address Service...");
+        var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
+        
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
@@ -255,12 +263,12 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
+          AddressId = postedAddress.AddressId,
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter,
-          
+
         };
         if (tenant.ApiCar != null)
         {
@@ -317,7 +325,7 @@ namespace Revature.Tenant.Api.Controllers
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
-          Id = (Guid) tenant.Id,
+          Id = (Guid)tenant.Id,
           Email = tenant.Email,
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
@@ -326,7 +334,7 @@ namespace Revature.Tenant.Api.Controllers
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
-          TrainingCenter = tenant.TrainingCenter 
+          TrainingCenter = tenant.TrainingCenter
         };
 
         if (tenant.ApiCar != null)
