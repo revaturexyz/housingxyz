@@ -135,7 +135,6 @@ namespace Revature.Address.Lib.BusinessLogic
       var results = response.Results.ToList();
 
       var addressComponents = results[0].AddressComponents.ToList();
-      _logger.LogInformation(addressComponents[3].Types.ToList()[0].ToString());
       var streetNum = addressComponents.Select(a => a).
         Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Street_Number)).FirstOrDefault();
       var street = addressComponents.Select(a => a).
