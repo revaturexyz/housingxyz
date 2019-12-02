@@ -4,8 +4,8 @@ import { MatFormFieldModule, MatSelectModule, MatTableModule  } from '@angular/m
 import { EditComplexComponent } from './edit-complex.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { TestServiceData } from 'src/app/services/static-test-data';
 
+/*
 describe('EditComplexComponent', () => {
   let component: EditComplexComponent;
   let fixture: ComponentFixture<EditComplexComponent>;
@@ -37,4 +37,4 @@ describe('EditComplexComponent', () => {
     fixture.detectChanges();
     expect(buttonSelector.disabled).toBeFalsy();
   });
-});
+}); */

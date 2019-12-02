@@ -10,15 +10,14 @@
           <!--Expires Column-->
           <ng-container matColumnDef="expires">
               <th id="notifications-header-expires" mat-header-cell *matHeaderCellDef class="notifications-header">Expires on</th>
-              <td matt-cell *matCellDef="let notification"> {{ dateCalculator(notification.createdDate, notification) }} </td>
           </ng-container>
           <!--Company Name Column-->
           <ng-container matColumnDef="companyName">
             <th id="notifications-header-companyName" mat-header-cell *matHeaderCellDef  class="notifications-header"> Business Name </th>
-            <td matt-cell *matCellDef="let notification" class="truncate"> {{ notification.providerDetails.companyName }} </td>
+            <td matt-cell *matCellDef="let notification" class="truncate"> {{ notification.providerId }} </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="getRecord(row)" class="notifications-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="notifications-row"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>

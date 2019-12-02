@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TestServiceData } from 'src/app/services/static-test-data';
+// import { TestServiceData } from 'src/app/services/static-test-data';
 
 import { Complex } from 'src/interfaces/complex';
+import { Amenity } from 'src/interfaces/amenity';
 
 @Component({
   selector: 'dev-edit-complex',
@@ -15,9 +16,10 @@ export class EditComplexComponent implements OnInit {
   // Decorator to output the selected mode
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
   // seed for simulating all amenities
-  seededAmenityList = TestServiceData.dummyAmenityList1;
+  // seededAmenityList = TestServiceData.dummyAmenityList1;
   // Init for form binding
   formComplex: Complex;
+  amenityList: Amenity[];
 
   constructor() {
    }

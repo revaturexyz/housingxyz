@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angu
 import { Complex } from 'src/interfaces/complex';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Room } from '../../../interfaces/room';
-import { TestServiceData } from 'src/app/services/static-test-data';
+// import { TestServiceData } from 'src/app/services/static-test-data';
 import * as moment from 'moment';
 
 @Component({
@@ -24,8 +24,8 @@ export class ComplexDetailsComponent implements OnInit {
   // seededRooms =>
   // import dummy room data
   public seededRooms: Room[] = [
-    TestServiceData.room,
-    TestServiceData.room2
+    // TestServiceData.room,
+    // TestServiceData.room2
   ];
   // id's for columns on material table
   displayedColumns = ['room#', 'start', 'end', 'edit', 'show'];
