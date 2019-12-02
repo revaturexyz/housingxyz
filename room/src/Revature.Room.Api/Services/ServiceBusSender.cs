@@ -2,7 +2,6 @@ using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -25,6 +24,8 @@ namespace ServiceBusMessaging
     public ServiceBusSender(IConfiguration configuration, ILogger<ServiceBusSender> logger)
     {
       _logger = logger;
+
+      //This is the queue I'm sending information to for the complex service
       _deleteReceiptQueue = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:DQueue"]);
     }
 
@@ -33,14 +34,16 @@ namespace ServiceBusMessaging
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public async Task SendDeleteMessage(List<Guid> roomToSend)
+    public async Task SendDeleteMessage(Guid roomToSend)
     {
       string data = JsonSerializer.Serialize(roomToSend);
 
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("ServiceBus sending delete message: ", data);
+
       await _deleteReceiptQueue.SendAsync(message);
+
       _logger.LogInformation("Success! ServiceBus sent delete message: ", data);
     }
   }
