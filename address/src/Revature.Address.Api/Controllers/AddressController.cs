@@ -71,25 +71,25 @@ namespace Revature.Address.Api.Controllers
     /// <returns></returns>
     // GET: api/address/checkdistance
     [HttpGet("checkdistance")]
-    public async Task<ActionResult<bool>> IsInRange([FromQuery] AddressModel origin, [FromQuery] AddressModel destination)
+    public async Task<ActionResult<bool>> IsInRange([FromQuery] List<AddressModel> addresses)
     {
       Lib.Address start = new Lib.Address
       {
-        Id = origin.Id,
-        Street = origin.Street,
-        City = origin.City,
-        State = origin.State,
-        Country = origin.Country,
-        ZipCode = origin.ZipCode
+        Id = addresses[0].Id,
+        Street = addresses[0].Street,
+        City = addresses[0].City,
+        State = addresses[0].State,
+        Country = addresses[0].Country,
+        ZipCode = addresses[0].ZipCode
       };
       Lib.Address end = new Lib.Address
       {
-        Id = destination.Id,
-        Street = destination.Street,
-        City = destination.City,
-        State = destination.State,
-        Country = destination.Country,
-        ZipCode = destination.ZipCode
+        Id = addresses[1].Id,
+        Street = addresses[1].Street,
+        City = addresses[1].City,
+        State = addresses[1].State,
+        Country = addresses[1].Country,
+        ZipCode = addresses[1].ZipCode
       };
       if (await _addressLogic.IsInRangeAsync(start, end, 20))
       {
