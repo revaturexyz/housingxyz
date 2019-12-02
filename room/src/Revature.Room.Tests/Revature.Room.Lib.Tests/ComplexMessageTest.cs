@@ -1,56 +1,44 @@
+using Revature.Room.Lib.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
-
-using BL = Revature.Room.Lib;
 using Xunit;
 
 namespace Revature.Room.Tests.Revature.Room.Lib.Tests
 {
   public class ComplexMessageTest
   {
-    private Guid newRoomId = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456dd");
-    private Guid newComplexId = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456dd");
-    private string newGender = "Male";
-    private string newRoomNumber = "2003";
-    private string newRoomType = "TownHouse";
-    private int newNumOfBeds = 4;
-
-    private int newNumOfOccupants = 2;
-    private DateTime newLeaseStart = new DateTime(2000, 1, 1);
-    private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
-
-   
-    /// <summary>
-    /// Ensures that creating a complex message which consists of a room and a operationtype
-    /// should create properly
-    /// </summary>
     [Fact]
-    public void CreateComplexMessageShouldCreate()
+    public void ComplexMessageShouldCreate()
     {
-      var roomToInsert = new BL.Room()
+      Guid newRoomId = Guid.NewGuid();
+      string roomNumber = "2428B";
+      Guid complexId = Guid.NewGuid();
+      int numberOfBeds = 4;
+      string roomType = "Apartment";
+      DateTime leaseStart = DateTime.Now;
+      DateTime leaseEnd = DateTime.Now.AddDays(3);
+      int queOperator = 0;
+
+      var complexMessage = new ComplexMessage()
       {
         RoomId = newRoomId,
-        ComplexId = newComplexId,
-        Gender = newGender,
-        RoomNumber = newRoomNumber,
-        RoomType = newRoomType,
-        NumberOfBeds = newNumOfBeds,
-        NumberOfOccupants = newNumOfOccupants
+        ComplexId = complexId,
+        LeaseStart = leaseStart,
+        LeaseEnd = leaseEnd,
+        NumberOfBeds = numberOfBeds,
+        RoomNumber = roomNumber,
+        RoomType = roomType,
+        QueOperator = queOperator
       };
-
-      roomToInsert.SetLease(newLeaseStart, newLeaseEnd);
-
-      var newComplexMessage = new BL.Models.ComplexMessage()
-      {
-        Room = roomToInsert,
-
-        OperationType = BL.Models.OperationType.Create
-      };
-
-      Assert.NotNull(newComplexMessage);
-      Assert.True(newComplexMessage.Room == roomToInsert);
-      Assert.True(newComplexMessage.OperationType == BL.Models.OperationType.Create);
+      Assert.NotNull(complexMessage);
+      Assert.True(complexMessage.RoomId == newRoomId);
+      Assert.True(complexMessage.ComplexId == complexId);
+      Assert.True(complexMessage.LeaseStart == leaseStart);
+      Assert.True(complexMessage.LeaseEnd == leaseEnd);
+      Assert.True(complexMessage.NumberOfBeds == numberOfBeds);
+      Assert.True(complexMessage.RoomNumber == roomNumber);
+      Assert.True(complexMessage.RoomType == roomType);
+      Assert.True(complexMessage.QueOperator == queOperator);
+      Assert.True(complexMessage.RoomType == roomType);
     }
   }
 }

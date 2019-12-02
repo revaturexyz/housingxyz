@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ServiceBusMessaging
@@ -14,6 +13,6 @@ namespace ServiceBusMessaging
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    Task SendDeleteMessage(List<Guid> roomToSend);
+    Task SendDeleteMessage(Guid roomToSend);
   }
 }
