@@ -105,8 +105,7 @@ namespace Revature.Tenant.Api.Controllers
     }
 
     /// <summary>
-    /// Controller method for assigning a tenant to a specific room, this is what we send to the
-    /// room service
+    /// Controller method for assigning a tenant to a specific room
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="roomId"></param>
@@ -120,8 +119,11 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         _logger.LogInformation("Assigning tenant to room");
+
         var tenant = await _repo2.GetByIdAsync(tenantId);
         tenant.RoomId = roomId;
+        _repo2.Put(tenant);
+        await _repo2.SaveAsync();
 
         var roomMessage = new RoomMessage()
         {

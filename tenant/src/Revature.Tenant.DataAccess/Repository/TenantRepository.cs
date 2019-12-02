@@ -63,8 +63,9 @@ namespace Revature.Tenant.DataAccess.Repository
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
       Entities.Tenant tenant = await _context.Tenant
-        .Include(t => t.Car)
+         .Include(t => t.Car)
         .Include(t => t.Batch)
+        .AsNoTracking()
         .FirstOrDefaultAsync(t => t.Id == id);
 
       if (tenant == null)
