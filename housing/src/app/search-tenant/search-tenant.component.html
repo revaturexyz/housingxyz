@@ -14,7 +14,7 @@
 
                 <h3>Narrow your search here:</h3>
 
-                <form formGroup="searchTenantForm" (ngSubmit)="searchTenantsByParameters()">
+                <form [formGroup]="searchTenantForm" (ngSubmit)="searchTenantsByParameters()">
                     <div>
                         First Name:
                         <input type="text" formControlName="firstName">
