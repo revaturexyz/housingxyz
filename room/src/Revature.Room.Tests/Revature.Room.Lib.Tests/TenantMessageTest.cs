@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Xunit;
 using BL = Revature.Room.Lib;
 
 namespace Revature.Room.Tests.Revature.Room.Lib.Tests
 {
-
   public class TenantMessageTest
   {
     public Guid newRoomId = Guid.Parse("349e5358-169a-4bc6-aa0f-c054952456dd");
@@ -35,7 +32,6 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
       Assert.NotNull(newTenantMessage);
       Assert.True(newTenantMessage.Gender == gender);
       Assert.True(newTenantMessage.OperationType == BL.Models.OperationType.Create);
-
     }
   }
 }

@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Room.Lib.Models
 {
-  //WILL ADD DOCUMENTATION BECAUSE MARIELLE TOLD ME TO TODO
+  /// <summary>
+  /// Model for message to be sent to complex service
+  /// </summary>
   public class ComplexMessage
   {
     public Guid RoomId { get; set; }
