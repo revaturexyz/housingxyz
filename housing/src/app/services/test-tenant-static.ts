@@ -1,7 +1,7 @@
-import { PostTenant } from '../../interfaces/PostTenant';
+import { PostTenant } from '../../interfaces/postTenant';
 import { PostTenantAddress } from '../../interfaces/postTenAddress';
 import { Batch } from '../../interfaces/batch';
-import { PostCar } from '../../interfaces/PostCar';
+import { PostCar } from '../../interfaces/postCar';
 import { PostBatch } from '../../interfaces/postBatch';
 import { of } from 'rxjs';
 
