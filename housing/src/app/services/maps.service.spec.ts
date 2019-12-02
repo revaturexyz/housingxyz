@@ -2,11 +2,11 @@ import { TestBed, getTestBed, async } from '@angular/core/testing';
 
 import { MapsService } from './maps.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestServiceData } from './static-test-data';
 import { Address } from '../../interfaces/address';
 import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent';
 import { environment } from 'src/environments/environment';
 
+/*
 const newAdd: Address = TestServiceData.dummyAddress;
 const livAdd: Address = TestServiceData.livPlusAddress;
 const utaAdd: Address = TestServiceData.UTA;
@@ -69,4 +69,4 @@ describe('MapsService', async () => {
     });
     done();
   });
-});
+}); */

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using Revature.Account.Api;
 using Revature.Account.Api.Controllers;
 using Revature.Account.Lib.Model;
 using Serilog;
@@ -21,12 +22,12 @@ namespace Revature.Account.Tests
   public class TestHelper
   {
     public Mock<Revature.Account.Lib.Interface.IGenericRepository> Repository { get; private set; }
+    public Mock<Revature.Account.Api.IAuth0HelperFactory> Auth0HelperFactory { get; private set; }
 
     //API Controller Instantiation
     public CoordinatorAccountController CoordinatorAccountController { get; private set; }
     public NotificationController NotificationController { get; private set; }
     public ProviderAccountController ProviderAccountController { get; private set; }
-
 
     public List<CoordinatorAccount> Coordinators { get; private set; }
     public List<Notification> Notifications { get; private set; }
@@ -149,21 +150,21 @@ namespace Revature.Account.Tests
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[0],
           UpdateAction = UpdateActions[0],
-          AccountExpiresAt = nowPSev
+          CreatedAt = nowPSev
         },
         new Notification
         {
           ProviderId = Providers[1].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[2],
-          AccountExpiresAt = nowPSev
+          CreatedAt = nowPSev
         },
         new Notification()
         {
           ProviderId = Providers[2].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[1],
-          AccountExpiresAt = nowPSev
+          CreatedAt = nowPSev
         }
       };
 
@@ -199,13 +200,14 @@ namespace Revature.Account.Tests
     private void SetUpMocks()
     {
       Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
+      Auth0HelperFactory = new Mock<IAuth0HelperFactory>();
 
-      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _loggerCoord);
+      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _loggerCoord, Auth0HelperFactory.Object);
       CoordinatorAccountController.ControllerContext = new ControllerContext();
       CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       CoordinatorAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      ProviderAccountController = new ProviderAccountController(Repository.Object, _loggerProv);
+      ProviderAccountController = new ProviderAccountController(Repository.Object, _loggerProv, Auth0HelperFactory.Object);
       ProviderAccountController.ControllerContext = new ControllerContext();
       ProviderAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
       ProviderAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";

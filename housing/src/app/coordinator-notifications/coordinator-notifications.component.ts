@@ -1,15 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 
-import { CoordinatorNotification } from '../../interfaces/coordinatorNotification';
-import { Provider } from '../../interfaces/provider';
+import { Notification } from '../../interfaces/account/notification';
+import { Provider } from '../../interfaces/account/provider';
 
 import { Router } from '@angular/router';
 
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-
-import { TestServiceData } from 'src/app/services/static-test-data';
 
 @Component({
   selector: 'dev-coordinator-notifications',
@@ -21,11 +19,9 @@ import { TestServiceData } from 'src/app/services/static-test-data';
 // And allow coordinator to select one for detailed viewing and manipulation.
 export class CoordinatorNotificationsComponent implements OnInit {
 
-  // Seed :
-  notifications = TestServiceData.testCoordinatorNotifications;
-
   displayedColumns = ['expires', 'companyName'];
-  dataSource = new MatTableDataSource<CoordinatorNotification>(this.notifications);
+  // TODO: POPULATE
+  dataSource = new MatTableDataSource<Notification>([]);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -34,22 +30,4 @@ export class CoordinatorNotificationsComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
   }
-
-  // Calculates display date based on account type
-  dateCalculator(date: Date, currentNotification: CoordinatorNotification) {
-    let expire = 7;
-    if (currentNotification.trial) {
-      expire = 7;
-    } else if (currentNotification.extendedTrial) {
-      expire = 30;
-    }
-    return moment(date).add(expire, 'days').format('MM/DD/YYYY');
-  }
-
-  // when a user clicks on a table row this will send them to
-  // the individual record by id
-  getRecord(row: any) {
-    this.router.navigate(['/coordinator-notifications/' + row.notificationId]);
-  }
-
 }

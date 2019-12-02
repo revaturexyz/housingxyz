@@ -11,7 +11,7 @@ namespace Revature.Account.Lib.Model
   {
     private string _name;
     public Guid ProviderId { get; set; } = Guid.NewGuid();
-    public Guid CoordinatorId { get; set; }
+    public Guid? CoordinatorId { get; set; }
 
     public string Name
     {

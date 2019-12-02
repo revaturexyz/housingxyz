@@ -8,7 +8,9 @@ namespace Revature.Room.Lib.Models
     /// The message we will receive from the tenant, which will be the room Id and the gender in the form
     /// of a tuple
     /// </summary>
-    public Tuple<Guid, string> Tenant { get; set; }
+    public Guid RoomId { get; set; }
+
+    public string Gender { get; set; }
 
     /// <summary>
     /// Based on the operation type ( 0 = Create, 1 = Delete ), we will react accordinly in the ServiceBusConsumer

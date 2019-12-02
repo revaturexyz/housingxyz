@@ -1,17 +1,10 @@
-<div class="home-head">
-  <h1>Living Complexes</h1>
-  <hr>
-  <div *ngFor="let complex of complexes" class="card complex-card">
-    <div class="card-body">
-      <div class="card-title">
-        <h4>{{ complex.complexName }}</h4>
-      </div>
-      <hr>
-      <div class="card-content">
-        <p>{{ complex.apiAddress.streetAddress }}</p>
-        <p>{{ complex.apiAddress.city }}, {{ complex.apiAddress.state }} {{ complex.apiAddress.zipcode }}</p>
-        <p>{{ complex.contactNumber }}</p>
-      </div>
-    </div>
+<div class="login-outer">
+  <div class="login-inner">
+    <h3>Revature Housing</h3>
+    <hr>
+    With the Revature Housing App, you are able to register and manage qualified housing so that it is available to Revature trainees. To see a current list of the nationwide Revature training sites, <a routerLink="training-locations" class="a-highlight">click here</a>.
+    <hr>
+    <a routerLink="" class="a-highlight account">log in,</a> or <a routerLink="add-provider" class="a-highlight account">register</a>
+    <hr>
   </div>
 </div>

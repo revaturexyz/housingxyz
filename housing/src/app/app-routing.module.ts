@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProviderSelectComponent } from './provider-select/provider-select.component';
-import { AddRoomComponent } from './add-room/add-room.component';
-import { UpdateRoomComponent } from './update-room/update-room.component';
 import { HomeComponent } from './home/home.component';
-import { AddComplexComponent } from './add-complex/add-complex.component';
-import { AddProviderComponent } from './add-provider/add-provider.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -15,25 +10,25 @@ import { AddTenantComponent } from './add-tenant/add-tenant.component';
 import { SearchTenantComponent } from './search-tenant/search-tenant.component';
 import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 
+import { AuthService } from './services/auth.service';
+import { EditProviderComponent } from './edit-provider/edit-provider.component';
+import { ProviderStatusComponent } from './provider-status/provider-status.component';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
+
 const routes: Routes = [
-  { path: '', component: HomeComponent},
-
-
-  { path: 'show-rooms', component: UpdateRoomComponent },
-  { path: 'provider-select', component: ProviderSelectComponent},
-  { path: 'add-provider', component: AddProviderComponent },
-  { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent },
   { path: 'coordinator-notifications/:id', component: NotificationDetailsComponent },
   // dev-assign-tenant-to-room
   { path: 'dev-assign-tenant-to-room', component: AssignTenantToRoomComponent },
 
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
-  { path: 'add-complex', component: AddComplexComponent },
-  { path: 'addroom', component: AddRoomComponent },
   { path: 'add-tenant', component: AddTenantComponent },
   { path: 'search-tenant', component: SearchTenantComponent },
   { path: 'select-tenant/:id', component: SelectTenantComponent },
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] }
+  { path: '', component: HomeComponent },
+  { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent, canActivate: [AuthGuard] },
+  { path: 'edit-provider', component: EditProviderComponent, canActivate: [AuthGuard] },
+  { path: 'provider-status', component: ProviderStatusComponent, canActivate: [AuthGuard] },
+  { path: 'manage-complex', component: ManageComplexComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

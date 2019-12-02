@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'dev-nav',
@@ -7,8 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  public role: string;
 
-  ngOnInit() {
+  constructor(private router: Router, public auth: AuthService, public user: UserService) {
+    user.Roles$.subscribe(res => this.role = res[0])
   }
+
+  ngOnInit() { }
 }
