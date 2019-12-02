@@ -49,8 +49,6 @@ namespace Revature.Account.Lib.Model
     /// </summary>
     public DateTime AccountExpiresAt { get; set; }
 
-    public bool Approved { get; set; } = false;
-
     /// <summary>
     /// Checks to see if a string is either null (does not exist) or empty ( "" )
     /// </summary>

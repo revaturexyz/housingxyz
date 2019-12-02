@@ -93,7 +93,7 @@ namespace Revature.Account.DataAccess
           .IsRequired();
         entity.Property(e => e.UpdateActionId)
           .IsRequired();
-        entity.Property(e => e.AccountExpiresAt)
+        entity.Property(e => e.CreatedAt)
           .IsRequired();
         entity.HasOne(e => e.Coordinator)
           .WithMany(c => c.Notifications)

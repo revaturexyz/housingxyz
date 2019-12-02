@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Room } from 'src/interfaces/room';
 import { Complex } from 'src/interfaces/complex';
 
-import { TestServiceData } from 'src/app/services/static-test-data';
+// import { TestServiceData } from 'src/app/services/static-test-data';
 
 @Component({
   selector: 'dev-show-room',
@@ -11,8 +11,8 @@ import { TestServiceData } from 'src/app/services/static-test-data';
 })
 export class ShowRoomComponent implements OnInit {
   // Seeded data for view testing
-  seededGenderTypes = TestServiceData.dummyGender;
-  seededRoomTypes = TestServiceData.dummyRoomTypeList;
+ // seededGenderTypes = TestServiceData.dummyGender;
+ // seededRoomTypes = TestServiceData.dummyRoomTypeList;
   // For all select form inputs to show invalid on validation checks.
   public selectOptionRoomTypeInvalid = '';
   public selectOptionGenderInvalid = '';

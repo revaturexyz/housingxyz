@@ -13,6 +13,7 @@ namespace Revature.Account.Lib.Model
   /// </summary>
   public class Status
   {
+    public static readonly string Unassigned = "Unassigned";
     public static readonly string Pending = "Pending";
     public static readonly string Approved = "Approved";
     public static readonly string Rejected = "Rejected";

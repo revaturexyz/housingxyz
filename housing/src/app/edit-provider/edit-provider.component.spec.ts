@@ -1,21 +1,22 @@
 import { async, inject, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 
-import { AddProviderComponent } from './add-provider.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { EditProviderComponent } from './edit-provider.component';
 
-describe('AddProviderComponent', () => {
-  let component: AddProviderComponent;
-  let fixture: ComponentFixture<AddProviderComponent>;
+/*
+describe('EditProviderComponent', () => {
+  let component: EditProviderComponent;
+  let fixture: ComponentFixture<EditProviderComponent>;
   let httpMock: HttpTestingController;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ AddProviderComponent ],
+      declarations: [ EditProviderComponent ],
       providers: [ ]
     })
     .compileComponents();
@@ -24,7 +25,7 @@ describe('AddProviderComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddProviderComponent);
+    fixture = TestBed.createComponent(EditProviderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -32,4 +33,4 @@ describe('AddProviderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); */

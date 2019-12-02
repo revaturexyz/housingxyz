@@ -20,13 +20,13 @@ namespace Revature.Room.DataAccess
       {
         RoomId = Room.RoomId,
         ComplexId = Room.ComplexId,
-        Gender = Room.Gender.Type,
         RoomNumber = Room.RoomNumber,
         RoomType = Room.RoomType.Type,
         NumberOfBeds = Room.NumberOfBeds,
         NumberOfOccupants = Room.NumberOfOccupants
       };
       room.SetLease(Room.LeaseStart, Room.LeaseEnd);
+      if (Room.Gender != null) room.Gender = Room.Gender.Type;
       return room;
     }
 
