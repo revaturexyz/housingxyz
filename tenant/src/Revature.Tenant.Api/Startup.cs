@@ -37,6 +37,7 @@ namespace Revature.Tenant.Api
         {
           builder.WithOrigins("http://localhost:4200",
                               "https://localhost:4200",
+                              "http://localhost:14080",
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
