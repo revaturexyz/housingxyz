@@ -116,7 +116,7 @@ namespace Revature.Tenant.Tests.DataTests
       var result = await repo.GetRoomlessTenantsAsync();
 
       Assert.NotNull(result);
-      Assert.Equal("Lana", result.First().FirstName);
+      Assert.NotNull(result.First(r => r.FirstName == "Lana"));
       Assert.IsType<List<Lib.Models.Tenant>>(result);
     }
   }
