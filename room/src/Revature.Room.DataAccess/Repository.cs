@@ -190,6 +190,7 @@ namespace Revature.Room.DataAccess
       {
         roomToUpdate.Gender = await _context.Gender.FirstAsync(g => g.Type.ToUpper() == tenantGender.ToUpper());
       }
+      await SaveAsync();
     }
 
     /// <summary>
@@ -207,6 +208,7 @@ namespace Revature.Room.DataAccess
       {
         roomToUpdate.Gender = null;
       }
+      await SaveAsync();
     }
   }
 }

@@ -94,13 +94,11 @@ namespace ServiceBusMessaging
               _logger.LogInformation("Adding occupants to a room", message.Body);
 
               await _repo.AddRoomOccupantsAsync(receivedMessage.RoomId, receivedMessage.Gender);
-
               break;
             case OperationType.Delete:
               _logger.LogInformation("Subtracting an occupant from a room", message.Body);
 
               await _repo.SubtractRoomOccupantsAsync(receivedMessage.RoomId);
-
               break;
           }
 
