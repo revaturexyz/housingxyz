@@ -78,6 +78,11 @@ export class AddTenantComponent implements OnInit {
     this.showAddressForm = false;
   }
 
+  coordChoose(id: string) {
+    this.tenant.trainingCenter = id;
+  }
+
+
   constructor(
     private coordService: CoordinatorService,
     private router: Router

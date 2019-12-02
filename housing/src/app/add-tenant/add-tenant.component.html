@@ -12,7 +12,7 @@
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>Show Coordinator</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem *ngFor="let coord of coordList" (click)="coordChoose(coord)">
+              <button ngbDropdownItem *ngFor="let coord of trainCen" (click)="coordChoose(coord)">
                 {{ coord.coordName }}
               </button>
             </div>
@@ -122,7 +122,7 @@
                   <label class="tenFormLabel">Training Center:</label>
                   <select class="input-border col-md-9 input-border" name="tenant.trainingCenter" required
                     [(ngModel)]="tenant.trainingCenter" #tenTrainCen="ngModel">
-                    <option *ngFor="let trainCenter of trainCen" [ngValue]="type">{{trainCenId}}</option>
+                    <option *ngFor="let trainCenter of trainCen" [ngValue]="tenant.trainingCenter">{{trainCenId}}</option>
                   </select>
                 </div>
               <br>
