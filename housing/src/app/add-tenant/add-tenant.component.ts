@@ -22,7 +22,7 @@ export class AddTenantComponent implements OnInit {
   showAddressForm = false;
 
   genderShowString = 'Choose Gender';
-  genders: string[] = ['Male', 'Female', 'Non Binary'];
+  genders: string[] = ['Male', 'Female'];
 
   // batch info
   batchList: Batch[] = [];
