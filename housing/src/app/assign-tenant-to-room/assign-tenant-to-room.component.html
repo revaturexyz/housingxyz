@@ -2,39 +2,34 @@
     <div class="add-tenantRoom-inner">
         <div *ngIf="currentTenant">
             <h1>Current Tenant: {{currentTenant.firstName}} {{currentTenant.lastName}}</h1>
-            <h3>Language: {{currentTenant.batch.language}} | BatchId: {{currentTenant.batch}}</h3>
+            <h3>Language: {{currentTenant.batch.language}} | BatchId: {{currentTenant.batch.batchId}}</h3>
         </div>
+        <!-- Display assignable tenants -->
         <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
-            <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item">{{room[0].roomNumber}}</div>
+            <div *cdkVirtualFor="let tenant of assignableTenants" class="example-item" (click)="selectTenant(tenant)">{{tenant.firstName}} {{tenant.lastName}}</div>
         </cdk-virtual-scroll-viewport>
-        <div *ngIf="changingArray">
-            <table>
-                <tr>
-                    <th>Room ID:</th>
-                    <th>Priority Level</th>
-                </tr>
-                <tr *ngFor="let elem of changingArray">
-                    <td>{{elem[0].id}}</td>
-                    <td>{{elem[1]}}</td>
-                </tr>
-                <tr>
-                    <td>Filter Car</td>
-                    <td><input type="checkbox" [checked]="filterCar" (change)="toggleCar()"></td>
-                </tr>
-                <tr>
-                    <td><label>Filter Language</label></td>
-                    <td><input type="checkbox" [checked]="filterLang" (change)="toggleLang()"></td>
-                </tr>
-                <tr>
-                    <td><label>Filter Batch</label></td>
-                    <td><input type="checkbox" [checked]="filterBatch" (change)="toggleBatch()"></td>
-                </tr>
-        
-            </table>
-            <!-- <div *ngFor="let elem of changingArray">
-                <p>Room ID: {{elem[0].id}} -- Priority Level: {{elem[1]}} </p>
-            </div> -->
-        </div>
+
+        <!-- Display rooms tenants -->
+        <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
+            <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item" (click)="selectRoom(room[0].id)">{{room[0].roomNumber}} | {{room[1]}}</div>
+        </cdk-virtual-scroll-viewport>
+
+        <button (click)="assignRoom()" [disabled]="!currentTenant || !currentRoomId">Assign</button>
+
+        <table>
+            <tr>
+                <td>Filter Car</td>
+                <td><input type="checkbox" [checked]="filterCar" (change)="toggleCar()"></td>
+            </tr>
+            <tr>
+                <td>Filter Language</td>
+                <td><input type="checkbox" [checked]="filterLang" (change)="toggleLang()"></td>
+            </tr>
+            <tr>
+                <td>Filter Batch</td>
+                <td><input type="checkbox" [checked]="filterBatch" (change)="toggleBatch()"></td>
+            </tr>
+        </table>
         
         <br>
     </div>

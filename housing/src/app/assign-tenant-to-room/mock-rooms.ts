@@ -18,5 +18,32 @@ export const ROOMS: RoomWithTenants[] = [
         tenants: [
             TENANTS[1],
         ]
-    }
+    },
+    {
+        id: "3",
+        roomNumber: "1034",
+        totalBeds: 2,
+        tenants: [
+            TENANTS[2],
+        ]
+    },
+    {
+        id: "4",
+        roomNumber: "2045",
+        totalBeds: 4,
+        tenants: [
+            TENANTS[3],
+            TENANTS[4],
+            TENANTS[5],
+        ]
+    },
+    {
+        id: "4",
+        roomNumber: "3045",
+        totalBeds: 4,
+        tenants: [
+            TENANTS[6],
+            TENANTS[7],
+        ]
+    },
 ]

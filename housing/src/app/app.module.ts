@@ -38,6 +38,7 @@ import { ComplexDetailsComponent } from './manage-complex/complex-details/comple
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     MatDatepickerModule,
     MatMomentDateModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ScrollDispatchModule,
   ],
   providers: [
     // {

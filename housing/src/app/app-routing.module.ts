@@ -6,7 +6,6 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { AuthGuard } from './guards/auth.guard';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 
-import { AddTenantComponent } from './add-tenant/add-tenant.component';
 import { SearchTenantComponent } from './search-tenant/search-tenant.component';
 import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 
@@ -21,7 +20,6 @@ const routes: Routes = [
   { path: 'dev-assign-tenant-to-room', component: AssignTenantToRoomComponent },
 
   // { path: "location-rooms/:id", component: LocationRoomsComponent }
-  { path: 'add-tenant', component: AddTenantComponent },
   { path: 'search-tenant', component: SearchTenantComponent },
   { path: 'select-tenant/:id', component: SelectTenantComponent },
   { path: '', component: HomeComponent },

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RoomWithTenants } from '../../interfaces/room-with-tenant';
 import { TenantInRoom } from '../../interfaces/tenant-in-room';
 import { TenantAssignService } from '../services/tenant-assign-service';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { TENANTS } from './mock-tenants';
+import { ROOMS } from './mock-rooms';
 
 @Component({
   selector: 'dev-assign-tenant-to-room',
@@ -32,6 +35,8 @@ export class AssignTenantToRoomComponent implements OnInit {
   filterLang:boolean = false;
   filterBatch:boolean = false;
 
+  roomsLoaded:boolean = false;
+
   // Determines how strongly to prioritize specific filters
   batchPriorityWeight:number = 0.6;
   langPriorityWeight:number = 0.6;
@@ -41,17 +46,47 @@ export class AssignTenantToRoomComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tenantAssignService.getTenantsNotAssignedRoom().then(
-      result => this.assignableTenants = result
-    );
+    // TODO uncomment to use service and comment out usage of mock data
+    // this.tenantAssignService.getTenantsNotAssignedRoom().then(
+    //   result => this.assignableTenants = result
+    // );
+    this.assignableTenants = TENANTS;
   }
 
   selectTenant(tenant: TenantInRoom){
     this.currentTenant = tenant;
+    this.updateRooms();
   }
 
   selectRoom(roomId: string){
     this.currentRoomId = roomId;
+    console.log(`room selected: ${roomId}`)
+  }
+
+  assignRoom(){
+    console.log("assign clicked");
+
+    this.tenantAssignService.assignTenant(this.currentTenant.tenantId,this.currentRoomId).then( () => {
+      console.log("Tenant assigned");
+    }).catch( () => {
+      console.log("Tenant could not be assigned");
+    });
+  }
+
+  updateRooms(){
+    this.roomsLoaded = false;
+    // TODO uncomment to use service and comment out usage of mock data
+    // this.tenantAssignService.getAvailableRoomsWithTenants(this.currentTenant.gender,this.currentTenant.batch.endDate.toString())
+    // .then( result => {
+    //   this.availableRooms = result;
+    //   this.roomsLoaded = true;
+    // });
+    this.availableRooms = ROOMS;
+    this.roomArray = [];
+    this.availableRooms.forEach(element => {
+      this.roomArray.push([element,0]);
+    });
+    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
   }
 
   // Filter Checkbox Methods; sorts list whenever a checkbox is clicked
@@ -111,7 +146,7 @@ export class AssignTenantToRoomComponent implements OnInit {
   }
 
   prioritizeWithFilters(arr:[RoomWithTenants, number][]) : [RoomWithTenants, number][]{
-    let result = JSON.parse(JSON.stringify(arr));
+    let result = JSON.parse(JSON.stringify(arr)); // shallow copy of the array
     if (this.filterCar){
       this.prioritizeRoomsByCar(result);
     }

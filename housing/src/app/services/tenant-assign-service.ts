@@ -18,8 +18,8 @@ export class TenantAssignService {
     return this.httpClient.get<TenantInRoom[]>(url).toPromise();
   }
 
-  getAvailableRoomsWithTenants(): Promise<RoomWithTenants[]> {
-    let url = `${environment.endpoints.tenant}api/Tenant/Assign/AvailableRooms`;
+  getAvailableRoomsWithTenants(gender:string,endDate:string): Promise<RoomWithTenants[]> {
+    let url = `${environment.endpoints.tenant}api/Tenant/Assign/AvailableRooms?gender=${gender}&endDate=${endDate}`;
     return this.httpClient.get<RoomWithTenants[]>(url).toPromise();
   }
 
