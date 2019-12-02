@@ -49,8 +49,7 @@ export class SelectTenantComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     this.service.selectTenant(id)
-      .then(x => 
-        {
+      .then(x => {
           this.tenant = x;
           this.tenantLoaded = true;
         });
