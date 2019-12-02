@@ -15,7 +15,7 @@ services:
     networks:
       - complex_localhost
     environment:
-      ConnectionStrings__ComplexDb: ''
+      ConnectionStrings__ComplexDb: 'Host=data;Database=complex;Username=postgres;Password=Pass@word'
       ConnectionStrings__ServiceBus: ''
   data:
     image: postgres:12.0
