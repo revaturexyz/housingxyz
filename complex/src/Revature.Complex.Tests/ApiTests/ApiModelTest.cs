@@ -86,7 +86,6 @@ namespace Revature.Complex.Tests.ApiTests
       {
         RoomNumber = "1234",
         ComplexId = cId,
-        Gender = "male",
         NumberOfBeds = 3,
         ApiRoomType = "apartment",
         LeaseStart = start,
@@ -95,7 +94,6 @@ namespace Revature.Complex.Tests.ApiTests
 
       Assert.Equal("1234", room.RoomNumber);
       Assert.Equal(cId, room.ComplexId);
-      Assert.Equal("male", room.Gender);
       Assert.Equal(3, room.NumberOfBeds);
       Assert.Equal("apartment", room.ApiRoomType);
       Assert.Equal(DateTime.Parse("2019/1/1"), room.LeaseStart);
@@ -117,7 +115,6 @@ namespace Revature.Complex.Tests.ApiTests
         RoomId = rId,
         RoomNumber = "1234",
         ComplexId = cId,
-        Gender = "female",
         NumberOfBeds = 4,
         RoomType = "dormitory",
         LeaseStart = start,
@@ -127,7 +124,6 @@ namespace Revature.Complex.Tests.ApiTests
       Assert.Equal(rId, send.RoomId);
       Assert.Equal("1234", send.RoomNumber);
       Assert.Equal(cId, send.ComplexId);
-      Assert.Equal("female", send.Gender);
       Assert.Equal(4, send.NumberOfBeds);
       Assert.Equal("dormitory", send.RoomType);
       Assert.Equal(DateTime.Parse("2019/1/1"), send.LeaseStart);
