@@ -3,7 +3,7 @@ using System;
 namespace Revature.Room.Lib.Models
 {
   /// <summary>
-  /// Model for message to be sent to complex service
+  /// Model for message to be received from complex service
   /// </summary>
   public class ComplexMessage
   {
