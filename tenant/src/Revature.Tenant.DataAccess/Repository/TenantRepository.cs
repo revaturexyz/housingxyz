@@ -38,9 +38,6 @@ namespace Revature.Tenant.DataAccess.Repository
     {
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
-
-      //added this
-      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -55,9 +52,6 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         Entities.Car newCar = _mapper.MapCar(tenant.Car);
         _context.Car.Update(newCar);
-
-        //added this
-        _context.SaveChangesAsync();
       }
     }
 
@@ -136,9 +130,6 @@ namespace Revature.Tenant.DataAccess.Repository
       Entities.Tenant tenant = await _context.Tenant.FindAsync(id);
 
       _context.Remove(tenant);
-
-      //added this
-      await _context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -156,9 +147,6 @@ namespace Revature.Tenant.DataAccess.Repository
 
       Entities.Tenant newTenant = _mapper.MapTenant(tenant);
       _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
-
-      //added this
-      await _context.SaveChangesAsync();
     }
 
     /// <summary>

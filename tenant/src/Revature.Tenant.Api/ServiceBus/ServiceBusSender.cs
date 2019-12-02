@@ -28,7 +28,7 @@ namespace Revature.Tenant.Api.ServiceBus
       _logger = logger;
       _queueClient = new QueueClient(
         _queueConfiguration.GetConnectionString("ServiceBus"),
-        _queueConfiguration.GetSection("Queues")["TQueue"]); //replaced AssignedRoom with TQueue for testing
+        _queueConfiguration.GetSection("Queues")["AssignedRoom"]);
     }
 
     /// <summary>
