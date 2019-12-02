@@ -82,8 +82,8 @@ namespace Revature.Account.Api.Controllers
                 ? authUser[0].FirstName + " " + authUser[0].LastName
                 : "No Name"),
               Email = auth0.Email,
-              TrainingCenterName = "",
-              TrainingCenterAddress = ""
+              TrainingCenterName = "No Name",
+              TrainingCenterAddress = "No Address"
             };
             // Add them
             _repo.AddCoordinatorAccount(coordinator);
