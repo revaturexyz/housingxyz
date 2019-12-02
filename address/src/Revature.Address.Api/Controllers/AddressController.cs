@@ -30,6 +30,21 @@ namespace Revature.Address.Api.Controllers
       _logger = logger;
     }
 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(Guid id)
+    {
+      var item = await db.GetAddressAsync(id);
+      if (item is null)
+      {
+        _logger.LogError("No address found matching given id");
+        return NotFound();
+      }
+
+      await db.DeleteAddressAsync(id);
+      _logger.LogInformation("Address successfully deleted");
+      return NoContent();
+    }
+
     /// <summary>
     /// This method returns an address matching the given addressId
     /// </summary>
@@ -130,7 +145,7 @@ namespace Revature.Address.Api.Controllers
       if (checkAddress == null)
       {
         _logger.LogInformation("Address does not exist in the database");
-        newAddress.Id = new Guid();
+        newAddress.Id = Guid.NewGuid();
         if (await _addressLogic.IsValidAddressAsync(newAddress))
         {
           try

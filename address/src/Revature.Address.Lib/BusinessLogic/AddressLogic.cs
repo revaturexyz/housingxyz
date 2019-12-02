@@ -135,9 +135,11 @@ namespace Revature.Address.Lib.BusinessLogic
       var results = response.Results.ToList();
 
       var addressComponents = results[0].AddressComponents.ToList();
-      _logger.LogInformation("{0}",addressComponents[0].ToString());
+      _logger.LogInformation(addressComponents[3].Types.ToList()[0].ToString());
+      var streetNum = addressComponents.Select(a => a).
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Street_Number)).FirstOrDefault();
       var street = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Street_Address)).FirstOrDefault();
+        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Route)).FirstOrDefault();
       var city = addressComponents.Select(a => a).
         Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Locality)).FirstOrDefault();
       var state = addressComponents.Select(a => a).
@@ -147,15 +149,13 @@ namespace Revature.Address.Lib.BusinessLogic
       var zipCode = addressComponents.Select(a => a).
         Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Postal_Code)).FirstOrDefault();
 
-      Address normalized = new Address
-      {
-        Id = address.Id,
-        Street = street.LongName,
-        City = city.LongName,
-        State = state.LongName,
-        Country = country.ShortName,
-        ZipCode = zipCode.LongName
-      };
+      Address normalized = new Address();
+      normalized.Id = address.Id;
+        normalized.Street = $"{streetNum.LongName} {street.LongName}";
+        normalized.City = city.LongName;
+        normalized.State = state.LongName;
+        normalized.Country = country.ShortName;
+        normalized.ZipCode = zipCode.LongName;
       return normalized;
     }
 
