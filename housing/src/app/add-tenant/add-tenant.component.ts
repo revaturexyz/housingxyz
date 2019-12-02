@@ -42,20 +42,18 @@ export class AddTenantComponent implements OnInit {
     //this.router.navigate(['show-tenant']);
   }
 
-  // called when te button to add an address is clicked to display the form.
-
+  // called to add and return from Car Form.
   addForm() {
     this.show = true;
   }
 
-  addAddress() {
-    this.address = true;
-  }
-
-
-  // called when the cancel button on the add address form is clicked to hide the form.
   back() {
     this.show = false;
+  }
+
+  // called to add and return from Address Form.
+  addAddress() {
+    this.address = true;
   }
 
   return() {

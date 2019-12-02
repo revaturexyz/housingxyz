@@ -3,16 +3,18 @@ import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/test
 import { AddTenantComponent } from './add-tenant.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestTenantData } from '../services/test-tenant-static';
+import { TestTenantData, CoordinatorServiceStub } from '../services/test-tenant-static';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Batch } from 'src/interfaces/batch';
-import { TenantAddress } from 'src/interfaces/tenantAddress';
+import { PostTenantAddress } from 'src/interfaces/postTenAddress';
+import { PostCar } from 'src/interfaces/postCar'
 import { CoordinatorService } from '../services/coordinator.service';
 import { AuthService } from '../services/auth.service';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY, of, Observable } from 'rxjs';
+import { PostTenant } from 'src/interfaces/postTenant';
+import { HttpEvent } from '@angular/common/http';
 
-const address: TenantAddress = {
-  addressId: 'asdf',
+const address: PostTenantAddress = {
   street: '123 GregMad St',
   city: 'Colton',
   state: 'Victory',
@@ -20,9 +22,17 @@ const address: TenantAddress = {
   zipCode: '12345'
 }
 
+class MockCoordinatorService extends CoordinatorService {
+  PostTenant(postTenant: PostTenant): Observable<HttpEvent<PostTenant>> {
+    return this.httpOptions.toBeTruthy(TestTenantData.dummyTenant);
+  }
+}
+
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
+  let coordService: CoordinatorService;
+  let batchStub;
   const authSpy = jasmine.createSpyObj('AuthService', ['login']);
   const coordSpy = jasmine.createSpyObj('CoordniatorService', ['PostTenant', 'GetBatchByTrainingCenterId']);
 
@@ -33,8 +43,8 @@ describe('AddTenantComponent', () => {
       providers: [
         AddTenantComponent,
         { provide: AuthService, useValue: authSpy },
-        { provide: CoordinatorService, useValue: coordSpy }
-      ]
+        { provide: CoordinatorService, useValue: coordSpy, useClass: CoordinatorServiceStub }
+      ],
     })
       .compileComponents();
   }));
@@ -43,6 +53,7 @@ describe('AddTenantComponent', () => {
     fixture = TestBed.createComponent(AddTenantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    coordService = TestBed.get(CoordinatorService);
   });
 
   it('should create', () => {
@@ -64,13 +75,13 @@ describe('AddTenantComponent', () => {
   // addAddress()
   it('should add form on addAddress()', () => {
     component.addAddress();
-    expect(component.show).toBeTruthy();
+    expect(component.address).toBeTruthy();
   });
 
   // return()
   it('should remove form on return()', () => {
     component.return();
-    expect(component.show).toBeFalsy();
+    expect(component.address).toBeFalsy();
   });
 
   // ngOnInit()
@@ -84,13 +95,14 @@ describe('AddTenantComponent', () => {
 
     component.batchChoose(batch);
 
-    expect(component.activeBatch.batchLanguage).toEqual(batch.batchLanguage);
+    expect(component.activeBatch.batchCurriculum).toEqual(batch.batchCurriculum);
     expect(component.activeBatch).toBe(batch);
   });
 
   // postTenantOnSubmit()
   it('should post tenants by id on submit', async () => {
-    component.tenant.tenantAddress = address;
+    component.tenant.apiAddress = TestTenantData.dummyAddress;
+    component.tenant.apiBatch = TestTenantData.dummyPostBatch;
     component.postTenantOnSubmit();
     expect(component.show).toEqual(false);
   });
