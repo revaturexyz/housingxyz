@@ -80,6 +80,14 @@ namespace Revature.Account.DataAccess
             Email = "cameron.coley@revature.com",
             TrainingCenterName = "UTA",
             TrainingCenterAddress = "300 W Martin Luther King Jr Blvd, Austin, TX 78705"
+          },
+          new CoordinatorAccount()
+          {
+            CoordinatorId = new System.Guid("7d673549-be58-41d2-9ac0-0ecede8b27be"),
+            Name = "Cameron Coley",
+            Email = "jacob.marquez.davis@hotmail.com",
+            TrainingCenterName = "UTA",
+            TrainingCenterAddress = "300 W Martin Luther King Jr Blvd, Austin, TX 78705"
           }
         });
       });
@@ -93,7 +101,7 @@ namespace Revature.Account.DataAccess
           .IsRequired();
         entity.Property(e => e.UpdateActionId)
           .IsRequired();
-        entity.Property(e => e.AccountExpiresAt)
+        entity.Property(e => e.CreatedAt)
           .IsRequired();
         entity.HasOne(e => e.Coordinator)
           .WithMany(c => c.Notifications)

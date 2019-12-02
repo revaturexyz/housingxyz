@@ -8,7 +8,7 @@ import { EditRoomComponent } from './edit-room/edit-room.component';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { EditComplexComponent } from './edit-complex/edit-complex.component';
 import { AddComplexComponent } from './add-complex/add-complex.component';
-import { TestServiceData } from 'src/app/services/static-test-data';
+// import { TestServiceData } from 'src/app/services/static-test-data';
 import { Room } from 'src/interfaces/room';
 
 @Component({
@@ -21,10 +21,10 @@ import { Room } from 'src/interfaces/room';
 export class ManageComplexComponent implements OnInit {
 
   public seededComplexes: Complex[] = [
-    TestServiceData.dummyComplex,
-    TestServiceData.dummyComplex2,
-    TestServiceData.dummyComplex,
-    TestServiceData.dummyComplex2
+    // TestServiceData.dummyComplex,
+    // TestServiceData.dummyComplex2,
+    // TestServiceData.dummyComplex,
+    // TestServiceData.dummyComplex2
   ];
 
   // mode selection =>

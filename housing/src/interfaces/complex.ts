@@ -1,5 +1,5 @@
 import { Address } from './address';
-import { Provider } from './provider';
+import { Provider } from './account/provider';
 import { Amenity } from './amenity';
 
 export interface Complex {

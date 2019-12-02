@@ -117,7 +117,7 @@ namespace Revature.Tenant.Tests.ApiTests
         Id = null,
         LastName = "Something Spanish",
         RoomId = null,
-        TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+        TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
       });
 
       //Assert
@@ -234,7 +234,7 @@ namespace Revature.Tenant.Tests.ApiTests
         }
       };
 
-      var result = await controller.DeleteAsync("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
+      var result = await controller.DeleteAsync(Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"));
 
       //Arrange
       var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);

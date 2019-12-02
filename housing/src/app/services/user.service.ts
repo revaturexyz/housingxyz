@@ -11,7 +11,6 @@ export class UserService {
 
   constructor(private account: AccountService, private auth: AuthService) {
     let decodedToken: string;
-
     this.UserId$.subscribe(currentUserId => {
       if (currentUserId === '') {
         account.getId$().subscribe(res => {
@@ -26,7 +25,7 @@ export class UserService {
         this.email.next(JSON.parse(decodedToken)[environment.claimsDomain + 'email']);
       });
     });
-   }
+  }
 
   private userId: BehaviorSubject<string> = new BehaviorSubject('');
   public readonly UserId$: Observable<string> = this.userId.asObservable();

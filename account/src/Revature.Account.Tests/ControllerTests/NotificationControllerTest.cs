@@ -63,7 +63,7 @@ namespace Revature.Account.Tests.ControllerTests
       Guid notificationId = helper.Notifications[0].NotificationId;
       var updatedNotification = helper.Notifications[0];
       updatedNotification.Status.StatusText = Status.UnderReview;
-      updatedNotification.AccountExpiresAt = new DateTime(2019, 11, 24, 3, 15, 0);
+      updatedNotification.CreatedAt = new DateTime(2019, 11, 24, 3, 15, 0);
 
       helper.Repository
           .Setup(x => x.GetNotificationByIdAsync(It.IsAny<Guid>()))

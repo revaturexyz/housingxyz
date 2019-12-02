@@ -12,7 +12,7 @@ export const environment = {
   endpoints: {
     account: 'http://localhost:11080/',
     complex: 'http://localhost:13080/',
-    tenant: 'http://localhost:15080/',
+    tenant:  'http://localhost:15080/',
     // account: 'http://192.168.99.100:11080/',
     // complex: 'http://192.168.99.100:13080/',
     // tenant: 'http://192.168.99.100:15080/',

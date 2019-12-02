@@ -46,7 +46,8 @@ namespace Revature.Account.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -66,6 +67,7 @@ namespace Revature.Account.Api
       {
         options.Authority = $"http://{Auth0Helper.Domain}/";
         options.Audience = Auth0Helper.Audience;
+        options.RequireHttpsMetadata = !Configuration.GetSection("Auth0").GetValue<bool>("IsDevelopment");
       });
 
       // This method is for adding policies and other settings to the Authorize attribute
