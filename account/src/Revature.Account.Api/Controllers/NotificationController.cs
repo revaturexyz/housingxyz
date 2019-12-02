@@ -66,7 +66,7 @@ namespace Revature.Account.Api.Controllers
             SerializedTarget = notification.UpdateAction.SerializedTarget
           },
           Status = new Status { StatusText = Status.Pending },
-          AccountExpiresAt = DateTime.Now.AddDays(7)
+          CreatedAt = DateTime.Now.AddDays(7)
         };
         mappedNotification.UpdateAction.NotificationId = mappedNotification.NotificationId;
 
@@ -101,11 +101,6 @@ namespace Revature.Account.Api.Controllers
       }
       
       existingNotification.Status.StatusText = notificationStatus;
-      // Status is 'Under Review' and the notification only has 7 days left
-      if (existingNotification.Status.StatusText == Status.UnderReview && (DateTime.Today.Date - existingNotification.AccountExpiresAt.Date).Days <= 7)
-      {
-        existingNotification.AccountExpiresAt = DateTime.Now.AddDays(30);
-      }
 
       /*
        * The notification should stay in the database until it expires,

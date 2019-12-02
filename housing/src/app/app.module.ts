@@ -21,7 +21,6 @@ import { AmenityDialogueComponent } from './amenity-dialogue/amenity-dialogue.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
-import { RequestDialogComponent } from './request-dialog/request-dialog.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -34,7 +33,6 @@ import { CoordinatorModule } from './coordinator.module';
     NavComponent,
     HomeComponent,
     AmenityDialogueComponent,
-    RequestDialogComponent,
     CoordinatorNotificationsComponent,
     NotificationDetailsComponent
   ],
@@ -78,7 +76,7 @@ import { CoordinatorModule } from './coordinator.module';
       multi: true
     }
   ],
-  entryComponents: [AmenityDialogueComponent, RequestDialogComponent],
+  entryComponents: [AmenityDialogueComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

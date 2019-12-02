@@ -19,15 +19,4 @@ export class NotificationDetailsComponent implements OnInit {
   }
 
   public currentNotification: Notification;
-
-  // Date stuff is done on backend. This function is on life support
-  /* dateCalculator(date: Date, currentNotification: Notification) {
-    let expire = 7;
-    if (currentNotification.trial) {
-      expire = 7;
-    } else if (currentNotification.extendedTrial) {
-      expire = 0;
-    }
-    return moment(date).add(expire, 'days').format('MM/DD/YYYY');
-  } */
 }
