@@ -1,4 +1,4 @@
-using System;
+using Revature.Tenant.Lib.Models;
 using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.ServiceBus
@@ -8,7 +8,7 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <summary>
     /// ServiceBus message for sending a tenant room id
     /// </summary>
-    /// <param name="roomId">The GUID of a room</param>
-    Task SendRoomIdMessage(Guid roomId);
+    /// <param name="roomMessage">The details room service needs to be able to update a room</param>
+    Task SendRoomIdMessage(RoomMessage roomMessage);
   }
 }
