@@ -1,0 +1,22 @@
+// Account API endpoints
+
+// CoordinatorAccount
+
+// Get by Id - GET - Unrestricted - /api/coordinator-accounts/{coordinatorId}
+// Get All - Unrestricted - GET - /api/coordinator-accounts/all
+
+
+// ProviderAccount
+
+// Delete by Id - Unrestricted - Coordinator only - DELETE - /api/provider-accounts/{providerId}
+// Get by Id - Unrestricted - GET - /api/provider-accounts/{providerId}
+// Update at Id - Coordinator or matching email - PUT - /api/provider-accounts/{providerId}
+// Approve Provider at Id - Coordinator only - PUT - /api/provider-accounts/{providerId}
+
+
+// Notification
+
+// Delete by Id - Coordinator only - DELETE - /api/notifications/{notificationId}
+// Update at Id - Coordinator only - PUT - /api/notifications/{notificationId}
+// Get all Notifications by Coordinator Id - Coordinator only - GET - /api/notifications/{coordinatorId}
+// Submit new Notification - Unrestricted - POST - /api/notifications

@@ -30,6 +30,6 @@ namespace Revature.Account.Lib.Model
     /// <summary>
     /// Date and time the associated provider account expires at, if any, in the format 11:59:59.
     /// </summary>
-    public DateTime AccountExpiresAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
   }
 }

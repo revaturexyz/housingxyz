@@ -54,6 +54,29 @@
       <!--End of room number and number of beds holder-->
       <!-- Gender and room type begin-->
       <div class="d-flex flex-row justify-content-center">
+        <!-- Start of gender input select -->
+        <div class="form-group mx-1">
+          <label for="gender">Select Gender</label>
+          <select
+            id="gender"
+            name="gender"
+            [(ngModel)]="targetRoom.gender"
+            #gender="ngModel"
+            class="form-control"
+            aria-describedby="gender"
+            required
+          >
+            <option value="" disabled>Select Gender</option>
+            <option *ngFor="let gender of genderTypes" [ngValue]="gender">
+              {{ gender.genderType }}
+            </option>
+          </select>
+        </div>
+        <!-- Dirty is so the error message is not displayed when the page first loads  -->
+        <div *ngIf="gender.invalid && gender.dirty" class="alert alert-danger">
+          A gender for occupants is required.
+        </div>
+        <!-- End of gender input select -->
         <!-- Start of Room Type input select -->
         <div class="form-group mx-1">
           <label for="apiRoomType">Select Room Type</label>
@@ -68,7 +91,7 @@
           >
             <option value="" disabled>Select Room Type</option>
             <option
-              *ngFor="let roomType of seededRoomTypes"
+              *ngFor="let roomType of roomTypes"
               [ngValue]="roomType"
             >
               {{ roomType.roomType }}
@@ -85,7 +108,17 @@
         <!-- End of Room Type select -->
       </div>
       <!--End of Gender and Room Type holder-->
-
+      <!-- Begin occupied checkbox -->
+      <mat-checkbox
+        id="isOccupied"
+        name="isOccupied"
+        [(ngModel)]="targetRoom.isOccupied"
+        #isOccupied="ngModel"
+        aria-describedby="isOccupied"
+      >
+        Occupied
+      </mat-checkbox>
+      <!-- End occupied checkbox -->
       <!-- Lease start and end dates holder begin-->
       <div class="d-flex flex-row justify-content-center">
         <!-- Lease start dates begin -->
@@ -161,7 +194,7 @@
           multiple
         >
           <mat-option
-            *ngFor="let amenity of seededAmenityList"
+            *ngFor="let amenity of amenityList"
             [value]="amenity"
           >
             {{ amenity.amenity }}
@@ -179,6 +212,7 @@
             class="add-room-btn"
             [disabled]="
               apiRoomType.invalid ||
+              gender.invalid ||
               numberOfBeds.invalid ||
               roomNumber.invalid ||
               startDate.invalid ||

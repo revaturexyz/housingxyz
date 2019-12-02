@@ -132,7 +132,7 @@
       <mat-select name="formComplex.amenity"
       [(ngModel)]="formComplex.amenity" #amenity="ngModel" id="amenity"
       aria-describedby="amenity" multiple>
-        <mat-option *ngFor="let amenity of seededAmenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
+        <mat-option *ngFor="let amenity of amenityList" [value]="amenity"> {{amenity.amenity}} </mat-option>
       </mat-select>
     </mat-form-field>
     <!--End of amenity selection-->
