@@ -10,8 +10,11 @@ import { TenantAssignService } from '../services/tenant-assign-service';
 })
 export class AssignTenantToRoomComponent implements OnInit {
 
+  // Initial array of rooms pre-prioritized
   roomArray:[RoomWithTenants,number][];
-  changingArray:[RoomWithTenants,number][];
+
+  // Displayed array of rooms, prioritized
+  prioritizedRooms:[RoomWithTenants,number][];
 
   // All rooms available for a selected tenant
   availableRooms:RoomWithTenants[]; 
@@ -54,15 +57,15 @@ export class AssignTenantToRoomComponent implements OnInit {
   // Filter Checkbox Methods; sorts list whenever a checkbox is clicked
   toggleCar(){
     this.filterCar = !this.filterCar;
-    this.changingArray = this.prioritizeWithFilters(this.roomArray,this.filterCar,this.filterLang,this.filterBatch);
+    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
   }
   toggleLang(){
     this.filterLang = !this.filterLang;
-    this.changingArray = this.prioritizeWithFilters(this.roomArray,this.filterCar,this.filterLang,this.filterBatch);
+    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
   }
   toggleBatch(){
     this.filterBatch = !this.filterBatch;
-    this.changingArray = this.prioritizeWithFilters(this.roomArray,this.filterCar,this.filterLang,this.filterBatch);
+    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
   }
 
   prioritizeRoomsByCar(arr:[RoomWithTenants,number][]) {
@@ -107,15 +110,15 @@ export class AssignTenantToRoomComponent implements OnInit {
     });
   }
 
-  prioritizeWithFilters(arr:[RoomWithTenants, number][], car:boolean,lang:boolean, batch:boolean) : [RoomWithTenants, number][]{
+  prioritizeWithFilters(arr:[RoomWithTenants, number][]) : [RoomWithTenants, number][]{
     let result = JSON.parse(JSON.stringify(arr));
-    if (car){
+    if (this.filterCar){
       this.prioritizeRoomsByCar(result);
     }
-    if (lang){
+    if (this.filterLang){
       this.prioritizeRoomsByLang(result);
     }
-    if (batch){
+    if (this.filterBatch){
       this.prioritizeRoomsByBatch(result);
     }
     this.sortRoomsByPriority(result);
