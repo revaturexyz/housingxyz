@@ -12,7 +12,6 @@ namespace Revature.Complex.Api.Models
   public class ApiComplexAddress
   {
     public Guid AddressId { get; set; }
-    public Guid ComplexId { get; set; }
     public string StreetAddress { get; set; }
     public string City { get; set; }
     public string State { get; set; }
