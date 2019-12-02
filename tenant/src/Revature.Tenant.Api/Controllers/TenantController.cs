@@ -40,7 +40,7 @@ namespace Revature.Tenant.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<ApiTenant>>> GetAllAsync([FromQuery] string firstName = null, [FromQuery] string lastName = null, [FromQuery] string gender = null, [FromQuery] string trainingCenter = null)
+    public async Task<ActionResult<IEnumerable<Lib.Models.Tenant>>> GetAllAsync([FromQuery] string firstName = null, [FromQuery] string lastName = null, [FromQuery] string gender = null, [FromQuery] string trainingCenter = null)
     {
       //Parse training center string to guid if it exists
       Guid? trainingCenterGuid;
@@ -103,28 +103,8 @@ namespace Revature.Tenant.Api.Controllers
 
         newTenants.Add(tenant);
       }
-
-      //Cast all Logic Tenants into ApiTenants
-      List<ApiTenant> apiTenants = new List<ApiTenant>();
-      foreach (Lib.Models.Tenant apiTenant in newTenants)
-      {
-        ApiTenant newApiTenant = new ApiTenant
-        {
-          Id = apiTenant.Id,
-          Email = apiTenant.Email,
-          Gender = apiTenant.Gender,
-          FirstName = apiTenant.FirstName,
-          LastName = apiTenant.LastName,
-          AddressId = apiTenant.AddressId,
-          RoomId = apiTenant.RoomId,
-          CarId = apiTenant.CarId,
-          BatchId = apiTenant.BatchId,
-          TrainingCenter = apiTenant.TrainingCenter
-        };
-        apiTenants.Add(newApiTenant);
-      }
       //Return OK with a list of tenants
-      return Ok(apiTenants);
+      return Ok(newTenants);
     }
 
     /// <summary>
