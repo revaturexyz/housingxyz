@@ -21,7 +21,7 @@ export class TenantSearcherService {
     : Promise<TenantSearching[]> {
     const url = `${environment.endpoints.tenant}api/Tenant`;
 
-    const queryString = `?firstName=${firstName}&lastName=${lastName}`;
+    let queryString = `?firstName=${firstName}&lastName=${lastName}`;
     if (gender.toUpperCase() !== 'ALL') {
       queryString = queryString + `&gender=${gender}`;
     }

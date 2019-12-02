@@ -22,16 +22,24 @@ namespace Revature.Tenant.Api.ServiceBus
 
     /// <summary>
     /// Construct Address Service with base URI, Default, and injected HTTP Client
+    /// NOTE:   This constructor uses a try catch which will perform the try block if address service is operational,
+    ///         but will use dummy data otherwise. This should NOT be allowed into a public deployment!!!
     /// </summary>
     /// <param name="client">HTTP Client (dependency injection)</param>
     /// <param name="addressConfiguration">Configuration file with base URI.</param>
     public AddressService(HttpClient client, IConfiguration addressConfiguration)
     {
-      //TODO uncomment everything in this constructor
-      //client.BaseAddress = new Uri(addressConfiguration.GetSection("AppServices")["Address"]);
-      //client.DefaultRequestHeaders.Add("Accept", "application/json");
+      try
+      {
+        client.BaseAddress = new Uri(addressConfiguration.GetSection("AppServices")["Address"]);
+        client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-      //_client = client;
+        _client = client;
+      }
+      catch
+      {
+        _client = null;
+      }
     }
 
     /// <summary>

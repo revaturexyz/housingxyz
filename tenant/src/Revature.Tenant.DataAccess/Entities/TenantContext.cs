@@ -37,7 +37,7 @@ namespace Revature.Tenant.DataAccess.Entities
             FirstName = "Nick",
             Gender = "Male",
             Id = Guid.Parse("f14d6c6e-9650-44c9-8c6b-5aebd3f9a67f"),
-            LastName = "Escalnoa",
+            LastName = "Escalona",
             RoomId = Guid.Parse("fa1d6c6e-9650-44c9-8c6b-5aebd3f9a671"),
             TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
           },
