@@ -22,12 +22,6 @@ const address: PostTenantAddress = {
   zipCode: '12345'
 };
 
-class MockCoordinatorService extends CoordinatorService {
-  PostTenant(postTenant: PostTenant): Observable<HttpEvent<PostTenant>> {
-    return this.httpOptions.toBeTruthy(TestTenantData.dummyTenant);
-  }
-}
-
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
@@ -60,28 +54,30 @@ describe('AddTenantComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // addForm()
+  // addCarForm()
   it('should add form on addForm()', () => {
-    component.addForm();
-    expect(component.show).toBeTruthy();
+    component.addCarForm();
+    expect(component.showCarForm).toBeTruthy();
+    expect(component.showAddressForm).toBeFalsy();
   });
 
-  // back()
+  // closeCarForm()
   it('should remove form on back()', () => {
-    component.back();
-    expect(component.show).toBeFalsy();
+    component.closeCarForm();
+    expect(component.showCarForm).toBeFalsy();
   });
 
-  // addAddress()
+  // addAddressForm()
   it('should add form on addAddress()', () => {
-    component.addAddress();
-    expect(component.address).toBeTruthy();
+    component.addAddressForm();
+    expect(component.showAddressForm).toBeTruthy();
+    expect(component.showCarForm).toBeFalsy();
   });
 
-  // return()
+  // closeAddressForm()
   it('should remove form on return()', () => {
-    component.return();
-    expect(component.address).toBeFalsy();
+    component.closeAddressForm();
+    expect(component.showAddressForm).toBeFalsy();
   });
 
   // ngOnInit()
@@ -100,10 +96,9 @@ describe('AddTenantComponent', () => {
   });
 
   // postTenantOnSubmit()
-  it('should post tenants by id on submit', async () => {
+  it('should post tenants on submit', async () => {
     component.tenant.apiAddress = TestTenantData.dummyAddress;
     component.tenant.apiBatch = TestTenantData.dummyPostBatch;
-    component.postTenantOnSubmit();
-    expect(component.show).toEqual(false);
+    expect(component.postTenantOnSubmit()).toBeTruthy();
   });
 });

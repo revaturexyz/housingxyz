@@ -41,6 +41,7 @@ export class TestTenantData {
     }
 
     static dummyTenant: PostTenant = {
+        id: null,
         email: 'abc@abc.com',
         gender: 'male',
         firstName: 'Bob',
@@ -70,6 +71,7 @@ export class CoordinatorServiceStub {
         return of( {
             data: [
                 {
+                    id: 'Abc-1234-asd',
                     email: 'abc@abc.com',
                     gender: 'male',
                     firstName: 'Bob',
