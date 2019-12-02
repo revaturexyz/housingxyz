@@ -53,7 +53,7 @@ export class TestTenantData {
     };
 }
 
-export class CoordinatorServiceStub {
+export class TenantServiceStub {
     GetBatchByTrainingCenterId() {
         return of( {
             data: [

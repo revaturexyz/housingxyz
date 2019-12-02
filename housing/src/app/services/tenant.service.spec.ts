@@ -1,26 +1,26 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
-import { CoordinatorService } from './coordinator.service';
+import { TenantService } from './tenant.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('CoordinatorService', () => {
-    let myCoordinator: CoordinatorService;
+describe('TenantService', () => {
+    let myCoordinator: TenantService;
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule
             ],
             providers: [
-                CoordinatorService
+                TenantService
             ]
         });
 
         const testBed = getTestBed();
-        myCoordinator = testBed.get(CoordinatorService);
+        myCoordinator = testBed.get(TenantService);
     });
 
 
     it('should be created', () => {
-        const service: CoordinatorService = TestBed.get(CoordinatorService);
+        const service: TenantService = TestBed.get(TenantService);
         expect(service).toBeTruthy();
     });
 });

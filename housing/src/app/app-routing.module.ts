@@ -11,6 +11,7 @@ import { ManageComplexComponent } from './manage-complex/manage-complex.componen
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { SearchTenantComponent } from './search-tenant/search-tenant.component';
 import { SelectTenantComponent } from './select-tenant/select-tenant.component';
+import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
 const routes: Routes = [
   

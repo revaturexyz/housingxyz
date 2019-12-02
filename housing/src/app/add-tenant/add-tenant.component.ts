@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CoordinatorService } from 'src/app/services/coordinator.service';
+import { TenantService } from 'src/app/services/tenant.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { PostTenant } from 'src/interfaces/postTenant';
 import { Batch } from 'src/interfaces/batch';
-import { RedirectService } from 'src/app/services/redirect.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'dev-add-tenant',
@@ -84,7 +82,7 @@ export class AddTenantComponent implements OnInit {
 
 
   constructor(
-    private coordService: CoordinatorService,
+    private coordService: TenantService,
     private router: Router
   ) {
     this.tenant = {

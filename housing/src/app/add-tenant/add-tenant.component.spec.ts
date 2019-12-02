@@ -3,12 +3,12 @@ import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/test
 import { AddTenantComponent } from './add-tenant.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestTenantData, CoordinatorServiceStub } from '../services/test-tenant-static';
+import { TestTenantData, TenantServiceStub } from '../services/test-tenant-static';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Batch } from 'src/interfaces/batch';
 import { PostTenantAddress } from 'src/interfaces/postTenAddress';
 import { PostCar } from 'src/interfaces/postCar';
-import { CoordinatorService } from '../services/coordinator.service';
+import { TenantService } from '../services/tenant.service';
 import { AuthService } from '../services/auth.service';
 import { EMPTY, of, Observable } from 'rxjs';
 import { PostTenant } from 'src/interfaces/postTenant';
@@ -25,7 +25,7 @@ const address: PostTenantAddress = {
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
-  let coordService: CoordinatorService;
+  let coordService: TenantService;
   const batchStub = null;
   const authSpy = jasmine.createSpyObj('AuthService', ['login']);
   const coordSpy = jasmine.createSpyObj('CoordniatorService', ['PostTenant', 'GetBatchByTrainingCenterId']);
@@ -37,7 +37,7 @@ describe('AddTenantComponent', () => {
       providers: [
         AddTenantComponent,
         { provide: AuthService, useValue: authSpy },
-        { provide: CoordinatorService, useValue: coordSpy, useClass: CoordinatorServiceStub }
+        { provide: TenantService, useValue: coordSpy, useClass: TenantServiceStub }
       ],
     })
       .compileComponents();
@@ -47,7 +47,7 @@ describe('AddTenantComponent', () => {
     fixture = TestBed.createComponent(AddTenantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    coordService = TestBed.get(CoordinatorService);
+    coordService = TestBed.get(TenantService);
   });
 
   it('should create', () => {

@@ -12,7 +12,7 @@ import { Car } from 'src/interfaces/car';
 })
 
 // Service for AJAX Calls to various Rest APIs needed by Coordinators
-export class CoordinatorService {
+export class TenantService {
 
   apiUrl: string = `${environment.endpoints.tenant}` + 'api/';
 
