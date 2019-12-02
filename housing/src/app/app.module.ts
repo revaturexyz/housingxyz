@@ -24,8 +24,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
-import { InterceptorService } from './services/interceptor.service';
+//import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
+import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
@@ -37,6 +38,7 @@ import { ComplexDetailsComponent } from './manage-complex/complex-details/comple
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     NavComponent,
     HomeComponent,
     AmenityDialogueComponent,
+    AssignTenantToRoomComponent,
     CoordinatorNotificationsComponent,
     NotificationDetailsComponent,
     EditProviderComponent,
@@ -87,14 +90,15 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     MatDatepickerModule,
     MatMomentDateModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ScrollDispatchModule,
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // }
   ],
   entryComponents: [AmenityDialogueComponent],
   bootstrap: [AppComponent]
