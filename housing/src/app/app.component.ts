@@ -10,12 +10,10 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   title = 'housing';
 
-  constructor(private auth: AuthService, private user: UserService) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {
     this.auth.localAuthSetup();
     this.auth.handleAuthCallback();
-
-    this.user.Roles$.subscribe(res => console.log(res));
   }
 }

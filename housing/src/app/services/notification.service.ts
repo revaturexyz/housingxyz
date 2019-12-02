@@ -35,14 +35,14 @@ export class NotificationService {
 
   // Create a new notification for editing a room
   sendEditRoomRequest(newCoordinatorId: string, newProviderId: string, room: Room): Observable<any> {
-    let notification: Notification = {
+    const notification: Notification = {
       notificationId: '',
       coordinatorId: newCoordinatorId,
       providerId: newProviderId,
       updateAction: {
         updateActionId: '',
         notificationId: '',
-        updateType: "EditRoomRequest",
+        updateType: 'EditRoomRequest',
         serializedTarget: JSON.stringify(room)
       },
       status: {
@@ -56,14 +56,14 @@ export class NotificationService {
 
   // Create a new notification for editing a complex
   sendEditComplexRequest(newCoordinatorId: string, newProviderId: string, complex: Complex): Observable<any> {
-    let notification: Notification = {
+    const notification: Notification = {
       notificationId: '',
       coordinatorId: newCoordinatorId,
       providerId: newProviderId,
       updateAction: {
         updateActionId: '',
         notificationId: '',
-        updateType: "EditComplexRequest",
+        updateType: 'EditComplexRequest',
         serializedTarget: JSON.stringify(complex)
       },
       status: {
@@ -77,14 +77,14 @@ export class NotificationService {
 
   // Create a new notification for getting approved as a provider
   sendApproveProviderRequest(newCoordinatorId: string, provider: Provider): Observable<any> {
-    let notification: Notification = {
+    const notification: Notification = {
       notificationId: '',
       coordinatorId: newCoordinatorId,
       providerId: provider.providerId,
       updateAction: {
         updateActionId: '',
         notificationId: '',
-        updateType: "ApproveProviderRequest",
+        updateType: 'ApproveProviderRequest',
         serializedTarget: JSON.stringify(provider)
       },
       status: {
@@ -98,20 +98,20 @@ export class NotificationService {
 
   approveNotificationAction(notification: Notification): Observable<any> {
     switch (notification.updateAction.updateType) {
-      case "EditRoomRequest": {
-        let room: Room = JSON.parse(notification.updateAction.serializedTarget);
+      case 'EditRoomRequest': {
+        const room: Room = JSON.parse(notification.updateAction.serializedTarget);
         // call complex service's updateRoom
         break;
       }
 
-      case "EditComplexRequest": {
-        let complex: Complex = JSON.parse(notification.updateAction.serializedTarget);
+      case 'EditComplexRequest': {
+        const complex: Complex = JSON.parse(notification.updateAction.serializedTarget);
         // call complex service's updateComplex
         break;
       }
 
-      case "ApproveProviderRequest": {
-        let provider: Provider = JSON.parse(notification.updateAction.serializedTarget);
+      case 'ApproveProviderRequest': {
+        const provider: Provider = JSON.parse(notification.updateAction.serializedTarget);
         return this.account.approveProviderAtId$(provider);
         break;
       }

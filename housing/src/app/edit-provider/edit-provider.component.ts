@@ -22,9 +22,7 @@ export class EditProviderComponent implements OnInit {
     private router: Router,
     private mapsService: MapsService,
     private account: AccountService,
-    private user: UserService) { 
-      
-    }
+    private user: UserService) { }
 
   ngOnInit() {
     // Populate default form values

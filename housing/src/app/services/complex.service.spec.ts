@@ -6,7 +6,7 @@ import { Amenity } from 'src/interfaces/amenity';
 import { TestServiceData } from './static-test-data';
 import { RouterTestingModule } from '@angular/router/testing';
 
-/* 
+/*
 const amenity1: Amenity = TestServiceData.dummyAmenity1;
 const amenity2: Amenity = TestServiceData.dummyAmenity2;
 

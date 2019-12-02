@@ -12,9 +12,7 @@ export class ProviderStatusComponent implements OnInit {
 
   constructor(
     private account: AccountService,
-    private user: UserService) { 
-      
-    }
+    private user: UserService) { }
 
   ngOnInit() {
     // Populate default form values

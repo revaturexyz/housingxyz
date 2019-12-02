@@ -1,0 +1,76 @@
+<!-- Used for the split screen -->
+<div class="d-md-flex h-md-100 align-items-center">
+  <!-- Left side of the split screen -->
+  <div class="col-md-4 p-0 bg-orange h-md-100">
+      <div class="text-white d-md-flex align-items-start h-100 text-center justify-content-center">
+          <div class="pt-5 pb-5">
+              <!-- Used to display the Training Center information -->
+              <div>
+                  <h3>Stark Agency</h3>
+              </div>
+              <!-- Drop down to choose a complex -->
+              <mat-card class="card-drawer">
+                <mat-form-field>
+                    <mat-label>Select a Complex</mat-label>
+                    <mat-select (ngModelChange)="changeMode($event)" class="selector" placeholder="Complex" [formControl]="complexControl">
+                        <mat-option *ngFor="let complex of seededComplexes" [value]="complex">
+                            {{complex.complexName}}
+                        </mat-option>
+                        <!--Extra option acting as a button to add a complex-->
+                        <mat-option [value]="'add-complex'">
+                          Add a Complex
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!--A select hint that shows the currently selected complex's details-->
+                <div *ngIf="complexControl.value && mode == 'details'">
+                  <mat-hint>
+                      <strong>Phone: </strong> {{complexControl.value?.contactNumber}} <br>
+                      <strong>Address: </strong> {{complexControl.value?.apiAddress.streetAddress}}
+                      {{complexControl.value?.apiAddress.city}}, {{complexControl.value?.apiAddress.state}}
+                      {{complexControl.value?.apiAddress.zipcode}}
+                  </mat-hint>
+                </div>
+              </mat-card>
+          </div>
+      </div>
+  </div>
+  <!-- The right side of the page -->
+  <div class="col-md-8 p-0 bg-body h-md-100">
+    <div class="d-md-flex align-items-center justify-content-center h-md-100 p-5">
+
+      <!--
+        Base div:
+          manage-complex is a multi-component single page app that renders a new component's view depending on certain factors
+            => a complex must be selected
+            => each component is rendered upon the 'mode' selected
+            ex. show details, add a room, edit a room, edit a complex, and add a complex
+      -->
+
+
+      <div class="div-drawer d-md-flex text-center justify-content-center">
+        <!--First div that shows on page-->
+        <div id="welcome-directions" *ngIf="mode=='init'" class="align-self-center"><h2>Select a complex from the menu or</h2><h2><a class="add-complex-highlight" (click)="changeMode('add-complex')">add another now</a></h2></div>
+
+        <!--Once a complex is selected, replace former div to show complex details-->
+        <dev-complex-details *ngIf="complexControl.value && mode=='details'" [complexControl]="complexControl.value" (targetRoomOutput)="changeTargetRoom($event)" (modeOutput)="changeMode($event)"></dev-complex-details>
+
+        <!--If provider chooses to add a room, replace former div to show room form-->
+        <dev-add-room *ngIf="complexControl.value && mode=='add-room'" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-add-room>
+
+        <!--If provider chooses to edit a specific room, replace former div to show form to edit the room-->
+        <dev-edit-room *ngIf="complexControl.value && mode=='edit-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-room>
+
+        <!--If provider chooses to show details of a specific room, replace former div to show view to details of the room-->
+        <dev-show-room *ngIf="complexControl.value && mode=='show-room'" [targetRoom]="targetRoom" [complexControl]="complexControl.value" (modeOutput)="changeMode($event)"></dev-show-room>
+
+        <!--If provider chooses to edit the complex, replace former div to show form to edit the complex-->
+        <dev-edit-complex *ngIf="complexControl.value && mode=='edit-complex'" [targetComplex]="complexControl.value" (modeOutput)="changeMode($event)"></dev-edit-complex>
+
+        <!--If provider chooses to add a complex, replace former div to show form to add a complex-->
+        <dev-add-complex *ngIf="mode=='add-complex'" (modeOutput)="changeMode($event)"></dev-add-complex>
+
+      </div>
+    </div>
+  </div>
+</div>

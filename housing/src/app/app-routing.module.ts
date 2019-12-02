@@ -7,12 +7,14 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 import { ProviderStatusComponent } from './provider-status/provider-status.component';
+import { ManageComplexComponent } from './manage-complex/manage-complex.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent, canActivate: [AuthGuard] },
   { path: 'edit-provider', component: EditProviderComponent, canActivate: [AuthGuard] },
-  { path: 'provider-status', component: ProviderStatusComponent, canActivate: [AuthGuard] }
+  { path: 'provider-status', component: ProviderStatusComponent, canActivate: [AuthGuard] },
+  { path: 'manage-complex', component: ManageComplexComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

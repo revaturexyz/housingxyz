@@ -5,6 +5,8 @@
   </div>
   <div class="menubar">
     <ul>
+      <li><a routerLink="">Home</a></li>
+      
       <!-- ngIf -> a limited provider is logged on -->
       <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="provider-status">Status</a></li>
       <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="edit-provider">Profile</a></li>

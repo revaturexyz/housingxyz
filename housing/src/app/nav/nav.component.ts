@@ -12,11 +12,9 @@ export class NavComponent implements OnInit {
 
   public role: string;
 
-  constructor(private router: Router, public auth: AuthService, public user: UserService) { 
+  constructor(private router: Router, public auth: AuthService, public user: UserService) {
     user.Roles$.subscribe(res => this.role = res[0]);
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 }

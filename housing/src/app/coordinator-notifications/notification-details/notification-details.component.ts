@@ -11,12 +11,12 @@ import * as moment from 'moment';
 
 // Component to allow coordinator to see complete details of notification as well as manipulate them.
 export class NotificationDetailsComponent implements OnInit {
+  public currentNotification: Notification;
+
   constructor() {
     // currentNotification = GET IT HERE LATER
    }
 
   ngOnInit() {
   }
-
-  public currentNotification: Notification;
 }
