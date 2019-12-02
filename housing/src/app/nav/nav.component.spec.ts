@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NavComponent } from './nav.component';
 import { By } from '@angular/platform-browser';
 
@@ -8,6 +10,9 @@ describe('NavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes([])
+      ],
       declarations: [
         NavComponent
       ]
@@ -25,11 +30,5 @@ describe('NavComponent', () => {
 
   it('should create nav component', () => {
     expect(component).toBeTruthy();
-  });
-
-  it(' href of about us should be "https://revature.com/our-story/"', () => {
-    const about = fixture.debugElement.queryAll(By.css('a'));
-
-    expect(about[3].nativeElement.href).toEqual('https://revature.com/our-story/');
   });
 });

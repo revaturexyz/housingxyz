@@ -26,6 +26,8 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
