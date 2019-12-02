@@ -63,26 +63,24 @@ namespace Revature.Complex.Api.Services
       private async Task ProcessMessagesAsync(Message message, CancellationToken token)
       {
         // Dispose of this scope after done using repository service
-        //   Necessary due to singleton service (bus service) consuming a scoped service (repo)
+        // Necessary due to singleton service (bus service) consuming a scoped service (repo)
         using (var scope = Services.CreateScope())
         {
           var _repo = scope.ServiceProvider.GetRequiredService<IRepository>();
           try
           {
             log.LogInformation("Attempting to deserialize message from service bus consumer", message.Body);
-            List<Guid> listOfRoomId = JsonSerializer.Deserialize<List<Guid>>(message.Body);
+            Guid listOfRoomId = JsonSerializer.Deserialize<Guid>(message.Body);
 
-            // Persist our new data into the repository but not if Deserialization throws an exception
-            //Operation type is the CUD that you want to implement like create, update, or delete
-            //Case 0 = create, Case 1 = update, Case 2 = delete
-            //We will listen for what the complex service will send us and determine
-            //what CRUD operation to do based on the OperationType
-            foreach (Guid RoomId in listOfRoomId)
-            {
-              await _repo.DeleteAmenityRoomAsync(RoomId);
-              log.LogInformation($"(SERVICE) Amenity of Room Id: {RoomId} is deleted");
-            }
-          }
+          log.LogInformation("Attempting to DELETE rooms based on COMPLEX ID", listOfRoomId);
+          //foreach (Guid roomId in listOfRoomId)
+          //{
+          //  await _repo.DeleteAmenityRoomAsync(roomId);
+          //  log.LogInformation("Amenity of Room Id: {RoomId} is deleted", roomId);
+          //}
+          await _repo.DeleteAmenityRoomAsync(listOfRoomId);
+          log.LogInformation("Amenity of Room Id: {RoomId} is deleted", listOfRoomId);
+        }
           catch (Exception ex)
           {
             log.LogError("Message did not convert properly", ex);
@@ -124,6 +122,7 @@ namespace Revature.Complex.Api.Services
     /// <exception cref="NotImplementedException">Inherited but not utilized</exception>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
+      RegisterOnMessageHandlerAndReceiveMessages();
       return Task.CompletedTask;
     }
   }
