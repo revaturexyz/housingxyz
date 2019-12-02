@@ -42,7 +42,12 @@ namespace Revature.Complex.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net",
+                              "http://192.168.99.100:10080",
+                              "https://192.168.99.100:10080",
+                              "http://192.168.99.100:13080",
+                              "https://192.168.99.100:13080")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -59,7 +64,6 @@ namespace Revature.Complex.Api
       services.AddScoped<IRepository, Repository>();
       services.AddScoped<Mapper>();
       services.AddHostedService<RoomServiceReceiver>();
-      services.AddScoped<IAddressService, AddressServiceSender>();
       services.AddScoped<IRoomServiceSender, RoomServiceSender>();
 
       services.AddControllers();

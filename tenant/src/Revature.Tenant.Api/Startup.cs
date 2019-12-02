@@ -41,7 +41,8 @@ namespace Revature.Tenant.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
