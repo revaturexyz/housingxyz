@@ -13,33 +13,6 @@ import { RoomWithTenants } from '../../interfaces/room-with-tenant';
 })
 export class TenantAssignService {
 
-  getTenants() : Promise<TenantSearching[]>{
-    let url = `${environment.endpoints.tenant}api/Tenant`;
-    return this.httpClient.get<TenantSearching[]>(url).toPromise();
-  }
-
-  getTenantsByParameters(firstName: string, lastName: string, gender: string, filterByTrainingCenter: boolean) : Promise<TenantSearching[]>{
-    let url = `${environment.endpoints.tenant}api/Tenant`;
-    return this.httpClient.get<TenantSearching[]>(url).toPromise();
-  }
-
-
-  selectTenant(id: string): Promise<TenantSelected> {
-    let url = `${environment.endpoints.tenant}api/Tenant/${id}`;
-    return this.httpClient.get<TenantSelected>(url).toPromise();
-  }
-
-  selectTenantAddress(addressId: string): Promise<Address> {
-    throw new Error("Method not implemented.");
-  }
-
-  deleteTenant(id: string):  Promise<HttpResponse<Object>> {
-    
-    let url = `${environment.endpoints.tenant}api/Tenant/Delete/${id}`;
-  
-    return this.httpClient.delete(url, { observe: 'response'}).toPromise();
-  }
-
   getTenantsNotAssignedRoom(): Promise<TenantInRoom[]>{
     let url = `${environment.endpoints.tenant}api/Tenant/Unassigned`;
     return this.httpClient.get<TenantInRoom[]>(url).toPromise();
@@ -48,6 +21,11 @@ export class TenantAssignService {
   getAvailableRoomsWithTenants(): Promise<RoomWithTenants[]> {
     let url = `${environment.endpoints.tenant}api/Tenant/Assign/AvailableRooms`;
     return this.httpClient.get<RoomWithTenants[]>(url).toPromise();
+  }
+
+  assignTenant(tenantId: string, roomId: string): Promise<Object> {
+      let url = `${environment.endpoints.tenant}api/Tenant/Assign/${tenantId}`;
+      return this.httpClient.put(url, roomId).toPromise();
   }
 
   constructor(private httpClient: HttpClient) { }

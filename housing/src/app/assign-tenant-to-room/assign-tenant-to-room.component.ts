@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomWithTenants } from '../../interfaces/room-with-tenant';
 import { TenantInRoom } from '../../interfaces/tenant-in-room';
+import { TenantAssignService } from '../services/tenant-assign-service';
 
 @Component({
   selector: 'dev-assign-tenant-to-room',
@@ -12,9 +13,17 @@ export class AssignTenantToRoomComponent implements OnInit {
   roomArray:[RoomWithTenants,number][];
   changingArray:[RoomWithTenants,number][];
 
-  availableRooms:RoomWithTenants[];
+  // All rooms available for a selected tenant
+  availableRooms:RoomWithTenants[]; 
+
+  // All tenants that don't have a room
   assignableTenants:TenantInRoom[];
+
+  // Currently selected tenant to be assigned a room
   currentTenant:TenantInRoom;
+
+  // Currently selected room for a tenant
+  currentRoomId: string;
 
   filterCar:boolean = false;
   filterLang:boolean = false;
@@ -24,11 +33,22 @@ export class AssignTenantToRoomComponent implements OnInit {
   batchPriorityWeight:number = 0.6;
   langPriorityWeight:number = 0.6;
 
-
-  constructor() { }
+  constructor(
+    private tenantAssignService: TenantAssignService
+  ) { }
 
   ngOnInit() {
-    // Populate
+    this.tenantAssignService.getTenantsNotAssignedRoom().then(
+      result => this.assignableTenants = result
+    );
+  }
+
+  selectTenant(tenant: TenantInRoom){
+    this.currentTenant = tenant;
+  }
+
+  selectRoom(roomId: string){
+    this.currentRoomId = roomId;
   }
 
   // Filter Checkbox Methods; sorts list whenever a checkbox is clicked

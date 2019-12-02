@@ -29,5 +29,19 @@ export const TENANTS: TenantInRoom[] = [
             endDate: new Date(2012,3,1)
 
         }
+    },
+    {
+        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        firstName: "Moy",
+        lastName: "Scurvy",
+        gender: "Male",
+        car: null,
+        batch: {
+            batchId: 1,
+            language: "c#",
+            startDate: new Date(2012,3,1),
+            endDate: new Date(2012,3,1)
+
+        }
     }
 ]
