@@ -7,7 +7,7 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { ProviderSelectComponent } from './provider-select/provider-select.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { AddRoomComponent } from './manage-complex/add-room/add-room.component';
 import { UpdateRoomComponent } from './update-room/update-room.component';
@@ -68,6 +68,7 @@ import { AddTenantComponent } from '../app/add-tenant/add-tenant.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormBuilder,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
