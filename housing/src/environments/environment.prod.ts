@@ -7,8 +7,8 @@ export const environment = {
   googleMapsKey: 'AIzaSyCxYMcmEjlHQ2r2CywMgyK7YEplxurqW2A',
   endpoints: {
     account: 'https://account-aspnet-dev.azurewebsites.net/',
-    complex: 'https://complexdev.revature.xyz/',
-    tenant: 'https://tenantdev.revature.xyz/',
+    complex: 'https://complex-aspnet-dev.azurewebsites.net/',
+    tenant: 'https://tenant-aspnet-dev.azurewebsites.net/',
     provider: 'http://localhost:10080/'
   }
 };
