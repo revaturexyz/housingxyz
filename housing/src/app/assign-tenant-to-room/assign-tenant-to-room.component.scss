@@ -50,6 +50,16 @@
 }
 
 .example-item {
-  height: 50px;
+  height: 100%;
+}
+
+.example-item:hover {
+  height: 100%;
+  background-color:lightgrey;
+}
+
+.center {
+  display: inline-block;
+  align-items: center;
 }
   

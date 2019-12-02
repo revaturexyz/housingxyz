@@ -5,16 +5,21 @@
             <h3>Language: {{currentTenant.batch.language}} | BatchId: {{currentTenant.batch.batchId}}</h3>
         </div>
         <!-- Display assignable tenants -->
-        <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
-            <div *cdkVirtualFor="let tenant of assignableTenants" class="example-item" (click)="selectTenant(tenant)">{{tenant.firstName}} {{tenant.lastName}}</div>
-        </cdk-virtual-scroll-viewport>
+        <h4>Assignable Tenants</h4>
+        <div class="center">
+            <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
+                <div *cdkVirtualFor="let tenant of assignableTenants" class="example-item" (click)="selectTenant(tenant)">{{tenant.firstName}} {{tenant.lastName}}</div>
+            </cdk-virtual-scroll-viewport>
+        </div>
 
         <!-- Display rooms tenants -->
-        <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
-            <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item" (click)="selectRoom(room[0].id)">{{room[0].roomNumber}} | {{room[1]}}</div>
-        </cdk-virtual-scroll-viewport>
+        <h4>Available Rooms</h4>
+        <div class="center">
+            <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
+                <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item" (click)="selectRoom(room[0].id)">{{room[0].roomNumber}}</div>
+            </cdk-virtual-scroll-viewport>
+        </div>
 
-        <button (click)="assignRoom()" [disabled]="!currentTenant || !currentRoomId">Assign</button>
 
         <table>
             <tr>
@@ -30,7 +35,9 @@
                 <td><input type="checkbox" [checked]="filterBatch" (change)="toggleBatch()"></td>
             </tr>
         </table>
-        
+
+        <button (click)="assignRoom()" [disabled]="!currentTenant || !currentRoomId">Assign</button>
+
         <br>
     </div>
 </div>

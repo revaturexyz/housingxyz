@@ -41,7 +41,7 @@ export const TENANTS: TenantInRoom[] = [
     {
         tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
-        lastName: "Scurvy",
+        lastName: "Rurvy",
         gender: "Male",
         car: null,
         batch: {
@@ -55,7 +55,7 @@ export const TENANTS: TenantInRoom[] = [
     {
         tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
-        lastName: "Scurvy",
+        lastName: "Hurvy",
         gender: "Male",
         car: null,
         batch: {
@@ -69,7 +69,7 @@ export const TENANTS: TenantInRoom[] = [
     {
         tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
-        lastName: "Scurvy",
+        lastName: "Pcurvy",
         gender: "Male",
         car: null,
         batch: {
@@ -83,7 +83,7 @@ export const TENANTS: TenantInRoom[] = [
     {
         tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
         firstName: "Moy",
-        lastName: "Scurvy",
+        lastName: "Stcurvy",
         gender: "Male",
         car: null,
         batch: {
@@ -110,8 +110,8 @@ export const TENANTS: TenantInRoom[] = [
     },
     {
         tenantId: "x55ds185-205e-4669-baf3-1872e87b9bcc",
-        firstName: "Shanaya",
-        lastName: "Twayne",
+        firstName: "Shuhnighya",
+        lastName: "Twain",
         gender: "Female",
         car: {    
             carId: 4,
@@ -128,6 +128,34 @@ export const TENANTS: TenantInRoom[] = [
             language: "c#",
             startDate: new Date(2012,3,1),
             endDate: new Date(2012,3,1)
+        }
+    },
+    {
+        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        firstName: "Ronald",
+        lastName: "Heaswey",
+        gender: "Male",
+        car: null,
+        batch: {
+            batchId: 2,
+            language: "java",
+            startDate: new Date(2012,3,1),
+            endDate: new Date(2012,3,1)
+
+        }
+    },
+    {
+        tenantId: "g12db185-205e-4663-baf3-1872e87b9bcc",
+        firstName: "Ronald",
+        lastName: "Heaswey",
+        gender: "Male",
+        car: null,
+        batch: {
+            batchId: 2,
+            language: "java",
+            startDate: new Date(2012,3,1),
+            endDate: new Date(2012,3,1)
+
         }
     },
 ]
