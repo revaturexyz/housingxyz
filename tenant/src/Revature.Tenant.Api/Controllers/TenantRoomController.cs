@@ -67,7 +67,6 @@ namespace Revature.Tenant.Api.Controllers
         var availableRooms = await _roomService.GetVacantRoomsAsync(gender, endDate);
 
         var roomsWithTenants = new List<RoomInfo>();
-        var getTenants = new List<Task<List<Lib.Models.Tenant>>>();
 
         _logger.LogInformation("Getting Tenants by Room Id...");
 
@@ -77,20 +76,10 @@ namespace Revature.Tenant.Api.Controllers
             new RoomInfo
             {
               RoomId = room.item1,
-              NumberOfBeds = room.item2
+              NumberOfBeds = room.item2,
+              Tenants = await _repository.GetTenantsByRoomIdAsync(room.item1)
             }
           );
-          getTenants.Add(
-           _repository.GetTenantsByRoomIdAsync(room.item1)
-          );
-        }
-
-        var results = await Task.WhenAll(getTenants);
-        int i = 0;
-        foreach (var item in results)
-        {
-          roomsWithTenants[i].Tenants = item;
-          i++;
         }
 
         _logger.LogInformation("Success.");
