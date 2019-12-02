@@ -3,9 +3,11 @@ import { HomeComponent } from './home.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MsalService, MsalModule, MsalGuard } from '@azure/msal-angular';
+import { MSAL_CONFIG } from '@azure/msal-angular/dist/msal.service';
+import { User } from 'msal';
 
-// Infested with MSAL
-/* describe('Home0Component', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let msalService: MsalService;
@@ -44,4 +46,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-}); */
+});

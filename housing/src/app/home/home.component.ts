@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Provider } from 'src/interfaces/account/provider';
 import { Complex } from 'src/interfaces/complex';
-import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'dev-home',
@@ -21,6 +19,5 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
   }
 }

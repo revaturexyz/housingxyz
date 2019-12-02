@@ -7,8 +7,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent }
+  { path: '', component: HomeComponent },
+  { path: 'coordinator-notifications', component: CoordinatorNotificationsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
