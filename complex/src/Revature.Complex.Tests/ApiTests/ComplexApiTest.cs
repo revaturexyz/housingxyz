@@ -166,7 +166,7 @@ namespace Revature.Complex.Tests.ApiTests
         ProviderId = pId,
         ComplexName = "Liv+",
         ContactNumber = "1234567890",
-        ComplexAmentiy = amenities
+        ComplexAmenity = amenities
       };
       Logic.Complex complex = new Logic.Complex
       {
@@ -293,7 +293,7 @@ namespace Revature.Complex.Tests.ApiTests
         ProviderId = pId,
         ComplexName = "Liv+",
         ContactNumber = "1234567890",
-        ComplexAmentiy = amenities
+        ComplexAmenity = amenities
       };
       Logic.Complex complex = new Logic.Complex
       {
