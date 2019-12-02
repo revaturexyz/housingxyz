@@ -23,7 +23,7 @@ export class TestTenantData {
         color: 'Blue',
         year: '1990',
         state: 'TX'
-    }
+    };
 
     static dummyBatch: Batch = {
         batchId: 1,

@@ -12,7 +12,7 @@
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>Show Coordinator</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem *ngFor="let coord of coordList" (click)="coordChoose(coord)">
+              <button ngbDropdownItem *ngFor="let coord of trainCen" (click)="coordChoose(coord)">
                 {{ coord.coordName }}
               </button>
             </div>
@@ -122,12 +122,12 @@
                   <label class="tenFormLabel">Training Center:</label>
                   <select class="input-border col-md-9 input-border" name="tenant.trainingCenter" required
                     [(ngModel)]="tenant.trainingCenter" #tenTrainCen="ngModel">
-                    <option *ngFor="let trainCenter of trainCen" [ngValue]="type">{{trainCenId}}</option>
+                    <option *ngFor="let trainCenter of trainCen" [ngValue]="tenant.trainingCenter">{{trainCenId}}</option>
                   </select>
                 </div>
               <br>
-              <button class="btn btn-secondary" *ngIf="!address" (click)="addAddress()">Add Address</button>
-              <button class="btn btn-secondary" *ngIf="!show" (click)="addForm()">Add Car</button>
+              <button class="btn btn-secondary" *ngIf="!showAddressForm" (click)="addAddressForm()">Add Address</button>
+              <button class="btn btn-secondary" *ngIf="!showCarForm" (click)="addCarForm()">Add Car</button>
               </div>
             </div>
             <br>
@@ -135,7 +135,7 @@
             <!-- Only shows when the add address sbutton is clicked -->
 
             
-            <div class="split right" *ngIf="show">
+            <div class="split right" *ngIf="showCarForm">
               <div class="centered">
                   <form>
                       <div id="carForm">
@@ -200,13 +200,13 @@
                                 State of Car License Plate required.
                               </div>
                         <br>
-                        <button class="btn btn-secondary" (click)="back()">Cancel</button>
+                        <button class="btn btn-secondary" (click)="closeCarForm()">Cancel</button>
                       </div>
                     </form>
               </div>
             </div>
 
-            <div class="split right" *ngIf="address">
+            <div class="split right" *ngIf="showAddressForm">
               <div class="centered">
                   <form>
                       <div id="addressForm">
@@ -257,7 +257,7 @@
                                 Zip code must be exactly least 5 numbers.
                               </div>
                         <br>
-                        <button class="btn btn-secondary" (click)="return()">Cancel</button>
+                        <button class="btn btn-secondary" (click)="closeAddressForm()">Cancel</button>
                       </div>
                     </form>
               </div>

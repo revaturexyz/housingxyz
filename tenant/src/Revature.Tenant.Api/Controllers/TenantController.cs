@@ -392,11 +392,11 @@ namespace Revature.Tenant.Api.Controllers
     /// <returns>Status Code 204 if successful, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions</returns>
     [HttpDelete("Delete/{id}", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
+    public async Task<ActionResult> DeleteAsync([FromRoute] Guid id)
     {
       try
       {
-        await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        await _tenantRepository.DeleteByIdAsync(id);
         await _tenantRepository.SaveAsync();
         return StatusCode(StatusCodes.Status204NoContent);
       }

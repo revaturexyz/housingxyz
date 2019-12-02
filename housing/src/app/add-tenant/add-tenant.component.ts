@@ -20,45 +20,16 @@ export class AddTenantComponent implements OnInit {
   trainCen: string[] = ['fa416c6e-9650-44c9-8c6b-5aebd3f9a670'];
   trainCenId: string;
 
-  show: boolean = false;
-
-  address = false;
+  showCarForm = false;
+  showAddressForm = false;
 
   genderShowString = 'Choose Gender';
   genders: string[] = ['Male', 'Female', 'Non Binary'];
 
-  //batch info
+  // batch info
   batchList: Batch[] = [];
   activeBatch: Batch;
   batchShowString = 'Choose Batch';
-
-  async postTenantOnSubmit() {
-    try {
-      this.tenant.trainingCenter = this.trainCen[0];
-      await this.coordService.PostTenant(this.tenant).toPromise();
-    } catch (err) {
-      console.log(err);
-    }
-    //this.router.navigate(['show-tenant']);
-  }
-
-  // called to add and return from Car Form.
-  addForm() {
-    this.show = true;
-  }
-
-  back() {
-    this.show = false;
-  }
-
-  // called to add and return from Address Form.
-  addAddress() {
-    this.address = true;
-  }
-
-  return() {
-    this.address = false;
-  }
 
   // Moments objects used to create validation for the date picker.
   // An easier way to store and manipulate the dates for proper validation.
@@ -73,11 +44,51 @@ export class AddTenantComponent implements OnInit {
   displayMid;
   displayEnd;
 
+  async postTenantOnSubmit() {
+    try {
+      this.tenant.id = null;
+      this.tenant.trainingCenter = this.trainCen[0];
+      await this.coordService.PostTenant(this.tenant)
+        .then(result => this.router.navigate(['select-tenant/' + result.id]));
+    } catch (err) {
+      console.log(err);
+    }
+    // this.router.navigate(['show-tenant']);
+  }
+
+  // called when te button to add an address is clicked to display the form.
+
+  addCarForm() {
+    this.showAddressForm = false;
+    this.showCarForm = true;
+  }
+
+  addAddressForm() {
+    this.showCarForm = false;
+    this.showAddressForm = true;
+  }
+
+
+  // called when the cancel button on the add address form is clicked to hide the form.
+  closeCarForm() {
+    this.showCarForm = false;
+  }
+
+  closeAddressForm() {
+    this.showAddressForm = false;
+  }
+
+  coordChoose(id: string) {
+    this.tenant.trainingCenter = id;
+  }
+
+
   constructor(
     private coordService: CoordinatorService,
     private router: Router
   ) {
     this.tenant = {
+      id: null,
       email: '',
       gender: '',
       firstName: '',
@@ -108,7 +119,7 @@ export class AddTenantComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.trainCenId = 'fa416c6e-9650-44c9-8c6b-5aebd3f9a670';
+    this.trainCenId = '837c3248-1685-4d08-934a-0f17a6d1836a';
     this.getBatchesOnInit();
   }
 

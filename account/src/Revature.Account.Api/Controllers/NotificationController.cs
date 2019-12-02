@@ -5,6 +5,7 @@ using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -13,6 +14,7 @@ namespace Revature.Account.Api.Controllers
   /// </summary>
   [Route("api/notifications")]
   [ApiController]
+  [Authorize]
   public class NotificationController : ControllerBase
   {
     private readonly IGenericRepository _repo;
@@ -28,6 +30,7 @@ namespace Revature.Account.Api.Controllers
     [HttpGet("{coordinatorId}", Name = "GetNotificationsByCoordinatorId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> GetNotificationsByCoordinatorIdAsync(Guid coordinatorId)
     {
       _logger.LogInformation($"GET - Getting notifications by coordinator ID: {coordinatorId}");
@@ -45,6 +48,7 @@ namespace Revature.Account.Api.Controllers
     [HttpPost]
     [ProducesResponseType(typeof(Notification), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize]
     public async Task<ActionResult> Post([FromBody, Bind("ProviderId, CoordinatorId, UpdateAction")] Notification notification)
     {
       try
@@ -56,14 +60,21 @@ namespace Revature.Account.Api.Controllers
         {
           ProviderId = notification.ProviderId,
           CoordinatorId = notification.CoordinatorId,
-          UpdateAction = notification.UpdateAction,
+          UpdateAction = new UpdateAction
+          {
+            UpdateType = notification.UpdateAction.UpdateType,
+            SerializedTarget = notification.UpdateAction.SerializedTarget
+          },
+          Status = new Status { StatusText = Status.Pending },
           AccountExpiresAt = DateTime.Now.AddDays(7)
         };
+        mappedNotification.UpdateAction.NotificationId = mappedNotification.NotificationId;
+
         _repo.AddNotification(mappedNotification);
         await _repo.SaveAsync();
 
         _logger.LogInformation($"Persisted notification {notification.NotificationId}");
-        return CreatedAtRoute("GetNotificationsByCoordinatorId", new { id = mappedNotification.NotificationId }, mappedNotification);
+        return Created("GetNotificationsByCoordinatorId", mappedNotification);
       }
       catch(Exception e)
       {
@@ -76,11 +87,13 @@ namespace Revature.Account.Api.Controllers
     [HttpPut("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> Put(Guid notificationId, [FromBody] string notificationStatus)
     {
       _logger.LogInformation("PUT - Updating notification information for notification {notificationId}", notificationId);
 
       var existingNotification = await _repo.GetNotificationByIdAsync(notificationId);
+
       if (existingNotification == null)
       {
         _logger.LogWarning("Put request failed");
@@ -104,7 +117,7 @@ namespace Revature.Account.Api.Controllers
       await _repo.UpdateNotificationAsync(existingNotification);
       await _repo.SaveAsync();
 
-      _logger.LogInformation("Persisted put request");
+      _logger.LogInformation("Persisted put request with status {statusText} for notification {notificationId}", existingNotification.Status.StatusText, notificationId);
       return NoContent();
     }
 
@@ -112,6 +125,7 @@ namespace Revature.Account.Api.Controllers
     [HttpDelete("{notificationId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "CoordinatorRole")]
     public async Task<ActionResult> Delete(Guid notificationId)
     {
       _logger.LogInformation($"DELETE - Deleting notification with ID: {notificationId}");

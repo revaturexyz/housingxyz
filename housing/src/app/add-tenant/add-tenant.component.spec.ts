@@ -20,7 +20,7 @@ const address: PostTenantAddress = {
   state: 'Victory',
   country: 'BrokenWill',
   zipCode: '12345'
-}
+};
 
 class MockCoordinatorService extends CoordinatorService {
   PostTenant(postTenant: PostTenant): Observable<HttpEvent<PostTenant>> {

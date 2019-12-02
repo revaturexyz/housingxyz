@@ -34,25 +34,6 @@ namespace Revature.Account.Tests.ControllerTests
     }
 
     /// <summary>
-    /// Test for the successful creation of a Provider account.
-    /// </summary>
-    /// <returns></returns>
-    [Fact]
-    public async Task CreateNewProviderAccountSuccessfullyVerifyTestAsync()
-    {
-      TestHelper helper = new TestHelper();
-
-      helper.Repository
-        .Setup(x => x.AddProviderAccountAsync(It.IsAny<ProviderAccount>()))
-        .Verifiable();
-     
-      var newProviderAccount = await helper.ProviderAccountController.Post(helper.Providers[0]);
-
-      helper.Repository
-         .Verify();
-    }
-
-    /// <summary>
     /// Test for a sucessful provider-account-update.
     /// </summary>
     /// <returns></returns>

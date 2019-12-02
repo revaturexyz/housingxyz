@@ -1,7 +1,7 @@
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
+using Revature.Tenant.Lib.Models;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,7 +15,6 @@ namespace Revature.Tenant.Api.ServiceBus
   {
     private readonly QueueClient _queueClient;
     private readonly IConfiguration _queueConfiguration;
-    private const string QUEUE_NAME = "AssignedRoom";
     private readonly ILogger<ServiceBusSender> _logger;
 
     /// <summary>
@@ -29,20 +28,21 @@ namespace Revature.Tenant.Api.ServiceBus
       _logger = logger;
       _queueClient = new QueueClient(
         _queueConfiguration.GetConnectionString("ServiceBus"),
-        QUEUE_NAME);
+        _queueConfiguration.GetSection("Queues")["AssignedRoom"]);
     }
 
     /// <summary>
     /// ServiceBus message for sending a tenant room id
     /// </summary>
-    /// <param name="roomId">The GUID of a room</param>
-    public async Task SendRoomIdMessage(Guid roomId)
+    /// <param name="roomMessage">The details room service needs to update their rooms</param>
+    public async Task SendRoomIdMessage(RoomMessage roomMessage)
     {
-      string data = JsonSerializer.Serialize(roomId);
+      string data = JsonSerializer.Serialize(roomMessage);
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
-      _logger.LogInformation("Service Bus is sending Room Id", data);
+      _logger.LogInformation("Service Bus is sending message with room id, gender, and operation type", data);
       await _queueClient.SendAsync(message);
+      _logger.LogInformation("Message sent!");
     }
   }
 }

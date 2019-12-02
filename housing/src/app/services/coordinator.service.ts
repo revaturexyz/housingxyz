@@ -18,7 +18,7 @@ export class CoordinatorService {
 
   httpOptions: any;
 
-  constructor (
+  constructor(
     private httpBus: HttpClient
   ) {
     this.httpOptions = {
@@ -28,23 +28,26 @@ export class CoordinatorService {
     };
   }
 
+  // Get tenant by id from api
   GetTenantById(tenantId: string): Observable<any> {
     const tenantUrl = `${this.apiUrl}` + 'Tenant/' + `${tenantId}`;
     return this.httpBus.get<Tenant>(tenantUrl, this.httpOptions);
   }
 
+  // Get batches by training center from api
   GetBatchByTrainingCenterId(trainingCenterId: string): Observable<any> {
     const batchUrl = `${this.apiUrl}` + 'Tenant/Batch?trainingCenterString=' + `${trainingCenterId}`;
     return this.httpBus.get<Batch[]>(batchUrl, this.httpOptions);
     // return this.httpBus.get<Batch[]>(batchUrl);
   }
 
-  PostTenant(postTenant: PostTenant): Observable<HttpEvent<PostTenant>> {
+  // Post a new tenant through api
+  PostTenant(postTenant: PostTenant): Promise<PostTenant> {
     const postTenantUrl = `${this.apiUrl}` + 'Tenant/Register';
-    return this.httpBus.post<PostTenant>(postTenantUrl, postTenant, this.httpOptions);
+    return this.httpBus.post<PostTenant>(postTenantUrl, postTenant).toPromise();
   }
 
-  //needs work
+  // Update an existing tenant through the api
   PutTenant(tenantId: string) {
     const putTenantUrl = `${this.apiUrl}` + 'UpdateTenant/' + `${tenantId}`;
     return this.httpBus.put<Tenant>(putTenantUrl, this.httpOptions);

@@ -1,4 +1,4 @@
-export interface Car{
+export interface Car {
     carId: number;
     licensePlate: string;
     make: string;
