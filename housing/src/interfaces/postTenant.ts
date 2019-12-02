@@ -1,5 +1,5 @@
 import { PostCar } from './postCar';
-import { PostTenantAddress } from './PostTenAddress';
+import { PostTenantAddress } from './postTenAddress';
 import { PostBatch } from './postBatch';
 
 
