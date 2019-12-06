@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Revature.Account.Lib.Interface;
-using Revature.Account.Lib.Model;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Revature.Account.Lib.Interface;
+using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -76,7 +76,7 @@ namespace Revature.Account.Api.Controllers
         _logger.LogInformation($"Persisted notification {notification.NotificationId}");
         return Created("GetNotificationsByCoordinatorId", mappedNotification);
       }
-      catch(Exception e)
+      catch (Exception e)
       {
         _logger.LogError("Post request failed with exception: " + e.Message);
         return BadRequest();
@@ -99,7 +99,7 @@ namespace Revature.Account.Api.Controllers
         _logger.LogWarning("Put request failed");
         return NotFound();
       }
-      
+
       existingNotification.Status.StatusText = notificationStatus;
 
       /*

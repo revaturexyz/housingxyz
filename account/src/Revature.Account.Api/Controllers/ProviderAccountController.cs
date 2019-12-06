@@ -1,12 +1,12 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
-using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api.Controllers
 {
