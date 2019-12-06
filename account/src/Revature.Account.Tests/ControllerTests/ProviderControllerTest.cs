@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
-using Xunit;
-using Moq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using Moq;
 using Revature.Account.Lib.Model;
+using Xunit;
 
 namespace Revature.Account.Tests.ControllerTests
 {

@@ -53,7 +53,7 @@ namespace Revature.Account.Lib.Model
     /// Checks to see if a string is either null (does not exist) or empty ( "" )
     /// </summary>
     /// <param name="value"></param>
-    private void NotNullOrEmpty(string value)
+    private static void NotNullOrEmpty(string value)
     {
       if (value == null)
       {

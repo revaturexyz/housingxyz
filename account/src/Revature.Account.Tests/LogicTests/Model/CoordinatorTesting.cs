@@ -1,5 +1,5 @@
-using Revature.Account.Lib.Model;
 using System;
+using Revature.Account.Lib.Model;
 using Xunit;
 
 namespace Revature.Account.Test.Logic_Tests.Model
@@ -10,7 +10,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
   public class CoordinatorTesting
   {
     //declare an instance for testing
-    private CoordinatorAccount coordinator = new CoordinatorAccount();
+    private readonly CoordinatorAccount _coordinator = new CoordinatorAccount();
 
     /// <summary>
     /// Test if the Coordinator's name is null.
@@ -21,7 +21,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     {
       string nullString = null;
 
-      Assert.ThrowsAny<ArgumentNullException>(() => coordinator.Name = nullString);
+      Assert.ThrowsAny<ArgumentNullException>(() => _coordinator.Name = nullString);
     }
 
     /// <summary>
@@ -30,9 +30,9 @@ namespace Revature.Account.Test.Logic_Tests.Model
     [Fact]
     public void CoordinatorNameEmptyException()
     {
-      string emptyString = "";
+      var emptyString = "";
 
-      Assert.ThrowsAny<ArgumentException>(() => coordinator.Name = emptyString);
+      Assert.ThrowsAny<ArgumentException>(() => _coordinator.Name = emptyString);
     }
 
     /// <summary>
@@ -41,9 +41,9 @@ namespace Revature.Account.Test.Logic_Tests.Model
     [Fact]
     public void CoordinatorEmailException()
     {
-      string invalidEmail = "abcgmail.com";
+      var invalidEmail = "abcgmail.com";
 
-      Assert.ThrowsAny<FormatException>(() => coordinator.Email = invalidEmail);
+      Assert.ThrowsAny<FormatException>(() => _coordinator.Email = invalidEmail);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     {
       string invalidName = null;
 
-      Assert.ThrowsAny<ArgumentNullException>(() => coordinator.TrainingCenterName = invalidName);
+      Assert.ThrowsAny<ArgumentNullException>(() => _coordinator.TrainingCenterName = invalidName);
     }
 
     /// <summary>
@@ -63,9 +63,9 @@ namespace Revature.Account.Test.Logic_Tests.Model
     [Fact]
     public void CoordinatorTCNameBlankException()
     {
-      string invalidName = "";
+      var invalidName = "";
 
-      Assert.ThrowsAny<ArgumentException>(() => coordinator.TrainingCenterName = invalidName);
+      Assert.ThrowsAny<ArgumentException>(() => _coordinator.TrainingCenterName = invalidName);
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ namespace Revature.Account.Test.Logic_Tests.Model
     {
       string invalidAddr = null;
 
-      Assert.ThrowsAny<ArgumentNullException>(() => coordinator.TrainingCenterAddress = invalidAddr);
+      Assert.ThrowsAny<ArgumentNullException>(() => _coordinator.TrainingCenterAddress = invalidAddr);
     }
 
     /// <summary>
@@ -85,9 +85,9 @@ namespace Revature.Account.Test.Logic_Tests.Model
     [Fact]
     public void CoordinatorTCAddrBlankException()
     {
-      string invalidAddr = "";
+      var invalidAddr = "";
 
-      Assert.ThrowsAny<ArgumentException>(() => coordinator.TrainingCenterName = invalidAddr);
+      Assert.ThrowsAny<ArgumentException>(() => _coordinator.TrainingCenterName = invalidAddr);
     }
   }
 }

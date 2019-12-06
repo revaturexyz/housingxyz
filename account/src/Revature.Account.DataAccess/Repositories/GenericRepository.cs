@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Revature.Account.Lib.Interface;
-using Revature.Account.Lib.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Revature.Account.Lib.Interface;
+using Revature.Account.Lib.Model;
 
 namespace Revature.Account.DataAccess.Repositories
 {
@@ -18,16 +18,16 @@ namespace Revature.Account.DataAccess.Repositories
     private readonly AccountDbContext _context;
 
     //the mapper tool
-    private readonly Mapper mapper;
+    private readonly IMapper _mapper;
 
     //constructor
-    public GenericRepository(AccountDbContext db)
+    public GenericRepository(AccountDbContext db, IMapper mapper)
     {
       //inject the database
       _context = db ?? throw new ArgumentNullException(nameof(db), "Context cannot be null.");
 
       //instantiate the mapper
-      this.mapper = new Mapper();
+      _mapper = mapper;
     }
 
     #region Provider
@@ -37,7 +37,7 @@ namespace Revature.Account.DataAccess.Repositories
       var provider = await _context.ProviderAccount
         .AsNoTracking()
         .FirstOrDefaultAsync(p => p.Email == providerEmail);
-      return (provider != null ? provider.ProviderId : Guid.Empty);
+      return provider != null ? provider.ProviderId : Guid.Empty;
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ namespace Revature.Account.DataAccess.Repositories
         .AsNoTracking()
         .Include(p => p.Coordinator)
         .FirstOrDefaultAsync(p => p.ProviderId == providerId);
-      return (provider != null ? mapper.MapProvider(provider) : null);
+      return provider != null ? _mapper.MapProvider(provider) : null;
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ namespace Revature.Account.DataAccess.Repositories
     /// <param name="newAccount"></param>
     public void AddProviderAccountAsync(ProviderAccount newAccount)
     {
-      var newEntity = mapper.MapProvider(newAccount);
+      var newEntity = _mapper.MapProvider(newAccount);
       _context.Add(newEntity);
     }
 
@@ -75,7 +75,7 @@ namespace Revature.Account.DataAccess.Repositories
       if (existingEntity == null)
         return false;
 
-      var updatedEntity = mapper.MapProvider(providerAccount);
+      var updatedEntity = _mapper.MapProvider(providerAccount);
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
@@ -104,7 +104,7 @@ namespace Revature.Account.DataAccess.Repositories
       var coordinator = await _context.CoordinatorAccount
         .AsNoTracking()
         .FirstOrDefaultAsync(c => c.Email == coordinatorEmail);
-      return (coordinator != null ? coordinator.CoordinatorId : Guid.Empty);
+      return coordinator != null ? coordinator.CoordinatorId : Guid.Empty;
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ namespace Revature.Account.DataAccess.Repositories
         .AsNoTracking()
         .Include(c => c.Notifications)
         .FirstOrDefaultAsync(p => p.CoordinatorId == coordinatorId);
-      return (coordinator != null ? mapper.MapCoordinator(coordinator) : null);
+      return coordinator != null ? _mapper.MapCoordinator(coordinator) : null;
     }
 
     /// <summary>
@@ -131,12 +131,12 @@ namespace Revature.Account.DataAccess.Repositories
         .AsNoTracking()
         .Include(c => c.Notifications)
         .ToListAsync();
-      return coordinators.Select(mapper.MapCoordinator).ToList();
+      return coordinators.Select(_mapper.MapCoordinator).ToList();
     }
 
     public void AddCoordinatorAccount(CoordinatorAccount coordinator)
     {
-      var newEntity = mapper.MapCoordinator(coordinator);
+      var newEntity = _mapper.MapCoordinator(coordinator);
       _context.Add(newEntity);
     }
 
@@ -146,7 +146,7 @@ namespace Revature.Account.DataAccess.Repositories
       if (existingEntity == null)
         return false;
 
-      var updatedEntity = mapper.MapCoordinator(coordinator);
+      var updatedEntity = _mapper.MapCoordinator(coordinator);
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
@@ -178,7 +178,7 @@ namespace Revature.Account.DataAccess.Repositories
         .Include(n => n.Provider)
         .Include(n => n.UpdateAction)
         .FirstOrDefaultAsync(n => n.NotificationId == notificationId);
-      return (notification != null ? mapper.MapNotification(notification) : null);
+      return notification != null ? _mapper.MapNotification(notification) : null;
     }
 
     /// <summary>
@@ -193,7 +193,7 @@ namespace Revature.Account.DataAccess.Repositories
         .Include(n => n.Provider)
         .Include(n => n.UpdateAction)
         .Where(p => p.CoordinatorId == coordinatorId).ToListAsync();
-      return notification?.Select(mapper.MapNotification).ToList();
+      return notification?.Select(_mapper.MapNotification).ToList();
     }
 
     /// <summary>
@@ -204,7 +204,7 @@ namespace Revature.Account.DataAccess.Repositories
       newNofi.UpdateAction.NotificationId = newNofi.NotificationId;
       AddUpdateAction(newNofi.UpdateAction);
 
-      var addedNotifiaction = mapper.MapNotification(newNofi);
+      var addedNotifiaction = _mapper.MapNotification(newNofi);
       _context.Add(addedNotifiaction);
     }
 
@@ -240,7 +240,7 @@ namespace Revature.Account.DataAccess.Repositories
       if (await UpdateUpdateActionAsync(notification.UpdateAction) == false)
         return false;
 
-      var updatedEntity = mapper.MapNotification(notification);
+      var updatedEntity = _mapper.MapNotification(notification);
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
@@ -254,12 +254,12 @@ namespace Revature.Account.DataAccess.Repositories
       var action = await _context.UpdateAction
         .AsNoTracking()
         .FirstOrDefaultAsync(u => u.UpdateActionId == actionId);
-      return (action != null ? mapper.MapUpdateAction(action) : null);
+      return action != null ? _mapper.MapUpdateAction(action) : null;
     }
 
     public void AddUpdateAction(UpdateAction action)
     {
-      var newEntity = mapper.MapUpdateAction(action);
+      var newEntity = _mapper.MapUpdateAction(action);
       _context.Add(newEntity);
     }
 
@@ -269,7 +269,7 @@ namespace Revature.Account.DataAccess.Repositories
       if (existingEntity == null)
         return false;
 
-      var updatedEntity = mapper.MapUpdateAction(action);
+      var updatedEntity = _mapper.MapUpdateAction(action);
       _context.Entry(existingEntity).CurrentValues.SetValues(updatedEntity);
       return true;
     }
