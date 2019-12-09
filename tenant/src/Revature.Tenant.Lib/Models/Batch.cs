@@ -30,7 +30,7 @@ namespace Revature.Tenant.Lib.Models
       get => _batchCurriculum;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("Batch Curriculum must not be empty", nameof(value));
         }

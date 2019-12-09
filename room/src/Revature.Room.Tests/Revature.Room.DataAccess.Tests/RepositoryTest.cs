@@ -113,7 +113,7 @@ namespace Revature.Room.Tests
         .Options;
 
       using var assembleContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       assembleContext.Database.EnsureCreated();
 
       var assembleRoom = PresetBLRoom();
@@ -135,7 +135,7 @@ namespace Revature.Room.Tests
         .Options;
 
       using var testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       testContext.Database.EnsureCreated();
 
       var newRoomEntity = PresetEntityRoom(testContext);
@@ -160,7 +160,7 @@ namespace Revature.Room.Tests
        .Options;
 
       using var testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       var repo = new Repository(testContext, mapper);
       testContext.Database.EnsureCreated();
 
@@ -187,7 +187,7 @@ namespace Revature.Room.Tests
 
       using var testContext = new RoomServiceContext(options);
       testContext.Database.EnsureCreated();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom = PresetEntityRoom2(testContext);
 
@@ -212,7 +212,7 @@ namespace Revature.Room.Tests
       using var testContext = new RoomServiceContext(options);
       testContext.Database.EnsureCreated();
 
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom = PresetEntityRoom2(testContext);
 
@@ -235,7 +235,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using var assembleContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
 
@@ -261,7 +261,7 @@ namespace Revature.Room.Tests
       .Options;
 
       using var testContext = new RoomServiceContext(options);
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom1 = PresetEntityRoom(testContext);
 
@@ -289,7 +289,7 @@ namespace Revature.Room.Tests
 
       using var assembleContext = new RoomServiceContext(options);
       assembleContext.Database.EnsureCreated();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
       var newRoom2 = PresetEntityRoom2(assembleContext);
@@ -321,7 +321,7 @@ namespace Revature.Room.Tests
 
       using var assembleContext = new RoomServiceContext(options);
       assembleContext.Database.EnsureCreated();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
       var newRoom2 = PresetEntityRoom2(assembleContext);
@@ -386,7 +386,7 @@ namespace Revature.Room.Tests
       assembleContext.Database.EnsureCreated();
       //var mapper = new DBMapper(assembleContext);
 
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
 
       var newRoom = PresetEntityRoom(assembleContext);
       var newRoom2 = PresetEntityRoom2(assembleContext);
@@ -425,7 +425,7 @@ namespace Revature.Room.Tests
 
       testContext.Room.Add(PresetEntityRoom(testContext));
       await testContext.SaveChangesAsync();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       var repo = new Repository(testContext, mapper);
 
       await repo.AddRoomOccupantsAsync(_newRoomId, _newGender);
@@ -449,7 +449,7 @@ namespace Revature.Room.Tests
       room.NumberOfOccupants = 0;
       testContext.Room.Add(room);
       await testContext.SaveChangesAsync();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       var repo = new Repository(testContext, mapper);
 
       await repo.AddRoomOccupantsAsync(_newRoomId, _newGender);
@@ -470,7 +470,7 @@ namespace Revature.Room.Tests
 
       testContext.Room.Add(PresetEntityRoom(testContext));
       await testContext.SaveChangesAsync();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       var repo = new Repository(testContext, mapper);
 
       await repo.SubtractRoomOccupantsAsync(_newRoomId);
@@ -493,7 +493,7 @@ namespace Revature.Room.Tests
       room.NumberOfOccupants = 1;
       testContext.Room.Add(room);
       await testContext.SaveChangesAsync();
-      var mapper = new DBMapper();
+      var mapper = new DbMapper();
       var repo = new Repository(testContext, mapper);
 
       await repo.SubtractRoomOccupantsAsync(_newRoomId);

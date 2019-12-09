@@ -23,7 +23,7 @@ namespace Revature.Tenant.Lib.Models
       get => _licensePlate;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("License plate must not be empty");
         }
@@ -37,7 +37,7 @@ namespace Revature.Tenant.Lib.Models
       get => _make;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("Make must not be empty");
         }
@@ -51,7 +51,7 @@ namespace Revature.Tenant.Lib.Models
       get => _model;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("Model must not be empty");
         }
@@ -64,7 +64,7 @@ namespace Revature.Tenant.Lib.Models
       get => _color;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("Color must not be empty");
         }
@@ -77,7 +77,7 @@ namespace Revature.Tenant.Lib.Models
       get => _year;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("Year must not be empty");
         }
@@ -91,7 +91,7 @@ namespace Revature.Tenant.Lib.Models
       get => _state;
       set
       {
-        if (value is string && value.Length == 0)
+        if (value != null && value.Length == 0)
         {
           throw new ArgumentException("State must not be empty");
         }

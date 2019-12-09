@@ -6,7 +6,7 @@ namespace Revature.Room.DataAccess
   /// <summary>
   /// Mapper class that maps between DB Entity Objects and Business Logic Objects
   /// </summary>
-  public class DBMapper : IMapper
+  public class DbMapper : IMapper
   {
     /// <summary>
     /// Method that converts a DB Entities Room Object to a Business Logic Library Room Object
