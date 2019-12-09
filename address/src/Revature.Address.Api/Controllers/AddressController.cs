@@ -19,13 +19,13 @@ namespace Revature.Address.Api.Controllers
   public class AddressController : ControllerBase
   {
 
-    private readonly IDataAccess db;
+    private readonly IDataAccess _db;
     private readonly ILogger _logger;
     private readonly IAddressLogic _addressLogic;
 
     public AddressController(IDataAccess dataAccess, IAddressLogic addressLogic, ILogger<AddressController> logger = null)
     {
-      db = dataAccess;
+      _db = dataAccess;
       _addressLogic = addressLogic;
       _logger = logger;
     }
@@ -40,7 +40,7 @@ namespace Revature.Address.Api.Controllers
     public async Task<ActionResult<AddressModel>> GetAddressById(Guid id)
     {
 
-      Lib.Address address = (await db.GetAddressAsync(id: id)).FirstOrDefault();
+      var address = (await _db.GetAddressAsync(id: id)).FirstOrDefault();
 
       if (address == null)
       {
@@ -71,25 +71,25 @@ namespace Revature.Address.Api.Controllers
     /// <returns></returns>
     // GET: api/address/checkdistance
     [HttpGet("checkdistance")]
-    public async Task<ActionResult<bool>> IsInRange([FromQuery] AddressModel origin, [FromQuery] AddressModel destination)
+    public async Task<ActionResult<bool>> IsInRange([FromQuery] List<AddressModel> addresses)
     {
-      Lib.Address start = new Lib.Address
+      var start = new Lib.Address
       {
-        Id = origin.Id,
-        Street = origin.Street,
-        City = origin.City,
-        State = origin.State,
-        Country = origin.Country,
-        ZipCode = origin.ZipCode
+        Id = addresses[0].Id,
+        Street = addresses[0].Street,
+        City = addresses[0].City,
+        State = addresses[0].State,
+        Country = addresses[0].Country,
+        ZipCode = addresses[0].ZipCode
       };
-      Lib.Address end = new Lib.Address
+      var end = new Lib.Address
       {
-        Id = destination.Id,
-        Street = destination.Street,
-        City = destination.City,
-        State = destination.State,
-        Country = destination.Country,
-        ZipCode = destination.ZipCode
+        Id = addresses[1].Id,
+        Street = addresses[1].Street,
+        City = addresses[1].City,
+        State = addresses[1].State,
+        Country = addresses[1].Country,
+        ZipCode = addresses[1].ZipCode
       };
       if (await _addressLogic.IsInRangeAsync(start, end, 20))
       {
@@ -116,7 +116,7 @@ namespace Revature.Address.Api.Controllers
     [HttpGet]
     public async Task<ActionResult<Lib.Address>> GetAddress([FromQuery] AddressModel address)
     {
-      Lib.Address newAddress = new Lib.Address
+      var newAddress = new Lib.Address
       {
         Id = address.Id,
         Street = address.Street,
@@ -125,7 +125,7 @@ namespace Revature.Address.Api.Controllers
         Country = address.Country,
         ZipCode = address.ZipCode
       };
-      Lib.Address checkAddress = (await db.GetAddressAsync(address: newAddress)).FirstOrDefault();
+      var checkAddress = (await _db.GetAddressAsync(address: newAddress)).FirstOrDefault();
 
       if (checkAddress == null)
       {
@@ -137,8 +137,8 @@ namespace Revature.Address.Api.Controllers
           {
             var normalAddress = await _addressLogic.NormalizeAddressAsync(newAddress);
 
-            await db.AddAddressAsync(normalAddress);
-            await db.SaveAsync();
+            await _db.AddAddressAsync(normalAddress);
+            await _db.SaveAsync();
             _logger.LogInformation("Address successfully created");
             return newAddress;
           }

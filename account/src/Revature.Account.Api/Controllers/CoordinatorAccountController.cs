@@ -1,12 +1,13 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Auth0.ManagementApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Account.Lib.Interface;
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using System.Linq;
+using Revature.Account.Lib.Interface;
 using Revature.Account.Lib.Model;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api.Controllers
 {
@@ -43,11 +44,11 @@ namespace Revature.Account.Api.Controllers
 
       try
       {
-        Auth0Helper auth0 = _authHelperFactory.Create(Request);
+        var auth0 = _authHelperFactory.Create(Request);
         var authUser = await auth0.Client.Users.GetUsersByEmailAsync(auth0.Email);
-        var authRoles = await auth0.Client.Roles.GetAllAsync(new Auth0.ManagementApi.Models.GetRolesRequest());
+        var authRoles = await auth0.Client.Roles.GetAllAsync(new GetRolesRequest());
 
-        Guid id = await _repo.GetCoordinatorIdByEmailAsync(auth0.Email);
+        var id = await _repo.GetCoordinatorIdByEmailAsync(auth0.Email);
         if (id != Guid.Empty)
         {
           // If their roles arent set properly, set them
@@ -78,10 +79,12 @@ namespace Revature.Account.Api.Controllers
             // They have been set as a coordinator on the Auth0 site, so make a new account
             var coordinator = new CoordinatorAccount
             {
-              Name = (authUser[0].FirstName != null && authUser[0].LastName != null
+              Name = authUser[0].FirstName != null && authUser[0].LastName != null
                 ? authUser[0].FirstName + " " + authUser[0].LastName
-                : "No Name"),
-              Email = auth0.Email
+                : "No Name",
+              Email = auth0.Email,
+              TrainingCenterName = "No Name",
+              TrainingCenterAddress = "No Address"
             };
             // Add them
             _repo.AddCoordinatorAccount(coordinator);
@@ -89,11 +92,11 @@ namespace Revature.Account.Api.Controllers
           else
           {
             // Make a new provider
-            ProviderAccount provider = new ProviderAccount
+            var provider = new ProviderAccount
             {
-              Name = (authUser[0].FirstName != null && authUser[0].LastName != null
+              Name = authUser[0].FirstName != null && authUser[0].LastName != null
                 ? authUser[0].FirstName + " " + authUser[0].LastName
-                : "No Name"),
+                : "No Name",
               Email = auth0.Email,
               Status = new Status(Status.Pending),
               AccountCreatedAt = DateTime.Now,
@@ -122,7 +125,7 @@ namespace Revature.Account.Api.Controllers
       }
       catch (Exception e)
       {
-        _logger.LogError("Error occured in token setup: {error}", e);
+        _logger.LogError(e, "Error occurred in token setup");
         return new StatusCodeResult(StatusCodes.Status500InternalServerError);
       }
     }

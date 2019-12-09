@@ -15,14 +15,14 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   // Create an observable of Auth0 instance of client
-  auth0Client$ = (from(
+  auth0Client$ = from(
     createAuth0Client({
       domain: environment.domain,
       client_id: environment.clientID,
       audience: environment.audience,
       redirect_uri: `${window.location.origin}`
     })
-  ) as Observable<Auth0Client>).pipe(
+  ).pipe(
     shareReplay(1), // Every subscription receives the same shared value
     catchError(err => throwError(err))
   );
@@ -47,7 +47,7 @@ export class AuthService {
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
-  getUser$(options?): Observable<any> {
+  getUser$(options?: GetUserOptions): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))

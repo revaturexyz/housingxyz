@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Revature.Tenant.DataAccess.Entities;
-using Revature.Tenant.Lib.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Revature.Tenant.DataAccess.Entities;
+using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.DataAccess.Repository
 {

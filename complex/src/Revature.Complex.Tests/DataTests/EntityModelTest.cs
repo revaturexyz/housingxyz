@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using Entity = Revature.Complex.DataAccess.Entities;
 
@@ -14,8 +12,8 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityTest()
     {
-      Guid amId = Guid.NewGuid();
-      Entity.Amenity amenity = new Entity.Amenity
+      var amId = Guid.NewGuid();
+      var amenity = new Entity.Amenity
       {
         AmenityId = amId,
         AmenityType = "fridge",
@@ -33,11 +31,11 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityComplexTest()
     {
-      Guid acId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid guid1 = Guid.NewGuid();
+      var acId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var guid1 = Guid.NewGuid();
 
-      Entity.AmenityComplex ac = new Entity.AmenityComplex
+      var ac = new Entity.AmenityComplex
       {
         AmenityComplexId = acId,
         AmenityId = amId,
@@ -55,11 +53,11 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityRoomTest()
     {
-      Guid arId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid guid = Guid.NewGuid();
+      var arId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var guid = Guid.NewGuid();
 
-      Entity.AmenityRoom ar = new Entity.AmenityRoom
+      var ar = new Entity.AmenityRoom
       {
         AmenityRoomId = arId,
         AmenityId = amId,
@@ -77,11 +75,11 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void ComplexTest()
     {
-      Guid cId = Guid.NewGuid();
-      Guid aId = Guid.NewGuid();
-      Guid pId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var pId = Guid.NewGuid();
 
-      Entity.Complex complex = new Entity.Complex
+      var complex = new Entity.Complex
       {
         ComplexId = cId,
         AddressId = aId,

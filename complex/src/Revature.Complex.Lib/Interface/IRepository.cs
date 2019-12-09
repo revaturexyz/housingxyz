@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Logic = Revature.Complex.Lib.Models;
 using System.Threading.Tasks;
+using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Lib.Interface
 {

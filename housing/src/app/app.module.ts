@@ -9,7 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import {
-  MatChipsModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatPaginatorModule, MatFormFieldModule,
+  MatChipsModule, MatTableModule, MatDialogModule, MatPaginatorModule, MatFormFieldModule,
   MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
   MatExpansionModule, MatInputModule
 } from '@angular/material';
@@ -23,12 +23,9 @@ import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
-import { AuthGuard } from './guards/auth.guard';
-//import { InterceptorService } from './services/interceptor.service';
+import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
-import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 import { ProviderStatusComponent } from './provider-status/provider-status.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
@@ -39,6 +36,7 @@ import { EditRoomComponent } from './manage-complex/edit-room/edit-room.componen
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +55,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     EditRoomComponent,
     ShowRoomComponent,
     AddComplexComponent,
-    AddRoomComponent
+    AddRoomComponent,
+    AddTenantComponent
   ],
   imports: [
     BrowserModule,
@@ -78,8 +77,11 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     MatTableModule,
     MatChipsModule,
     MatPaginatorModule,
+    CdkTableModule,
     MatCardModule,
+    MatDialogModule,
     StickyNavModule,
+    BrowserAnimationsModule,
     MatRippleModule,
     MatSidenavModule,
     MatIconModule,
@@ -94,11 +96,11 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     ScrollDispatchModule,
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: InterceptorService,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ],
   entryComponents: [AmenityDialogueComponent],
   bootstrap: [AppComponent]

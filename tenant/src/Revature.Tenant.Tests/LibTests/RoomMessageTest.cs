@@ -1,27 +1,27 @@
-using Revature.Tenant.Lib.Models;
 using System;
+using Revature.Tenant.Lib.Models;
 using Xunit;
 
 namespace Revature.Tenant.Tests.LibTests
 {
   public class RoomMessageTest
   {
-    private Guid roomId = Guid.NewGuid();
-    private string gender = "Female";
+    private Guid _roomId = Guid.NewGuid();
+    private readonly string _gender = "Female";
 
     [Fact]
     public void RoomMessageShouldCreate()
     {
       var result = new RoomMessage()
       {
-        Gender = gender,
-        RoomId = roomId,
+        Gender = _gender,
+        RoomId = _roomId,
         OperationType = 0
       };
 
       Assert.NotNull(result);
-      Assert.True(result.Gender == gender);
-      Assert.True(result.RoomId == roomId);
+      Assert.True(result.Gender == _gender);
+      Assert.True(result.RoomId == _roomId);
       Assert.True(result.OperationType == 0);
     }
 

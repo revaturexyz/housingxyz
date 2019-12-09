@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Tenant.Lib.Interface;
-using Revature.Tenant.Api.Models;
 using Microsoft.Extensions.Logging;
-using System.Net.Http;
-using Microsoft.Extensions.Configuration;
-using System.Text.Json;
+using Revature.Tenant.Api.Models;
+using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.Api.Controllers
 {
@@ -55,7 +52,7 @@ namespace Revature.Tenant.Api.Controllers
 
       //Maps batches and cars correctly, based on null or not null
       var newTenants = new List<Lib.Models.Tenant>();
-      foreach (Lib.Models.Tenant tenant in tenants)
+      foreach (var tenant in tenants)
       {
         Lib.Models.Batch batch;
         int? batchId;
@@ -97,7 +94,6 @@ namespace Revature.Tenant.Api.Controllers
         else
         {
           car = null;
-          carId = null;
         }
         tenant.Car = car;
 
@@ -105,10 +101,10 @@ namespace Revature.Tenant.Api.Controllers
       }
 
       //Cast all Logic Tenants into ApiTenants
-      List<ApiTenant> apiTenants = new List<ApiTenant>();
-      foreach (Lib.Models.Tenant apiTenant in newTenants)
+      var apiTenants = new List<ApiTenant>();
+      foreach (var apiTenant in newTenants)
       {
-        ApiTenant newApiTenant = new ApiTenant
+        var newApiTenant = new ApiTenant
         {
           Id = apiTenant.Id,
           Email = apiTenant.Email,
@@ -218,7 +214,7 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         //Cast string into Guid
-        Guid trainingCenter = Guid.Parse(trainingCenterString);
+        var trainingCenter = Guid.Parse(trainingCenterString);
         //Call Repo method GetBatchesAsync
         var batches = await _tenantRepository.GetBatchesAsync(trainingCenter);
         //Return Ok with a list of batches
@@ -243,7 +239,7 @@ namespace Revature.Tenant.Api.Controllers
     /// </summary>
     /// <param name="tenant">A tenant api model of a new tenant</param>
     /// <returns>An apiTenant model of the new tenant, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions/returns>
-    // POST: api/Tenant
+    // POST: api/Tenant/Register
     [HttpPost("Register", Name = "RegisterTenant")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -254,7 +250,7 @@ namespace Revature.Tenant.Api.Controllers
       {
         _logger.LogInformation("Posting Address to Address Service...");
         var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
-        
+
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
@@ -263,14 +259,15 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = postedAddress.AddressId,
+          AddressId = Guid.NewGuid(),//TODO postedAddress.AddressId,
           RoomId = null, //Room Service will set this later
           CarId = null,
           BatchId = tenant.BatchId,
           TrainingCenter = tenant.TrainingCenter,
 
         };
-        if (tenant.ApiCar != null)
+
+        if (tenant.ApiCar.LicensePlate != null)
         {
           newTenant.Car = new Lib.Models.Car
           {
@@ -283,6 +280,12 @@ namespace Revature.Tenant.Api.Controllers
           };
           newTenant.CarId = 0;
         }
+        else
+        {
+          newTenant.Car = null;
+          newTenant.CarId = null;
+        }
+
 
         //Call Repository Methods AddAsync and SaveAsync
         await _tenantRepository.AddAsync(newTenant);
@@ -322,6 +325,8 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         _logger.LogInformation("PUT - Updating tenant with tenantid {tenantId}.", tenant.Id);
+        _logger.LogInformation("Posting Address to Address Service...");
+        var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
@@ -330,7 +335,7 @@ namespace Revature.Tenant.Api.Controllers
           Gender = tenant.Gender,
           FirstName = tenant.FirstName,
           LastName = tenant.LastName,
-          AddressId = tenant.AddressId,
+          AddressId = (Guid)tenant.AddressId,
           RoomId = tenant.RoomId,
           CarId = tenant.CarId,
           BatchId = tenant.BatchId,
@@ -383,11 +388,11 @@ namespace Revature.Tenant.Api.Controllers
     /// <returns>Status Code 204 if successful, or NotFound if not found, or Conflict for Invalid Operations, or Internal Service Error for other exceptions</returns>
     [HttpDelete("Delete/{id}", Name = "DeleteTenant")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteAsync([FromQuery] string id)
+    public async Task<ActionResult> DeleteAsync([FromRoute] Guid id)
     {
       try
       {
-        await _tenantRepository.DeleteByIdAsync(Guid.Parse(id));
+        await _tenantRepository.DeleteByIdAsync(id);
         await _tenantRepository.SaveAsync();
         return StatusCode(StatusCodes.Status204NoContent);
       }

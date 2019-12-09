@@ -1,10 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Revature.Room.Lib;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Revature.Room.Api.Controllers
 {
@@ -51,7 +51,7 @@ namespace Revature.Room.Api.Controllers
       {
         _logger.LogInformation("Getting filtered rooms...");
 
-        IEnumerable<Lib.Room> rooms = await _repository.GetFilteredRoomsAsync(
+        var rooms = await _repository.GetFilteredRoomsAsync(
         complexId,
         roomNumber,
         numberOfBeds,
@@ -113,7 +113,7 @@ namespace Revature.Room.Api.Controllers
       {
         _logger.LogInformation("Adding a room");
 
-        Lib.Room createdRoom = new Lib.Room
+        var createdRoom = new Lib.Room
         {
           ComplexId = room.ComplexId,
           RoomId = room.RoomId,

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { ShowRoomComponent } from './show-room.component';
 
 describe('ShowRoomComponent', () => {
@@ -9,9 +9,9 @@ describe('ShowRoomComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatChipsModule],
-      declarations: [ ShowRoomComponent ]
+      declarations: [ShowRoomComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

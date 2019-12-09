@@ -1,11 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Revature.Room.Api.Controllers;
 using Revature.Room.Lib;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Revature.Room.DataAccess.Tests
@@ -90,7 +90,7 @@ namespace Revature.Room.DataAccess.Tests
       var controller = new ComplexController(mockRepo.Object, mockLogger.Object);
 
       //act
-      Revature.Room.Lib.Room roomTest = new Revature.Room.Lib.Room
+      var roomTest = new Revature.Room.Lib.Room
       {
         ComplexId = Guid.NewGuid(),
         RoomId = Guid.NewGuid(),
@@ -126,7 +126,7 @@ namespace Revature.Room.DataAccess.Tests
       var controller = new ComplexController(mockRepo.Object, mockLogger.Object);
 
       //act
-      Lib.Room roomTest = new Lib.Room();
+      var roomTest = new Lib.Room();
 
       var result = await controller.PostRoomAsync(roomTest);
 
@@ -153,7 +153,7 @@ namespace Revature.Room.DataAccess.Tests
       var controller = new ComplexController(mockRepo.Object, mockLogger.Object);
 
       //act
-      Revature.Room.Lib.Room roomTest = new Revature.Room.Lib.Room
+      var roomTest = new Revature.Room.Lib.Room
       {
         ComplexId = Guid.NewGuid(),
         RoomId = Guid.NewGuid(),
@@ -192,7 +192,7 @@ namespace Revature.Room.DataAccess.Tests
       var controller = new ComplexController(mockRepo.Object, mockLogger.Object); ;
 
       //act
-      Lib.Room roomTest = new Lib.Room();
+      var roomTest = new Lib.Room();
       //Need to set lease or else we will get an Argument Exception instead of InvalidOperation Exception
       roomTest.SetLease(DateTime.Now, DateTime.Now.AddDays(3));
 
@@ -223,7 +223,7 @@ namespace Revature.Room.DataAccess.Tests
       var controller = new ComplexController(mockRepo.Object, mockLogger.Object); ;
 
       //act
-      Lib.Room roomTest = new Lib.Room();
+      var roomTest = new Lib.Room();
 
       var result = await controller.PutRoomAsync(Guid.NewGuid(), roomTest);
 

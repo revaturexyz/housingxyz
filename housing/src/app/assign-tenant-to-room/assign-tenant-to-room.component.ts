@@ -31,13 +31,13 @@ export class AssignTenantToRoomComponent implements OnInit {
   // Currently selected room for a tenant
   currentRoomId: string;
 
-  filterCar:boolean = false;
-  filterLang:boolean = false;
-  filterBatch:boolean = false;
+  sortCar:boolean = false;
+  sortLang:boolean = false;
+  sortBatch:boolean = false;
 
   roomsLoaded:boolean = false;
 
-  // Determines how strongly to prioritize specific filters
+  // Determines how strongly to prioritize specific sorts
   batchPriorityWeight:number = 0.6;
   langPriorityWeight:number = 0.6;
 
@@ -86,21 +86,21 @@ export class AssignTenantToRoomComponent implements OnInit {
     this.availableRooms.forEach(element => {
       this.roomArray.push([element,0]);
     });
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
 
-  // Filter Checkbox Methods; sorts list whenever a checkbox is clicked
+  // Sorting Checkbox Methods; sorts list whenever a checkbox is clicked
   toggleCar(){
-    this.filterCar = !this.filterCar;
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.sortCar = !this.sortCar;
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
   toggleLang(){
-    this.filterLang = !this.filterLang;
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.sortLang = !this.sortLang;
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
   toggleBatch(){
-    this.filterBatch = !this.filterBatch;
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.sortBatch = !this.sortBatch;
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
 
   prioritizeRoomsByCar(arr:[RoomWithTenants,number][]) {
@@ -126,7 +126,7 @@ export class AssignTenantToRoomComponent implements OnInit {
   prioritizeRoomsByLang(arr:[RoomWithTenants, number][]){
     arr.forEach(roomTuple => {
       roomTuple[0].tenants.forEach(tenant => {
-        if (tenant.batch.language == this.currentTenant.batch.language){
+        if (tenant.batch.batchCurriculum == this.currentTenant.batch.batchCurriculum){
           roomTuple[1] += this.langPriorityWeight;
         }
       });
@@ -145,15 +145,15 @@ export class AssignTenantToRoomComponent implements OnInit {
     });
   }
 
-  prioritizeWithFilters(arr:[RoomWithTenants, number][]) : [RoomWithTenants, number][]{
+  prioritizeWithSorts(arr:[RoomWithTenants, number][]) : [RoomWithTenants, number][]{
     let result = JSON.parse(JSON.stringify(arr)); // shallow copy of the array
-    if (this.filterCar){
+    if (this.sortCar){
       this.prioritizeRoomsByCar(result);
     }
-    if (this.filterLang){
+    if (this.sortLang){
       this.prioritizeRoomsByLang(result);
     }
-    if (this.filterBatch){
+    if (this.sortBatch){
       this.prioritizeRoomsByBatch(result);
     }
     this.sortRoomsByPriority(result);

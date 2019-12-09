@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Revature.Account.DataAccess;
 using Revature.Account.DataAccess.Repositories;
 using Revature.Account.Lib.Interface;
-using Microsoft.EntityFrameworkCore;
-using Revature.Account.DataAccess;
 using Serilog;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Revature.Account.Api
 {
@@ -46,13 +46,15 @@ namespace Revature.Account.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
         });
       });
 
+      services.AddSingleton<IMapper, Mapper>();
       services.AddScoped<IGenericRepository, GenericRepository>();
       services.AddTransient<IAuth0HelperFactory, Auth0HelperFactory>();
       services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
@@ -70,7 +72,8 @@ namespace Revature.Account.Api
       });
 
       // This method is for adding policies and other settings to the Authorize attribute
-      services.AddAuthorization(options => {
+      services.AddAuthorization(options =>
+      {
         options.AddPolicy("ApprovedProviderRole", policy =>
           policy.Requirements.Add(new RoleRequirement(Auth0Helper.ApprovedProviderRole)));
         options.AddPolicy("CoordinatorRole", policy =>
@@ -126,11 +129,9 @@ namespace Revature.Account.Api
 
       // Found at https://stackoverflow.com/questions/36958318/where-should-i-put-database-ensurecreated
       var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-      using (var serviceScope = serviceScopeFactory.CreateScope())
-      {
-        var dbContext = serviceScope.ServiceProvider.GetService<AccountDbContext>();
-        dbContext.Database.EnsureCreated();
-      }
+      using var serviceScope = serviceScopeFactory.CreateScope();
+      var dbContext = serviceScope.ServiceProvider.GetService<AccountDbContext>();
+      dbContext.Database.EnsureCreated();
     }
   }
 }

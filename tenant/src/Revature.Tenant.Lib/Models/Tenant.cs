@@ -14,7 +14,6 @@ namespace Revature.Tenant.Lib.Models
     private string _lastName;
     private Guid _addressId;
     private Guid? _roomId;
-    private int? _carId;
     private int? _batchId;
     private Guid _trainingCenter;
 
@@ -42,13 +41,15 @@ namespace Revature.Tenant.Lib.Models
         {
           throw new ArgumentNullException("Email must not be null");
         }
-        if (value == "")
+        if (value.Length == 0)
         {
           throw new ArgumentException("Email must not be empty", nameof(value));
         }
         try
         {
-          new System.Net.Mail.MailAddress(value);
+          // This line simply uses the instantiation of the MailAddress object
+          // to check if the email is valid. Object is thrown away.
+          _ = new System.Net.Mail.MailAddress(value);
         }
         catch (FormatException ex)
         {
@@ -66,7 +67,7 @@ namespace Revature.Tenant.Lib.Models
         {
           throw new ArgumentNullException("First name must not be null");
         }
-        if (value == "")
+        if (value.Length == 0)
         {
           throw new ArgumentException("First name must not be empty", nameof(value));
         }
@@ -83,7 +84,7 @@ namespace Revature.Tenant.Lib.Models
         {
           throw new ArgumentNullException("Last name must not be null");
         }
-        if (value == "")
+        if (value.Length == 0)
         {
           throw new ArgumentException("Last name must not be empty", nameof(value));
         }
@@ -104,14 +105,7 @@ namespace Revature.Tenant.Lib.Models
         _roomId = value;
       }
     }
-    public int? CarId
-    {
-      get => _carId;
-      set
-      {
-        _carId = value;
-      }
-    }
+    public int? CarId { get; set; }
     public string Gender
     {
       get => _gender;
@@ -121,7 +115,7 @@ namespace Revature.Tenant.Lib.Models
         {
           throw new ArgumentNullException("Gender must not be null");
         }
-        if (value == "")
+        if (value.Length == 0)
         {
           throw new ArgumentException("Gender must not be empty", nameof(value));
         }

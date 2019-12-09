@@ -1,12 +1,11 @@
 <div class="nav-bar">
   <div class="revlogo">
-    <img routerLink="/" alt="logo" src="/assets/imgs/revature-logo-600x219.png"
-      height="75px">
+    <img routerLink="/" alt="logo" src="/assets/imgs/revature-logo-600x219.png" height="75px">
   </div>
   <div class="menubar">
     <ul>
       <li><a routerLink="">Home</a></li>
-      
+
       <!-- ngIf -> a limited provider is logged on -->
       <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="provider-status">Status</a></li>
       <li *ngIf="auth.loggedIn && role !== 'coordinator'"><a routerLink="edit-provider">Profile</a></li>
@@ -15,7 +14,11 @@
       <li *ngIf="auth.loggedIn && role === 'approved_provider'"><a routerLink="manage-complex">Manage Complexes</a></li>
 
       <!-- ngIf -> a coordinator is logged on -->
-      <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="coordinator-notifications">Notifications</a></li>
+      <li *ngIf="auth.loggedIn && role === 'coordinator'">
+        <a routerLink="coordinator-notifications">Notifications</a>
+      </li>
+      <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="add-tenant">Add Tenant</a></li>
+      <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="search-tenant">Search Tenants</a></li>
 
       <!-- Login/Logout stuff -->
       <li *ngIf="!auth.loggedIn"><a (click)="auth.login()">Login</a></li>

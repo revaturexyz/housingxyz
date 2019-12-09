@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Complex.Lib.Interface;
-using Revature.Complex.Api.Models;
-using Logic = Revature.Complex.Lib.Models;
 using Microsoft.Extensions.Logging;
+using Revature.Complex.Api.Models;
 using Revature.Complex.Api.Services;
+using Revature.Complex.Lib.Interface;
+using Logic = Revature.Complex.Lib.Models;
 
 
 namespace Revature.Complex.Api.Controllers
@@ -18,17 +17,15 @@ namespace Revature.Complex.Api.Controllers
   public class ComplexController : Controller
   {
     private readonly IRepository _complexRepository;
-    private readonly ILogger<ComplexController> log;
-    private readonly IAddressService addressServiceSender;
-    private readonly IRoomServiceSender roomServiceSender;
+    private readonly ILogger<ComplexController> _log;
+    private readonly IRoomServiceSender _roomServiceSender;
 
     public ComplexController(IRepository complexRepository, ILogger<ComplexController> logger,
-      IAddressService addressService, IRoomServiceSender rss)
+      IRoomServiceSender rss)
     {
-      _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
-      log = logger;
-      addressServiceSender = addressService;
-      roomServiceSender = rss;
+      _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository));
+      _log = logger;
+      _roomServiceSender = rss;
     }
 
     #region GET
@@ -48,25 +45,25 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        List<Logic.Complex> complices = await _complexRepository.ReadComplexListAsync();
-        List<ApiComplex> apiComplices = new List<ApiComplex>();
+        var complices = await _complexRepository.ReadComplexListAsync();
+        var apiComplices = new List<ApiComplex>();
 
         //foreach complex, get address from address service
         //create Apicomplex object for each complex we have
         //return them.
 
-        foreach (Logic.Complex com in complices)
+        foreach (var com in complices)
         {
-          ApiComplex complex = new ApiComplex
+          var complex = new ApiComplex
           {
             ComplexId = com.ComplexId,
             // apiaddress
             ProviderId = com.ProviderId,
             ComplexName = com.ComplexName,
             ContactNumber = com.ContactNumber,
-            ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
+            ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
           };
-          log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
+          _log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
           apiComplices.Add(complex);
         }
 
@@ -74,10 +71,9 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
-
     }
 
     /// <summary>
@@ -96,29 +92,29 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        Logic.Complex lcomplex = await _complexRepository.ReadComplexByIdAsync(complexId);
-        log.LogInformation("a complex with Id: {complexId} was found", complexId);
+        var lcomplex = await _complexRepository.ReadComplexByIdAsync(complexId);
+        _log.LogInformation("a complex with Id: {complexId} was found", complexId);
 
         //foreach complex, get address from address service
         //create Apicomplex object for each complex we have
         //return them.
 
-        ApiComplex apiComplex = new ApiComplex
+        var apiComplex = new ApiComplex
         {
           ComplexId = lcomplex.ComplexId,
           // apiaddress
           ProviderId = lcomplex.ProviderId,
           ComplexName = lcomplex.ComplexName,
           ContactNumber = lcomplex.ContactNumber,
-          ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
+          ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
         };
-        log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} was found!", lcomplex.ComplexId);
+        _log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} was found!", lcomplex.ComplexId);
 
         return Ok(apiComplex);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -140,27 +136,27 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        Logic.Complex lcomplex = await _complexRepository.ReadComplexByNameAndNumberAsync(complexName, complexNumber);
-        log.LogInformation("a complex with name: {complexName} and phone: {ComplexNumber} was found", complexName, complexNumber);
+        var lcomplex = await _complexRepository.ReadComplexByNameAndNumberAsync(complexName, complexNumber);
+        _log.LogInformation("a complex with name: {complexName} and phone: {ComplexNumber} was found", complexName, complexNumber);
 
         //GET address from address service via complexid
 
-        ApiComplex apiComplex = new ApiComplex
+        var apiComplex = new ApiComplex
         {
           ComplexId = lcomplex.ComplexId,
           //Address =
           ProviderId = lcomplex.ProviderId,
           ComplexName = lcomplex.ComplexName,
           ContactNumber = lcomplex.ContactNumber,
-          ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
+          ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(lcomplex.ComplexId)
         };
-        log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} were found!", lcomplex.ComplexId);
+        _log.LogInformation("a list of amenities for complex Id {lcomplex.ComplexId} were found!", lcomplex.ComplexId);
 
         return Ok(apiComplex);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -181,28 +177,28 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        List<Logic.Complex> complices = await _complexRepository.ReadComplexByProviderIdAsync(providerId);
-        log.LogInformation("a list of complices for provider Id: {providerId} were found", providerId);
+        var complices = await _complexRepository.ReadComplexByProviderIdAsync(providerId);
+        _log.LogInformation("a list of complices for provider Id: {providerId} were found", providerId);
 
-        List<ApiComplex> apiComplices = new List<ApiComplex>();
+        var apiComplices = new List<ApiComplex>();
 
-        foreach (Logic.Complex complex in complices)
+        foreach (var complex in complices)
         {
-          ApiComplexAddress address = new ApiComplexAddress
+          var address = new ApiComplexAddress
           {
             AddressId = complex.AddressId
           };
 
-          ApiComplex apiComplextoAdd = new ApiComplex
+          var apiComplextoAdd = new ApiComplex
           {
             ComplexId = complex.ComplexId,
             Address = address,
             ProviderId = complex.ProviderId,
             ComplexName = complex.ComplexName,
             ContactNumber = complex.ContactNumber,
-            ComplexAmentiy = await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId)
+            ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(complex.ComplexId)
           };
-          log.LogInformation("a list of amenities for complex Id {complex.ComplexId} was found!", complex.ComplexId);
+          _log.LogInformation("a list of amenities for complex Id {complex.ComplexId} was found!", complex.ComplexId);
 
           apiComplices.Add(apiComplextoAdd);
         }
@@ -215,7 +211,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -238,8 +234,8 @@ namespace Revature.Complex.Api.Controllers
     //Post: api/complex/PostComplex
     public async Task<ActionResult<ApiComplex>> PostComplexAsync([FromBody]ApiComplex apiComplex)
     {
-      Guid addressId = Guid.NewGuid();
-      ApiComplexAddress CompAddr = new ApiComplexAddress()
+      var addressId = Guid.NewGuid();
+      var compAddr = new ApiComplexAddress()
       {
         AddressId = addressId,
         StreetAddress = apiComplex.Address.StreetAddress,
@@ -249,9 +245,9 @@ namespace Revature.Complex.Api.Controllers
         Country = apiComplex.Address.Country,
       };
 
-      Guid complexId = Guid.NewGuid();
+      var complexId = Guid.NewGuid();
 
-      Logic.Complex complex = new Logic.Complex()
+      var complex = new Logic.Complex()
       {
         ComplexId = complexId,
         AddressId = addressId,
@@ -260,44 +256,34 @@ namespace Revature.Complex.Api.Controllers
         ComplexName = apiComplex.ComplexName
       };
 
-      Logic.AmenityComplex AmenityComplex = new Logic.AmenityComplex();
+      var amenityComplex = new Logic.AmenityComplex();
 
       try
       {
         await _complexRepository.CreateComplexAsync(complex);
-        log.LogInformation("(API)new complex in the database is inserted");
+        _log.LogInformation("(API)new complex in the database is inserted");
 
-        List<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
-        log.LogInformation("(API)list of Amenity is found");
+        var amenities = await _complexRepository.ReadAmenityListAsync();
+        _log.LogInformation("(API)list of Amenity is found");
 
-        AmenityComplex.ComplexId = complex.ComplexId;
+        amenityComplex.ComplexId = complex.ComplexId;
 
-        foreach (var amenity in apiComplex.ComplexAmentiy)
+        foreach (var amenity in apiComplex.ComplexAmenity)
         {
           foreach (var am in amenities)
           {
             if (am.AmenityType == amenity.AmenityType)
             {
-              AmenityComplex.AmenityId = am.AmenityId;
-              AmenityComplex.AmenityComplexId = Guid.NewGuid();
+              amenityComplex.AmenityId = am.AmenityId;
+              amenityComplex.AmenityComplexId = Guid.NewGuid();
             }
           }
 
-          await _complexRepository.CreateAmenityComplexAsync(AmenityComplex);
-          log.LogInformation($"(API)a list of amenities for complex id: {complex.ComplexId} was created");
+          await _complexRepository.CreateAmenityComplexAsync(amenityComplex);
+          _log.LogInformation($"(API)a list of amenities for complex id: {complex.ComplexId} was created");
         }
 
         #region Code to sent address to other serivce Need to fill
-
-        try
-        {
-          await addressServiceSender.SendRoomsMessages(CompAddr);
-        }
-        catch(Exception ex)
-        {
-          log.LogError($"(API){ex.Message}: failed to send address to Address service");
-          return StatusCode(500, ex.Message);
-        }
 
         #endregion
 
@@ -306,7 +292,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: unable to create complex");
+        _log.LogError($"(API){ex}: unable to create complex");
         return StatusCode(500, ex.Message);
       }
     }
@@ -325,46 +311,45 @@ namespace Revature.Complex.Api.Controllers
     //POST: api/complex/PostRooms
     public async Task<ActionResult> PostRoomsAsync([FromBody]IEnumerable<ApiRoom> apiRooms)
     {
-      List<ApiRoomtoSend> apiRoomtoSends = new List<ApiRoomtoSend>();
-      ApiRoomtoSend arts = new ApiRoomtoSend();
-      Logic.AmenityRoom amenityRoom = new Logic.AmenityRoom();
+      var apiRoomtoSends = new List<ApiRoomtoSend>();
+      var amenityRoom = new Logic.AmenityRoom();
 
       try
       {
-        foreach (ApiRoom apiRoom in apiRooms)
+        foreach (var apiRoom in apiRooms)
         {
-          arts.RoomId = Guid.NewGuid();
-          arts.RoomNumber = apiRoom.RoomNumber;
-          arts.ComplexId = apiRoom.ComplexId;
-          arts.Gender = "default";
-          arts.NumberOfBeds = apiRoom.NumberOfBeds;
-          arts.RoomType = apiRoom.ApiRoomType;
-          arts.LeaseStart = apiRoom.LeaseStart;
-          arts.LeaseEnd = apiRoom.LeaseEnd;
-          arts.QueOperator = 0;
+          var arts = new ApiRoomtoSend
+          {
+            RoomId = Guid.NewGuid(),
+            RoomNumber = apiRoom.RoomNumber,
+            ComplexId = apiRoom.ComplexId,
+            NumberOfBeds = apiRoom.NumberOfBeds,
+            RoomType = apiRoom.ApiRoomType,
+            LeaseStart = apiRoom.LeaseStart,
+            LeaseEnd = apiRoom.LeaseEnd,
+            QueOperator = 0,
+          };
 
-          apiRoomtoSends.Add(arts);
+          await _roomServiceSender.SendRoomsMessages(arts);
+          //apiRoomtoSends.Add(arts);
 
           amenityRoom.AmenityRoomId = Guid.NewGuid();
           amenityRoom.RoomId = arts.RoomId;
 
-          IEnumerable<ApiRoomtoSend> roomtoSends = apiRoomtoSends;
-
-          //Send {roomtoSends} to room service
-          await roomServiceSender.SendRoomsMessages(apiRoomtoSends);
-
-          foreach (ApiAmenity amenity in apiRoom.Amenities)
+          foreach (var amenity in apiRoom.Amenities)
           {
             amenityRoom.AmenityId = amenity.AmenityId;
             await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
-            log.LogInformation("a list of amenities with room id: {arts.RoomId} was created", arts.RoomId);
+            _log.LogInformation("a list of amenities with room id: {0} was created", arts.RoomId);
           }
         }
+        //await roomServiceSender.SendRoomsMessages(apiRoomtoSends);
+
         return StatusCode(201);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError(ex, "error while creating room");
         return StatusCode(500, ex.Message);
       }
     }
@@ -386,7 +371,7 @@ namespace Revature.Complex.Api.Controllers
     //PUT: api/complex/editcomplex
     public async Task<ActionResult> PutComplexAsync([FromBody]ApiComplex apiComplex)
     {
-      ApiComplexAddress CompAddr = new ApiComplexAddress()
+      var compAddr = new ApiComplexAddress()
       {
         AddressId = apiComplex.Address.AddressId,
         StreetAddress = apiComplex.Address.StreetAddress,
@@ -396,7 +381,7 @@ namespace Revature.Complex.Api.Controllers
         Country = apiComplex.Address.Country,
       };
 
-      Logic.Complex complex = new Logic.Complex()
+      var complex = new Logic.Complex()
       {
         ComplexId = apiComplex.ComplexId,
         AddressId = apiComplex.Address.AddressId,
@@ -406,36 +391,36 @@ namespace Revature.Complex.Api.Controllers
       };
 
       await _complexRepository.DeleteAmenityComplexAsync(complex.ComplexId);
-      log.LogInformation($"(API)old amenities for complex id: {apiComplex.ComplexId} is deleted");
+      _log.LogInformation($"(API)old amenities for complex id: {apiComplex.ComplexId} is deleted");
 
-      Logic.AmenityComplex AmenityComplex = new Logic.AmenityComplex();
+      var amenityComplex = new Logic.AmenityComplex();
 
       try
       {
         await _complexRepository.UpdateComplexAsync(complex);
-        log.LogInformation("(API) complex is updated");
+        _log.LogInformation("(API) complex is updated");
 
-        List<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
-        log.LogInformation("(API) list of amenity is read");
+        var amenities = await _complexRepository.ReadAmenityListAsync();
+        _log.LogInformation("(API) list of amenity is read");
 
         Guid amenityComplexId;
-        AmenityComplex.ComplexId = complex.ComplexId;
+        amenityComplex.ComplexId = complex.ComplexId;
 
-        foreach (var amenity in apiComplex.ComplexAmentiy)
+        foreach (var amenity in apiComplex.ComplexAmenity)
         {
           foreach (var am in amenities)
           {
             if (am.AmenityType == amenity.AmenityType)
             {
-              AmenityComplex.AmenityId = am.AmenityId;
+              amenityComplex.AmenityId = am.AmenityId;
 
               amenityComplexId = Guid.NewGuid();
-              AmenityComplex.AmenityComplexId = amenityComplexId;
+              amenityComplex.AmenityComplexId = amenityComplexId;
             }
           }
 
-          await _complexRepository.CreateAmenityComplexAsync(AmenityComplex);
-          log.LogInformation("(API)new list of amenity of complex is created");
+          await _complexRepository.CreateAmenityComplexAsync(amenityComplex);
+          _log.LogInformation("(API)new list of amenity of complex is created");
         }
 
         //send ApiComplexAddress to Address service to update the address
@@ -445,7 +430,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch (Exception ex)
       {
-        log.LogError($"(API){ex}: unable to update complex");
+        _log.LogError($"(API){ex}: unable to update complex");
         return StatusCode(500, ex.Message);
       }
     }
@@ -463,41 +448,41 @@ namespace Revature.Complex.Api.Controllers
     //PUT: api/complex/editroom
     public async Task<ActionResult> PutRoomAsync([FromBody]ApiRoom apiRoom)
     {
-      ApiRoomtoSend arts = new ApiRoomtoSend();
-      Logic.AmenityRoom amenityRoom = new Logic.AmenityRoom();
+      var arts = new ApiRoomtoSend();
+      var amenityRoom = new Logic.AmenityRoom();
 
       try
       {
         arts.RoomId = apiRoom.RoomId;
         arts.RoomNumber = apiRoom.RoomNumber;
         arts.ComplexId = apiRoom.ComplexId;
-        arts.Gender = "default";
         arts.NumberOfBeds = apiRoom.NumberOfBeds;
         arts.RoomType = apiRoom.ApiRoomType;
         arts.LeaseStart = apiRoom.LeaseStart;
         arts.LeaseEnd = apiRoom.LeaseEnd;
-        arts.QueOperator = 1;
+        arts.QueOperator = 2;
 
         amenityRoom.AmenityRoomId = Guid.NewGuid();
         amenityRoom.RoomId = arts.RoomId;
 
         await _complexRepository.DeleteAmenityRoomAsync(apiRoom.RoomId);
-        log.LogInformation(")Amenity of Room Id {apiRoom.RoomId} is deleted", apiRoom.RoomId);
+        _log.LogInformation(")Amenity of Room Id {apiRoom.RoomId} is deleted", apiRoom.RoomId);
 
         //Send {arts} to room service through service bus
+        await _roomServiceSender.SendRoomsMessages(arts);
 
-        foreach (ApiAmenity amenity in apiRoom.Amenities)
+        foreach (var amenity in apiRoom.Amenities)
         {
           amenityRoom.AmenityId = amenity.AmenityId;
           await _complexRepository.CreateAmenityRoomAsync(amenityRoom);
-          log.LogInformation("list of amenity with room id: {arts.RoomId} is created", arts.RoomId);
+          _log.LogInformation("list of amenity with room id: {arts.RoomId} is created", arts.RoomId);
         }
 
         return StatusCode(200);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -516,30 +501,38 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("deletecomplex")]
     //PUT: api/complex/deletecomplex
-    public async Task<ActionResult> DeleteComplexAsync([FromBody]Guid complexId, Guid AddressId)
+    public async Task<ActionResult> DeleteComplexAsync([FromBody]Guid complexId)
     {
       try
       {
-        ApiComplexAddress address = new ApiComplexAddress
+        //ApiComplexAddress address = new ApiComplexAddress
+        //{
+        //  AddressId = AddressId,
+        //};
+
+        var arts = new ApiRoomtoSend
         {
-          AddressId = AddressId,
+          ComplexId = complexId,
+          QueOperator = 3
         };
+
         //send complexId to toom service to delete all rooms belongs to the complex
         //receive deleted room ids from room service to delete amenity of rooms
+        await _roomServiceSender.SendRoomsMessages(arts);
 
         //send complex Id to Address service to delete address for the complex
 
         await _complexRepository.DeleteAmenityComplexAsync(complexId);
-        log.LogInformation("deleted amenity of complex Id: {complexId}", complexId);
+        _log.LogInformation("deleted amenity of complex Id: {complexId}", complexId);
 
         await _complexRepository.DeleteComplexAsync(complexId);
-        log.LogInformation("deleted complex of complex Id: {complexId}", complexId);
+        _log.LogInformation("deleted complex of complex Id: {complexId}", complexId);
 
         return StatusCode(200);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -556,32 +549,33 @@ namespace Revature.Complex.Api.Controllers
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("deleteroom")]
     //PUT: api/complex/deleteroom
-    public async Task<ActionResult> DeleteRoomAsync([FromBody]ApiRoom Room)
+    public async Task<ActionResult> DeleteRoomAsync([FromBody]ApiRoom room)
     {
       try
       {
-        ApiRoomtoSend roomtoDelete = new ApiRoomtoSend
+        var roomtoDelete = new ApiRoomtoSend
         {
-          RoomId = Room.RoomId,
-          QueOperator = 2
-        };
-
-        IEnumerable<ApiRoomtoSend> message = new List<ApiRoomtoSend>
-        {
-          roomtoDelete
+          RoomId = room.RoomId,
+          RoomNumber = room.RoomNumber,
+          ComplexId = room.ComplexId,
+          NumberOfBeds = room.NumberOfBeds,
+          RoomType = room.ApiRoomType,
+          LeaseStart = room.LeaseStart,
+          LeaseEnd = room.LeaseEnd,
+          QueOperator = 1
         };
 
         //send {send} to room service to delete a room
-        await roomServiceSender.SendRoomsMessages(message);
+        await _roomServiceSender.SendRoomsMessages(roomtoDelete);
 
-        await _complexRepository.DeleteAmenityRoomAsync(Room.RoomId);
-        log.LogInformation("deleted amenity of room Id: {Room.RoomId}", Room.RoomId);
+        await _complexRepository.DeleteAmenityRoomAsync(room.RoomId);
+        _log.LogInformation("deleted amenity of room Id: {Room.RoomId}", room.RoomId);
 
         return StatusCode(200);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }

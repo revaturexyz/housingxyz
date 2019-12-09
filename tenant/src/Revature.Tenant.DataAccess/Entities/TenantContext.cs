@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
@@ -22,6 +22,7 @@ namespace Revature.Tenant.DataAccess.Entities
         entity.Property(t => t.FirstName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.LastName).IsRequired().HasMaxLength(100);
         entity.Property(t => t.TrainingCenter).IsRequired();
+        entity.Property(t => t.RoomId);
         entity.HasOne(t => t.Car).WithOne(c => c.Tenant).HasForeignKey<Tenant>(t => t.CarId);
         entity.HasOne(t => t.Batch).WithMany(b => b.Tenant).HasForeignKey(t => t.BatchId);
 
@@ -29,16 +30,16 @@ namespace Revature.Tenant.DataAccess.Entities
         (
           new Tenant()
           {
-            AddressId = Guid.Parse("1a4d6c6e-9640-44c9-8c6b-5aebd3f9a67e"), 
+            AddressId = Guid.Parse("1a4d6c6e-9640-44c9-8c6b-5aebd3f9a67e"),
             BatchId = 1,
             CarId = -2,
             Email = "nick@revature.com",
             FirstName = "Nick",
             Gender = "Male",
             Id = Guid.Parse("f14d6c6e-9650-44c9-8c6b-5aebd3f9a67f"),
-            LastName = "Escalnoa",
+            LastName = "Escalona",
             RoomId = Guid.Parse("fa1d6c6e-9650-44c9-8c6b-5aebd3f9a671"),
-            TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+            TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
           },
           new Tenant()
           {
@@ -51,8 +52,21 @@ namespace Revature.Tenant.DataAccess.Entities
             Id = Guid.Parse("0a4d6c1e-9650-44c9-8c6b-5aebd3f9a67f"),
             LastName = "Lemons",
             RoomId = Guid.Parse("0a4d6c61-9650-44c9-8c6b-5aebd3f9a676"),
-            TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
-          }
+            TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
+          },
+           new Tenant()
+           {
+             AddressId = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a"),
+             BatchId = 2,
+             CarId = -1,
+             Email = "Shanaiah@revature.com",
+             FirstName = "Shanaia",
+             Gender = "Female",
+             Id = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a"),
+             LastName = "Twain",
+             RoomId = null,
+             TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
+           }
         );
 
       });
@@ -108,10 +122,10 @@ namespace Revature.Tenant.DataAccess.Entities
          new Batch()
          {
            BatchCurriculum = "C#",
-           EndDate = new DateTime(2019,12,30),
+           EndDate = new DateTime(2019, 12, 30),
            Id = 1,
            StartDate = new DateTime(2019, 09, 30),
-           TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+           TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
          },
          new Batch()
          {
@@ -119,7 +133,7 @@ namespace Revature.Tenant.DataAccess.Entities
            EndDate = new DateTime(2019, 11, 30),
            Id = 2,
            StartDate = new DateTime(2019, 08, 30),
-           TrainingCenter = Guid.Parse("fa416c6e-9650-44c9-8c6b-5aebd3f9a670")
+           TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")
          }
        );
      });

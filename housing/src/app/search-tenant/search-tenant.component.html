@@ -1,87 +1,65 @@
 <!--used for the split screen -->
 <div class="d-md-flex h-md-100 align-items-center">
+  <!-- Left side of the split screen -->
+  <div class="col-md-4 p-0 bg-orange h-md-100">
+    <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+      <div class="logoarea pt-5 pb-5">
+        <h1>Search All Tenants</h1>
 
+        <button class="btn btn-dark" (click)="searchAllTenants()">Show All Tenants</button>
 
-    <!-- Left side of the split screen -->
-    <div class="col-md-4 p-0 bg-orange h-md-100">
-        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
-            <div class="logoarea pt-5 pb-5">
+        <h3>Narrow your search here:</h3>
 
+        <form [formGroup]="searchTenantForm" (ngSubmit)="searchTenantsByParameters()">
+          <div>
+            First Name:
+            <input type="text" formControlName="firstName">
+          </div>
 
-                <h1>Search All Tenants</h1>
+          <div>
+            Last Name:
+            <input type="text" formControlName="lastName">
+          </div>
 
-                <button class="btn btn-dark" (click)="searchAllTenants()">Show All Tenants</button>
+          <div>
+            Gender:
+            <select formControlName="gender" required>
+              <option selected>All</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Nonbinary</option>
+            </select>
+          </div>
 
-                <h3>Narrow your search here:</h3>
+          <div>
+            Show only tenants in your training center?
+            <input type="checkbox" formControlName="filterByTrainingCenter">
+          </div>
 
-                <form [formGroup]="searchTenantForm" (ngSubmit)="searchTenantsByParameters()">
-                    <label>
-                        First Name:
-                        <input type="text" formControlName="firstName">
-                    </label>
-
-                    <label>
-                        Last Name:
-                        <input type="text" formControlName="lastName">
-                    </label>
-
-                    <label>
-                        Gender:
-                        <select formControlName="gender" required>
-                            <option selected>All</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                        </select>
-                    </label>
-
-                    <label>
-                        Show only tenants in your training center?
-                        <input type="checkbox" formControlName="filterByTrainingCenter">
-                    </label>
-
-                    <button class="btn btn-dark" type='submit'>Search</button>
-                </form>
-
-
-
-
-            </div>
-        </div>
+          <div><button class="btn btn-dark" type='submit'>Search</button></div>
+        </form>
+      </div>
     </div>
+  </div>
 
-
-    <!-- The right side of the page -->
-    <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
-        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
-            <div class="logoarea pt-8 pb-8 col-md-12">
-
-
-
-                <div id="tenantForm">
-                    <h3 *ngIf="!tenantsLoaded">Loading Tenants...</h3>
-
-                    <ul *ngIf="tenantsLoaded">
-                        <h1>Tenants</h1>
-                        <li *ngFor="let tenant of tenants; let i = index">
-                            <label>
-                                {{i}}
-                                {{tenant.firstName}}
-                            </label>
-
-                            <label>
-                                <a (click)="routeToSelectTenant(tenant.id)">View Details</a>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-
-
-
-            </div>
+  <!-- The right side of the page -->
+  <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
+    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
+      <div class="logoarea pt-8 pb-8 col-md-12">
+        <div id="tenantForm">
+          <h3 *ngIf="!tenantsLoaded">Loading Tenants...</h3>
+          <ul *ngIf="tenantsLoaded">
+            <h1>Tenants</h1>
+            <li *ngFor="let tenant of tenants; let i = index">
+              <label>
+                <span>{{i + 1}}: </span>
+                <span>{{tenant.firstName}} {{tenant.lastName}} - </span>
+                <span><button (click)="routeToSelectTenant(tenant.id)">View Details</button></span>
+              </label>
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-
-
-
+  </div>
 </div>
