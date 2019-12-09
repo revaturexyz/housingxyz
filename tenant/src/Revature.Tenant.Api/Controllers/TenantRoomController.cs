@@ -1,13 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.Lib.Interface;
 using Revature.Tenant.Lib.Models;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Revature.Tenant.Api.Controllers
 {

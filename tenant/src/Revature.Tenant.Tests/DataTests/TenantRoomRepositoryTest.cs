@@ -1,9 +1,9 @@
-using Revature.Tenant.DataAccess;
-using Revature.Tenant.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Revature.Tenant.DataAccess;
+using Revature.Tenant.DataAccess.Repository;
 using Xunit;
 
 namespace Revature.Tenant.Tests.DataTests
@@ -24,7 +24,8 @@ namespace Revature.Tenant.Tests.DataTests
       var mapper = new Mapper();
       var repo = new TenantRoomRepository(_context, mapper);
 
-      var tenant = new DataAccess.Entities.Tenant() {
+      var tenant = new DataAccess.Entities.Tenant()
+      {
         Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9ac7d"),
         Email = "firstname@email.com",
         Gender = "Male",

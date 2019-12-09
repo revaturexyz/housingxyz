@@ -9,7 +9,6 @@ namespace Revature.Tenant.Lib.Models
   /// </summary>
   public class Car
   {
-    private int _id;
     private string _licensePlate;
     private string _make;
     private string _model;
@@ -17,21 +16,14 @@ namespace Revature.Tenant.Lib.Models
     private string _year;
     private string _state;
 
-    public int Id
-    {
-      get => _id;
-      set
-      {
-        _id = value;
-      }
-    }
+    public int Id { get; set; }
 
     public string LicensePlate
     {
       get => _licensePlate;
       set
       {
-        if (value == "")
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("License plate must not be empty");
         }
@@ -45,7 +37,7 @@ namespace Revature.Tenant.Lib.Models
       get => _make;
       set
       {
-        if (value == "")
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("Make must not be empty");
         }
@@ -59,7 +51,7 @@ namespace Revature.Tenant.Lib.Models
       get => _model;
       set
       {
-        if (value == "")
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("Model must not be empty");
         }
@@ -72,7 +64,7 @@ namespace Revature.Tenant.Lib.Models
       get => _color;
       set
       {
-        if (value == "")
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("Color must not be empty");
         }
@@ -85,7 +77,7 @@ namespace Revature.Tenant.Lib.Models
       get => _year;
       set
       {
-        if (value == "")
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("Year must not be empty");
         }
@@ -97,8 +89,9 @@ namespace Revature.Tenant.Lib.Models
     public string State
     {
       get => _state;
-      set {
-        if (value == "")
+      set
+      {
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("State must not be empty");
         }

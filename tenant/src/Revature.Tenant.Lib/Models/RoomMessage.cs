@@ -33,7 +33,7 @@ namespace Revature.Tenant.Lib.Models
       get => _gender;
       set
       {
-        if (value == null || Regex.IsMatch(value, @"\s+") || value == "") throw new ArgumentException("Gender should not be null or empty");
+        if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Gender should not be null or empty");
         _gender = value;
       }
     }
@@ -44,7 +44,8 @@ namespace Revature.Tenant.Lib.Models
     public int OperationType
     {
       get => _operationType;
-      set {
+      set
+      {
         if (value < 0 || value > 1) throw new ArgumentException("Operation type unknown");
         _operationType = value;
       }

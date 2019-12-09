@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Revature.Tenant.Lib.Models
 {
@@ -12,8 +10,6 @@ namespace Revature.Tenant.Lib.Models
   {
     private string _batchCurriculum;
     private int _id;
-    private DateTime _startDate;
-    private DateTime _endDate;
     private Guid _trainingCenter;
 
     public int Id
@@ -34,7 +30,7 @@ namespace Revature.Tenant.Lib.Models
       get => _batchCurriculum;
       set
       {
-        if (value == "")
+        if (value is string && value.Length == 0)
         {
           throw new ArgumentException("Batch Curriculum must not be empty", nameof(value));
         }
@@ -43,15 +39,8 @@ namespace Revature.Tenant.Lib.Models
       }
     }
 
-    public DateTime StartDate
-    {
-      get => _startDate;
-    }
-    public DateTime EndDate
-
-    {
-      get => _endDate;
-    }
+    public DateTime StartDate { get; private set; }
+    public DateTime EndDate { get; private set; }
 
     /// <summary>
     /// This is a Set method that checks that the start date is earlier than the end date before allow the backing field to be set.
@@ -62,12 +51,12 @@ namespace Revature.Tenant.Lib.Models
     public void SetStartAndEndDate(DateTime startDate, DateTime endDate)
     {
       //Checks if start date is after end date
-      if(startDate.CompareTo(endDate) >= 0)
+      if (startDate.CompareTo(endDate) >= 0)
       {
         throw new ArgumentException($"Start date must be before End date. Start Date: {startDate}, End Date: {endDate}");
       }
-      _startDate = startDate;
-      _endDate = endDate;
+      StartDate = startDate;
+      EndDate = endDate;
 
     }
 
