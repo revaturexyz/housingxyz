@@ -54,7 +54,6 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     {
       void InvalidCreate() => new BL.Room().SetLease(_newLeaseStart, _newLeaseStart);
       Assert.Throws<ArgumentException>(InvalidCreate);
-
     }
 
     /// <summary>

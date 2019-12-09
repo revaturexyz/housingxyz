@@ -102,23 +102,23 @@ namespace Revature.Room.Lib
       }
     }
 
-        /// <summary>
-        /// Date for the start of the lease, assigned by complex service
-        /// </summary>
-        public DateTime LeaseStart { get; private set; }
+    /// <summary>
+    /// Date for the start of the lease, assigned by complex service
+    /// </summary>
+    public DateTime LeaseStart { get; private set; }
 
-        /// <summary>
-        /// Date for end of lease, assgined by complex service
-        /// </summary>
-        public DateTime LeaseEnd { get; private set; }
+    /// <summary>
+    /// Date for end of lease, assgined by complex service
+    /// </summary>
+    public DateTime LeaseEnd { get; private set; }
 
-        /// <summary>
-        /// Method that sets the lease of the room
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <exception cref="ArgumentException">Thrown when lease period is invalid, i.e the lease ends before it even begins</exception>
-        public void SetLease(DateTime start, DateTime end)
+    /// <summary>
+    /// Method that sets the lease of the room
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <exception cref="ArgumentException">Thrown when lease period is invalid, i.e the lease ends before it even begins</exception>
+    public void SetLease(DateTime start, DateTime end)
     {
       if (start.CompareTo(end) >= 0)
       {
