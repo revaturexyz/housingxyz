@@ -20,16 +20,6 @@ namespace Revature.Room.Lib
     private int _numberOfOccupants;
 
     /// <summary>
-    /// End of the room lease
-    /// </summary>
-    private DateTime _leaseEnd;
-
-    /// <summary>
-    /// Start of room lease
-    /// </summary>
-    private DateTime _leaseStart;
-
-    /// <summary>
     /// Room Number of the room
     /// </summary>
     private string _roomNumber;
@@ -53,7 +43,7 @@ namespace Revature.Room.Lib
       get => _roomNumber;
       set
       {
-        if (value == null || value == "")
+        if (string.IsNullOrEmpty(value))
         {
           throw new ArgumentException("Room Number should have a value");
         }
@@ -104,7 +94,7 @@ namespace Revature.Room.Lib
       get => _roomType;
       set
       {
-        if (value == null || value == "")
+        if (string.IsNullOrEmpty(value))
         {
           throw new ArgumentException("Room type must not be empty");
         }
@@ -112,36 +102,30 @@ namespace Revature.Room.Lib
       }
     }
 
-    /// <summary>
-    /// Date for the start of the lease, assigned by complex service
-    /// </summary>
-    public DateTime LeaseStart
-    {
-      get => _leaseStart;
-    }
+        /// <summary>
+        /// Date for the start of the lease, assigned by complex service
+        /// </summary>
+        public DateTime LeaseStart { get; private set; }
 
-    /// <summary>
-    /// Date for end of lease, assgined by complex service
-    /// </summary>
-    public DateTime LeaseEnd
-    {
-      get => _leaseEnd;
-    }
+        /// <summary>
+        /// Date for end of lease, assgined by complex service
+        /// </summary>
+        public DateTime LeaseEnd { get; private set; }
 
-    /// <summary>
-    /// Method that sets the lease of the room
-    /// </summary>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
-    /// <exception cref="ArgumentException">Thrown when lease period is invalid, i.e the lease ends before it even begins</exception>
-    public void SetLease(DateTime start, DateTime end)
+        /// <summary>
+        /// Method that sets the lease of the room
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <exception cref="ArgumentException">Thrown when lease period is invalid, i.e the lease ends before it even begins</exception>
+        public void SetLease(DateTime start, DateTime end)
     {
       if (start.CompareTo(end) >= 0)
       {
         throw new ArgumentException("Lease should start before it ends");
       }
-      _leaseEnd = end;
-      _leaseStart = start;
+      LeaseEnd = end;
+      LeaseStart = start;
     }
 
     /// <summary>

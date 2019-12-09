@@ -12,21 +12,21 @@ namespace Revature.Room.DataAccess
     /// Method that converts a DB Entities Room Object to a Business Logic Library Room Object
     /// Maps RoomId, ComplexId, Gender, RoomNumber, RoomType, NumberOfBeds, LeaseStart, LeaseEnd, NumberOfOccupants 
     /// </summary>
-    /// <param name="Room"></param>
+    /// <param name="roomEntity"></param>
     /// <returns></returns>
-    public Lib.Room ParseRoom(Entities.Room Room)
+    public Lib.Room ParseRoom(Entities.Room roomEntity)
     {
-      Lib.Room room = new Lib.Room()
+      var room = new Lib.Room()
       {
-        RoomId = Room.RoomId,
-        ComplexId = Room.ComplexId,
-        RoomNumber = Room.RoomNumber,
-        RoomType = Room.RoomType.Type,
-        NumberOfBeds = Room.NumberOfBeds,
-        NumberOfOccupants = Room.NumberOfOccupants
+        RoomId = roomEntity.RoomId,
+        ComplexId = roomEntity.ComplexId,
+        RoomNumber = roomEntity.RoomNumber,
+        RoomType = roomEntity.RoomType.Type,
+        NumberOfBeds = roomEntity.NumberOfBeds,
+        NumberOfOccupants = roomEntity.NumberOfOccupants
       };
-      room.SetLease(Room.LeaseStart, Room.LeaseEnd);
-      if (Room.Gender != null) room.Gender = Room.Gender.Type;
+      room.SetLease(roomEntity.LeaseStart, roomEntity.LeaseEnd);
+      if (roomEntity.Gender != null) room.Gender = roomEntity.Gender.Type;
       return room;
     }
 
@@ -34,20 +34,20 @@ namespace Revature.Room.DataAccess
     /// Method that converts a Business Logic Room Object to a DB Entities Room Object
     /// Maps RoomId, ComplexId,RoomNumber, NumberOfBeds, LeaseStart, LeaseEnd, NumberOfOccupants
     /// </summary>
-    /// <param name="Room"></param>
+    /// <param name="room"></param>
     /// <returns></returns>
     /// <remarks>Gender and RoomType are assigned at repo</remarks>
-    public Entities.Room ParseRoom(Lib.Room Room)
+    public Entities.Room ParseRoom(Lib.Room room)
     {
       return new Entities.Room
       {
-        RoomId = Room.RoomId,
-        ComplexId = Room.ComplexId,
-        RoomNumber = Room.RoomNumber,
-        NumberOfBeds = Room.NumberOfBeds,
-        LeaseStart = Room.LeaseStart,
-        LeaseEnd = Room.LeaseEnd,
-        NumberOfOccupants = Room.NumberOfOccupants
+        RoomId = room.RoomId,
+        ComplexId = room.ComplexId,
+        RoomNumber = room.RoomNumber,
+        NumberOfBeds = room.NumberOfBeds,
+        LeaseStart = room.LeaseStart,
+        LeaseEnd = room.LeaseEnd,
+        NumberOfOccupants = room.NumberOfOccupants
       };
     }
 
