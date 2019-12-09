@@ -13,7 +13,6 @@ dockerup*
 .vs/
 bin/
 obj/
-SecretKey.cs
 
 appsettings.*
 !appsettings.json
