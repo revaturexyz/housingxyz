@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import TenantSearching from '../../interfaces/tenant-searching';
 import { TenantSearcherService } from '../services/tenant-searcher.service';
-import { FormBuilder, ReactiveFormsModule, FormsModule, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -39,20 +39,20 @@ export class SearchTenantComponent implements OnInit {
     }
 
     this.service.getTenantsByParameters(firstName, lastName, gender, trainingCenter)
-    .then(result => {
-      this.tenants = result;
-      this.tenantsLoaded = true;
-    });
+      .then(result => {
+        this.tenants = result;
+        this.tenantsLoaded = true;
+      });
   }
 
   searchAllTenants() {
     this.tenantsLoaded = false;
 
     this.service.getTenants()
-    .then(result => {
-      this.tenants = result;
-      this.tenantsLoaded = true;
-    });
+      .then(result => {
+        this.tenants = result;
+        this.tenantsLoaded = true;
+      });
   }
 
   routeToSelectTenant(tenantId: string) {

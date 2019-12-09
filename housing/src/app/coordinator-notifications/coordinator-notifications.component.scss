@@ -22,7 +22,7 @@ hr {
   border-radius: 5px;
 }
 
-.notifications-container{
+.notifications-container {
   overflow-y: scroll;
   height: 300px;
   max-height: 300px;
@@ -30,7 +30,7 @@ hr {
   padding-bottom: 3%;
 }
 
-.notifications-directions{
+.notifications-directions {
   padding: 5px;
   font-size: 16px;
   font-style: italic;
@@ -41,12 +41,12 @@ hr {
   text-align: left;
 }
 
-.notifications-table{
+.notifications-table {
   min-width: 100%;
-  width:100%;
+  width: 100%;
 }
 
-.notifications-header{
+.notifications-header {
   text-align: center;
   font-size: 10px;
   font-weight: bold;
@@ -59,18 +59,18 @@ hr {
 .notifications-row:hover {
   background-color: lightgray;
   text-decoration: none;
-  color:white;
+  color: white;
   cursor: pointer;
 }
 
-.notification-name{
+.notification-name {
   padding: 5px 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.notification-expires{
+.notification-expires {
   white-space: nowrap;
   padding: 5px 10px;
   display: flex;

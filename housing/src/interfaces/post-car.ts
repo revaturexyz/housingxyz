@@ -1,5 +1,4 @@
-export interface Car {
-  carId: number;
+export interface PostCar {
   licensePlate: string;
   make: string;
   model: string;

@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import * as moment from 'moment';
 
 import { Notification } from '../../interfaces/account/notification';
-import { Provider } from '../../interfaces/account/provider';
 
-import { Router } from '@angular/router';
-
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'dev-coordinator-notifications',
@@ -23,9 +19,9 @@ export class CoordinatorNotificationsComponent implements OnInit {
   // TODO: POPULATE
   dataSource = new MatTableDataSource<Notification>([]);
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor( private router: Router ) { }
+  constructor() { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;

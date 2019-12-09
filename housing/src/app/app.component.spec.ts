@@ -1,7 +1,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -14,7 +13,6 @@ class MockNavComponent { }
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: any;
-  let compiled: any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -31,7 +29,6 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
     fixture.detectChanges();
-    compiled = fixture.debugElement.nativeElement;
   });
 
   it('should create the app', () => {

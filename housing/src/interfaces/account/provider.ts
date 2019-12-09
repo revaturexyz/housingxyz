@@ -1,7 +1,7 @@
 import { Status } from './status';
 
 export interface Provider {
-  providerId;
+  providerId: any;
   coordinatorId: string;
   name: string;
   email: string;

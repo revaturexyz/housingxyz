@@ -15,7 +15,6 @@ export class NotificationService {
 
   constructor(private http: HttpClient, private account: AccountService) { }
 
-  // baseUrl: string = `http://localhost:11080/`;
   baseUrl: string = environment.endpoints.account;
 
   // Delete by Id - Coordinator only - DELETE - /api/notifications/{notificationId}

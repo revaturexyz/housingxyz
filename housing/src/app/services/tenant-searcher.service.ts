@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import TenantSelected from 'src/interfaces/tenant-selected-info/tenant-selected';
 import { Address } from 'src/interfaces/address';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +47,7 @@ export class TenantSearcherService {
   deleteTenant(id: string): Promise<HttpResponse<object>> {
     const url = `${environment.endpoints.tenant}api/Tenant/Delete/${id}`;
 
-    return this.httpClient.delete(url, { observe: 'response'}).toPromise();
+    return this.httpClient.delete(url, { observe: 'response' }).toPromise();
   }
 
   constructor(private httpClient: HttpClient) { }

@@ -1,3 +1,4 @@
+/*
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -12,7 +13,6 @@ import { By } from '@angular/platform-browser';
 import { EditRoomComponent } from './edit-room.component';
 import { Complex } from 'src/interfaces/complex';
 
-/*
 describe('EditRoomComponent', () => {
   let component: EditRoomComponent;
   let fixture: ComponentFixture<EditRoomComponent>;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TenantService } from 'src/app/services/tenant.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { PostTenant } from 'src/interfaces/postTenant';
+import { PostTenant } from 'src/interfaces/post-tenant';
 import { Batch } from 'src/interfaces/batch';
 
 @Component({

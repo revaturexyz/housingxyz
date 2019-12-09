@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddTenantComponent } from './add-tenant.component';
 import { FormsModule } from '@angular/forms';
@@ -6,27 +6,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestTenantData, TenantServiceStub } from '../services/test-tenant-static';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Batch } from 'src/interfaces/batch';
-import { PostTenantAddress } from 'src/interfaces/postTenAddress';
-import { PostCar } from 'src/interfaces/postCar';
 import { TenantService } from '../services/tenant.service';
 import { AuthService } from '../services/auth.service';
-import { EMPTY, of, Observable } from 'rxjs';
-import { PostTenant } from 'src/interfaces/postTenant';
-import { HttpEvent } from '@angular/common/http';
-
-const address: PostTenantAddress = {
-  street: '123 GregMad St',
-  city: 'Colton',
-  state: 'Victory',
-  country: 'BrokenWill',
-  zipCode: '12345'
-};
 
 describe('AddTenantComponent', () => {
   let component: AddTenantComponent;
   let fixture: ComponentFixture<AddTenantComponent>;
-  let coordService: TenantService;
-  const batchStub = null;
   const authSpy = jasmine.createSpyObj('AuthService', ['login']);
   const tenantSpy = jasmine.createSpyObj('TenantService', ['PostTenant', 'GetBatchByTrainingCenterId']);
 
@@ -47,7 +32,6 @@ describe('AddTenantComponent', () => {
     fixture = TestBed.createComponent(AddTenantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    coordService = TestBed.get(TenantService);
   });
 
   it('should create', () => {
