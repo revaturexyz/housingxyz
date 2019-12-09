@@ -9,21 +9,10 @@
         <!--Start of roomNumber-->
         <div class="form-group mx-1">
           <label for="roomNumber">Room Number</label>
-          <input
-            type="text"
-            id="roomNumber"
-            name="roomNumber"
-            #roomNumber="ngModel"
-            [(ngModel)]="formRoom.roomNumber"
-            class="form-control"
-            aria-describedby="roomNumber"
-            required
-          />
+          <input type="text" id="roomNumber" name="roomNumber" #roomNumber="ngModel" [(ngModel)]="formRoom.roomNumber"
+            class="form-control" aria-describedby="roomNumber" required />
           <!-- Dirty is so the error message is not displayed when the page first loads  -->
-          <div
-            *ngIf="roomNumber.invalid && roomNumber.dirty"
-            class="alert alert-danger"
-          >
+          <div *ngIf="roomNumber.invalid && roomNumber.dirty" class="alert alert-danger">
             A room number is required.
           </div>
         </div>
@@ -31,21 +20,10 @@
         <!--Start of numberOfBeds-->
         <div class="form-group mx-1">
           <label for="numberOfBeds">Number of Beds</label>
-          <input
-            type="number"
-            id="numberOfBeds"
-            name="numberOfBeds"
-            #numberOfBeds="ngModel"
-            [(ngModel)]="formRoom.numberOfBeds"
-            class="form-control"
-            aria-describedby="numberOfBeds"
-            required
-          />
+          <input type="number" id="numberOfBeds" name="numberOfBeds" #numberOfBeds="ngModel"
+            [(ngModel)]="formRoom.numberOfBeds" class="form-control" aria-describedby="numberOfBeds" required />
           <!-- Dirty is so the error message is not displayed when the page first loads  -->
-          <div
-            *ngIf="numberOfBeds.invalid && numberOfBeds.dirty"
-            class="alert alert-danger"
-          >
+          <div *ngIf="numberOfBeds.invalid && numberOfBeds.dirty" class="alert alert-danger">
             Number of beds is required.
           </div>
         </div>
@@ -57,15 +35,8 @@
         <!-- Start of gender input select -->
         <div class="form-group mx-1">
           <label for="gender">Select Gender</label>
-          <select
-            id="gender"
-            name="gender"
-            [(ngModel)]="formRoom.gender"
-            #gender="ngModel"
-            class="form-control"
-            aria-describedby="gender"
-            required
-          >
+          <select id="gender" name="gender" [(ngModel)]="formRoom.gender" #gender="ngModel" class="form-control"
+            aria-describedby="gender" required>
             <option value="" disabled>Select Gender</option>
             <option *ngFor="let gender of genderTypes" [ngValue]="gender">
               {{ gender.genderType }}
@@ -80,29 +51,16 @@
         <!-- Start of Room Type input select -->
         <div class="form-group mx-1">
           <label for="apiRoomType">Select Room Type</label>
-          <select
-            id="apiRoomType"
-            name="apiRoomType"
-            [(ngModel)]="formRoom.apiRoomType"
-            #apiRoomType="ngModel"
-            class="form-control"
-            aria-describedby="apiRoomType"
-            required
-          >
+          <select id="apiRoomType" name="apiRoomType" [(ngModel)]="formRoom.apiRoomType" #apiRoomType="ngModel"
+            class="form-control" aria-describedby="apiRoomType" required>
             <option value="" disabled>Select Room Type</option>
-            <option
-              *ngFor="let roomType of roomTypes"
-              [ngValue]="roomType"
-            >
+            <option *ngFor="let roomType of roomTypes" [ngValue]="roomType">
               {{ roomType.roomType }}
             </option>
           </select>
         </div>
         <!-- Dirty is so the error message is not displayed when the page first loads  -->
-        <div
-          *ngIf="apiRoomType.invalid && apiRoomType.dirty"
-          class="alert alert-danger"
-        >
+        <div *ngIf="apiRoomType.invalid && apiRoomType.dirty" class="alert alert-danger">
           A room type is required.
         </div>
         <!-- End of Room Type select -->
@@ -113,59 +71,29 @@
         <!-- Lease start dates begin -->
         <div class="form-group mx-3">
           <mat-form-field>
-            <input
-              matInput
-              id="startDate"
-              name="startDate"
-              [matDatepicker]="startDatePicker"
-              [(ngModel)]="formRoom.startDate"
-              #startDate="ngModel"
-              class="form-control"
-              placeholder="Lease Start Date"
-              aria-describedby="startDate"
-              required
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="startDatePicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker
-              #startDatePicker
-              [startAt]="startDate"
-            ></mat-datepicker>
+            <input matInput id="startDate" name="startDate" [matDatepicker]="startDatePicker"
+              [(ngModel)]="formRoom.startDate" #startDate="ngModel" class="form-control" placeholder="Lease Start Date"
+              aria-describedby="startDate" required />
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
         </div>
         <!-- Lease start date end -->
         <!-- Lease end date begin -->
         <div class="form-group mx-3">
           <mat-form-field>
-            <input
-              matInput
-              id="endDate"
-              name="endDate"
-              [matDatepicker]="endDatePicker"
-              [(ngModel)]="formRoom.endDate"
-              #endDate="ngModel"
-              class="form-control"
-              placeholder="Lease End Date"
-              aria-describedby="endDate"
-              required
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="endDatePicker"
-            ></mat-datepicker-toggle>
+            <input matInput id="endDate" name="endDate" [matDatepicker]="endDatePicker" [(ngModel)]="formRoom.endDate"
+              #endDate="ngModel" class="form-control" placeholder="Lease End Date" aria-describedby="endDate"
+              required />
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #endDatePicker [startAt]="endDate"></mat-datepicker>
           </mat-form-field>
         </div>
         <!-- Validation -->
-        <div
-          *ngIf="
+        <div *ngIf="
             (endDate.invalid && endDate.dirty) ||
             (startDate.invalid && startDate.dirty)
-          "
-          class="alert alert-danger"
-        >
+          " class="alert alert-danger">
           A lease start and end date is required.
         </div>
         <!-- Lease end date finish-->
@@ -174,18 +102,9 @@
       <!-- Start of amenity selection-->
       <mat-form-field>
         <mat-label>Amenities</mat-label>
-        <mat-select
-          name="formRoom.apiAmenity"
-          [(ngModel)]="formRoom.apiAmenity"
-          #amenity="ngModel"
-          id="amenity"
-          aria-describedby="amenity"
-          multiple
-        >
-          <mat-option
-            *ngFor="let amenity of amenityList"
-            [value]="amenity"
-          >
+        <mat-select name="formRoom.apiAmenity" [(ngModel)]="formRoom.apiAmenity" #amenity="ngModel" id="amenity"
+          aria-describedby="amenity" multiple>
+          <mat-option *ngFor="let amenity of amenityList" [value]="amenity">
             {{ amenity.amenity }}
           </mat-option>
         </mat-select>
@@ -196,19 +115,14 @@
       <div class="form-row d-flex justify-content-around">
         <div>
           <!-- If any of the inputs are invalid, the submit button will be disabled -->
-          <button
-            id="postAddRoom"
-            class="add-room-btn"
-            [disabled]="
+          <button id="postAddRoom" class="add-room-btn" [disabled]="
               apiRoomType.invalid ||
               gender.invalid ||
               numberOfBeds.invalid ||
               roomNumber.invalid ||
               startDate.invalid ||
               endDate.invalid
-            "
-            (click)="postAddRoom()"
-          >
+            " (click)="postAddRoom()">
             <strong>Add</strong>
           </button>
         </div>

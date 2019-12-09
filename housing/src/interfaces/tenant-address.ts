@@ -1,5 +1,5 @@
-export default interface AddressSelected {
-  addressId: number;
+export interface TenantAddress {
+  addressId: string;
   street: string;
   city: string;
   state: string;

@@ -1,16 +1,14 @@
-import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Router} from '@angular/router';
+import { TestBed, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { InterceptorService } from './interceptor.service';
-import { HTTP_INTERCEPTORS, HttpRequest, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 class BlankComponent {
-
 }
 
 describe('InterceptorService', () => {
@@ -56,6 +54,6 @@ describe('InterceptorService', () => {
       const req = httpMock.expectOne(r => r.headers.has('Authorization'));
       expect(req).toBeTruthy();
       httpMock.verify();
-  }));
+    }));
 
 });

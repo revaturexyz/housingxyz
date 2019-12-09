@@ -1,3 +1,4 @@
+/*
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -10,7 +11,7 @@ import { AddRoomComponent } from './add-room.component';
 import { By } from '@angular/platform-browser';
 import { Complex } from 'src/interfaces/complex';
 
-/* describe('AddRoomComponent', () => {
+describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
   let fixture: ComponentFixture<AddRoomComponent>;
 

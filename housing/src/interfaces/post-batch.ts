@@ -1,5 +1,4 @@
-export default interface BatchSelected {
-  id: number;
+export interface PostBatch {
   batchCurriculum: string;
   startDate: Date;
   endDate: Date;

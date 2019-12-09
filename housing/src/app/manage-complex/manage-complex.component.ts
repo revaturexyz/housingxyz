@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Complex } from 'src/interfaces/complex';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule  } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ComplexDetailsComponent } from './complex-details/complex-details.component';
-import { EditRoomComponent } from './edit-room/edit-room.component';
-import { AddRoomComponent } from './add-room/add-room.component';
-import { EditComplexComponent } from './edit-complex/edit-complex.component';
-import { AddComplexComponent } from './add-complex/add-complex.component';
+import { FormControl } from '@angular/forms';
 // import { TestServiceData } from 'src/app/services/static-test-data';
 import { Room } from 'src/interfaces/room';
 
@@ -49,9 +42,8 @@ export class ManageComplexComponent implements OnInit {
   }
 
   changeMode(reqMode: any) {
-
     console.log('mode =', reqMode);
-    if ( (typeof reqMode) === 'object' ) {
+    if ((typeof reqMode) === 'object') {
       this.mode = 'details';
     } else {
       this.mode = reqMode;

@@ -15,16 +15,15 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl: string = `http://localhost:11080/`;
   baseUrl: string = environment.endpoints.account;
 
-// All:
+  // All:
   // GET - Get user's id from token: api/coordinator-accounts/id
   getId$(): Observable<string> {
     return this.http.get<string>(`${this.baseUrl}api/coordinator-accounts/id`);
   }
 
-// Coordinator Accounts:
+  // Coordinator Accounts:
   // Get by Id - GET - Unrestricted - /api/coordinator-accounts/{coordinatorId}
   getCoordinatorById$(coordinatorId: string): Observable<Coordinator> {
     return this.http.get<Coordinator>(`${this.baseUrl}api/coordinator-accounts/${coordinatorId}`);
@@ -35,8 +34,7 @@ export class AccountService {
     return this.http.get<Coordinator[]>(`${this.baseUrl}api/coordinator-accounts/all`);
   }
 
-
-// Provider Accounts:
+  // Provider Accounts:
 
   // Delete by Id - Unrestricted - Coordinator only - DELETE - /api/provider-accounts/{providerId}
   deleteProviderById$(providerId: string): Observable<any> {

@@ -11,10 +11,10 @@ describe('CoordinatorNotificationsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MatTableModule, MatPaginatorModule, RouterTestingModule, BrowserAnimationsModule ],
-      declarations: [ CoordinatorNotificationsComponent ]
+      imports: [MatTableModule, MatPaginatorModule, RouterTestingModule, BrowserAnimationsModule],
+      declarations: [CoordinatorNotificationsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
