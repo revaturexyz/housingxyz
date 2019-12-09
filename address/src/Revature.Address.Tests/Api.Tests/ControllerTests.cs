@@ -1,13 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using Castle.Core.Logging;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Revature.Address.Api.Controllers;
 using Revature.Address.DataAccess;
 using Revature.Address.Lib.BusinessLogic;
-using Revature.Address.Lib.Interfaces;
 using Revature.Address.Tests.DataAccess.Tests;
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Revature.Address.Tests.Api.Tests
@@ -26,7 +26,8 @@ namespace Revature.Address.Tests.Api.Tests
       var options = TestDbContext.TestDbInitalizer("CanCreate");
       using var database = TestDbContext.CreateTestDb(options);
       var mapper = new Mapper();
-      var dataAccess = new Address.DataAccess.DataAccess(database, mapper);
+      var logger = new NullLogger<Address.DataAccess.DataAccess>();
+      var dataAccess = new Address.DataAccess.DataAccess(database, mapper, logger);
 
       // act (pass repository with database into controller)
       var test = new AddressController(dataAccess, mockAddressLogic.Object, mockLogger.Object);
@@ -34,7 +35,7 @@ namespace Revature.Address.Tests.Api.Tests
       // assert (test passes if no exception thrown)
     }
 
-    
+
 
     [Fact]
     public async void CheckDistanceShouldCheckDistance()
@@ -45,10 +46,11 @@ namespace Revature.Address.Tests.Api.Tests
       var options = TestDbContext.TestDbInitalizer("CanCreate");
       using var database = TestDbContext.CreateTestDb(options);
       var mapper = new Mapper();
-      var dataAccess = new Address.DataAccess.DataAccess(database, mapper);
+      var logger = new NullLogger<Address.DataAccess.DataAccess>();
+      var dataAccess = new Address.DataAccess.DataAccess(database, mapper, logger);
       database.Add(AddressTestData.ValidAddress1());
       var test = new AddressController(dataAccess, mockAddressLogic.Object, mockLogger.Object);
-      var ValidAddress1 = new Address.Api.Models.AddressModel
+      var validAddress1 = new Address.Api.Models.AddressModel
       {
         Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
         Street = "1100 S W St",
@@ -58,7 +60,7 @@ namespace Revature.Address.Tests.Api.Tests
         ZipCode = "76010"
       };
 
-      var ValidAddress2 = new Address.Api.Models.AddressModel
+      var validAddress2 = new Address.Api.Models.AddressModel
       {
         Id = new Guid("2d9fe0e6-8029-483d-b5e9-c06cf2fad0d6"),
         Street = "1560 Broadway Street",
@@ -67,15 +69,17 @@ namespace Revature.Address.Tests.Api.Tests
         Country = "US",
         ZipCode = "80112"
       };
-      List<Address.Api.Models.AddressModel> list = new List<Address.Api.Models.AddressModel>();
-      list.Add(ValidAddress1);
-      list.Add(ValidAddress2);
+      var list = new List<Address.Api.Models.AddressModel>
+      {
+        validAddress1,
+        validAddress2
+      };
 
       // act (get check distance between addresses)
       var result = await test.IsInRange(list);
 
       // Assert correct address was receive
-    
+
       Assert.False(result.Value);
     }
 
@@ -86,28 +90,26 @@ namespace Revature.Address.Tests.Api.Tests
       var mockLogger = new Mock<ILogger<AddressController>>();
       var mockAddressLogic = new Mock<IAddressLogic>();
       var options = TestDbContext.TestDbInitalizer("CanCreate");
-      using (var database = TestDbContext.CreateTestDb(options))
+      using var database = TestDbContext.CreateTestDb(options);
+      var mapper = new Mapper();
+      var logger = new NullLogger<Address.DataAccess.DataAccess>();
+      var dataAccess = new Address.DataAccess.DataAccess(database, mapper, logger);
+      var test = new AddressController(dataAccess, mockAddressLogic.Object, mockLogger.Object);
+      var newAddy = new Address.Api.Models.AddressModel
       {
-        var mapper = new Mapper();
-        var dataAccess = new Address.DataAccess.DataAccess(database, mapper);
-        var test = new AddressController(dataAccess, mockAddressLogic.Object, mockLogger.Object);
-        Address.Api.Models.AddressModel newAddy = new Address.Api.Models.AddressModel
-        {
-          Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
-          Street = "ooooooo",
-          City = "oooooo",
-          State = "Texas",
-          Country = "US",
-          ZipCode = "76010"
-        };
+        Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
+        Street = "ooooooo",
+        City = "oooooo",
+        State = "Texas",
+        Country = "US",
+        ZipCode = "76010"
+      };
 
-        // act (send address to database)
-        var address = await test.GetAddress(newAddy);
+      // act (send address to database)
+      var address = await test.GetAddress(newAddy);
 
-
-        // Assert correct address was received
-        Assert.Null(address.Value);
-      }
+      // Assert correct address was received
+      Assert.Null(address.Value);
     }
   }
 }

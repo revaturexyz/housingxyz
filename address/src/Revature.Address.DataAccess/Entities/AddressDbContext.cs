@@ -8,7 +8,7 @@ namespace Revature.Address.DataAccess.Entities
   /// </summary>
   public partial class AddressDbContext : DbContext
   {
-    public AddressDbContext() {}
+    public AddressDbContext() { }
 
     /// <summary>
     /// Sets the options for the database context

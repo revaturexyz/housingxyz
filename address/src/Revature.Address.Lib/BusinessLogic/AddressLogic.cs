@@ -1,15 +1,15 @@
-using GoogleApi;
-using GoogleApi.Entities.Maps.Geocoding;
-using GoogleApi.Entities.Maps.Geocoding.Address.Request;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Revature.Address.Lib.Models.DistanceMatrix;
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
+using GoogleApi;
+using GoogleApi.Entities.Maps.Geocoding;
+using GoogleApi.Entities.Maps.Geocoding.Address.Request;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Revature.Address.Lib.Models.DistanceMatrix;
 
 namespace Revature.Address.Lib.BusinessLogic
 {
@@ -52,11 +52,11 @@ namespace Revature.Address.Lib.BusinessLogic
         _logger.LogError("Google Cloud Platform API key has not been set");
       }
       // formatted address to be used with Google API
-      string formattedOrigin = FormatAddress(origin);
-      string formattedDestination = FormatAddress(destination);
+      var formattedOrigin = FormatAddress(origin);
+      var formattedDestination = FormatAddress(destination);
       // added parameters to the Google API url
-      string googleApiUrlParameter = GetGoogleApiUrl(formattedOrigin, formattedDestination);
-      string googleBaseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json";
+      var googleApiUrlParameter = GetGoogleApiUrl(formattedOrigin, formattedDestination);
+      var googleBaseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json";
 
       Response deserialized;
 
@@ -66,13 +66,13 @@ namespace Revature.Address.Lib.BusinessLogic
         new MediaTypeWithQualityHeaderValue("application/json"));
 
       // await for async call and get response.
-      using HttpResponseMessage response = await client.GetAsync(googleApiUrlParameter + _key).ConfigureAwait(false);
+      using var response = await client.GetAsync(googleApiUrlParameter + _key).ConfigureAwait(false);
       if (response.IsSuccessStatusCode)
       {
         deserialized = JsonSerializer.Deserialize<Response>(
           await response.Content.ReadAsStringAsync().ConfigureAwait(false), _distanceMatrixSerializerOptions);
         // Parse the response body.
-        string distanceValueString = deserialized.Rows[0].Elements[0].Distance.Text;
+        var distanceValueString = deserialized.Rows[0].Elements[0].Distance.Text;
         // convert the response to a double
         var distanceValueDouble = double.Parse(distanceValueString[0..^2]);
         if (distanceValueDouble <= distance)
@@ -106,12 +106,12 @@ namespace Revature.Address.Lib.BusinessLogic
     /// <returns>Returns true or false</returns>
     public async Task<bool> IsValidAddressAsync(Address address)
     {
-      AddressGeocodeRequest request = new AddressGeocodeRequest
+      var request = new AddressGeocodeRequest
       {
         Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
         Key = _key
       };
-      GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
+      var response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToArray();
 
       if (results.Length != 0)
@@ -126,12 +126,12 @@ namespace Revature.Address.Lib.BusinessLogic
 
     public async Task<Address> NormalizeAddressAsync(Address address)
     {
-      AddressGeocodeRequest request = new AddressGeocodeRequest
+      var request = new AddressGeocodeRequest
       {
         Address = $"{address.Street} {address.City}, {address.State} {address.ZipCode} {address.Country}",
         Key = _key
       };
-      GeocodeResponse response = await GoogleMaps.AddressGeocode.QueryAsync(request);
+      var response = await GoogleMaps.AddressGeocode.QueryAsync(request);
       var results = response.Results.ToList();
 
       var addressComponents = results[0].AddressComponents.ToList();
@@ -148,13 +148,15 @@ namespace Revature.Address.Lib.BusinessLogic
       var zipCode = addressComponents.Select(a => a).
         Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Postal_Code)).FirstOrDefault();
 
-      Address normalized = new Address();
-      normalized.Id = address.Id;
-        normalized.Street = $"{streetNum.LongName} {street.LongName}";
-        normalized.City = city.LongName;
-        normalized.State = state.LongName;
-        normalized.Country = country.ShortName;
-        normalized.ZipCode = zipCode.LongName;
+      var normalized = new Address
+      {
+        Id = address.Id,
+        Street = $"{streetNum.LongName} {street.LongName}",
+        City = city.LongName,
+        State = state.LongName,
+        Country = country.ShortName,
+        ZipCode = zipCode.LongName
+      };
       return normalized;
     }
 

@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Complex.Lib.Interface;
-using Revature.Complex.Api.Models;
-using Logic = Revature.Complex.Lib.Models;
 using Microsoft.Extensions.Logging;
+using Revature.Complex.Api.Models;
+using Revature.Complex.Lib.Interface;
+using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Api.Controllers
 {
@@ -126,7 +125,7 @@ namespace Revature.Complex.Api.Controllers
     //POST: api/amenity/addamenity
     public async Task<ActionResult> PostAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
-      Logic.Amenity amen = new Logic.Amenity()
+      var amen = new Logic.Amenity()
       {
         AmenityId = Guid.NewGuid(),
         AmenityType = apiAmenity.AmenityType,
@@ -162,7 +161,7 @@ namespace Revature.Complex.Api.Controllers
     //PUT: api/amenity/PutAmenity
     public async Task<ActionResult> PutAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
-      Logic.Amenity amenity = new Logic.Amenity()
+      var amenity = new Logic.Amenity()
       {
         AmenityId = apiAmenity.AmenityId,
         AmenityType = apiAmenity.AmenityType,
@@ -198,7 +197,7 @@ namespace Revature.Complex.Api.Controllers
     //DELETE: api/amenity/deleteAmenity
     public async Task<ActionResult> DeleteAmenityAsync([FromBody]ApiAmenity apiAmenity)
     {
-      Logic.Amenity amenity = new Logic.Amenity()
+      var amenity = new Logic.Amenity()
       {
         AmenityId = apiAmenity.AmenityId,
         AmenityType = apiAmenity.AmenityType,

@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Tenant.DataAccess.Entities
 {
@@ -30,7 +30,7 @@ namespace Revature.Tenant.DataAccess.Entities
         (
           new Tenant()
           {
-            AddressId = Guid.Parse("1a4d6c6e-9640-44c9-8c6b-5aebd3f9a67e"), 
+            AddressId = Guid.Parse("1a4d6c6e-9640-44c9-8c6b-5aebd3f9a67e"),
             BatchId = 1,
             CarId = -2,
             Email = "nick@revature.com",
@@ -122,7 +122,7 @@ namespace Revature.Tenant.DataAccess.Entities
          new Batch()
          {
            BatchCurriculum = "C#",
-           EndDate = new DateTime(2019,12,30),
+           EndDate = new DateTime(2019, 12, 30),
            Id = 1,
            StartDate = new DateTime(2019, 09, 30),
            TrainingCenter = Guid.Parse("837c3248-1685-4d08-934a-0f17a6d1836a")

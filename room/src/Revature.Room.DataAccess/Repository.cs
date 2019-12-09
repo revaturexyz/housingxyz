@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Revature.Room.DataAccess.Entities;
-using Revature.Room.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
+using Revature.Room.DataAccess.Entities;
+using Revature.Room.Lib;
 using Data = Revature.Room.DataAccess.Entities;
 
 namespace Revature.Room.DataAccess
@@ -31,7 +30,7 @@ namespace Revature.Room.DataAccess
     /// <returns></returns>
     public async Task CreateRoomAsync(Lib.Room myRoom)
     {
-      Data.Room roomEntity = _map.ParseRoom(myRoom);
+      var roomEntity = _map.ParseRoom(myRoom);
       roomEntity.Gender = null;
       roomEntity.RoomType = await _context.RoomType.FirstAsync(r => r.Type == myRoom.RoomType);
       await _context.AddAsync(roomEntity);
@@ -58,7 +57,7 @@ namespace Revature.Room.DataAccess
     /// <remarks>Update room method for the complex service</remarks>
     public async Task UpdateRoomAsync(Lib.Room myRoom)
     {
-      Data.Room roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
+      var roomEntity = await _context.Room.Where(r => r.RoomId == myRoom.RoomId)
         .Include(r => r.Gender)
         .Include(r => r.RoomType)
         .FirstAsync();
@@ -184,7 +183,7 @@ namespace Revature.Room.DataAccess
     /// <remarks>Sets a room's gender when Gender is null, i.e. when the room was previously unoccupied</remarks>
     public async Task AddRoomOccupantsAsync(Guid roomId, string tenantGender)
     {
-      Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
+      var roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
       roomToUpdate.NumberOfOccupants++;
       if (roomToUpdate.Gender == null)
       {
@@ -202,7 +201,7 @@ namespace Revature.Room.DataAccess
     /// <remarks>Reverts gender of room back to null if updated room is empty</remarks>
     public async Task SubtractRoomOccupantsAsync(Guid roomId)
     {
-      Entities.Room roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
+      var roomToUpdate = await _context.Room.Where(r => r.RoomId == roomId).Include(r => r.Gender).FirstAsync();
       roomToUpdate.NumberOfOccupants--;
       if (roomToUpdate.NumberOfOccupants == 0)
       {

@@ -1,11 +1,11 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.Api.ServiceBus
 {
@@ -32,23 +32,24 @@ namespace Revature.Tenant.Api.ServiceBus
     /// <exception cref="HttpRequestException">Thrown when the response from the room service isn't successful</exception>
     public async Task<List<AvailRoom>> GetVacantRoomsAsync(string gender, DateTime endDate)
     {
-      string resourceURI = "api/rooms?gender=" + gender + "&endDate=" + endDate;
+      var resourceURI = "api/rooms?gender=" + gender + "&endDate=" + endDate;
       _logger.LogInformation("Getting rooms from room service api");
       using var response = await _client.GetAsync(resourceURI);
-      if(response.IsSuccessStatusCode)
+      if (response.IsSuccessStatusCode)
       {
         _logger.LogInformation("Success! Room service responded with rooms");
         var contentAsString = await response.Content.ReadAsStringAsync();
         var availableRooms = JsonSerializer.Deserialize<List<AvailRoom>>(contentAsString);
         return availableRooms;
-      } else
+      }
+      else
       {
         _logger.LogError("Unable to receive rooms from room service");
         _logger.LogError(response.StatusCode.ToString());
         _logger.LogError(await response.Content.ReadAsStringAsync());
         throw new HttpRequestException("Unable to receive response from room service");
       }
-      
+
     }
   }
 }

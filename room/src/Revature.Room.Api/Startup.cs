@@ -55,7 +55,7 @@ namespace Revature.Room.Api
       services.AddDbContext<RoomServiceContext>(options => options.UseNpgsql(Configuration.GetConnectionString("RoomDb")));
 
       services.AddScoped<IRepository, Repository>();
-      services.AddScoped<IMapper, DBMapper>();
+      services.AddScoped<IMapper, DbMapper>();
       services.AddHostedService<ServiceBusConsumer>();
 
       services.AddScoped<IServiceBusSender, ServiceBusSender>();

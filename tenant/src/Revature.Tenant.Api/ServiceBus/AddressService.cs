@@ -1,10 +1,10 @@
-using Microsoft.Extensions.Configuration;
-using Revature.Tenant.Api.Models;
 using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Revature.Tenant.Api.Models;
 
 namespace Revature.Tenant.Api.ServiceBus
 {
@@ -53,7 +53,7 @@ namespace Revature.Tenant.Api.ServiceBus
     {
       try
       {
-        string queryString = "?"
+        var queryString = "?"
           + "street=" + item.Street + "&"
           + "city=" + item.City + "&"
           + "state=" + item.State + "&"
@@ -63,7 +63,7 @@ namespace Revature.Tenant.Api.ServiceBus
         using var response = await SendRequestAsync<ApiAddress>(HttpMethod.Get, "api/Address" + queryString);
         response.EnsureSuccessStatusCode();
 
-        return (await ReadResponseBodyAsync<ApiAddress>(response));
+        return await ReadResponseBodyAsync<ApiAddress>(response);
       }
       catch
       {

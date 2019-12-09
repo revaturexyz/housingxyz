@@ -1,9 +1,10 @@
-using Revature.Address.DataAccess;
-using System.Linq;
 using System;
 using System.Collections.Generic;
-using Xunit;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Abstractions;
+using Revature.Address.DataAccess;
+using Xunit;
 
 namespace Revature.Address.Tests.DataAccess.Tests
 {
@@ -22,11 +23,10 @@ namespace Revature.Address.Tests.DataAccess.Tests
     {
       var options = TestDbContext.TestDbInitalizer("CanCreate");
       var mapper = new Mapper();
-      using (var dbcreate = TestDbContext.CreateTestDb(options))
-      {
-        var addyrepo = new Address.DataAccess.DataAccess(dbcreate, mapper);
-        Assert.NotNull(addyrepo);
-      }
+      using var dbcreate = TestDbContext.CreateTestDb(options);
+      var logger = new NullLogger<Address.DataAccess.DataAccess>();
+      var addyrepo = new Address.DataAccess.DataAccess(dbcreate, mapper, logger);
+      Assert.NotNull(addyrepo);
     }
 
     /// <summary>
@@ -34,24 +34,23 @@ namespace Revature.Address.Tests.DataAccess.Tests
     /// be added to the database
     /// </summary>
     [Fact]
-    public void CreateAddress()
+    public async void CreateAddressAsync()
     {
       var options = TestDbContext.TestDbInitalizer("CanGetId"); //Create Instance of DB. 
-      using (var dbcreate = TestDbContext.CreateTestDb(options))
+      using var dbcreate = TestDbContext.CreateTestDb(options);
+      var newAddy = new Address.Lib.Address
       {
-        Address.Lib.Address newAddy = new Address.Lib.Address
-        {
-          Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
-          Street = "1100 N E St",
-          City = "Arlington",
-          State = "Texas",
-          Country = "US",
-          ZipCode = "76010"
-        };
-        var mapper = new Mapper();
-        bool successful = (new Address.DataAccess.DataAccess(dbcreate, mapper).AddAddressAsync(newAddy)).Result;
-        Assert.True(successful);
-      }
+        Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
+        Street = "1100 N E St",
+        City = "Arlington",
+        State = "Texas",
+        Country = "US",
+        ZipCode = "76010"
+      };
+      var mapper = new Mapper();
+      var logger = new NullLogger<Address.DataAccess.DataAccess>();
+      var successful = await new Address.DataAccess.DataAccess(dbcreate, mapper, logger).AddAddressAsync(newAddy);
+      Assert.True(successful);
     }
 
     /// <summary>
@@ -59,11 +58,11 @@ namespace Revature.Address.Tests.DataAccess.Tests
     /// an address from the database using its id
     /// </summary>
     [Fact]
-    public void GetAddress()
+    public async Task GetAddressAsync()
     {
       var options = TestDbContext.TestDbInitalizer("CanGetID"); //Create Instance of DB. 
       //Insert data into test, specifically ValidAddress1().
-      Guid? saveId = AddressTestData.ValidAddress1().Id;
+      var saveId = AddressTestData.ValidAddress1().Id;
       using (var dbcreate = TestDbContext.CreateTestDb(options))
       {
         dbcreate.Add(AddressTestData.ValidAddress1());
@@ -72,13 +71,12 @@ namespace Revature.Address.Tests.DataAccess.Tests
       using (var dbcreate = TestDbContext.CreateTestDb(options))
       {
         var mapper = new Mapper();
-        var AddressList = new List<Address.Lib.Address>();
-        Address.DataAccess.DataAccess repo = new Address.DataAccess.DataAccess(dbcreate,mapper);
-        Task<ICollection<Address.Lib.Address>> AddressExpected = repo.GetAddressAsync(saveId);
-        AddressList.Add(AddressExpected.Result.First());
+        var logger = new NullLogger<Address.DataAccess.DataAccess>();
+        var repo = new Address.DataAccess.DataAccess(dbcreate, mapper, logger);
+        var addresses = await repo.GetAddressAsync(saveId);
+        var addressResult = addresses.First();
 
-        Assert.Single(AddressList);
-        Assert.Equal(saveId, AddressList[0].Id);
+        Assert.Equal(saveId, addressResult.Id);
       }
     }
 
@@ -87,7 +85,7 @@ namespace Revature.Address.Tests.DataAccess.Tests
     /// address from the database using its id
     /// </summary>
     [Fact]
-    public void DeleteAddress()
+    public async Task DeleteAddressAsync()
     {
       var options = TestDbContext.TestDbInitalizer("Delete Address");
       var mapper = new Mapper();
@@ -102,9 +100,10 @@ namespace Revature.Address.Tests.DataAccess.Tests
       //We want to delete Address2. 
       using (var dbcreate = TestDbContext.CreateTestDb(options))
       {
-        Guid? TestId = AddressTestData.ValidAddress2().Id;
-        var AddressResult = new Address.DataAccess.DataAccess(dbcreate, mapper).DeleteAddressAsync(TestId).Result;
-        Assert.True(AddressResult);
+        var testId = AddressTestData.ValidAddress2().Id;
+        var logger = new NullLogger<Address.DataAccess.DataAccess>();
+        var addressResult = await new Address.DataAccess.DataAccess(dbcreate, mapper, logger).DeleteAddressAsync(testId);
+        Assert.True(addressResult);
       }
     }
   }
