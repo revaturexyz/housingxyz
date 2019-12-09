@@ -9,7 +9,7 @@ import { Provider } from 'src/interfaces/account/provider';
   styleUrls: ['./provider-status.component.scss']
 })
 export class ProviderStatusComponent implements OnInit {
-  public currentProvider: Provider;
+  public currentProvider: any;
 
   constructor(
     private account: AccountService,
