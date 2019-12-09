@@ -47,7 +47,9 @@ namespace Revature.Tenant.Lib.Models
         }
         try
         {
-          new System.Net.Mail.MailAddress(value);
+          // This line simply uses the instantiation of the MailAddress object
+          // to check if the email is valid. Object is thrown away.
+          _ = new System.Net.Mail.MailAddress(value);
         }
         catch (FormatException ex)
         {

@@ -23,7 +23,7 @@ namespace Revature.Account.Lib.Model
       }
     }
 
-    public string _email;
+    private string _email;
     public string Email
     {
       get { return _email; }

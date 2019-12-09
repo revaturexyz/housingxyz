@@ -135,18 +135,18 @@ namespace Revature.Address.Lib.BusinessLogic
       var results = response.Results.ToList();
 
       var addressComponents = results[0].AddressComponents.ToList();
-      var streetNum = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Street_Number)).FirstOrDefault();
-      var street = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Route)).FirstOrDefault();
-      var city = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Locality)).FirstOrDefault();
-      var state = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Administrative_Area_Level_1)).FirstOrDefault();
-      var country = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Country)).FirstOrDefault();
-      var zipCode = addressComponents.Select(a => a).
-        Where(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Postal_Code)).FirstOrDefault();
+      var streetNum = addressComponents.
+        FirstOrDefault(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Street_Number));
+      var street = addressComponents.
+        FirstOrDefault(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Route));
+      var city = addressComponents.
+        FirstOrDefault(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Locality));
+      var state = addressComponents.
+        FirstOrDefault(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Administrative_Area_Level_1));
+      var country = addressComponents.
+        FirstOrDefault(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Country));
+      var zipCode = addressComponents.
+        FirstOrDefault(t => t.Types.Contains(GoogleApi.Entities.Common.Enums.AddressComponentType.Postal_Code));
 
       var normalized = new Address
       {

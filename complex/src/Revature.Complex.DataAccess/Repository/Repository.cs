@@ -342,17 +342,17 @@ namespace Revature.Complex.DataAccess.Repository
     /// <param name="providerId"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException">list of complex not found</exception>
-    public async Task<List<Logic.Complex>> ReadComplexByProviderIdAsync(Guid pId)
+    public async Task<List<Logic.Complex>> ReadComplexByProviderIdAsync(Guid providerId)
     {
       try
       {
-        var complices = await _context.Complex.Where(c => c.ProviderId == pId).ToListAsync();
+        var complices = await _context.Complex.Where(c => c.ProviderId == providerId).ToListAsync();
 
         return complices.Select(_map.MapEtoComplex).ToList();
       }
       catch (Exception ex)
       {
-        _log.LogError(ex, "comlices of provider Id: {pId} were not found", pId);
+        _log.LogError(ex, "comlices of provider Id: {pId} were not found", providerId);
         throw;
       }
     }

@@ -219,7 +219,7 @@ namespace Revature.Account.DataAccess.Repositories
       if (entityToBeRemoved == null)
         return false;
 
-      if (await DeleteUpdateActionByIdAsync(entityToBeRemoved.UpdateActionId) == false)
+      if (!await DeleteUpdateActionByIdAsync(entityToBeRemoved.UpdateActionId))
         return false;
 
       _context.Remove(entityToBeRemoved);
@@ -237,7 +237,7 @@ namespace Revature.Account.DataAccess.Repositories
       if (existingEntity == null)
         return false;
 
-      if (await UpdateUpdateActionAsync(notification.UpdateAction) == false)
+      if (!await UpdateUpdateActionAsync(notification.UpdateAction))
         return false;
 
       var updatedEntity = _mapper.MapNotification(notification);
