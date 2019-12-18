@@ -80,6 +80,7 @@ namespace Revature.Tenant.DataAccess
     public Entities.Tenant MapTenant(Lib.Models.Tenant tenant)
     {
       Entities.Car newCar;
+      int? newCarId = 0;
       if (tenant.Car != null)
       {
         newCar = new Entities.Car
@@ -95,7 +96,11 @@ namespace Revature.Tenant.DataAccess
         };
       }
       else
+      {
         newCar = null;
+        newCarId = null;
+      }
+        
 
       return new Entities.Tenant
       {
@@ -106,7 +111,7 @@ namespace Revature.Tenant.DataAccess
         LastName = tenant.LastName,
         AddressId = tenant.AddressId,
         RoomId = tenant.RoomId,
-        CarId = 0,
+        CarId = newCarId,
         BatchId = tenant.BatchId,
         TrainingCenter = tenant.TrainingCenter,
         Car = newCar

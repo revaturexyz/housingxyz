@@ -13,7 +13,7 @@ namespace Revature.Tenant.Api.Models
     public string Gender { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public Guid AddressId { get; set; }
+    public Guid? AddressId { get; set; }
     public Guid? RoomId { get; set; }
     public int? CarId { get; set; }
     public int? BatchId { get; set; }

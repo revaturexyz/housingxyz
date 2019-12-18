@@ -1,7 +1,3 @@
-
-<!-- {{ tenant | json }}
-{{ {a:3g} | json }} -->
-
 <!--used for the split screen -->
 <div class="d-md-flex h-md-100 align-items-center">
 
@@ -16,7 +12,7 @@
 
                 
                 <button class="btn btn-dark" (click)="deleteTrigger()">Delete Tenant</button>
-                <span *ngIf="deleteConfirmOn">
+                <div *ngIf="deleteConfirmOn">
                     Are you certain? This action cannot be undone.
                     <div>
                         <a class="btn btn-dark" (click)="deleteStop()">NO, I do not want to delete this tenant.</a>
@@ -24,7 +20,11 @@
                     <div>
                         <a class="btn btn-dark" (click)="deleteGo()">YES, I want to delete this tenant.</a>
                     </div>
-                </span>
+                </div>
+
+                <div>
+                    <button (click)="routeToSearchTenant()">Go Back</button>
+                </div>
 
 
 
@@ -65,13 +65,13 @@
                                 Training Center ID: {{tenant.trainingCenter}}
                             </li>
 
-                            <li>
+                            <!-- <li>
                                 Address: 
                                 <div>
-                                    <div>{{address.streetAddress}}</div>
+                                    <div>{{address.street}}</div>
                                     <div>{{address.city}}, {{address.state}} {{address.zipcode}}</div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
 
 

@@ -1,0 +1,284 @@
+
+
+<!-- Used for the split screen -->
+<div class="d-md-flex h-md-100 align-items-center">
+  <!-- Left side of the split screen -->
+  <div class="col-md-4 p-0 bg-orange h-md-100">
+    <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+      <div class="logoarea pt-5 pb-5">
+        
+        <!-- Drop down to choose a Training Center -->
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>Show Coordinator</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem *ngFor="let coord of trainCen" (click)="coordChoose(coord)">
+                {{ coord.coordName }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        
+        <br>
+
+      
+        <!-- Choose the starting date -->
+        <!-- The min and the max for the dates are the moments that we created in the component.ts file. -->
+        <div class="col">
+            <label for="StartDate" class="col-md-3">Start Date:</label>
+            <input class="input-border col-md-9" type="date" name="StartDate" min="{{displayStart}}" max="{{displayMid}}"
+              required [(ngModel)]="tenant.apiBatch.startDate" #sd="ngModel">
+            <span *ngIf="verifyDates(tenant.apiBatch.startDate, tenant.apiBatch.endDate) && sd.dirty && ed.dirty"
+              class="alert alert-danger col-md-3">
+              Start date must be before end date.
+            </span>
+          </div>
+          <!-- Choose the ending date -->
+          <div class="col">
+            <label class="col-md-3">End Date:</label>
+            <input class="input-border col-md-9" type="date" name="EndDate" min="{{displayStart}}" max="{{displayEnd}}"
+              required [(ngModel)]="tenant.apiBatch.endDate" #ed="ngModel">
+          </div>
+
+        <br>
+        <!-- Drop down to let you choose a predetermined batch -->
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ batchShowString }}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="batchChoose(batch)" *ngFor="let batch of batchList">
+                {{ batch.batchCurriculum }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The right side of the page -->
+  <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
+    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
+      <div class="logoarea pt-8 pb-8 col-md-12" >
+        <div id="tenantForm">
+          <h1 id="addTenantTitle">Add Tenant</h1>
+          <br>
+          <div class="container">
+            <div id="tenFormDetail">
+              <div class="centered">
+              <!-- Enter Email -->
+                <div>
+                  <label for="tenant.email" class="tenFormLabel">Email:</label>
+                  <input type="text" name="tenant.email" class="input-border col-md-6" required
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="tenant.email"
+                    #tenEmail="ngModel">
+                </div>
+                <div id="alert" class="col-md-12" *ngIf="tenEmail.invalid && tenEmail.dirty"
+                  class="alert alert-danger alert-dismissable" role="alert">
+                  Email must be valid email format.
+                </div>
+
+                <!-- Enter First Name -->
+                <div class="tenFormItem">
+                  <label for="tenant.firstName" class="tenFormLabel">First Name:</label>
+                  <input type="text" name="tenant.firstName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
+                    [(ngModel)]="tenant.firstName" #tenFName="ngModel">
+                </div>
+                <div id="alert" class="col-md-12" *ngIf="tenFName.invalid && tenFName.dirty"
+                  class="alert alert-danger alert-dismissable" role="alert">
+                  First Name required.
+                </div>
+
+              <!-- Enter Last Name -->
+                <div class="tenFormItem">
+                  <label class="tenFormLabel" for="tenant.lastName">Last Name:</label>
+                  <input type="text" name="tenant.lastName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
+                    [(ngModel)]="tenant.lastName" #tenLName="ngModel">
+                </div>
+                <div id="alert" class="col-md-12" *ngIf="tenLName.invalid && tenLName.dirty"
+                  class="alert alert-danger alert-dismissable" role="alert">
+                  Last Name required.
+                </div>
+
+                <!-- Enter Gender -->
+                <div class="tenFormItem">
+                  <!-- <label class="tenFormLabel">Gender:</label>
+                  <select class="input-border col-md-9 input-border" name="tenant.gender" required
+                    [(ngModel)]="tenant.gender" #tenGender="ngModel">
+                    <option *ngFor="let gender of genders" [ngValue]="type">{{gender}}</option>
+                  </select> -->
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>{{ genderShowString }}</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button ngbDropdownItem (click)="genderChoose(gender)" *ngFor="let gender of genders">
+                        {{ gender }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Enter TrainingCenter -->
+                <div class="tenFormItem">
+                  <label class="tenFormLabel">Training Center:</label>
+                  <select class="input-border col-md-9 input-border" name="tenant.trainingCenter" required
+                    [(ngModel)]="tenant.trainingCenter" #tenTrainCen="ngModel">
+                    <option *ngFor="let trainCenter of trainCen" [ngValue]="tenant.trainingCenter">{{trainCenId}}</option>
+                  </select>
+                </div>
+              <br>
+              <button class="btn btn-secondary" *ngIf="!showAddressForm" (click)="addAddressForm()">Add Address</button>
+              <button class="btn btn-secondary" *ngIf="!showCarForm" (click)="addCarForm()">Add Car</button>
+              </div>
+            </div>
+            <br>
+            <!-- form to give the user a chance to input an address if one of the predetermined ones doesnt work -->
+            <!-- Only shows when the add address sbutton is clicked -->
+
+            
+            <div class="split right" *ngIf="showCarForm">
+              <div class="centered">
+                  <form>
+                      <div id="carForm">
+                        <h2>Add Car</h2>
+                            <label class="col-md-9">
+                                License Plate:
+                                <input [(ngModel)]="tenant.apiCar.licensePlate" name="tenant.apiCar.licensePlate"
+                                  class="input-border" type="text" required minlength="5" maxlength="200" #licensePlate="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="licensePlate.invalid && licensePlate.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                License Plate required.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                Make:
+                                <input [(ngModel)]="tenant.apiCar.make" name="tenant.apiCar.make" class="input-border" type="text"
+                                  required minlength="1" maxlength="50" #make="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="make.invalid && make.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Make required.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                Model:
+                                <input [(ngModel)]="tenant.apiCar.model" name="tenant.apiCar.model" class="input-border" type="text"
+                                  required minlength="2" maxlength="50" #model="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="model.invalid && model.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Model required.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                Color:
+                                <input [(ngModel)]="tenant.apiCar.color" name="tenant.apiCar.color" class="input-border"
+                                  type="text" required minlength="1" maxlength="10" #color="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="color.invalid && color.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Color required.
+                              </div>
+
+                              <label class="col-md-9">
+                                Year:
+                                <input [(ngModel)]="tenant.apiCar.year" name="tenant.apiCar.year" class="input-border"
+                                  type="text" pattern="[0-9]{4}" #year="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="year.invalid && year.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Car Year required.
+                              </div>
+
+                              <label class="col-md-9">
+                                State:
+                                <input [(ngModel)]="tenant.apiCar.state" name="tenant.apiCar.state" class="input-border"
+                                  type="text" required minlength="2" maxlength="50" #state="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                State of Car License Plate required.
+                              </div>
+                        <br>
+                        <button class="btn btn-secondary" (click)="closeCarForm()">Cancel</button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+
+            <div class="split right" *ngIf="showAddressForm">
+              <div class="centered">
+                  <form>
+                      <div id="addressForm">
+                        <h2>Add Address</h2>
+                            <label class="col-md-9">
+                                Street:
+                                <input [(ngModel)]="tenant.apiAddress.street" name="tenant.apiAddress.street"
+                                  class="input-border" type="text" required minlength="5" maxlength="200" #street="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="street.invalid && street.dirty"
+                                class="alert alert-danger alert-dismissable" role="alert">
+                                Street address must contain at least 5 characters.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                City:
+                                <input [(ngModel)]="tenant.apiAddress.city" name="tenant.apiAddress.city" class="input-border" type="text"
+                                  required minlength="1" maxlength="50" #city="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="city.invalid && city.dirty" class="alert alert-danger">
+                                City name is either too short or too long.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                State:
+                                <input [(ngModel)]="tenant.apiAddress.state" name="tenant.apiAddress.state" class="input-border" type="text"
+                                  required minlength="2" maxlength="50" #state="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="state.invalid && state.dirty" class="alert alert-danger">
+                                Please enter a valid state name or state abbreviation.
+                              </div>
+                  
+                              <label class="col-md-9">
+                                Country:
+                                <input [(ngModel)]="tenant.apiAddress.country" name="tenant.apiAddress.country" class="input-border"
+                                  type="text" required minlength="1" maxlength="50" #country="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="country.invalid && country.dirty" class="alert alert-danger">
+                                Please enter a valid country name or country abbreviation.
+                              </div>
+
+                              <label class="col-md-9">
+                                Zip Code:
+                                <input [(ngModel)]="tenant.apiAddress.zipCode" name="tenant.apiAddress.zipCode" class="input-border"
+                                  type="text" pattern="[0-9]{5}" #zip="ngModel">
+                              </label>
+                              <div id="alert" class="col-md-12" *ngIf="zip.invalid && zip.dirty" class="alert alert-danger">
+                                Zip code must be exactly least 5 numbers.
+                              </div>
+                        <br>
+                        <button class="btn btn-secondary" (click)="closeAddressForm()">Cancel</button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+
+          </div>
+          <br><br>
+
+          <!--
+                  The submit and cancel button. There is also some validation on the submit button so that it is greyed
+                  out if there are any errors in the form that need to be fixed.
+                  -->
+          <div id="topbutton">
+            <button class="btn btn-secondary" type="submit" (click)="postTenantOnSubmit()">
+              <!-- [disabled]="tenantNum.invalid || tenantT.invalid || verifyDates(tenant.startDate, tenant.endDate)"> -->
+              Submit
+            </button>
+            <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

@@ -16,7 +16,6 @@ namespace Revature.Tenant.DataAccess.Repository
   public class TenantRepository : ITenantRepository 
   {
     private readonly TenantContext _context;
-    private readonly ILogger _logger;
     private readonly IMapper _mapper;
 
     /// <summary>

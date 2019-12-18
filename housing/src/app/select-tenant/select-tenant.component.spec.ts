@@ -8,8 +8,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('SelectTenantComponent', () => {
   let component: SelectTenantComponent;
   let fixture: ComponentFixture<SelectTenantComponent>;
-  const selectTenSpy = jasmine.createSpyObj('SelectTenantComponent', ['deleteGo'])
-  const activeRoute = jasmine.createSpyObj('ActivatedRoute', ['id'])
+  const selectTenSpy = jasmine.createSpyObj('SelectTenantComponent', ['deleteGo']);
+  const activeRoute = jasmine.createSpyObj('ActivatedRoute', ['id']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

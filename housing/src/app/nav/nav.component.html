@@ -16,6 +16,8 @@
 
       <!-- ngIf -> a coordinator is logged on -->
       <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="coordinator-notifications">Notifications</a></li>
+      <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="add-tenant">Add Tenant</a></li>
+      <li *ngIf="auth.loggedIn && role === 'coordinator'"><a routerLink="search-tenant">Search Tenants</a></li>
 
       <!-- Login/Logout stuff -->
       <li *ngIf="!auth.loggedIn"><a (click)="auth.login()">Login</a></li>
@@ -24,6 +26,8 @@
 
       <!-- every account sees past here -->
       <li><a href="https://revature.com/our-story/" target="_blank" rel="noopener noreferrer">About Us</a></li>
+      
+      
     </ul>
   </div>
 </div>

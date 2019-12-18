@@ -1,15 +1,19 @@
 import { Car } from './car';
+import { Batch } from './batch';
+import { TenantAddress } from './tenantAddress';
 
 export interface Tenant {
-    tenantId: string;
+    id: string;
     email: string;
     gender: string;
     firstName: string;
     lastName: string;
     addressId: string;
-    roomId: number;
+    roomId: string;
+    carId: string;
+    batchId: number;
+    tenantAddress: TenantAddress;
     car: Car;
-    startDate: Date;
-    endDate: Date;
-    langName: string;
+    batch: Batch;
+    trainingCenter: string;
 }

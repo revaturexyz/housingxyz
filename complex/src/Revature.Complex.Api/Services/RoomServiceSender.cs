@@ -12,14 +12,14 @@ namespace Revature.Complex.Api.Services
   public class RoomServiceSender : IRoomServiceSender
   {
     private readonly QueueClient _queueClient;
-    private readonly ILogger<AddressServiceSender> _logger;
+    private readonly ILogger<RoomServiceSender> _logger;
 
     /// <summary>
     /// ServiceBusSender constructor injected with IConfiguration and ILogger
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="logger"></param>
-    public RoomServiceSender(IConfiguration configuration, ILogger<AddressServiceSender> logger)
+    public RoomServiceSender(IConfiguration configuration, ILogger<RoomServiceSender> logger)
     {
       _logger = logger;
       _queueClient = new QueueClient(configuration.GetConnectionString("ServiceBus"), configuration["Queues:CRUDRoom"]);
@@ -30,13 +30,13 @@ namespace Revature.Complex.Api.Services
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public async Task SendRoomsMessages(IEnumerable<ApiRoomtoSend> rooms)
+    public async Task SendRoomsMessages(ApiRoomtoSend rooms)
     {
       string data = JsonConvert.SerializeObject(rooms);
 
       Message message = new Message(Encoding.UTF8.GetBytes(data));
 
-      _logger.LogInformation("ServiceBus sending creating message: ", data);
+      _logger.LogInformation("ServiceBus sending creating message: {data}", data);
       await _queueClient.SendAsync(message);
     }
   }

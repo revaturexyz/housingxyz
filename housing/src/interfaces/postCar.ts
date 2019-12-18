@@ -1,5 +1,4 @@
-export default interface CarSelected {
-    id: number;
+export interface PostCar {
     licensePlate: string;
     make: string;
     model: string;

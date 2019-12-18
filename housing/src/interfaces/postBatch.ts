@@ -1,5 +1,4 @@
-export interface Batch {
-    batchId: number;
+export interface PostBatch {
     batchCurriculum: string;
     startDate: Date;
     endDate: Date;
