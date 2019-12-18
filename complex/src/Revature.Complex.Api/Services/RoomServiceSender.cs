@@ -1,11 +1,10 @@
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Revature.Complex.Api.Models;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Revature.Complex.Api.Services
 {
@@ -32,9 +31,9 @@ namespace Revature.Complex.Api.Services
     /// <returns></returns>
     public async Task SendRoomsMessages(ApiRoomtoSend rooms)
     {
-      string data = JsonConvert.SerializeObject(rooms);
+      var data = JsonConvert.SerializeObject(rooms);
 
-      Message message = new Message(Encoding.UTF8.GetBytes(data));
+      var message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("ServiceBus sending creating message: {data}", data);
       await _queueClient.SendAsync(message);

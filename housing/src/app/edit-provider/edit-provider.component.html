@@ -6,19 +6,13 @@
 
     <hr>
     <!-- Start of form -->
-  <form id="AddProviderForm">
+    <form id="AddProviderForm">
 
-    <!--Start of Company Name-->
+      <!--Start of Company Name-->
       <div class="form-group">
         <label for="providerName">Company Name</label>
-        <input type="text"
-          id="name"
-          name="name"
-          #name="ngModel"
-          [(ngModel)]="formProvider.name"
-          class="form-control"
-          aria-describedby="name"
-          required>
+        <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="formProvider.name" class="form-control"
+          aria-describedby="name" required>
         <!-- Dirty is so the error message is not displayed when the page first loads  -->
         <div *ngIf="name.invalid && name.dirty" class="alert alert-danger">
           Your Company's name is required.
@@ -26,38 +20,31 @@
       </div>
       <!--End of Company Name-->
 
-    <!-- Start of email input -->
-    <div class="form-group">
+      <!-- Start of email input -->
+      <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email"
-        id="email"
-        name="email"
-        #email="ngModel"
-        [(ngModel)]="formProvider.email"
-        class="form-control"
-        aria-describedby="email"
-        email>
-      <div *ngIf="email.invalid && email.dirty" class="alert alert-danger">
-        Please enter a valid email address.
+        <input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="formProvider.email"
+          class="form-control" aria-describedby="email" email>
+        <div *ngIf="email.invalid && email.dirty" class="alert alert-danger">
+          Please enter a valid email address.
+        </div>
       </div>
-    </div>
-    <!-- End of email input -->
+      <!-- End of email input -->
 
-    <!-- Start of markup for submit and cancel buttons -->
-    <div class="form-row">
-      <div class="col-md-6 form-group">
-        <!-- If any of the inputs are invalid, the submit button will be disabled -->
-        <button class="showAddressForm" [disabled]="email.invalid || name.invalid"
-                (click)="putUpdateProvider()">
-          Submit
-        </button>
+      <!-- Start of markup for submit and cancel buttons -->
+      <div class="form-row">
+        <div class="col-md-6 form-group">
+          <!-- If any of the inputs are invalid, the submit button will be disabled -->
+          <button class="showAddressForm" [disabled]="email.invalid || name.invalid" (click)="putUpdateProvider()">
+            Submit
+          </button>
+        </div>
+        <div class="col-md-6 form-group">
+          <button class="showAddressForm" (click)="cancelAddProvider()">Cancel</button>
+        </div>
       </div>
-      <div class="col-md-6 form-group">
-        <button class="showAddressForm" (click)="cancelAddProvider()">Cancel</button>
-      </div>
-    </div>
-    <!-- End of markup for submit and cancel buttons -->
-  </form>
-  <!-- End of form -->
-</div>
+      <!-- End of markup for submit and cancel buttons -->
+    </form>
+    <!-- End of form -->
+  </div>
 </div>

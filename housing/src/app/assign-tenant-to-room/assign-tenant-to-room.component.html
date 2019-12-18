@@ -13,7 +13,7 @@
             </cdk-virtual-scroll-viewport>
         </div>
 
-        <!-- Display rooms tenants -->
+        <!-- Display rooms available for a selected tenant -->
         <h4>Available Rooms</h4>
         <div class="center">
             <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
@@ -22,18 +22,19 @@
         </div>
 
 
+        <!-- Checkboxes that sort room list by specific criteria -->
         <table>
             <tr>
-                <td>Filter Car</td>
-                <td><input type="checkbox" [checked]="filterCar" (change)="toggleCar()"></td>
+                <td>Sort Car</td>
+                <td><input type="checkbox" [checked]="sortCar" (change)="toggleCar()"></td>
             </tr>
             <tr>
-                <td>Filter Language</td>
-                <td><input type="checkbox" [checked]="filterLang" (change)="toggleLang()"></td>
+                <td>Sort Language</td>
+                <td><input type="checkbox" [checked]="sortLang" (change)="toggleLang()"></td>
             </tr>
             <tr>
-                <td>Filter Batch</td>
-                <td><input type="checkbox" [checked]="filterBatch" (change)="toggleBatch()"></td>
+                <td>Sort Batch</td>
+                <td><input type="checkbox" [checked]="sortBatch" (change)="toggleBatch()"></td>
             </tr>
         </table>
 

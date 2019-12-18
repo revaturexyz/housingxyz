@@ -1,12 +1,9 @@
-
-
 <!-- Used for the split screen -->
 <div class="d-md-flex h-md-100 align-items-center">
   <!-- Left side of the split screen -->
   <div class="col-md-4 p-0 bg-orange h-md-100">
     <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
       <div class="logoarea pt-5 pb-5">
-        
         <!-- Drop down to choose a Training Center -->
         <div class="col">
           <div ngbDropdown class="d-inline-block">
@@ -19,10 +16,8 @@
           </div>
         </div>
 
-        
         <br>
 
-      
         <!-- Choose the starting date -->
         <!-- The min and the max for the dates are the moments that we created in the component.ts file. -->
         <div class="col">
@@ -60,14 +55,14 @@
   <!-- The right side of the page -->
   <div class="col-md-8 p-0 bg-body h-md-100" id="parent">
     <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" class="child">
-      <div class="logoarea pt-8 pb-8 col-md-12" >
+      <div class="logoarea pt-8 pb-8 col-md-12">
         <div id="tenantForm">
           <h1 id="addTenantTitle">Add Tenant</h1>
           <br>
           <div class="container">
             <div id="tenFormDetail">
               <div class="centered">
-              <!-- Enter Email -->
+                <!-- Enter Email -->
                 <div>
                   <label for="tenant.email" class="tenFormLabel">Email:</label>
                   <input type="text" name="tenant.email" class="input-border col-md-6" required
@@ -90,7 +85,7 @@
                   First Name required.
                 </div>
 
-              <!-- Enter Last Name -->
+                <!-- Enter Last Name -->
                 <div class="tenFormItem">
                   <label class="tenFormLabel" for="tenant.lastName">Last Name:</label>
                   <input type="text" name="tenant.lastName" class="input-border col-md-6" required pattern="[a-zA-Z ]*"
@@ -267,9 +262,9 @@
           <br><br>
 
           <!--
-                  The submit and cancel button. There is also some validation on the submit button so that it is greyed
-                  out if there are any errors in the form that need to be fixed.
-                  -->
+          The submit and cancel button. There is also some validation on the submit button so that it is greyed
+          out if there are any errors in the form that need to be fixed.
+          -->
           <div id="topbutton">
             <button class="btn btn-secondary" type="submit" (click)="postTenantOnSubmit()">
               <!-- [disabled]="tenantNum.invalid || tenantT.invalid || verifyDates(tenant.startDate, tenant.endDate)"> -->
@@ -277,8 +272,8 @@
             </button>
             <button class="btn btn-secondary" type="button"><a id="cancel2" routerLink="">Cancel</a></button>
           </div>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </div>

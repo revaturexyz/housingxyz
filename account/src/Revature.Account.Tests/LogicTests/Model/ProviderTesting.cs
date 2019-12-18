@@ -1,5 +1,5 @@
-using Revature.Account.Lib.Model;
 using System;
+using Revature.Account.Lib.Model;
 using Xunit;
 
 namespace Revature.Account.Tests.Logic_Tests.Model
@@ -10,7 +10,7 @@ namespace Revature.Account.Tests.Logic_Tests.Model
   public class ProviderTesting
   {
     //instantiate a test object
-    private ProviderAccount provider = new ProviderAccount();
+    private readonly ProviderAccount _provider = new ProviderAccount();
 
     /// <summary>
     /// Test if the Provider's name is null.
@@ -20,7 +20,7 @@ namespace Revature.Account.Tests.Logic_Tests.Model
     {
       string nullString = null;
 
-      Assert.ThrowsAny<ArgumentNullException>(() => provider.Name = nullString);
+      Assert.ThrowsAny<ArgumentNullException>(() => _provider.Name = nullString);
     }
 
     /// <summary>
@@ -29,9 +29,9 @@ namespace Revature.Account.Tests.Logic_Tests.Model
     [Fact]
     public void ProviderNameEmptyException()
     {
-      string emptyString = "";
+      var emptyString = "";
 
-      Assert.ThrowsAny<ArgumentException>(() => provider.Name = emptyString);
+      Assert.ThrowsAny<ArgumentException>(() => _provider.Name = emptyString);
     }
   }
 }

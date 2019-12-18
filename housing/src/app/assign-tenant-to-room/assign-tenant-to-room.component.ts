@@ -31,13 +31,13 @@ export class AssignTenantToRoomComponent implements OnInit {
   // Currently selected room for a tenant
   currentRoomId: string;
 
-  filterCar:boolean = false;
-  filterLang:boolean = false;
-  filterBatch:boolean = false;
+  sortCar:boolean = false;
+  sortLang:boolean = false;
+  sortBatch:boolean = false;
 
   roomsLoaded:boolean = false;
 
-  // Determines how strongly to prioritize specific filters
+  // Determines how strongly to prioritize specific sorts
   batchPriorityWeight:number = 0.6;
   langPriorityWeight:number = 0.6;
 
@@ -75,6 +75,7 @@ export class AssignTenantToRoomComponent implements OnInit {
     console.log(`room selected: ${roomId}`)
   }
 
+  // Assigns a tenant to a room
   assignRoom(){
     console.log("assign clicked");
 
@@ -101,28 +102,33 @@ export class AssignTenantToRoomComponent implements OnInit {
       this.availableRooms.forEach(element => {
         this.roomArray.push([element,0]);
       });
-      this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+      this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
       console.log(this.prioritizedRooms);
 
     });
     //this.availableRooms = ROOMS;
 
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
 
-  // Filter Checkbox Methods; sorts list whenever a checkbox is clicked
+  /* Sorting Checkbox Methods; sorts room list whenever a checkbox is clicked */
   toggleCar(){
-    this.filterCar = !this.filterCar;
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.sortCar = !this.sortCar;
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
   toggleLang(){
-    this.filterLang = !this.filterLang;
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.sortLang = !this.sortLang;
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
   toggleBatch(){
-    this.filterBatch = !this.filterBatch;
-    this.prioritizedRooms = this.prioritizeWithFilters(this.roomArray);
+    this.sortBatch = !this.sortBatch;
+    this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
   }
 
+  /*
+    Add a specific amount of "priority" to rooms based on if the tenant owns a car and
+    how many cars that room has vs if the tenant owns a car
+  */
   prioritizeRoomsByCar(arr:[RoomWithTenants,number][]) {
     arr.forEach(roomTuple => {
       let currentOccupancy = roomTuple[0].numberOfBeds - roomTuple[0].tenants.length;
@@ -141,9 +147,12 @@ export class AssignTenantToRoomComponent implements OnInit {
       roomTuple[1] += priority;
       //roomTuple[1] = Math.round((roomTuple[1] + priority)*100)/100;
     });
-    
   }
 
+  /*
+    Add a specific amount of "priority" to rooms based on what the tenant's curriculum is
+    and how many tenants in a room share that same curriculum
+  */
   prioritizeRoomsByLang(arr:[RoomWithTenants, number][]){
     arr.forEach(roomTuple => {
       roomTuple[0].tenants.forEach(tenant => {
@@ -155,6 +164,10 @@ export class AssignTenantToRoomComponent implements OnInit {
     });
   }
 
+  /*
+    Add a specific amount of "priority" to rooms based on what the tenant's batch is
+    and how many tenants in a room are in the same batch
+  */
   prioritizeRoomsByBatch(arr:[RoomWithTenants, number][]){
     arr.forEach(roomTuple => {
       roomTuple[0].tenants.forEach(tenant => {
@@ -166,15 +179,16 @@ export class AssignTenantToRoomComponent implements OnInit {
     });
   }
 
-  prioritizeWithFilters(arr:[RoomWithTenants, number][]) : [RoomWithTenants, number][]{
+  // Applies every sorting algorithm based on which checkboxes are checked
+  prioritizeWithSorts(arr:[RoomWithTenants, number][]) : [RoomWithTenants, number][]{
     let result = JSON.parse(JSON.stringify(arr)); // shallow copy of the array
-    if (this.filterCar){
+    if (this.sortCar){
       this.prioritizeRoomsByCar(result);
     }
-    if (this.filterLang){
+    if (this.sortLang){
       this.prioritizeRoomsByLang(result);
     }
-    if (this.filterBatch){
+    if (this.sortBatch){
       this.prioritizeRoomsByBatch(result);
     }
     this.sortRoomsByPriority(result);
@@ -182,6 +196,7 @@ export class AssignTenantToRoomComponent implements OnInit {
   }
 
   // Sorts list by the 2nd item in each tuple element of the array
+  // Is used to sort rooms by priority, descending
   sortRoomsByPriority(someArray:[string,number][]){
     someArray.sort((elem1,elem2) => elem1[1] > elem2[1] ? -1 : elem1[1] < elem2[1] ? 1 : 0);
   }

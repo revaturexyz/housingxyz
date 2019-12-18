@@ -14,8 +14,6 @@ export class SelectTenantComponent implements OnInit {
   tenantLoaded = false;
   address: Address;
 
-
-
   // Delete tenant
   deleteConfirmOn = false;
 

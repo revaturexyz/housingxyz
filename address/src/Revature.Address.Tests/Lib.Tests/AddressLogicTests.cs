@@ -1,32 +1,21 @@
-using Microsoft.Extensions.Configuration;
-using Revature.Address.Lib.BusinessLogic;
 using System;
-using Moq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Moq;
+using Revature.Address.Lib.BusinessLogic;
 using Xunit;
-using Microsoft.Extensions.Logging;
 
 namespace Revature.Address.Tests.Lib.Tests
 {
   public class AddressLogicTests
   {
     [Fact]
-    public void ConstructorShouldConstruct()
+    public void CheckAddressFormatting()
     {
-      //create configuration
       var mockConfig = new Mock<IConfiguration>();
+      var validator = new AddressLogic(mockConfig.Object);
 
-      //act create addresslogic object with config
-      var mockAddressLogic = new Mock<AddressLogic>(mockConfig);
-    }
-
-    [Fact]
-    public async Task CheckAddressFormatting()
-    {
-      Mock<IConfiguration> mockConfig = new Mock<IConfiguration>();
-      AddressLogic validator = new AddressLogic(mockConfig.Object);
-
-      Address.Lib.Address newAddy = new Address.Lib.Address
+      var newAddy = new Address.Lib.Address
       {
         Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
         Street = "1100 N E St",
@@ -41,12 +30,12 @@ namespace Revature.Address.Tests.Lib.Tests
     }
 
     [Fact]
-    public async Task CreateGoogleApiUrl()
+    public void CreateGoogleApiUrl()
     {
-      Mock<IConfiguration> mockConfig = new Mock<IConfiguration>();
-      AddressLogic validator = new AddressLogic(mockConfig.Object);
+      var mockConfig = new Mock<IConfiguration>();
+      var validator = new AddressLogic(mockConfig.Object);
 
-      Address.Lib.Address newAddy = new Address.Lib.Address
+      var newAddy = new Address.Lib.Address
       {
         Id = new Guid("566e1a61-c283-4d33-9b9b-9a981393cf2b"),
         Street = "1100 N E St",
@@ -56,13 +45,9 @@ namespace Revature.Address.Tests.Lib.Tests
         ZipCode = "76010"
       };
       var address = validator.FormatAddress(newAddy);
-      var result = validator.GetGoogleApiUrl(address,address);
+      var result = validator.GetGoogleApiUrl(address, address);
       Assert.Equal($"?units=imperial&origins={address}&destinations={address}&key=", result);
-
     }
-
-
-    
   }
 }
 

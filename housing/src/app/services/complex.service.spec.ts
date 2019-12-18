@@ -1,3 +1,4 @@
+/*
 import { TestBed, getTestBed } from '@angular/core/testing';
 
 import { ComplexService } from './complex.service';
@@ -5,7 +6,6 @@ import { HttpTestingController, HttpClientTestingModule } from '@angular/common/
 import { Amenity } from 'src/interfaces/amenity';
 import { RouterTestingModule } from '@angular/router/testing';
 
-/*
 const amenity1: Amenity = TestServiceData.dummyAmenity1;
 const amenity2: Amenity = TestServiceData.dummyAmenity2;
 

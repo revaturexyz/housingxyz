@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Revature.Account.Api
 {
@@ -8,9 +9,17 @@ namespace Revature.Account.Api
   /// </summary>
   public class Auth0HelperFactory : IAuth0HelperFactory
   {
+    private readonly ILoggerFactory _loggerFactory;
+
+    public Auth0HelperFactory(ILoggerFactory loggerFactory)
+    {
+      _loggerFactory = loggerFactory ?? throw new System.ArgumentNullException(nameof(loggerFactory));
+    }
+
     public Auth0Helper Create(HttpRequest request)
     {
-      var auth = new Auth0Helper(request);
+      var logger = _loggerFactory.CreateLogger("Revature.Account.Api.Auth0Helper");
+      var auth = new Auth0Helper(request, logger);
       auth.ConnectManagementClient();
       return auth;
     }

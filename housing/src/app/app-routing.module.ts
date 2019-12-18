@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
-import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 
@@ -15,9 +14,7 @@ import { SearchTenantComponent } from './search-tenant/search-tenant.component';
 import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
-
 const routes: Routes = [
-  { path: 'coordinator-notifications/:id', component: NotificationDetailsComponent },
   // dev-assign-tenant-to-room
   { path: 'dev-assign-tenant-to-room', component: AssignTenantToRoomComponent },
 

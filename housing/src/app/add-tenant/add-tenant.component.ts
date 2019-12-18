@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TenantService } from 'src/app/services/tenant.service';
+import { TenantService } from '../../app/services/tenant.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { PostTenant } from 'src/interfaces/postTenant';
-import { Batch } from 'src/interfaces/batch';
+import { PostTenant } from '../../interfaces/post-tenant';
+import { Batch } from '../../interfaces/batch';
 
 @Component({
   selector: 'dev-add-tenant',

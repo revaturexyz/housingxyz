@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Provider } from 'src/interfaces/account/provider';
-import { Address } from 'src/interfaces/address';
-import { MapsService } from '../services/maps.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { UserService } from '../services/user.service';
 
@@ -20,7 +17,6 @@ export class EditProviderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private mapsService: MapsService,
     private account: AccountService,
     private user: UserService) { }
 
@@ -32,13 +28,12 @@ export class EditProviderComponent implements OnInit {
         console.log(this.formProvider);
       });
     });
-
   }
 
   // this method is called when the user clicks the submit button to update provider information
   putUpdateProvider() {
     // handle the put here
-    this.user.UserId$.subscribe(id => {
+    this.user.UserId$.subscribe(() => {
       this.account.updateProviderById$(this.formProvider);
     });
     this.router.navigate(['']);

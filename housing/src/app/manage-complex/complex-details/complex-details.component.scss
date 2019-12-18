@@ -189,35 +189,29 @@ button {
   height: min-content;
 }
 
-.sbutton
-{
+.sbutton {
   text-align: center;
   display: block;
   margin-left: 30%;
   padding-right: 0%;
 }
 
-.ebutton
-{
+.ebutton {
   text-align: center;
   display: block;
   margin: 0 auto;
   margin-left: 80%;
-
 }
 
-table th
-{
+table th {
   text-align: center;
 }
 
-table td
-{
+table td {
   text-align: auto;
 }
 
-#caption
-{
+#caption {
   visibility: hidden;
   position: absolute;
 }

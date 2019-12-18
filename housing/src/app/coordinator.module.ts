@@ -11,8 +11,8 @@ import { TenantService } from './services/tenant.service';
 // Module for Coordinator UI, imported into root module: App.module.ts
 @NgModule({
   declarations: [
-  SearchTenantComponent,
-  SelectTenantComponent
+    SearchTenantComponent,
+    SelectTenantComponent
   ],
   imports: [
     CommonModule,

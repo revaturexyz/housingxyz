@@ -10,16 +10,16 @@ namespace Revature.Room.DataAccess
     /// <summary>
     /// Method that converts a Entities Room Object to a Business Logic Room Object
     /// </summary>
-    /// <param name="Room"></param>
+    /// <param name="roomEntity"></param>
     /// <returns></returns>
-    public Lib.Room ParseRoom(Entities.Room Room);
+    public Lib.Room ParseRoom(Entities.Room roomEntity);
 
     /// <summary>
     /// Method that converts a Business Logic Room Object to a Entities Room Object
     /// </summary>
-    /// <param name="Room"></param>
+    /// <param name="room"></param>
     /// <returns></returns>
-    public Entities.Room ParseRoom(Lib.Room Room);
+    public Entities.Room ParseRoom(Lib.Room room);
 
     /// <summary>
     /// Method that converts a list of Entities Room Objects to Business Logic Room Object

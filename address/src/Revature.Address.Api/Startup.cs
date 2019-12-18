@@ -72,7 +72,7 @@ namespace Revature.Address.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Address V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Address V1");
       });
 
       app.UseRouting();

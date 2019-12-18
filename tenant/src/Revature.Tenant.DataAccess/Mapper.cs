@@ -1,5 +1,5 @@
-using Revature.Tenant.Lib.Interface;
 using System;
+using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.DataAccess
 {
@@ -100,7 +100,7 @@ namespace Revature.Tenant.DataAccess
         newCar = null;
         newCarId = null;
       }
-        
+
 
       return new Entities.Tenant
       {

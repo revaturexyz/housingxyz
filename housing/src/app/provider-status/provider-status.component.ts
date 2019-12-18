@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { UserService } from '../services/user.service';
+import { Provider } from 'src/interfaces/account/provider';
 
 @Component({
   selector: 'dev-provider-status',
@@ -8,7 +9,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./provider-status.component.scss']
 })
 export class ProviderStatusComponent implements OnInit {
-  public currentProvider;
+  public currentProvider: any;
 
   constructor(
     private account: AccountService,
@@ -22,7 +23,6 @@ export class ProviderStatusComponent implements OnInit {
         console.log(this.currentProvider);
       });
     });
-
   }
 
 }

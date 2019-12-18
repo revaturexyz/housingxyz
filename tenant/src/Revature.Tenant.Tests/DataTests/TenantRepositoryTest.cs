@@ -1,8 +1,8 @@
-using Xunit;
-using Revature.Tenant.DataAccess.Repository;
-using Revature.Tenant.DataAccess;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
+using Revature.Tenant.DataAccess;
+using Revature.Tenant.DataAccess.Repository;
+using Xunit;
 
 namespace Revature.Tenant.Tests.DataTests
 {
@@ -111,7 +111,7 @@ namespace Revature.Tenant.Tests.DataTests
         TrainingCenter = Guid.Parse("32bbf6b3-2d47-4823-8bb9-2087491cc491"),
         Car = new Lib.Models.Car
         {
-         // Id = 4,
+          // Id = 4,
           LicensePlate = "LicensePlate",
           Make = "Make",
           Model = "Model",

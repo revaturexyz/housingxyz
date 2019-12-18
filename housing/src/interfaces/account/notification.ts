@@ -1,7 +1,5 @@
-import { Provider } from './provider';
-import { NotificationKind } from 'rxjs/internal/Notification';
 import { Status } from './status';
-import { UpdateAction } from './updateAction';
+import { UpdateAction } from './update-action';
 
 export interface Notification {
   notificationId: string;

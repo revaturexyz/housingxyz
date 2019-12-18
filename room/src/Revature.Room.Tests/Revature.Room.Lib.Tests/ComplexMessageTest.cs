@@ -1,5 +1,5 @@
-using Revature.Room.Lib.Models;
 using System;
+using Revature.Room.Lib.Models;
 using Xunit;
 
 namespace Revature.Room.Tests.Revature.Room.Lib.Tests
@@ -9,14 +9,14 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     [Fact]
     public void ComplexMessageShouldCreate()
     {
-      Guid newRoomId = Guid.NewGuid();
-      string roomNumber = "2428B";
-      Guid complexId = Guid.NewGuid();
-      int numberOfBeds = 4;
-      string roomType = "Apartment";
-      DateTime leaseStart = DateTime.Now;
-      DateTime leaseEnd = DateTime.Now.AddDays(3);
-      int queOperator = 0;
+      var newRoomId = Guid.NewGuid();
+      var roomNumber = "2428B";
+      var complexId = Guid.NewGuid();
+      var numberOfBeds = 4;
+      var roomType = "Apartment";
+      var leaseStart = DateTime.Now;
+      var leaseEnd = DateTime.Now.AddDays(3);
+      var queOperator = 0;
 
       var complexMessage = new ComplexMessage()
       {

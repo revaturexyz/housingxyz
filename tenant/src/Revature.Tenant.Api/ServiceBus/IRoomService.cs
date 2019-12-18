@@ -1,7 +1,7 @@
-using Revature.Tenant.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Revature.Tenant.Lib.Models;
 
 namespace Revature.Tenant.Api.ServiceBus
 {

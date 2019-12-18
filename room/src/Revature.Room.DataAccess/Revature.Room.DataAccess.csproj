@@ -5,18 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Revature.Room.Lib\Revature.Room.Lib.csproj" />
   </ItemGroup>
+
 </Project>
