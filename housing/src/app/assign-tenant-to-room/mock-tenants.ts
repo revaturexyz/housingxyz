@@ -19,9 +19,10 @@ export const TENANTS: TenantInRoom[] = [
 
         batch: {
             batchId: 1,
-            language: "c#",
+            batchCurriculum: "c#",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
         }
     },
     {
@@ -32,10 +33,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 1,
-            language: "c#",
+            batchCurriculum: "c#",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
-
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
         }
     },
     {
@@ -46,9 +47,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },
@@ -60,9 +62,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },
@@ -74,9 +77,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },
@@ -88,9 +92,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },
@@ -102,9 +107,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },
@@ -125,9 +131,10 @@ export const TENANTS: TenantInRoom[] = [
         
         batch: {
             batchId: 1,
-            language: "c#",
+            batchCurriculum: "c#",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
         }
     },
     {
@@ -138,9 +145,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },
@@ -152,9 +160,10 @@ export const TENANTS: TenantInRoom[] = [
         car: null,
         batch: {
             batchId: 2,
-            language: "java",
+            batchCurriculum: "java",
             startDate: new Date(2012,3,1),
-            endDate: new Date(2012,3,1)
+            endDate: new Date(2012,3,1),
+            trainingCenter: "f55db185-205e-4669-baf3-1872e87b9bcc"
 
         }
     },

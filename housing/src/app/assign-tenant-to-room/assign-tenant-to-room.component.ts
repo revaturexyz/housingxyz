@@ -147,7 +147,7 @@ export class AssignTenantToRoomComponent implements OnInit {
   prioritizeRoomsByLang(arr:[RoomWithTenants, number][]){
     arr.forEach(roomTuple => {
       roomTuple[0].tenants.forEach(tenant => {
-        if (tenant.batch.language == this.currentTenant.batch.language){
+        if (tenant.batch.batchCurriculum == this.currentTenant.batch.batchCurriculum){
           roomTuple[1] += this.langPriorityWeight;
         }
       });
