@@ -13,18 +13,18 @@ import { RoomWithTenants } from '../../interfaces/room-with-tenant';
 })
 export class TenantAssignService {
 
-  getTenantsNotAssignedRoom(): Promise<TenantInRoom[]>{
-    let url = `${environment.endpoints.tenant}api/Tenant/Unassigned`;
+  getTenantsNotAssignedRoom(): Promise<TenantInRoom[]> {
+    const url = `${environment.endpoints.tenant}api/Tenant/Unassigned`;
     return this.httpClient.get<TenantInRoom[]>(url).toPromise();
   }
 
-  getAvailableRoomsWithTenants(gender:string,endDate:string): Promise<RoomWithTenants[]> {
-    let url = `${environment.endpoints.tenant}api/Tenant/Assign/AvailableRooms?gender=${gender}&endDate=${endDate}`;
+  getAvailableRoomsWithTenants(gender: string, endDate: string): Promise<RoomWithTenants[]> {
+    const url = `${environment.endpoints.tenant}api/Tenant/Assign/AvailableRooms?gender=${gender}&endDate=${endDate}`;
     return this.httpClient.get<RoomWithTenants[]>(url).toPromise();
   }
 
-  assignTenant(tenantId: string, roomId: string): Promise<Object> {
-      let url = `${environment.endpoints.tenant}api/Tenant/Assign/${tenantId}?roomId=${roomId}`;
+  assignTenant(tenantId: string, roomId: string): Promise<object> {
+      const url = `${environment.endpoints.tenant}api/Tenant/Assign/${tenantId}?roomId=${roomId}`;
       return this.httpClient.put(url, roomId).toPromise();
   }
 
