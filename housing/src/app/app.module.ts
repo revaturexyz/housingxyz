@@ -37,7 +37,7 @@ import { ComplexDetailsComponent } from './manage-complex/complex-details/comple
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
 import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
 @NgModule({
@@ -95,7 +95,7 @@ import { AddTenantComponent } from './add-tenant/add-tenant.component';
     MatMomentDateModule,
     MatInputModule,
     MatCheckboxModule,
-    ScrollDispatchModule,
+    ScrollingModule,
   ],
   providers: [
     {

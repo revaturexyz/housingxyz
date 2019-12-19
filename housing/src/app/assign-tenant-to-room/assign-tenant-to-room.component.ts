@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoomWithTenants } from '../../interfaces/room-with-tenant';
 import { TenantInRoom } from '../../interfaces/tenant-in-room';
 import { TenantAssignService } from '../services/tenant-assign-service';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TENANTS } from './mock-tenants';
 import { ROOMS } from './mock-rooms';
 
