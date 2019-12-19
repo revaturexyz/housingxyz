@@ -12,4 +12,13 @@ describe('AssignTenantToRoomComponent', () => {
     })
       .compileComponents();
   }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AssignTenantToRoomComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
