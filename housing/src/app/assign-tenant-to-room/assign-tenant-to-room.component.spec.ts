@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/test
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room.component';
 
 describe('AssignTenantToRoomComponent', () => {
-  const component: AssignTenantToRoomComponent;
-  const fixture: ComponentFixture<AssignTenantToRoomComponent>;
+  let component: AssignTenantToRoomComponent;
+  let fixture: ComponentFixture<AssignTenantToRoomComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
