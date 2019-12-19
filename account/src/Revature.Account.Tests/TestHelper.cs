@@ -3,16 +3,16 @@
  * Source: Adapted from "Database and Dragons" TestHelper class.
  */
 
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Revature.Account.Api;
 using Revature.Account.Api.Controllers;
 using Revature.Account.Lib.Model;
-using Serilog;
-using System;
-using System.Collections.Generic;
 
 namespace Revature.Account.Tests
 {
@@ -34,21 +34,19 @@ namespace Revature.Account.Tests
     public List<ProviderAccount> Providers { get; private set; }
     public List<Status> Statuses { get; private set; }
     public List<UpdateAction> UpdateActions { get; private set; }
-
     //for testing expiration times
-    public static DateTime now;
-    public static DateTime nowPSev;
-    public static DateTime nowPThirty;
-
-    public static Microsoft.Extensions.Logging.ILogger<CoordinatorAccountController> _loggerCoord;
-    public static Microsoft.Extensions.Logging.ILogger<NotificationController> _loggerNoti;
-    public static Microsoft.Extensions.Logging.ILogger<ProviderAccountController> _loggerProv;
+    public static DateTime Now { get; set; }
+    public static DateTime NowPSev { get; set; }
+    public static DateTime NowPThirty { get; set; }
+    public static ILogger<CoordinatorAccountController> LoggerCoord { get; set; }
+    public static ILogger<NotificationController> LoggerNoti { get; set; }
+    public static ILogger<ProviderAccountController> LoggerProv { get; set; }
 
     public TestHelper()
     {
-      _loggerCoord = new NullLogger<CoordinatorAccountController>();
-      _loggerNoti = new NullLogger<NotificationController>();
-      _loggerProv = new NullLogger<ProviderAccountController>();
+      LoggerCoord = new NullLogger<CoordinatorAccountController>();
+      LoggerNoti = new NullLogger<NotificationController>();
+      LoggerProv = new NullLogger<ProviderAccountController>();
 
       SetUpCoordinators();
       SetUpStatuses();
@@ -57,9 +55,9 @@ namespace Revature.Account.Tests
       SetUpNotifications();
       SetUpMocks();
 
-      now = DateTime.Now;
-      nowPSev = now.AddDays(7);
-      nowPThirty = now.AddDays(30);
+      Now = DateTime.Now;
+      NowPSev = Now.AddDays(7);
+      NowPThirty = Now.AddDays(30);
     }
 
     /// <summary>
@@ -104,8 +102,8 @@ namespace Revature.Account.Tests
           Name = "Billys Big Discount Dorms",
           Email = "billy@provider.org",
           Status = Statuses[0],
-          AccountCreatedAt = now,
-          AccountExpiresAt = nowPSev
+          AccountCreatedAt = Now,
+          AccountExpiresAt = NowPSev
         },
         new ProviderAccount
         {
@@ -113,8 +111,8 @@ namespace Revature.Account.Tests
           Name = "Bobs Townhomes",
           Email = "bob@provider.org",
           Status = Statuses[1],
-          AccountCreatedAt = now,
-          AccountExpiresAt = nowPSev
+          AccountCreatedAt = Now,
+          AccountExpiresAt = NowPSev
         },
         new ProviderAccount
         {
@@ -122,8 +120,8 @@ namespace Revature.Account.Tests
           Name = "Burgundy Hills Barracks",
           Email = "burgundy@provider.org",
           Status = Statuses[3],
-          AccountCreatedAt = now,
-          AccountExpiresAt = nowPSev
+          AccountCreatedAt = Now,
+          AccountExpiresAt = NowPSev
         }
       };
     }
@@ -150,21 +148,21 @@ namespace Revature.Account.Tests
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[0],
           UpdateAction = UpdateActions[0],
-          CreatedAt = nowPSev
+          CreatedAt = NowPSev
         },
         new Notification
         {
           ProviderId = Providers[1].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[2],
-          CreatedAt = nowPSev
+          CreatedAt = NowPSev
         },
         new Notification()
         {
           ProviderId = Providers[2].ProviderId,
           CoordinatorId = Coordinators[0].CoordinatorId,
           Status = Statuses[1],
-          CreatedAt = nowPSev
+          CreatedAt = NowPSev
         }
       };
 
@@ -199,22 +197,34 @@ namespace Revature.Account.Tests
     /// </summary>
     private void SetUpMocks()
     {
-      Repository = new Mock<Revature.Account.Lib.Interface.IGenericRepository>();
+      Repository = new Mock<Lib.Interface.IGenericRepository>();
       Auth0HelperFactory = new Mock<IAuth0HelperFactory>();
 
-      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, _loggerCoord, Auth0HelperFactory.Object);
-      CoordinatorAccountController.ControllerContext = new ControllerContext();
-      CoordinatorAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
+      CoordinatorAccountController = new CoordinatorAccountController(Repository.Object, LoggerCoord, Auth0HelperFactory.Object)
+      {
+        ControllerContext = new ControllerContext
+        {
+          HttpContext = new DefaultHttpContext()
+        }
+      };
       CoordinatorAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      ProviderAccountController = new ProviderAccountController(Repository.Object, _loggerProv, Auth0HelperFactory.Object);
-      ProviderAccountController.ControllerContext = new ControllerContext();
-      ProviderAccountController.ControllerContext.HttpContext = new DefaultHttpContext();
+      ProviderAccountController = new ProviderAccountController(Repository.Object, LoggerProv, Auth0HelperFactory.Object)
+      {
+        ControllerContext = new ControllerContext
+        {
+          HttpContext = new DefaultHttpContext()
+        }
+      };
       ProviderAccountController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
 
-      NotificationController = new NotificationController(Repository.Object, _loggerNoti);
-      NotificationController.ControllerContext = new ControllerContext();
-      NotificationController.ControllerContext.HttpContext = new DefaultHttpContext();
+      NotificationController = new NotificationController(Repository.Object, LoggerNoti)
+      {
+        ControllerContext = new ControllerContext
+        {
+          HttpContext = new DefaultHttpContext()
+        }
+      };
       NotificationController.ControllerContext.HttpContext.Request.Headers["Authorize"] = "Not a token.";
     }
   }

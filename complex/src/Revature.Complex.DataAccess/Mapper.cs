@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Revature.Complex.Lib.Interface;
-using Logic = Revature.Complex.Lib.Models;
 using Entity = Revature.Complex.DataAccess.Entities;
+using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.DataAccess
 {
-  public class Mapper
+  public class Mapper : IMapper
   {
     /// <summary>
     /// Logic.Amenity => Entity.Amenity

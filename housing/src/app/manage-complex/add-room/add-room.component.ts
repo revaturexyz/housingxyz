@@ -31,7 +31,7 @@ export class AddRoomComponent implements OnInit {
   @Output() modeOutput: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
-   }
+  }
 
   ngOnInit() {
     // Sets form defaults
@@ -49,11 +49,13 @@ export class AddRoomComponent implements OnInit {
       gender: null
     };
   }
+
   // Adds room to complex and switches mode back to details
   postAddRoom() {
     // Handle adding room to complex logic here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
+
   // Changes mode back to details
   cancelAddRoom() {
     this.modeOutput.emit('details');

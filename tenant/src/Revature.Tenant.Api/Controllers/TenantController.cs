@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Revature.Tenant.Lib.Interface;
-using Revature.Tenant.Api.Models;
 using Microsoft.Extensions.Logging;
-using System.Net.Http;
-using Microsoft.Extensions.Configuration;
-using System.Text.Json;
+using Revature.Tenant.Api.Models;
+using Revature.Tenant.Lib.Interface;
 
 namespace Revature.Tenant.Api.Controllers
 {
@@ -55,7 +52,7 @@ namespace Revature.Tenant.Api.Controllers
 
       //Maps batches and cars correctly, based on null or not null
       var newTenants = new List<Lib.Models.Tenant>();
-      foreach (Lib.Models.Tenant tenant in tenants)
+      foreach (var tenant in tenants)
       {
         Lib.Models.Batch batch;
         int? batchId;
@@ -97,7 +94,6 @@ namespace Revature.Tenant.Api.Controllers
         else
         {
           car = null;
-          carId = null;
         }
         tenant.Car = car;
 
@@ -105,10 +101,10 @@ namespace Revature.Tenant.Api.Controllers
       }
 
       //Cast all Logic Tenants into ApiTenants
-      List<ApiTenant> apiTenants = new List<ApiTenant>();
-      foreach (Lib.Models.Tenant apiTenant in newTenants)
+      var apiTenants = new List<ApiTenant>();
+      foreach (var apiTenant in newTenants)
       {
-        ApiTenant newApiTenant = new ApiTenant
+        var newApiTenant = new ApiTenant
         {
           Id = apiTenant.Id,
           Email = apiTenant.Email,
@@ -218,7 +214,7 @@ namespace Revature.Tenant.Api.Controllers
       try
       {
         //Cast string into Guid
-        Guid trainingCenter = Guid.Parse(trainingCenterString);
+        var trainingCenter = Guid.Parse(trainingCenterString);
         //Call Repo method GetBatchesAsync
         var batches = await _tenantRepository.GetBatchesAsync(trainingCenter);
         //Return Ok with a list of batches
@@ -254,7 +250,7 @@ namespace Revature.Tenant.Api.Controllers
       {
         _logger.LogInformation("Posting Address to Address Service...");
         var postedAddress = await this._addressService.GetAddressAsync(tenant.ApiAddress);
-        
+
         //cast ApiTenant in Logic Tenant
         var newTenant = new Lib.Models.Tenant
         {
@@ -270,26 +266,26 @@ namespace Revature.Tenant.Api.Controllers
           TrainingCenter = tenant.TrainingCenter,
 
         };
-        
-          if (tenant.ApiCar.LicensePlate != null)
+
+        if (tenant.ApiCar.LicensePlate != null)
+        {
+          newTenant.Car = new Lib.Models.Car
           {
-            newTenant.Car = new Lib.Models.Car
-            {
-              Color = tenant.ApiCar.Color,
-              Make = tenant.ApiCar.Make,
-              Model = tenant.ApiCar.Model,
-              LicensePlate = tenant.ApiCar.LicensePlate,
-              State = tenant.ApiCar.State,
-              Year = tenant.ApiCar.Year
-            };
-            newTenant.CarId = 0;
-          }
+            Color = tenant.ApiCar.Color,
+            Make = tenant.ApiCar.Make,
+            Model = tenant.ApiCar.Model,
+            LicensePlate = tenant.ApiCar.LicensePlate,
+            State = tenant.ApiCar.State,
+            Year = tenant.ApiCar.Year
+          };
+          newTenant.CarId = 0;
+        }
         else
         {
           newTenant.Car = null;
           newTenant.CarId = null;
         }
-        
+
 
         //Call Repository Methods AddAsync and SaveAsync
         await _tenantRepository.AddAsync(newTenant);

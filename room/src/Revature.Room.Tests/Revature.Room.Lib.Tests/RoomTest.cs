@@ -5,16 +5,16 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
 {
   public class RoomTest
   {
-    private Guid newRoomId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
-    private Guid newComplexId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
-    private string newGender = "Female";
-    private string newRoomNumber = "2002";
-    private string newRoomType = "Dormitory";
-    private int newNumOfBeds = 4;
+    private Guid _newRoomId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
+    private Guid _newComplexId = Guid.Parse("249e5358-169a-4bc6-aa0f-c054952456dd");
+    private readonly string _newGender = "Female";
+    private readonly string _newRoomNumber = "2002";
+    private readonly string _newRoomType = "Dormitory";
+    private readonly int _newNumOfBeds = 4;
 
-    private int newNumOfOccupants = 2;
-    private DateTime newLeaseStart = new DateTime(2000, 1, 1);
-    private DateTime newLeaseEnd = new DateTime(2001, 12, 31);
+    private readonly int _newNumOfOccupants = 2;
+    private readonly DateTime _newLeaseStart = new DateTime(2000, 1, 1);
+    private readonly DateTime _newLeaseEnd = new DateTime(2001, 12, 31);
 
     /// <summary>
     /// Test for making sure that creating a room should create a room and that the
@@ -23,27 +23,27 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     [Fact]
     public void RoomShouldCreate()
     {
-        var newRoom = new BL.Room()
-        {
-          RoomId = newRoomId,
-          ComplexId = newComplexId,
-          Gender = newGender,
-          RoomNumber = newRoomNumber,
-          RoomType = newRoomType,
-          NumberOfBeds = newNumOfBeds,
-          NumberOfOccupants = newNumOfOccupants
-        };
-      newRoom.SetLease(newLeaseStart, newLeaseEnd);
+      var newRoom = new BL.Room()
+      {
+        RoomId = _newRoomId,
+        ComplexId = _newComplexId,
+        Gender = _newGender,
+        RoomNumber = _newRoomNumber,
+        RoomType = _newRoomType,
+        NumberOfBeds = _newNumOfBeds,
+        NumberOfOccupants = _newNumOfOccupants
+      };
+      newRoom.SetLease(_newLeaseStart, _newLeaseEnd);
       Assert.NotNull(newRoom);
-      Assert.True(newRoom.RoomId == newRoomId);
-      Assert.True(newRoom.ComplexId == newComplexId);
-      Assert.True(newRoom.Gender == newGender);
-      Assert.True(newRoom.RoomNumber == newRoomNumber);
-      Assert.True(newRoom.RoomType == newRoomType);
-      Assert.True(newRoom.NumberOfBeds == newNumOfBeds);
-      Assert.True(newRoom.NumberOfOccupants == newNumOfOccupants);
-      Assert.True(newRoom.LeaseStart == newLeaseStart);
-      Assert.True(newRoom.LeaseEnd == newLeaseEnd);
+      Assert.True(newRoom.RoomId == _newRoomId);
+      Assert.True(newRoom.ComplexId == _newComplexId);
+      Assert.True(newRoom.Gender == _newGender);
+      Assert.True(newRoom.RoomNumber == _newRoomNumber);
+      Assert.True(newRoom.RoomType == _newRoomType);
+      Assert.True(newRoom.NumberOfBeds == _newNumOfBeds);
+      Assert.True(newRoom.NumberOfOccupants == _newNumOfOccupants);
+      Assert.True(newRoom.LeaseStart == _newLeaseStart);
+      Assert.True(newRoom.LeaseEnd == _newLeaseEnd);
     }
 
     /// <summary>
@@ -52,9 +52,8 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     [Fact]
     public void RoomShouldRejectInvalidLease()
     {
-      Action invalidCreate = () => new BL.Room().SetLease(newLeaseStart, newLeaseStart);
-      Assert.Throws<ArgumentException>(invalidCreate);
-      
+      void InvalidCreate() => new BL.Room().SetLease(_newLeaseStart, _newLeaseStart);
+      Assert.Throws<ArgumentException>(InvalidCreate);
     }
 
     /// <summary>
@@ -63,7 +62,7 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     [Fact]
     public void RoomShouldRejectInvalidRoomNumber()
     {
-      Assert.Throws<ArgumentException>(() => new BL.Room() { RoomNumber = ""});
+      Assert.Throws<ArgumentException>(() => new BL.Room() { RoomNumber = "" });
       Assert.Throws<ArgumentException>(() => new BL.Room() { RoomNumber = null });
     }
 
@@ -73,7 +72,7 @@ namespace Revature.Room.Tests.Revature.Room.Lib.Tests
     [Fact]
     public void RoomShouldRejectInvalidNumberOfBeds()
     {
-      Assert.Throws<ArgumentException>(() => new BL.Room() { NumberOfBeds = 0});
+      Assert.Throws<ArgumentException>(() => new BL.Room() { NumberOfBeds = 0 });
       Assert.Throws<ArgumentException>(() => new BL.Room() { NumberOfBeds = -1 });
     }
 

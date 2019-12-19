@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,7 +20,6 @@ describe('HomeComponent', () => {
       ]
     })
       .compileComponents();
-    const testBed = getTestBed();
   }));
 
   beforeEach(() => {

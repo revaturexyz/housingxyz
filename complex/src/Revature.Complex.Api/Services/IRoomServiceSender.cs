@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Revature.Complex.Api.Models;
 
@@ -13,6 +10,6 @@ namespace Revature.Complex.Api.Services
     /// </summary>
     /// <param name="roomToSend"></param>
     /// <returns></returns>
-    public Task SendRoomsMessages(IEnumerable<ApiRoomtoSend> rooms);
+    public Task SendRoomsMessages(ApiRoomtoSend rooms);
   }
 }

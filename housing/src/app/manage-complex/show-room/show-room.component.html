@@ -11,23 +11,23 @@
     <div>
       <hr class="p-0 m-1" />
       <mat-chip-list>
-        <mat-chip
-          *ngFor="let amenity of complexControl?.amenity"
-          color="primary"
-          selected
-          ><strong>{{ amenity.amenity }}</strong></mat-chip
-        >
+        <mat-chip *ngFor="let amenity of complexControl?.amenity" color="primary" selected>
+          <strong>{{ amenity.amenity }}</strong>
+        </mat-chip>
       </mat-chip-list>
     </div>
   </div>
   <hr />
   <div>
     <button class="show-room-btn" (click)="handleBackButton()">
-      <strong>< Go back</strong>
+      <strong>
+        &lt; Go back
+      </strong>
     </button>
   </div>
 </div>
-<!-- Alternate view if a complex is not selected and this page is shown -->
+<!-- Alternate view if a complex is not selected and this page is
+shown -->
 <ng-template #errorblock>
   You've reached this by mistake, try again.
 </ng-template>

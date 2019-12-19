@@ -9,7 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import {
-  MatChipsModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatDialogModule, MatPaginatorModule, MatFormFieldModule,
+  MatChipsModule, MatTableModule, MatDialogModule, MatPaginatorModule, MatFormFieldModule,
   MatSelectModule, MatSidenavModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule,
   MatExpansionModule, MatInputModule
 } from '@angular/material';
@@ -23,11 +23,8 @@ import { MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { CoordinatorNotificationsComponent } from './coordinator-notifications/coordinator-notifications.component';
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
-import { AuthGuard } from './guards/auth.guard';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
-import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 import { ProviderStatusComponent } from './provider-status/provider-status.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';

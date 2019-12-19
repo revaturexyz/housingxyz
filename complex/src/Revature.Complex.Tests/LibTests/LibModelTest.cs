@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Logic = Revature.Complex.Lib.Models;
 using Xunit;
+using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Tests.LibTests
 {
@@ -14,8 +12,8 @@ namespace Revature.Complex.Tests.LibTests
     [Fact]
     public void AmenityTest()
     {
-      Guid aId = Guid.NewGuid();
-      Logic.Amenity amenity = new Logic.Amenity
+      var aId = Guid.NewGuid();
+      var amenity = new Logic.Amenity
       {
         AmenityId = aId,
         AmenityType = "fridge",
@@ -33,11 +31,11 @@ namespace Revature.Complex.Tests.LibTests
     [Fact]
     public void AmenityComplexTest()
     {
-      Guid acId1 = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid cId1 = Guid.NewGuid();
+      var acId1 = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var cId1 = Guid.NewGuid();
 
-      Logic.AmenityComplex ac = new Logic.AmenityComplex
+      var ac = new Logic.AmenityComplex
       {
         AmenityComplexId = acId1,
         AmenityId = amId,
@@ -55,11 +53,11 @@ namespace Revature.Complex.Tests.LibTests
     [Fact]
     public void AmenityRoomTest()
     {
-      Guid arId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid rId = Guid.NewGuid();
+      var arId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var rId = Guid.NewGuid();
 
-      Logic.AmenityRoom ar = new Logic.AmenityRoom
+      var ar = new Logic.AmenityRoom
       {
         AmenityRoomId = arId,
         AmenityId = amId,
@@ -77,11 +75,11 @@ namespace Revature.Complex.Tests.LibTests
     [Fact]
     public void ComplexTest()
     {
-      Guid cId = Guid.NewGuid();
-      Guid aId = Guid.NewGuid();
-      Guid pId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var pId = Guid.NewGuid();
 
-      Logic.Complex complex = new Logic.Complex
+      var complex = new Logic.Complex
       {
         ComplexId = cId,
         AddressId = aId,

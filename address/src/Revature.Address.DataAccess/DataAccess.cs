@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Revature.Address.DataAccess.Entities;
 using Revature.Address.DataAccess.Interfaces;
 using Revature.Address.Lib.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.Extensions.Logging;
 
 namespace Revature.Address.DataAccess
 {
@@ -24,12 +24,12 @@ namespace Revature.Address.DataAccess
     /// constructor for the project0 database access
     /// </summary>
     /// <param name="context">Dbcontext for accessing the database</param>
-    public DataAccess(AddressDbContext context, IMapper mapper)
+    public DataAccess(AddressDbContext context, IMapper mapper, ILogger<DataAccess> logger)
     {
       _context = context ?? throw new ArgumentNullException(nameof(context));
       _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+      _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
-
 
     /// <summary>
     /// Checks if address already exists in database,
@@ -41,7 +41,7 @@ namespace Revature.Address.DataAccess
     {
       try
       {
-        Lib.Address newAddress = (await GetAddressAsync(address: address)).FirstOrDefault();
+        var newAddress = (await GetAddressAsync(address: address)).FirstOrDefault();
         if (newAddress == null)
         {
           await _context.AddAsync(_mapper.MapAddress(address));
@@ -49,7 +49,7 @@ namespace Revature.Address.DataAccess
       }
       catch (Exception ex)
       {
-        _logger.LogError("{0}",ex);
+        _logger.LogError("{0}", ex);
         _logger.LogError($"Address Id: {address.Id} failed to add to database");
         return false;
       }
@@ -62,9 +62,9 @@ namespace Revature.Address.DataAccess
     /// <param name="id"></param>
     /// <param name="address"></param>
     /// <returns>Returns an address</returns>
-    public async Task<ICollection<Lib.Address>> GetAddressAsync(Guid? id = null, Lib.Address? address = null)
+    public async Task<ICollection<Lib.Address>> GetAddressAsync(Guid? id = null, Lib.Address address = null)
     {
-      List<Entities.Address> addresses = await _context.Addresses.AsNoTracking().ToListAsync();
+      var addresses = await _context.Addresses.AsNoTracking().ToListAsync();
 
       if (id != null)
         addresses = addresses.Where(a => a.Id == id).ToList();

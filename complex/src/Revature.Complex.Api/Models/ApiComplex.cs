@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Api.Models
@@ -21,6 +19,6 @@ namespace Revature.Complex.Api.Models
     public string ComplexName { get; set; }
     [StringLength(20)]
     public string ContactNumber { get; set; }
-    public List<Amenity> ComplexAmentiy { get; set; }
+    public List<Amenity> ComplexAmenity { get; set; }
   }
 }

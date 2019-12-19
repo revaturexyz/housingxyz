@@ -1,5 +1,5 @@
-using Revature.Tenant.DataAccess;
 using System;
+using Revature.Tenant.DataAccess;
 using Xunit;
 
 namespace Revature.Tenant.Tests.DataTests
@@ -14,7 +14,7 @@ namespace Revature.Tenant.Tests.DataTests
     [Fact]
     public void LibTenantToDbTenantTest()
     {
-      Lib.Models.Tenant tenant = new Lib.Models.Tenant
+      var tenant = new Lib.Models.Tenant
       {
         Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         Email = "joemo@web.com",
@@ -45,7 +45,7 @@ namespace Revature.Tenant.Tests.DataTests
       };
       tenant.Batch.SetStartAndEndDate(DateTime.MinValue, DateTime.Now);
 
-      DataAccess.Entities.Tenant tenants = mapper.MapTenant(tenant);
+      var tenants = mapper.MapTenant(tenant);
       Assert.Equal(tenant.Id, tenants.Id);
       Assert.Equal(tenant.Email, tenants.Email);
       Assert.Equal(tenant.FirstName, tenants.FirstName);
@@ -63,7 +63,7 @@ namespace Revature.Tenant.Tests.DataTests
     [Fact]
     public void DbTenantToLibTenantTest()
     {
-      DataAccess.Entities.Tenant tenants = new DataAccess.Entities.Tenant
+      var tenants = new DataAccess.Entities.Tenant
       {
         Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
         Email = "joemo@web.com",
@@ -95,7 +95,7 @@ namespace Revature.Tenant.Tests.DataTests
         }
       };
 
-      Lib.Models.Tenant tenant = mapper.MapTenant(tenants);
+      var tenant = mapper.MapTenant(tenants);
       Assert.Equal(tenants.Id, tenant.Id);
       Assert.Equal(tenants.Email, tenant.Email);
       Assert.Equal(tenants.FirstName, tenant.FirstName);
@@ -113,7 +113,7 @@ namespace Revature.Tenant.Tests.DataTests
     [Fact]
     public void LibCarToDbCarTest()
     {
-      Lib.Models.Car car = new Lib.Models.Car
+      var car = new Lib.Models.Car
       {
         Id = 1,
         Make = "Toyota",
@@ -125,7 +125,7 @@ namespace Revature.Tenant.Tests.DataTests
 
       };
 
-      DataAccess.Entities.Car cars = mapper.MapCar(car);
+      var cars = mapper.MapCar(car);
       Assert.Equal(car.Id, cars.Id);
       Assert.Equal(car.LicensePlate, cars.LicensePlate);
       Assert.Equal(car.Make, cars.Make);
@@ -141,7 +141,7 @@ namespace Revature.Tenant.Tests.DataTests
     [Fact]
     public void DbCarToLibCarTest()
     {
-      DataAccess.Entities.Car cars = new DataAccess.Entities.Car
+      var cars = new DataAccess.Entities.Car
       {
         Id = 1,
         Make = "Toyota",
@@ -152,7 +152,7 @@ namespace Revature.Tenant.Tests.DataTests
         State = "TX"
       };
 
-      Lib.Models.Car car = mapper.MapCar(cars);
+      var car = mapper.MapCar(cars);
       Assert.Equal(cars.Id, car.Id);
       Assert.Equal(cars.LicensePlate, car.LicensePlate);
       Assert.Equal(cars.Make, car.Make);

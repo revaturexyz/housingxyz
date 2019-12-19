@@ -44,7 +44,7 @@ describe('ManageComplexComponent', () => {
         ShowRoomComponent
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,13 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Revature.Tenant.Api.Controllers;
 using Revature.Tenant.Api.ServiceBus;
 using Revature.Tenant.Lib.Interface;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Revature.Tenant.Tests.ApiTests.ControllerTests

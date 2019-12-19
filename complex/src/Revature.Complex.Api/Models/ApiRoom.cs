@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace Revature.Complex.Api.Models
@@ -17,7 +15,6 @@ namespace Revature.Complex.Api.Models
     [Required]
     public string RoomNumber { get; set; }
     public Guid ComplexId { get; set; }
-    public string Gender { get; set; }
     [Range(1, 10)]
     public int NumberOfBeds { get; set; }
     public List<ApiAmenity> Amenities { get; set; }

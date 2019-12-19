@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Revature.Account.DataAccess.Repositories;
-using System;
 using Xunit;
 
 namespace Revature.Account.Tests.Repository_Tests
@@ -15,18 +14,18 @@ namespace Revature.Account.Tests.Repository_Tests
     public async void GetCoordinatorByIdTest()
     {
       // Arrange
-      TestHelper helper = new TestHelper();
-      Mapper mapper = new Mapper();
+      var helper = new TestHelper();
+      var mapper = new Mapper();
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("GetCoordinatorByIdTest")
-          .Options;
+        .UseInMemoryDatabase("GetCoordinatorByIdTest")
+        .Options;
       using var arrangeContext = new AccountDbContext(options);
       var testCoordinator = helper.Coordinators[0];
       var testId = testCoordinator.CoordinatorId;
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(testCoordinator));
       arrangeContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
-      var repo = new GenericRepository(actContext);
+      var repo = new GenericRepository(actContext, new Mapper());
 
       // Act
       var result = await repo.GetCoordinatorAccountByIdAsync(testId);
@@ -34,7 +33,5 @@ namespace Revature.Account.Tests.Repository_Tests
       // Assert
       Assert.Equal(testId, result.CoordinatorId);
     }
-
-
   }
 }

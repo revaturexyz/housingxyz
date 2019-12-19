@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Revature.Complex.DataAccess;
 using Xunit;
 using Entity = Revature.Complex.DataAccess.Entities;
-using Revature.Complex.DataAccess;
 using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Tests.DataTests
@@ -16,12 +14,12 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void ComplextoETest()
     {
-      Guid cId = Guid.NewGuid();
-      Guid aId = Guid.NewGuid();
-      Guid pId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
+      var cId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var pId = Guid.NewGuid();
+      var mapper = new Mapper();
 
-      Logic.Complex c = new Logic.Complex
+      var c = new Logic.Complex
       {
         ComplexId = cId,
         AddressId = aId,
@@ -30,7 +28,7 @@ namespace Revature.Complex.Tests.DataTests
         ContactNumber = "(123)456-7890"
       };
 
-      Entity.Complex ce = mapper.MapComplextoE(c);
+      var ce = mapper.MapComplextoE(c);
 
       Assert.Equal(cId, ce.ComplexId);
       Assert.Equal(aId, ce.AddressId);
@@ -45,12 +43,12 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void EtoComplexTest()
     {
-      Guid cId = Guid.NewGuid();
-      Guid aId = Guid.NewGuid();
-      Guid pId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
+      var cId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var pId = Guid.NewGuid();
+      var mapper = new Mapper();
 
-      Entity.Complex c = new Entity.Complex
+      var c = new Entity.Complex
       {
         ComplexId = cId,
         AddressId = aId,
@@ -59,7 +57,7 @@ namespace Revature.Complex.Tests.DataTests
         ContactNumber = "(123)456-7890"
       };
 
-      Logic.Complex cl = mapper.MapEtoComplex(c);
+      var cl = mapper.MapEtoComplex(c);
 
       Assert.Equal(cId, cl.ComplexId);
       Assert.Equal(aId, cl.AddressId);
@@ -74,19 +72,19 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityRoomtoETest()
     {
-      Guid arId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid rId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
+      var arId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var rId = Guid.NewGuid();
+      var mapper = new Mapper();
 
-      Logic.AmenityRoom ar = new Logic.AmenityRoom
+      var ar = new Logic.AmenityRoom
       {
         AmenityRoomId = arId,
         AmenityId = amId,
         RoomId = rId
       };
 
-      Entity.AmenityRoom eAr = mapper.MapAmenityRoomtoE(ar);
+      var eAr = mapper.MapAmenityRoomtoE(ar);
 
       Assert.Equal(arId, eAr.AmenityRoomId);
       Assert.Equal(amId, eAr.AmenityId);
@@ -99,19 +97,19 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void EtoAmenityRoom()
     {
-      Guid arId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid rId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
+      var arId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var rId = Guid.NewGuid();
+      var mapper = new Mapper();
 
-      Entity.AmenityRoom ar = new Entity.AmenityRoom
+      var ar = new Entity.AmenityRoom
       {
         AmenityRoomId = arId,
         AmenityId = amId,
         RoomId = rId
       };
 
-      Logic.AmenityRoom lAr = mapper.MapEtoAmenityRoom(ar);
+      var lAr = mapper.MapEtoAmenityRoom(ar);
 
       Assert.Equal(arId, lAr.AmenityRoomId);
       Assert.Equal(amId, lAr.AmenityId);
@@ -124,19 +122,19 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenityComplextoETest()
     {
-      Guid acId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid cId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
+      var acId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var mapper = new Mapper();
 
-      Logic.AmenityComplex ac = new Logic.AmenityComplex
+      var ac = new Logic.AmenityComplex
       {
         AmenityComplexId = acId,
         AmenityId = amId,
         ComplexId = cId
       };
 
-      Entity.AmenityComplex eAc = mapper.MapAmenityComplextoE(ac);
+      var eAc = mapper.MapAmenityComplextoE(ac);
 
       Assert.Equal(acId, eAc.AmenityComplexId);
       Assert.Equal(amId, eAc.AmenityId);
@@ -149,19 +147,19 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void EtoAmenityComplexTest()
     {
-      Guid acId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      Guid cId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
+      var acId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var mapper = new Mapper();
 
-      Entity.AmenityComplex ac = new Entity.AmenityComplex
+      var ac = new Entity.AmenityComplex
       {
         AmenityComplexId = acId,
         AmenityId = amId,
         ComplexId = cId
       };
 
-      Logic.AmenityComplex lAc = mapper.MapEtoAmenityComplex(ac);
+      var lAc = mapper.MapEtoAmenityComplex(ac);
 
       Assert.Equal(acId, lAc.AmenityComplexId);
       Assert.Equal(amId, lAc.AmenityId);
@@ -174,16 +172,16 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void AmenitytoETest()
     {
-      Guid amId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
-      Logic.Amenity a = new Logic.Amenity
+      var amId = Guid.NewGuid();
+      var mapper = new Mapper();
+      var a = new Logic.Amenity
       {
         AmenityId = amId,
         AmenityType = "Fridge",
         Description = "To freeze items"
       };
 
-      Entity.Amenity ea = mapper.MapAmenitytoE(a);
+      var ea = mapper.MapAmenitytoE(a);
 
       Assert.Equal(amId, ea.AmenityId);
       Assert.Equal("Fridge", ea.AmenityType);
@@ -196,16 +194,16 @@ namespace Revature.Complex.Tests.DataTests
     [Fact]
     public void EtoAmenityTest()
     {
-      Guid amId = Guid.NewGuid();
-      Mapper mapper = new Mapper();
-      Entity.Amenity a = new Entity.Amenity
+      var amId = Guid.NewGuid();
+      var mapper = new Mapper();
+      var a = new Entity.Amenity
       {
         AmenityId = amId,
         AmenityType = "Fridge",
         Description = "To freeze items"
       };
 
-      Logic.Amenity la = mapper.MapEtoAmenity(a);
+      var la = mapper.MapEtoAmenity(a);
 
       Assert.Equal(amId, la.AmenityId);
       Assert.Equal("Fridge", la.AmenityType);

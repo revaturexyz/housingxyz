@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PostTenant } from 'src/interfaces/postTenant';
+import { PostTenant } from 'src/interfaces/post-tenant';
 import { Tenant } from 'src/interfaces/tenant';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Batch } from 'src/interfaces/batch';
-import { Car } from 'src/interfaces/car';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +21,7 @@ export class TenantService {
     private httpBus: HttpClient
   ) {
     this.httpOptions = {
-      headers: new HttpHeaders({
-
-      })
+      headers: new HttpHeaders({})
     };
   }
 

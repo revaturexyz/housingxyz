@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Revature.Room.DataAccess.Entities
 {
@@ -87,7 +87,7 @@ namespace Revature.Room.DataAccess.Entities
             ComplexId = Guid.Parse("b5e050aa-6bfc-46ad-9a69-90b1f99ed606"),
             NumberOfBeds = 4,
             RoomNumber = "2428B",
-            NumberOfOccupants = 2
+            NumberOfOccupants = 0
           },
           new
           {

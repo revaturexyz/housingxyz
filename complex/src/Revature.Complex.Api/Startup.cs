@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Logging;
-using Revature.Complex.Lib.Interface;
 using Revature.Complex.Api.Services;
-using Revature.Complex.DataAccess.Repository;
 using Revature.Complex.DataAccess;
 using Revature.Complex.DataAccess.Entities;
-using Microsoft.EntityFrameworkCore;
+using Revature.Complex.DataAccess.Repository;
+using Revature.Complex.Lib.Interface;
 using Serilog;
 
 namespace Revature.Complex.Api
@@ -42,7 +41,12 @@ namespace Revature.Complex.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net",
+                              "http://192.168.99.100:10080",
+                              "https://192.168.99.100:10080",
+                              "http://192.168.99.100:13080",
+                              "https://192.168.99.100:13080")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -54,12 +58,11 @@ namespace Revature.Complex.Api
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Revature Complex", Version = "v1" });
       });
 
-      services.AddDbContext<ComplexDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ComplexDb")));
+      services.AddDbContext<ComplexDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString(ConnectionStringName)));
 
       services.AddScoped<IRepository, Repository>();
-      services.AddScoped<Mapper>();
+      services.AddScoped<IMapper, Mapper>();
       services.AddHostedService<RoomServiceReceiver>();
-      services.AddScoped<IAddressService, AddressServiceSender>();
       services.AddScoped<IRoomServiceSender, RoomServiceSender>();
 
       services.AddControllers();
@@ -83,7 +86,7 @@ namespace Revature.Complex.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Complex V1");
       });
 
       app.UseRouting();

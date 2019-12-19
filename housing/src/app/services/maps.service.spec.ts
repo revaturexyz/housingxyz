@@ -1,3 +1,4 @@
+/*
 import { TestBed, getTestBed, async } from '@angular/core/testing';
 
 import { MapsService } from './maps.service';
@@ -6,7 +7,6 @@ import { Address } from '../../interfaces/address';
 import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent';
 import { environment } from 'src/environments/environment';
 
-/*
 const newAdd: Address = TestServiceData.dummyAddress;
 const livAdd: Address = TestServiceData.livPlusAddress;
 const utaAdd: Address = TestServiceData.UTA;
