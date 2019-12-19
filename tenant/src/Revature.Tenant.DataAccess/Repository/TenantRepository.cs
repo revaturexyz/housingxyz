@@ -1,19 +1,17 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Revature.Tenant.DataAccess.Entities;
 using Revature.Tenant.Lib.Interface;
-using Revature.Tenant.Lib.Models;
-using Microsoft.Extensions.Logging;
 
 namespace Revature.Tenant.DataAccess.Repository
 {
   /// <summary>
   /// A repository for managing data access for tenant onjects and their cars.
   /// </summary>
-  public class TenantRepository : ITenantRepository 
+  public class TenantRepository : ITenantRepository
   {
     private readonly TenantContext _context;
     private readonly IMapper _mapper;
@@ -35,7 +33,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="tenant">The Tenant</param>
     public async Task AddAsync(Lib.Models.Tenant tenant)
     {
-      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
+      var newTenant = _mapper.MapTenant(tenant);
       await _context.Tenant.AddAsync(newTenant);
     }
 
@@ -45,11 +43,11 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="tenant">The Tenant</param>
     public void Put(Lib.Models.Tenant tenant)
     {
-      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
+      var newTenant = _mapper.MapTenant(tenant);
       _context.Tenant.Update(newTenant);
       if (tenant.Car != null)
       {
-        Entities.Car newCar = _mapper.MapCar(tenant.Car);
+        var newCar = _mapper.MapCar(tenant.Car);
         _context.Car.Update(newCar);
       }
     }
@@ -61,7 +59,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>A tenant, including their Car and Batch, if applicable</returns>
     public async Task<Lib.Models.Tenant> GetByIdAsync(Guid id)
     {
-      Entities.Tenant tenant = await _context.Tenant
+      var tenant = await _context.Tenant
         .Include(t => t.Car)
         .Include(t => t.Batch)
         .AsNoTracking()
@@ -72,7 +70,7 @@ namespace Revature.Tenant.DataAccess.Repository
         throw new ArgumentNullException($"Could not find ID: {id}");
       }
 
-      return _mapper.MapTenant((tenant));
+      return _mapper.MapTenant(tenant);
     }
 
     /// <summary>
@@ -86,15 +84,15 @@ namespace Revature.Tenant.DataAccess.Repository
         .Include(t => t.Batch)
         .AsNoTracking();
 
-      if (firstName != null && firstName != "")
+      if (string.IsNullOrEmpty(firstName))
       {
         tenants = tenants.Where(t => t.FirstName == firstName);
       }
-      if (lastName != null && lastName != "")
+      if (string.IsNullOrEmpty(lastName))
       {
         tenants = tenants.Where(t => t.LastName == lastName);
       }
-      if (gender != null && gender != "")
+      if (string.IsNullOrEmpty(gender))
       {
         tenants = tenants.Where(t => t.Gender == gender);
       }
@@ -102,7 +100,7 @@ namespace Revature.Tenant.DataAccess.Repository
       {
         tenants = tenants.Where(t => t.TrainingCenter == trainingCenter);
       }
-      
+
       return (await tenants.ToListAsync()).Select(_mapper.MapTenant).ToList();
     }
 
@@ -127,7 +125,7 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="id">The ID of the tenant</param>
     public async Task DeleteByIdAsync(Guid id)
     {
-      Entities.Tenant tenant = await _context.Tenant.FindAsync(id);
+      var tenant = await _context.Tenant.FindAsync(id);
 
       _context.Remove(tenant);
     }
@@ -138,14 +136,14 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <param name="tenant">The tenant with changed values</param>
     public async Task UpdateAsync(Lib.Models.Tenant tenant)
     {
-      Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenant.Id);
+      var currentTenant = await _context.Tenant.FindAsync(tenant.Id);
 
       if (currentTenant == null)
       {
         throw new InvalidOperationException("Invalid Tenant Id");
       }
 
-      Entities.Tenant newTenant = _mapper.MapTenant(tenant);
+      var newTenant = _mapper.MapTenant(tenant);
       _context.Entry(currentTenant).CurrentValues.SetValues(newTenant);
     }
 
@@ -156,12 +154,12 @@ namespace Revature.Tenant.DataAccess.Repository
     /// <returns>True if Tenant has Car, returns false if the Tenant has no car</returns>
     public async Task<bool> HasCarAsync(Guid tenantId)
     {
-      Entities.Tenant currentTenant = await _context.Tenant.FindAsync(tenantId);
+      var currentTenant = await _context.Tenant.FindAsync(tenantId);
       if (currentTenant == null)
       {
         throw new InvalidOperationException($"Invalid Tenant Id {tenantId}");
       }
-      else if (currentTenant.CarId == null || currentTenant.CarId ==0)
+      else if (currentTenant.CarId == null || currentTenant.CarId == 0)
       {
         return false;
       }

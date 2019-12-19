@@ -1,7 +1,7 @@
-using Revature.Account.Lib.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Revature.Account.Lib.Model;
 
 namespace Revature.Account.Lib.Interface
 {

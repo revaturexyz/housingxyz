@@ -1,3 +1,4 @@
+/*
 import { async, inject, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
@@ -7,7 +8,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { EditProviderComponent } from './edit-provider.component';
 
-/*
 describe('EditProviderComponent', () => {
   let component: EditProviderComponent;
   let fixture: ComponentFixture<EditProviderComponent>;

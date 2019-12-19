@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 
 @Component({
   selector: 'dev-root',
@@ -10,7 +9,7 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   title = 'housing';
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
     this.auth.localAuthSetup();

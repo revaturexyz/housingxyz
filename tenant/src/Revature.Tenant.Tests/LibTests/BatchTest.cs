@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Revature.Tenant.Tests.LibTests
@@ -31,7 +29,7 @@ namespace Revature.Tenant.Tests.LibTests
     [Fact]
     public void Batch_Training_Center_Empty()
     {
-      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Batch{ TrainingCenter = Guid.Empty });
+      Assert.ThrowsAny<ArgumentException>(() => new Lib.Models.Batch { TrainingCenter = Guid.Empty });
     }
 
   }

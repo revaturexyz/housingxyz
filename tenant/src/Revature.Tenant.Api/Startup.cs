@@ -41,7 +41,8 @@ namespace Revature.Tenant.Api
                               "http://housing.revature.xyz",
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
-                              "https://housingdev.revature.xyz")
+                              "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -77,7 +78,7 @@ namespace Revature.Tenant.Api
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Tenant V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Revature Tenant V1");
       });
 
       app.UseRouting();

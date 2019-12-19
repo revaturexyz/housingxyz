@@ -5,7 +5,7 @@ namespace Revature.Account.DataAccess
   /// <summary>
   /// Maps between the business logic and data access layers.
   /// </summary>
-  public class Mapper
+  public class Mapper : IMapper
   {
     /// <summary>
     /// Maps db Provider to logic Provider. Maps related coordinator and Status as well.

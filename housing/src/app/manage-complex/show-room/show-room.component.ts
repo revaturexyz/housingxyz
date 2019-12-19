@@ -11,8 +11,8 @@ import { Complex } from 'src/interfaces/complex';
 })
 export class ShowRoomComponent implements OnInit {
   // Seeded data for view testing
- // seededGenderTypes = TestServiceData.dummyGender;
- // seededRoomTypes = TestServiceData.dummyRoomTypeList;
+  // seededGenderTypes = TestServiceData.dummyGender;
+  // seededRoomTypes = TestServiceData.dummyRoomTypeList;
   // For all select form inputs to show invalid on validation checks.
   public selectOptionRoomTypeInvalid = '';
   public selectOptionGenderInvalid = '';
@@ -26,6 +26,7 @@ export class ShowRoomComponent implements OnInit {
 
   ngOnInit() {
   }
+
   // Button handler for when user clicks back button
   handleBackButton() {
     this.modeOutput.emit('details');

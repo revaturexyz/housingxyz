@@ -1,9 +1,8 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Revature.Account.DataAccess;
 using Revature.Account.DataAccess.Repositories;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Revature.Account.Tests.Repository_Tests
@@ -20,12 +19,12 @@ namespace Revature.Account.Tests.Repository_Tests
     public async void GetNotificationByIdAsyncTest()
     {
       // Arrange
-      TestHelper helper = new TestHelper();
-      Mapper mapper = new Mapper();
+      var helper = new TestHelper();
+      var mapper = new Mapper();
 
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("GetNotificationByProviderIdTest")
-          .Options;
+        .UseInMemoryDatabase("GetNotificationByProviderIdTest")
+        .Options;
       using var arrangeContext = new AccountDbContext(options);
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
@@ -33,7 +32,7 @@ namespace Revature.Account.Tests.Repository_Tests
       arrangeContext.Notification.Add(mapper.MapNotification(helper.Notifications[0]));
       arrangeContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
-      var repo = new GenericRepository(actContext);
+      var repo = new GenericRepository(actContext, new Mapper());
 
       // Act
       var result = await repo.GetNotificationByIdAsync(helper.Notifications[0].NotificationId);
@@ -49,16 +48,16 @@ namespace Revature.Account.Tests.Repository_Tests
     public void AddNewNotificationTest()
     {
       // Arrange
-      TestHelper helper = new TestHelper();
-      Mapper mapper = new Mapper();
+      var helper = new TestHelper();
+      var mapper = new Mapper();
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("AddNewNotificationTest")
-          .Options;
+        .UseInMemoryDatabase("AddNewNotificationTest")
+        .Options;
       using var actContext = new AccountDbContext(options);
       using var arrangeContext = new AccountDbContext(options);
-      var actRepo = new GenericRepository(actContext);
+      var actRepo = new GenericRepository(actContext, new Mapper());
       var newNotification = helper.Notifications[0];
-      
+
       // Act
       actRepo.AddNotification(newNotification);
       actContext.SaveChanges();
@@ -77,17 +76,17 @@ namespace Revature.Account.Tests.Repository_Tests
     public async Task UpdateNotificationAccountTestAsync()
     {
       // Arrange
-      TestHelper helper = new TestHelper();
-      Mapper mapper = new Mapper();
+      var helper = new TestHelper();
+      var mapper = new Mapper();
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("UpdateNotificationAccountTestAsync")
-          .Options;
+        .UseInMemoryDatabase("UpdateNotificationAccountTestAsync")
+        .Options;
       using var arrangeContext = new AccountDbContext(options);
       arrangeContext.ProviderAccount.Add(mapper.MapProvider(helper.Providers[0]));
       arrangeContext.CoordinatorAccount.Add(mapper.MapCoordinator(helper.Coordinators[0]));
       arrangeContext.UpdateAction.Add(mapper.MapUpdateAction(helper.UpdateActions[0]));
       arrangeContext.Notification.Add(mapper.MapNotification(helper.Notifications[0]));
-      var repo = new GenericRepository(arrangeContext);
+      var repo = new GenericRepository(arrangeContext, new Mapper());
 
       // Act
       await repo.UpdateNotificationAsync(helper.Notifications[0]);
@@ -107,17 +106,17 @@ namespace Revature.Account.Tests.Repository_Tests
     public async Task DeleteNotificationTestAsync()
     {
       //Assemble
-      TestHelper helper = new TestHelper();
-      Mapper mapper = new Mapper();
+      var helper = new TestHelper();
+      var mapper = new Mapper();
       var options = new DbContextOptionsBuilder<AccountDbContext>()
-          .UseInMemoryDatabase("DeleteNotificationTestAsync")
-          .Options;
+        .UseInMemoryDatabase("DeleteNotificationTestAsync")
+        .Options;
       using var assembleContext = new AccountDbContext(options);
       var deleteNotification = mapper.MapNotification(helper.Notifications[0]);
       assembleContext.Add(deleteNotification);
       assembleContext.SaveChanges();
       using var actContext = new AccountDbContext(options);
-      var repo = new GenericRepository(actContext);
+      var repo = new GenericRepository(actContext, new Mapper());
 
       // Act
       await repo.DeleteNotificationByIdAsync(deleteNotification.NotificationId);

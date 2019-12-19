@@ -22,14 +22,14 @@ hr {
   border-radius: 5px;
 }
 
-.account-type  {
+.account-type {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.account-type-holder  {
+.account-type-holder {
   white-space: nowrap;
   display: flex;
   flex-direction: row;
@@ -37,7 +37,7 @@ hr {
   align-items: center;
 }
 
-.account-type-header{
+.account-type-header {
   padding: 5px;
   font-size: 12px;
   font-style: italic;
@@ -46,7 +46,7 @@ hr {
   text-align: center;
 }
 
-.records-container{
+.records-container {
   overflow-y: scroll;
   max-height: 300px;
   min-height: 250px;
@@ -54,7 +54,7 @@ hr {
   padding-bottom: 3%;
 }
 
-.records-header{
+.records-header {
   padding: 3px 15px;
   font-size: 12px;
   font-style: italic;
@@ -64,19 +64,19 @@ hr {
   text-align: left;
 }
 
-.records-address{
+.records-address {
   border-bottom: 1px black solid;
   margin-bottom: 16px;
 }
 
-.citystatezip{
+.citystatezip {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.records-actions{
+.records-actions {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -93,13 +93,13 @@ hr {
   opacity: 0.7;
 }
 
-.notifications-header{
+.notifications-header {
   font-size: 10px;
   font-weight: bold;
   background-color: white;
   color: black;
   color: inherit;
   padding: 5px;
-  display:flex;
+  display: flex;
   flex-direction: row;
 }

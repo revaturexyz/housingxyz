@@ -8,24 +8,22 @@ import { TenantSearcherService } from '../services/tenant-searcher.service';
 
 
 describe('SearchTenantComponent', () => {
-  let component: SearchTenantComponent;
   let fixture: ComponentFixture<SearchTenantComponent>;
   const searchTenSpy = jasmine.createSpyObj('TenantSearcherService', ['GetTenants']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchTenantComponent ],
+      declarations: [SearchTenantComponent],
       imports: [FormsModule, HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule],
       providers: [
-        {provide: TenantSearcherService, useValue: searchTenSpy}
+        { provide: TenantSearcherService, useValue: searchTenSpy }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchTenantComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

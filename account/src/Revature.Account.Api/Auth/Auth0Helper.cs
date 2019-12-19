@@ -1,69 +1,37 @@
-using RestSharp;
-using System.Text.Json;
 using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Auth0.ManagementApi;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using RestSharp;
 
 namespace Revature.Account.Api
 {
   public class Auth0Helper
   {
-    private static string _domain;
-    private static string _audience;
-    private static string _clientId;
-    private static string _secret;
-    private static string _claimsDomain = "https://revature.com/";
-
     public static readonly string CoordinatorRole = "coordinator";
     public static readonly string UnapprovedProviderRole = "unapproved_provider";
     public static readonly string ApprovedProviderRole = "approved_provider";
 
+    private readonly ILogger _logger;
+
     public ManagementApiClient Client { get; private set; }
     public string Email { get; private set; }
-    public string[] Roles { get; private set; }
+    public IEnumerable<string> Roles { get; private set; }
     public JsonElement AppMetadata { get; private set; }
 
-    public static string Domain
-    {
-      get
-      {
-        return _domain;
-      }
-    }
+    public static string Domain { get; private set; }
 
-    public static string Audience
-    {
-      get
-      {
-        return _audience;
-      }
-    }
+    public static string Audience { get; private set; }
 
-    public static string ClientId
-    {
-      get
-      {
-        return _clientId;
-      }
-    }
+    public static string ClientId { get; private set; }
 
-    public static string Secret
-    {
-      get
-      {
-        return _secret;
-      }
-    }
+    public static string Secret { get; private set; }
 
-    public static string ClaimsDomain
-    {
-      get
-      {
-        return _claimsDomain;
-      }
-    }
+    public static string ClaimsDomain { get; } = "https://revature.com/";
 
     /// <summary>
     /// Function to set the secret values, intended for use in Startup.
@@ -74,17 +42,17 @@ namespace Revature.Account.Api
     /// <param name="secret"></param>
     public static void SetSecretValues(string domain, string audience, string clientId, string secret)
     {
-      _domain = domain;
-      _audience = audience;
-      _clientId = clientId;
-      _secret = secret;
+      Domain = domain;
+      Audience = audience;
+      ClientId = clientId;
+      Secret = secret;
     }
 
-    public Auth0Helper(HttpRequest request)
+    public Auth0Helper(HttpRequest request, ILogger logger)
     {
       string jwt = request.Headers["Authorization"];
       // Remove 'Bearer '
-      jwt = jwt.Substring(7, jwt.Length - 7);
+      jwt = jwt[7..];
       var handler = new JwtSecurityTokenHandler();
       var token = handler.ReadJwtToken(jwt);
 
@@ -92,6 +60,7 @@ namespace Revature.Account.Api
       Roles = JsonSerializer.Deserialize<string[]>(token.Payload[ClaimsDomain + "roles"].ToString());
       // Will only need the id field from the app metadata
       AppMetadata = JsonSerializer.Deserialize<dynamic>(token.Payload[ClaimsDomain + "app_metadata"].ToString());
+      _logger = logger;
     }
 
     /// <summary>
@@ -102,30 +71,39 @@ namespace Revature.Account.Api
     /// <returns></returns>
     public bool ConnectManagementClient()
     {
+      var client = new RestClient($"https://{Domain}/oauth/token");
+      var request = new RestRequest(Method.POST);
+
+      request.AddHeader("content-type", "application/json");
+      request.AddParameter("application/json", $"{{\"client_id\":\"{ClientId}\",\"client_secret\":\"{Secret}\",\"audience\":\"https://{Domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
+
+      var response = client.Execute(request);
+
+      if (response.ErrorException != null)
+      {
+        _logger.LogError(response.ErrorException, "Error while making Auth0 request");
+        return false;
+      }
       try
       {
-        var client = new RestClient($"https://{_domain}/oauth/token");
-        var request = new RestRequest(Method.POST);
-
-        request.AddHeader("content-type", "application/json");
-        request.AddParameter("application/json", $"{{\"client_id\":\"{ClientId}\",\"client_secret\":\"{Secret}\",\"audience\":\"https://{Domain}/api/v2/\",\"grant_type\":\"client_credentials\"}}", ParameterType.RequestBody);
-
-        IRestResponse response = client.Execute(request);
-
         var deserializedResponse = JsonSerializer.Deserialize<JsonElement>(response.Content);
         var managementToken = deserializedResponse.GetProperty("access_token").GetString();
-
-        Client = new ManagementApiClient(managementToken, _domain);
-
-        if (Client != null)
-          return true;
-
-        return false;
+        Client = new ManagementApiClient(managementToken, Domain);
+        return true;
       }
-      catch
+      catch (JsonException ex)
       {
-        return false;
+        _logger.LogError(ex, "Error while processing Auth0 response");
       }
+      catch (InvalidOperationException ex)
+      {
+        _logger.LogError(ex, "Error while processing Auth0 response");
+      }
+      catch (KeyNotFoundException ex)
+      {
+        _logger.LogError(ex, "Error while processing Auth0 response");
+      }
+      return false;
     }
 
     /// <summary>
@@ -168,9 +146,8 @@ namespace Revature.Account.Api
     /// <returns></returns>
     public async Task UpdateMetadataWithIdAsync(string authUserId, Guid newId)
     {
-      JsonElement currentMetadataId;
-      bool elementExists = AppMetadata.TryGetProperty("id", out currentMetadataId);
-      if ( !elementExists || currentMetadataId.GetString() != newId.ToString())
+      var elementExists = AppMetadata.TryGetProperty("id", out var currentMetadataId);
+      if (!elementExists || currentMetadataId.GetString() != newId.ToString())
       {
         dynamic newMetadata = new { id = newId };
 

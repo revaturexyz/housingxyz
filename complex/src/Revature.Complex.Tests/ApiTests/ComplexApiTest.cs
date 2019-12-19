@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
-using Logic = Revature.Complex.Lib.Models;
-using Revature.Complex.Lib.Interface;
-using Xunit;
 using Revature.Complex.Api.Controllers;
 using Revature.Complex.Api.Models;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
 using Revature.Complex.Api.Services;
+using Revature.Complex.Lib.Interface;
+using Xunit;
+using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Tests.ApiTests
 {
@@ -22,7 +21,7 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void GetAllComplexAsyncTest()
     {
-      Logic.Complex complex = new Logic.Complex
+      var complex = new Logic.Complex
       {
         ComplexId = Guid.NewGuid(),
         AddressId = Guid.NewGuid(),
@@ -65,6 +64,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       Logic.Complex res = new Logic.Complex();
+
       _complexRepo.Setup(r => r.ReadComplexByIdAsync(complexId))
           .Returns(Task.FromResult(res));
 
@@ -91,6 +91,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       Logic.Complex res = new Logic.Complex();
+
       _complexRepo.Setup(r => r.ReadComplexByNameAndNumberAsync(name, number))
           .Returns(Task.FromResult(res));
 
@@ -109,8 +110,8 @@ namespace Revature.Complex.Tests.ApiTests
     public async void GetComplexListByProviderIdAsyncTest()
     {
       //setup
-      Guid pId = Guid.NewGuid();
-      Logic.Complex complex = new Logic.Complex
+      var pId = Guid.NewGuid();
+      var complex = new Logic.Complex
       {
         ComplexId = Guid.NewGuid(),
         AddressId = Guid.NewGuid(),
@@ -124,6 +125,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       List<Logic.Complex> res = new List<Logic.Complex>
+
       {
         complex
       };
@@ -137,72 +139,6 @@ namespace Revature.Complex.Tests.ApiTests
       //assert
       Assert.IsAssignableFrom<ActionResult<IEnumerable<ApiComplex>>>(model);
     }
-
-    /// <summary>
-    /// This test is to test PostComplexAsync in Complex Api
-    ///// </summary>
-    //[Fact]
-    //public async void PostComplexAsyncTest()
-    //{
-    //  Guid cId = Guid.NewGuid();
-    //  Guid aId = Guid.NewGuid();
-    //  Guid pId = Guid.NewGuid();
-    //  Guid amId = Guid.NewGuid();
-    //  ApiComplexAddress address = new ApiComplexAddress
-    //  {
-    //    StreetAddress = "test ave",
-    //    City = "dallas",
-    //    State = "TX",
-    //    Country = "USA",
-    //    ZipCode = "76010"
-    //  };
-    //  Logic.Amenity amenity = new Logic.Amenity
-    //  {
-    //    AmenityId = amId,
-    //    AmenityType = "name",
-    //    Description = "description"
-    //  };
-    //  List<Logic.Amenity> amenities = new List<Logic.Amenity>
-    //  {
-    //    amenity
-    //  };
-    //  ApiComplex apiComplex = new ApiComplex
-    //  {
-    //    ComplexId = cId,
-    //    Address = address,
-    //    ProviderId = pId,
-    //    ComplexName = "Liv+",
-    //    ContactNumber = "1234567890",
-    //    ComplexAmenity = amenities
-    //  };
-    //  Logic.Complex complex = new Logic.Complex
-    //  {
-    //    ComplexId = cId,
-    //    AddressId = aId,
-    //    ProviderId = pId,
-    //    ComplexName = "Liv+",
-    //    ContactNumber = "1234567890"
-    //  };
-    //  Logic.AmenityComplex ac = new Logic.AmenityComplex
-    //  {
-    //    AmenityComplexId = Guid.NewGuid(),
-    //    AmenityId = amId,
-    //    ComplexId = cId
-    //  };
-    //  Mock<IRepository> _complexRepo = new Mock<IRepository>();
-    //  Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-    //  Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-    //  Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-    //  Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-    //  bool res = true;
-    //  _complexRepo.Setup(r => r.CreateComplexAsync(complex))
-    //      .Returns(Task.FromResult(res));
-    //  _complexRepo.Setup(p => p.CreateAmenityComplexAsync(ac))
-    //      .Returns(Task.FromResult(res));
-    //  _complexRepo.Setup(c => c.ReadAmenityListAsync())
-    //      .Returns(Task.FromResult(amenities));
-    //  ar.Setup(a => a.PostAddressAsync(address))
-    //      .Returns(Task.FromResult(address));
 
     //  //act
     //  var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
@@ -218,26 +154,26 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void PostRoomsAsyncTest()
     {
-      Guid amId = Guid.NewGuid();
-      Guid cId = Guid.NewGuid();
-      Guid rId = Guid.NewGuid();
-      ApiAmenity amenity = new ApiAmenity
+      var amId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var rId = Guid.NewGuid();
+      var amenity = new ApiAmenity
       {
         AmenityId = amId,
         AmenityType = "Pool",
         Description = "swimmming"
       };
-      List<ApiAmenity> amenities = new List<ApiAmenity>
+      var amenities = new List<ApiAmenity>
       {
         amenity
       };
-      Logic.AmenityRoom ar = new Logic.AmenityRoom
+      var ar = new Logic.AmenityRoom
       {
         AmenityRoomId = Guid.NewGuid(),
         AmenityId = amId,
         RoomId = rId
       };
-      ApiRoom room = new ApiRoom
+      var room = new ApiRoom
       {
         RoomId = rId,
         RoomNumber = "1234",
@@ -248,7 +184,7 @@ namespace Revature.Complex.Tests.ApiTests
         LeaseEnd = Convert.ToDateTime("2020/1/1"),
         Amenities = amenities
       };
-      List<ApiRoom> rooms = new List<ApiRoom>
+      var rooms = new List<ApiRoom>
       {
         room
       };
@@ -259,6 +195,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ara = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       bool res = true;
+
       _complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
           .Returns(Task.FromResult(res));
 
@@ -276,11 +213,11 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void PutComplexAsyncTest()
     {
-      Guid cId = Guid.NewGuid();
-      Guid aId = Guid.NewGuid();
-      Guid pId = Guid.NewGuid();
-      Guid amId = Guid.NewGuid();
-      ApiComplexAddress address = new ApiComplexAddress
+      var cId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var pId = Guid.NewGuid();
+      var amId = Guid.NewGuid();
+      var address = new ApiComplexAddress
       {
         AddressId = aId,
         StreetAddress = "test ave",
@@ -289,17 +226,17 @@ namespace Revature.Complex.Tests.ApiTests
         Country = "USA",
         ZipCode = "76010"
       };
-      Logic.Amenity amenity = new Logic.Amenity
+      var amenity = new Logic.Amenity
       {
         AmenityId = amId,
         AmenityType = "name",
         Description = "description"
       };
-      List<Logic.Amenity> amenities = new List<Logic.Amenity>
+      var amenities = new List<Logic.Amenity>
       {
         amenity
       };
-      ApiComplex apiComplex = new ApiComplex
+      var apiComplex = new ApiComplex
       {
         ComplexId = cId,
         Address = address,
@@ -308,7 +245,7 @@ namespace Revature.Complex.Tests.ApiTests
         ContactNumber = "1234567890",
         ComplexAmenity = amenities
       };
-      Logic.Complex complex = new Logic.Complex
+      var complex = new Logic.Complex
       {
         ComplexId = cId,
         AddressId = aId,
@@ -316,7 +253,7 @@ namespace Revature.Complex.Tests.ApiTests
         ComplexName = "Liv+",
         ContactNumber = "1234567890"
       };
-      Logic.AmenityComplex ac = new Logic.AmenityComplex
+      var ac = new Logic.AmenityComplex
       {
         AmenityComplexId = Guid.NewGuid(),
         AmenityId = amId,
@@ -328,6 +265,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       bool res = true;
+
       _complexRepo.Setup(r => r.DeleteAmenityComplexAsync(cId))
           .Returns(Task.FromResult(res));
       _complexRepo.Setup(r => r.UpdateComplexAsync(complex))
@@ -351,26 +289,26 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void PutRoomAsyncTest()
     {
-      Guid amId = Guid.NewGuid();
-      Guid cId = Guid.NewGuid();
-      Guid rId = Guid.NewGuid();
-      ApiAmenity amenity = new ApiAmenity
+      var amId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var rId = Guid.NewGuid();
+      var amenity = new ApiAmenity
       {
         AmenityId = amId,
         AmenityType = "Pool",
         Description = "swimmming"
       };
-      List<ApiAmenity> amenities = new List<ApiAmenity>
+      var amenities = new List<ApiAmenity>
       {
         amenity
       };
-      Logic.AmenityRoom ar = new Logic.AmenityRoom
+      var ar = new Logic.AmenityRoom
       {
         AmenityRoomId = Guid.NewGuid(),
         AmenityId = amId,
         RoomId = rId
       };
-      ApiRoom room = new ApiRoom
+      var room = new ApiRoom
       {
         RoomId = rId,
         RoomNumber = "1234",
@@ -387,6 +325,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ara = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       bool res = true;
+
       _complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
           .Returns(Task.FromResult(res));
       _complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
@@ -414,6 +353,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       bool res = true;
+
       _complexRepo.Setup(r => r.DeleteAmenityComplexAsync(cId))
           .Returns(Task.FromResult(res));
       _complexRepo.Setup(r => r.DeleteComplexAsync(cId))
@@ -433,12 +373,12 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void DeleteRoomAsyncTest()
     {
-      Guid rId = Guid.NewGuid();
-      ApiRoom room = new ApiRoom
+      var rId = Guid.NewGuid();
+      var room = new ApiRoom
       {
         RoomId = rId
       };
-      ApiRoomtoSend roomtoSend = new ApiRoomtoSend
+      var roomtoSend = new ApiRoomtoSend
       {
         RoomId = rId
       };
@@ -448,6 +388,7 @@ namespace Revature.Complex.Tests.ApiTests
       Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
       Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
       bool res = true;
+
       _complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
           .Returns(Task.FromResult(res));
       rss.Setup(r => r.SendRoomsMessages(roomtoSend));

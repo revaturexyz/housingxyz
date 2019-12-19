@@ -36,6 +36,7 @@ namespace Revature.Room.Api
                               "https://housing.revature.xyz",
                               "http://housingdev.revature.xyz",
                               "https://housingdev.revature.xyz",
+                              "https://housing-angular-dev.azurewebsites.net",
                               "https://192.168.99.100:10080",
                               "http://192.168.99.100:10080",
                               "http://192.168.99.100:13080",
@@ -54,7 +55,7 @@ namespace Revature.Room.Api
       services.AddDbContext<RoomServiceContext>(options => options.UseNpgsql(Configuration.GetConnectionString("RoomDb")));
 
       services.AddScoped<IRepository, Repository>();
-      services.AddScoped<IMapper, DBMapper>();
+      services.AddScoped<IMapper, DbMapper>();
       services.AddHostedService<ServiceBusConsumer>();
 
       services.AddScoped<IServiceBusSender, ServiceBusSender>();

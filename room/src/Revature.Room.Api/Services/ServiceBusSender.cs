@@ -1,10 +1,10 @@
-using Microsoft.Azure.ServiceBus;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Azure.ServiceBus;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace ServiceBusMessaging
 {
@@ -36,9 +36,9 @@ namespace ServiceBusMessaging
     /// <returns></returns>
     public async Task SendDeleteMessage(Guid roomToSend)
     {
-      string data = JsonSerializer.Serialize(roomToSend);
+      var data = JsonSerializer.Serialize(roomToSend);
 
-      Message message = new Message(Encoding.UTF8.GetBytes(data));
+      var message = new Message(Encoding.UTF8.GetBytes(data));
 
       _logger.LogInformation("ServiceBus sending delete message: ", data);
 

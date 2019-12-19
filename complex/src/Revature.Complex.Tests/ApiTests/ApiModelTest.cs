@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
 using Revature.Complex.Api.Models;
+using Xunit;
 
 namespace Revature.Complex.Tests.ApiTests
 {
@@ -14,8 +12,8 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public void ApiAmenityTest()
     {
-      Guid aId = Guid.NewGuid();
-      ApiAmenity amenity = new ApiAmenity
+      var aId = Guid.NewGuid();
+      var amenity = new ApiAmenity
       {
         AmenityId = aId,
         AmenityType = "Test",
@@ -33,10 +31,10 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public void ApiComplexAddressTest()
     {
-      Guid aId = Guid.NewGuid();
-      ApiComplexAddress address = new ApiComplexAddress
+      var aId = Guid.NewGuid();
+      var address = new ApiComplexAddress
       {
-        AddressId =aId,
+        AddressId = aId,
         StreetAddress = "123 test ave",
         City = "Dallas",
         State = "TX",
@@ -56,10 +54,10 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public void ApiComplexTest()
     {
-      Guid aId = Guid.NewGuid();
-      Guid pId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var pId = Guid.NewGuid();
 
-      ApiComplex complex = new ApiComplex
+      var complex = new ApiComplex
       {
         ComplexId = aId,
         ComplexName = "Test",
@@ -79,10 +77,10 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public void ApiRoomTest()
     {
-      Guid cId = Guid.NewGuid();
-      DateTime start = DateTime.Parse("2019/1/1");
-      DateTime end = DateTime.Parse("2020/1/1");
-      ApiRoom room = new ApiRoom
+      var cId = Guid.NewGuid();
+      var start = DateTime.Parse("2019/1/1");
+      var end = DateTime.Parse("2020/1/1");
+      var room = new ApiRoom
       {
         RoomNumber = "1234",
         ComplexId = cId,
@@ -106,11 +104,11 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public void ApiRoomtoSendTest()
     {
-      Guid rId = Guid.NewGuid();
-      Guid cId = Guid.NewGuid();
-      DateTime start = DateTime.Parse("2019/1/1");
-      DateTime end = DateTime.Parse("2020/1/1");
-      ApiRoomtoSend send = new ApiRoomtoSend
+      var rId = Guid.NewGuid();
+      var cId = Guid.NewGuid();
+      var start = DateTime.Parse("2019/1/1");
+      var end = DateTime.Parse("2020/1/1");
+      var send = new ApiRoomtoSend
       {
         RoomId = rId,
         RoomNumber = "1234",

@@ -33,22 +33,25 @@ export class EditRoomComponent implements OnInit {
   formRoom: Room;
 
   constructor() {
-   }
+  }
 
   ngOnInit() {
     // Populate default form values
     this.formRoom = this.targetRoom;
   }
+
   // Save edits and change mode back to details
   postEditRoom() {
     // Handle editing room to complex logic here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
+
   // Delete room from db and change mode to details
   deleteRoom() {
     // Handle delete room logic here
     this.modeOutput.emit('details'); // Sent to parent to change mode back to details
   }
+
   // Cancel all changes and change mode to details
   cancelEditRoom() {
     this.modeOutput.emit('details');

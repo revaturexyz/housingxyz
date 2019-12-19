@@ -1,10 +1,10 @@
+/*
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AmenityDialogueComponent } from './amenity-dialogue.component';
 import { Amenity } from 'src/interfaces/amenity';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule, MatRippleModule } from '@angular/material';
 
-/*
 describe('AmenityDialogueComponent', () => {
   let component: AmenityDialogueComponent;
   let fixture: ComponentFixture<AmenityDialogueComponent>;

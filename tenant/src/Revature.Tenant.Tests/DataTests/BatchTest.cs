@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using DatMod = Revature.Tenant.DataAccess.Entities;
 
@@ -17,9 +15,9 @@ namespace Revature.Tenant.Tests.DataTests
       //Arrange
       var batchId = 1;
       var batchCurriculum = "C#";
-      DateTime startDate = new DateTime(2019, 1, 5);
-      DateTime endDate = new DateTime(2019, 1, 5);
-      Guid trainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
+      var startDate = new DateTime(2019, 1, 5);
+      var endDate = new DateTime(2019, 1, 5);
+      var trainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d");
 
       //Act
       var apiBatch = new DatMod.Batch()

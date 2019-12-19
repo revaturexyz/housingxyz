@@ -1,18 +1,16 @@
 using System;
-using Xunit;
-using System.Threading.Tasks;
 using System.Linq;
-using Revature.Tenant.DataAccess.Repository;
-using Revature.Tenant.Tests.DataTests;
-using Revature.Tenant.DataAccess;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Revature.Tenant.Api;
 using Revature.Tenant.Api.Controllers;
 using Revature.Tenant.Api.Models;
-using Moq;
-using Microsoft.AspNetCore.Mvc;
-using Revature.Tenant.Lib.Interface;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using Revature.Tenant.Api;
+using Revature.Tenant.DataAccess;
+using Revature.Tenant.DataAccess.Repository;
+using Revature.Tenant.Tests.DataTests;
+using Xunit;
 
 namespace Revature.Tenant.Tests.ApiTests
 {
@@ -47,7 +45,7 @@ namespace Revature.Tenant.Tests.ApiTests
       // Arrange (create a moq repo and use it for the controller)
       var mockLogger = new Mock<ILogger<TenantController>>();
       var mockAddressService = new Mock<IAddressService>();
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
+      var mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
       // Act (get a Tenant with an id)
 
@@ -67,7 +65,7 @@ namespace Revature.Tenant.Tests.ApiTests
     public async Task GetAllBatchesByTCShouldGetAllByTCAsync()
     {
       //Arrange (create a moq repo and use it for the controller)
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
+      var mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
       var options = TestDbInitializer.InitializeDbOptions("GetAllBatchesByTCShouldGetAllByTCAsync");
       using var db = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
@@ -98,7 +96,7 @@ namespace Revature.Tenant.Tests.ApiTests
       // Arrange (create a moq repo and use it for the controller)
       var mockLogger = new Mock<ILogger<TenantController>>();
       var mockAddressService = new Mock<IAddressService>();
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
+      var mockRepo = ApiTestData.MockTenantRepo(ApiTestData.Tenants.ToList());
       mockRepo.Setup(r => r.AddAsync(It.IsAny<Lib.Models.Tenant>()));
       var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
 
@@ -133,7 +131,7 @@ namespace Revature.Tenant.Tests.ApiTests
     public async Task UpdateAsyncShouldReturnStatusCode204()
     {
       //Arrange (create a moq repo and use it for the controller)
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
+      var mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
       var options = TestDbInitializer.InitializeDbOptions("GetAllBatchesByTCShouldGetAllByTCAsync");
       using var db = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
@@ -181,14 +179,14 @@ namespace Revature.Tenant.Tests.ApiTests
       var result = await controller.UpdateAsync(apiTenant);
 
       //Assert
-      var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);
+      _ = Assert.IsAssignableFrom<StatusCodeResult>(result);
     }
 
     [Fact]
     public async Task DeleteShouldReturnStatusCode204()
     {
       //Arrange (create a moq repo and use it for the controller)
-      Mock<ITenantRepository> mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
+      var mockRepo = ApiTestData.MockBatchRepo(ApiTestData.Batches.ToList());
       var options = TestDbInitializer.InitializeDbOptions("DeleteShouldReturnStatusCode204");
       using var db = TestDbInitializer.CreateTestDb(options);
       var mapper = new Mapper();
@@ -197,47 +195,11 @@ namespace Revature.Tenant.Tests.ApiTests
       var mockAddressService = new Mock<IAddressService>();
       var controller = new TenantController(mockRepo.Object, mockAddressService.Object, mockLogger.Object);
 
-      //Act (Add a tenant to be deleted)
-      var apiTenant = new ApiTenant
-      {
-        Id = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
-        Email = "colton@colton.com",
-        Gender = "male",
-        FirstName = "Colton",
-        LastName = "Clary",
-        AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
-        TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
-        ApiBatch = new ApiBatch
-        {
-          TrainingCenter = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
-          Id = 1,
-          BatchCurriculum = "c#"
-        },
-        ApiCar = new ApiCar
-        {
-          Id = 1,
-          Color = "y",
-          LicensePlate = "123",
-          Make = "s",
-          Model = "2",
-          State = "w",
-          Year = "l"
-        },
-        ApiAddress = new ApiAddress
-        {
-          State = "sdl",
-          AddressId = Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"),
-          City = "l",
-          Country = "l",
-          Street = "s",
-          ZipCode = "l"
-        }
-      };
-
+      //Act
       var result = await controller.DeleteAsync(Guid.Parse("fa4d6c6e-9650-44c9-8c6b-5aebd3f9a67d"));
 
-      //Arrange
-      var ok = Assert.IsAssignableFrom<StatusCodeResult>(result);
+      //Assert
+      _ = Assert.IsAssignableFrom<StatusCodeResult>(result);
     }
   }
 }
