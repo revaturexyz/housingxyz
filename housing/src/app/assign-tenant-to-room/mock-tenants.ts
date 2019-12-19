@@ -20,8 +20,8 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 1,
             batchCurriculum: 'c#',
-            startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            startDate: new Date(2014, 3, 1),
+            endDate: new Date(2015, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
         }
     },
@@ -34,7 +34,7 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 1,
             batchCurriculum: 'c#',
-            startDate: new Date(2012, 3, 1),
+            startDate: new Date(2010, 3, 1),
             endDate: new Date(2012, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
         }
@@ -48,7 +48,7 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 2,
             batchCurriculum: 'java',
-            startDate: new Date(2012, 3, 1),
+            startDate: new Date(2011, 3, 1),
             endDate: new Date(2012, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
@@ -63,8 +63,8 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 2,
             batchCurriculum: 'java',
-            startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            startDate: new Date(2010, 3, 1),
+            endDate: new Date(2011, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
         }
@@ -78,8 +78,8 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 2,
             batchCurriculum: 'java',
-            startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            startDate: new Date(2017, 3, 1),
+            endDate: new Date(2018, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
         }
@@ -94,7 +94,7 @@ export const TENANTS: TenantInRoom[] = [
             batchId: 2,
             batchCurriculum: 'java',
             startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            endDate: new Date(2016, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
         }
@@ -109,7 +109,7 @@ export const TENANTS: TenantInRoom[] = [
             batchId: 2,
             batchCurriculum: 'java',
             startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            endDate: new Date(2014, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
         }
@@ -132,8 +132,8 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 1,
             batchCurriculum: 'c#',
-            startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            startDate: new Date(2014, 3, 1),
+            endDate: new Date(2015, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
         }
     },
@@ -146,8 +146,8 @@ export const TENANTS: TenantInRoom[] = [
         batch: {
             batchId: 2,
             batchCurriculum: 'java',
-            startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            startDate: new Date(2013, 3, 1),
+            endDate: new Date(2014, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
         }
@@ -162,7 +162,7 @@ export const TENANTS: TenantInRoom[] = [
             batchId: 2,
             batchCurriculum: 'java',
             startDate: new Date(2012, 3, 1),
-            endDate: new Date(2012, 3, 1),
+            endDate: new Date(2013, 3, 1),
             trainingCenter: 'f55db185-205e-4669-baf3-1872e87b9bcc'
 
         }
