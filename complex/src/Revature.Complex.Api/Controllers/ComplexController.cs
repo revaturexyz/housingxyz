@@ -69,7 +69,7 @@ namespace Revature.Complex.Api.Controllers
             ContactNumber = com.ContactNumber,
             ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
           };
-          _log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
+          log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
           apiComplices.Add(complex);
         }
 
