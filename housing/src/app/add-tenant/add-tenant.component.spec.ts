@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestTenantData, TenantServiceStub } from '../services/test-tenant-static';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Batch } from 'src/interfaces/batch';
+import { Batch } from '../../interfaces/batch';
 import { TenantService } from '../services/tenant.service';
 import { AuthService } from '../services/auth.service';
 
