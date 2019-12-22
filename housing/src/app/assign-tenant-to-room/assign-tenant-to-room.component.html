@@ -1,0 +1,49 @@
+<div class="add-tenantRoom-outer">
+  <div class="add-tenantRoom-inner">
+    <div *ngIf="currentTenant">
+      <h1>Current Tenant: {{currentTenant.firstName}} {{currentTenant.lastName}}</h1>
+      <h3>Language: {{currentTenant.batch.batchCurriculum}} | BatchId: {{currentTenant.batch.batchId}}</h3>
+    </div>
+    <br>
+    <!-- Display assignable tenants -->
+    <h4>Assignable Tenants</h4>
+    <div class="center">
+      <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
+        <div *cdkVirtualFor="let tenant of assignableTenants" class="example-item" (click)="selectTenant(tenant)">
+          {{tenant.firstName}} {{tenant.lastName}}</div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+    <!-- Display rooms available for a selected tenant -->
+    <h4>Available Rooms</h4>
+    <div class="center">
+      <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
+        <div *cdkVirtualFor="let room of prioritizedRooms" class="example-item" (click)="selectRoom(room[0].roomId)">
+          {{room[0].roomId}} | {{room[1]}}</div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+
+    <!-- Checkboxes that sort room list by specific criteria -->
+    <table aria-describedby="Filters for sorting rooms">
+      <th scope="col"></th>
+      <th scope="col">Filter</th>
+      <tr>
+        <td>Sort Car</td>
+        <td><input type="checkbox" [checked]="sortCar" (change)="toggleCar()"></td>
+      </tr>
+      <tr>
+        <td>Sort Language</td>
+        <td><input type="checkbox" [checked]="sortLang" (change)="toggleLang()"></td>
+      </tr>
+      <tr>
+        <td>Sort Batch</td>
+        <td><input type="checkbox" [checked]="sortBatch" (change)="toggleBatch()"></td>
+      </tr>
+    </table>
+
+    <button (click)="assignRoom()" [disabled]="!currentTenant || !currentRoomId">Assign</button>
+
+    <br>
+  </div>
+</div>

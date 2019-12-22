@@ -25,6 +25,7 @@ import { CoordinatorNotificationsComponent } from './coordinator-notifications/c
 import { NotificationDetailsComponent } from './coordinator-notifications/notification-details/notification-details.component';
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
+import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 import { ProviderStatusComponent } from './provider-status/provider-status.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
@@ -33,8 +34,9 @@ import { EditComplexComponent } from './manage-complex/edit-complex/edit-complex
 import { ComplexDetailsComponent } from './manage-complex/complex-details/complex-details.component';
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
-import { AddTenantComponent } from '../app/add-tenant/add-tenant.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     NavComponent,
     HomeComponent,
     AmenityDialogueComponent,
+    AssignTenantToRoomComponent,
     CoordinatorNotificationsComponent,
     NotificationDetailsComponent,
     EditProviderComponent,
@@ -89,7 +92,8 @@ import { AddComplexComponent } from './manage-complex/add-complex/add-complex.co
     MatDatepickerModule,
     MatMomentDateModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ScrollingModule,
   ],
   providers: [
     {
