@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -8,6 +5,9 @@ using Revature.Complex.Api.Controllers;
 using Revature.Complex.Api.Models;
 using Revature.Complex.Lib.Interface;
 using Revature.Complex.Lib.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Revature.Complex.Tests.ApiTests

@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using Revature.Complex.Api.Models;
+using System.Threading.Tasks;
 
 namespace Revature.Complex.Api.Services
 {

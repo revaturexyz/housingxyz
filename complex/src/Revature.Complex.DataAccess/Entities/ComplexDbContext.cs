@@ -1,5 +1,5 @@
-using System;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Revature.Complex.DataAccess.Entities
 {
