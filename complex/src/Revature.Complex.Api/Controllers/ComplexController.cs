@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace Revature.Complex.Api.Controllers
   public class ComplexController : Controller
   {
     private readonly IRepository _complexRepository;
-    private readonly ILogger<ComplexController> log;
+    private readonly ILogger<ComplexController> _log;
     private readonly IRoomServiceSender roomServiceSender;
     private readonly IAddressRequest addressRequest;
     private readonly IRoomRequest roomRequest;
@@ -27,7 +28,7 @@ namespace Revature.Complex.Api.Controllers
       IRoomServiceSender rss, IAddressRequest ar, IRoomRequest rr)
     {
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
-      log = logger;
+      _log = logger;
       roomServiceSender = rss;
       addressRequest = ar;
     }
@@ -69,7 +70,7 @@ namespace Revature.Complex.Api.Controllers
             ContactNumber = com.ContactNumber,
             ComplexAmenity = await _complexRepository.ReadAmenityListByComplexIdAsync(com.ComplexId)
           };
-          log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
+          _log.LogInformation("a list of amenities for complex Id {com.ComplexId} were found!", com.ComplexId);
           apiComplices.Add(complex);
         }
 
@@ -236,7 +237,7 @@ namespace Revature.Complex.Api.Controllers
       }
       catch(Exception ex)
       {
-        log.LogError("{ex}: Internal Server Error", ex);
+        _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -576,7 +577,7 @@ namespace Revature.Complex.Api.Controllers
         };
 
         //send {send} to room service to delete a room
-        await _roomServiceSender.SendRoomsMessages(roomtoDelete);
+        await roomServiceSender.SendRoomsMessages(roomtoDelete);
 
         await _complexRepository.DeleteAmenityRoomAsync(room.RoomId);
         _log.LogInformation("deleted amenity of room Id: {Room.RoomId}", room.RoomId);
