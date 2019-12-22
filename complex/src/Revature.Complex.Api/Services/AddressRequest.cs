@@ -41,7 +41,7 @@ namespace Revature.Complex.Api.Services
     /// <returns>A model of the formal Address entry in Address Services Database, including it GUID</returns>
     public async Task<ApiComplexAddress> PostAddressAsync(ApiComplexAddress item)
     {
-      string queryString = "?"
+      var queryString = "?"
         + "street=" + item.StreetAddress + "&"
         + "city=" + item.City + "&"
         + "state=" + item.State + "&"
@@ -51,7 +51,7 @@ namespace Revature.Complex.Api.Services
       using var response = await SendRequestAsync<ApiComplexAddress>(HttpMethod.Get, "api/Address" + queryString);
       response.EnsureSuccessStatusCode();
 
-      return (await ReadResponseBodyAsync<ApiComplexAddress>(response));
+      return await ReadResponseBodyAsync<ApiComplexAddress>(response);
     }
 
     /// <summary>
@@ -60,13 +60,13 @@ namespace Revature.Complex.Api.Services
     /// <returns></returns>
     public async Task<ApiComplexAddress> GetAddressAsync(Guid addressId)
     {
-      string queryString = addressId.ToString();
+      var queryString = addressId.ToString();
 
 
       using var response = await SendRequestAsync<ApiComplexAddress>(HttpMethod.Get, "api/Address" + queryString);
       response.EnsureSuccessStatusCode();
 
-      return (await ReadResponseBodyAsync<ApiComplexAddress>(response));
+      return await ReadResponseBodyAsync<ApiComplexAddress>(response);
     }
 
     /// <summary>

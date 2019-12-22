@@ -1,13 +1,13 @@
-using System;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Revature.Complex.Lib.Interface;
+using System;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Revature.Complex.Api.Services
 {

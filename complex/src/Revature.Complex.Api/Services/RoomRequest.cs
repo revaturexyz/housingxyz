@@ -42,13 +42,13 @@ namespace Revature.Complex.Api.Services
     /// <returns>A model of the formal Address entry in Address Services Database, including it GUID</returns>
     public async Task<IEnumerable<ApiRoom>> GetRooms(Guid complexId)
     {
-      string queryString = complexId.ToString()
+      var queryString = complexId.ToString()
         + "/rooms";
 
       using var response = await SendRequestAsync<ApiRoom>(HttpMethod.Get, "api/complexes/" + queryString);
       response.EnsureSuccessStatusCode();
 
-      return (await ReadResponseBodyAsync<IEnumerable<ApiRoom>>(response));
+      return await ReadResponseBodyAsync<IEnumerable<ApiRoom>>(response);
     }
 
     /// <summary>

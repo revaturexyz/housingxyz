@@ -1,7 +1,7 @@
+using Revature.Complex.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Api.Models
 {

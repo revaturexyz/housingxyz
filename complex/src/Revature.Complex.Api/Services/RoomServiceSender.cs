@@ -1,10 +1,10 @@
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Revature.Complex.Api.Models;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Revature.Complex.Api.Services
 {

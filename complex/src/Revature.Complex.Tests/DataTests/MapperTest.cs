@@ -1,5 +1,5 @@
-using System;
 using Revature.Complex.DataAccess;
+using System;
 using Xunit;
 using Entity = Revature.Complex.DataAccess.Entities;
 using Logic = Revature.Complex.Lib.Models;

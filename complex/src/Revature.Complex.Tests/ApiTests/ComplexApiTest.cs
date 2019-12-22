@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -8,6 +5,9 @@ using Revature.Complex.Api.Controllers;
 using Revature.Complex.Api.Models;
 using Revature.Complex.Api.Services;
 using Revature.Complex.Lib.Interface;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 using Logic = Revature.Complex.Lib.Models;
 
@@ -30,20 +30,20 @@ namespace Revature.Complex.Tests.ApiTests
         ContactNumber = "1234567892"
       };
       //setup
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      List<Logic.Complex> res = new List<Logic.Complex>
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = new List<Logic.Complex>
       {
         complex
       };
-      _complexRepo.Setup(r => r.ReadComplexListAsync())
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.ReadComplexListAsync())
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<ActionResult<IEnumerable<ApiComplex>>>(await controller.GetAllComplexAsync());
 
       //assert
@@ -57,19 +57,19 @@ namespace Revature.Complex.Tests.ApiTests
     public async void GetComplexByIdAsyncTest()
     {
       //setup
-      Guid complexId = Guid.NewGuid();
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      Logic.Complex res = new Logic.Complex();
+      var complexId = Guid.NewGuid();
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = new Logic.Complex();
 
-      _complexRepo.Setup(r => r.ReadComplexByIdAsync(complexId))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.ReadComplexByIdAsync(complexId))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<ActionResult<ApiComplex>>(await controller.GetComplexByIdAsync(complexId));
 
       //assert
@@ -83,20 +83,20 @@ namespace Revature.Complex.Tests.ApiTests
     public async void GetComplexByNameAndNumberAsyncTest()
     {
       //setup
-      string name = "test1";
-      string number = "1234567890";
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      Logic.Complex res = new Logic.Complex();
+      var name = "test1";
+      var number = "1234567890";
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = new Logic.Complex();
 
-      _complexRepo.Setup(r => r.ReadComplexByNameAndNumberAsync(name, number))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.ReadComplexByNameAndNumberAsync(name, number))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<ActionResult<ApiComplex>>(await controller.GetComplexByNameAndNumberAsync(name, number));
 
       //assert
@@ -119,21 +119,20 @@ namespace Revature.Complex.Tests.ApiTests
         ComplexName = "test",
         ContactNumber = "1234567892"
       };
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      List<Logic.Complex> res = new List<Logic.Complex>
-
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = new List<Logic.Complex>
       {
         complex
       };
-      _complexRepo.Setup(r => r.ReadComplexByProviderIdAsync(pId))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.ReadComplexByProviderIdAsync(pId))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<ActionResult<IEnumerable<ApiComplex>>>(await controller.GetComplexListByProviderId(pId));
 
       //assert
@@ -189,18 +188,18 @@ namespace Revature.Complex.Tests.ApiTests
         room
       };
       IEnumerable<ApiRoom> apiRooms = rooms;
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ara = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      bool res = true;
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ara = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = true;
 
-      _complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ara.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ara.Object, rr.Object);
       var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.PostRoomsAsync(apiRooms));
 
       //assert
@@ -259,24 +258,24 @@ namespace Revature.Complex.Tests.ApiTests
         AmenityId = amId,
         ComplexId = cId
       };
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      bool res = true;
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = true;
 
-      _complexRepo.Setup(r => r.DeleteAmenityComplexAsync(cId))
-          .Returns(Task.FromResult(res));
-      _complexRepo.Setup(r => r.UpdateComplexAsync(complex))
-          .Returns(Task.FromResult(res));
-      _complexRepo.Setup(c => c.ReadAmenityListAsync())
-          .Returns(Task.FromResult(amenities));
-      _complexRepo.Setup(p => p.CreateAmenityComplexAsync(ac))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.DeleteAmenityComplexAsync(cId))
+        .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.UpdateComplexAsync(complex))
+        .Returns(Task.FromResult(res));
+      complexRepo.Setup(c => c.ReadAmenityListAsync())
+        .Returns(Task.FromResult(amenities));
+      complexRepo.Setup(p => p.CreateAmenityComplexAsync(ac))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.PutComplexAsync(apiComplex));
 
       //assert
@@ -319,20 +318,20 @@ namespace Revature.Complex.Tests.ApiTests
         LeaseEnd = Convert.ToDateTime("2020/1/1"),
         Amenities = amenities
       };
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ara = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      bool res = true;
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ara = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = true;
 
-      _complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
-          .Returns(Task.FromResult(res));
-      _complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
+        .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.CreateAmenityRoomAsync(ar))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ara.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ara.Object, rr.Object);
       var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.PutRoomAsync(room));
 
       //assert
@@ -345,22 +344,22 @@ namespace Revature.Complex.Tests.ApiTests
     [Fact]
     public async void DeleteComplexAsyncTest()
     {
-      Guid cId = Guid.NewGuid();
-      Guid aId = Guid.NewGuid();
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      bool res = true;
+      var cId = Guid.NewGuid();
+      var aId = Guid.NewGuid();
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = true;
 
-      _complexRepo.Setup(r => r.DeleteAmenityComplexAsync(cId))
-          .Returns(Task.FromResult(res));
-      _complexRepo.Setup(r => r.DeleteComplexAsync(cId))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.DeleteAmenityComplexAsync(cId))
+        .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.DeleteComplexAsync(cId))
+        .Returns(Task.FromResult(res));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.DeleteComplexAsync(cId));
 
       //assert
@@ -382,19 +381,19 @@ namespace Revature.Complex.Tests.ApiTests
       {
         RoomId = rId
       };
-      Mock<IRepository> _complexRepo = new Mock<IRepository>();
-      Mock<ILogger<ComplexController>> _logger = new Mock<ILogger<ComplexController>>();
-      Mock<IRoomServiceSender> rss = new Mock<IRoomServiceSender>();
-      Mock<IAddressRequest> ar = new Mock<IAddressRequest>();
-      Mock<IRoomRequest> rr = new Mock<IRoomRequest>();
-      bool res = true;
+      var complexRepo = new Mock<IRepository>();
+      var logger = new Mock<ILogger<ComplexController>>();
+      var rss = new Mock<IRoomServiceSender>();
+      var ar = new Mock<IAddressRequest>();
+      var rr = new Mock<IRoomRequest>();
+      var res = true;
 
-      _complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
-          .Returns(Task.FromResult(res));
+      complexRepo.Setup(r => r.DeleteAmenityRoomAsync(rId))
+        .Returns(Task.FromResult(res));
       rss.Setup(r => r.SendRoomsMessages(roomtoSend));
 
       //act
-      var controller = new ComplexController(_complexRepo.Object, _logger.Object, rss.Object, ar.Object, rr.Object);
+      var controller = new ComplexController(complexRepo.Object, logger.Object, rss.Object, ar.Object, rr.Object);
       var model = Assert.IsAssignableFrom<StatusCodeResult>(await controller.DeleteRoomAsync(room));
 
       //assert

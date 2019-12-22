@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Revature.Complex.Api.Models;
 using Revature.Complex.Lib.Interface;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Logic = Revature.Complex.Lib.Models;
 
 namespace Revature.Complex.Api.Controllers
@@ -15,12 +15,12 @@ namespace Revature.Complex.Api.Controllers
   public class AmenityController : ControllerBase
   {
     private readonly IRepository _complexRepository;
-    private readonly ILogger<AmenityController> log;
+    private readonly ILogger<AmenityController> _log;
 
     public AmenityController(IRepository complexRepository, ILogger<AmenityController> logger)
     {
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
-      log = logger;
+      _log = logger;
     }
 
     #region GET
@@ -41,13 +41,13 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListAsync();
-        log.LogInformation("a list of all amenities was found");
+        _log.LogInformation("a list of all amenities was found");
 
         return Ok(amenities);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}, unable to find amenity", ex);
+        _log.LogError("{ex}, unable to find amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -69,14 +69,14 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByRoomIdAsync(roomGuid);
-        log.LogInformation("a list of amenities for room Id: {roomGuid} was found", roomGuid);
+        _log.LogInformation("a list of amenities for room Id: {roomGuid} was found", roomGuid);
 
         return Ok(amenities);
 
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
+        _log.LogError("{ex}, unable to find amenity for room id: {roomGuid}", ex, roomGuid);
         return StatusCode(500, ex.Message);
       }
     }
@@ -98,13 +98,13 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         IEnumerable<Logic.Amenity> amenities = await _complexRepository.ReadAmenityListByComplexIdAsync(complexGuid);
-        log.LogInformation("a list of amenities for complex Id: {complexGuid} was found", complexGuid);
+        _log.LogInformation("a list of amenities for complex Id: {complexGuid} was found", complexGuid);
 
         return Ok(amenities);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
+        _log.LogError("{ex}, unable to find amenity for complex id: {complexGuid}", ex, complexGuid);
         return StatusCode(500, ex.Message);
       }
     }
@@ -134,13 +134,13 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.CreateAmenityAsync(amen);
-        log.LogInformation("new amenity: {amen.AmenityType} is added", amen.AmenityType);
+        _log.LogInformation("new amenity: {amen.AmenityType} is added", amen.AmenityType);
 
         return StatusCode(201);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}, unable to create amenity", ex);
+        _log.LogError("{ex}, unable to create amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -170,13 +170,13 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.UpdateAmenityAsync(amenity);
-        log.LogInformation("new amenity: {amenity.AmenityType} is updated.", amenity.AmenityType);
+        _log.LogInformation("new amenity: {amenity.AmenityType} is updated.", amenity.AmenityType);
 
         return StatusCode(201);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}, unable to update amenity", ex);
+        _log.LogError("{ex}, unable to update amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }
@@ -206,13 +206,13 @@ namespace Revature.Complex.Api.Controllers
       try
       {
         await _complexRepository.DeleteAmenityAsync(amenity);
-        log.LogInformation("amenity: {amenity.AmenityType} is deleted", amenity.AmenityType);
+        _log.LogInformation("amenity: {amenity.AmenityType} is deleted", amenity.AmenityType);
 
         return StatusCode(201);
       }
       catch (Exception ex)
       {
-        log.LogError("{ex}, unable to delete amenity", ex);
+        _log.LogError("{ex}, unable to delete amenity", ex);
         return StatusCode(500, ex.Message);
       }
     }

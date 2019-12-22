@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Revature.Complex.Api.Models;
 using Revature.Complex.Api.Services;
 using Revature.Complex.Lib.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Logic = Revature.Complex.Lib.Models;
-
 
 namespace Revature.Complex.Api.Controllers
 {
@@ -19,18 +18,18 @@ namespace Revature.Complex.Api.Controllers
   {
     private readonly IRepository _complexRepository;
     private readonly ILogger<ComplexController> _log;
-    private readonly IRoomServiceSender roomServiceSender;
-    private readonly IAddressRequest addressRequest;
-    private readonly IRoomRequest roomRequest;
-
+    private readonly IRoomServiceSender _roomServiceSender;
+    private readonly IAddressRequest _addressRequest;
+    private readonly IRoomRequest _roomRequest;
 
     public ComplexController(IRepository complexRepository, ILogger<ComplexController> logger,
       IRoomServiceSender rss, IAddressRequest ar, IRoomRequest rr)
     {
       _complexRepository = complexRepository ?? throw new ArgumentNullException(nameof(complexRepository), "Complex repo cannot be null");
       _log = logger;
-      roomServiceSender = rss;
-      addressRequest = ar;
+      _roomServiceSender = rss;
+      _addressRequest = ar;
+      _roomRequest = rr;
     }
 
     #region GET
@@ -56,13 +55,13 @@ namespace Revature.Complex.Api.Controllers
         //foreach complex, get address from address service
         //create Apicomplex object for each complex we have
         //return them.
-        foreach (Logic.Complex com in complices)
+        foreach (var com in complices)
         {
-          Guid aId = com.AddressId;
-          ApiComplexAddress address = await addressRequest.GetAddressAsync(aId);
-          
-          ApiComplex complex = new ApiComplex
-          { 
+          var aId = com.AddressId;
+          var address = await _addressRequest.GetAddressAsync(aId);
+
+          var complex = new ApiComplex
+          {
             ComplexId = com.ComplexId,
             Address = address,
             ProviderId = com.ProviderId,
@@ -102,8 +101,8 @@ namespace Revature.Complex.Api.Controllers
         var lcomplex = await _complexRepository.ReadComplexByIdAsync(complexId);
         _log.LogInformation("a complex with Id: {complexId} was found", complexId);
 
-        Guid aId = lcomplex.AddressId;
-        ApiComplexAddress address = await addressRequest.GetAddressAsync(aId);
+        var aId = lcomplex.AddressId;
+        var address = await _addressRequest.GetAddressAsync(aId);
 
         var apiComplex = new ApiComplex
         {
@@ -145,8 +144,8 @@ namespace Revature.Complex.Api.Controllers
         var lcomplex = await _complexRepository.ReadComplexByNameAndNumberAsync(complexName, complexNumber);
         _log.LogInformation("a complex with name: {complexName} and phone: {ComplexNumber} was found", complexName, complexNumber);
 
-        Guid aId = lcomplex.AddressId;
-        ApiComplexAddress address = await addressRequest.GetAddressAsync(aId);
+        var aId = lcomplex.AddressId;
+        var address = await _addressRequest.GetAddressAsync(aId);
 
         var apiComplex = new ApiComplex
         {
@@ -191,8 +190,8 @@ namespace Revature.Complex.Api.Controllers
 
         foreach (var complex in complices)
         {
-          Guid aId = complex.AddressId;
-          ApiComplexAddress address = await addressRequest.GetAddressAsync(aId);
+          var aId = complex.AddressId;
+          var address = await _addressRequest.GetAddressAsync(aId);
 
           var apiComplextoAdd = new ApiComplex
           {
@@ -232,10 +231,10 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        List<ApiRoom> apiRooms = (await roomRequest.GetRooms(complexId)).ToList();
+        var apiRooms = (await _roomRequest.GetRooms(complexId)).ToList();
         return Ok(apiRooms);
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         _log.LogError("{ex}: Internal Server Error", ex);
         return StatusCode(500, ex.Message);
@@ -260,7 +259,7 @@ namespace Revature.Complex.Api.Controllers
     //Post: api/complex/PostComplex
     public async Task<ActionResult<ApiComplex>> PostComplexAsync([FromBody]ApiComplex apiComplex)
     {
-      ApiComplexAddress CompAddr = new ApiComplexAddress()
+      var compAddr = new ApiComplexAddress()
       {
         StreetAddress = apiComplex.Address.StreetAddress,
         City = apiComplex.Address.City,
@@ -269,8 +268,8 @@ namespace Revature.Complex.Api.Controllers
         Country = apiComplex.Address.Country,
       };
 
-      Guid addressId = (await addressRequest.PostAddressAsync(CompAddr)).AddressId;
-      Guid complexId = Guid.NewGuid();
+      var addressId = (await _addressRequest.PostAddressAsync(compAddr)).AddressId;
+      var complexId = Guid.NewGuid();
 
       var complex = new Logic.Complex()
       {
@@ -351,7 +350,7 @@ namespace Revature.Complex.Api.Controllers
             QueOperator = 0,
           };
 
-          await roomServiceSender.SendRoomsMessages(arts);
+          await _roomServiceSender.SendRoomsMessages(arts);
 
           amenityRoom.AmenityRoomId = Guid.NewGuid();
           amenityRoom.RoomId = arts.RoomId;
@@ -487,7 +486,7 @@ namespace Revature.Complex.Api.Controllers
         await _complexRepository.DeleteAmenityRoomAsync(apiRoom.RoomId);
         _log.LogInformation(")Amenity of Room Id {apiRoom.RoomId} is deleted", apiRoom.RoomId);
 
-        await roomServiceSender.SendRoomsMessages(arts);
+        await _roomServiceSender.SendRoomsMessages(arts);
 
         foreach (var amenity in apiRoom.Amenities)
         {
@@ -523,7 +522,7 @@ namespace Revature.Complex.Api.Controllers
     {
       try
       {
-        ApiRoomtoSend arts = new ApiRoomtoSend
+        var arts = new ApiRoomtoSend
         {
           ComplexId = complexId,
           QueOperator = 3
@@ -531,7 +530,7 @@ namespace Revature.Complex.Api.Controllers
 
         //send complexId to toom service to delete all rooms belongs to the complex
         //receive deleted room ids from room service to delete amenity of rooms
-        await roomServiceSender.SendRoomsMessages(arts);
+        await _roomServiceSender.SendRoomsMessages(arts);
 
         await _complexRepository.DeleteAmenityComplexAsync(complexId);
         _log.LogInformation("deleted amenity of complex Id: {complexId}", complexId);
@@ -577,7 +576,7 @@ namespace Revature.Complex.Api.Controllers
         };
 
         //send {send} to room service to delete a room
-        await roomServiceSender.SendRoomsMessages(roomtoDelete);
+        await _roomServiceSender.SendRoomsMessages(roomtoDelete);
 
         await _complexRepository.DeleteAmenityRoomAsync(room.RoomId);
         _log.LogInformation("deleted amenity of room Id: {Room.RoomId}", room.RoomId);

@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using Revature.Complex.DataAccess;
 using Revature.Complex.DataAccess.Repository;
+using System;
+using System.Linq;
 using Xunit;
 using Entity = Revature.Complex.DataAccess.Entities;
 using Logic = Revature.Complex.Lib.Models;

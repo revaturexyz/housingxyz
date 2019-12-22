@@ -1,5 +1,5 @@
-using System;
 using Revature.Complex.Api.Models;
+using System;
 using Xunit;
 
 namespace Revature.Complex.Tests.ApiTests
