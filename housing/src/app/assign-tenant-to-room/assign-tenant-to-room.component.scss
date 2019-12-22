@@ -1,13 +1,13 @@
 .add-tenantRoom-outer {
-    width: 100%;
-    text-align: center;
-    padding: 100px;
-    background-image: url("https://engineering.stanford.edu/sites/default/files/styles/full_width_banner_tall/public/buildings-shape.jpg?itok=FWLFiW7H");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  
+  width: 100%;
+  text-align: center;
+  padding: 100px;
+  background-image: url("https://engineering.stanford.edu/sites/default/files/styles/full_width_banner_tall/public/buildings-shape.jpg?itok=FWLFiW7H");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .add-tenantRoom-inner {
   width: 50%;
   background-color: white;
@@ -55,11 +55,10 @@
 
 .example-item:hover {
   height: 100%;
-  background-color:lightgrey;
+  background-color: lightgrey;
 }
 
 .center {
   display: inline-block;
   align-items: center;
 }
-  

@@ -5,11 +5,9 @@ import { CoordinatorNotificationsComponent } from './coordinator-notifications/c
 import { AuthGuard } from './guards/auth.guard';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
 
-import { AuthService } from './services/auth.service';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 import { ProviderStatusComponent } from './provider-status/provider-status.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
-import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { SearchTenantComponent } from './search-tenant/search-tenant.component';
 import { SelectTenantComponent } from './select-tenant/select-tenant.component';
 import { AddTenantComponent } from './add-tenant/add-tenant.component';

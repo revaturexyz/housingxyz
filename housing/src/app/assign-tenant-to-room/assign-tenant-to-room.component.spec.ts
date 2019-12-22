@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room.component';
 
@@ -8,7 +8,7 @@ describe('AssignTenantToRoomComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssignTenantToRoomComponent ]
+      declarations: [AssignTenantToRoomComponent]
     })
       .compileComponents();
   }));
@@ -18,6 +18,7 @@ describe('AssignTenantToRoomComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
   xit('should create', () => {
     expect(component).toBeTruthy();
   });

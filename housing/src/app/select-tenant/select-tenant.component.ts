@@ -48,9 +48,9 @@ export class SelectTenantComponent implements OnInit {
 
     this.service.selectTenant(id)
       .then(x => {
-          this.tenant = x;
-          this.tenantLoaded = true;
-        });
+        this.tenant = x;
+        this.tenantLoaded = true;
+      });
   }
 
 }

@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RoomWithTenants } from '../../interfaces/room-with-tenant';
 import { TenantInRoom } from '../../interfaces/tenant-in-room';
 import { TenantAssignService } from '../services/tenant-assign-service';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { TENANTS } from './mock-tenants';
-import { ROOMS } from './mock-rooms';
 
 @Component({
   selector: 'dev-assign-tenant-to-room',
@@ -61,7 +58,7 @@ export class AssignTenantToRoomComponent implements OnInit {
       result => {
         this.assignableTenants = result;
         console.log('gottenants');
-    });
+      });
   }
 
   selectTenant(tenant: TenantInRoom) {
@@ -79,11 +76,11 @@ export class AssignTenantToRoomComponent implements OnInit {
   assignRoom() {
     console.log('assign clicked');
 
-    this.tenantAssignService.assignTenant(this.currentTenant.id, this.currentRoomId).then( () => {
+    this.tenantAssignService.assignTenant(this.currentTenant.id, this.currentRoomId).then(() => {
       console.log('Tenant assigned');
-    }).catch( () => {
+    }).catch(() => {
       console.log('Tenant could not be assigned');
-    }).then( () => {
+    }).then(() => {
       this.getUnassignedTenants();
       console.log('refreshed tenants');
     });
@@ -93,19 +90,19 @@ export class AssignTenantToRoomComponent implements OnInit {
     this.roomsLoaded = false;
     // TODO uncomment to use service and comment out usage of mock data
     this.tenantAssignService.getAvailableRoomsWithTenants(this.currentTenant.gender, this.currentTenant.batch.endDate.toString())
-    .then( result => {
-      this.availableRooms = result;
-      this.roomsLoaded = true;
-      console.log('avail rooms loaded');
-    }).then( () => {
-      this.roomArray = [];
-      this.availableRooms.forEach(element => {
-        this.roomArray.push([element, 0]);
-      });
-      this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
-      console.log(this.prioritizedRooms);
+      .then(result => {
+        this.availableRooms = result;
+        this.roomsLoaded = true;
+        console.log('avail rooms loaded');
+      }).then(() => {
+        this.roomArray = [];
+        this.availableRooms.forEach(element => {
+          this.roomArray.push([element, 0]);
+        });
+        this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);
+        console.log(this.prioritizedRooms);
 
-    });
+      });
     // this.availableRooms = ROOMS;
 
     this.prioritizedRooms = this.prioritizeWithSorts(this.roomArray);

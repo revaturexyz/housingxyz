@@ -26,8 +26,6 @@ import { NotificationDetailsComponent } from './coordinator-notifications/notifi
 import { InterceptorService } from './services/interceptor.service';
 import { CoordinatorModule } from './coordinator.module';
 import { AssignTenantToRoomComponent } from './assign-tenant-to-room/assign-tenant-to-room.component';
-import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 import { ProviderStatusComponent } from './provider-status/provider-status.component';
 import { ManageComplexComponent } from './manage-complex/manage-complex.component';
@@ -37,7 +35,7 @@ import { ComplexDetailsComponent } from './manage-complex/complex-details/comple
 import { EditRoomComponent } from './manage-complex/edit-room/edit-room.component';
 import { ShowRoomComponent } from './manage-complex/show-room/show-room.component';
 import { AddComplexComponent } from './manage-complex/add-complex/add-complex.component';
-import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AddTenantComponent } from './add-tenant/add-tenant.component';
 
 @NgModule({
